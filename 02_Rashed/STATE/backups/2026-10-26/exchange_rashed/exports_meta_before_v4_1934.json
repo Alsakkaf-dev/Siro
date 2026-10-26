@@ -1,0 +1,185 @@
+{
+  "version": 3,
+  "generated_at": "2026-10-26T19:01:42+08:00",
+  "timezone": "Asia/Kuala_Lumpur",
+  "writer": "راشد",
+  "read_only": true,
+  "folders_ar": {
+    "root": "ملفات JSON فقط",
+    "docs": "الوثائق",
+    "commands": "أوامر الموقع (لا تنفيذ بدون موافقة محمد)"
+  },
+  "files": [
+    {
+      "name": "finance.json",
+      "type": "json",
+      "description_ar": "المال: الأرصدة والبنود المفتوحة وآخر 60 حركة وجدول التحويل",
+      "bytes": 30949,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "prayers.json",
+      "type": "json",
+      "description_ar": "الصلاة: الحضور اليومي والقضاء حسب اسم الصلاة",
+      "bytes": 7140,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 12,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "habits.json",
+      "type": "json",
+      "description_ar": "العادات: الأهداف والعدادات والسلاسل",
+      "bytes": 18770,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "routine.json",
+      "type": "json",
+      "description_ar": "الروتين: الكتل الثابتة اليومية والأسبوعية",
+      "bytes": 17425,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 168,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "body.json",
+      "type": "json",
+      "description_ar": "الجسم: الطول والوزن والدهون والهدف وسجل الوزن",
+      "bytes": 3544,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 168,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "dashboard_summary.json",
+      "type": "json",
+      "description_ar": "ملخص الشاشة الرئيسية",
+      "bytes": 7057,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/DATA_DICTIONARY_AR.md",
+      "type": "md",
+      "description_ar": "قاموس البيانات: شرح كل حقل",
+      "bytes": 13764,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/PROPOSALS.md",
+      "type": "md",
+      "description_ar": "مقترحات تصميم: صناديق الميزانية وعدادات العادات والرياضة",
+      "bytes": 5658,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/FINANCE_SPEC_AR.md",
+      "type": "md",
+      "description_ar": "مواصفات المال وقواعد الصناديق وفئات المصاريف",
+      "bytes": 7469,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/HABITS_SPEC_AR.md",
+      "type": "md",
+      "description_ar": "مواصفات عدادات كسر العادات السيئة",
+      "bytes": 4965,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/SPORTS_CONTENT_AR.md",
+      "type": "md",
+      "description_ar": "مكتبة تمارين: اسم إنجليزي وعربي والعضلة الرئيسية",
+      "bytes": 10561,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/REFRESH_PROTOCOL_AR.md",
+      "type": "md",
+      "description_ar": "بروتوكول التحديث وأوامر الموقع",
+      "bytes": 6479,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "docs/SITE_IDEAS_AR.md",
+      "type": "md",
+      "description_ar": "أفكار للموقع: قوالب تمرين وبدائل عادات ومؤشرات مالية وحقول ناقصة",
+      "bytes": 16300,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "commands/README_AR.md",
+      "type": "md",
+      "description_ar": "شرح مجلد الأوامر (لا تنفيذ بدون موافقة محمد)",
+      "bytes": 1182,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "commands/examples/log_expense.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 510,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "commands/examples/log_prayer.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 364,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "commands/examples/start_habit.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 304,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "commands/examples/habit_relapse.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 303,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    },
+    {
+      "name": "exports_meta.json",
+      "type": "json",
+      "description_ar": "معلومات التصدير (هذا الملف)",
+      "bytes": null,
+      "generated_at": "2026-10-26T19:01:42+08:00",
+      "stale_after_hours": null,
+      "stale_after_confidence": null
+    }
+  ]
+}

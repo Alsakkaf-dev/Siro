@@ -1,0 +1,926 @@
+- generic [ref=f2e2]:
+  - generic [ref=f2e3]:
+    - link "تخطَّ إلى المحتوى":
+      - /url: "#main"
+    - complementary "القائمة الجانبية" [ref=f2e4]:
+      - link "المنصة الشخصية" [ref=f2e5] [cursor=pointer]:
+        - /url: /
+      - navigation "المنصات" [ref=f2e11]:
+        - link "الفصول" [ref=f2e12] [cursor=pointer]:
+          - /url: /academic
+        - link "المكتبة" [ref=f2e15] [cursor=pointer]:
+          - /url: /library
+        - link "الحياة" [ref=f2e19] [cursor=pointer]:
+          - /url: /life
+        - link "الرياضة" [ref=f2e22] [cursor=pointer]:
+          - /url: /sports
+      - navigation "التنقل" [ref=f2e24]:
+        - generic [ref=f2e25]:
+          - link "المكتبة" [ref=f2e26] [cursor=pointer]:
+            - /url: /library
+          - link "المجلدات" [ref=f2e31] [cursor=pointer]:
+            - /url: /library/folders
+          - link "YouTube" [ref=f2e35] [cursor=pointer]:
+            - /url: /library/youtube
+          - link "إعدادات المكتبة" [ref=f2e39] [cursor=pointer]:
+            - /url: /library/settings
+        - generic [ref=f2e42]:
+          - generic [ref=f2e43]: عام
+          - link "الرئيسية g h" [ref=f2e44] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f2e48]: الرئيسية
+            - generic [ref=f2e49]: g h
+          - link "مراجعة الأسبوع g r" [ref=f2e50] [cursor=pointer]:
+            - /url: /review
+            - generic [ref=f2e54]: مراجعة الأسبوع
+            - generic [ref=f2e55]: g r
+          - link "الإعدادات والنسخ g ," [ref=f2e56] [cursor=pointer]:
+            - /url: /settings
+            - generic [ref=f2e58]: الإعدادات والنسخ
+            - generic [ref=f2e59]: g ,
+      - generic [ref=f2e60]:
+        - heading "بياناتك عندك فقط" [level=4] [ref=f2e61]
+        - paragraph [ref=f2e65]: كل شيء محفوظ على جهازك في ملف واحد. لا إنترنت ولا حسابات ولا تتبّع.
+        - link "النسخ الاحتياطي" [ref=f2e66] [cursor=pointer]:
+          - /url: /settings
+    - generic [ref=f2e67]:
+      - banner [ref=f2e68]:
+        - button "فتح القائمة" [ref=f2e69] [cursor=pointer]
+        - search [ref=f2e71]:
+          - combobox "بحث شامل" [ref=f2e72]
+        - button [ref=f2e74] [cursor=pointer]
+        - button "المواعيد القريبة" [ref=f2e80] [cursor=pointer]
+        - group "المظهر" [ref=f2e84]:
+          - button "فاتح" [pressed] [ref=f2e85] [cursor=pointer]
+          - button "داكن" [ref=f2e92] [cursor=pointer]
+        - button "اختصارات لوحة المفاتيح" [ref=f2e95] [cursor=pointer]
+        - generic [aria-hidden] [ref=f2e99]: م
+      - main [ref=f2e100]:
+        - generic [ref=f2e105]:
+          - generic [ref=f2e106]:
+            - generic [ref=f2e107]:
+              - heading [level=1] [ref=f2e108]
+              - paragraph [ref=f2e113]: 2899 ملف · 1 فيديو YouTube
+            - generic [ref=f2e114]:
+              - button "فحص المجلد" [ref=f2e115] [cursor=pointer]
+              - link "فيديوهات YouTube" [ref=f2e121] [cursor=pointer]:
+                - /url: /library/youtube
+              - link "المجلدات" [ref=f2e124] [cursor=pointer]:
+                - /url: /library/folders
+              - link "الإعدادات" [ref=f2e127] [cursor=pointer]:
+                - /url: /library/settings
+          - generic [ref=f2e129]:
+            - generic [ref=f2e130]:
+              - generic [ref=f2e135]: ملفات
+              - strong [ref=f2e136]: "2899"
+              - generic [ref=f2e137]: 765 PDF
+            - generic [ref=f2e138]:
+              - generic [ref=f2e143]: فيديو محلي
+              - strong [ref=f2e144]: "16"
+              - generic [ref=f2e145]: 0 صوت
+            - link "YouTube 1" [ref=f2e146] [cursor=pointer]:
+              - /url: /library/youtube
+              - generic [ref=f2e150]: YouTube
+              - strong [ref=f2e151]: "1"
+            - generic [ref=f2e152]:
+              - generic [ref=f2e157]: آخر فحص
+              - strong [ref=f2e158]: 27 أكتوبر، 01:31 ص
+              - generic [ref=f2e159]: 2899 ملف · 403 مللي ثانية
+          - region "فُتحت مؤخرًا" [ref=f2e160]:
+            - heading "فُتحت مؤخرًا" [level=2] [ref=f2e161]
+            - generic [ref=f2e162]:
+              - link "— 1.mp4 التقدّم 7% 27 أكتوبر، 01:31 ص" [ref=f2e163] [cursor=pointer]:
+                - /url: /library/f/59125dcef511e2c2
+                - generic [ref=f2e164]: —
+                - strong [ref=f2e170]: 1.mp4
+                - img "التقدّم 7%" [ref=f2e171]:
+                  - generic [ref=f2e173]: 7%
+                - generic [ref=f2e174]: 27 أكتوبر، 01:31 ص
+              - link "SCSE2123 P1 URD Rubric.pdf التقدّم 50% 27 أكتوبر، 01:31 ص" [ref=f2e175] [cursor=pointer]:
+                - /url: /library/f/64b01b7bf0713ca9
+                - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e181]: SCSE2123
+                - strong [ref=f2e182]: P1 URD Rubric.pdf
+                - img "التقدّم 50%" [ref=f2e183]:
+                  - generic [ref=f2e185]: 50%
+                - generic [ref=f2e186]: 27 أكتوبر، 01:31 ص
+          - group "طريقة التصفح" [ref=f2e188]:
+            - button "كل الملفات" [pressed] [ref=f2e189] [cursor=pointer]
+            - button "حسب المادة" [ref=f2e191] [cursor=pointer]
+            - button "حسب الفصل" [ref=f2e195] [cursor=pointer]
+            - button "حسب التصنيف" [ref=f2e200] [cursor=pointer]
+          - generic [ref=f2e203]:
+            - complementary "مرشحات" [ref=f2e204]:
+              - generic [ref=f2e205]:
+                - group [ref=f2e206]:
+                  - button "النوع" [expanded] [ref=f2e208] [cursor=pointer]
+                  - generic [ref=f2e211] [cursor=pointer]:
+                    - checkbox "كود 900" [ref=f2e212]
+                    - generic [ref=f2e214]: كود
+                    - generic [ref=f2e215]: "900"
+                  - generic [ref=f2e216] [cursor=pointer]:
+                    - checkbox "PDF 765" [ref=f2e217]
+                    - generic [ref=f2e219]: PDF
+                    - generic [ref=f2e220]: "765"
+                  - generic [ref=f2e221] [cursor=pointer]:
+                    - checkbox "نص 400" [ref=f2e222]
+                    - generic [ref=f2e224]: نص
+                    - generic [ref=f2e225]: "400"
+                  - generic [ref=f2e226] [cursor=pointer]:
+                    - checkbox "أخرى 270" [ref=f2e227]
+                    - generic [ref=f2e229]: أخرى
+                    - generic [ref=f2e230]: "270"
+                  - generic [ref=f2e231] [cursor=pointer]:
+                    - checkbox "صورة 213" [ref=f2e232]
+                    - generic [ref=f2e234]: صورة
+                    - generic [ref=f2e235]: "213"
+                  - generic [ref=f2e236] [cursor=pointer]:
+                    - checkbox "مستند Word 120" [ref=f2e237]
+                    - generic [ref=f2e239]: مستند Word
+                    - generic [ref=f2e240]: "120"
+                  - generic [ref=f2e241] [cursor=pointer]:
+                    - checkbox "شرائح 109" [ref=f2e242]
+                    - generic [ref=f2e244]: شرائح
+                    - generic [ref=f2e245]: "109"
+                  - generic [ref=f2e246] [cursor=pointer]:
+                    - checkbox "جدول بيانات 82" [ref=f2e247]
+                    - generic [ref=f2e249]: جدول بيانات
+                    - generic [ref=f2e250]: "82"
+                  - generic [ref=f2e251] [cursor=pointer]:
+                    - checkbox "مضغوط 24" [ref=f2e252]
+                    - generic [ref=f2e254]: مضغوط
+                    - generic [ref=f2e255]: "24"
+                  - generic [ref=f2e256] [cursor=pointer]:
+                    - checkbox "فيديو 16" [ref=f2e257]
+                    - generic [ref=f2e259]: فيديو
+                    - generic [ref=f2e260]: "16"
+                  - generic [ref=f2e261] [cursor=pointer]:
+                    - checkbox "YouTube 1" [ref=f2e262]
+                    - generic [ref=f2e264]: YouTube
+                    - generic [ref=f2e265]: "1"
+                - group [ref=f2e266]:
+                  - button "المادة" [expanded] [ref=f2e268] [cursor=pointer]
+                  - generic [ref=f2e271] [cursor=pointer]:
+                    - checkbox "SCSE2103 288" [ref=f2e272]
+                    - generic [ref=f2e274]: SCSE2103
+                    - generic [ref=f2e275]: "288"
+                  - generic [ref=f2e276] [cursor=pointer]:
+                    - checkbox "SCSE2123 99" [ref=f2e277]
+                    - generic [ref=f2e279]: SCSE2123
+                    - generic [ref=f2e280]: "99"
+                  - generic [ref=f2e281] [cursor=pointer]:
+                    - checkbox "SCSM2113 60" [ref=f2e282]
+                    - generic [ref=f2e284]: SCSM2113
+                    - generic [ref=f2e285]: "60"
+                  - generic [ref=f2e286] [cursor=pointer]:
+                    - checkbox "SCSE2133 24" [ref=f2e287]
+                    - generic [ref=f2e289]: SCSE2133
+                    - generic [ref=f2e290]: "24"
+                  - generic [ref=f2e291] [cursor=pointer]:
+                    - checkbox "SCSM2223 19" [ref=f2e292]
+                    - generic [ref=f2e294]: SCSM2223
+                    - generic [ref=f2e295]: "19"
+                  - generic [ref=f2e296] [cursor=pointer]:
+                    - checkbox "SCSE3203 — Special Topics (Java Web) 13" [ref=f2e297]
+                    - generic [ref=f2e299]: SCSE3203 — Special Topics (Java Web)
+                    - generic [ref=f2e300]: "13"
+                  - generic [ref=f2e301] [cursor=pointer]:
+                    - checkbox "SKEX2123 — Measurement & Instrumentation 10" [ref=f2e302]
+                    - generic [ref=f2e304]: SKEX2123 — Measurement & Instrumentation
+                    - generic [ref=f2e305]: "10"
+                  - generic [ref=f2e306] [cursor=pointer]:
+                    - checkbox "UHLF1112 — French 10" [ref=f2e307]
+                    - generic [ref=f2e309]: UHLF1112 — French
+                    - generic [ref=f2e310]: "10"
+                  - generic [ref=f2e311] [cursor=pointer]:
+                    - checkbox "SCSR2213 7" [ref=f2e312]
+                    - generic [ref=f2e314]: SCSR2213
+                    - generic [ref=f2e315]: "7"
+                  - generic [ref=f2e316] [cursor=pointer]:
+                    - checkbox "SCST1223 7" [ref=f2e317]
+                    - generic [ref=f2e319]: SCST1223
+                    - generic [ref=f2e320]: "7"
+                  - generic [ref=f2e321] [cursor=pointer]:
+                    - checkbox "SCSE3143 — Ubiquitous Computing 6" [ref=f2e322]
+                    - generic [ref=f2e324]: SCSE3143 — Ubiquitous Computing
+                    - generic [ref=f2e325]: "6"
+                  - generic [ref=f2e326] [cursor=pointer]:
+                    - checkbox "SCSR1213 6" [ref=f2e327]
+                    - generic [ref=f2e329]: SCSR1213
+                    - generic [ref=f2e330]: "6"
+                  - generic [ref=f2e331] [cursor=pointer]:
+                    - checkbox "SCSE3103 — Cognitive Computing 5" [ref=f2e332]
+                    - generic [ref=f2e334]: SCSE3103 — Cognitive Computing
+                    - generic [ref=f2e335]: "5"
+                  - generic [ref=f2e336] [cursor=pointer]:
+                    - checkbox "UHLB2122 — Professional Communication Skills 1 (PCS 1) 5" [ref=f2e337]
+                    - generic [ref=f2e339]: UHLB2122 — Professional Communication Skills 1 (PCS 1)
+                    - generic [ref=f2e340]: "5"
+                  - generic [ref=f2e341] [cursor=pointer]:
+                    - checkbox "SCST1143 4" [ref=f2e342]
+                    - generic [ref=f2e344]: SCST1143
+                    - generic [ref=f2e345]: "4"
+                  - generic [ref=f2e346] [cursor=pointer]:
+                    - checkbox "SECJ2253 4" [ref=f2e347]
+                    - generic [ref=f2e349]: SECJ2253
+                    - generic [ref=f2e350]: "4"
+                  - generic [ref=f2e351] [cursor=pointer]:
+                    - checkbox "UHLM1012 4" [ref=f2e352]
+                    - generic [ref=f2e354]: UHLM1012
+                    - generic [ref=f2e355]: "4"
+                  - generic [ref=f2e356] [cursor=pointer]:
+                    - checkbox "SCSE2233 3" [ref=f2e357]
+                    - generic [ref=f2e359]: SCSE2233
+                    - generic [ref=f2e360]: "3"
+                  - generic [ref=f2e361] [cursor=pointer]:
+                    - checkbox "PSDA2223 2" [ref=f2e362]
+                    - generic [ref=f2e364]: PSDA2223
+                    - generic [ref=f2e365]: "2"
+                  - generic [ref=f2e366] [cursor=pointer]:
+                    - checkbox "SCSJ2253 2" [ref=f2e367]
+                    - generic [ref=f2e369]: SCSJ2253
+                    - generic [ref=f2e370]: "2"
+                  - generic [ref=f2e371] [cursor=pointer]:
+                    - checkbox "SECP3213 2" [ref=f2e372]
+                    - generic [ref=f2e374]: SECP3213
+                    - generic [ref=f2e375]: "2"
+                  - generic [ref=f2e376] [cursor=pointer]:
+                    - checkbox "SECR1033 2" [ref=f2e377]
+                    - generic [ref=f2e379]: SECR1033
+                    - generic [ref=f2e380]: "2"
+                  - generic [ref=f2e381] [cursor=pointer]:
+                    - checkbox "SECR2213 2" [ref=f2e382]
+                    - generic [ref=f2e384]: SECR2213
+                    - generic [ref=f2e385]: "2"
+                  - generic [ref=f2e386] [cursor=pointer]:
+                    - checkbox "ULRS1032 2" [ref=f2e387]
+                    - generic [ref=f2e389]: ULRS1032
+                    - generic [ref=f2e390]: "2"
+                  - generic [ref=f2e391] [cursor=pointer]:
+                    - checkbox "SCSE1013 1" [ref=f2e392]
+                    - generic [ref=f2e394]: SCSE1013
+                    - generic [ref=f2e395]: "1"
+                  - generic [ref=f2e396] [cursor=pointer]:
+                    - checkbox "SCSE1203 1" [ref=f2e397]
+                    - generic [ref=f2e399]: SCSE1203
+                    - generic [ref=f2e400]: "1"
+                  - generic [ref=f2e401] [cursor=pointer]:
+                    - checkbox "SCSE1213 1" [ref=f2e402]
+                    - generic [ref=f2e404]: SCSE1213
+                    - generic [ref=f2e405]: "1"
+                  - generic [ref=f2e406] [cursor=pointer]:
+                    - checkbox "SCSE1224 1" [ref=f2e407]
+                    - generic [ref=f2e409]: SCSE1224
+                    - generic [ref=f2e410]: "1"
+                  - generic [ref=f2e411] [cursor=pointer]:
+                    - checkbox "SCSE2243 1" [ref=f2e412]
+                    - generic [ref=f2e414]: SCSE2243
+                    - generic [ref=f2e415]: "1"
+                  - generic [ref=f2e416] [cursor=pointer]:
+                    - checkbox "SCSJ3323 1" [ref=f2e417]
+                    - generic [ref=f2e419]: SCSJ3323
+                    - generic [ref=f2e420]: "1"
+                  - generic [ref=f2e421] [cursor=pointer]:
+                    - checkbox "SCSP3213 1" [ref=f2e422]
+                    - generic [ref=f2e424]: SCSP3213
+                    - generic [ref=f2e425]: "1"
+                  - generic [ref=f2e426] [cursor=pointer]:
+                    - checkbox "SCSR1033 1" [ref=f2e427]
+                    - generic [ref=f2e429]: SCSR1033
+                    - generic [ref=f2e430]: "1"
+                  - generic [ref=f2e431] [cursor=pointer]:
+                    - checkbox "SCST1123 1" [ref=f2e432]
+                    - generic [ref=f2e434]: SCST1123
+                    - generic [ref=f2e435]: "1"
+                  - generic [ref=f2e436] [cursor=pointer]:
+                    - checkbox "SCSYY2113 1" [ref=f2e437]
+                    - generic [ref=f2e439]: SCSYY2113
+                    - generic [ref=f2e440]: "1"
+                  - generic [ref=f2e441] [cursor=pointer]:
+                    - checkbox "SDA2526 1" [ref=f2e442]
+                    - generic [ref=f2e444]: SDA2526
+                    - generic [ref=f2e445]: "1"
+                  - generic [ref=f2e446] [cursor=pointer]:
+                    - checkbox "SECJ3104 1" [ref=f2e447]
+                    - generic [ref=f2e449]: SECJ3104
+                    - generic [ref=f2e450]: "1"
+                  - generic [ref=f2e451] [cursor=pointer]:
+                    - checkbox "SECJ3323 1" [ref=f2e452]
+                    - generic [ref=f2e454]: SECJ3323
+                    - generic [ref=f2e455]: "1"
+                  - generic [ref=f2e456] [cursor=pointer]:
+                    - checkbox "SECR1013 1" [ref=f2e457]
+                    - generic [ref=f2e459]: SECR1013
+                    - generic [ref=f2e460]: "1"
+                  - generic [ref=f2e461] [cursor=pointer]:
+                    - checkbox "SECV2113 1" [ref=f2e462]
+                    - generic [ref=f2e464]: SECV2113
+                    - generic [ref=f2e465]: "1"
+                  - generic [ref=f2e466] [cursor=pointer]:
+                    - checkbox "ULRS1022 1" [ref=f2e467]
+                    - generic [ref=f2e469]: ULRS1022
+                    - generic [ref=f2e470]: "1"
+                - group [ref=f2e471]:
+                  - button "الفصل" [expanded] [ref=f2e473] [cursor=pointer]
+                  - generic [ref=f2e476] [cursor=pointer]:
+                    - checkbox "SEM 1 170" [ref=f2e477]
+                    - generic [ref=f2e479]: SEM 1
+                    - generic [ref=f2e480]: "170"
+                  - generic [ref=f2e481] [cursor=pointer]:
+                    - checkbox "SEM 2 63" [ref=f2e482]
+                    - generic [ref=f2e484]: SEM 2
+                    - generic [ref=f2e485]: "63"
+                  - generic [ref=f2e486] [cursor=pointer]:
+                    - checkbox "SEM 3 586" [ref=f2e487]
+                    - generic [ref=f2e489]: SEM 3
+                    - generic [ref=f2e490]: "586"
+                  - generic [ref=f2e491] [cursor=pointer]:
+                    - checkbox "SEM 4 1997" [ref=f2e492]
+                    - generic [ref=f2e494]: SEM 4
+                    - generic [ref=f2e495]: "1997"
+                  - generic [ref=f2e496] [cursor=pointer]:
+                    - checkbox "SEM 5 59" [ref=f2e497]
+                    - generic [ref=f2e499]: SEM 5
+                    - generic [ref=f2e500]: "59"
+                - group [ref=f2e501]:
+                  - button "التصنيف" [expanded] [ref=f2e503] [cursor=pointer]
+                  - generic [ref=f2e506] [cursor=pointer]:
+                    - checkbox "مشروع 950" [ref=f2e507]
+                    - generic [ref=f2e509]: مشروع
+                    - generic [ref=f2e510]: "950"
+                  - generic [ref=f2e511] [cursor=pointer]:
+                    - checkbox "كتاب 550" [ref=f2e512]
+                    - generic [ref=f2e514]: كتاب
+                    - generic [ref=f2e515]: "550"
+                  - generic [ref=f2e516] [cursor=pointer]:
+                    - checkbox "امتحان 534" [ref=f2e517]
+                    - generic [ref=f2e519]: امتحان
+                    - generic [ref=f2e520]: "534"
+                  - generic [ref=f2e521] [cursor=pointer]:
+                    - checkbox "مختبر 190" [ref=f2e522]
+                    - generic [ref=f2e524]: مختبر
+                    - generic [ref=f2e525]: "190"
+                  - generic [ref=f2e526] [cursor=pointer]:
+                    - checkbox "محاضرة 156" [ref=f2e527]
+                    - generic [ref=f2e529]: محاضرة
+                    - generic [ref=f2e530]: "156"
+                  - generic [ref=f2e531] [cursor=pointer]:
+                    - checkbox "واجب 151" [ref=f2e532]
+                    - generic [ref=f2e534]: واجب
+                    - generic [ref=f2e535]: "151"
+                  - generic [ref=f2e536] [cursor=pointer]:
+                    - checkbox "توصيف المادة 42" [ref=f2e537]
+                    - generic [ref=f2e539]: توصيف المادة
+                    - generic [ref=f2e540]: "42"
+                  - generic [ref=f2e541] [cursor=pointer]:
+                    - checkbox "ملخص / ملاحظات 30" [ref=f2e542]
+                    - generic [ref=f2e544]: ملخص / ملاحظات
+                    - generic [ref=f2e545]: "30"
+                  - generic [ref=f2e546] [cursor=pointer]:
+                    - checkbox "تمرين / Tutorial 17" [ref=f2e547]
+                    - generic [ref=f2e549]: تمرين / Tutorial
+                    - generic [ref=f2e550]: "17"
+                  - generic [ref=f2e551] [cursor=pointer]:
+                    - checkbox "كويز 12" [ref=f2e552]
+                    - generic [ref=f2e554]: كويز
+                    - generic [ref=f2e555]: "12"
+            - generic [ref=f2e556]:
+              - generic [ref=f2e557]:
+                - searchbox "ابحث في المكتبة" [ref=f2e562]
+                - generic [ref=f2e563]:
+                  - generic [ref=f2e564]: الترتيب
+                  - combobox "الترتيب" [ref=f2e566]:
+                    - option "الاسم" [selected]
+                    - option "الأحدث تعديلًا"
+                    - option "الأكبر حجمًا"
+                    - option "النوع"
+                    - option "آخر فتح"
+                    - option "المسار"
+              - paragraph [ref=f2e567]: 2900 عنصر
+              - table [ref=f2e569]:
+                - row [ref=f2e570]:
+                  - columnheader [ref=f2e571]:
+                    - button "الاسم" [ref=f2e572] [cursor=pointer]
+                  - columnheader [ref=f2e574]:
+                    - button "النوع" [ref=f2e575] [cursor=pointer]
+                  - columnheader "المادة" [ref=f2e577]
+                  - columnheader [ref=f2e578]:
+                    - button "الحجم" [ref=f2e579] [cursor=pointer]
+                  - columnheader "التقدّم" [ref=f2e581]
+                - row [ref=f2e582]:
+                  - cell "P1 URD Rubric.pdf Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Rubric" [ref=f2e583]:
+                    - generic [ref=f2e589]:
+                      - strong [ref=f2e590]: P1 URD Rubric.pdf
+                      - generic [ref=f2e591]: Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Rubric
+                  - cell [ref=f2e592]:
+                    - generic [ref=f2e593]: PDFمشروع
+                  - cell "SCSE2123 SEM 3" [ref=f2e594]:
+                    - generic [ref=f2e595]:
+                      - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e596]: SCSE2123
+                      - generic [ref=f2e597]: SEM 3
+                  - cell [ref=f2e598]:
+                    - generic [ref=f2e599]: 69 KB22 ديسمبر 2025
+                  - cell [ref=f2e600]:
+                    - img "التقدّم 50%" [ref=f2e601]:
+                      - generic [ref=f2e603]: 50%
+                  - cell "فتح P1 URD Rubric.pdf":
+                    - link "فتح P1 URD Rubric.pdf" [ref=f2e604] [cursor=pointer]:
+                      - /url: /library/f/64b01b7bf0713ca9
+                - row [ref=f2e605]:
+                  - cell "P2 Model Rubric.pdf Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Rubric" [ref=f2e606]:
+                    - generic [ref=f2e612]:
+                      - strong [ref=f2e613]: P2 Model Rubric.pdf
+                      - generic [ref=f2e614]: Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Rubric
+                  - cell [ref=f2e615]:
+                    - generic [ref=f2e616]: PDFمشروع
+                  - cell "SCSE2123 SEM 3" [ref=f2e617]:
+                    - generic [ref=f2e618]:
+                      - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e619]: SCSE2123
+                      - generic [ref=f2e620]: SEM 3
+                  - cell [ref=f2e621]:
+                    - generic [ref=f2e622]: 77 KB22 ديسمبر 2025
+                  - cell "—" [ref=f2e623]
+                  - cell "فتح P2 Model Rubric.pdf":
+                    - link "فتح P2 Model Rubric.pdf" [ref=f2e624] [cursor=pointer]:
+                      - /url: /library/f/10fdd20966a3ad59
+                - row [ref=f2e625]:
+                  - cell "__init__.py Year 2/SEM 4/ADP-1/05-Projects/UTM-Borrow/Source-Code/backend/routers" [ref=f2e626]:
+                    - generic [ref=f2e632]:
+                      - strong [ref=f2e633]: __init__.py
+                      - generic [ref=f2e634]: Year 2/SEM 4/ADP-1/05-Projects/UTM-Borrow/Source-Code/backend/routers
+                  - cell [ref=f2e635]:
+                    - generic [ref=f2e636]: كودمشروع
+                  - cell "— SEM 4" [ref=f2e637]:
+                    - generic [ref=f2e638]:
+                      - text: —
+                      - generic [ref=f2e639]: SEM 4
+                  - cell [ref=f2e640]:
+                    - generic [ref=f2e641]: 19 B9 يونيو 2026
+                  - cell "—" [ref=f2e642]
+                  - cell "فتح __init__.py":
+                    - link "فتح __init__.py" [ref=f2e643] [cursor=pointer]:
+                      - /url: /library/f/e7032997a0f8de3b
+                - row [ref=f2e644]:
+                  - cell "_cf.log Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e645]:
+                    - generic [ref=f2e651]:
+                      - strong [ref=f2e652]: _cf.log
+                      - generic [ref=f2e653]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e654]:
+                    - generic [ref=f2e655]: نصكتاب
+                  - cell "— SEM 4" [ref=f2e656]:
+                    - generic [ref=f2e657]:
+                      - text: —
+                      - generic [ref=f2e658]: SEM 4
+                  - cell [ref=f2e659]:
+                    - generic [ref=f2e660]: 13 KB23 يونيو 2026
+                  - cell "—" [ref=f2e661]
+                  - cell "فتح _cf.log":
+                    - link "فتح _cf.log" [ref=f2e662] [cursor=pointer]:
+                      - /url: /library/f/606709d0abbbd118
+                - row [ref=f2e663]:
+                  - cell "_cowork_start_api.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e664]:
+                    - generic [ref=f2e670]:
+                      - strong [ref=f2e671]: _cowork_start_api.bat
+                      - generic [ref=f2e672]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e673]:
+                    - generic [ref=f2e674]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e675]:
+                    - generic [ref=f2e676]:
+                      - text: —
+                      - generic [ref=f2e677]: SEM 4
+                  - cell [ref=f2e678]:
+                    - generic [ref=f2e679]: 556 B24 يونيو 2026
+                  - cell "—" [ref=f2e680]
+                  - cell "فتح _cowork_start_api.bat":
+                    - link "فتح _cowork_start_api.bat" [ref=f2e681] [cursor=pointer]:
+                      - /url: /library/f/3a96d4caf2c5485b
+                - row [ref=f2e682]:
+                  - cell "_cowork_start_preview.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e683]:
+                    - generic [ref=f2e689]:
+                      - strong [ref=f2e690]: _cowork_start_preview.bat
+                      - generic [ref=f2e691]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e692]:
+                    - generic [ref=f2e693]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e694]:
+                    - generic [ref=f2e695]:
+                      - text: —
+                      - generic [ref=f2e696]: SEM 4
+                  - cell [ref=f2e697]:
+                    - generic [ref=f2e698]: 445 B24 يونيو 2026
+                  - cell "—" [ref=f2e699]
+                  - cell "فتح _cowork_start_preview.bat":
+                    - link "فتح _cowork_start_preview.bat" [ref=f2e700] [cursor=pointer]:
+                      - /url: /library/f/825f2962907c7298
+                - row [ref=f2e701]:
+                  - cell "_cowork_start_tunnel.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e702]:
+                    - generic [ref=f2e708]:
+                      - strong [ref=f2e709]: _cowork_start_tunnel.bat
+                      - generic [ref=f2e710]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e711]:
+                    - generic [ref=f2e712]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e713]:
+                    - generic [ref=f2e714]:
+                      - text: —
+                      - generic [ref=f2e715]: SEM 4
+                  - cell [ref=f2e716]:
+                    - generic [ref=f2e717]: 469 B23 يونيو 2026
+                  - cell "—" [ref=f2e718]
+                  - cell "فتح _cowork_start_tunnel.bat":
+                    - link "فتح _cowork_start_tunnel.bat" [ref=f2e719] [cursor=pointer]:
+                      - /url: /library/f/35434cbf4b9140bc
+                - row [ref=f2e720]:
+                  - cell "_cowork_up.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e721]:
+                    - generic [ref=f2e727]:
+                      - strong [ref=f2e728]: _cowork_up.bat
+                      - generic [ref=f2e729]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e730]:
+                    - generic [ref=f2e731]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e732]:
+                    - generic [ref=f2e733]:
+                      - text: —
+                      - generic [ref=f2e734]: SEM 4
+                  - cell [ref=f2e735]:
+                    - generic [ref=f2e736]: 913 B23 يونيو 2026
+                  - cell "—" [ref=f2e737]
+                  - cell "فتح _cowork_up.bat":
+                    - link "فتح _cowork_up.bat" [ref=f2e738] [cursor=pointer]:
+                      - /url: /library/f/52a4592cab885580
+                - row [ref=f2e739]:
+                  - cell "_diag_state.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e740]:
+                    - generic [ref=f2e746]:
+                      - strong [ref=f2e747]: _diag_state.bat
+                      - generic [ref=f2e748]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e749]:
+                    - generic [ref=f2e750]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e751]:
+                    - generic [ref=f2e752]:
+                      - text: —
+                      - generic [ref=f2e753]: SEM 4
+                  - cell [ref=f2e754]:
+                    - generic [ref=f2e755]: 1.9 KB23 يونيو 2026
+                  - cell "—" [ref=f2e756]
+                  - cell "فتح _diag_state.bat":
+                    - link "فتح _diag_state.bat" [ref=f2e757] [cursor=pointer]:
+                      - /url: /library/f/88b6b5296d2f8300
+                - row [ref=f2e758]:
+                  - cell "_diag_state.txt Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e759]:
+                    - generic [ref=f2e765]:
+                      - strong [ref=f2e766]: _diag_state.txt
+                      - generic [ref=f2e767]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e768]:
+                    - generic [ref=f2e769]: نصكتاب
+                  - cell "— SEM 4" [ref=f2e770]:
+                    - generic [ref=f2e771]:
+                      - text: —
+                      - generic [ref=f2e772]: SEM 4
+                  - cell [ref=f2e773]:
+                    - generic [ref=f2e774]: 12 KB23 يونيو 2026
+                  - cell "—" [ref=f2e775]
+                  - cell "فتح _diag_state.txt":
+                    - link "فتح _diag_state.txt" [ref=f2e776] [cursor=pointer]:
+                      - /url: /library/f/a7944a461d3d50a7
+                - row [ref=f2e777]:
+                  - cell "_open_studio.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e778]:
+                    - generic [ref=f2e784]:
+                      - strong [ref=f2e785]: _open_studio.bat
+                      - generic [ref=f2e786]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e787]:
+                    - generic [ref=f2e788]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e789]:
+                    - generic [ref=f2e790]:
+                      - text: —
+                      - generic [ref=f2e791]: SEM 4
+                  - cell [ref=f2e792]:
+                    - generic [ref=f2e793]: 173 B23 يونيو 2026
+                  - cell "—" [ref=f2e794]
+                  - cell "فتح _open_studio.bat":
+                    - link "فتح _open_studio.bat" [ref=f2e795] [cursor=pointer]:
+                      - /url: /library/f/50beea6ef81e4152
+                - row [ref=f2e796]:
+                  - cell "_Part I_MohammedAlsakkaf_Scenario.docx Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/Word" [ref=f2e797]:
+                    - generic [ref=f2e803]:
+                      - strong [ref=f2e804]: _Part I_MohammedAlsakkaf_Scenario.docx
+                      - generic [ref=f2e805]: Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/Word
+                  - cell [ref=f2e806]:
+                    - generic [ref=f2e807]: مستند Wordمشروع
+                  - cell "SCSE2123 SEM 3" [ref=f2e808]:
+                    - generic [ref=f2e809]:
+                      - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e810]: SCSE2123
+                      - generic [ref=f2e811]: SEM 3
+                  - cell [ref=f2e812]:
+                    - generic [ref=f2e813]: 8.4 KB15 يناير 2026
+                  - cell "—" [ref=f2e814]
+                  - cell "فتح _Part I_MohammedAlsakkaf_Scenario.docx":
+                    - link "فتح _Part I_MohammedAlsakkaf_Scenario.docx" [ref=f2e815] [cursor=pointer]:
+                      - /url: /library/f/673f5755ec4a5c64
+                - row [ref=f2e816]:
+                  - cell "_review3.pdf Year 2/SEM 4/Cross/05-Projects/GreenStep" [ref=f2e817]:
+                    - generic [ref=f2e823]:
+                      - strong [ref=f2e824]: _review3.pdf
+                      - generic [ref=f2e825]: Year 2/SEM 4/Cross/05-Projects/GreenStep
+                  - cell [ref=f2e826]:
+                    - generic [ref=f2e827]: PDFمشروع
+                  - cell "— SEM 4" [ref=f2e828]:
+                    - generic [ref=f2e829]:
+                      - text: —
+                      - generic [ref=f2e830]: SEM 4
+                  - cell [ref=f2e831]:
+                    - generic [ref=f2e832]: 2.7 MB3 يوليو 2026
+                  - cell "—" [ref=f2e833]
+                  - cell "فتح _review3.pdf":
+                    - link "فتح _review3.pdf" [ref=f2e834] [cursor=pointer]:
+                      - /url: /library/f/8f9fbe73835095ff
+                - row [ref=f2e835]:
+                  - cell "_tmp_cleanup.php Year 2/SEM 4/Cross/05-Projects/Chapter-13/Submission-Pack" [ref=f2e836]:
+                    - generic [ref=f2e842]:
+                      - strong [ref=f2e843]: _tmp_cleanup.php
+                      - generic [ref=f2e844]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Submission-Pack
+                  - cell [ref=f2e845]:
+                    - generic [ref=f2e846]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e847]:
+                    - generic [ref=f2e848]:
+                      - text: —
+                      - generic [ref=f2e849]: SEM 4
+                  - cell [ref=f2e850]:
+                    - generic [ref=f2e851]: 449 B23 يونيو 2026
+                  - cell "—" [ref=f2e852]
+                  - cell "فتح _tmp_cleanup.php":
+                    - link "فتح _tmp_cleanup.php" [ref=f2e853] [cursor=pointer]:
+                      - /url: /library/f/93d28f8a58f40d3f
+                - row [ref=f2e854]:
+                  - cell "_tmp_dbcheck.php Year 2/SEM 4/Cross/05-Projects/Chapter-13/Submission-Pack" [ref=f2e855]:
+                    - generic [ref=f2e861]:
+                      - strong [ref=f2e862]: _tmp_dbcheck.php
+                      - generic [ref=f2e863]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Submission-Pack
+                  - cell [ref=f2e864]:
+                    - generic [ref=f2e865]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e866]:
+                    - generic [ref=f2e867]:
+                      - text: —
+                      - generic [ref=f2e868]: SEM 4
+                  - cell [ref=f2e869]:
+                    - generic [ref=f2e870]: 760 B23 يونيو 2026
+                  - cell "—" [ref=f2e871]
+                  - cell "فتح _tmp_dbcheck.php":
+                    - link "فتح _tmp_dbcheck.php" [ref=f2e872] [cursor=pointer]:
+                      - /url: /library/f/a06729ed40e678a1
+                - row [ref=f2e873]:
+                  - cell "_up_done.txt Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e874]:
+                    - generic [ref=f2e880]:
+                      - strong [ref=f2e881]: _up_done.txt
+                      - generic [ref=f2e882]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e883]:
+                    - generic [ref=f2e884]: نصكتاب
+                  - cell "— SEM 4" [ref=f2e885]:
+                    - generic [ref=f2e886]:
+                      - text: —
+                      - generic [ref=f2e887]: SEM 4
+                  - cell [ref=f2e888]:
+                    - generic [ref=f2e889]: 53 B23 يونيو 2026
+                  - cell "—" [ref=f2e890]
+                  - cell "فتح _up_done.txt":
+                    - link "فتح _up_done.txt" [ref=f2e891] [cursor=pointer]:
+                      - /url: /library/f/0884ac2d3c195564
+                - row [ref=f2e892]:
+                  - cell "_verify.bat Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e893]:
+                    - generic [ref=f2e899]:
+                      - strong [ref=f2e900]: _verify.bat
+                      - generic [ref=f2e901]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e902]:
+                    - generic [ref=f2e903]: كودكتاب
+                  - cell "— SEM 4" [ref=f2e904]:
+                    - generic [ref=f2e905]:
+                      - text: —
+                      - generic [ref=f2e906]: SEM 4
+                  - cell [ref=f2e907]:
+                    - generic [ref=f2e908]: 767 B23 يونيو 2026
+                  - cell "—" [ref=f2e909]
+                  - cell "فتح _verify.bat":
+                    - link "فتح _verify.bat" [ref=f2e910] [cursor=pointer]:
+                      - /url: /library/f/f0e5dc9b476f3b30
+                - row [ref=f2e911]:
+                  - cell "_verify.txt Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME" [ref=f2e912]:
+                    - generic [ref=f2e918]:
+                      - strong [ref=f2e919]: _verify.txt
+                      - generic [ref=f2e920]: Year 2/SEM 4/Cross/05-Projects/Chapter-13/Code-Workspace/_RUN_ME
+                  - cell [ref=f2e921]:
+                    - generic [ref=f2e922]: نصكتاب
+                  - cell "— SEM 4" [ref=f2e923]:
+                    - generic [ref=f2e924]:
+                      - text: —
+                      - generic [ref=f2e925]: SEM 4
+                  - cell [ref=f2e926]:
+                    - generic [ref=f2e927]: 1.4 KB23 يونيو 2026
+                  - cell "—" [ref=f2e928]
+                  - cell "فتح _verify.txt":
+                    - link "فتح _verify.txt" [ref=f2e929] [cursor=pointer]:
+                      - /url: /library/f/185ff271668917e2
+                - row [ref=f2e930]:
+                  - cell "!DOCTYPE.html Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-HTML-Prototype" [ref=f2e931]:
+                    - generic [ref=f2e937]:
+                      - strong [ref=f2e938]: "!DOCTYPE.html"
+                      - generic [ref=f2e939]: Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-HTML-Prototype
+                  - cell [ref=f2e940]:
+                    - generic [ref=f2e941]: كودمشروع
+                  - cell "SCSM2113 SEM 3" [ref=f2e942]:
+                    - generic [ref=f2e943]:
+                      - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e944]: SCSM2113
+                      - generic [ref=f2e945]: SEM 3
+                  - cell [ref=f2e946]:
+                    - generic [ref=f2e947]: 6.0 KB27 نوفمبر 2025
+                  - cell "—" [ref=f2e948]
+                  - cell "فتح !DOCTYPE.html":
+                    - link "فتح !DOCTYPE.html" [ref=f2e949] [cursor=pointer]:
+                      - /url: /library/f/37dc79e09421187d
+                - row [ref=f2e950]:
+                  - cell "(Ch 8 Memory- Management Strategies).pdf Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-08" [ref=f2e951]:
+                    - generic [ref=f2e957]:
+                      - strong [ref=f2e958]: (Ch 8 Memory- Management Strategies).pdf
+                      - generic [ref=f2e959]: Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-08
+                  - cell [ref=f2e960]:
+                    - generic [ref=f2e961]: PDFكتاب
+                  - cell "— SEM 3" [ref=f2e962]:
+                    - generic [ref=f2e963]:
+                      - text: —
+                      - generic [ref=f2e964]: SEM 3
+                  - cell [ref=f2e965]:
+                    - generic [ref=f2e966]: 2.3 MB2 فبراير 2026
+                  - cell "—" [ref=f2e967]
+                  - cell "فتح (Ch 8 Memory- Management Strategies).pdf":
+                    - link "فتح (Ch 8 Memory- Management Strategies).pdf" [ref=f2e968] [cursor=pointer]:
+                      - /url: /library/f/df8802c42a69c622
+                - row [ref=f2e969]:
+                  - cell "(latest) Topic9 NoSQL.pdf Year 1/SEM 1/DB/Slides/The Chapters/Chapter 9" [ref=f2e970]:
+                    - generic [ref=f2e976]:
+                      - strong [ref=f2e977]: (latest) Topic9 NoSQL.pdf
+                      - generic [ref=f2e978]: Year 1/SEM 1/DB/Slides/The Chapters/Chapter 9
+                  - cell [ref=f2e979]:
+                    - generic [ref=f2e980]: PDFكتاب
+                  - cell "— SEM 1" [ref=f2e981]:
+                    - generic [ref=f2e982]:
+                      - text: —
+                      - generic [ref=f2e983]: SEM 1
+                  - cell [ref=f2e984]:
+                    - generic [ref=f2e985]: 1.7 MB13 يناير 2025
+                  - cell "—" [ref=f2e986]
+                  - cell "فتح (latest) Topic9 NoSQL.pdf":
+                    - link "فتح (latest) Topic9 NoSQL.pdf" [ref=f2e987] [cursor=pointer]:
+                      - /url: /library/f/a704f5011f3864c4
+                - row [ref=f2e988]:
+                  - cell "(Set1) SECJ3323 MidTerm 20252026.docx.pdf Year 2/SEM 4/SDA/06-Exams/Sample-Test" [ref=f2e989]:
+                    - generic [ref=f2e995]:
+                      - strong [ref=f2e996]: (Set1) SECJ3323 MidTerm 20252026.docx.pdf
+                      - generic [ref=f2e997]: Year 2/SEM 4/SDA/06-Exams/Sample-Test
+                  - cell [ref=f2e998]:
+                    - generic [ref=f2e999]: PDFامتحان
+                  - cell "SECJ3323 SEM 4" [ref=f2e1000]:
+                    - generic [ref=f2e1001]:
+                      - generic "رمز مستنتج من اسم المجلد — لا توجد مادة بهذا الرمز في الفصول" [ref=f2e1002]: SECJ3323
+                      - generic [ref=f2e1003]: SEM 4
+                  - cell [ref=f2e1004]:
+                    - generic [ref=f2e1005]: 246 KB28 أبريل 2026
+                  - cell "—" [ref=f2e1006]
+                  - cell "فتح (Set1) SECJ3323 MidTerm 20252026.docx.pdf":
+                    - link "فتح (Set1) SECJ3323 MidTerm 20252026.docx.pdf" [ref=f2e1007] [cursor=pointer]:
+                      - /url: /library/f/72b5d7b8a0072e12
+                - row [ref=f2e1008]:
+                  - cell "[2021] Chapter 1 Introduction to Statistics.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 1" [ref=f2e1009]:
+                    - generic [ref=f2e1015]:
+                      - strong [ref=f2e1016]: "[2021] Chapter 1 Introduction to Statistics.pdf"
+                      - generic [ref=f2e1017]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 1
+                  - cell [ref=f2e1018]:
+                    - generic [ref=f2e1019]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1020]:
+                    - generic [ref=f2e1021]:
+                      - text: —
+                      - generic [ref=f2e1022]: SEM 4
+                  - cell [ref=f2e1023]:
+                    - generic [ref=f2e1024]: 2.5 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1025]
+                  - cell "فتح [2021] Chapter 1 Introduction to Statistics.pdf":
+                    - link "فتح [2021] Chapter 1 Introduction to Statistics.pdf" [ref=f2e1026] [cursor=pointer]:
+                      - /url: /library/f/374f231eb990e081
+                - row [ref=f2e1027]:
+                  - cell "[2021] Chapter 2 Data Description.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 2" [ref=f2e1028]:
+                    - generic [ref=f2e1034]:
+                      - strong [ref=f2e1035]: "[2021] Chapter 2 Data Description.pdf"
+                      - generic [ref=f2e1036]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 2
+                  - cell [ref=f2e1037]:
+                    - generic [ref=f2e1038]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1039]:
+                    - generic [ref=f2e1040]:
+                      - text: —
+                      - generic [ref=f2e1041]: SEM 4
+                  - cell [ref=f2e1042]:
+                    - generic [ref=f2e1043]: 1.8 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1044]
+                  - cell "فتح [2021] Chapter 2 Data Description.pdf":
+                    - link "فتح [2021] Chapter 2 Data Description.pdf" [ref=f2e1045] [cursor=pointer]:
+                      - /url: /library/f/bdddf5ac616cbb55
+                - row [ref=f2e1046]:
+                  - cell "[2021] Chapter 4 Probability, Random Variables and Probability Distributions (1).pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 4" [ref=f2e1047]:
+                    - generic [ref=f2e1053]:
+                      - strong [ref=f2e1054]: "[2021] Chapter 4 Probability, Random Variables and Probability Distributions (1).pdf"
+                      - generic [ref=f2e1055]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 4
+                  - cell [ref=f2e1056]:
+                    - generic [ref=f2e1057]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1058]:
+                    - generic [ref=f2e1059]:
+                      - text: —
+                      - generic [ref=f2e1060]: SEM 4
+                  - cell [ref=f2e1061]:
+                    - generic [ref=f2e1062]: 2.4 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1063]
+                  - cell "فتح [2021] Chapter 4 Probability, Random Variables and Probability Distributions (1).pdf":
+                    - link "فتح [2021] Chapter 4 Probability, Random Variables and Probability Distributions (1).pdf" [ref=f2e1064] [cursor=pointer]:
+                      - /url: /library/f/2f008e1e92176111
+                - row [ref=f2e1065]:
+                  - cell "[2021] Chapter 5 (Part 1) Point Estimate.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5" [ref=f2e1066]:
+                    - generic [ref=f2e1072]:
+                      - strong [ref=f2e1073]: "[2021] Chapter 5 (Part 1) Point Estimate.pdf"
+                      - generic [ref=f2e1074]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5
+                  - cell [ref=f2e1075]:
+                    - generic [ref=f2e1076]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1077]:
+                    - generic [ref=f2e1078]:
+                      - text: —
+                      - generic [ref=f2e1079]: SEM 4
+                  - cell [ref=f2e1080]:
+                    - generic [ref=f2e1081]: 983 KB7 فبراير 2026
+                  - cell "—" [ref=f2e1082]
+                  - cell "فتح [2021] Chapter 5 (Part 1) Point Estimate.pdf":
+                    - link "فتح [2021] Chapter 5 (Part 1) Point Estimate.pdf" [ref=f2e1083] [cursor=pointer]:
+                      - /url: /library/f/4accf2c31ee14cef
+                - row [ref=f2e1084]:
+                  - cell "[2021] Chapter 5 (Part 2) Hypothesis Testing 1 Sample.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5" [ref=f2e1085]:
+                    - generic [ref=f2e1091]:
+                      - strong [ref=f2e1092]: "[2021] Chapter 5 (Part 2) Hypothesis Testing 1 Sample.pdf"
+                      - generic [ref=f2e1093]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5
+                  - cell [ref=f2e1094]:
+                    - generic [ref=f2e1095]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1096]:
+                    - generic [ref=f2e1097]:
+                      - text: —
+                      - generic [ref=f2e1098]: SEM 4
+                  - cell [ref=f2e1099]:
+                    - generic [ref=f2e1100]: 1.0 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1101]
+                  - cell "فتح [2021] Chapter 5 (Part 2) Hypothesis Testing 1 Sample.pdf":
+                    - link "فتح [2021] Chapter 5 (Part 2) Hypothesis Testing 1 Sample.pdf" [ref=f2e1102] [cursor=pointer]:
+                      - /url: /library/f/c62b45e61fd4aaac
+                - row [ref=f2e1103]:
+                  - cell "[2021] Chapter 5 (Part 3) Hypothesis Testing 2 Samples.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5" [ref=f2e1104]:
+                    - generic [ref=f2e1110]:
+                      - strong [ref=f2e1111]: "[2021] Chapter 5 (Part 3) Hypothesis Testing 2 Samples.pdf"
+                      - generic [ref=f2e1112]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 5
+                  - cell [ref=f2e1113]:
+                    - generic [ref=f2e1114]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1115]:
+                    - generic [ref=f2e1116]:
+                      - text: —
+                      - generic [ref=f2e1117]: SEM 4
+                  - cell [ref=f2e1118]:
+                    - generic [ref=f2e1119]: 2.0 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1120]
+                  - cell "فتح [2021] Chapter 5 (Part 3) Hypothesis Testing 2 Samples.pdf":
+                    - link "فتح [2021] Chapter 5 (Part 3) Hypothesis Testing 2 Samples.pdf" [ref=f2e1121] [cursor=pointer]:
+                      - /url: /library/f/ce479139eabc2ed5
+                - row [ref=f2e1122]:
+                  - cell "[2021] Chapter 6 ChiSquare Test _ Contingency.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 6" [ref=f2e1123]:
+                    - generic [ref=f2e1129]:
+                      - strong [ref=f2e1130]: "[2021] Chapter 6 ChiSquare Test _ Contingency.pdf"
+                      - generic [ref=f2e1131]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 6
+                  - cell [ref=f2e1132]:
+                    - generic [ref=f2e1133]: PDFامتحان
+                  - cell "— SEM 4" [ref=f2e1134]:
+                    - generic [ref=f2e1135]:
+                      - text: —
+                      - generic [ref=f2e1136]: SEM 4
+                  - cell [ref=f2e1137]:
+                    - generic [ref=f2e1138]: 10.0 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1139]
+                  - cell "فتح [2021] Chapter 6 ChiSquare Test _ Contingency.pdf":
+                    - link "فتح [2021] Chapter 6 ChiSquare Test _ Contingency.pdf" [ref=f2e1140] [cursor=pointer]:
+                      - /url: /library/f/cf010162278ff630
+                - row [ref=f2e1141]:
+                  - cell "[2021] Chapter 7 (Part 1) Correlation.pdf Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 7" [ref=f2e1142]:
+                    - generic [ref=f2e1148]:
+                      - strong [ref=f2e1149]: "[2021] Chapter 7 (Part 1) Correlation.pdf"
+                      - generic [ref=f2e1150]: Year 2/SEM 4/PSDA/Old version/PSDA/Slides/Topic 7
+                  - cell [ref=f2e1151]:
+                    - generic [ref=f2e1152]: PDFكتاب
+                  - cell "— SEM 4" [ref=f2e1153]:
+                    - generic [ref=f2e1154]:
+                      - text: —
+                      - generic [ref=f2e1155]: SEM 4
+                  - cell [ref=f2e1156]:
+                    - generic [ref=f2e1157]: 1.3 MB7 فبراير 2026
+                  - cell "—" [ref=f2e1158]
+                  - cell "فتح [2021] Chapter 7 (Part 1) Correlation.pdf":
+                    - link "فتح [2021] Chapter 7 (Part 1) Correlation.pdf" [ref=f2e1159] [cursor=pointer]:
+                      - /url: /library/f/2e260a6207c24bd3
+              - generic [ref=f2e1160]:
+                - generic [ref=f2e1161]: عرض 1–30 من 2900
+                - generic [ref=f2e1162]:
+                  - button "السابق" [disabled] [ref=f2e1163]
+                  - button "التالي" [ref=f2e1164] [cursor=pointer]
+  - status

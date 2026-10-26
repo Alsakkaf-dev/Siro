@@ -1,0 +1,16 @@
+[
+  {
+    "Source": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\UTM\\Grok Boot\\Sally_Rename_Backup_20261018-044727",
+    "Archive": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\The_Boots\\90_Migration\\Archives\\Sally_Rename_Backup_20261018-044727.zip",
+    "Files": 150,
+    "SHA256": "56D63F201C364BC09C222D9ED3A5659DEAE42C362DB5E1201D328A9BA4A50552",
+    "Verified": true
+  },
+  {
+    "Source": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\UTM\\Grok Boot\\The_Boots_Continuity_20261018-041551",
+    "Archive": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\The_Boots\\90_Migration\\Archives\\The_Boots_Continuity_20261018-041551.zip",
+    "Files": 1021,
+    "SHA256": "DE1D05C48AE0D3DC311BEA785D71CED0C8D3A1FF45A4ECE1457EE569F6D3409F",
+    "Verified": true
+  }
+]

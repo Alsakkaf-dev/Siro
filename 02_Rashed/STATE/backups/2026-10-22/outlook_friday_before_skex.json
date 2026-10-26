@@ -1,0 +1,180 @@
+{
+ "taken_at": "2026-10-22T16:40:00+08:00",
+ "calendar": "دراسة / وقت فراغ",
+ "tz": "Asia/Kuala_Lumpur",
+ "series": [
+  {
+   "title": "Instrumentation SKEX2123",
+   "range": "2026-10-16→2026-11-27",
+   "start": "15:00",
+   "end": "16:50",
+   "master": "AQMkADAwATM0MDAAMi1iMzU4LTM2ZDctMDACLTAwCgBGAAADLRc_Ors7KkWwxq6It9TEOAcAW0SiWh1nvEaXHrwS7QIh_wAAAlqYAAAAW0SiWh1nvEaXHrwS7QIh_wAAAQEDfAAAAA=="
+  },
+  {
+   "title": "Instrumentation SKEX2123",
+   "range": "2026-12-11→2027-01-22",
+   "start": "15:00",
+   "end": "16:50",
+   "master": "AQMkADAwATM0MDAAMi1iMzU4LTM2ZDctMDACLTAwCgBGAAADLRc_Ors7KkWwxq6It9TEOAcAW0SiWh1nvEaXHrwS7QIh_wAAAlqYAAAAW0SiWh1nvEaXHrwS7QIh_wAAAAPcfCsAAAA="
+  },
+  {
+   "title": "🚗 للبيت",
+   "range": "2026-10-16→2026-11-27",
+   "start": "16:50",
+   "end": "17:10",
+   "master": "AQMkADAwATM0MDAAMi1iMzU4LTM2ZDctMDACLTAwCgBGAAADLRc_Ors7KkWwxq6It9TEOAcAW0SiWh1nvEaXHrwS7QIh_wAAAlqYAAAAW0SiWh1nvEaXHrwS7QIh_wAAAQEDkwAAAA=="
+  },
+  {
+   "title": "🚗 للبيت",
+   "range": "2026-12-11→2027-01-22",
+   "start": "17:10",
+   "end": "17:30",
+   "master": "AQMkADAwATM0MDAAMi1iMzU4LTM2ZDctMDACLTAwCgBGAAADLRc_Ors7KkWwxq6It9TEOAcAW0SiWh1nvEaXHrwS7QIh_wAAAlqYAAAAW0SiWh1nvEaXHrwS7QIh_wAAAAPcfC0AAAA="
+  }
+ ],
+ "deleted_study_blocks": [
+  {
+   "week": "2",
+   "date": "2026-10-23",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "French",
+   "code": "UHLF1112",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "3",
+   "date": "2026-10-30",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "Ubiquitous",
+   "code": "SCSE3143",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "4",
+   "date": "2026-11-06",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "ProfComm",
+   "code": "UHLB2122",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "5",
+   "date": "2026-11-13",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "French",
+   "code": "UHLF1112",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "6",
+   "date": "2026-11-20",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "French",
+   "code": "UHLF1112",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "7",
+   "date": "2026-11-27",
+   "day": "Fri",
+   "start_myt": "17:10",
+   "end_myt": "18:45",
+   "hours": "1.58",
+   "course": "French",
+   "code": "UHLF1112",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.5833333333333333
+  },
+  {
+   "week": "9",
+   "date": "2026-12-11",
+   "day": "Fri",
+   "start_myt": "17:30",
+   "end_myt": "18:54",
+   "hours": "1.40",
+   "course": "Ubiquitous",
+   "code": "SCSE3143",
+   "type": "مراجعة تطبيقية",
+   "_h": 1.4
+  },
+  {
+   "week": "10",
+   "date": "2026-12-18",
+   "day": "Fri",
+   "start_myt": "17:30",
+   "end_myt": "18:54",
+   "hours": "1.40",
+   "course": "Ubiquitous",
+   "code": "SCSE3143",
+   "type": "مذاكرة اختبارية",
+   "_h": 1.4
+  },
+  {
+   "week": "13",
+   "date": "2027-01-08",
+   "day": "Fri",
+   "start_myt": "17:30",
+   "end_myt": "19:03",
+   "hours": "1.55",
+   "course": "Cognitive",
+   "code": "SCSE3103",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.55
+  },
+  {
+   "week": "14",
+   "date": "2027-01-15",
+   "day": "Fri",
+   "start_myt": "17:30",
+   "end_myt": "19:03",
+   "hours": "1.55",
+   "course": "Cognitive",
+   "code": "SCSE3103",
+   "type": "مراجعة تطبيقية",
+   "_h": 1.55
+  },
+  {
+   "week": "15",
+   "date": "2027-01-22",
+   "day": "Fri",
+   "start_myt": "17:30",
+   "end_myt": "19:10",
+   "hours": "1.67",
+   "course": "Ubiquitous",
+   "code": "SCSE3143",
+   "type": "مذاكرة ترسيخية",
+   "_h": 1.6666666666666667
+  }
+ ],
+ "free_exceptions_trimmed": [
+  {
+   "date": "2026-12-25",
+   "was": "17:30–18:54 (1h.24m)"
+  },
+  {
+   "date": "2027-01-01",
+   "was": "17:30–19:03 (1h.33m)"
+  }
+ ],
+ "note": "كتل المذاكرة كانت أحداثًا مفردة بلا كاتيغوري، showAs busy، في تقويم دراسة. الاستعادة: إعادة السلاسل إلى أوقاتها أعلاه وإنشاء الكتل وحذف أغطية الفراغ الجديدة 18:20→المغرب."
+}

@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "entries_before": 145296,
+  "entries_after": 145296,
+  "files": 127675,
+  "bytes": 29508035121,
+  "missing": [],
+  "extra": [],
+  "changed": [],
+  "directory_metadata_changes": [
+    "output/qr"
+  ],
+  "verification": "paths, type, size, mtime_ns; same-volume directory moves; no full-library content hash"
+}

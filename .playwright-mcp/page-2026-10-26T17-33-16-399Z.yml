@@ -1,0 +1,125 @@
+- generic [ref=f3e2]:
+  - generic [ref=f3e6]:
+    - link "تخطَّ إلى المحتوى":
+      - /url: "#main"
+    - complementary "القائمة الجانبية" [ref=f3e7]:
+      - link "المنصة الشخصية" [ref=f3e8] [cursor=pointer]:
+        - /url: /
+      - navigation "المنصات" [ref=f3e14]:
+        - link "الفصول" [ref=f3e15] [cursor=pointer]:
+          - /url: /academic
+        - link "المكتبة" [ref=f3e18] [cursor=pointer]:
+          - /url: /library
+        - link "الحياة" [ref=f3e22] [cursor=pointer]:
+          - /url: /life
+        - link "الرياضة" [ref=f3e25] [cursor=pointer]:
+          - /url: /sports
+      - navigation "التنقل" [ref=f3e27]:
+        - generic [ref=f3e28]:
+          - link "المكتبة" [ref=f3e29] [cursor=pointer]:
+            - /url: /library
+          - link "المجلدات" [ref=f3e34] [cursor=pointer]:
+            - /url: /library/folders
+          - link "YouTube" [ref=f3e38] [cursor=pointer]:
+            - /url: /library/youtube
+          - link "إعدادات المكتبة" [ref=f3e42] [cursor=pointer]:
+            - /url: /library/settings
+        - generic [ref=f3e45]:
+          - generic [ref=f3e46]: عام
+          - link "الرئيسية g h" [ref=f3e47] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f3e51]: الرئيسية
+            - generic [ref=f3e52]: g h
+          - link "مراجعة الأسبوع g r" [ref=f3e53] [cursor=pointer]:
+            - /url: /review
+            - generic [ref=f3e57]: مراجعة الأسبوع
+            - generic [ref=f3e58]: g r
+          - link "الإعدادات والنسخ g ," [ref=f3e59] [cursor=pointer]:
+            - /url: /settings
+            - generic [ref=f3e61]: الإعدادات والنسخ
+            - generic [ref=f3e62]: g ,
+      - generic [ref=f3e63]:
+        - heading "بياناتك عندك فقط" [level=4] [ref=f3e64]
+        - paragraph [ref=f3e68]: كل شيء محفوظ على جهازك في ملف واحد. لا إنترنت ولا حسابات ولا تتبّع.
+        - link "النسخ الاحتياطي" [ref=f3e69] [cursor=pointer]:
+          - /url: /settings
+    - generic [ref=f3e70]:
+      - banner [ref=f3e71]:
+        - button "فتح القائمة" [ref=f3e72] [cursor=pointer]
+        - search [ref=f3e74]:
+          - combobox "بحث شامل" [ref=f3e75]
+        - button [ref=f3e77] [cursor=pointer]
+        - button "المواعيد القريبة" [ref=f3e83] [cursor=pointer]
+        - group "المظهر" [ref=f3e87]:
+          - button "فاتح" [pressed] [ref=f3e88] [cursor=pointer]
+          - button "داكن" [ref=f3e95] [cursor=pointer]
+        - button "اختصارات لوحة المفاتيح" [ref=f3e98] [cursor=pointer]
+        - generic [aria-hidden] [ref=f3e102]: م
+      - main [ref=f3e103]:
+        - generic [ref=f3e104]:
+          - generic [ref=f3e105]:
+            - generic [ref=f3e106]:
+              - navigation "مسار التنقل" [ref=f3e107]:
+                - link "المكتبة" [ref=f3e109] [cursor=pointer]:
+                  - /url: /library
+                - link "Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 6/Videos_" [ref=f3e113] [cursor=pointer]:
+                  - /url: /library/folders?p=Year%201%2FSEM%201%2FMS%2FSlides%2FChapters%20of%20Finals%2FChapter%206%2FVideos_
+              - heading "1.mp4" [level=1] [ref=f3e114]
+            - generic [ref=f3e120]:
+              - button "تعليم كمكتمل" [ref=f3e121] [cursor=pointer]
+              - link "تنزيل" [ref=f3e124] [cursor=pointer]:
+                - /url: /api/library/files/59125dcef511e2c2/raw?download=1
+          - generic [ref=f3e128]:
+            - group "سرعة التشغيل" [ref=f3e132]:
+              - generic [ref=f3e133]: السرعة
+              - button "0.5×" [ref=f3e134] [cursor=pointer]
+              - button "0.75×" [ref=f3e135] [cursor=pointer]
+              - button "1×" [pressed] [ref=f3e136] [cursor=pointer]
+              - button "1.25×" [ref=f3e137] [cursor=pointer]
+              - button "1.5×" [ref=f3e138] [cursor=pointer]
+              - button "1.75×" [ref=f3e139] [cursor=pointer]
+              - button "2×" [ref=f3e140] [cursor=pointer]
+            - complementary "تفاصيل العنصر" [ref=f3e141]:
+              - generic [ref=f3e142]:
+                - heading [level=2] [ref=f3e144]
+                - generic [ref=f3e148]:
+                  - term [ref=f3e149]: النوع
+                  - definition [ref=f3e150]: فيديو · كتاب
+                  - term [ref=f3e151]: المادة
+                  - definition [ref=f3e152]: —
+                  - term [ref=f3e153]: الفصل
+                  - definition [ref=f3e154]: SEM 1 (مُستنتج)
+                  - term [ref=f3e155]: الحجم
+                  - definition [ref=f3e156]: 42 MB
+                  - term [ref=f3e157]: آخر تعديل
+                  - definition [ref=f3e158]: 18 ديسمبر 2024
+                  - term [ref=f3e159]: المسار
+                  - definition [ref=f3e160]: Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 6/Videos_/1.mp4
+                  - term [ref=f3e161]: التقدّم
+                  - definition [ref=f3e162]:
+                    - img "التقدّم 8%" [ref=f3e163]:
+                      - generic [ref=f3e165]: 8%
+                  - term [ref=f3e166]: مرات الفتح
+                  - definition [ref=f3e167]: "2"
+                - paragraph [ref=f3e168]: الفصل والمادة والتصنيف تقديرات من اسم المجلد.
+              - generic [ref=f3e169]:
+                - heading [level=2] [ref=f3e171]
+                - combobox "وسم جديد" [ref=f3e176]
+              - generic [ref=f3e177]:
+                - heading [level=2] [ref=f3e179]
+                - generic [ref=f3e183]:
+                  - generic [ref=f3e184]: ملاحظاتي
+                  - textbox "ملاحظاتي" [ref=f3e185]:
+                    - /placeholder: اكتب ملاحظاتك هنا… تُحفظ تلقائيًا
+                  - paragraph
+              - generic [ref=f3e186]:
+                - heading [level=2] [ref=f3e188]
+                - generic [ref=f3e192]:
+                  - generic [ref=f3e193]:
+                    - textbox "الوقت (دقيقة:ثانية)" [ref=f3e194]:
+                      - /placeholder: الآن
+                    - textbox "وصف العلامة" [ref=f3e195]:
+                      - /placeholder: وصف (اختياري)
+                    - button "إضافة" [ref=f3e196] [cursor=pointer]
+                  - paragraph [ref=f3e199]: لا علامات بعد.
+  - status

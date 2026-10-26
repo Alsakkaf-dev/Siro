@@ -1,0 +1,8 @@
+date,fajr,dhuhr,asr,maghrib,isha,on_time_count,late_count,missed_count,notes
+2026-10-17,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [مثبت بقول محمد 2026-10-21 10:26 عبر سالم]"
+2026-10-18,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [مثبت بقول محمد 2026-10-21 10:26 عبر سالم]"
+2026-10-19,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [مثبت بقول محمد 2026-10-21 10:26 عبر سالم]"
+2026-10-20,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [مثبت بقول محمد 2026-10-21 10:26 عبر سالم]"
+2026-10-21,on_time,missed,missed,missed,missed,1,0,4,"الفجر فرض في وقته [10-21 10:26]. الظهر والعصر فاتا [10-21 18:54]. المغرب والعشاء فاتا وأُضيفا للقضاء [مثبت بقول محمد 2026-10-22 22:07]"
+2026-10-22,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [مثبت بقول محمد 2026-10-22 22:07]"
+2026-10-23,missed,missed,missed,missed,missed,0,0,5,"لم يصلِّ؛ أُضيفت للقضاء [بقول محمد 2026-10-23 22:11]"

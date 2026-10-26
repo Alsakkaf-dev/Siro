@@ -1,0 +1,1004 @@
+{
+  "version": 1,
+  "generated_at": "2026-10-26T19:36:57+08:00",
+  "source_doc": "docs\\SPORTS_CONTENT_AR.md",
+  "count": 81,
+  "confidence": "assumption",
+  "note_ar": "مكتبة تمارين من معرفة عامة (ليست منسوخة من موقع). الأسماء الإنجليزية شائعة والعربية مبسطة، والمعدات اقتراح فقط. المكان (بيت أو جيم) يقرره محمد.",
+  "equipment_key_values": {
+    "bodyweight": "وزن الجسم",
+    "dumbbell": "دمبل",
+    "machine": "آلة",
+    "barbell": "بار",
+    "cable": "كيبل",
+    "none": "بدون معدات",
+    "pool": "مسبح",
+    "kettlebell": "كيتلبل"
+  },
+  "safety_note_ar": "ابدأ بالنسخة السهلة، وتوقف عند أي ألم حاد. ألم الصدر أو الدوخة يحتاج طبيب.",
+  "exercises": [
+    {
+      "id": "push_up",
+      "number": 1,
+      "english_name": "Push-Up",
+      "arabic_name": "ضغط أرضي",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "knee_push_up",
+      "number": 2,
+      "english_name": "Knee Push-Up",
+      "arabic_name": "ضغط أرضي على الركب",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "incline_push_up",
+      "number": 3,
+      "english_name": "Incline Push-Up",
+      "arabic_name": "ضغط مائل (اليدان على مرتفع)",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "decline_push_up",
+      "number": 4,
+      "english_name": "Decline Push-Up",
+      "arabic_name": "ضغط بالقدمين مرفوعتين",
+      "main_muscle_ar": "الصدر العلوي",
+      "category_ar": "الصدر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "dumbbell_bench_press",
+      "number": 5,
+      "english_name": "Dumbbell Bench Press",
+      "arabic_name": "ضغط صدر بالدمبل على البنش",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "dumbbell_floor_press",
+      "number": 6,
+      "english_name": "Dumbbell Floor Press",
+      "arabic_name": "ضغط صدر بالدمبل من الأرض",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "incline_dumbbell_press",
+      "number": 7,
+      "english_name": "Incline Dumbbell Press",
+      "arabic_name": "ضغط صدر مائل بالدمبل",
+      "main_muscle_ar": "الصدر العلوي",
+      "category_ar": "الصدر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "dumbbell_fly",
+      "number": 8,
+      "english_name": "Dumbbell Fly",
+      "arabic_name": "فتح الصدر بالدمبل",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "barbell_bench_press",
+      "number": 9,
+      "english_name": "Barbell Bench Press",
+      "arabic_name": "ضغط صدر بالبار",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "بار",
+      "equipment_keys": [
+        "barbell"
+      ]
+    },
+    {
+      "id": "chest_press_machine",
+      "number": 10,
+      "english_name": "Chest Press Machine",
+      "arabic_name": "ضغط صدر على الآلة",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "cable_crossover",
+      "number": 11,
+      "english_name": "Cable Crossover",
+      "arabic_name": "تجميع الصدر بالكيبل",
+      "main_muscle_ar": "الصدر",
+      "category_ar": "الصدر",
+      "equipment": "كيبل",
+      "equipment_keys": [
+        "cable"
+      ]
+    },
+    {
+      "id": "dips",
+      "number": 12,
+      "english_name": "Dips",
+      "arabic_name": "متوازي (غطس بين مقعدين)",
+      "main_muscle_ar": "الصدر السفلي والترايسبس",
+      "category_ar": "الصدر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "lat_pulldown",
+      "number": 13,
+      "english_name": "Lat Pulldown",
+      "arabic_name": "سحب علوي على الآلة",
+      "main_muscle_ar": "الظهر العريض",
+      "category_ar": "الظهر",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "pull_up",
+      "number": 14,
+      "english_name": "Pull-Up",
+      "arabic_name": "عقلة",
+      "main_muscle_ar": "الظهر العريض",
+      "category_ar": "الظهر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "seated_cable_row",
+      "number": 15,
+      "english_name": "Seated Cable Row",
+      "arabic_name": "تجديف جالس بالكيبل",
+      "main_muscle_ar": "منتصف الظهر",
+      "category_ar": "الظهر",
+      "equipment": "كيبل",
+      "equipment_keys": [
+        "cable"
+      ]
+    },
+    {
+      "id": "one_arm_dumbbell_row",
+      "number": 16,
+      "english_name": "One-Arm Dumbbell Row",
+      "arabic_name": "تجديف بدمبل بيد واحدة",
+      "main_muscle_ar": "الظهر العريض",
+      "category_ar": "الظهر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "bent_over_row",
+      "number": 17,
+      "english_name": "Bent-Over Row",
+      "arabic_name": "تجديف منحني بالبار",
+      "main_muscle_ar": "الظهر",
+      "category_ar": "الظهر",
+      "equipment": "بار",
+      "equipment_keys": [
+        "barbell"
+      ]
+    },
+    {
+      "id": "reverse_fly",
+      "number": 18,
+      "english_name": "Reverse Fly",
+      "arabic_name": "فتح خلفي بالدمبل",
+      "main_muscle_ar": "الكتف الخلفي وأعلى الظهر",
+      "category_ar": "الظهر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "face_pull",
+      "number": 19,
+      "english_name": "Face Pull",
+      "arabic_name": "سحب للوجه بالكيبل",
+      "main_muscle_ar": "الكتف الخلفي وأعلى الظهر",
+      "category_ar": "الظهر",
+      "equipment": "كيبل",
+      "equipment_keys": [
+        "cable"
+      ]
+    },
+    {
+      "id": "superman",
+      "number": 20,
+      "english_name": "Superman",
+      "arabic_name": "سوبرمان (رفع الذراعين والرجلين وأنت منبطح)",
+      "main_muscle_ar": "أسفل الظهر",
+      "category_ar": "الظهر",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "back_extension",
+      "number": 21,
+      "english_name": "Back Extension",
+      "arabic_name": "تمديد الظهر على الكرسي الروماني",
+      "main_muscle_ar": "أسفل الظهر",
+      "category_ar": "الظهر",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "dumbbell_pullover",
+      "number": 22,
+      "english_name": "Dumbbell Pullover",
+      "arabic_name": "سحب الدمبل خلف الرأس",
+      "main_muscle_ar": "الظهر العريض والصدر",
+      "category_ar": "الظهر",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "overhead_dumbbell_press",
+      "number": 23,
+      "english_name": "Overhead Dumbbell Press",
+      "arabic_name": "ضغط كتف بالدمبل",
+      "main_muscle_ar": "الأكتاف",
+      "category_ar": "الأكتاف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "lateral_raise",
+      "number": 24,
+      "english_name": "Lateral Raise",
+      "arabic_name": "رفع جانبي بالدمبل",
+      "main_muscle_ar": "الكتف الجانبي",
+      "category_ar": "الأكتاف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "front_raise",
+      "number": 25,
+      "english_name": "Front Raise",
+      "arabic_name": "رفع أمامي بالدمبل",
+      "main_muscle_ar": "الكتف الأمامي",
+      "category_ar": "الأكتاف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "arnold_press",
+      "number": 26,
+      "english_name": "Arnold Press",
+      "arabic_name": "ضغط أرنولد",
+      "main_muscle_ar": "الأكتاف",
+      "category_ar": "الأكتاف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "upright_row",
+      "number": 27,
+      "english_name": "Upright Row",
+      "arabic_name": "سحب عمودي للذقن",
+      "main_muscle_ar": "الأكتاف والترابيس",
+      "category_ar": "الأكتاف",
+      "equipment": "بار أو دمبل",
+      "equipment_keys": [
+        "barbell",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "pike_push_up",
+      "number": 28,
+      "english_name": "Pike Push-Up",
+      "arabic_name": "ضغط على شكل حرف V مقلوب",
+      "main_muscle_ar": "الأكتاف",
+      "category_ar": "الأكتاف",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "dumbbell_shrug",
+      "number": 29,
+      "english_name": "Dumbbell Shrug",
+      "arabic_name": "هز الكتفين بالدمبل",
+      "main_muscle_ar": "الترابيس (أعلى الظهر والرقبة)",
+      "category_ar": "الأكتاف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "shoulder_press_machine",
+      "number": 30,
+      "english_name": "Shoulder Press Machine",
+      "arabic_name": "ضغط كتف على الآلة",
+      "main_muscle_ar": "الأكتاف",
+      "category_ar": "الأكتاف",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "dumbbell_curl",
+      "number": 31,
+      "english_name": "Dumbbell Curl",
+      "arabic_name": "رفرفة بايسبس بالدمبل",
+      "main_muscle_ar": "البايسبس",
+      "category_ar": "البايسبس",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "hammer_curl",
+      "number": 32,
+      "english_name": "Hammer Curl",
+      "arabic_name": "رفرفة المطرقة",
+      "main_muscle_ar": "البايسبس والساعد",
+      "category_ar": "البايسبس",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "barbell_curl",
+      "number": 33,
+      "english_name": "Barbell Curl",
+      "arabic_name": "رفرفة بايسبس بالبار",
+      "main_muscle_ar": "البايسبس",
+      "category_ar": "البايسبس",
+      "equipment": "بار",
+      "equipment_keys": [
+        "barbell"
+      ]
+    },
+    {
+      "id": "concentration_curl",
+      "number": 34,
+      "english_name": "Concentration Curl",
+      "arabic_name": "رفرفة التركيز",
+      "main_muscle_ar": "البايسبس",
+      "category_ar": "البايسبس",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "chin_up",
+      "number": 35,
+      "english_name": "Chin-Up",
+      "arabic_name": "عقلة بكف اليد نحوك",
+      "main_muscle_ar": "البايسبس والظهر",
+      "category_ar": "البايسبس",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "triceps_dip_on_bench",
+      "number": 36,
+      "english_name": "Triceps Dip on Bench",
+      "arabic_name": "غطس ترايسبس على المقعد",
+      "main_muscle_ar": "الترايسبس",
+      "category_ar": "الترايسبس",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "overhead_triceps_extension",
+      "number": 37,
+      "english_name": "Overhead Triceps Extension",
+      "arabic_name": "تمديد ترايسبس فوق الرأس",
+      "main_muscle_ar": "الترايسبس",
+      "category_ar": "الترايسبس",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "triceps_kickback",
+      "number": 38,
+      "english_name": "Triceps Kickback",
+      "arabic_name": "ركلة الترايسبس للخلف",
+      "main_muscle_ar": "الترايسبس",
+      "category_ar": "الترايسبس",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "skull_crusher",
+      "number": 39,
+      "english_name": "Skull Crusher",
+      "arabic_name": "تمديد ترايسبس وأنت مستلقي",
+      "main_muscle_ar": "الترايسبس",
+      "category_ar": "الترايسبس",
+      "equipment": "بار أو دمبل",
+      "equipment_keys": [
+        "barbell",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "triceps_pushdown",
+      "number": 40,
+      "english_name": "Triceps Pushdown",
+      "arabic_name": "دفع الترايسبس بالكيبل",
+      "main_muscle_ar": "الترايسبس",
+      "category_ar": "الترايسبس",
+      "equipment": "كيبل",
+      "equipment_keys": [
+        "cable"
+      ]
+    },
+    {
+      "id": "close_grip_push_up",
+      "number": 41,
+      "english_name": "Close-Grip Push-Up",
+      "arabic_name": "ضغط أرضي بيدين متقاربتين",
+      "main_muscle_ar": "الترايسبس والصدر",
+      "category_ar": "الترايسبس",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "bodyweight_squat",
+      "number": 42,
+      "english_name": "Bodyweight Squat",
+      "arabic_name": "سكوات بوزن الجسم",
+      "main_muscle_ar": "الفخذ الأمامي والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "goblet_squat",
+      "number": 43,
+      "english_name": "Goblet Squat",
+      "arabic_name": "سكوات بدمبل أمام الصدر",
+      "main_muscle_ar": "الفخذ الأمامي والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "barbell_back_squat",
+      "number": 44,
+      "english_name": "Barbell Back Squat",
+      "arabic_name": "سكوات بالبار على الظهر",
+      "main_muscle_ar": "الفخذ الأمامي والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "بار",
+      "equipment_keys": [
+        "barbell"
+      ]
+    },
+    {
+      "id": "box_squat",
+      "number": 45,
+      "english_name": "Box Squat",
+      "arabic_name": "سكوات على كرسي",
+      "main_muscle_ar": "الفخذ الأمامي والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "lunge",
+      "number": 46,
+      "english_name": "Lunge",
+      "arabic_name": "طعنة أمامية",
+      "main_muscle_ar": "الفخذ والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "reverse_lunge",
+      "number": 47,
+      "english_name": "Reverse Lunge",
+      "arabic_name": "طعنة خلفية",
+      "main_muscle_ar": "الفخذ والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "bulgarian_split_squat",
+      "number": 48,
+      "english_name": "Bulgarian Split Squat",
+      "arabic_name": "سكوات بلغاري (رجل خلفية مرفوعة)",
+      "main_muscle_ar": "الفخذ الأمامي والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "step_up",
+      "number": 49,
+      "english_name": "Step-Up",
+      "arabic_name": "صعود على درجة",
+      "main_muscle_ar": "الفخذ والأرداف",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "leg_press",
+      "number": 50,
+      "english_name": "Leg Press",
+      "arabic_name": "ضغط أرجل على الآلة",
+      "main_muscle_ar": "الفخذ الأمامي",
+      "category_ar": "الأرجل",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "leg_extension",
+      "number": 51,
+      "english_name": "Leg Extension",
+      "arabic_name": "تمديد الأرجل على الآلة",
+      "main_muscle_ar": "الفخذ الأمامي",
+      "category_ar": "الأرجل",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "wall_sit",
+      "number": 52,
+      "english_name": "Wall Sit",
+      "arabic_name": "جلوس على الجدار",
+      "main_muscle_ar": "الفخذ الأمامي",
+      "category_ar": "الأرجل",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "romanian_deadlift",
+      "number": 53,
+      "english_name": "Romanian Deadlift",
+      "arabic_name": "رفعة ميتة رومانية",
+      "main_muscle_ar": "الفخذ الخلفي والأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "بار أو دمبل",
+      "equipment_keys": [
+        "barbell",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "deadlift",
+      "number": 54,
+      "english_name": "Deadlift",
+      "arabic_name": "رفعة ميتة",
+      "main_muscle_ar": "الظهر والفخذ الخلفي والأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "بار",
+      "equipment_keys": [
+        "barbell"
+      ]
+    },
+    {
+      "id": "glute_bridge",
+      "number": 55,
+      "english_name": "Glute Bridge",
+      "arabic_name": "جسر الأرداف",
+      "main_muscle_ar": "الأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "hip_thrust",
+      "number": 56,
+      "english_name": "Hip Thrust",
+      "arabic_name": "دفع الورك",
+      "main_muscle_ar": "الأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "وزن الجسم أو بار",
+      "equipment_keys": [
+        "bodyweight",
+        "barbell"
+      ]
+    },
+    {
+      "id": "leg_curl",
+      "number": 57,
+      "english_name": "Leg Curl",
+      "arabic_name": "ثني الأرجل على الآلة",
+      "main_muscle_ar": "الفخذ الخلفي",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "good_morning",
+      "number": 58,
+      "english_name": "Good Morning",
+      "arabic_name": "انحناء الصباح (انحناء من الورك)",
+      "main_muscle_ar": "الفخذ الخلفي وأسفل الظهر",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "وزن الجسم أو بار",
+      "equipment_keys": [
+        "bodyweight",
+        "barbell"
+      ]
+    },
+    {
+      "id": "donkey_kick",
+      "number": 59,
+      "english_name": "Donkey Kick",
+      "arabic_name": "ركلة الحمار",
+      "main_muscle_ar": "الأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "sumo_squat",
+      "number": 60,
+      "english_name": "Sumo Squat",
+      "arabic_name": "سكوات سومو (أرجل واسعة)",
+      "main_muscle_ar": "الفخذ الداخلي والأرداف",
+      "category_ar": "الفخذ الخلفي والأرداف",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "standing_calf_raise",
+      "number": 61,
+      "english_name": "Standing Calf Raise",
+      "arabic_name": "رفع الكعب واقفاً",
+      "main_muscle_ar": "السمانة",
+      "category_ar": "السمانة",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "seated_calf_raise",
+      "number": 62,
+      "english_name": "Seated Calf Raise",
+      "arabic_name": "رفع الكعب جالساً",
+      "main_muscle_ar": "السمانة العميقة",
+      "category_ar": "السمانة",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "crunch",
+      "number": 63,
+      "english_name": "Crunch",
+      "arabic_name": "كرنش (رفع الجذع)",
+      "main_muscle_ar": "البطن العلوي",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "bicycle_crunch",
+      "number": 64,
+      "english_name": "Bicycle Crunch",
+      "arabic_name": "كرنش الدراجة",
+      "main_muscle_ar": "البطن والجوانب",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "plank",
+      "number": 65,
+      "english_name": "Plank",
+      "arabic_name": "بلانك (ثبات على الساعدين)",
+      "main_muscle_ar": "البطن والجذع كله",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "side_plank",
+      "number": 66,
+      "english_name": "Side Plank",
+      "arabic_name": "بلانك جانبي",
+      "main_muscle_ar": "عضلات الجوانب",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "leg_raise",
+      "number": 67,
+      "english_name": "Leg Raise",
+      "arabic_name": "رفع الأرجل وأنت مستلقي",
+      "main_muscle_ar": "البطن السفلي",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "dead_bug",
+      "number": 68,
+      "english_name": "Dead Bug",
+      "arabic_name": "الحشرة الميتة",
+      "main_muscle_ar": "البطن العميق",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "bird_dog",
+      "number": 69,
+      "english_name": "Bird Dog",
+      "arabic_name": "الكلب والطائر",
+      "main_muscle_ar": "أسفل الظهر والجذع",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "russian_twist",
+      "number": 70,
+      "english_name": "Russian Twist",
+      "arabic_name": "لف الجذع الروسي",
+      "main_muscle_ar": "عضلات الجوانب والبطن",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم أو دمبل",
+      "equipment_keys": [
+        "bodyweight",
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "mountain_climber",
+      "number": 71,
+      "english_name": "Mountain Climber",
+      "arabic_name": "متسلق الجبل",
+      "main_muscle_ar": "البطن والكتف والقلب",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "hanging_knee_raise",
+      "number": 72,
+      "english_name": "Hanging Knee Raise",
+      "arabic_name": "رفع الركبتين وأنت معلّق",
+      "main_muscle_ar": "البطن السفلي",
+      "category_ar": "البطن والجذع",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "cable_crunch",
+      "number": 73,
+      "english_name": "Cable Crunch",
+      "arabic_name": "كرنش بالكيبل",
+      "main_muscle_ar": "البطن",
+      "category_ar": "البطن والجذع",
+      "equipment": "كيبل",
+      "equipment_keys": [
+        "cable"
+      ]
+    },
+    {
+      "id": "burpee",
+      "number": 74,
+      "english_name": "Burpee",
+      "arabic_name": "بيربي",
+      "main_muscle_ar": "كامل الجسم",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "jumping_jacks",
+      "number": 75,
+      "english_name": "Jumping Jacks",
+      "arabic_name": "قفز النجمة",
+      "main_muscle_ar": "كامل الجسم والقلب",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    },
+    {
+      "id": "brisk_walking",
+      "number": 76,
+      "english_name": "Brisk Walking",
+      "arabic_name": "مشي سريع",
+      "main_muscle_ar": "الأرجل والقلب",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "بدون معدات",
+      "equipment_keys": [
+        "none"
+      ]
+    },
+    {
+      "id": "stationary_bike",
+      "number": 77,
+      "english_name": "Stationary Bike",
+      "arabic_name": "دراجة ثابتة",
+      "main_muscle_ar": "الفخذ والقلب",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "آلة",
+      "equipment_keys": [
+        "machine"
+      ]
+    },
+    {
+      "id": "swimming",
+      "number": 78,
+      "english_name": "Swimming",
+      "arabic_name": "سباحة",
+      "main_muscle_ar": "كامل الجسم والقلب",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "مسبح",
+      "equipment_keys": [
+        "pool"
+      ]
+    },
+    {
+      "id": "kettlebell_swing",
+      "number": 79,
+      "english_name": "Kettlebell Swing",
+      "arabic_name": "أرجحة الكيتلبل",
+      "main_muscle_ar": "الأرداف والفخذ الخلفي",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "كيتلبل",
+      "equipment_keys": [
+        "kettlebell"
+      ]
+    },
+    {
+      "id": "thruster",
+      "number": 80,
+      "english_name": "Thruster",
+      "arabic_name": "ثروستر (سكوات ثم ضغط كتف)",
+      "main_muscle_ar": "كامل الجسم",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "دمبل",
+      "equipment_keys": [
+        "dumbbell"
+      ]
+    },
+    {
+      "id": "bear_crawl",
+      "number": 81,
+      "english_name": "Bear Crawl",
+      "arabic_name": "زحف الدب",
+      "main_muscle_ar": "الكتف والبطن",
+      "category_ar": "كامل الجسم وكارديو",
+      "equipment": "وزن الجسم",
+      "equipment_keys": [
+        "bodyweight"
+      ]
+    }
+  ]
+}

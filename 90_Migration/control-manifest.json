@@ -1,0 +1,127 @@
+[
+  {
+    "path": "BOOT/1_zimam.md",
+    "size": 15021,
+    "sha256": "cfa27b80cb66acafb8bce90ee19e1afd97cd3438d26b2629448c9d4a28f9e666"
+  },
+  {
+    "path": "BOOT/2_mihwar.md",
+    "size": 13640,
+    "sha256": "a240b21e751fe4310ddbf9a2bf30e7efbfff314706abbb1d45635b5f863a1156"
+  },
+  {
+    "path": "BOOT/3_rasd.md",
+    "size": 13654,
+    "sha256": "92cf13e9f877961f79a753753104e42069d935d15330fc435db89258e9d8e423"
+  },
+  {
+    "path": "BOOT/4_atlas.md",
+    "size": 15742,
+    "sha256": "b91eb523f0115277944eb36ea6fef0c2794b352735552f39cab4d9c241fd49b2"
+  },
+  {
+    "path": "BOOT/5_azm.md",
+    "size": 16650,
+    "sha256": "d6d0b65458a53c7c1a55051b7d24f968dd69f8db5b93dcaacb100ead8e0138e6"
+  },
+  {
+    "path": "BOOT/6_hasif.md",
+    "size": 14004,
+    "sha256": "0ed34646260f85a0763cbc4b001d1bcd4f16011af49e85cebfccc2570c160a87"
+  },
+  {
+    "path": "BOOT/7_mihakk.md",
+    "size": 15638,
+    "sha256": "11a915f209c6b3c952e04a147aaa026f03c45c886c00c4316dff7e1ce0c150bc"
+  },
+  {
+    "path": "BOOT/START.md",
+    "size": 1690,
+    "sha256": "4397a6071ddb7d3a99e2a92dc904d7d2a7aab1d74477a182f86b5a0c595d92cf"
+  },
+  {
+    "path": "STATE/calendar.md",
+    "size": 15872,
+    "sha256": "fec9d8132e5ef435e1248f926c2bc1131833e6ef46a04817abeeb49f2301309c"
+  },
+  {
+    "path": "STATE/decisions.md",
+    "size": 17237,
+    "sha256": "54f77ebfa20bd89729baadb390adb952a28fb0f5f29ecd86661378054ef3cc3b"
+  },
+  {
+    "path": "STATE/finance.md",
+    "size": 19290,
+    "sha256": "175f5143eb81133ef10d01ba0918738fe8e3ea2ea8d67085c940ad0ccae1874b"
+  },
+  {
+    "path": "STATE/growth.md",
+    "size": 6136,
+    "sha256": "f2e1a4ba8544245dac68357664bf616748deccde4a95a3a071f5e4cab292bb01"
+  },
+  {
+    "path": "STATE/inbox.md",
+    "size": 1127,
+    "sha256": "0cc4b285c487df0540936dc52a6a4e11de021c2bb7a66004e3b6da48636e4686"
+  },
+  {
+    "path": "STATE/life.md",
+    "size": 1834,
+    "sha256": "f73e0ff0c5384823dd2c24e503f7a778e5f641fe58138b7fe70163a7a6819eb1"
+  },
+  {
+    "path": "STATE/study.md",
+    "size": 55169,
+    "sha256": "773eecc92f6a9e0a9460a565025629b47bc44f7e28e9bc78b6ae79e75da521f3"
+  },
+  {
+    "path": "STATE/timetable_2026-27-I.xlsx",
+    "size": 9666,
+    "sha256": "7eafd8195c76e3f4bafe8d75b931edecec37503166ac7bebaa88ba5f20084e75"
+  },
+  {
+    "path": "STATE/weekly.md",
+    "size": 934,
+    "sha256": "f2b648f80dabce7b4795398188645ae276482398bf8a4e1fb1be4a4fd2f09156"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/1_zimam.md",
+    "size": 12716,
+    "sha256": "6501dc87fe3c7c88625dca326f507cf9c8c4735a5d3222c3b9e8dde4266ac054"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/2_mihwar.md",
+    "size": 12497,
+    "sha256": "ab7ba4e35007cd90648ecd848d83ebe2d156b819fdfc3614ea9b521afded0ee6"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/3_rasd.md",
+    "size": 12511,
+    "sha256": "e5723bfd3c039acbe15df16486a11819cfb4030db6b3224977388e1d639f8b5e"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/4_atlas.md",
+    "size": 14599,
+    "sha256": "1e153d3fa26adce113586ba82fb57204b614138a7d0282fcdb4e2d9a24572d3c"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/5_azm.md",
+    "size": 15488,
+    "sha256": "43240e5cf88871bc71ea62552d60b8f3d0745149c52e0e9e999b6ac0cb4012cf"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/6_hasif.md",
+    "size": 12861,
+    "sha256": "35b7dc399a6277ce8f5d6a2d04479d27645d5b0443c2d6a2568029a6489cc935"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/7_mihakk.md",
+    "size": 14495,
+    "sha256": "5d43d07be498f4ff18ec6331cd97aaf016f4d652226cee45821346e72b4eb217"
+  },
+  {
+    "path": "Backups/BOOT_2026-10-05/START.md",
+    "size": 1690,
+    "sha256": "4397a6071ddb7d3a99e2a92dc904d7d2a7aab1d74477a182f86b5a0c595d92cf"
+  }
+]
