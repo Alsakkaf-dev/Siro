@@ -5,3 +5,5 @@ data/*.db-*
 backups/
 *.log
 .DS_Store
+vercel-static/
+.vercel/

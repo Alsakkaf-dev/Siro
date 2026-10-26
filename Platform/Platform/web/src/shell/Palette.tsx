@@ -14,6 +14,7 @@ const TOP = new Set(['/', '/academic', '/library', '/life', '/life/finance', '/s
 const PAGES: { to: string; title: string; icon: IconName; kw: string }[] = [
   { to: '/', title: 'الرئيسية', icon: 'home', kw: 'home dashboard' },
   { to: '/academic', title: 'الفصول الدراسية', icon: 'calendar', kw: 'academic semesters' },
+  { to: '/academic/import', title: 'استيراد فصل', icon: 'upload', kw: 'import semester package drive حزمة استيراد' },
   { to: '/library', title: 'المكتبة', icon: 'book', kw: 'library pdf files' },
   { to: '/library/youtube', title: 'مكتبة YouTube', icon: 'play', kw: 'youtube videos' },
   { to: '/life', title: 'الحياة — اللوحة', icon: 'heart', kw: 'life dashboard' },

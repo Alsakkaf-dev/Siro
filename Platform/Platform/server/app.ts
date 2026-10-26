@@ -68,15 +68,17 @@ export function createApp(ctx: Ctx): express.Express {
     return hashCache.hashes;
   };
   // تُحسب عند كل طلب لأن المنفذ قد يُحدَّد بعد الاستماع (المنفذ 0 في الاختبارات)
-  const allowedHosts = { has: (h: string): boolean => h === `127.0.0.1:${cfg.port}` || h === `localhost:${cfg.port}` };
-  const allowedOrigins = { has: (o: string): boolean => o === `http://127.0.0.1:${cfg.port}` || o === `http://localhost:${cfg.port}` };
+  // النسخة المنشورة (PLATFORM_ONLINE=1): أي Host، والـ Origin يجب أن يطابق نفس الـ Host (حماية CSRF)
+  const online = process.env['PLATFORM_ONLINE'] === '1';
+  const allowedHosts = { has: (h: string): boolean => online || h === `127.0.0.1:${cfg.port}` || h === `localhost:${cfg.port}` };
+  const allowedOrigins = { has: (o: string, h = ''): boolean => (online ? o === `https://${h}` : o === `http://127.0.0.1:${cfg.port}` || o === `http://localhost:${cfg.port}`) };
 
   // حماية من DNS-rebinding و CSRF: لا نقبل إلا Host / Origin المحلي
   app.use((req, res, next) => {
     const host = req.headers.host ?? '';
     if (!allowedHosts.has(host)) return void res.status(403).type('text/plain').send('Forbidden host');
     const origin = req.headers.origin;
-    if (req.method !== 'GET' && req.method !== 'HEAD' && origin !== undefined && !allowedOrigins.has(origin)) {
+    if (req.method !== 'GET' && req.method !== 'HEAD' && origin !== undefined && !allowedOrigins.has(origin, host)) {
       return void res.status(403).type('text/plain').send('Forbidden origin');
     }
     res.setHeader('Content-Security-Policy', buildCsp(inlineScriptHashes()));

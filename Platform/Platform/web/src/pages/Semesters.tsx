@@ -43,7 +43,7 @@ export default function Semesters() {
 
   return (
     <div className="page">
-      <PageHead title="مدير الفصول" icon="layers" crumbs={[{ label: 'الفصول' }]} sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
+      <PageHead title="مدير الفصول" icon="layers" crumbs={[{ label: 'الفصول' }]} sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<><Link to="/academic/import" className="btn"><Icon name="upload" size={16} /> استيراد فصل</Link><Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button></>} />
       {sorted.length === 0 ? (
         <EmptyState icon="calendar" title="لا توجد فصول" text="أضف أول فصل لتبدأ." action={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
       ) : (

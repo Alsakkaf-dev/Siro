@@ -2,6 +2,7 @@ import { plainDeep } from '../../../shared/plain.js';
 import type { CommandType, ContentStatus, LifeCommand, LifeFile, LifeContentName, LifeStatus } from '../../../shared/life.js';
 import type { MyWeek, MyWorkout, Weekday } from '../../../shared/sports.js';
 import type { LibBookmark, LibItem, LibListResult, LibStatus, LibTreeResult } from '../../../shared/library.js';
+import type { PackageReport } from '../../../shared/package.js';
 import type { AcademicNote, Assessment, Course, MoreHit, SearchHit, Semester, SemesterBundle, SemesterSummary } from '../../../shared/types.js';
 
 export class ApiError extends Error {
@@ -71,6 +72,20 @@ export interface BackupInfo { name: string; date: string; file: string; size: nu
 export interface Info { version: string; driver: string; schema: number; db_file: string; db_size: number; port: number; host: string }
 export interface FieldChange { field: string; from: unknown; to: unknown }
 export interface EntityDiff { added: { id: string; label: string }[]; removed: { id: string; label: string }[]; changed: { id: string; label: string; fields: FieldChange[] }[]; unchanged: number }
+export type PackageSourceReq = { kind: 'drive'; link: string } | { kind: 'local'; path: string } | { kind: 'listing'; listing?: unknown; link?: string };
+export interface PackagePreview {
+  pkg: string;
+  origin: 'local' | 'drive';
+  location: string;
+  ok: boolean;
+  errors: string[];
+  report: PackageReport | null;
+  diff: DiffResult | null;
+  semester: { id: string; code: string; name: string } | null;
+  results: number;
+}
+export interface PackageImportRow { pkg: string; semester_id: string | null; origin: string; location: string; files: number; imported_at: string }
+export interface CourseResult { course_id: string; grade: string | null; points: number | null; credits: number | null; status: string | null }
 export interface DiffResult { semesters: EntityDiff; courses: EntityDiff; assessments: EntityDiff; notes: EntityDiff; totals: { added: number; removed: number; changed: number; unchanged: number } }
 export interface Deleted { ok: boolean; undo: string }
 
@@ -156,6 +171,10 @@ export const api = {
   searchMore: (q: string) => req<MoreHit[]>('GET', `/api/search/more?q=${encodeURIComponent(q)}`),
   importPreview: (file: unknown) => req<{ ok: true; diff: DiffResult }>('POST', '/api/import/preview', file),
   importApply: (file: unknown, mode: 'merge' | 'replace') => req<{ ok: true; backup: string; diff: DiffResult }>('POST', '/api/import/apply', { file, mode }),
+  packages: () => req<{ imports: PackageImportRow[]; drive_api: boolean; online: boolean }>('GET', '/api/packages'),
+  packagePreview: (src: PackageSourceReq) => req<PackagePreview>('POST', '/api/packages/preview', src),
+  packageApply: (src: PackageSourceReq) => req<{ ok: true; backup: string; semester_id: string; files: number; removed_files: number; results: number }>('POST', '/api/packages/apply', src),
+  packageResults: (semId: string) => req<CourseResult[]>('GET', `/api/packages/results/${encodeURIComponent(semId)}`),
   backups: () => req<BackupInfo[]>('GET', '/api/backups'),
   backupNow: () => req<BackupInfo>('POST', '/api/backups'),
   restore: (name: string) => req<{ ok: boolean; safety_backup: string }>('POST', '/api/backups/restore', { name }),

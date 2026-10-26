@@ -153,6 +153,25 @@ const listingSchema = z.object({
   manifest: z.unknown(),
   entries: z.array(z.object({ path: z.string().min(1).max(1000), size: z.number().min(0), ref: z.string().max(200).optional() })).max(50_000),
 });
+/** رابط ملف Drive («/file/d/ID/…» أو «?id=ID») أو ID مباشر */
+export function driveFileId(input: string): string | null {
+  const s = input.trim();
+  const m = /\/file\/d\/([A-Za-z0-9_-]{10,})/.exec(s) ?? /[?&]id=([A-Za-z0-9_-]{10,})/.exec(s);
+  if (m) return m[1]!;
+  return /^[A-Za-z0-9_-]{10,}$/.test(s) ? s : null;
+}
+
+/** ينزّل ملف قائمة الحزمة من Drive (ملف عام؛ لا يحتاج مفتاح API). */
+export async function fetchDriveListing(link: string, fetcher: typeof fetch = fetch): Promise<PackageSource> {
+  const id = driveFileId(link);
+  if (!id) throw new Error('رابط ملف القائمة غير صالح');
+  const r = await fetcher(`https://drive.google.com/uc?export=download&id=${encodeURIComponent(id)}`, { redirect: 'follow' });
+  if (!r.ok) throw new Error(`تعذّر تنزيل ملف القائمة من Drive (${r.status}) — تأكد أنه مشارك «لأي شخص لديه الرابط»`);
+  const text = (await r.text()).replace(/^\ufeff/, '');
+  if (text.trimStart().startsWith('<')) throw new Error('Drive أرجع صفحة بدل الملف — تأكد أن الملف مشارك للجميع');
+  return readListing(JSON.parse(text) as unknown);
+}
+
 export function readListing(raw: unknown): PackageSource {
   const l = listingSchema.parse(raw);
   return { pkg: l.pkg, origin: 'drive', location: l.location, manifest: l.manifest, entries: l.entries.map((e) => ({ path: e.path, size: e.size, ...(e.ref ? { ref: e.ref } : {}) })) };
@@ -169,6 +188,13 @@ export interface PackagePreview {
   diff: DiffResult | null;
   semester: { id: string; code: string; name: string } | null;
   results: number;
+}
+
+/** استيراد الحزمة دمج فقط — لا يحذف شيئًا، فلا معنى لعرض «غير موجود في الملف». */
+function mergeOnly(d: DiffResult): DiffResult {
+  const strip = (e: DiffResult['courses']): DiffResult['courses'] => ({ ...e, removed: [] });
+  const out = { ...d, semesters: strip(d.semesters), courses: strip(d.courses), assessments: strip(d.assessments), notes: strip(d.notes) };
+  return { ...out, totals: { ...d.totals, removed: 0 } };
 }
 
 export function previewPackage(db: Db, src: PackageSource): PackagePreview & { parsed: ParsedManifest | null } {
@@ -190,7 +216,7 @@ export function previewPackage(db: Db, src: PackageSource): PackagePreview & { p
     ok: errors.length === 0,
     errors,
     report,
-    diff: diffImport(db, pm.value.data),
+    diff: mergeOnly(diffImport(db, pm.value.data)),
     semester: { id: sem.id, code: sem.code, name: sem.name },
     results: pm.value.results.length,
     parsed: pm.value,

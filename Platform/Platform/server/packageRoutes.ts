@@ -25,7 +25,7 @@ async function readSource(body: unknown): Promise<pkg.PackageSource> {
       if (!/^([A-Za-z]:[\\/]|\\\\|\/)/.test(p)) throw new Error('اكتب المسار الكامل للمجلد');
       return await pkg.readLocalPackage(p);
     }
-    if (b.kind === 'listing') return pkg.readListing(b.listing);
+    if (b.kind === 'listing') return typeof (b as { link?: unknown }).link === 'string' && str((b as { link?: unknown }).link).trim() ? await pkg.fetchDriveListing(str((b as { link?: unknown }).link)) : pkg.readListing(b.listing);
   } catch (e) {
     throw new ValidationError({ source: e instanceof Error ? e.message : 'تعذّر قراءة الحزمة' });
   }

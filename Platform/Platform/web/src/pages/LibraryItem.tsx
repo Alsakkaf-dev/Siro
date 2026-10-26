@@ -7,7 +7,7 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Skeleton, useDebounced } from '../ui/ui.js';
 import { CourseBadge, ProgressBar, fmtDate, fmtSize, kindLabel, pctOf, typeLabel } from '../library/common.js';
 import { MediaPlayer, YoutubePlayer } from '../library/players.js';
-import { bareLibId, libRefOf, fmtTime, type LibBookmark, type LibItem } from '../../../shared/library.js';
+import { bareLibId, driveUrls, libRefOf, fmtTime, type LibBookmark, type LibItem } from '../../../shared/library.js';
 
 const PdfViewer = lazy(() => import('../library/PdfViewer.js'));
 
@@ -283,6 +283,11 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
 
   let stage;
   if (it.missing) stage = <div className="callout warn" role="alert">هذا الملف لم يعد موجودًا في المجلد (مفقود). بقيت وسومه وملاحظاته محفوظة.</div>;
+  else if (it.preview === 'drive' && it.remote_id) stage = (
+    <div className="lib-stage lib-drive">
+      <iframe src={driveUrls(it.remote_id).preview} title={it.title} allow="autoplay; fullscreen" referrerPolicy="no-referrer" loading="lazy" />
+    </div>
+  );
   else if (isYt) stage = <YoutubePlayer videoId={it.video_id ?? ''} initial={it.progress} onTime={onTime} registerSeek={registerSeek} onTracking={onTracking} />;
   else if (isPdf) stage = (
     <Suspense fallback={<Skeleton h={420} r={16} />}>
@@ -307,7 +312,8 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
         actions={
           <>
             <Button icon="check" onClick={() => void toggleDone()}>{it.done ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}</Button>
-            {!isYt && !it.missing && <a className="btn" href={lib.rawUrl(it.id, true)} download><Icon name="download" size={16} /> تنزيل</a>}
+            {it.origin === 'drive' && it.remote_id && <a className="btn" href={driveUrls(it.remote_id).view} target="_blank" rel="noopener noreferrer"><Icon name="link" size={16} /> فتح في Drive</a>}
+            {!isYt && !it.missing && <a className="btn" href={it.origin === 'drive' && it.remote_id ? driveUrls(it.remote_id).download : lib.rawUrl(it.id, true)} download><Icon name="download" size={16} /> تنزيل</a>}
             {isYt && <Link className="btn" to="/library/youtube">كل الفيديوهات</Link>}
           </>
         }

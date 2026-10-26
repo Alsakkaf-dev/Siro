@@ -40,6 +40,7 @@ const LibraryYoutube = lazy(() => import('./pages/LibraryYoutube.js'));
 const LibrarySettings = lazy(() => import('./pages/LibrarySettings.js'));
 const LibraryItem = lazy(() => import('./pages/LibraryItem.js'));
 const NotFound = lazy(() => import('./pages/NotFound.js'));
+const ImportSemester = lazy(() => import('./pages/ImportSemester.js'));
 
 function AcademicIndex() {
   return <Semesters />;
@@ -53,6 +54,7 @@ export function App() {
       <Route element={<Shell />}>
         <Route index element={<Home />} />
         <Route path="academic" element={<AcademicIndex />} />
+        <Route path="academic/import" element={<ImportSemester />} />
         <Route path="academic/s/:semId" element={<SemesterLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="courses" element={<Courses />} />
