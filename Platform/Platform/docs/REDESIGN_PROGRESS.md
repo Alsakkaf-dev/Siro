@@ -7,7 +7,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] 1. Bootstrap + baseline
 - [x] 2. Phase A audit (§5) + competitive teardown (§4)
 - [x] 3. Phase B designs (§6–§9) + ADRs + traceability skeleton
-- [ ] 4. Foundation: Work-OS core migration + adapters + API + tests
+- [x] 4. Foundation: Work-OS core migration + adapters + API + tests
 - [ ] 5. Shell & navigation rebuild (metro IA, breadcrumbs, Create +, palette verbs, mobile bar, redirects)
 - [ ] 6. Views engine + specialized views registered
 - [ ] 7. Universal CRUD (inline edit, bulk, undo, history, relations, side panel)
@@ -35,3 +35,11 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - D1b (owner): D1 adds emphasis, it does not narrow scope — every other §11/§12 item is still delivered in full.
 - D2: Owner identity on all commits; no AI attribution in commits/PR (master prompt §2.4 overrides the default attribution).
 - D3: Keep existing URLs canonical (no path renames) and add aliases for the new IA — zero broken deep links, least risk (§10 tie-break rule 1).
+- D4: Trash is now persistent (`wos_trash`, 30 days) and stores raw row snapshots restored with INSERT OR IGNORE. Fixes a latent bug: undoing a semester/course delete lost `acad_results` (official grades) and could overwrite later edits of the parent semester (old applyImport-merge path). `server/trash.ts` (in-memory) removed; `/api/undo/:token` API unchanged.
+- D5: Owner display name moved to setting `profile.name` (migration 5 seeds «محمد»); no hard-coded name in logic.
+- D6: Academic deletes keep relations (they show as «عنصر محذوف» until restored); space-item deletes snapshot + drop their relations.
+
+## Step 4 result
+- Migration 5 (13 wos_* tables, additive). shared/wos.ts (types, zod, field kinds, filters/sort), shared/formula.ts (safe parser), shared/templates.ts (7 built-ins), server/wos/{core,repo,automations,agenda,routes}.ts.
+- New API: /api/wos/* (spaces, type, items, bulk, views, automations, templates, refs, relations, links, history+revert, trash, inbox, agenda, everything, shares, profile), /api/public/:token, /api/assessments/bulk, /api/notes/bulk, /api/library/bulk, /api/library/youtube/bulk-delete, /api/sports/workouts/bulk-delete. DELETE for YouTube/bookmark/workout now return `undo`.
+- Tests: 210/210 on both drivers (+28: tests/wos.test.ts, tests/formula.test.ts, tests/migration.test.ts on a copy of the real DB).

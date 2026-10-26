@@ -7,6 +7,7 @@ import { HttpError } from './routes.js';
 import { ValidationError } from './validation.js';
 import { newId, setSetting } from './repo.js';
 import * as lib from './library.js';
+import { record, snapshot, trashPut, workspaceOf } from './wos/core.js';
 import { MIME, driveUrls, parseYouTube } from '../shared/library.js';
 
 const require = createRequire(import.meta.url);
@@ -229,24 +230,74 @@ export function createLibraryRouter(ctx: Ctx): express.Router {
     if (b['course'] !== undefined) db().run('UPDATE lib_youtube SET course_hint = ? WHERE id = ?', str(b['course']).trim().toUpperCase().slice(0, 20) || null, id);
     res.json(lib.getItem(db(), `y:${id}`));
   }));
-  /** يحذف سجل الفيديو من الموقع فقط (لا علاقة له بملفات الجهاز). */
-  r.delete('/youtube/:id', wrap((req, res) => {
-    const id = str(req.params['id']);
-    const ref = `y:${id}`;
-    if (!lib.refExists(db(), ref)) throw new HttpError(404, 'الفيديو غير موجود');
-    db().tx(() => {
-      db().run('DELETE FROM lib_youtube WHERE id = ?', id);
-      db().run('DELETE FROM lib_tags WHERE ref = ?', ref);
-      db().run('DELETE FROM lib_meta WHERE ref = ?', ref);
-      db().run('DELETE FROM lib_bookmarks WHERE ref = ?', ref);
+  /** يحذف سجل الفيديو من الموقع فقط (لا علاقة له بملفات الجهاز) — مع تراجع وسلة محذوفات. */
+  const delVideos = (ids: string[]): { token: string; count: number } => {
+    const rows = ids.filter((id) => lib.refExists(db(), `y:${id}`));
+    if (!rows.length) throw new HttpError(404, 'الفيديو غير موجود');
+    const refs = rows.map((id) => `y:${id}`);
+    const ph = (a: string[]): string => a.map(() => '?').join(',');
+    const titles = rows.map((id) => db().get<{ title: string }>('SELECT title FROM lib_youtube WHERE id = ?', id)?.title ?? id);
+    const token = trashPut(db(), workspaceOf(), {
+      kind: 'library',
+      label: rows.length === 1 ? `الفيديو «${titles[0]}»` : `${rows.length} فيديو`,
+      sets: snapshot(db(), [
+        { table: 'lib_youtube', where: `id IN (${ph(rows)})`, params: rows },
+        { table: 'lib_tags', where: `ref IN (${ph(refs)})`, params: refs },
+        { table: 'lib_meta', where: `ref IN (${ph(refs)})`, params: refs },
+        { table: 'lib_bookmarks', where: `ref IN (${ph(refs)})`, params: refs },
+      ]),
     });
-    res.json({ ok: true });
+    db().tx(() => {
+      for (const [i, id] of rows.entries()) {
+        const ref = `y:${id}`;
+        db().run('DELETE FROM lib_youtube WHERE id = ?', id);
+        db().run('DELETE FROM lib_tags WHERE ref = ?', ref);
+        db().run('DELETE FROM lib_meta WHERE ref = ?', ref);
+        db().run('DELETE FROM lib_bookmarks WHERE ref = ?', ref);
+        record(db(), workspaceOf(), { ref: `lib:y:${id}`, action: 'delete', summary: `حُذف الفيديو «${titles[i]}»` });
+      }
+    });
+    return { token, count: rows.length };
+  };
+  r.delete('/youtube/:id', wrap((req, res) => {
+    const { token } = delVideos([str(req.params['id'])]);
+    res.json({ ok: true, undo: token });
+  }));
+  r.post('/youtube/bulk-delete', wrap((req, res) => {
+    const ids = (req.body as { ids?: unknown } | undefined)?.ids;
+    if (!Array.isArray(ids) || !ids.length || ids.some((x) => typeof x !== 'string')) throw new ValidationError({ ids: 'اختر فيديو واحدًا على الأقل' });
+    const { token, count } = delVideos(ids as string[]);
+    res.json({ ok: true, count, undo: token });
+  }));
+
+  /** عمليات جماعية على عناصر المكتبة: وسم / إزالة وسم / تم / لم يتم */
+  r.post('/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { refs?: unknown; op?: unknown; tag?: unknown };
+    if (!Array.isArray(b.refs) || !b.refs.length || b.refs.length > 1000 || b.refs.some((x) => typeof x !== 'string')) throw new ValidationError({ refs: 'اختر عنصرًا واحدًا على الأقل' });
+    const refs = (b.refs as string[]).filter((r0) => lib.refExists(db(), r0));
+    const op = str(b.op);
+    const tag = lib.normalizeTags([str(b.tag)])[0];
+    if ((op === 'tag' || op === 'untag') && !tag) throw new ValidationError({ tag: 'الوسم مطلوب' });
+    db().tx(() => {
+      for (const ref of refs) {
+        const it = lib.getItem(db(), ref);
+        if (!it) continue;
+        if (op === 'tag') lib.setTags(db(), ref, [...new Set([...it.tags, tag!])]);
+        else if (op === 'untag') lib.setTags(db(), ref, it.tags.filter((t) => t.toLowerCase() !== tag!.toLowerCase()));
+        else if (op === 'done' || op === 'undone') lib.patchMeta(db(), ref, { done: op === 'done' });
+        else throw new ValidationError({ op: 'عملية غير معروفة' });
+      }
+      record(db(), workspaceOf(), { ref: 'lib:bulk', action: 'update', summary: `${op === 'tag' ? `وسم «${tag}»` : op === 'untag' ? `إزالة وسم «${tag}»` : op === 'done' ? 'تعليم كمنجز' : 'إلغاء الإنجاز'} لـ ${refs.length} عنصر` });
+    });
+    res.json({ ok: true, count: refs.length });
   }));
 
   /* ── الوسوم / الملاحظات / التقدّم / العلامات ── */
   r.put('/tags/:ref', wrap((req, res) => {
     const ref = refOr404(str(req.params['ref']));
-    lib.setTags(db(), ref, lib.normalizeTags((req.body as { tags?: unknown } | undefined)?.tags));
+    const tags = lib.normalizeTags((req.body as { tags?: unknown } | undefined)?.tags);
+    lib.setTags(db(), ref, tags);
+    record(db(), workspaceOf(), { ref: `lib:${ref}`, action: 'update', summary: `وسوم «${lib.getItem(db(), ref)?.title ?? ref}»: ${tags.join('، ') || 'بلا وسوم'}` });
     res.json(lib.getItem(db(), ref));
   }));
   r.put('/meta/:ref', wrap((req, res) => {
@@ -266,6 +317,7 @@ export function createLibraryRouter(ctx: Ctx): express.Router {
     }
     if (b['done'] !== undefined) p.done = b['done'] === true;
     lib.patchMeta(db(), ref, p);
+    if (p.note !== undefined || p.done !== undefined) record(db(), workspaceOf(), { ref: `lib:${ref}`, action: 'update', summary: `«${lib.getItem(db(), ref)?.title ?? ref}»: ${p.done !== undefined ? (p.done ? 'تم' : 'لم يتم') : 'تعديل الملاحظة'}` });
     res.json(lib.getItem(db(), ref));
   }));
   r.post('/open/:ref', wrap((req, res) => {
@@ -288,9 +340,11 @@ export function createLibraryRouter(ctx: Ctx): express.Router {
     res.json({ ok: true });
   }));
   r.delete('/bookmark/:id', wrap((req, res) => {
-    const n = db().run('DELETE FROM lib_bookmarks WHERE id = ?', str(req.params['id'])).changes;
-    if (!n) throw new HttpError(404, 'العلامة غير موجودة');
-    res.json({ ok: true });
+    const id = str(req.params['id']);
+    if (!db().get('SELECT 1 FROM lib_bookmarks WHERE id = ?', id)) throw new HttpError(404, 'العلامة غير موجودة');
+    const token = trashPut(db(), workspaceOf(), { kind: 'library', label: 'علامة مرجعية', sets: snapshot(db(), [{ table: 'lib_bookmarks', where: 'id = ?', params: [id] }]) });
+    db().run('DELETE FROM lib_bookmarks WHERE id = ?', id);
+    res.json({ ok: true, undo: token });
   }));
 
   return r;

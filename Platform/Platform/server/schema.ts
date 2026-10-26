@@ -221,6 +221,160 @@ CREATE TABLE pkg_imports (
 );
 `,
   },
+  {
+    id: 5,
+    name: 'work-os core (spaces, types, items, views, relations, history, trash, automations, inbox, shares, templates)',
+    sql: `
+CREATE TABLE wos_workspaces (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+INSERT INTO wos_workspaces (id, name, created_at) VALUES ('default', 'مساحة العمل', strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));
+-- اسم المالك كان مثبتًا في الواجهة؛ صار إعدادًا قابلًا للتغيير (لإعطاء الموقع لصديق)
+INSERT OR IGNORE INTO core_settings (key, value) VALUES ('profile.name', 'محمد');
+CREATE TABLE wos_types (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default' REFERENCES wos_workspaces(id),
+  name TEXT NOT NULL,
+  icon TEXT NOT NULL DEFAULT 'layers',
+  color TEXT NOT NULL DEFAULT '#5B45F0',
+  fields TEXT NOT NULL DEFAULT '[]',
+  statuses TEXT NOT NULL DEFAULT '[]',
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE wos_spaces (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default' REFERENCES wos_workspaces(id),
+  type_id TEXT NOT NULL REFERENCES wos_types(id),
+  name TEXT NOT NULL,
+  icon TEXT NOT NULL DEFAULT 'layers',
+  color TEXT NOT NULL DEFAULT '#5B45F0',
+  description TEXT,
+  sort INTEGER NOT NULL DEFAULT 0,
+  archived INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX wos_spaces_ws ON wos_spaces(workspace_id, sort);
+CREATE TABLE wos_items (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default' REFERENCES wos_workspaces(id),
+  space_id TEXT NOT NULL REFERENCES wos_spaces(id) ON DELETE CASCADE,
+  parent_id TEXT REFERENCES wos_items(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  status TEXT,
+  data TEXT NOT NULL DEFAULT '{}',
+  start TEXT,
+  due TEXT,
+  sort INTEGER NOT NULL DEFAULT 0,
+  archived INTEGER NOT NULL DEFAULT 0,
+  done_at TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX wos_items_space ON wos_items(space_id, sort);
+CREATE INDEX wos_items_parent ON wos_items(parent_id);
+CREATE INDEX wos_items_due ON wos_items(workspace_id, due);
+CREATE TABLE wos_views (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default' REFERENCES wos_workspaces(id),
+  scope TEXT NOT NULL,
+  name TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  config TEXT NOT NULL DEFAULT '{}',
+  sort INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX wos_views_scope ON wos_views(workspace_id, scope, sort);
+CREATE TABLE wos_relations (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default' REFERENCES wos_workspaces(id),
+  src TEXT NOT NULL,
+  dst TEXT NOT NULL,
+  kind TEXT NOT NULL DEFAULT 'relates',
+  created_at TEXT NOT NULL
+);
+CREATE UNIQUE INDEX wos_relations_u ON wos_relations(workspace_id, src, dst, kind);
+CREATE INDEX wos_relations_dst ON wos_relations(workspace_id, dst);
+CREATE TABLE wos_history (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  ref TEXT NOT NULL,
+  action TEXT NOT NULL,
+  summary TEXT NOT NULL,
+  before TEXT,
+  after TEXT,
+  actor TEXT NOT NULL DEFAULT 'user',
+  reverted INTEGER NOT NULL DEFAULT 0,
+  at TEXT NOT NULL
+);
+CREATE INDEX wos_history_ref ON wos_history(workspace_id, ref, at);
+CREATE INDEX wos_history_at ON wos_history(workspace_id, at);
+CREATE TABLE wos_trash (
+  token TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  label TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  make_active TEXT,
+  deleted_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL,
+  restored_at TEXT
+);
+CREATE INDEX wos_trash_at ON wos_trash(workspace_id, deleted_at);
+CREATE TABLE wos_automations (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  space_id TEXT NOT NULL REFERENCES wos_spaces(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  enabled INTEGER NOT NULL DEFAULT 1,
+  trigger TEXT NOT NULL,
+  action TEXT NOT NULL,
+  runs INTEGER NOT NULL DEFAULT 0,
+  last_run TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE wos_auto_fired (
+  automation_id TEXT NOT NULL,
+  item_id TEXT NOT NULL,
+  key TEXT NOT NULL,
+  at TEXT NOT NULL,
+  PRIMARY KEY (automation_id, item_id, key)
+);
+CREATE TABLE wos_inbox (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  ref TEXT,
+  title TEXT NOT NULL,
+  body TEXT,
+  source TEXT NOT NULL,
+  read INTEGER NOT NULL DEFAULT 0,
+  at TEXT NOT NULL
+);
+CREATE INDEX wos_inbox_at ON wos_inbox(workspace_id, read, at);
+CREATE TABLE wos_shares (
+  token TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  scope TEXT NOT NULL,
+  view_id TEXT,
+  revoked INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE wos_templates (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  name TEXT NOT NULL,
+  description TEXT,
+  icon TEXT NOT NULL DEFAULT 'layers',
+  color TEXT NOT NULL DEFAULT '#5B45F0',
+  payload TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

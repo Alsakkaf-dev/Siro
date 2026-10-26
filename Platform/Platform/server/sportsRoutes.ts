@@ -4,6 +4,7 @@ import { HttpError } from './routes.js';
 import { ValidationError } from './validation.js';
 import { getSetting, newId, setSetting } from './repo.js';
 import type { Db } from './db.js';
+import { record, snapshot, trashPut, workspaceOf } from './wos/core.js';
 import { WEEKDAYS, type MyItem, type MyWeek, type MyWorkout } from '../shared/sports.js';
 
 /** تمريني: يُحفظ في قاعدة الموقع فقط، لا في ملفات راشد. المحتوى (أسماء التمارين) لقطة وقت الإضافة كي لا يضيع إن تغيّر الملف. */
@@ -104,6 +105,7 @@ export function createSportsRouter(ctx: Ctx): express.Router {
       db().run('INSERT INTO spt_workouts (id, name, note, sort, created_at, updated_at) VALUES (?,?,?,?,?,?)', id, name, note, max + 1, now, now);
       writeItems(db(), id, items);
     });
+    record(db(), workspaceOf(), { ref: `spt:w:${id}`, action: 'create', summary: `أُنشئ التمرين «${name}»` });
     res.status(201).json(one(id));
   }));
 
@@ -127,15 +129,39 @@ export function createSportsRouter(ctx: Ctx): express.Router {
     res.json(one(id));
   }));
 
+  const delWorkouts = (ids: string[]): string => {
+    const ws = loadAll(db()).workouts.filter((w) => ids.includes(w.id));
+    if (!ws.length) throw new HttpError(404, 'التمرين غير موجود');
+    const ph = ws.map(() => '?').join(',');
+    const wids = ws.map((w) => w.id);
+    const token = trashPut(db(), workspaceOf(), {
+      kind: 'sports',
+      label: ws.length === 1 ? `التمرين «${ws[0]!.name}»` : `${ws.length} تمارين`,
+      sets: snapshot(db(), [
+        { table: 'spt_workouts', where: `id IN (${ph})`, params: wids },
+        { table: 'spt_items', where: `workout_id IN (${ph})`, params: wids },
+      ]),
+    });
+    // ملاحظة: إسناد الأيام لا يُستعاد تلقائيًا (قد يكون المستخدم أسند يومًا آخر بعد الحذف)
+    db().tx(() => {
+      for (const w of ws) {
+        db().run('UPDATE spt_week SET workout_id = NULL WHERE workout_id = ?', w.id);
+        db().run('DELETE FROM spt_items WHERE workout_id = ?', w.id);
+        db().run('DELETE FROM spt_workouts WHERE id = ?', w.id);
+        record(db(), workspaceOf(), { ref: `spt:w:${w.id}`, action: 'delete', summary: `حُذف التمرين «${w.name}»` });
+      }
+    });
+    return token;
+  };
   r.delete('/workouts/:id', wrap((req, res) => {
     const id = str(req.params['id']);
     one(id);
-    db().tx(() => {
-      db().run('UPDATE spt_week SET workout_id = NULL WHERE workout_id = ?', id);
-      db().run('DELETE FROM spt_items WHERE workout_id = ?', id);
-      db().run('DELETE FROM spt_workouts WHERE id = ?', id);
-    });
-    res.json({ ok: true });
+    res.json({ ok: true, undo: delWorkouts([id]) });
+  }));
+  r.post('/workouts/bulk-delete', wrap((req, res) => {
+    const ids = (req.body as { ids?: unknown } | undefined)?.ids;
+    if (!Array.isArray(ids) || !ids.length || ids.some((x) => typeof x !== 'string')) throw new ValidationError({ ids: 'اختر تمرينًا واحدًا على الأقل' });
+    res.json({ ok: true, undo: delWorkouts(ids as string[]) });
   }));
 
   r.put('/order', wrap((req, res) => {
