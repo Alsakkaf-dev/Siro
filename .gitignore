@@ -1,0 +1,8 @@
+# Files over GitHub's 100 MB limit, kept on this PC only
+NOT_UPLOADED_Too_Large_For_GitHub/
+
+# Never upload: env files and the maintenance browser profile
+.env
+.env.*
+maintenance_browser/
+Bachelor in Software Engineering - Copy/
