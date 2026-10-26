@@ -1,0 +1,90 @@
+[
+  {
+    "name": "No watch credit beyond source duration",
+    "status": "PASS"
+  },
+  {
+    "name": "Tracking arithmetic, pause, seek, hidden, replay, rate and sleep",
+    "status": "PASS"
+  },
+  {
+    "name": "Invalid rate and non-finite timing cannot poison records",
+    "status": "PASS"
+  },
+  {
+    "name": "Strict imports, legacy migration and all 18 stage gates",
+    "status": "PASS"
+  },
+  {
+    "name": "Fresh locks, keyboard tabs, modal Escape, focus label reset",
+    "status": "PASS"
+  },
+  {
+    "name": "Unexpected URL hash falls back to a usable screen",
+    "status": "PASS"
+  },
+  {
+    "name": "Post-ready player failure exposes an operable Retry",
+    "status": "PASS"
+  },
+  {
+    "name": "Live tracking: threshold, XP once, pause, seek, hidden, reload and keyboard focus",
+    "status": "PASS"
+  },
+  {
+    "name": "Offline YouTube API fails clearly and recovers on retry",
+    "status": "PASS"
+  },
+  {
+    "name": "Storage quota failure is visible and in-memory notes can still export",
+    "status": "PASS"
+  },
+  {
+    "name": "All 169 videos select correct IDs and all 18 stages render",
+    "status": "PASS"
+  },
+  {
+    "name": "Final project is not labelled complete before practice",
+    "status": "PASS"
+  },
+  {
+    "name": "Notes/timestamps/bookmarks survive rapid switching and reload",
+    "status": "PASS"
+  },
+  {
+    "name": "Valid export/import, malformed JSON, bad schema and oversize preserve progress",
+    "status": "PASS"
+  },
+  {
+    "name": "Corrupt saved data is preserved and can be exported",
+    "status": "PASS"
+  },
+  {
+    "name": "Cleared storage does not resurrect old progress on reload",
+    "status": "PASS"
+  },
+  {
+    "name": "Two tabs synchronise notes, practice, favourites and player ownership",
+    "status": "PASS"
+  },
+  {
+    "name": "Responsive 320px, light theme and navigation",
+    "status": "PASS"
+  },
+  {
+    "name": "Responsive 390px, light theme and navigation",
+    "status": "PASS"
+  },
+  {
+    "name": "Responsive 768px, light theme and navigation",
+    "status": "PASS"
+  },
+  {
+    "name": "Responsive 1024px, light theme and navigation",
+    "status": "PASS"
+  },
+  {
+    "name": "Responsive 1440px, light theme and navigation",
+    "status": "PASS"
+  }
+]

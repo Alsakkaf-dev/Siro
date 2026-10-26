@@ -1,0 +1,754 @@
+{
+  "status": {
+    "started": false,
+    "started_confidence": "مثبت",
+    "note_ar": "محمد قال إن الأنظمة مبنية ولم يبدأ أي منها، وقال يوم 25 أكتوبر إنها تبدأ من بكرة. ما في تأكيد بداية حتى الآن."
+  },
+  "unknown_is_not_zero_ar": "القيمة الفارغة تعني غير معروف وليست صفر.",
+  "habits": [
+    {
+      "key": "vape",
+      "name_ar": "تقليل الفيب",
+      "kind": "taper",
+      "unit": "minutes",
+      "priority": 3,
+      "rule_ar": "نقلل 20 دقيقة من وقت الفيب كل يوم. يوم 18 أكتوبر 2026 هو اليوم 1.",
+      "rule_confidence": "مثبت",
+      "start_date": "2026-10-18",
+      "step_per_day": 20,
+      "baseline_daily_minutes": null,
+      "baseline_note_ar": "وقت الفيب الأساسي لم يُسجل.",
+      "targets_confidence": "محسوب",
+      "targets": [
+        {
+          "date": "2026-10-18",
+          "plan_day": 1,
+          "reduction_min": 20
+        },
+        {
+          "date": "2026-10-19",
+          "plan_day": 2,
+          "reduction_min": 40
+        },
+        {
+          "date": "2026-10-20",
+          "plan_day": 3,
+          "reduction_min": 60
+        },
+        {
+          "date": "2026-10-21",
+          "plan_day": 4,
+          "reduction_min": 80
+        },
+        {
+          "date": "2026-10-22",
+          "plan_day": 5,
+          "reduction_min": 100
+        },
+        {
+          "date": "2026-10-23",
+          "plan_day": 6,
+          "reduction_min": 120
+        },
+        {
+          "date": "2026-10-24",
+          "plan_day": 7,
+          "reduction_min": 140
+        },
+        {
+          "date": "2026-10-25",
+          "plan_day": 8,
+          "reduction_min": 160
+        },
+        {
+          "date": "2026-10-26",
+          "plan_day": 9,
+          "reduction_min": 180
+        },
+        {
+          "date": "2026-10-27",
+          "plan_day": 10,
+          "reduction_min": 200
+        },
+        {
+          "date": "2026-10-28",
+          "plan_day": 11,
+          "reduction_min": 220
+        },
+        {
+          "date": "2026-10-29",
+          "plan_day": 12,
+          "reduction_min": 240
+        },
+        {
+          "date": "2026-10-30",
+          "plan_day": 13,
+          "reduction_min": 260
+        },
+        {
+          "date": "2026-10-31",
+          "plan_day": 14,
+          "reduction_min": 280
+        }
+      ],
+      "targets_end_note_ar": "لا يوجد سقف أو تاريخ نهاية مسجل. الجدول يمتد 14 يوم فقط.",
+      "today": {
+        "date": "2026-10-26",
+        "plan_day": 9,
+        "reduction_min": 180,
+        "confidence": "محسوب"
+      },
+      "no_vape_windows_ar": "لا فيب من 5:00 إلى 5:30 صباحاً ومن 10:00 إلى 11:00 مساءً",
+      "no_vape_confidence": "مثبت",
+      "log": [
+        {
+          "date": "2026-10-13",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-14",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-15",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-16",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-17",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-18",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-19",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-20",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-21",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يُطبق تقليل الفيب"
+        },
+        {
+          "date": "2026-10-23",
+          "kept_limit": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يلتزم إطلاقاً"
+        },
+        {
+          "date": "2026-10-25",
+          "kept_limit": "unknown",
+          "confidence": "مثبت",
+          "note_ar": "التقليل لم يبدأ"
+        }
+      ],
+      "counters": {
+        "days_logged": 11,
+        "days_kept": 0,
+        "days_not_kept": 10,
+        "days_unknown": 1,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "relapses": [],
+        "confidence": "محسوب"
+      }
+    },
+    {
+      "key": "tea_sugar",
+      "name_ar": "سكر الشاي",
+      "kind": "taper",
+      "unit": "grams",
+      "priority": 2,
+      "rule_ar": "الحد 70 غرام ناقص 3 غرام كل يوم. يوم 18 أكتوبر 2026 هو أول يوم وحده 67 غرام. يصير صفر من 10 نوفمبر.",
+      "rule_confidence": "مثبت",
+      "start_date": "2026-10-18",
+      "start_limit_g": 67,
+      "step_per_day": -3,
+      "zero_from": "2026-11-10",
+      "zero_from_confidence": "محسوب",
+      "targets_confidence": "محسوب",
+      "targets": [
+        {
+          "date": "2026-10-18",
+          "plan_day": 1,
+          "sugar_limit_g": 67
+        },
+        {
+          "date": "2026-10-19",
+          "plan_day": 2,
+          "sugar_limit_g": 64
+        },
+        {
+          "date": "2026-10-20",
+          "plan_day": 3,
+          "sugar_limit_g": 61
+        },
+        {
+          "date": "2026-10-21",
+          "plan_day": 4,
+          "sugar_limit_g": 58
+        },
+        {
+          "date": "2026-10-22",
+          "plan_day": 5,
+          "sugar_limit_g": 55
+        },
+        {
+          "date": "2026-10-23",
+          "plan_day": 6,
+          "sugar_limit_g": 52
+        },
+        {
+          "date": "2026-10-24",
+          "plan_day": 7,
+          "sugar_limit_g": 49
+        },
+        {
+          "date": "2026-10-25",
+          "plan_day": 8,
+          "sugar_limit_g": 46
+        },
+        {
+          "date": "2026-10-26",
+          "plan_day": 9,
+          "sugar_limit_g": 43
+        },
+        {
+          "date": "2026-10-27",
+          "plan_day": 10,
+          "sugar_limit_g": 40
+        },
+        {
+          "date": "2026-10-28",
+          "plan_day": 11,
+          "sugar_limit_g": 37
+        },
+        {
+          "date": "2026-10-29",
+          "plan_day": 12,
+          "sugar_limit_g": 34
+        },
+        {
+          "date": "2026-10-30",
+          "plan_day": 13,
+          "sugar_limit_g": 31
+        },
+        {
+          "date": "2026-10-31",
+          "plan_day": 14,
+          "sugar_limit_g": 28
+        },
+        {
+          "date": "2026-11-01",
+          "plan_day": 15,
+          "sugar_limit_g": 25
+        },
+        {
+          "date": "2026-11-02",
+          "plan_day": 16,
+          "sugar_limit_g": 22
+        },
+        {
+          "date": "2026-11-03",
+          "plan_day": 17,
+          "sugar_limit_g": 19
+        },
+        {
+          "date": "2026-11-04",
+          "plan_day": 18,
+          "sugar_limit_g": 16
+        },
+        {
+          "date": "2026-11-05",
+          "plan_day": 19,
+          "sugar_limit_g": 13
+        },
+        {
+          "date": "2026-11-06",
+          "plan_day": 20,
+          "sugar_limit_g": 10
+        },
+        {
+          "date": "2026-11-07",
+          "plan_day": 21,
+          "sugar_limit_g": 7
+        },
+        {
+          "date": "2026-11-08",
+          "plan_day": 22,
+          "sugar_limit_g": 4
+        },
+        {
+          "date": "2026-11-09",
+          "plan_day": 23,
+          "sugar_limit_g": 1
+        },
+        {
+          "date": "2026-11-10",
+          "plan_day": 24,
+          "sugar_limit_g": 0
+        }
+      ],
+      "today": {
+        "date": "2026-10-26",
+        "plan_day": 9,
+        "sugar_limit_g": 43,
+        "confidence": "محسوب"
+      },
+      "extra_rules_ar": [
+        "آخر شاي قبل الساعة 12:00 ظهراً",
+        "لا شاي من 10:00 إلى 11:00 مساءً"
+      ],
+      "extra_rules_confidence": "مثبت",
+      "log": [
+        {
+          "date": "2026-10-13",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-14",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-15",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-16",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-17",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-18",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-19",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-20",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-21",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "السكر لم يُحسب"
+        },
+        {
+          "date": "2026-10-23",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "النظام لم يبدأ"
+        },
+        {
+          "date": "2026-10-25",
+          "actual_sugar_g": null,
+          "confidence": "مثبت",
+          "note_ar": "التقليل لم يبدأ"
+        }
+      ],
+      "counters": {
+        "days_logged": 11,
+        "days_within_limit": 0,
+        "days_over_limit": 0,
+        "days_unknown": 11,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "relapses": [],
+        "confidence": "محسوب"
+      }
+    },
+    {
+      "key": "water",
+      "name_ar": "الماء",
+      "kind": "daily_target",
+      "unit": "liters",
+      "priority": 4,
+      "target": 3,
+      "target_confidence": "مثبت",
+      "log": [
+        {
+          "date": "2026-10-23",
+          "water_l": null,
+          "confidence": "مثبت",
+          "note_ar": "لم يُتتبع"
+        }
+      ],
+      "counters": {
+        "days_logged": 0,
+        "days_on_target": 0,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "confidence": "محسوب"
+      }
+    },
+    {
+      "key": "sleep",
+      "name_ar": "النوم",
+      "kind": "daily_target",
+      "unit": "time",
+      "priority": 5,
+      "target_bedtime": "22:30",
+      "target_bedtime_note_ar": "إطفاء الأنوار 10:30 مساءً",
+      "target_confidence": "مثبت",
+      "wake_time_calendar": "05:00",
+      "wake_confidence": "مثبت",
+      "log": [
+        {
+          "date": "2026-10-23",
+          "bed_time": null,
+          "wake_time": null,
+          "on_target": false,
+          "confidence": "مثبت",
+          "note_ar": "نام بعد الفجر، متأخر وخارج الجدول. الوقت الدقيق غير معروف."
+        }
+      ],
+      "counters": {
+        "days_logged": 1,
+        "days_on_target": 0,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "confidence": "محسوب"
+      }
+    },
+    {
+      "key": "food",
+      "name_ar": "السعرات والبروتين",
+      "kind": "daily_target",
+      "unit": "kcal",
+      "target_kcal": 1500,
+      "target_kcal_confidence": "مثبت",
+      "target_protein_g": 120,
+      "target_protein_note_ar": "تقريباً",
+      "target_protein_confidence": "مثبت",
+      "log": [
+        {
+          "date": "2026-10-22",
+          "kcal_estimate": 787,
+          "protein_g_estimate": 31,
+          "confidence": "افتراض",
+          "note_ar": "تقدير من وجبات قالها محمد (5 شرائح توست، 4 ملاعق جبن، بيضتان، زيت). المدى 700 إلى 880."
+        }
+      ],
+      "counters": {
+        "days_logged": 1,
+        "days_on_target": 0,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "confidence": "محسوب"
+      }
+    },
+    {
+      "key": "workout",
+      "name_ar": "التمرين والمشي",
+      "kind": "schedule",
+      "unit": "sessions",
+      "priority": 1,
+      "time_slot": {
+        "start": "06:15",
+        "end": "07:15",
+        "confidence": "افتراض",
+        "note_ar": "الموعد مذكور في ملفات الخطة ولم يُوضع في التقويم"
+      },
+      "week_plan_confidence": "افتراض",
+      "week_plan": [
+        {
+          "day": "sat",
+          "day_ar": "السبت",
+          "type": "strength_A",
+          "type_ar": "تمرين قوة A"
+        },
+        {
+          "day": "sun",
+          "day_ar": "الأحد",
+          "type": "strength_B",
+          "type_ar": "تمرين قوة B"
+        },
+        {
+          "day": "mon",
+          "day_ar": "الإثنين",
+          "type": "walk",
+          "type_ar": "مشي"
+        },
+        {
+          "day": "tue",
+          "day_ar": "الثلاثاء",
+          "type": "strength_A",
+          "type_ar": "تمرين قوة A"
+        },
+        {
+          "day": "wed",
+          "day_ar": "الأربعاء",
+          "type": "strength_B",
+          "type_ar": "تمرين قوة B"
+        },
+        {
+          "day": "thu",
+          "day_ar": "الخميس",
+          "type": "walk",
+          "type_ar": "مشي"
+        },
+        {
+          "day": "fri",
+          "day_ar": "الجمعة",
+          "type": "walk",
+          "type_ar": "مشي (والسباحة اقتراح)"
+        }
+      ],
+      "swim_note_ar": "السباحة مقترحة الجمعة أو السبت العصر.",
+      "today": {
+        "date": "2026-10-26",
+        "day_ar": "الإثنين",
+        "type": "walk",
+        "type_ar": "مشي",
+        "confidence": "افتراض"
+      },
+      "walk_laps_length_m": 365,
+      "walk_laps_note_ar": "طول اللفة 365 متر حسب عمود السجل",
+      "walk_laps_confidence": "افتراض",
+      "log": [
+        {
+          "date": "2026-10-13",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-14",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-15",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-16",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-17",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-18",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-19",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-20",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-21",
+          "done": "no",
+          "confidence": "مثبت",
+          "note_ar": "لم يتمرن"
+        },
+        {
+          "date": "2026-10-23",
+          "done": null,
+          "confidence": "مثبت",
+          "note_ar": "المشي لم يُتتبع"
+        },
+        {
+          "date": "2026-10-25",
+          "done": null,
+          "confidence": "مثبت",
+          "note_ar": "التمرين لم يبدأ"
+        }
+      ],
+      "counters": {
+        "days_logged": 11,
+        "days_done": 0,
+        "days_not_done": 9,
+        "days_unknown": 2,
+        "current_streak_days": 0,
+        "best_streak_days": 0,
+        "confidence": "محسوب"
+      }
+    }
+  ],
+  "daily_summary": [
+    {
+      "date": "2026-10-13",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-14",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-15",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-16",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-17",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-18",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-19",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-20",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-21",
+      "vape_kept": "no",
+      "trained": "no",
+      "confidence": "مثبت"
+    },
+    {
+      "date": "2026-10-22",
+      "kcal": 787,
+      "spent_rm": 19.9,
+      "confidence": "افتراض"
+    },
+    {
+      "date": "2026-10-23",
+      "prayers_on_time": 0,
+      "vape_kept": "no",
+      "spent_rm": 0.0,
+      "weight_kg": null,
+      "confidence": "مثبت"
+    }
+  ],
+  "streak_definition_ar": "السلسلة (streak) هي عدد الأيام المتتالية اللي التزم فيها بالحد. اليوم غير المعروف يوقف العد ولا يُحسب التزام.",
+  "unrecorded_inputs_title_ar": "حقول جاهزة للتعبئة (فارغة لأن محمد ما سجلها). لا تُكتب فيها قيمة إلا بعد ما يقولها محمد.",
+  "unrecorded_inputs": {
+    "vape_baseline_per_day": {
+      "value": null,
+      "unit": "minutes",
+      "note_ar": "وقت الفيب الأساسي في اليوم بالدقائق: لم يُسجل. ملف فارس القديم يذكر تقريباً 24 ساعة نافذة فعلية إلى 4 ساعات خلال 4 أسابيع، لكنه اقتراح وليس رقم محمد.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "تحويل «تقليل 180 دقيقة» إلى رقم فعلي",
+      "related": "R-003"
+    },
+    "vape_end_goal": {
+      "value": null,
+      "unit": null,
+      "note_ar": "هدف نهاية تقليل الفيب (صفر أو رقم) وتاريخه: غير مسجل.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "نهاية رسم التقليل",
+      "related": "R-003"
+    },
+    "habits_start_date": {
+      "value": null,
+      "unit": "date",
+      "note_ar": "تاريخ بداية الأنظمة الفعلي: محمد قال إنها تبدأ 26 أكتوبر، ولا يوجد تأكيد بداية بعد.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "بداية السلاسل والعدادات",
+      "related": "R-003"
+    },
+    "workout_location": {
+      "value": null,
+      "unit": "home/gym",
+      "note_ar": "مكان التمرين (بيت أو جيم): لم يقرره محمد.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "اختيار قالب التمرين من docs\\SPORTS_PLANS_AR.json"
+    },
+    "workout_equipment": {
+      "value": null,
+      "unit": null,
+      "note_ar": "المعدات المتوفرة: ملفات فارس القديمة تذكر دمبلين 5 كجم داخل البيت، ولم يؤكد محمد.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "تحديد التمارين المناسبة"
+    },
+    "workout_days_per_week": {
+      "value": null,
+      "unit": "days",
+      "note_ar": "عدد أيام التمرين في الأسبوع (3 أو 4 أو 5): لم يختره محمد.",
+      "confidence": "غير مسجل",
+      "needed_for_ar": "اختيار قالب التمرين"
+    }
+  }
+}

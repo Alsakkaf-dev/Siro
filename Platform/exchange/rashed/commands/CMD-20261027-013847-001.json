@@ -1,0 +1,14 @@
+{
+  "id": "CMD-20261027-013847-001",
+  "created_at": "2026-10-27T01:38:47+08:00",
+  "type": "log_prayer",
+  "payload": {
+    "date": "2026-10-25",
+    "prayer": "maghrib",
+    "status": "missed",
+    "kind": "fard",
+    "note_ar": "لم اصليها في وقتها"
+  },
+  "status": "pending",
+  "created_by": "site"
+}

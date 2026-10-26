@@ -1,0 +1,390 @@
+{
+  "version": 10,
+  "generated_at": "2026-10-26T23:02:24+08:00",
+  "exported_at": "2026-10-26T23:02:24+08:00",
+  "timestamps_note_ar": "generated_at = وقت آخر تحديث لبيانات الملف (مثل آخر رصيد أو آخر تسجيل صلاة)، وهو اللي يعتمد عليه الموقع في القِدم مع stale_after_hours. exported_at = وقت كتابة الملف في المجلد. الاثنين ممكن يختلفون: تصدير جديد بنفس البيانات يغيّر exported_at بس.",
+  "timezone": "Asia/Kuala_Lumpur",
+  "writer": "راشد",
+  "read_only": true,
+  "folders_ar": {
+    "root": "ملفات JSON فقط",
+    "docs": "الوثائق وملفات JSON للموقع",
+    "commands": "أوامر الموقع (لا تنفيذ بدون موافقة محمد)"
+  },
+  "files": [
+    {
+      "name": "finance.json",
+      "type": "json",
+      "description_ar": "المال: الأرصدة وتطورها والبنود المفتوحة وآخر 60 حركة وجدول التحويل وحقول جاهزة",
+      "bytes": 49912,
+      "generated_at": "2026-10-26T14:20:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "آخر رصيد وحركة مسجلة: 26 أكتوبر 2:20 م (النسخة 48 من ملف الحالة، ووقت آخر تعديل لـ LEDGER.csv)",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "prayers.json",
+      "type": "json",
+      "description_ar": "الصلاة: الحضور اليومي والقضاء حسب اسم الصلاة",
+      "bytes": 7818,
+      "generated_at": "2026-10-25T18:35:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "آخر تحديث للقضاء: 25 أكتوبر 6:35 م (النسخة 47). ما فيه تسجيل صلاة ليوم 26 أكتوبر",
+      "stale_after_hours": 12,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "habits.json",
+      "type": "json",
+      "description_ar": "العادات: الأهداف والعدادات والسلاسل وحقول جاهزة",
+      "bytes": 21157,
+      "generated_at": "2026-10-25T18:35:00+08:00",
+      "exported_at": "2026-10-26T19:36:56+08:00",
+      "generated_at_basis_ar": "آخر معلومة عن العادات: 25 أكتوبر 6:35 م (النسخة 47: الأنظمة تبدأ بعد). آخر تعديل لسجلات العادات 25 أكتوبر 2:39 ص",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "routine.json",
+      "type": "json",
+      "description_ar": "الروتين: الكتل الثابتة اليومية والأسبوعية",
+      "bytes": 17425,
+      "generated_at": "2026-10-23T22:29:00+08:00",
+      "exported_at": "2026-10-26T18:00:00+08:00",
+      "generated_at_basis_ar": "آخر قرار على الروتين والتقويم: D-R-039 يوم 23 أكتوبر 10:29 م",
+      "stale_after_hours": 168,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "ledger_full.json",
+      "type": "json",
+      "description_ar": "السجل المالي الكامل: كل صفوف LEDGER.csv بأعمدتها (أرقام كأرقام)",
+      "bytes": 54335,
+      "generated_at": "2026-10-26T14:20:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "آخر رصيد وحركة مسجلة: 26 أكتوبر 2:20 م (النسخة 48 من ملف الحالة، ووقت آخر تعديل لـ LEDGER.csv)",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "body.json",
+      "type": "json",
+      "description_ar": "الجسم: الطول والوزن والدهون والهدف وسجل الوزن وحقول جاهزة",
+      "bytes": 5472,
+      "generated_at": "2026-10-23T22:14:44+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "آخر تسجيل للجسم: 23 أكتوبر 10:14 م (وزن 83.65). القياسات الثانية من 21 أكتوبر. في النسخة 10 تصحح تاريخ خط الأساس فقط (17 أكتوبر)، والبيانات ما تغيرت",
+      "stale_after_hours": 168,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "dashboard_summary.json",
+      "type": "json",
+      "description_ar": "ملخص الشاشة الرئيسية",
+      "bytes": 7311,
+      "generated_at": "2026-10-26T14:20:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "أحدث بيانات فيه: رصيد 26 أكتوبر 2:20 م. وجزء القضاء فيه من 25 أكتوبر 6:35 م",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/DATA_DICTIONARY_AR.md",
+      "type": "md",
+      "description_ar": "قاموس البيانات: شرح كل حقل",
+      "bytes": 47202,
+      "generated_at": "2026-10-26T23:01:45+08:00",
+      "exported_at": "2026-10-26T23:01:45+08:00",
+      "generated_at_basis_ar": "ملف شرح، تحدّث في النسخة 10 وأُضيف له سطر ملف التسليم",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/PROPOSALS.md",
+      "type": "md",
+      "description_ar": "مقترحات تصميم: صناديق الميزانية وعدادات العادات والرياضة",
+      "bytes": 5764,
+      "generated_at": "2026-10-26T22:52:12+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "ملف مقترحات، تحدّث في النسخة 10 (توحيد الوزن)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/FINANCE_SPEC_AR.md",
+      "type": "md",
+      "description_ar": "مواصفات المال وقواعد الصناديق وفئات المصاريف",
+      "bytes": 7469,
+      "generated_at": "2026-10-26T18:03:52+08:00",
+      "exported_at": "2026-10-26T18:03:52+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/HABITS_SPEC_AR.md",
+      "type": "md",
+      "description_ar": "مواصفات عدادات كسر العادات السيئة",
+      "bytes": 4965,
+      "generated_at": "2026-10-26T18:03:52+08:00",
+      "exported_at": "2026-10-26T18:03:52+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SPORTS_CONTENT_AR.md",
+      "type": "md",
+      "description_ar": "مكتبة تمارين: اسم إنجليزي وعربي والعضلة الرئيسية",
+      "bytes": 10561,
+      "generated_at": "2026-10-26T18:03:52+08:00",
+      "exported_at": "2026-10-26T18:03:52+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/REFRESH_PROTOCOL_AR.md",
+      "type": "md",
+      "description_ar": "بروتوكول التحديث وأوامر الموقع",
+      "bytes": 6862,
+      "generated_at": "2026-10-26T22:34:45+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "ملف شرح، تحدّث في النسخة 9 (معنى generated_at)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SITE_IDEAS_AR.md",
+      "type": "md",
+      "description_ar": "أفكار للموقع: قوالب تمرين وبدائل عادات ومؤشرات مالية وحقول ناقصة",
+      "bytes": 16436,
+      "generated_at": "2026-10-26T22:52:12+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "ملف أفكار، تحدّث في النسخة 10 (توحيد الوزن)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SPORTS_EXERCISES.json",
+      "type": "json",
+      "description_ar": "مكتبة التمارين (81 تمرين) بمعرفات، مع التفاصيل وملاحظات الأمان للمبتدئ",
+      "bytes": 86254,
+      "generated_at": "2026-10-26T22:51:57+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "النسخة 10: توحيد الوزن الحالي 83.65 وخط الأساس 84.3 (لا تغيير في التمارين)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SPORTS_PLANS_AR.json",
+      "type": "json",
+      "description_ar": "قوالب الخطة الأسبوعية للتمرين (افتراض، بعد مراجعة أمان المبتدئ) بصيغة JSON",
+      "bytes": 67295,
+      "generated_at": "2026-10-26T22:51:57+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "النسخة 10: توحيد الوزن الحالي 83.65 وخط الأساس 84.3 (لا تغيير في التمارين)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/HABITS_ALTERNATIVES_AR.json",
+      "type": "json",
+      "description_ar": "بدائل العادات السيئة (افتراض) بصيغة JSON",
+      "bytes": 10464,
+      "generated_at": "2026-10-26T19:36:57+08:00",
+      "exported_at": "2026-10-26T19:36:56+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/WEEKLY_REVIEW_SPEC_AR.md",
+      "type": "md",
+      "description_ar": "مواصفات صفحة المراجعة الأسبوعية: لكل رقم الملف والحقل والحساب وعرض الناقص",
+      "bytes": 20464,
+      "generated_at": "2026-10-26T20:36:56+08:00",
+      "exported_at": "2026-10-26T20:36:56+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/FINANCE_INSIGHTS_AR.json",
+      "type": "json",
+      "description_ar": "مؤشرات مالية جاهزة (10) محسوبة من السجل وfinance.json",
+      "bytes": 33755,
+      "generated_at": "2026-10-26T14:20:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "محسوب من السجل حتى 26 أكتوبر 2:20 م؛ تعريف معدل اليومية توحّد في النسخة 9",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/PRAYER_QADA_PLAN_AR.json",
+      "type": "json",
+      "description_ar": "خطة قضاء مقترحة بثلاثة سيناريوهات (للقراءة فقط)",
+      "bytes": 20078,
+      "generated_at": "2026-10-25T18:35:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "آخر تحديث للقضاء: 25 أكتوبر 6:35 م (النسخة 47). ما فيه تسجيل صلاة ليوم 26 أكتوبر",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/GLOSSARY_AR.json",
+      "type": "json",
+      "description_ar": "قاموس مصطلحات للشرح المنبثق: تمارين ومال وعادات ووسوم الثقة",
+      "bytes": 17657,
+      "generated_at": "2026-10-26T20:10:06+08:00",
+      "exported_at": "2026-10-26T20:10:06+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/ROUTINE_BLOCKS_AR.json",
+      "type": "json",
+      "description_ar": "كتل الروتين الأسبوعي للرسم (من routine.json، للقراءة فقط)",
+      "bytes": 86850,
+      "generated_at": "2026-10-23T22:29:00+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "آخر قرار على الروتين والتقويم: D-R-039 يوم 23 أكتوبر 10:29 م",
+      "stale_after_hours": 168,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/FIELD_LABELS_AR.json",
+      "type": "json",
+      "description_ar": "أسماء عربية بسيطة لكل مفتاح تقني في ملفات JSON (مع الملفات اللي يظهر فيها وبطاقات بيانات ناقصة)",
+      "bytes": 97138,
+      "generated_at": "2026-10-26T22:34:45+08:00",
+      "exported_at": "2026-10-26T22:34:45+08:00",
+      "generated_at_basis_ar": "ملف جديد في النسخة 9",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "commands/README_AR.md",
+      "type": "md",
+      "description_ar": "شرح مجلد الأوامر (لا تنفيذ بدون موافقة محمد)",
+      "bytes": 1182,
+      "generated_at": "2026-10-26T18:04:24+08:00",
+      "exported_at": "2026-10-26T18:04:24+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "commands/examples/log_expense.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 510,
+      "generated_at": "2026-10-26T18:03:28+08:00",
+      "exported_at": "2026-10-26T18:03:28+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "commands/examples/log_prayer.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 364,
+      "generated_at": "2026-10-26T18:03:28+08:00",
+      "exported_at": "2026-10-26T18:03:28+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "commands/examples/start_habit.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 304,
+      "generated_at": "2026-10-26T18:03:28+08:00",
+      "exported_at": "2026-10-26T18:03:28+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "commands/examples/habit_relapse.example.json",
+      "type": "json",
+      "description_ar": "مثال أمر للتوضيح فقط (لا يُنفَّذ)",
+      "bytes": 303,
+      "generated_at": "2026-10-26T18:03:28+08:00",
+      "exported_at": "2026-10-26T18:03:28+08:00",
+      "generated_at_basis_ar": "ملف شرح ثابت: وقت آخر كتابة للمحتوى",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SITE_CROSSCHECK_AR.md",
+      "type": "md",
+      "description_ar": "تقرير مقارنة الموقع بملفات راشد (قراءة فقط): الفروقات والأصفار والنصوص المضللة",
+      "bytes": 20491,
+      "generated_at": "2026-10-26T22:52:12+08:00",
+      "exported_at": "2026-10-26T22:52:12+08:00",
+      "generated_at_basis_ar": "تقرير مقارنة للنسخة 8 كُتب 26 أكتوبر 10:26 م، وأُضيفت له ملاحظة وعمود «تم الإصلاح؟» (فاضي)",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/SITE_CROSSCHECK_STEPS_AR.md",
+      "type": "md",
+      "description_ar": "خطوات فحص الموقع بالنص (قراءة فقط): عناوين GET وسكربت PowerShell وجدول القيم المتوقعة",
+      "bytes": 30057,
+      "generated_at": "2026-10-26T23:02:24+08:00",
+      "exported_at": "2026-10-26T23:02:24+08:00",
+      "generated_at_basis_ar": "خطوات الفحص، حُدّث عدد ملفات meta (32) وملف التسليم",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "docs/HANDOVER_FINAL_AR.md",
+      "type": "md",
+      "description_ar": "تسليم نهائي: شنو انسوى (النسخ 7 إلى 10) وشنو باقي ووين الملفات",
+      "bytes": 4602,
+      "generated_at": "2026-10-26T23:01:45+08:00",
+      "exported_at": "2026-10-26T23:01:45+08:00",
+      "generated_at_basis_ar": "كُتب 26 أكتوبر 2026 عند التسليم",
+      "stale_after_hours": 720,
+      "stale_after_confidence": "افتراض"
+    },
+    {
+      "name": "exports_meta.json",
+      "type": "json",
+      "description_ar": "معلومات التصدير (هذا الملف)",
+      "bytes": 19661,
+      "generated_at": "2026-10-26T23:02:24+08:00",
+      "exported_at": "2026-10-26T23:02:24+08:00",
+      "generated_at_basis_ar": "يُكتب آخر شي في كل تصدير",
+      "stale_after_hours": 24,
+      "stale_after_confidence": "افتراض"
+    }
+  ],
+  "amendments": [
+    {
+      "at": "2026-10-26T22:25:49+08:00",
+      "note_ar": "أُضيف ملف docs/SITE_CROSSCHECK_AR.md إلى القائمة. النسخة بقيت 8 ولم يتغير شي ثاني."
+    },
+    {
+      "at": "2026-10-26T22:34:45+08:00",
+      "note_ar": "النسخة 9: generated_at لكل ملف صار وقت آخر تحديث للبيانات، وأُضيف exported_at لوقت التصدير. توحيد تعريف معدل اليومية (20.05). حقل قضاء اليوم 26 أكتوبر صار null (غير معروف). أُضيف latest_weight_kg وgoal_progress في body.json، وملف FIELD_LABELS_AR.json. أرصدة المال ما تغيرت."
+    },
+    {
+      "at": "2026-10-26T22:49:17+08:00",
+      "note_ar": "أُضيف ملف docs/SITE_CROSSCHECK_STEPS_AR.md إلى القائمة، وتحدّث SITE_CROSSCHECK_AR.md (عمود «تم الإصلاح؟» فاضي) وDATA_DICTIONARY_AR.md. ملفات البيانات ما تغيرت. النسخة بقيت 9."
+    },
+    {
+      "at": "2026-10-26T22:52:12+08:00",
+      "note_ar": "النسخة 10: خط الأساس للوزن صار 17 أكتوبر (body.json)، والوزن الحالي 83.65 والمتبقي 20.65 موحّد في SITE_IDEAS_AR وPROPOSALS وSPORTS_PLANS_AR (النسخة 3) وSPORTS_EXERCISES (النسخة 4) وDATA_DICTIONARY_AR، بدون تغيير أي تمرين. مثال total_keys صار 572. أُضيفت ملاحظة في SITE_CROSSCHECK_AR. الأرصدة والقضاء ما تغيرت."
+    },
+    {
+      "at": "2026-10-26T23:01:45+08:00",
+      "note_ar": "أُضيف ملف docs/HANDOVER_FINAL_AR.md (تسليم نهائي) إلى القائمة، وسطر عنه في DATA_DICTIONARY_AR.md. النسخة بقيت 10 وملفات البيانات ما تغيرت. وتحدّث SITE_CROSSCHECK_STEPS_AR.md (عدد ملفات meta صار 32)."
+    }
+  ]
+}

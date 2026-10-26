@@ -1,0 +1,1 @@
+import{n as e}from"./icons-DnVrKfsZ.js";import{B as t,W as n}from"./index-BiFCOMOi.js";var r=e();function i(){return(0,r.jsx)(`div`,{className:`page`,children:(0,r.jsx)(n,{icon:`search`,title:`الصفحة غير موجودة`,text:`الرابط غير صحيح أو أن العنصر حُذف.`,action:(0,r.jsx)(t,{variant:`primary`,to:`/`,children:`الرئيسية`})})})}export{i as default};

@@ -1,0 +1,3891 @@
+{
+  "file": "FIELD_LABELS_AR.json",
+  "version": 1,
+  "generated_at": "2026-10-26T22:34:45+08:00",
+  "exported_at": "2026-10-26T22:34:45+08:00",
+  "generated_at_note_ar": "generated_at = وقت آخر تحديث لمحتوى الملف (مو وقت التصدير). وقت الكتابة في exported_at.",
+  "timezone": "Asia/Kuala_Lumpur",
+  "read_only": true,
+  "title_ar": "أسماء عربية للمفاتيح التقنية",
+  "readme_ar": "هذا الملف يعطيك اسم عربي بسيط لكل مفتاح تقني (إنجليزي) يظهر في ملفات JSON اللي في المجلد الرئيسي وفي docs وفي أمثلة commands/examples. الصيغة: labels.<المفتاح> = {label_ar: الاسم بالعربي، where_used: الملفات اللي يظهر فيها}. المفاتيح المتداخلة (مثل items داخل balances_block) لها اسمها هنا بالاسم الأخير فقط. الأسماء عامة لأن نفس المفتاح قد يظهر في أكثر من مكان، فإذا تحتاج دقة اقرأ where_used. استخدمه في الموقع بدل ما تعرض المفتاح الإنجليزي للمستخدم. بطاقات «بيانات ناقصة» (17 بطاقة) مذكورة في missing_data_cards. الملف للقراءة فقط وما فيه أي رقم مالي، وكل مفتاح له اسم.",
+  "counts": {
+    "total_keys": 572,
+    "files_scanned": 19,
+    "missing_data_cards": 17
+  },
+  "missing_data_cards": [
+    {
+      "key": "monthly_income",
+      "label_ar": "الدخل الشهري",
+      "file": "finance.json",
+      "path": "planning_inputs.monthly_income"
+    },
+    {
+      "key": "income_day_of_month",
+      "label_ar": "يوم الدخل في الشهر",
+      "file": "finance.json",
+      "path": "planning_inputs.income_day_of_month"
+    },
+    {
+      "key": "treasury_share_percent",
+      "label_ar": "حصة الخزينة (%)",
+      "file": "finance.json",
+      "path": "planning_inputs.treasury_share_percent"
+    },
+    {
+      "key": "nov_funding_decision",
+      "label_ar": "قرار تمويل نوفمبر",
+      "file": "finance.json",
+      "path": "planning_inputs.nov_funding_decision"
+    },
+    {
+      "key": "category_caps",
+      "label_ar": "سقف كل فئة صرف",
+      "file": "finance.json",
+      "path": "planning_inputs.category_caps"
+    },
+    {
+      "key": "weekly_food_budget",
+      "label_ar": "ميزانية الأكل الأسبوعية",
+      "file": "finance.json",
+      "path": "planning_inputs.weekly_food_budget"
+    },
+    {
+      "key": "fixed_monthly_costs",
+      "label_ar": "المصاريف الشهرية الثابتة",
+      "file": "finance.json",
+      "path": "planning_inputs.fixed_monthly_costs"
+    },
+    {
+      "key": "electricity_nov_share",
+      "label_ar": "حصة الكهرباء لشهر نوفمبر",
+      "file": "finance.json",
+      "path": "planning_inputs.electricity_nov_share"
+    },
+    {
+      "key": "muhsin_debt_amount_confirmed",
+      "label_ar": "مبلغ دين محسن المؤكد",
+      "file": "finance.json",
+      "path": "planning_inputs.muhsin_debt_amount_confirmed"
+    },
+    {
+      "key": "vape_baseline_per_day",
+      "label_ar": "الفيب اليومي في البداية",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.vape_baseline_per_day"
+    },
+    {
+      "key": "vape_end_goal",
+      "label_ar": "هدف نهاية الفيب",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.vape_end_goal"
+    },
+    {
+      "key": "habits_start_date",
+      "label_ar": "تاريخ بداية العادات",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.habits_start_date"
+    },
+    {
+      "key": "workout_location",
+      "label_ar": "مكان التمرين",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.workout_location"
+    },
+    {
+      "key": "workout_equipment",
+      "label_ar": "معدات التمرين",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.workout_equipment"
+    },
+    {
+      "key": "workout_days_per_week",
+      "label_ar": "أيام التمرين في الأسبوع",
+      "file": "habits.json",
+      "path": "unrecorded_inputs.workout_days_per_week"
+    },
+    {
+      "key": "next_weight_reading",
+      "label_ar": "قراءة الوزن القادمة",
+      "file": "body.json",
+      "path": "unrecorded_inputs.next_weight_reading"
+    },
+    {
+      "key": "weekly_weigh_in_day",
+      "label_ar": "يوم الوزن الأسبوعي",
+      "file": "body.json",
+      "path": "unrecorded_inputs.weekly_weigh_in_day"
+    }
+  ],
+  "labels": {
+    "accounts": {
+      "label_ar": "الحسابات",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "active_subscriptions_count": {
+      "label_ar": "عدد الاشتراكات الفعّالة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "active_subscriptions_missing_text_ar": {
+      "label_ar": "نص يظهر لما عدد الاشتراكات الفعّالة غير معروف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "actual_sugar_g": {
+      "label_ar": "السكر الفعلي (غرام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "adjustment": {
+      "label_ar": "عدد صفوف التسوية في السجل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "alternative_exercise_ids": {
+      "label_ar": "أرقام تمارين بديلة",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "alternatives": {
+      "label_ar": "البدائل",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "alternatives_per_press": {
+      "label_ar": "عدد البدائل في كل ضغطة",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "ambiguous_amount_rm": {
+      "label_ar": "مبلغ غير واضح (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "ambiguous_reason_ar": {
+      "label_ar": "سبب عدم وضوح المبلغ",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "ambiguous_row_ids": {
+      "label_ar": "أرقام الصفوف غير الواضحة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "amendments": {
+      "label_ar": "تعديلات على الملف",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "amount": {
+      "label_ar": "المبلغ",
+      "where_used": [
+        "commands/examples/log_expense.example.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "applied_to_boxes": {
+      "label_ar": "انطبق على الصناديق",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "approx": {
+      "label_ar": "تقريبي",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "approx_months": {
+      "label_ar": "عدد الأشهر تقريباً",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "arabic_name": {
+      "label_ar": "الاسم بالعربي",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "arithmetic": {
+      "label_ar": "خطوات الحساب",
+      "where_used": [
+        "body.json",
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "arithmetic_ar": {
+      "label_ar": "خطوات الحساب بالعربي",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "as_of": {
+      "label_ar": "الرقم حسب وقت",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "finance.json",
+        "prayers.json"
+      ]
+    },
+    "as_of_note_ar": {
+      "label_ar": "ملاحظة عن وقت آخر رقم",
+      "where_used": [
+        "dashboard_summary.json",
+        "finance.json",
+        "routine.json"
+      ]
+    },
+    "asr": {
+      "label_ar": "العصر",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "assumption_ar": {
+      "label_ar": "الافتراض",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "assumptions_ar": {
+      "label_ar": "الافتراضات",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "at": {
+      "label_ar": "وقت",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "attendance": {
+      "label_ar": "حضور الصلوات",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "balance_as_of": {
+      "label_ar": "الرصيد حسب وقت",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "balance_history": {
+      "label_ar": "تطور الأرصدة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "balance_history_method": {
+      "label_ar": "طريقة بناء تطور الأرصدة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "balance_history_omitted": {
+      "label_ar": "فترات حُذفت من تطور الأرصدة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "balance_history_title_ar": {
+      "label_ar": "عنوان تطور الأرصدة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "balances_as_of": {
+      "label_ar": "الأرصدة حسب وقت",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "balances_block": {
+      "label_ar": "بطاقة الأرصدة اليوم",
+      "where_used": [
+        "dashboard_summary.json",
+        "finance.json"
+      ]
+    },
+    "balances_source": {
+      "label_ar": "مصدر الأرصدة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "barbell": {
+      "label_ar": "بار (حديد)",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "base_total": {
+      "label_ar": "المجموع الأساسي (رنجت)",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "baseline": {
+      "label_ar": "خط الأساس",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "baseline_daily_minutes": {
+      "label_ar": "دقائق الفيب اليومية في البداية",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "baseline_date": {
+      "label_ar": "تاريخ خط الأساس",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "baseline_kg": {
+      "label_ar": "وزن خط الأساس (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "baseline_note_ar": {
+      "label_ar": "ملاحظة عن خط الأساس",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "basis_ar": {
+      "label_ar": "الأساس",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "bed_time": {
+      "label_ar": "وقت النوم",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "beginner_safe": {
+      "label_ar": "آمن للمبتدئ",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "beginner_safe_false": {
+      "label_ar": "تمارين غير آمنة للمبتدئ",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "beginner_safe_true": {
+      "label_ar": "تمارين آمنة للمبتدئ",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "beginner_unsafe_exercise_ids": {
+      "label_ar": "أرقام التمارين غير الآمنة للمبتدئ",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "beginner_unsafe_ids": {
+      "label_ar": "أرقام غير آمنة للمبتدئ",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "best_streak_days": {
+      "label_ar": "أفضل سلسلة (أيام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "block_count": {
+      "label_ar": "عدد الكتل",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "blocks": {
+      "label_ar": "كتل الروتين",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "bodyweight": {
+      "label_ar": "وزن الجسم",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "box": {
+      "label_ar": "الصندوق",
+      "where_used": [
+        "commands/examples/log_expense.example.json"
+      ]
+    },
+    "breakdown": {
+      "label_ar": "التفصيل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "breakdown_note_ar": {
+      "label_ar": "ملاحظة عن التفصيل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "bytes": {
+      "label_ar": "حجم الملف (بايت)",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "cable": {
+      "label_ar": "كيبل (حبل مشدود)",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "calendar": {
+      "label_ar": "التقويم",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "cancelled_by_label_ids": {
+      "label_ar": "أرقام ملغاة حسب التصنيف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "cancelled_count_by_label": {
+      "label_ar": "عدد الملغاة حسب التصنيف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "cash_delta": {
+      "label_ar": "التغير في الرصيد",
+      "where_used": [
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "categories": {
+      "label_ar": "الأقسام",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "category": {
+      "label_ar": "القسم",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "category_ar": {
+      "label_ar": "القسم بالعربي",
+      "where_used": [
+        "commands/examples/log_expense.example.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "finance.json"
+      ]
+    },
+    "category_caps": {
+      "label_ar": "سقف كل فئة صرف",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "category_confidence": {
+      "label_ar": "درجة ثقة القسم",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "change": {
+      "label_ar": "التغير",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "change_ar": {
+      "label_ar": "التغير بالعربي",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "change_confidence": {
+      "label_ar": "درجة ثقة التغير",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "change_since_baseline_kg": {
+      "label_ar": "التغير من خط الأساس (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "changelog": {
+      "label_ar": "سجل التغييرات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "changelog_ar": {
+      "label_ar": "سجل التغييرات بالعربي",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "changes": {
+      "label_ar": "التغييرات",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "charges_count": {
+      "label_ar": "عدد الخصومات",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "checked_at": {
+      "label_ar": "وقت التحقق",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "cleared_by_day": {
+      "label_ar": "يخلص القضاء في اليوم رقم",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "closed": {
+      "label_ar": "مغلقة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "columns": {
+      "label_ar": "الأعمدة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "ledger_full.json"
+      ]
+    },
+    "commands": {
+      "label_ar": "أوامر الموقع",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "computed_notes": {
+      "label_ar": "ملاحظات محسوبة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "confidence": {
+      "label_ar": "درجة الثقة",
+      "where_used": [
+        "body.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json",
+        "habits.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "confidence_ar": {
+      "label_ar": "درجة الثقة بالعربي",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "confidence_note_ar": {
+      "label_ar": "سبب درجة الثقة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "confirmed_total_rm": {
+      "label_ar": "المجموع المؤكد (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "count": {
+      "label_ar": "العدد",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "prayers.json"
+      ]
+    },
+    "counted_amount": {
+      "label_ar": "المبلغ المحسوب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "counters": {
+      "label_ar": "العدادات",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "counts": {
+      "label_ar": "الأعداد",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "prayers.json"
+      ]
+    },
+    "coverage_note_ar": {
+      "label_ar": "ملاحظة عن مدى التغطية",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "craving_card": {
+      "label_ar": "بطاقة وقت الاشتهاء",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "created_at": {
+      "label_ar": "وقت الإنشاء",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json"
+      ]
+    },
+    "cumulative_count": {
+      "label_ar": "العدد التراكمي",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "currency": {
+      "label_ar": "العملة",
+      "where_used": [
+        "commands/examples/log_expense.example.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "current_md_rev": {
+      "label_ar": "رقم نسخة ملف الحالة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "current_streak_days": {
+      "label_ar": "السلسلة الحالية (أيام)",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "current_value": {
+      "label_ar": "القيمة الحالية",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "current_weight_kg": {
+      "label_ar": "الوزن الحالي (كغ)",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "daily": {
+      "label_ar": "اليومية",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "daily_balance_now_rm": {
+      "label_ar": "رصيد اليومية الحين (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "daily_balance_rm": {
+      "label_ar": "رصيد اليومية (رنجت)",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "daily_blocks": {
+      "label_ar": "كتل الروتين اليومية",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "daily_box_rate": {
+      "label_ar": "معدل صرف صندوق اليومية",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "daily_box_recheck": {
+      "label_ar": "إعادة فحص معدل اليومية",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "daily_rate_explanation_ar": {
+      "label_ar": "شرح معدل صرف اليومية",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "daily_spend_total_rm": {
+      "label_ar": "مجموع صرف اليومية (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "daily_summary": {
+      "label_ar": "ملخص كل يوم",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "data_period": {
+      "label_ar": "فترة البيانات",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "data_rows": {
+      "label_ar": "عدد صفوف البيانات",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "date": {
+      "label_ar": "التاريخ",
+      "where_used": [
+        "body.json",
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json",
+        "habits.json",
+        "ledger_full.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "dates": {
+      "label_ar": "التواريخ",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "day": {
+      "label_ar": "اليوم",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "habits.json"
+      ]
+    },
+    "day_ar": {
+      "label_ar": "اليوم بالعربي",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "habits.json"
+      ]
+    },
+    "days": {
+      "label_ar": "الأيام",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "days_ar": {
+      "label_ar": "أيام الأسبوع بالعربي",
+      "where_used": [
+        "routine.json"
+      ]
+    },
+    "days_daily_box_lasts": {
+      "label_ar": "كم يوم تكفي اليومية",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "days_daily_box_lasts_at_this_burn": {
+      "label_ar": "كم يوم تكفي اليومية بهالمعدل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "days_done": {
+      "label_ar": "أيام تم فيها",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "days_kept": {
+      "label_ar": "أيام التزم فيها",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "days_logged": {
+      "label_ar": "أيام مسجلة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "days_not_done": {
+      "label_ar": "أيام ما تم فيها",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "days_not_kept": {
+      "label_ar": "أيام ما التزم فيها",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "days_on_target": {
+      "label_ar": "أيام ضمن الهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "days_over_limit": {
+      "label_ar": "أيام فوق الحد",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "days_per_week": {
+      "label_ar": "عدد الأيام في الأسبوع",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "days_remaining": {
+      "label_ar": "الأيام المتبقية",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "days_unknown": {
+      "label_ar": "أيام غير معروفة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "days_within_limit": {
+      "label_ar": "أيام ضمن الحد",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "decision_open_ar": {
+      "label_ar": "القرار المفتوح",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "definition_ar": {
+      "label_ar": "التعريف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "definition_id": {
+      "label_ar": "رمز التعريف",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "description_ar": {
+      "label_ar": "الوصف",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json"
+      ]
+    },
+    "detail_ar": {
+      "label_ar": "التفصيل",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "details": {
+      "label_ar": "تفاصيل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "details_confidence": {
+      "label_ar": "درجة ثقة التفاصيل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "details_confidence_values": {
+      "label_ar": "معاني درجات ثقة التفاصيل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "details_note_ar": {
+      "label_ar": "ملاحظة عن التفاصيل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "dhuhr": {
+      "label_ar": "الظهر",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "difference_vs_schedule_rm": {
+      "label_ar": "الفرق عن التعبئة المجدولة (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "disclaimer_ar": {
+      "label_ar": "تنبيه",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "distinct_services_count": {
+      "label_ar": "عدد الخدمات المختلفة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "distinct_services_missing_text_ar": {
+      "label_ar": "نص يظهر لما عدد الخدمات غير معروف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "docs": {
+      "label_ar": "ملفات الشرح",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "done": {
+      "label_ar": "المنجز",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "done_confidence": {
+      "label_ar": "درجة ثقة المنجز",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "prayers.json"
+      ]
+    },
+    "done_note_ar": {
+      "label_ar": "ملاحظة عن المنجز",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "done_today": {
+      "label_ar": "قضاء اليوم",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "done_today_confidence": {
+      "label_ar": "درجة ثقة قضاء اليوم",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "done_today_date": {
+      "label_ar": "تاريخ قضاء اليوم",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "done_today_note_ar": {
+      "label_ar": "ملاحظة عن قضاء اليوم",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "done_today_status_ar": {
+      "label_ar": "حالة قضاء اليوم",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "done_total": {
+      "label_ar": "مجموع القضاء المنجز",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "prayers.json"
+      ]
+    },
+    "dumbbell": {
+      "label_ar": "دمبل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "duration_min": {
+      "label_ar": "المدة (دقيقة)",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "duration_minutes": {
+      "label_ar": "المدة (دقيقة)",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "duration_seconds": {
+      "label_ar": "المدة (ثانية)",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "eating_out_amount_rm": {
+      "label_ar": "مبلغ الأكل خارج البيت (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "eating_out_row_ids": {
+      "label_ar": "أرقام صفوف الأكل خارج البيت",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "educational_disclaimer_ar": {
+      "label_ar": "تنبيه تعليمي",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "electricity_nov_share": {
+      "label_ar": "حصة الكهرباء لشهر نوفمبر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "end": {
+      "label_ar": "النهاية",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "habits.json",
+        "routine.json"
+      ]
+    },
+    "end_min": {
+      "label_ar": "النهاية (دقائق من منتصف الليل)",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "english_name": {
+      "label_ar": "الاسم بالإنجليزي",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "entries": {
+      "label_ar": "العناصر",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "equipment": {
+      "label_ar": "المعدات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "equipment_key_values": {
+      "label_ar": "أسماء المعدات بالعربي",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "equipment_keys": {
+      "label_ar": "رموز المعدات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "event_ar": {
+      "label_ar": "الحدث",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "event_id": {
+      "label_ar": "رقم الحدث",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "excluded_exercise_ids": {
+      "label_ar": "أرقام تمارين مستبعدة",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "exercise": {
+      "label_ar": "التمرين",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "exercise_id": {
+      "label_ar": "رقم التمرين",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "exercises": {
+      "label_ar": "التمارين",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "exercises_file": {
+      "label_ar": "ملف التمارين",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "expense": {
+      "label_ar": "عدد صفوف الصرف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "expense_rows": {
+      "label_ar": "صفوف الصرف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "explanation_ar": {
+      "label_ar": "الشرح بالعربي",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "exported_at": {
+      "label_ar": "وقت تصدير الملف",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json"
+      ]
+    },
+    "extra_rules_ar": {
+      "label_ar": "قواعد إضافية",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "extra_rules_confidence": {
+      "label_ar": "درجة ثقة القواعد الإضافية",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "fajr": {
+      "label_ar": "الفجر",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "file": {
+      "label_ar": "اسم الملف",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "file_header_note_ar": {
+      "label_ar": "ملاحظة رأس الملف",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "files": {
+      "label_ar": "الملفات",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "files_scanned": {
+      "label_ar": "عدد الملفات المفحوصة",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json"
+      ]
+    },
+    "finish_day": {
+      "label_ar": "يوم الانتهاء",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "finish_span": {
+      "label_ar": "مدة الانتهاء",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "finish_vs_sequential_note_ar": {
+      "label_ar": "ملاحظة مقارنة الانتهاء بالترتيب المتسلسل",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "fixed_monthly_costs": {
+      "label_ar": "المصاريف الشهرية الثابتة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "flex_min": {
+      "label_ar": "مرونة (دقيقة)",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "folders_ar": {
+      "label_ar": "المجلدات",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "food_and_grocery_share_percent": {
+      "label_ar": "حصة الأكل والبقالة (%)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "food_and_grocery_total_rm": {
+      "label_ar": "مجموع الأكل والبقالة (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "food_note_ar": {
+      "label_ar": "ملاحظة عن الأكل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "formula_ar": {
+      "label_ar": "طريقة الحساب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "from": {
+      "label_ar": "من",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json",
+        "routine.json"
+      ]
+    },
+    "from_SPORTS_CONTENT_AR": {
+      "label_ar": "من ملف محتوى الرياضة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "from_account": {
+      "label_ar": "من حساب",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "from_exercise_id": {
+      "label_ar": "من التمرين رقم",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "full_refills_covered": {
+      "label_ar": "عدد التعبئات الكاملة المغطاة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "general_knowledge": {
+      "label_ar": "معرفة عامة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "general_rules": {
+      "label_ar": "قواعد عامة",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "generated_at": {
+      "label_ar": "آخر تحديث للبيانات",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json"
+      ]
+    },
+    "generated_at_basis_ar": {
+      "label_ar": "سبب وقت آخر تحديث",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "generated_at_note_ar": {
+      "label_ar": "شرح معنى آخر تحديث للبيانات",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "ledger_full.json"
+      ]
+    },
+    "goal": {
+      "label_ar": "الهدف",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "goal_kg": {
+      "label_ar": "الوزن المستهدف (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "goal_kg_confidence": {
+      "label_ar": "درجة ثقة الوزن المستهدف",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "goal_progress": {
+      "label_ar": "التقدم نحو الهدف",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "goal_weight_kg": {
+      "label_ar": "الوزن المستهدف (كغ)",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "growth_note_ar": {
+      "label_ar": "ملاحظة عن زيادة القضاء",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "habit": {
+      "label_ar": "العادة",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/start_habit.example.json",
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "habits": {
+      "label_ar": "العادات",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "habits.json"
+      ]
+    },
+    "habits_json_key": {
+      "label_ar": "رمز العادة في ملف العادات",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "habits_start_date": {
+      "label_ar": "تاريخ بداية العادات",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "highest_priority_ar": {
+      "label_ar": "الأولوية الأعلى",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "history": {
+      "label_ar": "السجل التاريخي",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "history_fact": {
+      "label_ar": "حقيقة من السجل",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "holidays": {
+      "label_ar": "العطل",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "how_ar": {
+      "label_ar": "الطريقة",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "how_to_use_ar": {
+      "label_ar": "طريقة الاستخدام",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "id": {
+      "label_ar": "الرقم",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json",
+        "routine.json"
+      ]
+    },
+    "if_new_missed_equals_qada_ar": {
+      "label_ar": "لو انضاف الفائت الجديد للقضاء",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "in_outlook": {
+      "label_ar": "موجود في Outlook",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "in_time": {
+      "label_ar": "في وقتها",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "income_day_of_month": {
+      "label_ar": "يوم الدخل في الشهر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "index": {
+      "label_ar": "الترتيب",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "indicators": {
+      "label_ar": "المؤشرات",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "instructions_ar": {
+      "label_ar": "التعليمات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "isha": {
+      "label_ar": "العشاء",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "items": {
+      "label_ar": "العناصر",
+      "where_used": [
+        "body.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "finance.json"
+      ]
+    },
+    "kcal": {
+      "label_ar": "السعرات",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "kcal_estimate": {
+      "label_ar": "تقدير السعرات",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "kept_limit": {
+      "label_ar": "التزم بالحد",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "kettlebell": {
+      "label_ar": "كيتلبل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "key": {
+      "label_ar": "الرمز",
+      "where_used": [
+        "body.json",
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "kind": {
+      "label_ar": "النوع",
+      "where_used": [
+        "commands/examples/log_prayer.example.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "habits.json",
+        "routine.json"
+      ]
+    },
+    "known_box_amount_rm": {
+      "label_ar": "مبلغ الصرف معروف الصندوق (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "known_box_rows": {
+      "label_ar": "عدد صفوف معروفة الصندوق",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "known_conflicts": {
+      "label_ar": "تعارضات معروفة",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "label_ar": {
+      "label_ar": "الاسم بالعربي",
+      "where_used": [
+        "body.json",
+        "commands/examples/log_expense.example.json",
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json"
+      ]
+    },
+    "labels": {
+      "label_ar": "الأسماء بالعربي",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json"
+      ]
+    },
+    "language": {
+      "label_ar": "اللغة",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "last_recorded_amount": {
+      "label_ar": "آخر مبلغ مسجل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "late": {
+      "label_ar": "متأخرة",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "latest_recorded_weight": {
+      "label_ar": "آخر وزن مسجل",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "latest_weight_confidence": {
+      "label_ar": "درجة ثقة آخر وزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "latest_weight_date": {
+      "label_ar": "تاريخ آخر وزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "latest_weight_kg": {
+      "label_ar": "آخر وزن (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "latest_weight_source_ar": {
+      "label_ar": "مصدر آخر وزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "latest_weight_status_ar": {
+      "label_ar": "حالة آخر وزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "ledger_based": {
+      "label_ar": "حسب السجل",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "ledger_cash_delta_check": {
+      "label_ar": "فحص التغير في الرصيد من السجل",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "ledger_full_pointer": {
+      "label_ar": "مؤشر للسجل الكامل",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "ledger_rows": {
+      "label_ar": "صفوف السجل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "legacy_label_amount_rm": {
+      "label_ar": "مبلغ الصفوف بتصنيف قديم (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "legacy_label_rows": {
+      "label_ar": "عدد الصفوف بتصنيف قديم",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "legend": {
+      "label_ar": "مفتاح الألوان",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "level": {
+      "label_ar": "المستوى",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "level_values_ar": {
+      "label_ar": "أسماء المستويات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "limitation_ar": {
+      "label_ar": "حدود الرقم",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "limitations_ar": {
+      "label_ar": "حدود الأرقام",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "local_routines": {
+      "label_ar": "روتين محلي",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "location": {
+      "label_ar": "المكان",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "log": {
+      "label_ar": "السجل",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "lowering_seconds": {
+      "label_ar": "ثواني النزول",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "machine": {
+      "label_ar": "آلة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "maghrib": {
+      "label_ar": "المغرب",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "main_muscle_ar": {
+      "label_ar": "العضلة الأساسية",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "math": {
+      "label_ar": "الحساب",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "max": {
+      "label_ar": "الأقصى",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "method_ar": {
+      "label_ar": "الطريقة",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "finance.json"
+      ]
+    },
+    "min": {
+      "label_ar": "الأدنى",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "missed": {
+      "label_ar": "فاتت",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "missing_data_cards": {
+      "label_ar": "بطاقات بيانات ناقصة",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json"
+      ]
+    },
+    "missing_text_ar": {
+      "label_ar": "النص عند غياب البيانات",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "money": {
+      "label_ar": "المال",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "monthly": {
+      "label_ar": "الشهري",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "monthly_balance_rm": {
+      "label_ar": "رصيد الشهري (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "monthly_income": {
+      "label_ar": "الدخل الشهري",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "months_approx": {
+      "label_ar": "الأشهر تقريباً",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "moves_with_prayer_time": {
+      "label_ar": "يتحرك مع وقت الصلاة",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "muhsin_debt_amount_confirmed": {
+      "label_ar": "مبلغ دين محسن المؤكد",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "name": {
+      "label_ar": "الاسم",
+      "where_used": [
+        "exports_meta.json",
+        "ledger_full.json",
+        "routine.json"
+      ]
+    },
+    "name_ar": {
+      "label_ar": "الاسم بالعربي",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "habits.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "name_original": {
+      "label_ar": "الاسم الأصلي",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "needed_for_ar": {
+      "label_ar": "يُستخدم في",
+      "where_used": [
+        "body.json",
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "needed_rm": {
+      "label_ar": "المبلغ المطلوب (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "net_progress_formula_ar": {
+      "label_ar": "طريقة حساب صافي التقدم",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "next_weight_reading": {
+      "label_ar": "قراءة الوزن القادمة",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "no_vape_confidence": {
+      "label_ar": "درجة ثقة أوقات منع الفيب",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "no_vape_windows_ar": {
+      "label_ar": "أوقات منع الفيب",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "none": {
+      "label_ar": "بدون معدات",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "not_yet_recorded_ar": {
+      "label_ar": "غير مسجل بعد",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "note": {
+      "label_ar": "ملاحظة",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "note_ar": {
+      "label_ar": "ملاحظة",
+      "where_used": [
+        "body.json",
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "exports_meta.json",
+        "finance.json",
+        "habits.json",
+        "ledger_full.json",
+        "prayers.json",
+        "routine.json"
+      ]
+    },
+    "notes": {
+      "label_ar": "الملاحظات",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "nov_funding_decision": {
+      "label_ar": "قرار تمويل نوفمبر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "number": {
+      "label_ar": "الرقم التسلسلي",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "occurred_at": {
+      "label_ar": "وقت الحدث",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "on_target": {
+      "label_ar": "ضمن الهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "open": {
+      "label_ar": "مفتوحة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "open_finance_items": {
+      "label_ar": "بنود مالية مفتوحة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "open_ids": {
+      "label_ar": "أرقام المفتوحة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "open_items": {
+      "label_ar": "البنود المفتوحة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "open_loops_count": {
+      "label_ar": "عدد البنود المفتوحة",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "open_or_waiting": {
+      "label_ar": "مفتوحة أو بانتظار",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "optional": {
+      "label_ar": "اختياري",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "order": {
+      "label_ar": "الترتيب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "other_rows_note_ar": {
+      "label_ar": "ملاحظة عن صفوف ثانية",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "other_rows_with_subscription_word_ar": {
+      "label_ar": "صفوف ثانية فيها كلمة اشتراك",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "overlap_note_ar": {
+      "label_ar": "ملاحظة عن التداخل",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "overlaps_with": {
+      "label_ar": "يتداخل مع",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "parallel_equal_share_by_name": {
+      "label_ar": "القضاء بالتوازي بحصة متساوية لكل صلاة",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "partially_closed": {
+      "label_ar": "مغلقة جزئياً",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "partially_closed_ids": {
+      "label_ar": "أرقام المغلقة جزئياً",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "path": {
+      "label_ar": "المسار داخل الملف",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "payload": {
+      "label_ar": "بيانات الأمر",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json"
+      ]
+    },
+    "payment_source": {
+      "label_ar": "مصدر الدفع",
+      "where_used": [
+        "commands/examples/log_expense.example.json"
+      ]
+    },
+    "pending_ar": {
+      "label_ar": "المعلّق",
+      "where_used": [
+        "dashboard_summary.json",
+        "prayers.json"
+      ]
+    },
+    "pending_from_file_ar": {
+      "label_ar": "معلّق حسب الملف",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "people": {
+      "label_ar": "الأشخاص",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "per_day": {
+      "label_ar": "في اليوم",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "per_day_average": {
+      "label_ar": "المتوسط في اليوم",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "per_day_rm": {
+      "label_ar": "رنجت في اليوم",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "per_side": {
+      "label_ar": "لكل جهة",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "period_assumption_ar": {
+      "label_ar": "افتراض الفترة",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "period_from": {
+      "label_ar": "الفترة من",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "period_to": {
+      "label_ar": "الفترة إلى",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "periods": {
+      "label_ar": "الفترات",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "person_ar": {
+      "label_ar": "الشخص",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "phases": {
+      "label_ar": "المراحل",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "plan_day": {
+      "label_ar": "يوم الخطة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "planning_inputs": {
+      "label_ar": "بيانات ناقصة للتخطيط",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "planning_inputs_title_ar": {
+      "label_ar": "عنوان بيانات التخطيط الناقصة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "point_count": {
+      "label_ar": "عدد النقاط",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "points": {
+      "label_ar": "نقاط",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "pool": {
+      "label_ar": "مسبح",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "prayer": {
+      "label_ar": "الصلاة",
+      "where_used": [
+        "commands/examples/log_prayer.example.json",
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "prayer_times_reference": {
+      "label_ar": "مرجع أوقات الصلاة",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "prayers_on_time": {
+      "label_ar": "صلوات في وقتها",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "priority": {
+      "label_ar": "الأولوية",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "protein_g_estimate": {
+      "label_ar": "تقدير البروتين (غرام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "purpose_ar": {
+      "label_ar": "الغرض",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "qada": {
+      "label_ar": "القضاء",
+      "where_used": [
+        "dashboard_summary.json",
+        "prayers.json"
+      ]
+    },
+    "qada_per_day": {
+      "label_ar": "قضاء في اليوم",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "range_percent": {
+      "label_ar": "المدى (%)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "rate_definition_id": {
+      "label_ar": "رمز تعريف المعدل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "rate_definitions": {
+      "label_ar": "تعريفات المعدلات",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "read_only": {
+      "label_ar": "للقراءة فقط",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json"
+      ]
+    },
+    "readme_ar": {
+      "label_ar": "اقرأني",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "reason_ar": {
+      "label_ar": "السبب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json"
+      ]
+    },
+    "receivable_created": {
+      "label_ar": "دين جديد لك",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "receivable_delta": {
+      "label_ar": "التغير في المستحق لك",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "receivable_settled": {
+      "label_ar": "دين انسدد",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "receivables": {
+      "label_ar": "المستحقات عند الناس",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "recent_transactions": {
+      "label_ar": "آخر الحركات",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "recent_transactions_note_ar": {
+      "label_ar": "ملاحظة عن آخر الحركات",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "recommended_from_week": {
+      "label_ar": "يُنصح من الأسبوع",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "recompute_check": {
+      "label_ar": "فحص إعادة الحساب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "recorded_amount": {
+      "label_ar": "المبلغ المسجل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "recorded_by_mohammed": {
+      "label_ar": "مسجل بقول محمد",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "recorded_injuries_ar": {
+      "label_ar": "إصابات مسجلة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "recorded_injuries_note_ar": {
+      "label_ar": "ملاحظة عن الإصابات المسجلة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "recorded_through": {
+      "label_ar": "مسجل حتى",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "recurrence": {
+      "label_ar": "التكرار",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "redacted_row_count": {
+      "label_ar": "عدد الصفوف المحجوبة",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "redacted_row_ids": {
+      "label_ar": "أرقام الصفوف المحجوبة",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "redaction_note_ar": {
+      "label_ar": "ملاحظة عن الحجب",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "reduction_min": {
+      "label_ar": "التقليل (دقيقة)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "relapses": {
+      "label_ar": "مرات الانتكاس",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "related": {
+      "label_ar": "مرتبط بـ",
+      "where_used": [
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "remaining": {
+      "label_ar": "المتبقي",
+      "where_used": [
+        "dashboard_summary.json",
+        "prayers.json"
+      ]
+    },
+    "remaining_confidence": {
+      "label_ar": "درجة ثقة المتبقي",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "remaining_to_goal_kg": {
+      "label_ar": "المتبقي للهدف (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "removed_alternative_exercise_id": {
+      "label_ar": "رقم التمرين البديل المحذوف",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "reps": {
+      "label_ar": "التكرارات",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "rest_seconds": {
+      "label_ar": "الراحة (ثانية)",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "result": {
+      "label_ar": "الناتج",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "reviewed_at": {
+      "label_ar": "وقت المراجعة",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "reviewed_for_ar": {
+      "label_ar": "روجع لأجل",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "root": {
+      "label_ar": "المجلد الرئيسي",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "rounding_ar": {
+      "label_ar": "طريقة التقريب",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "row_id": {
+      "label_ar": "رقم الصف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "row_types": {
+      "label_ar": "أنواع الصفوف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "rows": {
+      "label_ar": "الصفوف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "rows_count": {
+      "label_ar": "عدد الصفوف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "rule_ar": {
+      "label_ar": "القاعدة",
+      "where_used": [
+        "habits.json",
+        "prayers.json"
+      ]
+    },
+    "rule_confidence": {
+      "label_ar": "درجة ثقة القاعدة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "rules_summary": {
+      "label_ar": "ملخص القواعد",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "safer_alternative_id": {
+      "label_ar": "رقم البديل الأكثر أماناً",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "safety_exercise_ids": {
+      "label_ar": "أرقام تمارين لها ملاحظة أمان",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "safety_note_ar": {
+      "label_ar": "ملاحظة الأمان",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "safety_notes_ar": {
+      "label_ar": "ملاحظات الأمان",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "safety_review": {
+      "label_ar": "مراجعة الأمان",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "same_as_ar": {
+      "label_ar": "نفس الرقم في",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "scenarios": {
+      "label_ar": "السيناريوهات",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "schedule": {
+      "label_ar": "جدول التحويل",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "scheduled_per_day_rm": {
+      "label_ar": "التعبئة المجدولة في اليوم (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "secondary_muscles_ar": {
+      "label_ar": "العضلات الثانوية",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "section": {
+      "label_ar": "القسم في الملف",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "selected_alternatives": {
+      "label_ar": "البدائل المختارة",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json"
+      ]
+    },
+    "selected_location": {
+      "label_ar": "المكان المختار",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "selected_scenario": {
+      "label_ar": "السيناريو المختار",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "selected_scenario_missing_text_ar": {
+      "label_ar": "نص يظهر لما ما انختار سيناريو",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "selected_template_id": {
+      "label_ar": "رقم القالب المختار",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "selection_note_ar": {
+      "label_ar": "ملاحظة عن الاختيار",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "sequential_by_name": {
+      "label_ar": "القضاء بالترتيب صلاة بعد صلاة",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "session_id": {
+      "label_ar": "رقم الجلسة",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "sessions": {
+      "label_ar": "الجلسات",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "sets": {
+      "label_ar": "المجموعات",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "sha256_prefix": {
+      "label_ar": "بصمة الملف (أول أحرف)",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "share_of_spend_percent": {
+      "label_ar": "حصة من الصرف (%)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "share_percent": {
+      "label_ar": "الحصة (%)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "shortfall_rm": {
+      "label_ar": "النقص (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "source": {
+      "label_ar": "المصدر",
+      "where_used": [
+        "dashboard_summary.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "ledger_full.json"
+      ]
+    },
+    "source_doc": {
+      "label_ar": "ملف المصدر",
+      "where_used": [
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "source_fields": {
+      "label_ar": "حقول المصدر",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "source_file": {
+      "label_ar": "ملف المصدر",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "source_id": {
+      "label_ar": "رقم المصدر",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "source_quirks_ar": {
+      "label_ar": "ملاحظات عن مصدر البيانات",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "source_ref": {
+      "label_ar": "مرجع المصدر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "source_routine_counts": {
+      "label_ar": "عدد عناصر الروتين في المصدر",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "source_row": {
+      "label_ar": "صف المصدر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "source_row_order": {
+      "label_ar": "ترتيب صف المصدر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "source_rows_all": {
+      "label_ar": "كل صفوف المصدر",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "source_state": {
+      "label_ar": "حالة المصدر",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "sources_checked_ar": {
+      "label_ar": "مصادر تم فحصها",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "spend_adjustments": {
+      "label_ar": "تعديلات الصرف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "spend_definition_ar": {
+      "label_ar": "تعريف الصرف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "spent_rm": {
+      "label_ar": "المصروف (رنجت)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "stale_after_confidence": {
+      "label_ar": "درجة ثقة مدة الصلاحية",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "stale_after_hours": {
+      "label_ar": "ساعات الصلاحية قبل ما يصير قديم",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "start": {
+      "label_ar": "البداية",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "habits.json",
+        "routine.json"
+      ]
+    },
+    "start_date": {
+      "label_ar": "تاريخ البداية",
+      "where_used": [
+        "commands/examples/start_habit.example.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "habits.json"
+      ]
+    },
+    "start_date_missing_text_ar": {
+      "label_ar": "نص يظهر لما تاريخ البداية غير معروف",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "start_limit_g": {
+      "label_ar": "حد البداية (غرام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "start_min": {
+      "label_ar": "البداية (دقائق من منتصف الليل)",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "started": {
+      "label_ar": "بدأ",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "started_confidence": {
+      "label_ar": "درجة ثقة البداية",
+      "where_used": [
+        "dashboard_summary.json",
+        "habits.json"
+      ]
+    },
+    "stated_at": {
+      "label_ar": "وقت إعلان الرقم",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "stated_by_ar": {
+      "label_ar": "قاله",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "status": {
+      "label_ar": "الحالة",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json",
+        "dashboard_summary.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "finance.json",
+        "habits.json",
+        "prayers.json"
+      ]
+    },
+    "status_ar": {
+      "label_ar": "الحالة بالعربي",
+      "where_used": [
+        "body.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "prayers.json"
+      ]
+    },
+    "statuses_ar": {
+      "label_ar": "أسماء الحالات بالعربي",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "step_per_day": {
+      "label_ar": "الخطوة في اليوم",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "streak_definition_ar": {
+      "label_ar": "تعريف السلسلة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "sugar_limit_g": {
+      "label_ar": "حد السكر (غرام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "sum_cash_delta_after_base": {
+      "label_ar": "مجموع التغيرات بعد الأساس",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "swim_note_ar": {
+      "label_ar": "ملاحظة عن السباحة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target": {
+      "label_ar": "الهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_bedtime": {
+      "label_ar": "وقت النوم المستهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_bedtime_note_ar": {
+      "label_ar": "ملاحظة عن وقت النوم المستهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_confidence": {
+      "label_ar": "درجة ثقة الهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_kcal": {
+      "label_ar": "السعرات المستهدفة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_kcal_confidence": {
+      "label_ar": "درجة ثقة السعرات المستهدفة",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_protein_confidence": {
+      "label_ar": "درجة ثقة البروتين المستهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_protein_g": {
+      "label_ar": "البروتين المستهدف (غرام)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "target_protein_note_ar": {
+      "label_ar": "ملاحظة عن البروتين المستهدف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "targets": {
+      "label_ar": "الأهداف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "targets_confidence": {
+      "label_ar": "درجة ثقة الأهداف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "targets_end_note_ar": {
+      "label_ar": "ملاحظة عن نهاية الأهداف",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "templates": {
+      "label_ar": "القوالب",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "term_ar": {
+      "label_ar": "المصطلح بالعربي",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "term_en": {
+      "label_ar": "المصطلح بالإنجليزي",
+      "where_used": [
+        "docs/GLOSSARY_AR.json"
+      ]
+    },
+    "text_ar": {
+      "label_ar": "النص",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "finance.json",
+        "routine.json"
+      ]
+    },
+    "text_redacted": {
+      "label_ar": "النص محجوب",
+      "where_used": [
+        "ledger_full.json"
+      ]
+    },
+    "time": {
+      "label_ar": "الوقت",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "time_ar": {
+      "label_ar": "الوقت بالعربي",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "time_confidence": {
+      "label_ar": "درجة ثقة الوقت",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "time_format": {
+      "label_ar": "شكل الوقت",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "time_min": {
+      "label_ar": "الوقت (دقائق من منتصف الليل)",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "time_slot": {
+      "label_ar": "الفترة من اليوم",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "timestamps_note_ar": {
+      "label_ar": "شرح أوقات الملفات",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "timezone": {
+      "label_ar": "المنطقة الزمنية",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json",
+        "routine.json"
+      ]
+    },
+    "title": {
+      "label_ar": "العنوان",
+      "where_used": [
+        "dashboard_summary.json",
+        "finance.json"
+      ]
+    },
+    "title_ar": {
+      "label_ar": "العنوان بالعربي",
+      "where_used": [
+        "body.json",
+        "dashboard_summary.json",
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "finance.json",
+        "ledger_full.json",
+        "prayers.json"
+      ]
+    },
+    "to": {
+      "label_ar": "إلى",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json",
+        "routine.json"
+      ]
+    },
+    "to_account": {
+      "label_ar": "إلى حساب",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "to_exercise_id": {
+      "label_ar": "إلى التمرين رقم",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "today": {
+      "label_ar": "اليوم",
+      "where_used": [
+        "habits.json",
+        "prayers.json"
+      ]
+    },
+    "today_plan_confidence": {
+      "label_ar": "درجة ثقة خطة اليوم",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "today_plan_day": {
+      "label_ar": "رقم يوم الخطة اليوم",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "today_target": {
+      "label_ar": "هدف اليوم",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "today_target_ar": {
+      "label_ar": "هدف اليوم بالعربي",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "tone_ar": {
+      "label_ar": "أسلوب الكلام",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "total": {
+      "label_ar": "المجموع",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "finance.json",
+        "prayers.json"
+      ]
+    },
+    "total_amount": {
+      "label_ar": "المبلغ الكلي",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "total_arithmetic_ar": {
+      "label_ar": "خطوات حساب المجموع",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "total_balance_rm": {
+      "label_ar": "مجموع الأرصدة (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "total_days_if_counts_stay_fixed": {
+      "label_ar": "مجموع الأيام لو بقي العدد ثابت",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "total_expense_rows": {
+      "label_ar": "عدد كل صفوف الصرف",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "total_from": {
+      "label_ar": "المجموع من",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "total_keys": {
+      "label_ar": "عدد المفاتيح",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json"
+      ]
+    },
+    "total_remaining": {
+      "label_ar": "مجموع القضاء المتبقي",
+      "where_used": [
+        "dashboard_summary.json",
+        "prayers.json"
+      ]
+    },
+    "total_rows": {
+      "label_ar": "عدد الصفوف",
+      "where_used": [
+        "dashboard_summary.json",
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "total_spend_rm": {
+      "label_ar": "مجموع الصرف (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "total_spent_rm": {
+      "label_ar": "مجموع المصروف (رنجت)",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "total_to": {
+      "label_ar": "المجموع إلى",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "totals": {
+      "label_ar": "المجاميع",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "totals_confidence": {
+      "label_ar": "درجة ثقة المجاميع",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "trained": {
+      "label_ar": "تمرن",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "transfer": {
+      "label_ar": "عدد صفوف التحويل",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "treasury": {
+      "label_ar": "الخزينة",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "treasury_share_percent": {
+      "label_ar": "حصة الخزينة (%)",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "type": {
+      "label_ar": "النوع",
+      "where_used": [
+        "commands/examples/habit_relapse.example.json",
+        "commands/examples/log_expense.example.json",
+        "commands/examples/log_prayer.example.json",
+        "commands/examples/start_habit.example.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "exports_meta.json",
+        "finance.json",
+        "habits.json",
+        "ledger_full.json"
+      ]
+    },
+    "type_ar": {
+      "label_ar": "النوع بالعربي",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "unconfirmed_last_recorded_rm": {
+      "label_ar": "آخر مبلغ مسجل غير مؤكد (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unexplained_gap_note_ar": {
+      "label_ar": "ملاحظة عن الفرق غير المفسر",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unexplained_gap_rm": {
+      "label_ar": "الفرق غير المفسر (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unit": {
+      "label_ar": "الوحدة",
+      "where_used": [
+        "body.json",
+        "dashboard_summary.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "unknown": {
+      "label_ar": "غير معروف",
+      "where_used": [
+        "prayers.json"
+      ]
+    },
+    "unknown_box_amount_rm": {
+      "label_ar": "مبلغ الصرف مجهول الصندوق (رنجت)",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unknown_box_row_ids": {
+      "label_ar": "أرقام صفوف مجهولة الصندوق",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unknown_box_rows": {
+      "label_ar": "عدد صفوف مجهولة الصندوق",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "unknown_is_not_zero_ar": {
+      "label_ar": "غير معروف مو صفر",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "unrecorded_inputs": {
+      "label_ar": "بيانات ناقصة",
+      "where_used": [
+        "body.json",
+        "habits.json"
+      ]
+    },
+    "unrecorded_inputs_title_ar": {
+      "label_ar": "عنوان البيانات الناقصة",
+      "where_used": [
+        "body.json",
+        "habits.json"
+      ]
+    },
+    "used_by": {
+      "label_ar": "يُستخدم في",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "value": {
+      "label_ar": "القيمة",
+      "where_used": [
+        "body.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json",
+        "habits.json"
+      ]
+    },
+    "value_kg": {
+      "label_ar": "القيمة (كغ)",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "value_text_ar": {
+      "label_ar": "القيمة كنص",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "vape_baseline_per_day": {
+      "label_ar": "الفيب اليومي في البداية",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "vape_end_goal": {
+      "label_ar": "هدف نهاية الفيب",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "vape_kept": {
+      "label_ar": "التزم بتقليل الفيب",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "variant_with_27_restaurant": {
+      "label_ar": "بديل: مع وجبة المطعم 27",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "variant_with_pistachio_row": {
+      "label_ar": "بديل: مع صف الفستق",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "variant_without_shared_part": {
+      "label_ar": "بديل: بدون الجزء المشترك",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "verification": {
+      "label_ar": "التحقق",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "version": {
+      "label_ar": "رقم النسخة",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json",
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "docs/GLOSSARY_AR.json",
+        "docs/HABITS_ALTERNATIVES_AR.json",
+        "docs/PRAYER_QADA_PLAN_AR.json",
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json",
+        "exports_meta.json",
+        "ledger_full.json"
+      ]
+    },
+    "waiting": {
+      "label_ar": "بانتظار",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "waiting_ids": {
+      "label_ar": "أرقام اللي بانتظار",
+      "where_used": [
+        "dashboard_summary.json"
+      ]
+    },
+    "wake_confidence": {
+      "label_ar": "درجة ثقة وقت الاستيقاظ",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "wake_time": {
+      "label_ar": "وقت الاستيقاظ",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "wake_time_calendar": {
+      "label_ar": "وقت الاستيقاظ في التقويم",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "walk_laps_confidence": {
+      "label_ar": "درجة ثقة جولات المشي",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "walk_laps_length_m": {
+      "label_ar": "طول جولة المشي (متر)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "walk_laps_note_ar": {
+      "label_ar": "ملاحظة عن جولات المشي",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "wallet": {
+      "label_ar": "الصندوق",
+      "where_used": [
+        "finance.json",
+        "ledger_full.json"
+      ]
+    },
+    "water_l": {
+      "label_ar": "الماء (لتر)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "week_plan": {
+      "label_ar": "خطة الأسبوع",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "week_plan_confidence": {
+      "label_ar": "درجة ثقة خطة الأسبوع",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "week_start": {
+      "label_ar": "بداية الأسبوع",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "week_start_confidence": {
+      "label_ar": "درجة ثقة بداية الأسبوع",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json"
+      ]
+    },
+    "weekday": {
+      "label_ar": "يوم الأسبوع",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weekday_ar": {
+      "label_ar": "يوم الأسبوع بالعربي",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weekday_order": {
+      "label_ar": "ترتيب أيام الأسبوع",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weekly_food_budget": {
+      "label_ar": "ميزانية الأكل الأسبوعية",
+      "where_used": [
+        "finance.json"
+      ]
+    },
+    "weekly_study_blocks": {
+      "label_ar": "كتل الدراسة الأسبوعية",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    },
+    "weekly_weigh_in_day": {
+      "label_ar": "يوم الوزن الأسبوعي",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "weeks": {
+      "label_ar": "الأسابيع",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weeks_1_4": {
+      "label_ar": "الأسابيع 1 إلى 4",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weeks_5_plus": {
+      "label_ar": "من الأسبوع 5",
+      "where_used": [
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weight_context_ar": {
+      "label_ar": "سياق الوزن",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json",
+        "docs/SPORTS_PLANS_AR.json"
+      ]
+    },
+    "weight_history": {
+      "label_ar": "سجل الوزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "weight_history_note_ar": {
+      "label_ar": "ملاحظة عن سجل الوزن",
+      "where_used": [
+        "body.json"
+      ]
+    },
+    "weight_kg": {
+      "label_ar": "الوزن (كغ)",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "what_is_not_computed_ar": {
+      "label_ar": "اللي ما انحسب",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "where_used": {
+      "label_ar": "الملفات اللي يظهر فيها",
+      "where_used": [
+        "docs/FIELD_LABELS_AR.json"
+      ]
+    },
+    "window_from": {
+      "label_ar": "نافذة الحساب من",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "window_note_ar": {
+      "label_ar": "ملاحظة عن نافذة الحساب",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json"
+      ]
+    },
+    "window_to": {
+      "label_ar": "نافذة الحساب إلى",
+      "where_used": [
+        "docs/FINANCE_INSIGHTS_AR.json",
+        "finance.json"
+      ]
+    },
+    "with_safer_alternative": {
+      "label_ar": "تمارين لها بديل أأمن",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "with_safety_note": {
+      "label_ar": "تمارين لها ملاحظة أمان",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "with_safety_note_ids": {
+      "label_ar": "أرقام تمارين لها ملاحظة أمان",
+      "where_used": [
+        "docs/SPORTS_EXERCISES.json"
+      ]
+    },
+    "workout_days_per_week": {
+      "label_ar": "أيام التمرين في الأسبوع",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "workout_equipment": {
+      "label_ar": "معدات التمرين",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "workout_location": {
+      "label_ar": "مكان التمرين",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "writer": {
+      "label_ar": "الكاتب",
+      "where_used": [
+        "exports_meta.json"
+      ]
+    },
+    "years_approx": {
+      "label_ar": "السنوات تقريباً",
+      "where_used": [
+        "docs/PRAYER_QADA_PLAN_AR.json"
+      ]
+    },
+    "zero_from": {
+      "label_ar": "الصفر من",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "zero_from_confidence": {
+      "label_ar": "درجة ثقة بداية الصفر",
+      "where_used": [
+        "habits.json"
+      ]
+    },
+    "zone": {
+      "label_ar": "منطقة أوقات الصلاة",
+      "where_used": [
+        "docs/ROUTINE_BLOCKS_AR.json",
+        "routine.json"
+      ]
+    }
+  }
+}

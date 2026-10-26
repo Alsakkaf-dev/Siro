@@ -1,0 +1,2368 @@
+{
+  "version": 3,
+  "generated_at": "2026-10-26T22:51:57+08:00",
+  "confidence": "assumption",
+  "confidence_ar": "افتراض",
+  "note_ar": "كل محتوى هذا الملف افتراض. محمد ما اختار بيت أو جيم ولا عدد الأيام. المصدر: docs\\SITE_IDEAS_AR.md القسم 1. التمارين تُقرأ بالمعرّف من docs\\SPORTS_EXERCISES.json.",
+  "exercises_file": "SPORTS_EXERCISES.json",
+  "source_doc": "docs\\SITE_IDEAS_AR.md",
+  "goal": {
+    "current_weight_kg": 83.65,
+    "goal_weight_kg": 63,
+    "confidence": "مثبت",
+    "note_ar": "الوزن الحالي 83.65 كجم (آخر قراءة 23 أكتوبر 2026، مثبت)، والهدف 63 كجم، والمتبقي 20.65 كجم [محسوب]. خط الأساس (نقطة البداية) 84.3 كجم يوم 17 أكتوبر وأكده محمد يوم 21 أكتوبر، والتغير −0.65 كجم [محسوب]. وتيرة النزول لم يحددها محمد."
+  },
+  "selected_template_id": null,
+  "selected_location": null,
+  "selection_note_ar": "فارغ لأن محمد ما اختار بعد. يُعبّأ عند قرار محمد.",
+  "weekday_order": [
+    "sat",
+    "sun",
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+  ],
+  "phases": [
+    {
+      "id": "phase_1",
+      "name_ar": "الأسابيع 1 إلى 6",
+      "weeks": {
+        "min": 1,
+        "max": 6
+      },
+      "sets": {
+        "min": 2,
+        "max": 3
+      },
+      "reps": {
+        "min": 10,
+        "max": 15
+      },
+      "rest_seconds": {
+        "min": 60,
+        "max": 90
+      },
+      "lowering_seconds": 3,
+      "confidence": "assumption"
+    },
+    {
+      "id": "phase_2",
+      "name_ar": "الأسابيع 7 إلى 16",
+      "weeks": {
+        "min": 7,
+        "max": 16
+      },
+      "sets": {
+        "min": 3,
+        "max": 3
+      },
+      "reps": {
+        "min": 12,
+        "max": 20
+      },
+      "rest_seconds": {
+        "min": 60,
+        "max": 60
+      },
+      "lowering_seconds": 3,
+      "confidence": "assumption"
+    }
+  ],
+  "general_rules": [
+    {
+      "id": "reps_in_reserve",
+      "text_ar": "اترك 2 إلى 3 تكرارات في الخزان.",
+      "confidence": "assumption"
+    },
+    {
+      "id": "low_sleep",
+      "text_ar": "إذا نام قليلاً خفف الجلسة أو اجعلها مشياً خفيفاً.",
+      "confidence": "assumption"
+    },
+    {
+      "id": "stop_if_pain",
+      "text_ar": "إذا ظهر ألم حاد توقف.",
+      "confidence": "assumption"
+    },
+    {
+      "id": "avoid_impact",
+      "text_ar": "تجنبنا القفز والجري وكل تمرين beginner_safe=false في القوالب (القائمة في beginner_unsafe_exercise_ids).",
+      "confidence": "assumption"
+    }
+  ],
+  "excluded_exercise_ids": [
+    "burpee",
+    "jumping_jacks",
+    "mountain_climber"
+  ],
+  "sessions": [
+    {
+      "id": "home_A",
+      "name_ar": "بيت A (كامل الجسم)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "goblet_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_floor_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "one_arm_dumbbell_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "romanian_deadlift",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "overhead_dumbbell_press",
+          "sets": {
+            "min": 2,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "goblet_squat",
+        "one_arm_dumbbell_row",
+        "romanian_deadlift",
+        "overhead_dumbbell_press",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "سكوات بدمبل أمام الصدر: ظهر مستقيم ونزول مريح. إذا آلمتك الركبة خفف العمق.",
+        "تجديف بدمبل بيد واحدة: ظهرك مسطح ومسنود بيد على بنش. لا تلف جذعك.",
+        "رفعة ميتة رومانية: بدمبل خفيف وظهر مستقيم، والحركة من الورك. الوزن الثقيل يحمّل أسفل الظهر.",
+        "ضغط كتف بالدمبل: اجلس بظهر مسنود، شد بطنك ولا تقوّس الظهر. وزن خفيف.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "home_B",
+      "name_ar": "بيت B (كامل الجسم)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "reverse_lunge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 8,
+            "max": 12
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "incline_push_up",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 8,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "reverse_fly",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "hip_thrust",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lateral_raise",
+          "sets": {
+            "min": 2,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "hammer_curl",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "overhead_triceps_extension",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "standing_calf_raise",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 15,
+            "max": 25
+          }
+        },
+        {
+          "exercise_id": "side_plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 30
+          },
+          "per_side": true
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "reverse_lunge",
+        "incline_push_up",
+        "reverse_fly",
+        "hip_thrust",
+        "lateral_raise",
+        "overhead_triceps_extension",
+        "side_plank"
+      ],
+      "safety_notes_ar": [
+        "طعنة خلفية: ابدأ بوزن الجسم وبنزول قليل، وأمسك بشيء ثابت للتوازن. لا تنزل عميقاً بدمبلات.",
+        "ضغط مائل (اليدان على مرتفع): إذا آلمتك المعصمان ارفع يديك على مرتفع أعلى.",
+        "فتح خلفي بالدمبل: دمبل خفيف وظهر مستقيم.",
+        "دفع الورك: ابدأ بوزن الجسم أو دمبل خفيف، على بنش ثابت.",
+        "رفع جانبي بالدمبل: دمبل خفيف، ولا ترفع فوق مستوى الكتفين.",
+        "تمديد ترايسبس فوق الرأس: دمبل خفيف ولا تقوّس الظهر. إذا آلمك الكوع خفف الوزن.",
+        "بلانك جانبي: إذا آلمك الكتف اثنِ الركبتين."
+      ]
+    },
+    {
+      "id": "home_C",
+      "name_ar": "بيت C (كامل الجسم)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "box_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 8,
+            "max": 12
+          },
+          "note_ar": "ابدأ بـ Box Squat وابقَ عليه حتى تتقن الحركة"
+        },
+        {
+          "exercise_id": "knee_push_up",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 8,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "one_arm_dumbbell_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "sumo_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "overhead_dumbbell_press",
+          "sets": {
+            "min": 2,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "triceps_kickback",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "bicycle_crunch",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "bird_dog",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 8
+          },
+          "per_side": true
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "knee_push_up",
+        "one_arm_dumbbell_row",
+        "sumo_squat",
+        "overhead_dumbbell_press",
+        "bicycle_crunch"
+      ],
+      "safety_notes_ar": [
+        "ضغط أرضي على الركب: ضع سجادة تحت ركبتيك.",
+        "تجديف بدمبل بيد واحدة: ظهرك مسطح ومسنود بيد على بنش. لا تلف جذعك.",
+        "سكوات سومو (أرجل واسعة): ركبتاك باتجاه أصابع القدمين، ونزول مريح.",
+        "ضغط كتف بالدمبل: اجلس بظهر مسنود، شد بطنك ولا تقوّس الظهر. وزن خفيف.",
+        "كرنش الدراجة: حركة بطيئة بدون شد الرقبة، وأسفل الظهر على الأرض."
+      ]
+    },
+    {
+      "id": "home_upper",
+      "name_ar": "بيت علوي (Upper)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "dumbbell_floor_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "one_arm_dumbbell_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "overhead_dumbbell_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "reverse_fly",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "overhead_triceps_extension",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "one_arm_dumbbell_row",
+        "overhead_dumbbell_press",
+        "reverse_fly",
+        "overhead_triceps_extension"
+      ],
+      "safety_notes_ar": [
+        "تجديف بدمبل بيد واحدة: ظهرك مسطح ومسنود بيد على بنش. لا تلف جذعك.",
+        "ضغط كتف بالدمبل: اجلس بظهر مسنود، شد بطنك ولا تقوّس الظهر. وزن خفيف.",
+        "فتح خلفي بالدمبل: دمبل خفيف وظهر مستقيم.",
+        "تمديد ترايسبس فوق الرأس: دمبل خفيف ولا تقوّس الظهر. إذا آلمك الكوع خفف الوزن."
+      ]
+    },
+    {
+      "id": "home_lower",
+      "name_ar": "بيت سفلي (Lower)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "goblet_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "romanian_deadlift",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "reverse_lunge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "standing_calf_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "goblet_squat",
+        "romanian_deadlift",
+        "reverse_lunge",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "سكوات بدمبل أمام الصدر: ظهر مستقيم ونزول مريح. إذا آلمتك الركبة خفف العمق.",
+        "رفعة ميتة رومانية: بدمبل خفيف وظهر مستقيم، والحركة من الورك. الوزن الثقيل يحمّل أسفل الظهر.",
+        "طعنة خلفية: ابدأ بوزن الجسم وبنزول قليل، وأمسك بشيء ثابت للتوازن. لا تنزل عميقاً بدمبلات.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "home_push",
+      "name_ar": "بيت Push (صدر وكتف وترايسبس)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "dumbbell_floor_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "incline_push_up",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 8,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "overhead_dumbbell_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lateral_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "overhead_triceps_extension",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        }
+      ],
+      "note_ar": "نسخة البيت من Push هي اقتراح جديد وليست من ملفات محمد",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "incline_push_up",
+        "overhead_dumbbell_press",
+        "lateral_raise",
+        "overhead_triceps_extension",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "ضغط مائل (اليدان على مرتفع): إذا آلمتك المعصمان ارفع يديك على مرتفع أعلى.",
+        "ضغط كتف بالدمبل: اجلس بظهر مسنود، شد بطنك ولا تقوّس الظهر. وزن خفيف.",
+        "رفع جانبي بالدمبل: دمبل خفيف، ولا ترفع فوق مستوى الكتفين.",
+        "تمديد ترايسبس فوق الرأس: دمبل خفيف ولا تقوّس الظهر. إذا آلمك الكوع خفف الوزن.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "home_pull",
+      "name_ar": "بيت Pull (ظهر وبايسبس)",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "one_arm_dumbbell_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "reverse_fly",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "superman",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 8,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "hammer_curl",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        }
+      ],
+      "note_ar": "نسخة البيت من Pull هي اقتراح جديد وليست من ملفات محمد",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "one_arm_dumbbell_row",
+        "reverse_fly",
+        "superman"
+      ],
+      "safety_notes_ar": [
+        "تجديف بدمبل بيد واحدة: ظهرك مسطح ومسنود بيد على بنش. لا تلف جذعك.",
+        "فتح خلفي بالدمبل: دمبل خفيف وظهر مستقيم.",
+        "سوبرمان (رفع الذراعين والرجلين وأنت منبطح): ارفع بلطف بدون تقويس زائد لأسفل الظهر."
+      ]
+    },
+    {
+      "id": "home_legs",
+      "name_ar": "بيت أرجل",
+      "kind": "strength",
+      "location": "home",
+      "exercises": [
+        {
+          "exercise_id": "goblet_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "romanian_deadlift",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "reverse_lunge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "glute_bridge",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "standing_calf_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 15,
+            "max": 25
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        },
+        {
+          "exercise_id": "bicycle_crunch",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "goblet_squat",
+        "romanian_deadlift",
+        "reverse_lunge",
+        "plank",
+        "bicycle_crunch"
+      ],
+      "safety_notes_ar": [
+        "سكوات بدمبل أمام الصدر: ظهر مستقيم ونزول مريح. إذا آلمتك الركبة خفف العمق.",
+        "رفعة ميتة رومانية: بدمبل خفيف وظهر مستقيم، والحركة من الورك. الوزن الثقيل يحمّل أسفل الظهر.",
+        "طعنة خلفية: ابدأ بوزن الجسم وبنزول قليل، وأمسك بشيء ثابت للتوازن. لا تنزل عميقاً بدمبلات.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر.",
+        "كرنش الدراجة: حركة بطيئة بدون شد الرقبة، وأسفل الظهر على الأرض."
+      ]
+    },
+    {
+      "id": "gym_A",
+      "name_ar": "جيم A (كامل الجسم)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "leg_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "chest_press_machine",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lat_pulldown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "leg_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "shoulder_press_machine",
+          "sets": {
+            "min": 2,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "seated_cable_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "leg_press",
+        "lat_pulldown",
+        "leg_curl",
+        "shoulder_press_machine",
+        "seated_cable_row",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "ضغط أرجل على الآلة: لا تقفل الركبتين ولا ترفع أسفل ظهرك عن المسند.",
+        "سحب علوي على الآلة: اسحب البار إلى أعلى صدرك أمامك، ولا تسحبه خلف الرقبة أبداً.",
+        "ثني الأرجل على الآلة: وزن خفيف ولا ترفع الورك.",
+        "ضغط كتف على الآلة: ظهرك على المسند ووزن خفيف.",
+        "تجديف جالس بالكيبل: ظهرك مستقيم ولا تميل بجسمك للخلف وأنت تسحب.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "gym_B",
+      "name_ar": "جيم B (كامل الجسم)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "goblet_squat",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_bench_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "seated_cable_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "romanian_deadlift",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "face_pull",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "triceps_pushdown",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "goblet_squat",
+        "dumbbell_bench_press",
+        "seated_cable_row",
+        "romanian_deadlift",
+        "face_pull"
+      ],
+      "safety_notes_ar": [
+        "سكوات بدمبل أمام الصدر: ظهر مستقيم ونزول مريح. إذا آلمتك الركبة خفف العمق.",
+        "ضغط صدر بالدمبل على البنش: ابدأ بدمبل خفيف، واطلب مساعدة عند رفع الدمبلين وإنزالهما.",
+        "تجديف جالس بالكيبل: ظهرك مستقيم ولا تميل بجسمك للخلف وأنت تسحب.",
+        "رفعة ميتة رومانية: بدمبل خفيف وظهر مستقيم، والحركة من الورك. الوزن الثقيل يحمّل أسفل الظهر.",
+        "سحب للوجه بالكيبل: وزن خفيف، ولا ترفع كتفيك نحو أذنيك."
+      ]
+    },
+    {
+      "id": "gym_C",
+      "name_ar": "جيم C (كامل الجسم)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "leg_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "incline_dumbbell_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lat_pulldown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "hip_thrust",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lateral_raise",
+          "sets": {
+            "min": 2,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "leg_extension",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "seated_calf_raise",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 15,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "leg_press",
+        "incline_dumbbell_press",
+        "lat_pulldown",
+        "hip_thrust",
+        "lateral_raise",
+        "leg_extension"
+      ],
+      "safety_notes_ar": [
+        "ضغط أرجل على الآلة: لا تقفل الركبتين ولا ترفع أسفل ظهرك عن المسند.",
+        "ضغط صدر مائل بالدمبل: وزن خفيف وميل بسيط للبنش حتى لا يتعب الكتف.",
+        "سحب علوي على الآلة: اسحب البار إلى أعلى صدرك أمامك، ولا تسحبه خلف الرقبة أبداً.",
+        "دفع الورك: ابدأ بوزن الجسم أو دمبل خفيف، على بنش ثابت.",
+        "رفع جانبي بالدمبل: دمبل خفيف، ولا ترفع فوق مستوى الكتفين.",
+        "تمديد الأرجل على الآلة: وزن خفيف وحركة مريحة؛ الوزن الثقيل يحمّل الركبة."
+      ]
+    },
+    {
+      "id": "gym_upper",
+      "name_ar": "جيم علوي (Upper)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "chest_press_machine",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lat_pulldown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "shoulder_press_machine",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "seated_cable_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "triceps_pushdown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "lat_pulldown",
+        "shoulder_press_machine",
+        "seated_cable_row"
+      ],
+      "safety_notes_ar": [
+        "سحب علوي على الآلة: اسحب البار إلى أعلى صدرك أمامك، ولا تسحبه خلف الرقبة أبداً.",
+        "ضغط كتف على الآلة: ظهرك على المسند ووزن خفيف.",
+        "تجديف جالس بالكيبل: ظهرك مستقيم ولا تميل بجسمك للخلف وأنت تسحب."
+      ]
+    },
+    {
+      "id": "gym_lower",
+      "name_ar": "جيم سفلي (Lower)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "leg_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "leg_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "leg_extension",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "hip_thrust",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "seated_calf_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "leg_press",
+        "leg_curl",
+        "leg_extension",
+        "hip_thrust",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "ضغط أرجل على الآلة: لا تقفل الركبتين ولا ترفع أسفل ظهرك عن المسند.",
+        "ثني الأرجل على الآلة: وزن خفيف ولا ترفع الورك.",
+        "تمديد الأرجل على الآلة: وزن خفيف وحركة مريحة؛ الوزن الثقيل يحمّل الركبة.",
+        "دفع الورك: ابدأ بوزن الجسم أو دمبل خفيف، على بنش ثابت.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "gym_push",
+      "name_ar": "جيم Push (صدر وكتف وترايسبس)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "dumbbell_bench_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "alternative_exercise_ids": [
+            "chest_press_machine"
+          ]
+        },
+        {
+          "exercise_id": "overhead_dumbbell_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "lateral_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "triceps_pushdown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "dumbbell_bench_press",
+        "overhead_dumbbell_press",
+        "lateral_raise"
+      ],
+      "safety_notes_ar": [
+        "ضغط صدر بالدمبل على البنش: ابدأ بدمبل خفيف، واطلب مساعدة عند رفع الدمبلين وإنزالهما.",
+        "ضغط كتف بالدمبل: اجلس بظهر مسنود، شد بطنك ولا تقوّس الظهر. وزن خفيف.",
+        "رفع جانبي بالدمبل: دمبل خفيف، ولا ترفع فوق مستوى الكتفين."
+      ]
+    },
+    {
+      "id": "gym_pull",
+      "name_ar": "جيم Pull (ظهر وبايسبس)",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "lat_pulldown",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "seated_cable_row",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "face_pull",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 12,
+            "max": 20
+          }
+        },
+        {
+          "exercise_id": "dumbbell_curl",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "lat_pulldown",
+        "seated_cable_row",
+        "face_pull"
+      ],
+      "safety_notes_ar": [
+        "سحب علوي على الآلة: اسحب البار إلى أعلى صدرك أمامك، ولا تسحبه خلف الرقبة أبداً.",
+        "تجديف جالس بالكيبل: ظهرك مستقيم ولا تميل بجسمك للخلف وأنت تسحب.",
+        "سحب للوجه بالكيبل: وزن خفيف، ولا ترفع كتفيك نحو أذنيك."
+      ]
+    },
+    {
+      "id": "gym_legs",
+      "name_ar": "جيم أرجل",
+      "kind": "strength",
+      "location": "gym",
+      "exercises": [
+        {
+          "exercise_id": "leg_press",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          },
+          "alternative_exercise_ids": [
+            "goblet_squat"
+          ]
+        },
+        {
+          "exercise_id": "romanian_deadlift",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 12
+          }
+        },
+        {
+          "exercise_id": "hip_thrust",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 10,
+            "max": 15
+          }
+        },
+        {
+          "exercise_id": "standing_calf_raise",
+          "sets": {
+            "min": 3,
+            "max": 3
+          },
+          "reps": {
+            "min": 15,
+            "max": 25
+          }
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 20,
+            "max": 45
+          }
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        }
+      ],
+      "note_ar": "البطن 2 إلى 3 تمارين في آخر الجلسة",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "leg_press",
+        "goblet_squat",
+        "romanian_deadlift",
+        "hip_thrust",
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "ضغط أرجل على الآلة: لا تقفل الركبتين ولا ترفع أسفل ظهرك عن المسند.",
+        "سكوات بدمبل أمام الصدر: ظهر مستقيم ونزول مريح. إذا آلمتك الركبة خفف العمق.",
+        "رفعة ميتة رومانية: بدمبل خفيف وظهر مستقيم، والحركة من الورك. الوزن الثقيل يحمّل أسفل الظهر.",
+        "دفع الورك: ابدأ بوزن الجسم أو دمبل خفيف، على بنش ثابت.",
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "walk",
+      "name_ar": "مشي",
+      "kind": "cardio",
+      "location": "any",
+      "exercises": [
+        {
+          "exercise_id": "brisk_walking"
+        }
+      ],
+      "duration_minutes": {
+        "weeks_1_4": {
+          "min": 20,
+          "max": 30
+        },
+        "weeks_5_plus": {
+          "min": 30,
+          "max": 40
+        }
+      },
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "brisk_walking"
+      ],
+      "safety_notes_ar": [
+        "مشي سريع: حذاء مريح. توقف وراجع طبيباً عند ألم صدر أو دوخة."
+      ]
+    },
+    {
+      "id": "mobility",
+      "name_ar": "إطالة وقوام",
+      "kind": "mobility",
+      "location": "any",
+      "exercises": [
+        {
+          "exercise_id": "bird_dog",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 8
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "dead_bug",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "reps": {
+            "min": 6,
+            "max": 10
+          },
+          "per_side": true
+        },
+        {
+          "exercise_id": "plank",
+          "sets": {
+            "min": 2,
+            "max": 2
+          },
+          "duration_seconds": {
+            "min": 15,
+            "max": 30
+          }
+        }
+      ],
+      "duration_minutes": {
+        "min": 10,
+        "max": 15
+      },
+      "note_ar": "خفيف. الجلسة الطويلة 25 إلى 30 دقيقة في أيام الراحة",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "plank"
+      ],
+      "safety_notes_ar": [
+        "بلانك (ثبات على الساعدين): لا تتقوس الظهر ولا ترفع الورك. توقف إذا آلمك أسفل الظهر."
+      ]
+    },
+    {
+      "id": "swim",
+      "name_ar": "سباحة (اختياري)",
+      "kind": "cardio",
+      "location": "any",
+      "exercises": [
+        {
+          "exercise_id": "swimming"
+        }
+      ],
+      "duration_minutes": {
+        "min": 20,
+        "max": 30
+      },
+      "note_ar": "هادئة، يوم راحة نشطة",
+      "optional": true,
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "سباحة: اسبح في مكان فيه منقذ، وإذا كنت لا تجيد السباحة فلا تنزل العمق."
+      ]
+    },
+    {
+      "id": "rest",
+      "name_ar": "راحة",
+      "kind": "rest",
+      "location": "any",
+      "exercises": [],
+      "confidence": "assumption",
+      "safety_exercise_ids": [],
+      "safety_notes_ar": []
+    }
+  ],
+  "templates": [
+    {
+      "id": "home_3day",
+      "name_ar": "3 أيام (بيت): الأنسب للبداية",
+      "days_per_week": 3,
+      "location": "home",
+      "recommended_from_week": 1,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "home_A"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "home_B"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "walk",
+            "mobility"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "home_C"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "goblet_squat",
+        "one_arm_dumbbell_row",
+        "romanian_deadlift",
+        "overhead_dumbbell_press",
+        "plank",
+        "brisk_walking",
+        "reverse_lunge",
+        "incline_push_up",
+        "reverse_fly",
+        "hip_thrust",
+        "lateral_raise",
+        "overhead_triceps_extension",
+        "side_plank",
+        "knee_push_up",
+        "sumo_squat",
+        "bicycle_crunch",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: سكوات بدمبل أمام الصدر، تجديف بدمبل بيد واحدة، رفعة ميتة رومانية، ضغط كتف بالدمبل، بلانك (ثبات على الساعدين)، مشي سريع، طعنة خلفية، ضغط مائل (اليدان على مرتفع)، فتح خلفي بالدمبل، دفع الورك، رفع جانبي بالدمبل، تمديد ترايسبس فوق الرأس، بلانك جانبي، ضغط أرضي على الركب، سكوات سومو (أرجل واسعة)، كرنش الدراجة، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة."
+      ]
+    },
+    {
+      "id": "home_4day",
+      "name_ar": "4 أيام (بيت): علوي وسفلي",
+      "days_per_week": 4,
+      "location": "home",
+      "recommended_from_week": 1,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "home_upper"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "home_lower"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "home_upper"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "home_lower"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "note_ar": "علوي 1 وعلوي 2 يستخدمان نفس الجلسة، وكذلك السفلي. يمكن للموقع تبديل التمارين بين المرتين",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "one_arm_dumbbell_row",
+        "overhead_dumbbell_press",
+        "reverse_fly",
+        "overhead_triceps_extension",
+        "goblet_squat",
+        "romanian_deadlift",
+        "reverse_lunge",
+        "plank",
+        "brisk_walking",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: تجديف بدمبل بيد واحدة، ضغط كتف بالدمبل، فتح خلفي بالدمبل، تمديد ترايسبس فوق الرأس، سكوات بدمبل أمام الصدر، رفعة ميتة رومانية، طعنة خلفية، بلانك (ثبات على الساعدين)، مشي سريع، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة."
+      ]
+    },
+    {
+      "id": "home_5day",
+      "name_ar": "5 أيام (بيت): Push / Pull / أرجل",
+      "days_per_week": 5,
+      "location": "home",
+      "recommended_from_week": 7,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "home_push"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "home_pull"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "home_legs"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "walk",
+            "mobility"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "home_upper"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "home_lower"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "note_ar": "بعد ما يثبت الالتزام ست أسابيع على الأقل. سفلي الخميس خفيف (مجموعتان)",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "incline_push_up",
+        "overhead_dumbbell_press",
+        "lateral_raise",
+        "overhead_triceps_extension",
+        "plank",
+        "one_arm_dumbbell_row",
+        "reverse_fly",
+        "superman",
+        "goblet_squat",
+        "romanian_deadlift",
+        "reverse_lunge",
+        "bicycle_crunch",
+        "brisk_walking",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: ضغط مائل (اليدان على مرتفع)، ضغط كتف بالدمبل، رفع جانبي بالدمبل، تمديد ترايسبس فوق الرأس، بلانك (ثبات على الساعدين)، تجديف بدمبل بيد واحدة، فتح خلفي بالدمبل، سوبرمان (رفع الذراعين والرجلين وأنت منبطح)، سكوات بدمبل أمام الصدر، رفعة ميتة رومانية، طعنة خلفية، كرنش الدراجة، مشي سريع، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة.",
+        "لا تبدأ هذا القالب قبل الأسبوع 7."
+      ]
+    },
+    {
+      "id": "gym_3day",
+      "name_ar": "3 أيام (جيم): الأنسب للبداية",
+      "days_per_week": 3,
+      "location": "gym",
+      "recommended_from_week": 1,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "gym_A"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "gym_B"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "walk",
+            "mobility"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "gym_C"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "leg_press",
+        "lat_pulldown",
+        "leg_curl",
+        "shoulder_press_machine",
+        "seated_cable_row",
+        "plank",
+        "brisk_walking",
+        "goblet_squat",
+        "dumbbell_bench_press",
+        "romanian_deadlift",
+        "face_pull",
+        "incline_dumbbell_press",
+        "hip_thrust",
+        "lateral_raise",
+        "leg_extension",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: ضغط أرجل على الآلة، سحب علوي على الآلة، ثني الأرجل على الآلة، ضغط كتف على الآلة، تجديف جالس بالكيبل، بلانك (ثبات على الساعدين)، مشي سريع، سكوات بدمبل أمام الصدر، ضغط صدر بالدمبل على البنش، رفعة ميتة رومانية، سحب للوجه بالكيبل، ضغط صدر مائل بالدمبل، دفع الورك، رفع جانبي بالدمبل، تمديد الأرجل على الآلة، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة."
+      ]
+    },
+    {
+      "id": "gym_4day",
+      "name_ar": "4 أيام (جيم): علوي وسفلي",
+      "days_per_week": 4,
+      "location": "gym",
+      "recommended_from_week": 1,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "gym_upper"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "gym_lower"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "gym_upper"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "gym_lower"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "walk"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "note_ar": "علوي 1 وعلوي 2 يستخدمان نفس الجلسة، وكذلك السفلي. يمكن للموقع تبديل التمارين بين المرتين",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "lat_pulldown",
+        "shoulder_press_machine",
+        "seated_cable_row",
+        "leg_press",
+        "leg_curl",
+        "leg_extension",
+        "hip_thrust",
+        "plank",
+        "brisk_walking",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: سحب علوي على الآلة، ضغط كتف على الآلة، تجديف جالس بالكيبل، ضغط أرجل على الآلة، ثني الأرجل على الآلة، تمديد الأرجل على الآلة، دفع الورك، بلانك (ثبات على الساعدين)، مشي سريع، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة."
+      ]
+    },
+    {
+      "id": "gym_5day",
+      "name_ar": "5 أيام (جيم): Push / Pull / أرجل",
+      "days_per_week": 5,
+      "location": "gym",
+      "recommended_from_week": 7,
+      "days": [
+        {
+          "weekday": "sat",
+          "weekday_ar": "السبت",
+          "sessions": [
+            "gym_push"
+          ]
+        },
+        {
+          "weekday": "sun",
+          "weekday_ar": "الأحد",
+          "sessions": [
+            "gym_pull"
+          ]
+        },
+        {
+          "weekday": "mon",
+          "weekday_ar": "الإثنين",
+          "sessions": [
+            "gym_legs"
+          ]
+        },
+        {
+          "weekday": "tue",
+          "weekday_ar": "الثلاثاء",
+          "sessions": [
+            "walk",
+            "mobility"
+          ]
+        },
+        {
+          "weekday": "wed",
+          "weekday_ar": "الأربعاء",
+          "sessions": [
+            "gym_upper"
+          ]
+        },
+        {
+          "weekday": "thu",
+          "weekday_ar": "الخميس",
+          "sessions": [
+            "gym_lower"
+          ]
+        },
+        {
+          "weekday": "fri",
+          "weekday_ar": "الجمعة",
+          "sessions": [
+            "rest",
+            "swim"
+          ]
+        }
+      ],
+      "note_ar": "بعد ما يثبت الالتزام ست أسابيع على الأقل. سفلي الخميس خفيف (مجموعتان)",
+      "confidence": "assumption",
+      "safety_exercise_ids": [
+        "dumbbell_bench_press",
+        "overhead_dumbbell_press",
+        "lateral_raise",
+        "lat_pulldown",
+        "seated_cable_row",
+        "face_pull",
+        "leg_press",
+        "goblet_squat",
+        "romanian_deadlift",
+        "hip_thrust",
+        "plank",
+        "brisk_walking",
+        "shoulder_press_machine",
+        "leg_curl",
+        "leg_extension",
+        "swimming"
+      ],
+      "safety_notes_ar": [
+        "وزنك حوالي 84 كجم: ابدأ بوزن الجسم أو دمبلات خفيفة وارفع الأحمال تدريجياً.",
+        "تمارين في هذا القالب تحتاج انتباه للركبة أو الظهر أو الكتف: ضغط صدر بالدمبل على البنش، ضغط كتف بالدمبل، رفع جانبي بالدمبل، سحب علوي على الآلة، تجديف جالس بالكيبل، سحب للوجه بالكيبل، ضغط أرجل على الآلة، سكوات بدمبل أمام الصدر، رفعة ميتة رومانية، دفع الورك، بلانك (ثبات على الساعدين)، مشي سريع، ضغط كتف على الآلة، ثني الأرجل على الآلة، تمديد الأرجل على الآلة، سباحة. اقرأ ملاحظات كل جلسة.",
+        "توقف فوراً عند ألم حاد أو ألم صدر أو دوخة.",
+        "لا تبدأ هذا القالب قبل الأسبوع 7."
+      ]
+    }
+  ],
+  "beginner_unsafe_exercise_ids": [
+    "decline_push_up",
+    "dumbbell_fly",
+    "barbell_bench_press",
+    "dips",
+    "pull_up",
+    "bent_over_row",
+    "dumbbell_pullover",
+    "arnold_press",
+    "upright_row",
+    "pike_push_up",
+    "chin_up",
+    "triceps_dip_on_bench",
+    "skull_crusher",
+    "close_grip_push_up",
+    "barbell_back_squat",
+    "lunge",
+    "bulgarian_split_squat",
+    "deadlift",
+    "good_morning",
+    "leg_raise",
+    "russian_twist",
+    "mountain_climber",
+    "hanging_knee_raise",
+    "cable_crunch",
+    "burpee",
+    "jumping_jacks",
+    "kettlebell_swing",
+    "thruster",
+    "bear_crawl"
+  ],
+  "disclaimer_ar": "هذه معلومات تعليمية وليست نصيحة طبية. استشر طبيباً أو مدرباً قبل البدء، وتوقف فوراً عند ألم حاد أو ألم في الصدر أو دوخة.",
+  "recorded_injuries_ar": "لا توجد إصابات مسجلة",
+  "recorded_injuries_note_ar": "بحثت في ملفات محمد (الحالة والسجلات وملفات فارس القديمة) بكلمات مثل إصابة وألم وركبة ومفصل فلم أجد إصابة مسجلة له. هذا يعني أنها غير مسجلة، وليس أنها غير موجودة.",
+  "weight_context_ar": "وزن محمد الحالي 83.65 كجم (23 أكتوبر، مثبت)، وخط الأساس 84.3 كجم (17 أكتوبر)، وطوله 161 سم (مثبت). ملف فارس القديم (WORKOUT_PLAN.md) يقول: لا جري قبل أن يصير الوزن حوالي 75 كجم أو أقل وتقدر تمشي سريعاً 30 دقيقة بدون ألم ركبة أو كاحل.",
+  "changelog": [
+    {
+      "version": 1,
+      "change_ar": "النسخة الأولى: 6 قوالب و20 جلسة."
+    },
+    {
+      "version": 2,
+      "date": "2026-10-26T20:34:59+08:00",
+      "change_ar": "مراجعة أمان للمبتدئ: استُبدلت 8 تمارين بما هو أكثر أماناً وحُذف بديل غير آمن. كل المعرفات صالحة.",
+      "changes": [
+        {
+          "session_id": "home_C",
+          "from_exercise_id": "dumbbell_pullover",
+          "to_exercise_id": "one_arm_dumbbell_row",
+          "reason_ar": "السحب بالدمبل خلف الرأس يمد الكتفين؛ التجديف بيد واحدة أكثر أماناً للمبتدئ."
+        },
+        {
+          "session_id": "home_C",
+          "from_exercise_id": "arnold_press",
+          "to_exercise_id": "overhead_dumbbell_press",
+          "reason_ar": "ضغط أرنولد يدور الكتف تحت الحمل؛ ضغط الكتف العادي أكثر أماناً."
+        },
+        {
+          "session_id": "home_pull",
+          "from_exercise_id": "dumbbell_pullover",
+          "to_exercise_id": "superman",
+          "reason_ar": "السحب بالدمبل خلف الرأس يمد الكتفين؛ سوبرمان بوزن الجسم أكثر أماناً."
+        },
+        {
+          "session_id": "gym_B",
+          "from_exercise_id": "cable_crunch",
+          "to_exercise_id": "dead_bug",
+          "reason_ar": "كرنش الكيبل يثني الجذع تحت حمل ويضغط أسفل الظهر."
+        },
+        {
+          "session_id": "gym_C",
+          "from_exercise_id": "hanging_knee_raise",
+          "to_exercise_id": "dead_bug",
+          "reason_ar": "التعليق يحمّل الكتفين والقبضة بوزن جسم 84 كجم."
+        },
+        {
+          "session_id": "gym_lower",
+          "from_exercise_id": "cable_crunch",
+          "to_exercise_id": "plank",
+          "reason_ar": "كرنش الكيبل يثني الجذع تحت حمل ويضغط أسفل الظهر."
+        },
+        {
+          "session_id": "gym_legs",
+          "from_exercise_id": "cable_crunch",
+          "to_exercise_id": "plank",
+          "reason_ar": "كرنش الكيبل يثني الجذع تحت حمل ويضغط أسفل الظهر."
+        },
+        {
+          "session_id": "gym_legs",
+          "from_exercise_id": "hanging_knee_raise",
+          "to_exercise_id": "dead_bug",
+          "reason_ar": "التعليق يحمّل الكتفين والقبضة بوزن جسم 84 كجم."
+        },
+        {
+          "session_id": "home_C",
+          "removed_alternative_exercise_id": "bulgarian_split_squat",
+          "reason_ar": "السكوات البلغاري ليس للمبتدئ (beginner_safe=false)."
+        }
+      ]
+    },
+    {
+      "version": 3,
+      "date": "2026-10-26T22:51:57+08:00",
+      "change_ar": "توحيد الوزن: الوزن الحالي 83.65 (23 أكتوبر) والمتبقي 20.65، وخط الأساس 84.3 (17 أكتوبر). لم يتغير أي تمرين ولا جلسة."
+    }
+  ]
+}

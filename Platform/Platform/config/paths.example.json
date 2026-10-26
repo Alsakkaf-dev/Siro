@@ -1,0 +1,5 @@
+{
+  "_note": "مسارات افتراضية بعد توحيد The_Boots. القيم الفعلية في الكود: server/library.ts و shared/life.ts. يمكن تجاوزها من إعدادات المكتبة/الحياة أو PLATFORM_LIBRARY_ROOT / PLATFORM_LIFE_ROOT.",
+  "libraryRoot": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\The_Boots\\Bachelor in Software Engineering",
+  "lifeRoot": "C:\\Users\\GIGIABYTE\\Desktop\\Storage\\The_Boots\\Platform\\exchange\\rashed"
+}

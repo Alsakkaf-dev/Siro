@@ -1,0 +1,20 @@
+[
+  {
+    "stage": 1,
+    "status": "PASS",
+    "time": "00:01",
+    "errors": []
+  },
+  {
+    "stage": 2,
+    "status": "PASS",
+    "time": "00:01",
+    "errors": []
+  },
+  {
+    "stage": 6,
+    "status": "PASS",
+    "time": "00:01",
+    "errors": []
+  }
+]

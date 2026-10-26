@@ -1,0 +1,17 @@
+@media print {
+  :root, [data-theme] { --bg: #fff; --surface: #fff; --text: #000; --text-2: #333; --text-3: #555; --border: #bbb; }
+  body::before, .sidebar, .topbar, .toasts, .no-print, .backdrop, .skip-link { display: none !important; }
+  .app { display: block; padding: 0; }
+  .main, .content { display: block; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .page { max-width: none; animation: none; }
+  .card, .print-course { box-shadow: none !important; border-color: #bbb; break-inside: avoid; }
+  .print-course { margin-block-end: 16pt; }
+  .print-head h1 { font-size: 18pt; } .print-course h2 { font-size: 13pt; }
+  table.t { min-width: 0; font-size: 10pt; width: 100%; border-collapse: collapse; }
+  .t th, .t td { border: 1px solid #bbb; padding: 4pt 6pt; }
+  .table-wrap { border: 0; overflow: visible; }
+  a { color: #000; text-decoration: none; }
+  .print-foot { margin-block-start: 12pt; font-size: 9pt; color: #555; }
+}
+@media screen { .print-head { margin-block-end: var(--s-5); } .print-course { margin-block-end: var(--s-6); } .print-foot { color: var(--text-3); font-size: var(--fs-xs); } }

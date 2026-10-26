@@ -1,0 +1,154 @@
+{
+  "source": "data/Complete_YouTube_Course_Library_updated.xlsx",
+  "stage_count": 18,
+  "total_hours": 215.21,
+  "total_videos": 169,
+  "total_practice_hours_estimate": 179,
+  "note": "hours = video time from the Excel sheet; practice_hours_estimate = estimate only",
+  "stages": [
+    {
+      "stage": 1,
+      "title": "الحوسبة",
+      "hours": 27.32,
+      "video_count": 4,
+      "practice_task": "اكتب برنامجًا قصيرًا يقرأ مدخلين ويطبع نتيجة عملية، واكتب في README بكلامك الطريق من الفكرة إلى التنفيذ. ارفع الملفات إلى GitHub. حتى المرحلة 5 يمكنك الرفع من موقع GitHub نفسه.",
+      "practice_hours_estimate": 5
+    },
+    {
+      "stage": 2,
+      "title": "HTML",
+      "hours": 5.43,
+      "video_count": 1,
+      "practice_task": "ابنِ صفحة index.html فيها عنوان وفقرة وقائمة وصورة ورابط، بلا CSS. ارفعها إلى GitHub.",
+      "practice_hours_estimate": 3
+    },
+    {
+      "stage": 3,
+      "title": "CSS",
+      "hours": 10.13,
+      "video_count": 24,
+      "practice_task": "أضف ملف CSS خارجيًا للصفحة السابقة، بتخطيط يتغير حين تضيق الشاشة. ارفع التغيير إلى GitHub.",
+      "practice_hours_estimate": 6
+    },
+    {
+      "stage": 4,
+      "title": "JavaScript",
+      "hours": 27.25,
+      "video_count": 31,
+      "practice_task": "ابنِ صفحة فيها زر يضيف عنصرًا إلى قائمة ويحسب مجموعًا، بلا إطار عمل. ارفعها إلى GitHub.",
+      "practice_hours_estimate": 8
+    },
+    {
+      "stage": 5,
+      "title": "Git وGitHub",
+      "hours": 6.74,
+      "video_count": 1,
+      "practice_task": "انقل شغل المراحل السابقة إلى Git: commit واضح وREADME، ثم ارفعه إلى GitHub من سطر الأوامر.",
+      "practice_hours_estimate": 3
+    },
+    {
+      "stage": 6,
+      "title": "Java",
+      "hours": 15.61,
+      "video_count": 2,
+      "practice_task": "اكتب برنامج Java بصنف منفصل يقرأ مدخلًا ويطبع نتيجة، واستخدم نمط تصميم واحدًا على مثال صغير في نفس المستودع. ارفعه إلى GitHub.",
+      "practice_hours_estimate": 8
+    },
+    {
+      "stage": 7,
+      "title": "هياكل البيانات والخوارزميات",
+      "hours": 8.05,
+      "video_count": 1,
+      "practice_task": "نفّذ بنية بيانات واحدة وخوارزمية واحدة بـ Java، واشرح في README تكلفة كل منهما بكلامك. ارفع المستودع إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 12
+    },
+    {
+      "stage": 8,
+      "title": "البيانات",
+      "hours": 22.82,
+      "video_count": 59,
+      "practice_task": "ارسم ثلاثة جداول بمخطط صغير، واكتب سكربت SQL ينشئها ويملأها ويستعلم بينها بـ JOIN. ارفعه إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 10
+    },
+    {
+      "stage": 9,
+      "title": "العقد بين الأنظمة",
+      "hours": 8.26,
+      "video_count": 2,
+      "practice_task": "استدعِ API عامة من سكربت أو صفحة، واشرح في README شكل الطلب وشكل الاستجابة. ارفعه إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 6
+    },
+    {
+      "stage": 10,
+      "title": "التحقق",
+      "hours": 4.77,
+      "video_count": 15,
+      "practice_task": "اكتب اختبار وحدة لدالة خالصة، واحفظ مجموعة Postman تختبر مسارًا واحدًا. ارفع الاثنين إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 8
+    },
+    {
+      "stage": 11,
+      "title": "الخلفية",
+      "hours": 14.29,
+      "video_count": 3,
+      "practice_task": "ابنِ مسارين، واحدًا للقراءة وواحدًا للإنشاء، على PostgreSQL، واشرح في README أين تدخل JWT. ارفع المستودع إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 16
+    },
+    {
+      "stage": 12,
+      "title": "Spring Boot",
+      "hours": 3.65,
+      "video_count": 2,
+      "practice_task": "اكتب اختبار JUnit واحدًا لدالة تحقق، واشرح في README سلسلة JWT كما فهمتها من المقطع. ارفع المستودع إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 8
+    },
+    {
+      "stage": 13,
+      "title": "الواجهة",
+      "hours": 13.4,
+      "video_count": 3,
+      "practice_task": "ابنِ مكوّن React واحدًا على الأقل يعرض بيانات، واكتبه بـ TypeScript. ارفعه إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 12
+    },
+    {
+      "stage": 14,
+      "title": "التسليم",
+      "hours": 28.35,
+      "video_count": 4,
+      "practice_task": "اكتب Dockerfile يشغّل الخدمة، ومسار GitHub Actions يشغّل الاختبار، وفقرة في README تسمي خدمة AWS واحدة ولماذا تكفي. ارفع ذلك إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 12
+    },
+    {
+      "stage": 15,
+      "title": "الحكم على النظام",
+      "hours": 4.24,
+      "video_count": 11,
+      "practice_task": "اكتب وثيقة قصيرة في المستودع ترسم طريق الطلب من المستخدم حتى قاعدة البيانات في مشروعك. ارفعها إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 6
+    },
+    {
+      "stage": 16,
+      "title": "أمان من يبني",
+      "hours": 3.02,
+      "video_count": 2,
+      "practice_task": "اكتب في README أساسيات OWASP Top 10 لتطبيقات الويب: اذكر البنود العشرة باختصار، ثم اختر ثلاثة مواضع في مشروعك يمكن أن تنكسر وما الفحص الذي ستجريه على كل موضع. ارفع التحديث إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 10
+    },
+    {
+      "stage": 17,
+      "title": "الذكاء بعد المراجعة",
+      "hours": 11.88,
+      "video_count": 4,
+      "practice_task": "نفّذ تعديلًا صغيرًا اقترحته أداة ذكاء، واكتب في README ما قبلته وما رفضته والسبب. ارفع الناتج إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 6
+    },
+    {
+      "stage": 18,
+      "title": "قفل المسار",
+      "hours": 0,
+      "video_count": 0,
+      "practice_task": "ابنِ نظامًا صغيرًا من واقع العمل، مثل حجز المواعيد أو نظام مالي صغير، باستخدام Spring Boot وPostgreSQL، مع اختبارات وDocker ومسار CI، وREADME بالعربية والإنجليزية. ارفعه إلى GitHub. حل 3 مسائل خوارزميات بـ Java على LeetCode أو HackerRank وارفعها إلى GitHub.",
+      "practice_hours_estimate": 40
+    }
+  ]
+}
