@@ -111,6 +111,16 @@ export function createApp(ctx: Ctx): express.Express {
       file = abs + '.gz';
       res.setHeader('Content-Encoding', 'gzip');
     }
+    // ملفات no-cache (index.html، sw.js…) صغيرة: تُرسل بـ ETag قوي من المحتوى (app etag=strong).
+    // ETag الافتراضي (الحجم + التاريخ) خطر على Vercel: كل الملفات بتاريخ ثابت، فقد تتطابق نشرتان
+    // ويُرجع المتصفح 304 لصفحة قديمة تشير لملفات لم تعد موجودة.
+    if (cache === 'no-cache') {
+      try {
+        return void res.send(fs.readFileSync(file));
+      } catch {
+        return void res.status(404).end();
+      }
+    }
     res.sendFile(file, { dotfiles: 'deny', headers: {} }, (err) => {
       if (err && !res.headersSent) res.status(404).end();
     });

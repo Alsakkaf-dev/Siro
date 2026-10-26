@@ -119,3 +119,21 @@ describe('online runtime (Vercel)', () => {
     await c.close();
   });
 });
+
+describe('static caching', () => {
+  it('index.html gets a content-hash ETag (not size+mtime) so a redeploy is never served stale', async () => {
+    process.env['PLATFORM_PACKAGE_LISTINGS'] = '';
+    const d = await boot(path.join(dir, 'i4'));
+    const r = await fetch(`${d.base}/academic`, { headers: { 'accept-encoding': 'identity' } });
+    const etag = r.headers.get('etag') ?? '';
+    expect(etag).not.toMatch(/^W\//); // قوي، من المحتوى
+    expect(r.headers.get('last-modified')).toBeNull();
+    expect(r.headers.get('cache-control')).toBe('no-cache');
+    expect(r.headers.get('content-type')).toContain('text/html');
+    expect(await r.text()).toContain('<div id="root">');
+    // http.get وليس fetch: fetch يضيف Cache-Control: no-cache عند وضع If-None-Match يدويًا (حسب المواصفة)
+    const status = await new Promise<number>((resolve) => http.get(`${d.base}/academic`, { headers: { 'if-none-match': etag } }, (res) => { res.resume(); resolve(res.statusCode ?? 0); }));
+    expect(status).toBe(304);
+    await d.close();
+  });
+});
