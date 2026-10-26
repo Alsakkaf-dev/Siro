@@ -177,3 +177,20 @@ describe('package import (API)', () => {
     expect(items.json.total).toBe(2);
   });
 });
+
+describe('generated packages (packages/SEM-*)', () => {
+  const pkgDir = path.join(ROOT, 'packages');
+  const ids = fs.existsSync(pkgDir) ? fs.readdirSync(pkgDir).filter((n) => /^SEM-\d+$/.test(n)) : [];
+  it.skipIf(!ids.length)('every semester.json passes the import validator and its plan passes the checker with no errors', async () => {
+    const { parseManifest } = await import('../server/package.js');
+    for (const id of ids) {
+      const m = parseManifest(JSON.parse(fs.readFileSync(path.join(pkgDir, id, 'semester.json'), 'utf8')));
+      expect(m.ok, `${id}: ${m.ok ? '' : m.errors.join(' | ')}`).toBe(true);
+      if (!m.ok) continue;
+      expect(m.value.data.semesters[0]!.sem_no).toBe(Number(id.slice(4)));
+      const plan = JSON.parse(fs.readFileSync(path.join(pkgDir, `${id}.plan.json`), 'utf8')) as { entries: { dest: string; size: number }[] };
+      const r = checkPackage([{ path: 'semester.json', size: 1 }, ...plan.entries.map((e) => ({ path: e.dest, size: e.size }))], m.value.codes);
+      expect(r.issues.filter((i) => i.level === 'error'), id).toEqual([]);
+    }
+  });
+});

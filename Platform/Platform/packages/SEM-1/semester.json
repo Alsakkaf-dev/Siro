@@ -1,0 +1,117 @@
+{
+  "package_version": 1,
+  "source": "package:SEM-1",
+  "semester": {
+    "id": "sem1",
+    "code": "SEM 1",
+    "name": "Semester I 2024/2025",
+    "year_no": 1,
+    "sem_no": 1,
+    "start_date": "2024-10-06",
+    "weeks": 16,
+    "break_weeks": [],
+    "exam_start": null,
+    "exam_end": null,
+    "note": "تاريخ البداية من التقويم الأكاديمي الرسمي لجامعة UTM 2024/2025 (بداية محاضرات الفصل الأول 6 Oct 2024). عدد الأسابيع 16 [افتراض]. المعدل الفصلي GPA 2.28 · التراكمي CGPA 2.28 (كشف النتائج)."
+  },
+  "courses": [
+    {
+      "id": "sem1-scse1013",
+      "code": "SCSE1013",
+      "name": "Fundamental Programming Concepts",
+      "section": "02",
+      "credits": 3,
+      "color": "#4CC9F0",
+      "sort": 1,
+      "note": null,
+      "result": {
+        "grade": "C",
+        "points": 2,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem1-scsr1013",
+      "code": "SCSR1013",
+      "name": "Digital Logic",
+      "section": "01",
+      "credits": 3,
+      "color": "#F72585",
+      "sort": 2,
+      "note": null,
+      "result": {
+        "grade": "C+",
+        "points": 2.33,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem1-scst1123",
+      "code": "SCST1123",
+      "name": "Mathematics for Software Engineer",
+      "section": "01",
+      "credits": 3,
+      "color": "#7209B7",
+      "sort": 3,
+      "note": null,
+      "result": {
+        "grade": "D+",
+        "points": 1.33,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem1-scst1143",
+      "code": "SCST1143",
+      "name": "Database Engineering",
+      "section": "02",
+      "credits": 3,
+      "color": "#3A86FF",
+      "sort": 4,
+      "note": null,
+      "result": {
+        "grade": "C+",
+        "points": 2.33,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem1-uhlb1112",
+      "code": "UHLB1112",
+      "name": "English Communication Skills",
+      "section": "18",
+      "credits": 2,
+      "color": "#FB8500",
+      "sort": 5,
+      "note": null,
+      "result": {
+        "grade": "HL",
+        "points": 0,
+        "credits": 2,
+        "status": "HL (حسب كشف النتائج)"
+      }
+    },
+    {
+      "id": "sem1-ulrs1032",
+      "code": "ULRS1032",
+      "name": "Integrity and Anti-Corruption Course",
+      "section": "08",
+      "credits": 2,
+      "color": "#06D6A0",
+      "sort": 6,
+      "note": null,
+      "result": {
+        "grade": "A+",
+        "points": 4,
+        "credits": 2,
+        "status": null
+      }
+    }
+  ],
+  "assessments": [],
+  "notes": []
+}

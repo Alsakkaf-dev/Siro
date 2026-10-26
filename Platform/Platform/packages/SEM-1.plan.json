@@ -1,0 +1,823 @@
+{
+ "pkg": "SEM-1",
+ "source_root": "Bachelor in Software Engineering",
+ "files": 163,
+ "bytes": 522260592,
+ "entries": [
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/00-Semester-Records/2024-2025-Sem-1-Course-Registration.pdf",
+   "dest": "00-General/Semester-Records/2024-2025-Sem-1-Course-Registration.pdf",
+   "size": 60051
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/00-Semester-Records/2024-2025-Sem-1-Exam-Results.pdf",
+   "dest": "00-General/Semester-Records/2024-2025-Sem-1-Exam-Results.pdf",
+   "size": 62728
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/ASG_1/ASSIGNMENT 1 - EERD (SEM I - 20242025).pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/ASG_1/ASSIGNMENT 1 - EERD (SEM I - 20242025).pdf",
+   "size": 226842
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/ASG_2/ASSIGNMENT 2 - NORMALIZATION  (SEM I - 20242025).pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/ASG_2/ASSIGNMENT 2 - NORMALIZATION  (SEM I - 20242025).pdf",
+   "size": 132084
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chapter 3/EXERCISE  - Relational Algebra.pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chapter 3/EXERCISE  - Relational Algebra.pdf",
+   "size": 128418
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chapter 3/Exercise Relational Algebra - Sem I 20242022 (Question).pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chapter 3/Exercise Relational Algebra - Sem I 20242022 (Question).pdf",
+   "size": 82699
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chapter 4/Exercise - Identify Errors.pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chapter 4/Exercise - Identify Errors.pdf",
+   "size": 140845
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chapter 4/Exercise 2 - ERD.pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chapter 4/Exercise 2 - ERD.pdf",
+   "size": 232394
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chpater 5/EERD - EXERCISE 1.pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chpater 5/EERD - EXERCISE 1.pdf",
+   "size": 480195
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Assignments/Exercises/Chpater 5/EERD - EXERCISE 2.pdf",
+   "dest": "SCST1143-02 Database Engineering/04-Assignments/Assignments/Exercises/Chpater 5/EERD - EXERCISE 2.pdf",
+   "size": 472307
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Fainals/2018-2019/Final_20182019.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/Fainals/2018-2019/Final_20182019.pdf",
+   "size": 781924
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Fainals/2022-2023/FINAL 20222023.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/Fainals/2022-2023/FINAL 20222023.pdf",
+   "size": 978972
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Fainals/2023-2024/FINAL 20232024.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/Fainals/2023-2024/FINAL 20232024.pdf",
+   "size": 3253269
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/MID TERM TEST/REVISION/MT 2019.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/MID TERM TEST/REVISION/MT 2019.pdf",
+   "size": 278683
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/MID TERM TEST/REVISION/MT 2022.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/MID TERM TEST/REVISION/MT 2022.pdf",
+   "size": 363423
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/MID TERM TEST/REVISION/MT 2023_2024.pdf",
+   "dest": "SCST1143-02 Database Engineering/06-Exams/MID TERM TEST/REVISION/MT 2023_2024.pdf",
+   "size": 823521
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/OverView/PROJECT OVERVIEW 20242025 SEM 1.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/OverView/PROJECT OVERVIEW 20242025 SEM 1.pdf",
+   "size": 394113
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P1/Our P1 Answer/P1 Proposal_ Database - M Hafiz Haziq.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P1/Our P1 Answer/P1 Proposal_ Database - M Hafiz Haziq.pdf",
+   "size": 652861
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P1/Project 1/[new] P1 Example.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P1/Project 1/[new] P1 Example.pdf",
+   "size": 469561
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P1/Project 1/[updated 2] SCST1143 Project P1.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P1/Project 1/[updated 2] SCST1143 Project P1.pdf",
+   "size": 136708
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P2/Our P2 Answer/P2_ Database final.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P2/Our P2 Answer/P2_ Database final.pdf",
+   "size": 557244
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P2/Project 2/20242025_01-SCST1143_DB_PR_Phase2.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P2/Project 2/20242025_01-SCST1143_DB_PR_Phase2.pdf",
+   "size": 170693
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Projects/P3/P3 - Group Project.pdf",
+   "dest": "SCST1143-02 Database Engineering/05-Projects/Projects/P3/P3 - Group Project.pdf",
+   "size": 814208
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/Information course/[SCST1143] STUDENT TASK (1).pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/Information course/[SCST1143] STUDENT TASK (1).pdf",
+   "size": 131797
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/Information course/[updated] SCST1143 Database Engineering.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/Information course/[updated] SCST1143 Database Engineering.pdf",
+   "size": 344060
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/MY WORK ON Whiteboard_/Chapter_4_for_Database.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_4_for_Database.pdf",
+   "size": 6581685
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/MY WORK ON Whiteboard_/Chapter_5_Database.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_5_Database.pdf",
+   "size": 1925312
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/(SQL)/DLL/SQL 1 - DDL.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/(SQL)/DLL/SQL 1 - DDL.pdf",
+   "size": 837692
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/Chapter 4/Exercise - Identify Errors.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/Chapter 4/Exercise - Identify Errors.pdf",
+   "size": 140845
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/Chapter 4/Exercise 2 - ERD.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/Chapter 4/Exercise 2 - ERD.pdf",
+   "size": 232394
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/Chapter 5/Topic5-EERD.pptx",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/Chapter 5/Topic5-EERD.pptx",
+   "size": 2310587
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/Chapter 8/Topic8 - Intro to Data Warehouse.pptx",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/Chapter 8/Topic8 - Intro to Data Warehouse.pptx",
+   "size": 2865223
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/ Chapters for Finals_/Chpater 6/Topic6A-Logical DB Design.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/ Chapters for Finals_/Chpater 6/Topic6A-Logical DB Design.pdf",
+   "size": 1369483
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapter 9/(latest) Topic9 NoSQL.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapter 9/(latest) Topic9 NoSQL.pdf",
+   "size": 1815742
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 1/Answers Of Chap1(...DB).docx",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 1/Answers Of Chap1(...DB).docx",
+   "size": 14822
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 1/Quiz Of Chap1(...DB).docx",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 1/Quiz Of Chap1(...DB).docx",
+   "size": 17869
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 1/نسخة من Topic1-IntroToDB.pptx.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 1/نسخة من Topic1-IntroToDB.pptx.pdf",
+   "size": 1818408
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 2/Extra Notes SDLC.pptx",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 2/Extra Notes SDLC.pptx",
+   "size": 337338
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 2/Topic2-Relational ModelDB Design.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 2/Topic2-Relational ModelDB Design.pdf",
+   "size": 1883257
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/The Chapters/Chapters for Test_/Chapter 3/Exercise Relational Algebra - Sem I 20242022 (Question).pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/The Chapters/Chapters for Test_/Chapter 3/Exercise Relational Algebra - Sem I 20242022 (Question).pdf",
+   "size": 82699
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DB/Slides/Videos of Lectures_/PlayList.pdf",
+   "dest": "SCST1143-02 Database Engineering/02-Lectures/Slides/Videos of Lectures_/PlayList.pdf",
+   "size": 98274
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Chapter 6_merged.pdf",
+   "dest": "SCSR1013-01 Digital Logic/99-Other/Chapter 6_merged.pdf",
+   "size": 28269789
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/DIGITAL.pdf",
+   "dest": "SCSR1013-01 Digital Logic/99-Other/DIGITAL.pdf",
+   "size": 10610183
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Labs/Lab_2_deeds/A_nswers/Lab v2 (New) student version 2023242jhiughiu_g.pdf",
+   "dest": "SCSR1013-01 Digital Logic/03-Labs/Labs/Lab_2_deeds/A_nswers/Lab v2 (New) student version 2023242jhiughiu_g.pdf",
+   "size": 13582922
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Labs/Lab_2_deeds/Lab v2 (New) student version 2023242.pdf",
+   "dest": "SCSR1013-01 Digital Logic/03-Labs/Labs/Lab_2_deeds/Lab v2 (New) student version 2023242.pdf",
+   "size": 547101
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Projects/نسخة من PROJECT OVERVIEW 20242025 SEM 1.pdf",
+   "dest": "SCSR1013-01 Digital Logic/05-Projects/Projects/نسخة من PROJECT OVERVIEW 20242025 SEM 1.pdf",
+   "size": 394113
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Quiz of Chap 8 and 7.pdf",
+   "dest": "SCSR1013-01 Digital Logic/99-Other/Quiz of Chap 8 and 7.pdf",
+   "size": 2517447
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Reference/نسخة من Cengage_Learning_Database_Systems_12th_Edition_1305627482.pdf",
+   "dest": "SCSR1013-01 Digital Logic/10-References/Reference/نسخة من Cengage_Learning_Database_Systems_12th_Edition_1305627482.pdf",
+   "size": 58411203
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Chapter 1/Module 1 Introductory Concepts (2).pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Chapter 1/Module 1 Introductory Concepts (2).pdf",
+   "size": 4668007
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Chapter 2/Module 2a.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Chapter 2/Module 2a.pdf",
+   "size": 2075428
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Chapter 2/Module 2b.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Chapter 2/Module 2b.pdf",
+   "size": 2078093
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Chapter 2/Module 2c .pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Chapter 2/Module 2c .pdf",
+   "size": 2083235
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/DIGITAL.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/DIGITAL.pdf",
+   "size": 10610183
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2012-merged.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2012-merged.pdf",
+   "size": 2736963
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2012.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2012.pdf",
+   "size": 342938
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2013.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2013.pdf",
+   "size": 201137
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2014.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2014.pdf",
+   "size": 460223
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2015.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2015.pdf",
+   "size": 501366
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2016.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2016.pdf",
+   "size": 220040
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2017.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2017.pdf",
+   "size": 273078
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2018_sem1.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2018_sem1.pdf",
+   "size": 252201
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2018_sem2.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2018_sem2.pdf",
+   "size": 255076
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/C6_2019.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/C6_2019.pdf",
+   "size": 238185
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/Information course/CI Digital Logic SECR1013 20242025-01 MQF1.0 Revised 1 Okt  2024.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/Information course/CI Digital Logic SECR1013 20242025-01 MQF1.0 Revised 1 Okt  2024.pdf",
+   "size": 1015461
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/MY WORK ON Whiteboard_/Chapter_6_Digital_Logic.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_6_Digital_Logic.pdf",
+   "size": 12386380
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/MY WORK ON Whiteboard_/Chapter_7_Digital_Logic.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_7_Digital_Logic.pdf",
+   "size": 18862370
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Slides/MY WORK ON Whiteboard_/Chapter_8_Digital_Logic.pdf",
+   "dest": "SCSR1013-01 Digital Logic/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_8_Digital_Logic.pdf",
+   "size": 9189940
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Tutorials/Chapter 2/Tutorial 2a.pdf",
+   "dest": "SCSR1013-01 Digital Logic/09-Tutorials/Tutorials/Chapter 2/Tutorial 2a.pdf",
+   "size": 154650
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Tutorials/Chapter 2/Tutorial 2b.pdf",
+   "dest": "SCSR1013-01 Digital Logic/09-Tutorials/Tutorials/Chapter 2/Tutorial 2b.pdf",
+   "size": 188365
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/DG/Tutorials/Chapter 2/Tutorial 2c.pdf",
+   "dest": "SCSR1013-01 Digital Logic/09-Tutorials/Tutorials/Chapter 2/Tutorial 2c.pdf",
+   "size": 125253
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/ GitHub and VSCode Installation Guide/GitHub S1.pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/99-Other/ GitHub and VSCode Installation Guide/GitHub S1.pptx",
+   "size": 4095109
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/ GitHub and VSCode Installation Guide/GitHub S2.pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/99-Other/ GitHub and VSCode Installation Guide/GitHub S2.pptx",
+   "size": 2480190
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/ GitHub and VSCode Installation Guide/VSCode_Cpp_GitHub_Setup_Guide.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/99-Other/ GitHub and VSCode Installation Guide/VSCode_Cpp_GitHub_Setup_Guide.pdf",
+   "size": 13718
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Addition Work/BMI CONSOLE CALCULATOR/Answer.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/99-Other/Addition Work/BMI CONSOLE CALCULATOR/Answer.cpp",
+   "size": 386
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Addition Work/BMI CONSOLE CALCULATOR/Question .jpg",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/99-Other/Addition Work/BMI CONSOLE CALCULATOR/Question .jpg",
+   "size": 32689
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_1/Answers of ASG_1.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_1/Answers of ASG_1.pdf",
+   "size": 8930139
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_1/Assg_1_FPS.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_1/Assg_1_FPS.pdf",
+   "size": 8930139
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_1/Assignment 1.docx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_1/Assignment 1.docx",
+   "size": 27541
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_2/Asg_3_answer.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_2/Asg_3_answer.cpp",
+   "size": 2540
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_2/Cashier_System_Exercise.docx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_2/Cashier_System_Exercise.docx",
+   "size": 172391
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Assignments/ASG_3/Assignment3.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/04-Assignments/Assignments/ASG_3/Assignment3.pdf",
+   "size": 917369
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Finals/simple of Final/Answers/FPC Final Sample 1 - Answer.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Finals/simple of Final/Answers/FPC Final Sample 1 - Answer.pdf",
+   "size": 367852
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Finals/simple of Final/FPC Final Sample 1.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Finals/simple of Final/FPC Final Sample 1.pdf",
+   "size": 783062
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/Answers_/ex_1.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/Answers_/ex_1.cpp",
+   "size": 444
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/Answers_/ex_2.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/Answers_/ex_2.cpp",
+   "size": 585
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/Answers_/ex_3.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/Answers_/ex_3.cpp",
+   "size": 389
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/Answers_/ex_4.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/Answers_/ex_4.cpp",
+   "size": 581
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/Answers_/ex_5.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/Answers_/ex_5.cpp",
+   "size": 670
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_1/C++_Basic_Programming_Exercises.docx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_1/C++_Basic_Programming_Exercises.docx",
+   "size": 27481
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Answers/Ex_1_Identify_the_Function_Type.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Answers/Ex_1_Identify_the_Function_Type.cpp",
+   "size": 838
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Answers/Ex_2_Library_Function_Usage.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Answers/Ex_2_Library_Function_Usage.cpp",
+   "size": 676
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Answers/Ex_3_Basic_Function_Definition.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Answers/Ex_3_Basic_Function_Definition.cpp",
+   "size": 659
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Answers/Ex_4_Function_with_Parameters.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Answers/Ex_4_Function_with_Parameters.cpp",
+   "size": 768
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Answers/Ex_5_Return_a_Value.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Answers/Ex_5_Return_a_Value.cpp",
+   "size": 680
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_2/Function_Exercises.docx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_2/Function_Exercises.docx",
+   "size": 27882
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_3/Answer/Enhanced_Cashier_System.cpp",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_3/Answer/Enhanced_Cashier_System.cpp",
+   "size": 5133
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Labs/Lab_3/Enhanced_Cashier_System_Exercise.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/03-Labs/Labs/Lab_3/Enhanced_Cashier_System_Exercise.pdf",
+   "size": 210793
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Reference/Starting Out With C++ From Control Structures Through Objects 8th Edition (1).pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/10-References/Reference/Starting Out With C++ From Control Structures Through Objects 8th Edition (1).pdf",
+   "size": 7224232
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 1/Computational Thinking (1).pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 1/Computational Thinking (1).pdf",
+   "size": 5558824
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 10/10-TRANSFORMATION FROM STRUCTURED TO OBJECT-ORIENTED PARADIGM.pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 10/10-TRANSFORMATION FROM STRUCTURED TO OBJECT-ORIENTED PARADIGM.pptx",
+   "size": 1078016
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 2/01 - Programming Problem-Solving.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 2/01 - Programming Problem-Solving.pdf",
+   "size": 3995897
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 3/Basic Programming (Chapter 3 ).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 3/Basic Programming (Chapter 3 ).pptx",
+   "size": 913356
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 3/Basic Programming(ٍSummarized Chapter 3 ).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 3/Basic Programming(ٍSummarized Chapter 3 ).pptx",
+   "size": 1777417
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 4/Control Structures (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 4/Control Structures (Revised).pptx",
+   "size": 1993435
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 5/04 - Functions (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 5/04 - Functions (Revised).pptx",
+   "size": 1681067
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 6/06 - Array (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 6/06 - Array (Revised).pptx",
+   "size": 843452
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 6/Array_Summary.docx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 6/Array_Summary.docx",
+   "size": 30537
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 7/07 - Input and Output (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 7/07 - Input and Output (Revised).pptx",
+   "size": 499799
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 8/08 - Pointers (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 8/08 - Pointers (Revised).pptx",
+   "size": 863528
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Chapter 9/09 - Structured Data (Revised).pptx",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Chapter 9/09 - Structured Data (Revised).pptx",
+   "size": 1181414
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Slides/Information about course/SCSE1013 Fundamental Programming Concepts (with supplement) (1).pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/02-Lectures/Slides/Information about course/SCSE1013 Fundamental Programming Concepts (with supplement) (1).pdf",
+   "size": 349805
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Tests/Answers/Test1 20222023 (Answer Scheme).pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Tests/Answers/Test1 20222023 (Answer Scheme).pdf",
+   "size": 945270
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Tests/Answers/Test1 20232024  (Answer Scheme).pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Tests/Answers/Test1 20232024  (Answer Scheme).pdf",
+   "size": 695068
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Tests/Test 2022.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Tests/Test 2022.pdf",
+   "size": 300272
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/FPS/Tests/Test 2023.pdf",
+   "dest": "SCSE1013-02 Fundamental Programming Concepts/06-Exams/Tests/Test 2023.pdf",
+   "size": 611177
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Projects/PSA/GROUP MEETING MINUTES REPORT (PSA PROJECT).docx",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/05-Projects/Projects/PSA/GROUP MEETING MINUTES REPORT (PSA PROJECT).docx",
+   "size": 17418
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Projects/PSA/Public Service Announcement Instruction.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/05-Projects/Projects/PSA/Public Service Announcement Instruction.pdf",
+   "size": 45937
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Slides/Chapter 1/Topic 1_ The Concept and Importance of Values.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/02-Lectures/Slides/Chapter 1/Topic 1_ The Concept and Importance of Values.pdf",
+   "size": 1466179
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Slides/Chapter 2/Topic 2 Internal Values with the Formation of Identity in Addressing Corruption.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/02-Lectures/Slides/Chapter 2/Topic 2 Internal Values with the Formation of Identity in Addressing Corruption.pdf",
+   "size": 1489248
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Slides/Chapter 3/Topic 3 Integrity is the Core of  Well-being.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/02-Lectures/Slides/Chapter 3/Topic 3 Integrity is the Core of  Well-being.pdf",
+   "size": 1575363
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Slides/Information course/Introduction to ULRS 1032.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/02-Lectures/Slides/Information course/Introduction to ULRS 1032.pdf",
+   "size": 2495040
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/INT/Slides/Information course/ULRS1032 KIAR_ CI.pdf",
+   "dest": "ULRS1032-08 Integrity and Anti-Corruption Course/02-Lectures/Slides/Information course/ULRS1032 KIAR_ CI.pdf",
+   "size": 162192
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_1/Assignment 1-1.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_1/Assignment 1-1.pdf",
+   "size": 221019
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_2/Assignment 2.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_2/Assignment 2.pdf",
+   "size": 304470
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_3/3a/Answers/Answers for ASG_3 in Questions 3,4 for Math.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_3/3a/Answers/Answers for ASG_3 in Questions 3,4 for Math.pdf",
+   "size": 2721407
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_3/3a/Answers/photo_2024-12-28_21-01-45.jpg",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_3/3a/Answers/photo_2024-12-28_21-01-45.jpg",
+   "size": 124748
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_3/3a/asgnmt3a.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_3/3a/asgnmt3a.pdf",
+   "size": 120870
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_3/3b/Answers/assignment3b.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_3/3b/Answers/assignment3b.pdf",
+   "size": 196542
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_4/part_A.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_4/part_A.pdf",
+   "size": 854550
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Assingments/ASG_4/part_B.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/04-Assignments/Assingments/ASG_4/part_B.pdf",
+   "size": 87203
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Finals/2020-2021/Final DS 20202021_02 (Password_ DSUTM2021)_unlocked.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/06-Exams/Finals/2020-2021/Final DS 20202021_02 (Password_ DSUTM2021)_unlocked.pdf",
+   "size": 890803
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Finals/2020-2021/final 20202021.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/06-Exams/Finals/2020-2021/final 20202021.pdf",
+   "size": 1031530
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Finals/2021-2022/FE20212022(1).pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/06-Exams/Finals/2021-2022/FE20212022(1).pdf",
+   "size": 447308
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Finals/2023-2024/FE_20232024(1).pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/06-Exams/Finals/2023-2024/FE_20232024(1).pdf",
+   "size": 382114
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 10/CH09_NFA.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 10/CH09_NFA.pdf",
+   "size": 1442569
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 6/Chap 6 - Discrete Prob.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 6/Chap 6 - Discrete Prob.pdf",
+   "size": 1936108
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 6/Videos_/1.mp4",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 6/Videos_/1.mp4",
+   "size": 43891853
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 6/Videos_/2.mp4",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 6/Videos_/2.mp4",
+   "size": 37333054
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 7/Chapter 7.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 7/Chapter 7.pdf",
+   "size": 2237770
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 7/shortestpath.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 7/shortestpath.pdf",
+   "size": 663908
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 8/chap8.docx",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 8/chap8.docx",
+   "size": 1169447
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 8/chap8.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 8/chap8.pdf",
+   "size": 787706
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Finals/Chapter 9/chapter9-FiniteAutomata.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Finals/Chapter 9/chapter9-FiniteAutomata.pdf",
+   "size": 1207789
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 1/Chap1.pptx",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 1/Chap1.pptx",
+   "size": 1632252
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 2/Chap2.pptx",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 2/Chap2.pptx",
+   "size": 3042258
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 2/addSlide_Chap2(1).pptx",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 2/addSlide_Chap2(1).pptx",
+   "size": 246483
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 2/addSlide_Chap2.pptx",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 2/addSlide_Chap2.pptx",
+   "size": 246483
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 3/Chap3 part 2.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 3/Chap3 part 2.pdf",
+   "size": 1213594
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 3/chap3 part1.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 3/chap3 part1.pdf",
+   "size": 1285818
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 4/Part 3.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 4/Part 3.pdf",
+   "size": 590575
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 4/Part1.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 4/Part1.pdf",
+   "size": 1721016
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 4/Part2.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 4/Part2.pdf",
+   "size": 752732
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 5/ Lecture video/combination.mp4",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 5/ Lecture video/combination.mp4",
+   "size": 39701174
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 5/ Lecture video/permutation.mp4",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 5/ Lecture video/permutation.mp4",
+   "size": 58099705
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 5/Part 1.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 5/Part 1.pdf",
+   "size": 758999
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Chapters of Test/Chapter 5/Part 2.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Chapters of Test/Chapter 5/Part 2.pdf",
+   "size": 1359640
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/Information course/CI-SCST1123.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/Information course/CI-SCST1123.pdf",
+   "size": 419612
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/MY WORK ON Whiteboard_/Chapter_5_for_math.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_5_for_math.pdf",
+   "size": 8498280
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/MY WORK ON Whiteboard_/Chapter_6_math.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_6_math.pdf",
+   "size": 9679649
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/MY WORK ON Whiteboard_/Chapter_7_part_2_math.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_7_part_2_math.pdf",
+   "size": 5378131
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/MS/Slides/MY WORK ON Whiteboard_/Chapter_8_for_math.pdf",
+   "dest": "SCST1123-01 Mathematics for Software Engineer/02-Lectures/Slides/MY WORK ON Whiteboard_/Chapter_8_for_math.pdf",
+   "size": 6931063
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/Master.xlsx",
+   "dest": "00-General/Master.xlsx",
+   "size": 38804
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 1/STUDY.xlsx",
+   "dest": "00-General/STUDY.xlsx",
+   "size": 34349
+  }
+ ]
+}

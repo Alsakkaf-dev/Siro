@@ -1,0 +1,318 @@
+{
+ "pkg": "SEM-2",
+ "source_root": "Bachelor in Software Engineering",
+ "files": 62,
+ "bytes": 191445738,
+ "entries": [
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/00-Semester-Records/2024-2025-Sem-2-Course-Registration.pdf",
+   "dest": "00-General/Semester-Records/2024-2025-Sem-2-Course-Registration.pdf",
+   "size": 60075
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/00-Semester-Records/2024-2025-Sem-2-Exam-Results.pdf",
+   "dest": "00-General/Semester-Records/2024-2025-Sem-2-Exam-Results.pdf",
+   "size": 62767
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/COURSE INFO/CI-SCSE1224-Advanced Programming-2425_2.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/01-Course-Information/COURSE INFO/CI-SCSE1224-Advanced Programming-2425_2.pdf",
+   "size": 270148
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/PROJECT/BRIEFING_/Group_Project_Briefing.docx",
+   "dest": "SCSE1224-02 Advanced Programming/05-Projects/PROJECT/BRIEFING_/Group_Project_Briefing.docx",
+   "size": 24855
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/ACTIVITY/W-4/CODE 1.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/ACTIVITY/W-4/CODE 1.docx",
+   "size": 7143
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/ACTIVITY/W-4/Lab_Activity_Convert_Array_to_ArrayList.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/ACTIVITY/W-4/Lab_Activity_Convert_Array_to_ArrayList.docx",
+   "size": 26953
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/ACTIVITY/W-4/Lab_Activity_Week4_Student_Helper_Advanced_OOP.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/ACTIVITY/W-4/Lab_Activity_Week4_Student_Helper_Advanced_OOP.docx",
+   "size": 21666
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/ACTIVITY/W-4/Lab_Activity_Week4_Student_Helper_App.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/ACTIVITY/W-4/Lab_Activity_Week4_Student_Helper_App.docx",
+   "size": 21673
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/FOR SETUP JAVA INOT VS CODE/JAVA OOP/Java OOP.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/FOR SETUP JAVA INOT VS CODE/JAVA OOP/Java OOP.pdf",
+   "size": 120741
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/FOR SETUP JAVA INOT VS CODE/VSCode_Java_Setup_Guide.docx.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/FOR SETUP JAVA INOT VS CODE/VSCode_Java_Setup_Guide.docx.pdf",
+   "size": 143493
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 1/Lect01_IntroOOP-Part1.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 1/Lect01_IntroOOP-Part1.pdf",
+   "size": 237894
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 1/Lect01_IntroOOP-Part2.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 1/Lect01_IntroOOP-Part2.pdf",
+   "size": 94850
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 2/Lect02_IntroToJava-2025Mac.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 2/Lect02_IntroToJava-2025Mac.pdf",
+   "size": 267045
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 3/Lect03-AnatomyofJavaProgram.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 3/Lect03-AnatomyofJavaProgram.pdf",
+   "size": 506842
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 4/Lect04-IdentifiersVariables.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 4/Lect04-IdentifiersVariables.pdf",
+   "size": 423943
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 5/Lect05-AssignmentStatement.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 5/Lect05-AssignmentStatement.pdf",
+   "size": 324204
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 6/Lect Week 3a-Array.pptx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 6/Lect Week 3a-Array.pptx",
+   "size": 468525
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 6/Lect Week 3b-PassingArray.ppt",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 6/Lect Week 3b-PassingArray.ppt",
+   "size": 229888
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 6/Lect Week 3c-ArrayofObjects.ppt",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 6/Lect Week 3c-ArrayofObjects.ppt",
+   "size": 165888
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 6/Lect Week 3d-TwoDimArray.pptx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 6/Lect Week 3d-TwoDimArray.pptx",
+   "size": 475685
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 6/Lect Week 3e-ArrayList.pptx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 6/Lect Week 3e-ArrayList.pptx",
+   "size": 79582
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 7/Lect18-ClassRelationship.ppt",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 7/Lect18-ClassRelationship.ppt",
+   "size": 437760
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 7/MyBankApp.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 7/MyBankApp.docx",
+   "size": 10016
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 8/Lect20-Inheritance.pdf",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 8/Lect20-Inheritance.pdf",
+   "size": 325019
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/AP/Slides/TOPIC 8/Week_6_Group_Exercise_Inheritance.docx",
+   "dest": "SCSE1224-02 Advanced Programming/02-Lectures/Slides/TOPIC 8/Week_6_Group_Exercise_Inheritance.docx",
+   "size": 21950
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/COURCE INFO/CI - SCSR1033 COA.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/01-Course-Information/COURCE INFO/CI - SCSR1033 COA.pdf",
+   "size": 284230
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Final Exams past years_/Year 2023/FinalExamQuestion_SECR2033.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/06-Exams/Final Exams past years_/Year 2023/FinalExamQuestion_SECR2033.pdf",
+   "size": 1183057
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/BOOKS_/Computer Organization and Architecture 10th - William Stallings.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/BOOKS_/Computer Organization and Architecture 10th - William Stallings.pdf",
+   "size": 17920983
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/Final Exam/TOPIC 5/COA - Module 5 - Central Processing Unit (CPU).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/Final Exam/TOPIC 5/COA - Module 5 - Central Processing Unit (CPU).pdf",
+   "size": 8970856
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/Final Exam/TOPIC 6/COA - Module 6 - Memory.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/Final Exam/TOPIC 6/COA - Module 6 - Memory.pdf",
+   "size": 4035931
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/Final Exam/TOPIC 7/COA - Module 7 - I-O and Storage Systems.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/Final Exam/TOPIC 7/COA - Module 7 - I-O and Storage Systems.pdf",
+   "size": 4520098
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/Final Exam/TOPIC 8/COA - Module 8 - Performance Measurement  Analysis.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/Final Exam/TOPIC 8/COA - Module 8 - Performance Measurement  Analysis.pdf",
+   "size": 1731019
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/TOPIC 1/COA - Module 1 - Introduction (2025).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/TOPIC 1/COA - Module 1 - Introduction (2025).pdf",
+   "size": 9405472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/TOPIC 2/COA - Module 2 - Data Representation (2025).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/TOPIC 2/COA - Module 2 - Data Representation (2025).pdf",
+   "size": 3298892
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/TOPIC 3/COA - Module 3 - Introduction to Assembly Language Programming (2025).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/TOPIC 3/COA - Module 3 - Introduction to Assembly Language Programming (2025).pdf",
+   "size": 2514879
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Slides_/TOPIC 4/COA - Module 4 - Instruction Set Architecture (ISA).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/02-Lectures/Slides_/TOPIC 4/COA - Module 4 - Instruction Set Architecture (ISA).pdf",
+   "size": 4527821
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Textbooks/Assembly Language For x86 Processors (7th edition).pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/10-References/Textbooks/Assembly Language For x86 Processors (7th edition).pdf",
+   "size": 12061106
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/COA/Textbooks/Computer Organization and Architecture 10th - William Stallings.pdf",
+   "dest": "SCSR1033-04 Computer Organization and Architecture/10-References/Textbooks/Computer Organization and Architecture 10th - William Stallings.pdf",
+   "size": 17920983
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/COURCE INFO/Course Information UHLM 1012 22425.doc",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/01-Course-Information/COURCE INFO/Course Information UHLM 1012 22425.doc",
+   "size": 461824
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/QUIZ/Kuiz UHLM1012 22425 - Seksyen 03.doc",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/06-Exams/QUIZ/Kuiz UHLM1012 22425 - Seksyen 03.doc",
+   "size": 536064
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 1/Topik 1 - Pengenalan Bahasa Melayu.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 1/Topik 1 - Pengenalan Bahasa Melayu.ppt",
+   "size": 2609664
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 2/Topik 2 - Nota Huruf Vokal.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 2/Topik 2 - Nota Huruf Vokal.ppt",
+   "size": 8293888
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 3/Topik 3 - Nota Diftong dan Vokal Berganding.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 3/Topik 3 - Nota Diftong dan Vokal Berganding.ppt",
+   "size": 3264000
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 4/Contoh Ayat Mudah.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 4/Contoh Ayat Mudah.ppt",
+   "size": 794624
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 4/Latihan Membaca.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 4/Latihan Membaca.ppt",
+   "size": 3368960
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 4/Topik 4 - Nota Konsonan dan Diagraf.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 4/Topik 4 - Nota Konsonan dan Diagraf.ppt",
+   "size": 1960448
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 4/Ulangkaji.doc",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 4/Ulangkaji.doc",
+   "size": 43520
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 5/Topik 5 - Nota Nombor.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 5/Topik 5 - Nota Nombor.ppt",
+   "size": 31711744
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 6/Topik 6 - Nota Masa.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 6/Topik 6 - Nota Masa.ppt",
+   "size": 1743872
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Slides/TOPIC 7/Topik 7 - Nota Ucapan Sapaan.ppt",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/02-Lectures/Slides/TOPIC 7/Topik 7 - Nota Ucapan Sapaan.ppt",
+   "size": 4862464
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Tugasan Individu UHLM1012 22425 (1).doc",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/99-Other/Tugasan Individu UHLM1012 22425 (1).doc",
+   "size": 42496
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/MLY/Tugasan Kumpulan UHLM1012 22425.doc",
+   "dest": "UHLM1012-03 Malay Language for Communication 2/99-Other/Tugasan Kumpulan UHLM1012 22425.doc",
+   "size": 45056
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/COURSE INFO/CI SCSE1203 SE Principle 20242025-02 v1.2 final.pdf",
+   "dest": "SCSE1203-03 Software Engineering Principles/01-Course-Information/COURSE INFO/CI SCSE1203 SE Principle 20242025-02 v1.2 final.pdf",
+   "size": 334524
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Problem solvings/1/Problem Solving 1.pdf",
+   "dest": "SCSE1203-03 Software Engineering Principles/09-Tutorials/Problem solvings/1/Problem Solving 1.pdf",
+   "size": 158286
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 1/Topic 1-IntroToSoftwareEngineering.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 1/Topic 1-IntroToSoftwareEngineering.pptx",
+   "size": 2102981
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 2/Topic 2 - Features of Software.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 2/Topic 2 - Features of Software.pptx",
+   "size": 3910729
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 3/Design thinking video.docx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 3/Design thinking video.docx",
+   "size": 12295
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 3/Topic 3 -Software Life Cycle Models_updated.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 3/Topic 3 -Software Life Cycle Models_updated.pptx",
+   "size": 4146884
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 3/Topic 3.1-Design Thinking and Scrum.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 3/Topic 3.1-Design Thinking and Scrum.pptx",
+   "size": 4240617
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 4/Topic 4  Fundamental of Project Management - Estimation for Plan Driven and Agile.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 4/Topic 4  Fundamental of Project Management - Estimation for Plan Driven and Agile.pptx",
+   "size": 4368245
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 4/Topic_4_part_3___Agile_Planning_and_Scheduling__1_.pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 4/Topic_4_part_3___Agile_Planning_and_Scheduling__1_.pptx",
+   "size": 5567128
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 1/SEM 2/SEP/Slides/TOPIC 5/Topic 5_ Agile Scrum Project Management (Part 1 and Part 2).pptx",
+   "dest": "SCSE1203-03 Software Engineering Principles/02-Lectures/Slides/TOPIC 5/Topic 5_ Agile Scrum Project Management (Part 1 and Part 2).pptx",
+   "size": 13661493
+  }
+ ]
+}
