@@ -150,7 +150,8 @@ describe(`my workouts API (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () 
   });
 });
 
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? '/workspace/rashed_fixture';
+const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
+const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
 describe.skipIf(!fs.existsSync(path.join(REAL, 'docs', 'SPORTS_EXERCISES.json')))('real Rashed sports content (local copy only; skipped elsewhere)', () => {
   const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, 'docs', n), 'utf8').replace(/^\ufeff/, '')) as T;
   it('81 exercises, all pass the shape check, every one maps to a region or full/cardio', () => {

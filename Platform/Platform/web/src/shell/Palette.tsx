@@ -35,10 +35,20 @@ const PAGES: { to: string; title: string; icon: IconName; kw: string }[] = [
   { to: '/settings', title: 'الإعدادات والنسخ الاحتياطي', icon: 'sliders', kw: 'settings backup' },
 ];
 
+/** صفحات الفصل الحالي (تُبنى من الفصل النشط). */
+const SEM_PAGES: { path: string; title: string; icon: IconName; kw: string }[] = [
+  { path: '', title: 'لوحة الفصل', icon: 'grid', kw: 'semester dashboard الفصل' },
+  { path: '/courses', title: 'المواد', icon: 'book', kw: 'courses subjects مواد' },
+  { path: '/timeline', title: 'الجدول الزمني', icon: 'clock', kw: 'timeline weeks أسابيع' },
+  { path: '/calculator', title: 'حاسبة الدرجات', icon: 'calc', kw: 'calculator grades درجات' },
+  { path: '/weights', title: 'خريطة الأوزان', icon: 'pie', kw: 'weights أوزان' },
+  { path: '/unknowns', title: 'غير المعروف', icon: 'help', kw: 'unknowns مجهول' },
+];
+
 const GROUPS: [MoreHit['kind'], string][] = [['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
 
 export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputElement | null> }) {
-  const { theme, setTheme, setShowShortcuts } = useApp();
+  const { theme, setTheme, setShowShortcuts, activeId } = useApp();
   const [q, setQ] = useState('');
   const dq = useDebounced(q.trim(), 160);
   const [hits, setHits] = useState<SearchHit[] | null>(null);
@@ -79,11 +89,12 @@ export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputEleme
   const cmds: Cmd[] = useMemo(
     () => [
       ...PAGES.map((p): Cmd => ({ id: p.to, title: p.title, icon: p.icon, to: p.to, sub: p.kw, top: TOP.has(p.to) })),
+      ...(activeId ? SEM_PAGES.map((p): Cmd => ({ id: `sem${p.path}`, title: p.title, icon: p.icon, to: `/academic/s/${activeId}${p.path}`, sub: p.kw })) : []),
       { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', sub: 'theme dark light مظهر', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
       { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', to: '/settings#appearance', sub: 'notifications accent لون تنبيه' },
       { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', run: () => setShowShortcuts(true), sub: 'shortcuts' },
     ],
-    [theme, setTheme, setShowShortcuts],
+    [theme, setTheme, setShowShortcuts, activeId],
   );
 
   const nq = normalizeText(q);
