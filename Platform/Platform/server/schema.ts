@@ -195,6 +195,32 @@ CREATE TABLE life_alt_picks (
 );
 `,
   },
+  {
+    id: 4,
+    name: 'semester packages (drive files, official results, import log)',
+    sql: `
+ALTER TABLE lib_files ADD COLUMN origin TEXT NOT NULL DEFAULT 'local';
+ALTER TABLE lib_files ADD COLUMN remote_id TEXT;
+ALTER TABLE lib_files ADD COLUMN pkg TEXT;
+CREATE INDEX lib_files_pkg ON lib_files(pkg);
+CREATE TABLE acad_results (
+  course_id TEXT PRIMARY KEY REFERENCES acad_courses(id) ON DELETE CASCADE,
+  grade TEXT,
+  points REAL,
+  credits REAL,
+  status TEXT,
+  source TEXT NOT NULL
+);
+CREATE TABLE pkg_imports (
+  pkg TEXT PRIMARY KEY,
+  semester_id TEXT,
+  origin TEXT NOT NULL,
+  location TEXT NOT NULL,
+  files INTEGER NOT NULL,
+  imported_at TEXT NOT NULL
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

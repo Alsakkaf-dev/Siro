@@ -7,7 +7,7 @@ import { HttpError } from './routes.js';
 import { ValidationError } from './validation.js';
 import { newId, setSetting } from './repo.js';
 import * as lib from './library.js';
-import { MIME, parseYouTube } from '../shared/library.js';
+import { MIME, driveUrls, parseYouTube } from '../shared/library.js';
 
 const require = createRequire(import.meta.url);
 const str = (v: unknown): string => (typeof v === 'string' ? v : '');
@@ -31,8 +31,14 @@ export function createLibraryRouter(ctx: Ctx): express.Router {
   const db = () => ctx.getDb();
 
   const fileOr404 = (id: string): { row: { rel_path: string; name: string; ext: string; size: number; mtime: number }; abs: string } => {
-    const row = db().get<{ rel_path: string; name: string; ext: string; size: number; mtime: number; missing: number }>('SELECT rel_path, name, ext, size, mtime, missing FROM lib_files WHERE id = ?', id);
+    const row = db().get<{ rel_path: string; name: string; ext: string; size: number; mtime: number; missing: number; origin: string; remote_id: string | null }>('SELECT rel_path, name, ext, size, mtime, missing, origin, remote_id FROM lib_files WHERE id = ?', id);
     if (!row) throw new HttpError(404, 'الملف غير موجود في المكتبة');
+    if (row.origin === 'drive') throw new HttpError(409, 'هذا الملف محفوظ في Google Drive — افتحه من معاينة Drive');
+    if (row.origin === 'pkgdir') {
+      // ملف من حزمة محلية: المسار المطلق محفوظ وقت الاستيراد
+      if (!row.remote_id || !fs.existsSync(row.remote_id)) throw new HttpError(404, 'الملف لم يعد موجودًا على القرص (أعد استيراد الحزمة)');
+      return { row, abs: row.remote_id };
+    }
     const abs = lib.resolveInside(lib.getRoot(db()), row.rel_path);
     if (!abs) throw new HttpError(404, 'الملف لم يعد موجودًا على القرص (أعد الفحص)');
     return { row, abs };
@@ -120,6 +126,8 @@ export function createLibraryRouter(ctx: Ctx): express.Router {
 
   /* ── محتوى الملفات (قراءة فقط) ── */
   r.get('/files/:id/raw', wrap((req, res) => {
+    const remote = db().get<{ remote_id: string | null }>("SELECT remote_id FROM lib_files WHERE id = ? AND origin = 'drive'", str(req.params['id']));
+    if (remote?.remote_id) return void res.redirect(302, driveUrls(remote.remote_id).download);
     const { row, abs } = fileOr404(str(req.params['id']));
     let st: fs.Stats;
     try {

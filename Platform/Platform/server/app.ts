@@ -33,7 +33,7 @@ export function buildCsp(scriptHashes: string[] = []): string {
   "img-src 'self' data:",
   "font-src 'self'",
   "connect-src 'self'",
-  "frame-src https://www.youtube-nocookie.com",
+  "frame-src https://www.youtube-nocookie.com https://drive.google.com",
   "worker-src 'self'",
   "media-src 'self'",
   "object-src 'none'",
