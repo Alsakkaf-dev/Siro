@@ -6,7 +6,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 ## Steps (§11)
 - [x] 1. Bootstrap + baseline
 - [x] 2. Phase A audit (§5) + competitive teardown (§4)
-- [ ] 3. Phase B designs (§6–§9) + ADRs + traceability skeleton
+- [x] 3. Phase B designs (§6–§9) + ADRs + traceability skeleton
 - [ ] 4. Foundation: Work-OS core migration + adapters + API + tests
 - [ ] 5. Shell & navigation rebuild (metro IA, breadcrumbs, Create +, palette verbs, mobile bar, redirects)
 - [ ] 6. Views engine + specialized views registered
