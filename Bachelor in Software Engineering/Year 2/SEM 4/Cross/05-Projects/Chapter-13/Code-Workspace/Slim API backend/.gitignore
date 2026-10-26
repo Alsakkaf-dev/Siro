@@ -1,0 +1,19 @@
+# Dependencies
+/vendor/
+
+# Local environment & secrets — NEVER commit these
+.env
+*.local
+
+# SQLite test databases
+/storage/*.sqlite
+/storage/*.db
+
+# Logs & OS noise
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.idea/
+.vscode/

@@ -1,0 +1,72 @@
+# Public tunnel URL (use this on camera to show the "production" / public API):
+@base = https://steve-atomic-metal-volt.trycloudflare.com
+# Local fallback (use if the tunnel is restarted):
+# @base = http://localhost:8000
+
+### Health check (root)
+GET {{base}}/
+
+### Health check (api)
+GET {{base}}/api/health
+
+### List all books (public)
+GET {{base}}/api/books
+
+### Search books by title or author (lab test: ?q=clean)
+GET {{base}}/api/books?q=clean
+
+### Register a new member
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{ "name": "New Reader", "email": "reader@books.test", "password": "password123" }
+
+### Login (member)  -> captures token
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "member@books.test", "password": "password" }
+
+###
+@token = {{login.response.body.access_token}}
+
+### Who am I (protected)
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### Create a book (protected, owner = current user)  -> 201
+# @name created
+POST {{base}}/api/books
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "title": "Working Effectively with Legacy Code", "author": "Michael Feathers", "year": 2004, "genre": "Software" }
+
+### Update YOUR book (protected)  -> 200
+PUT {{base}}/api/books/{{created.response.body.data.id}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "title": "Working Effectively with Legacy Code (2nd printing)", "author": "Michael Feathers", "year": 2005 }
+
+### Try to edit a book you do NOT own (book 1)  -> 403
+PUT {{base}}/api/books/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "title": "Should be rejected" }
+
+### Login (admin)  -> captures admin token
+# @name adminLogin
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "admin@books.test", "password": "password" }
+
+###
+@adminToken = {{adminLogin.response.body.access_token}}
+
+### Delete a book (admin)  -> 200
+DELETE {{base}}/api/books/{{created.response.body.data.id}}
+Authorization: Bearer {{adminToken}}

@@ -1,0 +1,8 @@
+{
+  "appId":   "com.utm.books",
+  "appName": "UTM Books",
+  "webDir":  "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

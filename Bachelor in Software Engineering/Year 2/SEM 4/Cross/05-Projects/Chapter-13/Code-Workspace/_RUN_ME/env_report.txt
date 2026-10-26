@@ -1,0 +1,21 @@
+Books App - Environment Report
+Generated: Mon 06/22/2026 10:31:31.52
+
+LARAGON_ROOT=C:\laragon
+PHP=C:\laragon\bin\php\php-8.3.30-Win32-vs16-x64\php.exe
+PHP 8.3.30 (cli) (built: Jan 13 2026 22:50:40) (ZTS Visual C++ 2019 x64)
+Copyright (c) The PHP Group
+Zend Engine v4.3.30, Copyright (c) Zend Technologies
+MYSQL=C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysql.exe
+COMPOSER_PHAR=C:\laragon\bin\composer\composer.phar
+COMPOSER_ON_PATH:
+C:\composer\composer
+C:\composer\composer.bat
+NPM=C:\laragon\bin\nodejs\node-v22\npm.cmd
+NODE_VERSION:
+v25.9.0
+
+BACKEND_OK=yes
+FRONTEND_OK=yes
+
+DONE.

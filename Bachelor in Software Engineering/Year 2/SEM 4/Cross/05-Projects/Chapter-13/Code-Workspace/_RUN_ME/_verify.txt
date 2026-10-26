@@ -1,0 +1,61 @@
+=== LOCAL API http://localhost:8000/api/books?q=clean ===
+{
+    "data": [
+        {
+            "id": 2,
+            "title": "Clean Architecture",
+            "author": "Robert C. Martin",
+            "year": 2017,
+            "genre": "Software",
+            "created_by": 1,
+            "created_at": "2026-06-22 02:33:33"
+        },
+        {
+            "id": 1,
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "year": 2008,
+            "genre": "Software",
+            "created_by": 1,
+            "created_at": "2026-06-22 02:33:33"
+        }
+    ],
+    "meta": {
+        "count": 2,
+        "query": "clean"
+    }
+}
+
+=== LOCAL STATUS ===
+HTTP 200
+=== TUNNEL https://inch-dosage-paul-justin.trycloudflare.com/api/books?q=clean ===
+{
+    "data": [
+        {
+            "id": 2,
+            "title": "Clean Architecture",
+            "author": "Robert C. Martin",
+            "year": 2017,
+            "genre": "Software",
+            "created_by": 1,
+            "created_at": "2026-06-22 02:33:33"
+        },
+        {
+            "id": 1,
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "year": 2008,
+            "genre": "Software",
+            "created_by": 1,
+            "created_at": "2026-06-22 02:33:33"
+        }
+    ],
+    "meta": {
+        "count": 2,
+        "query": "clean"
+    }
+}
+
+=== TUNNEL STATUS ===
+HTTP 200
+=== DONE ===

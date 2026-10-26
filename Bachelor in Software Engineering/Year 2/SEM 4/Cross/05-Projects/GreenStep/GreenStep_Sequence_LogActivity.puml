@@ -1,0 +1,96 @@
+@startuml GreenStep_Log_Daily_Activity
+' =====================================================================
+'  GreenStep — UML Sequence Diagram (standard notation, monochrome)
+'  Process: Log a Daily Activity  [POST /api/logs]
+'  Group RM2Z | SCSM2223 Cross-Platform Application Development
+' =====================================================================
+skinparam monochrome true
+skinparam style strictuml
+skinparam shadowing false
+skinparam dpi 150
+skinparam ParticipantPadding 30
+skinparam BoxPadding 16
+skinparam roundcorner 6
+skinparam maxMessageSize 260
+hide footbox
+
+title Sequence Diagram — Log a Daily Activity (POST /api/logs)
+
+box "Client Side"
+    actor "User" as User
+    participant "Vue 3 Frontend" as FE
+end box
+
+box "Server Side (Slim 4 API)"
+    participant "Slim 4 API" as API
+    participant "JwtAuthMiddleware" as MW
+    participant "LogController" as LC
+end box
+
+box "Data Storage"
+    database "MySQL Database" as DB
+end box
+
+autonumber
+
+User -> FE : select activity, enter amount and date
+User -> FE : click "Calculate and Save"
+activate FE
+
+FE -> API : POST /api/logs { activity_type_id, amount, logged_on } [Auth: Bearer JWT]
+activate API
+API -> API : parse JSON body, match route
+API -> MW : invoke route middleware
+activate MW
+MW -> MW : read Authorization header
+
+alt [valid, non-expired JWT]
+    MW -> MW : decode & verify HS256 signature and exp
+    MW -> LC : handle(request) with user{ sub, role }
+    activate LC
+    LC -> LC : validate activity_type_id (int), amount (float)
+
+    alt [input valid]
+        LC -> DB : SELECT 1 FROM Activity_Type WHERE activity_type_id = :id
+        activate DB
+        DB --> LC : return row or empty
+        deactivate DB
+
+        alt [activity type exists]
+            LC -> DB : INSERT INTO Activity_Log (user_id, activity_type_id, amount, logged_on)
+            activate DB
+            DB --> LC : return lastInsertId
+            deactivate DB
+            LC --> API : 201 Created { success: true, data: { id } }
+        else [unknown activity type]
+            LC --> API : 422 Unprocessable Entity { error }
+        end
+
+    else [invalid input]
+        LC --> API : 400 Bad Request { error }
+    end
+    deactivate LC
+
+else [missing / invalid / expired token]
+    MW --> API : 401 Unauthorized { error }
+end
+deactivate MW
+
+API --> FE : HTTP response (JSON)
+deactivate API
+
+alt [HTTP 201 Created]
+    FE -> User : "Activity log saved successfully." -> redirect to Dashboard
+else [HTTP 401 Unauthorized]
+    FE -> FE : localStorage.clear()
+    FE -> User : "Unauthorized. Please log in again." -> redirect to /login
+end
+deactivate FE
+
+note right of DB
+  CO2 footprint is computed later on GET /api/dashboard as
+  (amount x kg_co2_per_unit). The client never calculates it
+  directly — the server is strictly authoritative.
+end note
+
+@enduml

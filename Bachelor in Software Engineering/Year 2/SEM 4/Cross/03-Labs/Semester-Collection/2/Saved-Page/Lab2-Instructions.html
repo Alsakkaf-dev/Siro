@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!-- saved from url=(0106)https://elearning.utm.my/25262/pluginfile.php/363256/mod_resource/content/1/Lab2-Instructions.html?embed=1 -->
+<html lang="en"><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/extend-native-history-api.js"></script><script src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/libs/requests.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script bis_use="true" type="text/javascript" charset="utf-8" data-bis-config="{&quot;blacklistIframeSrc&quot;:[&quot;facebook.com/&quot;,&quot;twitter.com/&quot;,&quot;youtube-nocookie.com/embed/&quot;,&quot;//vk.com/&quot;,&quot;//www.vk.com/&quot;,&quot;linkedin.com/&quot;,&quot;//www.linkedin.com/&quot;,&quot;//instagram.com/&quot;,&quot;//www.instagram.com/&quot;,&quot;//www.google.com/recaptcha/api2/&quot;,&quot;//www.google.com/recaptcha/enterprise/anchor&quot;,&quot;//hangouts.google.com/webchat/&quot;,&quot;//www.google.com/calendar/&quot;,&quot;//www.google.com/maps/embed&quot;,&quot;spotify.com/&quot;,&quot;soundcloud.com/&quot;,&quot;//player.vimeo.com/&quot;,&quot;//disqus.com/&quot;,&quot;//tgwidget.com/&quot;,&quot;//js.driftt.com/&quot;,&quot;friends2follow.com&quot;,&quot;/widget&quot;,&quot;login&quot;,&quot;//video.bigmir.net/&quot;,&quot;blogger.com&quot;,&quot;//smartlock.google.com/&quot;,&quot;//keep.google.com/&quot;,&quot;/web.tolstoycomments.com/&quot;,&quot;moz-extension://&quot;,&quot;chrome-extension://&quot;,&quot;/auth/&quot;,&quot;//analytics.google.com/&quot;,&quot;adclarity.com&quot;,&quot;paddle.com/checkout&quot;,&quot;hcaptcha.com&quot;,&quot;recaptcha.net&quot;,&quot;2captcha.com&quot;,&quot;accounts.google.com&quot;,&quot;www.google.com/shopping/customerreviews&quot;,&quot;buy.tinypass.com&quot;,&quot;gstatic.com&quot;,&quot;secureir.ebaystatic.com&quot;,&quot;docs.google.com&quot;,&quot;contacts.google.com&quot;,&quot;github.com&quot;,&quot;mail.google.com&quot;,&quot;chat.google.com&quot;,&quot;audio.xpleer.com&quot;,&quot;keepa.com&quot;,&quot;static.xx.fbcdn.net&quot;,&quot;sas.selleramp.com&quot;,&quot;1plus1.video&quot;,&quot;console.googletagservices.com&quot;,&quot;//lnkd.demdex.net/&quot;,&quot;//radar.cedexis.com/&quot;,&quot;//li.protechts.net/&quot;,&quot;challenges.cloudflare.com/&quot;,&quot;ogs.google.com&quot;,&quot;//www.ukrnafta.com/data/map/&quot;,&quot;//maps.google.com/maps&quot;,&quot;//www.openstreetmap.org/export/embed.html&quot;,&quot;//www.google.com/maps/d/u/3/embed&quot;,&quot;//itm.ebaydesc.com/itmdesc&quot;,&quot;//books.google.com/books&quot;,&quot;//embed.podcasts.apple.com&quot;,&quot;//www.paypal.com/smartchat&quot;,&quot;//www.centurylink.com/assets/includes/common/sfChatiFrame.html&quot;,&quot;//macmillan-prod-gen.ada.support/embed&quot;,&quot;//macmillan-prod-gen.ada.support/chat&quot;,&quot;//ctl-consumer.my.site.com/&quot;],&quot;whitelistDomainsForPostBody&quot;:[&quot;youtube.com&quot;]}" data-dynamic-id="110196f1-eeda-49eb-a7df-630ba246c249" src="chrome-extension://eppiocemhmnlbhjplcgkofciiegomcon/executors/200.js"></script>
+  
+  <title>Chapter 3 — Lab 2 (Beginner Edition)</title>
+  <link href="./css2(1)" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --accent:  #f59e0b;
+      --danger:  #ef4444;
+      --green:   #22c55e;
+      --bg:      #f4f6fb;
+      --surface: #fff;
+      --border:  #e2e8f0;
+      --text:    #1e293b;
+      --muted:   #64748b;
+      --code-bg: #1e1e2e;
+      --code-fg: #cdd6f4;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Page wrapper ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 48px 32px; }
+
+    /* ── Cover ── */
+    .cover {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 18px;
+      padding: 40px 40px 36px;
+      margin-bottom: 40px;
+    }
+    .cover .chapter-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.18);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .cover h1 { font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+    .cover p  { font-size: 1rem; opacity: 0.85; }
+    .cover .meta {
+      margin-top: 22px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .meta-pill {
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary);
+      border-left: 5px solid var(--primary);
+      padding-left: 14px;
+      margin-bottom: 18px;
+    }
+
+    /* ── Task box ── */
+    .task-box {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .task-box .task-label {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .task-box h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .task-box p, .task-box li {
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .task-box ul { padding-left: 20px; }
+    .task-box ul li { list-style: disc; }
+
+    /* constraint callout */
+    .constraint {
+      background: #fef3c7;
+      border: 2px solid #fbbf24;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-top: 10px;
+      color: #92400e;
+    }
+
+    /* hint callout */
+    .hint {
+      background: #ede9fe;
+      border: 2px solid #a78bfa;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      color: #4c1d95;
+    }
+    .hint code { background: rgba(0,0,0,0.08); padding: 1px 5px; border-radius: 4px; font-family: 'Fira Mono', monospace; font-size: 0.83rem; }
+
+    /* ── Code block ── */
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'Fira Mono', monospace;
+      font-size: 0.82rem;
+      overflow-x: auto;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+    pre .kw  { color: #cba6f7; }   /* keyword */
+    pre .fn  { color: #89b4fa; }   /* function name */
+    pre .str { color: #a6e3a1; }   /* string */
+    pre .cm  { color: #6c7086; font-style: italic; }  /* comment */
+    pre .num { color: #fab387; }   /* number */
+
+    /* ── Rubric table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 10px;
+    }
+    th {
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 800;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #f8fafc; }
+    .marks { font-weight: 800; color: var(--primary); text-align: center; }
+    .total-row td { background: #ede9fe; font-weight: 800; color: var(--primary); }
+
+    /* ── Deliverable list ── */
+    .deliverable-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .deliverable-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+    .deliverable-list li::before {
+      content: "✅";
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── DOM Methods cheat-sheet ── */
+    .cheatsheet {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 600px) { .cheatsheet { grid-template-columns: 1fr; } }
+    .cheat-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .cheat-card .method {
+      font-family: 'Fira Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .cheat-card .meaning {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Footer ── */
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 32px 0 16px; }
+  </style>
+</head>
+<body __processed_81da795c-232a-49cd-9ca0-077b1b88cc2b__="true" bis_status="ok" bis_frame_id="309">
+<div class="page">
+
+  <!-- ============================================================ COVER -->
+  <div class="cover">
+    <div class="chapter-tag">Chapter 3 · Lab Exercise 2</div>
+    <h1>Making It Dynamic<br>JavaScript &amp; DOM Manipulation</h1>
+    <p>Build a Kanban Task Board using pure JavaScript — no frameworks, no localStorage.</p>
+    <div class="meta">
+      <span class="meta-pill">🎯 Exercise: My Task Board</span>
+      <span class="meta-pill">⏱ Duration: 2–3 Hours</span>
+      <span class="meta-pill">🟡 Difficulty: Beginner–Intermediate</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ OVERVIEW -->
+  <div class="section">
+    <div class="section-title">2.1 Overview</div>
+    <p>
+      You will build a <strong>Kanban-style Task Board</strong> in a single HTML file
+      using <strong>vanilla JavaScript only</strong> — no libraries, no frameworks,
+      and no <code>localStorage</code> (that comes in a later chapter).
+    </p>
+    <p style="margin-top:10px;">
+      The app lets users add tasks to one of three columns
+      (<em>To Do</em>, <em>In Progress</em>, <em>Done</em>),
+      edit and delete them, filter by priority, and inline-edit titles.
+      All changes happen dynamically in the DOM without reloading the page.
+    </p>
+  </div>
+
+  <!-- ============================================================ OUTCOMES -->
+  <div class="section">
+    <div class="section-title">2.2 Learning Outcomes</div>
+    <ul style="padding-left:22px; display:flex; flex-direction:column; gap:6px; font-size:0.9rem;">
+      <li>Select DOM elements using <code>getElementById</code> and <code>querySelector</code></li>
+      <li>Create new elements with <code>createElement</code>, <code>setAttribute</code>, <code>appendChild</code></li>
+      <li>Remove elements with <code>element.remove()</code></li>
+      <li>Update element content safely with <code>textContent</code></li>
+      <li>Add and remove CSS classes with <code>classList.add / remove / toggle</code></li>
+      <li>Attach event listeners with <code>addEventListener</code></li>
+      <li>Understand event delegation (one listener, many elements)</li>
+      <li>Implement simple in-page filtering without page reload</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ DOM CHEATSHEET -->
+  <div class="section">
+    <div class="section-title">📖 DOM Methods Quick Reference</div>
+    <div class="cheatsheet">
+      <div class="cheat-card">
+        <span class="method">document.getElementById('id')</span>
+        <span class="meaning">Get one element by its id attribute</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">document.querySelector('.class')</span>
+        <span class="meaning">Get the first element matching a CSS selector</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">document.createElement('li')</span>
+        <span class="meaning">Create a brand-new HTML element</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.setAttribute('key', 'val')</span>
+        <span class="meaning">Set an attribute on an element (e.g. data-id)</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.textContent = 'text'</span>
+        <span class="meaning">Safely set or read the text inside an element</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">parent.appendChild(child)</span>
+        <span class="meaning">Insert a child element inside a parent</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.classList.add('cls')</span>
+        <span class="meaning">Add a CSS class to an element</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.classList.toggle('cls', bool)</span>
+        <span class="meaning">Add the class if bool is true, remove if false</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.remove()</span>
+        <span class="meaning">Remove an element from the DOM entirely</span>
+      </div>
+      <div class="cheat-card">
+        <span class="method">element.addEventListener('click', fn)</span>
+        <span class="meaning">Run a function when an event occurs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ SCENARIO -->
+  <div class="section">
+    <div class="section-title">2.3 Scenario</div>
+    <p>
+      Build a three-column Kanban board: <strong>To Do</strong>, <strong>In Progress</strong>,
+      and <strong>Done</strong>. Users can add tasks via a modal pop-up, edit them,
+      delete them, filter by priority, and double-click a title to rename it inline.
+    </p>
+    <p style="margin-top:10px; font-size:0.88rem; color:var(--muted);">
+      All work must be in three separate files: <code>index.html</code>,
+      <code>style.css</code>, and <code>taskmanager.js</code>.
+    </p>
+  </div>
+
+  <!-- ============================================================ TASK 1 -->
+  <div class="section">
+    <div class="section-title">2.4 Tasks</div>
+
+    <div class="task-box">
+      <span class="task-label">Task 1</span>
+      <h3>HTML Structure</h3>
+      <ul>
+        <li>Create a <code>&lt;header&gt;</code> with an app title and a task counter badge (updated by JS).</li>
+        <li>Add a priority filter <code>&lt;select&gt;</code> dropdown in the header.</li>
+        <li>Create three columns using <code>&lt;section id="todo"&gt;</code>, <code>&lt;section id="inprogress"&gt;</code>, <code>&lt;section id="done"&gt;</code>.</li>
+        <li>Each column needs: a heading, a task list (<code>&lt;ul&gt;</code>), and an "Add Task" button.</li>
+        <li>Create a modal <code>&lt;div&gt;</code> (hidden by default) with: title input, description textarea, priority <code>&lt;select&gt;</code>, due date picker, Save and Cancel buttons.</li>
+      </ul>
+    </div>
+
+    <div class="task-box">
+      <span class="task-label">Task 2</span>
+      <h3>DOM Manipulation — Core CRUD Operations</h3>
+      <p>Implement the following five functions in <code>taskmanager.js</code>:</p>
+      <ul style="margin-top:8px;">
+        <li><strong>createTaskCard(taskObj)</strong> — returns a <code>&lt;li&gt;</code> containing: title, description, priority badge, due date, Edit button, Delete button.</li>
+        <li><strong>addTask(columnId, taskObj)</strong> — appends a new card to the right column and updates the task counter.</li>
+        <li><strong>deleteTask(taskId)</strong> — adds a CSS fade-out animation class, then removes the card after the animation ends.</li>
+        <li><strong>editTask(taskId)</strong> — opens the modal pre-filled with that task's existing data.</li>
+        <li><strong>updateTask(taskId, updatedData)</strong> — updates the task object in the <code>tasks</code> array and refreshes the matching card's DOM content.</li>
+      </ul>
+      <div class="constraint">
+        ⚠️ You must NOT use <code>innerHTML</code>, <code>innerText</code>, or template literals to build cards.<br>
+        All elements must be created with: <code>createElement()</code> · <code>setAttribute()</code> · <code>classList.add()</code> · <code>appendChild()</code> · <code>textContent</code>
+      </div>
+    </div>
+
+    <div class="task-box">
+      <span class="task-label">Task 3</span>
+      <h3>Event Handling</h3>
+      <ul>
+        <li><strong>Event delegation:</strong> Attach a <em>single</em> click listener to each column's <code>&lt;ul&gt;</code> that handles both Edit and Delete button clicks using <code>data-action</code> and <code>data-id</code> attributes.</li>
+        <li><strong>Inline editing:</strong> Double-clicking a task title replaces it with an <code>&lt;input&gt;</code>. Pressing Enter or moving focus away commits the change.</li>
+        <li><strong>Priority filter:</strong> When a priority is chosen, hide non-matching cards using <code>classList.toggle('is-hidden', condition)</code> — not <code>style.display</code>.</li>
+        <li><strong>Clear Done:</strong> A "Clear All" button removes every card from the Done column with a staggered fade-out (each card fades 100 ms after the previous).</li>
+      </ul>
+      <div class="hint">
+        💡 <strong>Event Delegation explained:</strong> Rather than adding a listener to every button, add ONE listener to the parent <code>&lt;ul&gt;</code>. When a button inside is clicked, the event <em>bubbles up</em> to the list. Check <code>event.target.getAttribute('data-action')</code> to see which action to run.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ CODE EXAMPLE -->
+  <div class="section">
+    <div class="section-title">💡 Code Pattern: createElement vs innerHTML</div>
+    <p style="font-size:0.88rem; margin-bottom:12px; color:var(--muted);">
+      The example below shows the <strong>correct</strong> approach (top) versus the approach you must NOT use (bottom).
+    </p>
+
+<pre><span class="cm">// ✅ CORRECT — use DOM API methods</span>
+<span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">'li'</span>);
+li.<span class="fn">setAttribute</span>(<span class="str">'data-id'</span>, task.id);
+li.classList.<span class="fn">add</span>(<span class="str">'task-card'</span>);
+
+<span class="kw">const</span> titleSpan = document.<span class="fn">createElement</span>(<span class="str">'span'</span>);
+titleSpan.textContent = task.title;   <span class="cm">// safe text — no HTML injection</span>
+li.<span class="fn">appendChild</span>(titleSpan);
+
+<span class="cm">// ❌ NOT ALLOWED — innerHTML builds cards</span>
+<span class="cm">// li.innerHTML = `&lt;span&gt;${task.title}&lt;/span&gt;`;  ← do not do this</span></pre>
+  </div>
+
+  <!-- ============================================================ EVENT DELEGATION EXAMPLE -->
+  <div class="section">
+    <div class="section-title">💡 Code Pattern: Event Delegation</div>
+<pre><span class="cm">// ONE listener on the &lt;ul&gt; handles ALL button clicks inside it</span>
+todoList.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, <span class="kw">function</span>(event) {
+
+  <span class="kw">const</span> action = event.target.<span class="fn">getAttribute</span>(<span class="str">'data-action'</span>); <span class="cm">// 'edit' or 'delete'</span>
+  <span class="kw">const</span> idStr  = event.target.<span class="fn">getAttribute</span>(<span class="str">'data-id'</span>);
+  <span class="kw">if</span> (!action || !idStr) <span class="kw">return</span>; <span class="cm">// click was on something else</span>
+
+  <span class="kw">const</span> taskId = <span class="fn">parseInt</span>(idStr, <span class="num">10</span>);
+
+  <span class="kw">if</span> (action === <span class="str">'delete'</span>) { <span class="fn">deleteTask</span>(taskId); }
+  <span class="kw">if</span> (action === <span class="str">'edit'</span>)   { <span class="fn">editTask</span>(taskId);   }
+});</pre>
+  </div>
+
+  <!-- ============================================================ DELIVERABLES -->
+  <div class="section">
+    <div class="section-title">2.5 Deliverables</div>
+    <ul class="deliverable-list">
+      <li><code>index.html</code> — HTML structure and modal</li>
+      <li><code>style.css</code> — all styles (no inline styles in JS)</li>
+      <li><code>taskmanager.js</code> — all JavaScript logic, well-commented</li>
+      <li>A short screen recording (30–60 seconds) showing: add, edit, delete, filter, and clear done</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ RUBRIC -->
+  <div class="section">
+    <div class="section-title">2.6 Assessment Rubric</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th style="text-align:center;">Marks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CRUD operations — <code>createElement</code> API used correctly (no <code>innerHTML</code>)</td>
+          <td class="marks">25</td>
+        </tr>
+        <tr>
+          <td>Event delegation — single listener per column handles Edit &amp; Delete</td>
+          <td class="marks">20</td>
+        </tr>
+        <tr>
+          <td>Inline editing — double-click to edit, Enter/blur to commit</td>
+          <td class="marks">15</td>
+        </tr>
+        <tr>
+          <td>Priority filter — correct show/hide using <code>classList.toggle</code></td>
+          <td class="marks">15</td>
+        </tr>
+        <tr>
+          <td>Clear Done — staggered animation removes all Done cards</td>
+          <td class="marks">10</td>
+        </tr>
+        <tr>
+          <td>Code quality — named functions, meaningful comments, readable code</td>
+          <td class="marks">15</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>TOTAL</strong></td>
+          <td class="marks"><strong>100</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>Chapter 3 · Lab Exercise 2 (Beginner Edition) — JavaScript &amp; DOM Manipulation</footer>
+</div>
+
+
+</body></html>

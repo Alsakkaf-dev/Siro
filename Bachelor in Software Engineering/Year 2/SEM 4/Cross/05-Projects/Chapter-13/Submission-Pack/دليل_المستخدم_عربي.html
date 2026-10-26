@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الدليل الكامل — تسليم الفصل ١٣ (خطوة بخطوة)</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef2f6;color:#1e293b;font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:2;font-size:17px}
+  .head{background:linear-gradient(135deg,#065A82,#1C7293);color:#fff;padding:30px 20px;text-align:center}
+  .head h1{margin:0 0 6px;font-size:26px}
+  .head p{margin:0;opacity:.92;font-size:15px}
+  .wrap{max-width:860px;margin:0 auto;padding:18px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  h2{color:#065A82;font-size:21px;margin:0 0 14px;border-right:6px solid #F59E0B;padding-right:12px}
+  h3{color:#1C7293;font-size:18px;margin:18px 0 8px}
+  .calm{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+  .warn{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+  .info{background:#eff6ff;border-color:#bfdbfe}
+  .step{display:flex;gap:14px;margin:14px 0;align-items:flex-start}
+  .num{flex:0 0 32px;height:32px;background:#065A82;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:16px;margin-top:3px}
+  .step .t{flex:1}
+  code{background:#0f172a;color:#7fe7c4;padding:3px 10px;border-radius:6px;font-family:Consolas,monospace;direction:ltr;display:inline-block;font-size:15px}
+  .kbd{background:#1e293b;color:#fff;border:1px solid #475569;border-radius:6px;padding:2px 9px;font-weight:bold;font-family:Consolas,monospace;direction:ltr;display:inline-block}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  td,th{border:1px solid #e2e8f0;padding:10px 12px;text-align:right;font-size:15px}
+  th{background:#f8fafc;color:#475569}
+  .big{font-size:20px;font-weight:bold;color:#065A82;margin:14px 0 4px}
+  .pill{display:inline-block;background:#10B981;color:#fff;border-radius:999px;padding:2px 12px;font-size:13px;font-weight:bold}
+  ul,ol{margin:6px 0;padding-right:22px}
+  li{margin:7px 0}
+  .say{background:#fffbeb;border:1px dashed #f59e0b;border-radius:8px;padding:10px 14px;margin:6px 0;direction:ltr;text-align:left;font-style:italic;color:#92400e}
+  /* mock browser bar */
+  .mock{border:1px solid #cbd5e1;border-radius:10px;overflow:hidden;margin:12px 0;background:#fff}
+  .mockbar{background:#e2e8f0;display:flex;align-items:center;gap:8px;padding:8px 10px}
+  .dotr{width:11px;height:11px;border-radius:50%}
+  .addr{flex:1;background:#fff;border:2px solid #F59E0B;border-radius:999px;padding:6px 14px;direction:ltr;text-align:left;color:#334155;font-family:Consolas,monospace;font-size:14px}
+  .hintar{color:#b45309;font-size:13px;font-weight:bold;text-align:center;margin-top:4px}
+  .btnmock{display:inline-block;background:#10B981;color:#fff;border-radius:8px;padding:8px 22px;font-weight:bold;margin:6px 0}
+  .filemock{display:flex;align-items:center;gap:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 12px;margin:6px 0;direction:ltr}
+  .filemock .ic{width:22px;height:22px;background:#475569;color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px}
+  .toc{background:#f8fafc;border:1px dashed #94a3b8}
+  .toc a{color:#065A82;text-decoration:none;font-weight:600}
+  .copy{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px;margin:6px 0;direction:ltr;text-align:left;font-family:Consolas,monospace;display:flex;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+<div class="head">
+  <h1>📘 الدليل الكامل — خطوة بخطوة</h1>
+  <p>تسليم الفصل ١٣ • تطبيق مكتبة الكتب • SCSM2223 — كل شي تسوّيه بنفسك بهذا الدليل</p>
+</div>
+
+<div class="wrap">
+
+  <div class="card calm">
+    <b>اقرأ هذا أول:</b> هذا الدليل يمشي معك من الصفر (الكمبيوتر مقفل) لين ما ترفع الفيديو. كل خطوة مكتوبة بالتفصيل ووين تضغط بالضبط. لو اتّبعته بالترتيب، <b>ما راح تحتاج أحد</b>. خذ وقتك، ولا تتخطّى خطوة.
+  </div>
+
+  <div class="card toc">
+    <b>محتويات الدليل:</b>
+    <ol style="margin-top:8px">
+      <li><a href="#a">تشغيل المشروع (Laragon + الأزرار)</a></li>
+      <li><a href="#b">فتح الصفحات في المتصفّح (وين أكتب الرابط؟)</a></li>
+      <li><a href="#c">تصوير الفيديو (طريقتان)</a></li>
+      <li><a href="#d">ترتيب العرض + الجُمل اللي تقولها</a></li>
+      <li><a href="#e">حفظ الفيديو ورفعه للدكتور</a></li>
+      <li><a href="#f">حل المشاكل (لو طلع خطأ)</a></li>
+    </ol>
+  </div>
+
+  <!-- بطاقة سريعة -->
+  <div class="card info">
+    <h2>🔑 بطاقة المعلومات (تحتاجها كثير)</h2>
+    <b>الروابط الثلاثة (تنكتب في المتصفّح):</b>
+    <table>
+      <tr><th>الجزء</th><th>الرابط</th></tr>
+      <tr><td>① قاعدة البيانات</td><td><code>localhost:8000/dbview.php</code></td></tr>
+      <tr><td>② المحرّك (API)</td><td><code>localhost:8000/api/books?q=clean</code></td></tr>
+      <tr><td>③ الموقع</td><td><code>localhost:5173</code></td></tr>
+    </table>
+    <b style="display:block;margin-top:14px">حسابات الدخول (للموقع):</b>
+    <table>
+      <tr><th>الإيميل</th><th>كلمة السر</th><th>النوع</th></tr>
+      <tr><td><code>member@books.test</code></td><td><code>password</code></td><td>عضو</td></tr>
+      <tr><td><code>admin@books.test</code></td><td><code>password</code></td><td>مدير</td></tr>
+    </table>
+  </div>
+
+  <!-- القسم أ -->
+  <div class="card" id="a">
+    <h2>القسم ١: تشغيل المشروع</h2>
+    قبل ما تفتح أي رابط، لازم "تشغّل" ٣ أشياء. سوّيها بالترتيب:
+
+    <h3>أ) شغّل Laragon (قاعدة البيانات)</h3>
+    <div class="step"><div class="num">١</div><div class="t">تحت الشاشة على اليسار، اضغط زر <b>ابدأ (Start)</b> أو أيقونة <b>البحث 🔍</b>.</div></div>
+    <div class="step"><div class="num">٢</div><div class="t">اكتب <code>Laragon</code> وبتطلع أيقونته (حصان أزرق صغير)، اضغط عليها مرّة.</div></div>
+    <div class="step"><div class="num">٣</div><div class="t">بيفتح برنامج Laragon. اضغط على زر <span class="btnmock">▶ Start All</span> اللي تحت.</div></div>
+    <div class="step"><div class="num">٤</div><div class="t">انتظر ٥ ثواني. لازم كلمتي <b>Apache</b> و <b>MySQL</b> تصير الدوائر اللي جنبها <b>خضراء</b>، والزر يتحوّل إلى <b>Stop</b>. ✅ يعني قاعدة البيانات شغّالة.</div></div>
+
+    <h3>ب) شغّل المحرّك والموقع (من مجلد الأزرار)</h3>
+    <div class="step"><div class="num">٥</div><div class="t">افتح <b>سطح المكتب (Desktop)</b>، ولاقِ مجلد اسمه <code>chapter_13_Cross</code>، افتحه (ضغطتين).</div></div>
+    <div class="step"><div class="num">٦</div><div class="t">جوّاه، افتح مجلد اسمه <code>_RUN_ME</code> (ضغطتين). بتلاقي فيه هذي الملفات:
+      <div class="filemock"><span class="ic">BAT</span> 2_start_backend &nbsp;←&nbsp; <b style="direction:rtl">المحرّك</b></div>
+      <div class="filemock"><span class="ic">BAT</span> 3_start_frontend &nbsp;←&nbsp; <b style="direction:rtl">الموقع</b></div>
+    </div></div>
+    <div class="step"><div class="num">٧</div><div class="t">اضغط <b>ضغطتين</b> على <code>2_start_backend</code>. بتفتح <b>نافذة سوداء</b> مكتوب فيها <b>"BACKEND API IS RUNNING"</b>. ✅ <br><b style="color:#991b1b">لا تسكّر هذي النافذة!</b> خلّها مفتوحة وصغّرها إذا تبي.</div></div>
+    <div class="step"><div class="num">٨</div><div class="t">ارجع لمجلد <code>_RUN_ME</code>، واضغط <b>ضغطتين</b> على <code>3_start_frontend</code>. بتفتح <b>نافذة سوداء ثانية</b>، انتظر لين يطلع <b>"VITE ready"</b> و <code>localhost:5173</code>. ✅ <br><b style="color:#991b1b">لا تسكّرها بعد!</b></div></div>
+
+    <div class="warn card" style="margin-top:16px">
+      <b>⚠️ القاعدة الذهبية:</b> النافذتين السوداء (المحرّك + الموقع) + برنامج Laragon = لازم <b>يبقون مفتوحين</b> طول ما تشتغل وتصوّر. لو سكّرت وحدة، المشروع يطفى. (ترجّعها بنفس الأزرار — شوف القسم ٦).
+    </div>
+  </div>
+
+  <!-- القسم ب -->
+  <div class="card" id="b">
+    <h2>القسم ٢: فتح الصفحات في المتصفّح</h2>
+    هنا جواب سؤالك المهم: <b>وين أكتب الرابط؟</b>
+
+    <div class="step"><div class="num">١</div><div class="t">افتح متصفّح <b>Google Chrome</b> (الأيقونة الدائرية أحمر/أصفر/أخضر). إذا طلب يختار حساب، اختر حسابك <b>Mohammed Alsakkaf</b>.</div></div>
+    <div class="step"><div class="num">٢</div><div class="t">فوق الصفحة فيه <b>شريط طويل</b> — هذا اسمه <b>“شريط العنوان”</b>. هو نفس المكان اللي تكتب فيه أسماء المواقع. اضغط عليه مرّة (يصير أزرق/جاهز للكتابة):</div></div>
+
+    <div class="mock">
+      <div class="mockbar">
+        <span class="dotr" style="background:#ef4444"></span>
+        <span class="dotr" style="background:#f59e0b"></span>
+        <span class="dotr" style="background:#22c55e"></span>
+        <span class="addr">localhost:8000/dbview.php</span>
+      </div>
+    </div>
+    <div class="hintar">↑ اكتب الرابط هنا بالضبط، ثم اضغط زر <span class="kbd">Enter</span> في الكيبورد</div>
+
+    <div class="step" style="margin-top:14px"><div class="num">٣</div><div class="t">امسح أي شي مكتوب في الشريط (اضغط عليه ثم <span class="kbd">Ctrl + A</span> ثم <span class="kbd">Delete</span>)، واكتب الرابط، ثم <span class="kbd">Enter</span>. بتفتح الصفحة.</div></div>
+    <div class="step"><div class="num">٤</div><div class="t"><b>نصيحة:</b> بدل ما تكتب، تقدر <b>تنسخ</b> الرابط من بطاقة المعلومات فوق (علّم عليه ثم <span class="kbd">Ctrl + C</span>)، وتلصقه في الشريط (<span class="kbd">Ctrl + V</span>) ثم <span class="kbd">Enter</span>. أسهل وأدقّ.</div></div>
+
+    <p style="margin-top:14px">جرّب الحين الرابط الأول <code>localhost:8000/dbview.php</code> — لازم تطلع صفحة زرقاء عنوانها <b>“MySQL Database — books”</b> فيها جدول كتب. لو طلعت = ممتاز، كل شي شغّال. لو طلع خطأ "can't be reached" = رجع للقسم ١ وتأكد النوافذ مفتوحة.</p>
+  </div>
+
+  <!-- القسم ج -->
+  <div class="card" id="c">
+    <h2>القسم ٣: تصوير الفيديو</h2>
+    عندك طريقتان. اختر اللي يريحك:
+
+    <h3>الطريقة الأولى (الأسهل والأضمن): بالجوّال 📱</h3>
+    <ol>
+      <li>افتح كاميرا جوالك، وحطّها على وضع <b>تصوير فيديو</b>.</li>
+      <li>وجّهها على شاشة الكمبيوتر (ثبّتها على شي أو خلّ أحد يمسكها).</li>
+      <li>اضغط تسجيل، وابدأ تسوّي العرض (القسم ٤) وتتكلم.</li>
+      <li>خلّصت؟ أوقف التسجيل. الفيديو محفوظ في جوالك — حوّله للكمبيوتر أو ارفعه من الجوال.</li>
+    </ol>
+    <p>👍 بدون أي برنامج، بدون أزرار. مضمونة ١٠٠٪. الدكتور يقبل أي صيغة.</p>
+
+    <h3>الطريقة الثانية: تسجيل شاشة بويندوز (Win+G)</h3>
+    <ol>
+      <li>اضغط الأزرار الثلاثة مع بعض: <span class="kbd">⊞ Win</span> + <span class="kbd">Alt</span> + <span class="kbd">R</span>.</li>
+      <li>بيطلع <b>مربّع صغير فيه وقت يعدّ</b> بزاوية الشاشة = التسجيل بدأ. (أول مرة ممكن يسأل — اختر <b>نعم/Yes</b>.)</li>
+      <li>سوِّ العرض وتكلّم.</li>
+      <li>خلّصت؟ اضغط <span class="kbd">⊞ Win</span> + <span class="kbd">Alt</span> + <span class="kbd">R</span> مرّة ثانية = إيقاف.</li>
+      <li>الفيديو ينحفظ في: <span dir="ltr"><b>This PC › Videos › Captures</b></span>.</li>
+    </ol>
+    <p>💡 لو ما اشتغل Win+G أو تلخبطت = استخدم الجوّال (الطريقة الأولى).</p>
+  </div>
+
+  <!-- القسم د -->
+  <div class="card" id="d">
+    <h2>القسم ٤: ترتيب العرض + الجُمل</h2>
+    شغّل التسجيل، وبعدها سوِّ هذي الخطوات <b>بالترتيب</b>. الجملة الصفراء قُلها بصوتك (إنجليزي، وتحتها معناها):
+
+    <div class="big">في البداية: عرّف بنفسك</div>
+    قُل اسمك ورقمك الجامعي والمادة.
+    <div class="say">"Hello, my name is [اسمك], matric number [رقمك]. This is my Chapter 13 submission for SCSM2223."</div>
+
+    <div class="big">① قاعدة البيانات</div>
+    افتح <code>localhost:8000/dbview.php</code> — وريهم جدول الكتب (٩ كتب) وجدول المستخدمين.
+    <div class="say">"This is my MySQL database. It has the books table and the users table with sample data."</div>
+    <small>(هذي قاعدة بيانات MySQL، فيها جدول الكتب وجدول المستخدمين وفيها بيانات.)</small>
+
+    <div class="big">② المحرّك (API)</div>
+    افتح <code>localhost:8000/api/books?q=clean</code> — بيّن إنه رجّع بيانات بصيغة JSON.
+    <div class="say">"This is the Slim PHP API. It reads from the database and returns the books as JSON."</div>
+    <small>(هذا المحرّك، يقرأ من قاعدة البيانات ويرجّع الكتب بصيغة JSON.)</small>
+
+    <div class="big">③ الموقع + إضافة كتاب</div>
+    افتح <code>localhost:5173</code>. تطلع الكتب. اكتب <b>clean</b> في خانة البحث واضغط <b>Search</b>.
+    بعدها اضغط <b>Login</b> فوق، (الحساب مكتوب مسبقاً) اضغط <b>Sign in</b>.
+    بعدها اضغط <b>+ New book</b>، عبّي العنوان والمؤلف والسنة، واضغط <b>Save</b> — بيظهر الكتاب فوق القائمة.
+    <div class="say">"This is the Vue website. It loads the books from the API. I log in, then add a new book — and it saves to the database."</div>
+    <small>(هذا الموقع، يجيب الكتب من المحرّك. أسجّل دخول وأضيف كتاب، وينحفظ في قاعدة البيانات.)</small>
+
+    <div class="big">في النهاية</div>
+    <div class="say">"That's all the parts working together. Thank you."</div>
+
+    <div class="info card" style="margin-top:14px">
+      ⏱️ <b>المدّة:</b> المطلوب ٥ دقائق على الأقل. امشِ على راحتك واشرح بهدوء عشان توصل ٥ دقائق. جزء الجوال (④) نضيفه لاحقاً مع بعض.
+    </div>
+  </div>
+
+  <!-- القسم هـ -->
+  <div class="card" id="e">
+    <h2>القسم ٥: حفظ الفيديو ورفعه</h2>
+    <ol>
+      <li>تأكد الفيديو واضح ومدّته ٥ دقائق أو أكثر.</li>
+      <li>لو صوّرته بالجوال: حوّله للكمبيوتر (كيبل / واتساب / إيميل) أو ارفعه مباشرة من الجوال.</li>
+      <li>ادخل بوابة <b>eLearning</b> الجامعية → افتح المادة → <b>Chapter 13 – Assignment Submission</b>.</li>
+      <li>اضغط <b>رفع/Upload</b>، اختر ملف الفيديو، ثم <b>إرسال/Submit</b>. ✅ خلصت!</li>
+    </ol>
+    <p>💡 عندك برنامج <b>CapCut</b> — لو صار عندك مقطعين (مثلاً الأجزاء ١-٣ ومقطع للجوال) نقدر ندمجهم بفيديو واحد بسهولة.</p>
+  </div>
+
+  <!-- القسم و -->
+  <div class="card warn" id="f">
+    <h2 style="color:#991b1b;border-color:#dc2626">القسم ٦: حل المشاكل</h2>
+
+    <h3 style="color:#991b1b">الصفحة تطلع "This site can't be reached"</h3>
+    معناها المحرّك أو الموقع مو شغّال (نافذة سوداء انسكّرت). الحل: رجّع القسم ١ — افتح Laragon (Start All)، وشغّل <code>2_start_backend</code> و <code>3_start_frontend</code> من مجلد <code>_RUN_ME</code>.
+
+    <h3 style="color:#991b1b">صفحة قاعدة البيانات تطلع خطأ DB error</h3>
+    معناها Laragon (MySQL) مو شغّال. افتح Laragon واضغط <b>Start All</b> لين تصير خضراء.
+
+    <h3 style="color:#991b1b">الموقع (5173) ما يفتح</h3>
+    تأكد نافذة <code>3_start_frontend</code> السوداء مفتوحة ومكتوب فيها VITE. لو لا، شغّلها مرّة ثانية.
+
+    <h3 style="color:#991b1b">نسيت كل شي / الكمبيوتر انطفى</h3>
+    عادي. ابدأ من <b>القسم ١</b> من جديد. ملف <code>1_setup_database</code> ما يحتاج تعيده (سوّيناه مرّة وحدة).
+
+    <p style="margin-top:14px;color:#334155"><b>وأي وقت تتلخبط:</b> ارجع لكلود (المحادثة) واكتب وش صار، وأنا أساعدك فوراً.</p>
+  </div>
+
+  <p style="text-align:center;color:#64748b;font-size:14px;margin:26px 0">
+    جامعة UTM • كلية الحوسبة • الفصل ١٣<br>
+    اتّبع الخطوات بالترتيب وبتوصل. أنت قادر 💪
+  </p>
+
+</div>
+</body>
+</html>

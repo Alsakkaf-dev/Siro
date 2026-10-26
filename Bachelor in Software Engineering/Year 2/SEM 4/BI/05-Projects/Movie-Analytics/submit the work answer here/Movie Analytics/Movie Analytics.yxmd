@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2025.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="222" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">_externals\1\2019 Gross Revenue.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>2019 GR</Name>
+          <DefaultAnnotationText>2019 GR</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Movie" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="222" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">_externals\1\2020 Gross Revenue.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>2020 GR</Name>
+          <DefaultAnnotationText>2020 GR</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Movie" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2020 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="222" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">_externals\1\2021 Gross Revenue.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>2021 GR</Name>
+          <DefaultAnnotationText>2021 GR</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="F3" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="movie title" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="222" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">_externals\1\2022 Gross Revenue.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>2022 GR</Name>
+          <DefaultAnnotationText>2022 GR</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Movie" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2022 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="330" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Rank" selected="True" />
+            <SelectField field="movie title" selected="True" rename="Movie" />
+            <SelectField field="Release Date" selected="True" />
+            <SelectField field="F3" selected="False" />
+            <SelectField field="Distributor" selected="True" />
+            <SelectField field="Genre" selected="True" />
+            <SelectField field="Gross Revenue" selected="True" />
+            <SelectField field="Tickets Sold" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Movie" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2021 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="486" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Rank" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Movie" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Release Date" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Date" />
+            <Field name="Distributor" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Genre" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="V_String" />
+            <Field name="Gross Revenue" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+            <Field name="Tickets Sold" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\2019 Gross Revenue.xlsx|||`Sheet1$`" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="606" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>!IsNull([Release Date]) AND !IsNull([Distributor]) AND Trim([Distributor]) != ""</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!IsNull([Release Date]) AND !IsNull([Distributor]) AND Trim([Distributor]) != ""</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Rank" source="File: (Multiple Sources)" type="Double" />
+            <Field name="Movie" size="255" source="File: (Multiple Sources)" type="V_WString" />
+            <Field name="Release Date" source="File: (Multiple Sources)" type="Date" />
+            <Field name="Distributor" size="255" source="File: (Multiple Sources)" type="V_WString" />
+            <Field name="Genre" size="255" source="File: (Multiple Sources)" type="V_String" />
+            <Field name="Gross Revenue" source="File: (Multiple Sources)" type="Double" />
+            <Field name="Tickets Sold" source="File: (Multiple Sources)" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Rank" source="File: (Multiple Sources)" type="Double" />
+            <Field name="Movie" size="255" source="File: (Multiple Sources)" type="V_WString" />
+            <Field name="Release Date" source="File: (Multiple Sources)" type="Date" />
+            <Field name="Distributor" size="255" source="File: (Multiple Sources)" type="V_WString" />
+            <Field name="Genre" size="255" source="File: (Multiple Sources)" type="V_String" />
+            <Field name="Gross Revenue" source="File: (Multiple Sources)" type="Double" />
+            <Field name="Tickets Sold" source="File: (Multiple Sources)" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="690" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Movie" action="GroupBy" rename="Movie" />
+            <SummarizeField field="Release Date" action="GroupBy" rename="Release Date" />
+            <SummarizeField field="Distributor" action="GroupBy" rename="Distributor" />
+            <SummarizeField field="Genre" action="GroupBy" rename="Genre" />
+            <SummarizeField field="Gross Revenue" action="Sum" rename="Gross Revenue" />
+            <SummarizeField field="Tickets Sold" action="Sum" rename="Tickets Sold" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Movie" size="255" source="Summarize: GroupBy - Movie" type="V_WString" />
+            <Field name="Release Date" source="Summarize: GroupBy - Release Date" type="Date" />
+            <Field name="Distributor" size="255" source="Summarize: GroupBy - Distributor" type="V_WString" />
+            <Field name="Genre" size="255" source="Summarize: GroupBy - Genre" type="V_String" />
+            <Field name="Gross Revenue" source="Summarize: Sum - Gross Revenue" type="Double" />
+            <Field name="Tickets Sold" source="Summarize: Sum - Tickets Sold" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="906" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="Movie" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Movie" size="255" source="Summarize: GroupBy - Movie" type="V_WString" />
+            <Field name="Release Date" source="Summarize: GroupBy - Release Date" type="Date" />
+            <Field name="Distributor" size="255" source="Summarize: GroupBy - Distributor" type="V_WString" />
+            <Field name="Genre" size="255" source="Summarize: GroupBy - Genre" type="V_String" />
+            <Field name="Gross Revenue" source="Summarize: Sum - Gross Revenue" type="Double" />
+            <Field name="Tickets Sold" source="Summarize: Sum - Tickets Sold" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Movie" size="255" source="Summarize: GroupBy - Movie" type="V_WString" />
+            <Field name="Release Date" source="Summarize: GroupBy - Release Date" type="Date" />
+            <Field name="Distributor" size="255" source="Summarize: GroupBy - Distributor" type="V_WString" />
+            <Field name="Genre" size="255" source="Summarize: GroupBy - Genre" type="V_String" />
+            <Field name="Gross Revenue" source="Summarize: Sum - Gross Revenue" type="Double" />
+            <Field name="Tickets Sold" source="Summarize: Sum - Tickets Sold" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="978" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\MOHAMM~1\AppData\Local\Temp\Alteryx\Engine_26992_c4e943676de2412584e574a9a73eecaf_\Engine_26992_93a0fc1ef90840b4b411f977899fa648~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.FindReplace.FindReplace">
+        <Position x="906" y="426" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldFind>Distributor</FieldFind>
+          <FieldSearch>Distributor Truncated</FieldSearch>
+          <ReplaceFoundField>Distributor Full</ReplaceFoundField>
+          <FindMode>FindWhole</FindMode>
+          <NoCase value="True" />
+          <MatchWholeWord value="False" />
+          <ReplaceMode>Replace</ReplaceMode>
+          <ReplaceMultipleFound value="True" />
+          <ReplaceAppendFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Movie" size="255" source="Summarize: GroupBy - Movie" type="V_WString" />
+            <Field name="Release Date" source="Summarize: GroupBy - Release Date" type="Date" />
+            <Field name="Distributor" size="255" source="Summarize: GroupBy - Distributor" type="V_WString" />
+            <Field name="Genre" size="255" source="Summarize: GroupBy - Genre" type="V_String" />
+            <Field name="Gross Revenue" source="Summarize: Sum - Gross Revenue" type="Double" />
+            <Field name="Tickets Sold" source="Summarize: Sum - Tickets Sold" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFindReplace" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="810" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="25">_externals\1\Distributor LookUp Table.xlsx|||`Sheet1$`</File>
+          <FormatSpecificOptions>
+            <FirstRowData>False</FirstRowData>
+            <ImportLine>1</ImportLine>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>LookUp</Name>
+          <DefaultAnnotationText>LookUp</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Distributor Truncated" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\Distributor LookUp Table.xlsx|||`Sheet1$`" type="V_WString" />
+            <Field name="Distributor Full" size="255" source="File: C:\Users\Mohammed Alsakkaf\Desktop\Project BI\BI Subject resourse if needed\Storage\Materials\PROJECT\Datasets\Distributor LookUp Table.xlsx|||`Sheet1$`" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="990" y="426" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\MOHAMM~1\AppData\Local\Temp\Alteryx\Engine_26992_c4e943676de2412584e574a9a73eecaf_\Engine_26992_e2adac5efa674b8fa9ea6471f53b25e3~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1014" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="25">MasterList Movie Records.xlsx|||MasterList</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <MipTenantId />
+            <PreserveFormat>False</PreserveFormat>
+            <MipSensitivity />
+            <UNCLocal>False</UNCLocal>
+            <SkipFieldNames>False</SkipFieldNames>
+            <SuppressBlankFile>False</SuppressBlankFile>
+            <OutputOption>Create</OutputOption>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MasterList Movie Records.xlsx
+Query=MasterList</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="162" width="240" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[TASK A — Input 4 GR files, fix 2021 schema, Union, filter null Date/Distributor
+]]></Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="918" y="390" width="216" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[TASK D — Find & Replace truncated distributors via lookup → MasterList
+]]></Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="822" y="174" width="216" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>TASK C — Unique: investigate repeated titles (Alice, CatVideoFest, Halloween)</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="618" y="246" width="156" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>TASK B — Summarize: total revenue per movie</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#1">
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection name="#4">
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="True" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="17" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="17" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Duplicates" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <DefaultTZ value="Local" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Movie Analytics</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="9e173988-1d1a-4b52-a06f-e85616ba9747" />
+      <Telemetry>
+        <PreviousWorkflowId value="df822d68-032c-4bb8-a4e5-b972fbc7f66c" />
+        <OriginWorkflowId value="df822d68-032c-4bb8-a4e5-b972fbc7f66c" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,18 @@
+# ============================================================================
+#  PRODUCTION API URL  (used by `npm run build`, `npm run preview`, and the
+#  Capacitor mobile app). Vite bakes this value into the bundle AT BUILD TIME,
+#  so you MUST set the real URL here BEFORE running `npm run build`.
+#
+#  >>> RECORD-DAY STEP (ngrok) <<<
+#  1. Start the API:   php -S 0.0.0.0:8000 -t public   (in Ch12_BooksAPI_Solution)
+#  2. Start a tunnel:  ngrok http 8000
+#  3. Copy the https URL ngrok prints (e.g. https://ab12cd34.ngrok-free.app)
+#  4. Paste it below (NO trailing slash), replacing the placeholder line.
+#  5. Rebuild:         npm run build   (then  npx cap sync android  for mobile)
+#
+#  The old default (https://api.books.utm.my) was a fake URL that does NOT
+#  exist — building with it shows "Network error" on screen. Do not use it.
+# ============================================================================
+
+# TODO: paste your real ngrok https URL here before building:
+VITE_API_BASE_URL=https://analysis-locking-sterling-supplies.trycloudflare.com

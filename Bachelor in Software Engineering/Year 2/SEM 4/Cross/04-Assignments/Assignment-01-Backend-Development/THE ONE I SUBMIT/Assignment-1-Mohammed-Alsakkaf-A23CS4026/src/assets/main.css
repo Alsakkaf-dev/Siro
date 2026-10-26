@@ -1,0 +1,88 @@
+* { box-sizing: border-box; }
+body {
+  font-family: system-ui, "Segoe UI", sans-serif;
+  background: #f1f5f9; margin: 0; color: #0f172a;
+}
+
+/* ---------- Header ---------- */
+header { background: #0f766e; color: #fff; padding: 1.2rem 1.5rem; }
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+header h1 { margin: 0; font-size: 1.6rem; }
+header .subtitle { margin: 0.2rem 0 0; opacity: 0.85; font-size: 0.9rem; }
+.headcount { text-align: center; line-height: 1.1; }
+.headcount .num { display: block; font-size: 2rem; font-weight: 700; }
+.headcount .label { font-size: 0.75rem; opacity: 0.9; }
+
+/* ---------- Layout ---------- */
+main {
+  max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem;
+  display: grid; gap: 1.25rem;
+}
+.card {
+  background: #fff; padding: 1rem 1.2rem;
+  border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ---------- Form ---------- */
+.employee-form h3 { margin: 0 0 0.75rem; }
+.employee-form .grid {
+  display: grid; gap: 0.75rem 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+.employee-form label { display: block; font-size: 0.85rem; font-weight: 600; }
+.employee-form input, .employee-form select {
+  display: block; width: 100%; padding: 0.5rem 0.6rem; margin-top: 0.25rem;
+  border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; font-weight: 400;
+}
+.employee-form .check { display: flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; }
+.employee-form .check input { width: auto; margin: 0; }
+.employee-form .err { color: #b91c1c; font-size: 0.78rem; font-weight: 500; }
+.actions { margin-top: 1rem; display: flex; gap: 0.5rem; }
+button {
+  padding: 0.5rem 1.1rem; border: 0; border-radius: 6px; cursor: pointer;
+  background: #0f766e; color: #fff; font-size: 0.9rem;
+}
+button.ghost { background: #e2e8f0; color: #0f172a; }
+button.danger { background: #b91c1c; color: #fff; }
+
+/* ---------- Controls ---------- */
+.controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: end; }
+.controls label { font-size: 0.85rem; font-weight: 600; }
+.controls .search { flex: 1 1 280px; }
+.controls input, .controls select {
+  display: block; width: 100%; padding: 0.5rem 0.6rem; margin-top: 0.25rem;
+  border: 1px solid #cbd5e1; border-radius: 6px; font-weight: 400;
+}
+
+/* ---------- Table ---------- */
+/* Natural column sizing. min-width keeps columns readable; on a window
+   narrower than that the box scrolls horizontally instead of crushing. */
+.table-wrap { overflow-x: auto; }
+.employee-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.85rem; }
+.employee-table th, .employee-table td {
+  text-align: left; padding: 0.55rem 0.55rem; border-bottom: 1px solid #e2e8f0; vertical-align: top;
+}
+.employee-table th { background: #f1f5f9; white-space: nowrap; }   /* keep headers on one line */
+.employee-table tr.inactive { background: #fef2f2; }
+.employee-table .muted { overflow-wrap: anywhere; }               /* let long emails wrap */
+.employee-table button { padding: 0.35rem 0.7rem; font-size: 0.8rem; }
+.row-actions { display: flex; gap: 0.4rem; white-space: nowrap; } /* Edit / Delete stay intact */
+code { background: #ccfbf1; color: #115e59; padding: 0.15rem 0.4rem; border-radius: 4px; }
+.muted { font-size: 0.78rem; color: #64748b; }
+.badge { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.75rem; }
+.badge.ok { background: #d1fae5; color: #065f46; }
+.badge.no { background: #fee2e2; color: #991b1b; }
+
+/* ---------- States ---------- */
+.error { background: #fee2e2; color: #991b1b; padding: 0.65rem 1rem; border-radius: 8px; margin: 0; }
+.loading { color: #64748b; font-style: italic; }
+.empty { color: #64748b; }
+
+/* ---------- Responsive (tablet ≥768, laptop ≥1024) ---------- */
+@media (max-width: 768px) {
+  .employee-form .grid { grid-template-columns: 1fr; }
+  .header-inner { flex-direction: column; align-items: flex-start; }
+}

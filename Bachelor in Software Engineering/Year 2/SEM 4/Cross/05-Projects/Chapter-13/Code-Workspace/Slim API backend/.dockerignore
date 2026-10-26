@@ -1,0 +1,9 @@
+.git
+.gitignore
+vendor
+.env
+*.local
+storage/*.sqlite
+storage/*.db
+tests
+*.md

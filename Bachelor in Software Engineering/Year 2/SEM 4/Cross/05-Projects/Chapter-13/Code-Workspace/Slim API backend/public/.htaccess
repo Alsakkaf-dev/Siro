@@ -1,0 +1,12 @@
+# Route every request that is not a real file through the Slim front controller.
+# Used by Apache (Laragon, cPanel shared hosting, the Render Docker image).
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# Never serve the .env or other dotfiles even if the docroot is misconfigured.
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>

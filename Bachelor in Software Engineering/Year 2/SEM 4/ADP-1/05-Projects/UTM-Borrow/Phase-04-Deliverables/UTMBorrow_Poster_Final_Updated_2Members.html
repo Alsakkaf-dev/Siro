@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UTM Borrow — A3 Poster (NABC)</title>
+</head>
+<body>
+
+
+<style>
+  :root{
+    --ink:#1B1517;
+    --maroon:#6E1023;
+    --maroon-deep:#4A0A17;
+    --brass:#B8862F;
+    --sheet:#FFFFFF;
+    --paper:#F8F5F5;
+    --rule:#DFD6D6;
+    --rule-soft:#EDE6E6;
+    --muted:#6C6063;
+    --surround:#E9E4E4;
+
+    --st-pending:#B0761C;
+    --st-approved:#4B5A8C;
+    --st-borrowed:#2F7168;
+    --st-done:#3F7A3A;
+    --st-void:#8A8083;
+
+    --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,"Sitka Text",Cambria,Georgia,serif;
+    --sans:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Cascadia Mono",ui-monospace,"SF Mono",Consolas,"Liberation Mono",monospace;
+  }
+
+  @media (prefers-color-scheme: dark){ :root{ --surround:#171315; } }
+  :root[data-theme="dark"]{ --surround:#171315; }
+  :root[data-theme="light"]{ --surround:#E9E4E4; }
+
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--surround); font-family:var(--sans); color:var(--ink); }
+
+  /* ---------- screen chrome (never prints) ---------- */
+  .toolbar{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:10px 18px; background:var(--maroon-deep); color:#F1E7E4;
+    font-size:13px; letter-spacing:.02em;
+  }
+  .toolbar strong{ font-weight:600; letter-spacing:.09em; text-transform:uppercase; font-size:11px; }
+  .toolbar span{ color:#C7ABAB; }
+  .toolbar button{
+    font:inherit; font-weight:600; background:var(--brass); color:#26160A;
+    border:0; border-radius:2px; padding:7px 15px; cursor:pointer;
+  }
+  .toolbar button:hover{ background:#CE9A3D; }
+  .toolbar button:focus-visible{ outline:2px solid #FFF; outline-offset:2px; }
+
+  .stage{ display:flex; justify-content:center; padding:26px 12px 60px; }
+
+  /* ---------- the A3 sheet ---------- */
+  .poster{
+    width:297mm; min-height:420mm;
+    background:var(--sheet); color:var(--ink);
+    transform-origin:top center;
+    display:flex; flex-direction:column;
+    box-shadow:0 2mm 10mm rgba(0,0,0,.28);
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    background:var(--maroon); color:#FBF3F1;
+    padding:6mm 10mm 5mm; position:relative;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.05) 0.2mm, transparent 0.2mm),
+      linear-gradient(to bottom, rgba(255,255,255,.05) 0.2mm, transparent 0.2mm);
+    background-size:3.2mm 3.2mm;
+  }
+  .masthead::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1mm; background:var(--brass); }
+  .eyebrow{
+    display:flex; flex-wrap:wrap; gap:0 4mm;
+    font-size:2.3mm; letter-spacing:.16em; text-transform:uppercase;
+    color:#E3BFC0; font-weight:600;
+  }
+  .masthead h1{
+    font-family:var(--serif); font-size:12.5mm; line-height:.95;
+    margin:2.6mm 0 0; font-weight:700; letter-spacing:-.012em;
+  }
+  .deck{
+    font-family:var(--serif); font-style:italic;
+    font-size:4mm; line-height:1.25; margin:1.8mm 0 0; color:#F3D9D6; max-width:200mm;
+  }
+  .byline{
+    margin-top:4mm; padding-top:2.6mm;
+    border-top:0.25mm solid rgba(255,255,255,.25);
+    display:grid; grid-template-columns:repeat(2,1fr) auto; gap:4mm; align-items:start;
+  }
+  .author .nm{ font-size:3.1mm; font-weight:600; line-height:1.25; }
+  .author .mt{ font-family:var(--mono); font-size:2.5mm; color:#E0B7B8; margin-top:.8mm; }
+  .author .role{ font-size:2.5mm; color:#F0CFCC; margin-top:1mm; }
+  .supervisor{ text-align:right; border-left:0.25mm solid rgba(255,255,255,.25); padding-left:5mm; }
+  .supervisor .lbl{ font-size:2.2mm; letter-spacing:.14em; text-transform:uppercase; color:#DDA9AB; font-weight:600; }
+  .supervisor .nm{ font-family:var(--serif); font-size:3.6mm; margin-top:1.2mm; }
+  .supervisor .grp{ font-size:2.5mm; color:#F0CFCC; margin-top:1mm; }
+
+  /* ---------- NABC frame ---------- */
+  .body{ flex:1; padding:5mm 10mm 0; display:flex; flex-direction:column; gap:3.4mm; }
+
+  .block{ display:grid; grid-template-columns:12mm 1fr; gap:4mm; }
+  .letter{
+    font-family:var(--serif); font-size:15mm; line-height:.8; font-weight:700;
+    color:var(--maroon); letter-spacing:-.03em; padding-top:.6mm;
+  }
+  .letter small{
+    display:block; font-family:var(--sans); font-size:2mm; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--brass);
+    margin-top:1.6mm; line-height:1.3;
+  }
+  .col{ display:flex; flex-direction:column; gap:2.2mm; min-width:0; }
+  .blockhead{
+    display:flex; align-items:baseline; gap:4mm;
+    border-bottom:0.4mm solid var(--ink); padding-bottom:1.6mm;
+  }
+  .blockhead h2{ font-family:var(--serif); font-size:6.2mm; font-weight:700; margin:0; }
+  .blockhead .note{
+    margin-left:auto; font-size:2.4mm; color:var(--muted);
+    letter-spacing:.12em; text-transform:uppercase; font-weight:600;
+    white-space:nowrap;
+  }
+  .lede{ font-size:3.2mm; line-height:1.45; margin:0; color:#2C2427; }
+  .lede b{ color:var(--maroon); font-weight:700; }
+
+  /* ---------- N : stats ---------- */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:3mm; }
+  .stat{
+    background:var(--paper); border:0.25mm solid var(--rule);
+    border-top:0.9mm solid var(--maroon); padding:2.6mm;
+    display:flex; flex-direction:column; gap:1.2mm;
+  }
+  .stat .fig{
+    font-family:var(--serif); font-size:7.4mm; line-height:.9; font-weight:700;
+    color:var(--maroon); font-variant-numeric:tabular-nums; letter-spacing:-.02em;
+  }
+  .stat .cap{ font-size:2.55mm; line-height:1.35; color:#3A3134; }
+  .srcnote{ font-size:2.4mm; color:var(--muted); font-style:italic; margin:0; }
+
+  /* ---------- A : approach ---------- */
+  .subs{ display:grid; grid-template-columns:repeat(3,1fr); gap:3mm; }
+  .subsys{ border:0.25mm solid var(--rule); display:flex; flex-direction:column; }
+  .subsys .top{ background:var(--maroon); color:#FBF3F1; padding:2.4mm 3mm; }
+  .subsys .top h3{ font-family:var(--serif); font-size:3.9mm; margin:0; line-height:1.15; font-weight:700; }
+  .subsys .top .who{ font-size:2.3mm; color:#E8C4C4; margin-top:.8mm; }
+  .subsys .mid{ padding:2.4mm 2.6mm; display:flex; flex-direction:column; gap:1.2mm; flex:1; }
+  .mods{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1mm; }
+  .mods li{ font-size:2.65mm; padding-left:3.4mm; position:relative; line-height:1.3; }
+  .mods li::before{ content:""; position:absolute; left:0; top:1mm; width:1.6mm; height:1.6mm; background:var(--brass); }
+  .subsys p{ font-size:2.4mm; line-height:1.35; margin:.6mm 0 0; color:#3A3134; }
+
+  .track{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.4mm; }
+  .node{ display:flex; flex-direction:column; gap:1.1mm; }
+  .node .bar{ height:1.5mm; background:var(--st-void); }
+  .node .st{ font-family:var(--mono); font-size:2.7mm; font-weight:700; }
+  .node .ev{ font-size:2.3mm; color:var(--muted); line-height:1.28; }
+  .n1 .bar{ background:var(--st-pending); }  .n1 .st{ color:var(--st-pending); }
+  .n2 .bar{ background:var(--st-approved); } .n2 .st{ color:var(--st-approved); }
+  .n3 .bar{ background:var(--st-borrowed); } .n3 .st{ color:var(--st-borrowed); }
+  .n4 .bar{ background:var(--st-done); }     .n4 .st{ color:var(--st-done); }
+  .n0 .st{ color:#4A4245; }
+
+  .tokenrow{ display:grid; grid-template-columns:1.15fr 1fr; gap:3mm; }
+  .token{ background:var(--ink); color:#F1EAEA; padding:2.8mm; display:flex; flex-direction:column; gap:1.6mm; }
+  .token .lbl{ font-size:2.2mm; letter-spacing:.14em; text-transform:uppercase; color:#A99B9E; font-weight:600; }
+  .tok{ font-family:var(--mono); font-size:3.1mm; display:flex; flex-wrap:wrap; gap:.6mm; align-items:center; }
+  .tok .p1{ color:var(--brass); font-weight:700; }
+  .tok .dot{ color:#7A6E71; }
+  .tok .p2{ color:#8FBFB6; }
+  .tok .p3{ color:#D4919B; }
+  .token p{ font-size:2.4mm; line-height:1.4; margin:0; color:#CFC4C6; }
+  .token p b{ color:#FBF3F1; font-weight:600; }
+
+  .stack{ border:0.25mm solid var(--rule); background:var(--paper); padding:2.8mm; display:flex; flex-direction:column; gap:1.6mm; justify-content:space-between; }
+  .stack .lbl{ font-size:2.2mm; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  .stack .tech{ font-family:var(--mono); font-size:2.4mm; line-height:1.4; color:var(--maroon); margin-top:1.2mm; }
+  .shipped{ display:flex; gap:3mm; align-items:baseline; border-top:0.25mm solid var(--rule); padding-top:1.8mm; }
+  .shipped .big{
+    font-family:var(--serif); font-size:6.6mm; font-weight:700; color:var(--st-done);
+    line-height:.9; font-variant-numeric:tabular-nums;
+  }
+  .shipped .txt{ font-size:2.5mm; line-height:1.4; color:#3A3134; }
+
+  /* ---------- B : benefit ---------- */
+  .bens{ display:grid; grid-template-columns:repeat(3,1fr); gap:3.2mm; }
+  .ben{ border-top:0.9mm solid var(--brass); padding-top:2.2mm; display:flex; flex-direction:column; gap:1.2mm; }
+  .ben h3{ font-size:3.1mm; margin:0; font-weight:700; }
+  .ben p{ font-size:2.6mm; line-height:1.42; margin:0; color:#3A3134; }
+  .ben p b{ color:var(--maroon); }
+  .sdg{
+    background:var(--paper); border-left:0.9mm solid var(--maroon);
+    padding:2.2mm 3mm; font-size:2.6mm; line-height:1.45; color:#3A3134;
+  }
+  .sdg b{ color:var(--maroon); }
+
+  /* ---------- C : competition ---------- */
+  .tablewrap{ overflow-x:auto; }
+  table{ border-collapse:collapse; width:100%; font-size:2.45mm; }
+  caption{ caption-side:bottom; text-align:left; font-size:2.3mm; color:var(--muted); font-style:italic; padding-top:1.4mm; }
+  th, td{ padding:1.1mm 1.6mm; text-align:left; border-bottom:0.25mm solid var(--rule); }
+  thead th{
+    font-size:2.35mm; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); font-weight:700; vertical-align:bottom; line-height:1.3;
+    border-bottom:0.4mm solid var(--ink);
+  }
+  thead th.us{ color:var(--maroon); }
+  tbody th{ font-weight:400; color:#2C2427; }
+  td{ text-align:center; width:16%; }
+  tbody tr:last-child th, tbody tr:last-child td{ border-bottom:0; }
+  col.usx{ background:var(--paper); }
+
+  .mark{ display:inline-block; vertical-align:middle; }
+  .mark.full{ width:2.6mm; height:2.6mm; border-radius:50%; background:var(--maroon); }
+  .mark.part{ width:2.6mm; height:2.6mm; border-radius:50%; border:0.5mm solid var(--maroon); }
+  .mark.none{ width:2.8mm; height:0.5mm; background:#C4B9B9; }
+
+  .legend{ display:flex; gap:5mm; flex-wrap:wrap; font-size:2.4mm; color:var(--muted); align-items:center; }
+  .legend span{ display:flex; align-items:center; gap:1.4mm; }
+
+  .claim{
+    background:var(--maroon); color:#FBF3F1; padding:2.6mm 3.4mm;
+    font-family:var(--serif); font-size:3.3mm; line-height:1.4;
+  }
+  .claim b{ color:#F3C9A0; font-weight:700; }
+
+  /* ---------- footer ---------- */
+  .foot{
+    margin-top:auto; background:var(--ink); color:#BCAFB2;
+    padding:2.6mm 10mm; display:flex; justify-content:space-between; align-items:center; gap:6mm;
+    font-size:2.5mm;
+  }
+  .foot .l{ display:flex; gap:4mm; flex-wrap:wrap; align-items:center; }
+  .foot b{ color:#F1EAEA; font-weight:600; }
+  .foot .mono{ font-family:var(--mono); }
+  .foot .qr{ display:flex; align-items:center; gap:2.6mm; }
+  .foot .qr svg{ width:14mm; height:14mm; color:#FFFFFF; background:#FFF; padding:0.8mm; display:block; }
+  .foot .qr svg g{ fill:var(--ink); }
+  .foot .qr .cap{ font-family:var(--mono); font-size:2.3mm; line-height:1.5; color:#BCAFB2; }
+  .foot .qr .cap b{ display:block; color:#F1EAEA; }
+
+  @page{ size:A3 portrait; margin:0; }
+  @media print{
+    body{ background:#FFF; }
+    .toolbar{ display:none; }
+    .stage{ padding:0; }
+    .poster{ transform:none !important; box-shadow:none; }
+  }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+
+<div class="toolbar">
+  <div><strong>UTM Borrow — A3 Poster · NABC</strong> &nbsp;<span id="hint">297 × 420 mm · updated two-member version</span></div>
+  <button type="button" id="printBtn">Print / Save as PDF</button>
+</div>
+
+<div class="stage">
+<div class="poster" id="poster">
+
+  <header class="masthead">
+    <div class="eyebrow">
+      <span>Universiti Teknologi Malaysia</span>
+      <span>Faculty of Computing</span>
+      <span>SCSE2243 · Application Development Project I</span>
+      <span>Section 01 · Semester II 2025/2026</span>
+    </div>
+
+    <h1>UTM Borrow</h1>
+    <p class="deck">A campus-wide circular resource-sharing platform — where every handover is cryptographically signed.</p>
+
+    <div class="byline">
+      <div class="author">
+        <div class="nm">Mohammed Mohsen Mohammed Alsakkaf</div>
+        <div class="mt">A23CS4026</div>
+        <div class="role">Transaction &amp; Handover</div>
+      </div>
+      <div class="author">
+        <div class="nm">Muaz Ibne Ahmed</div>
+        <div class="mt">A23CS4062</div>
+        <div class="role">Resource Catalog &amp; Discovery</div>
+      </div>
+      <div class="supervisor">
+        <div class="lbl">Supervised by</div>
+        <div class="nm">Dr. Mohd Yazid Bin Idris</div>
+        <div class="grp">Group Alpha</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="body">
+
+    <!-- ================= NEED ================= -->
+    <section class="block">
+      <div class="letter">N<small>Need</small></div>
+      <div class="col">
+        <div class="blockhead">
+          <h2>Students buy once, use once, and have nowhere safe to pass it on</h2>
+          <span class="note">29 respondents</span>
+        </div>
+
+        <p class="lede">
+          UTM courses require specialised, single-use items — lab coats, scientific calculators, drawing sets,
+          presentation attire — that lose all value after one semester. The only sharing channel that exists today is
+          an unverified WhatsApp or Telegram group: <b>no identity, no reputation, and no record of who holds what</b>.
+          Lenders are therefore afraid to lend, and the items sit unused in dorm rooms until they are thrown away.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="fig">62.1%</div>
+            <div class="cap">spend RM50–RM150 every year on items they use for a single semester</div>
+          </div>
+          <div class="stat">
+            <div class="fig">37.9%</div>
+            <div class="cap">say their biggest fear when lending is never getting the item back</div>
+          </div>
+          <div class="stat">
+            <div class="fig">31%</div>
+            <div class="cap">have no proof at all if a borrowed item comes back damaged</div>
+          </div>
+          <div class="stat">
+            <div class="fig">24.1%</div>
+            <div class="cap">never manage to find anyone willing to lend to them at all</div>
+          </div>
+        </div>
+
+        <p class="srcnote">Source: our own questionnaire, 29 UTM students across multiple faculties and years of study.</p>
+      </div>
+    </section>
+
+    <!-- ================= APPROACH ================= -->
+    <section class="block">
+      <div class="letter">A<small>Approach</small></div>
+      <div class="col">
+        <div class="blockhead">
+          <h2>Every loan is a state machine; every handover is a signature</h2>
+          <span class="note">3 subsystems · 9 modules</span>
+        </div>
+
+        <div class="subs">
+          <article class="subsys">
+            <div class="top">
+              <h3>Identity &amp; User Management</h3>
+              <div class="who">Mohammed Alsakkaf &amp; Muaz Ibne Ahmed</div>
+            </div>
+            <div class="mid">
+              <ul class="mods">
+                <li>Authentication</li>
+                <li>Profile &amp; Trust Score</li>
+                <li>Activity Dashboard</li>
+              </ul>
+              <p>Only <span style="font-family:var(--mono)">@utm.my</span> and
+                 <span style="font-family:var(--mono)">@graduate.utm.my</span> addresses may register. Passwords are
+                 bcrypt-hashed; sessions are signed JWTs. A 5-star Trust Score is recomputed from completed loans only.</p>
+            </div>
+          </article>
+
+          <article class="subsys">
+            <div class="top">
+              <h3>Resource Catalog &amp; Discovery</h3>
+              <div class="who">Muaz Ibne Ahmed</div>
+            </div>
+            <div class="mid">
+              <ul class="mods">
+                <li>Item Listing &amp; Management</li>
+                <li>Category &amp; Condition Metadata</li>
+                <li>Location-Based Filter</li>
+              </ul>
+              <p>Every listing carries a server-enforced category and condition. Borrowers narrow by residential
+                 college and faculty, and sort by true great-circle distance over campus coordinates — no third-party
+                 map service.</p>
+            </div>
+          </article>
+
+          <article class="subsys">
+            <div class="top">
+              <h3>Transaction &amp; Handover</h3>
+              <div class="who">Mohammed Mohsen Mohammed Alsakkaf</div>
+            </div>
+            <div class="mid">
+              <ul class="mods">
+                <li>Request &amp; Approval Workflow</li>
+                <li>QR Verification</li>
+                <li>Moderation &amp; Reporting</li>
+              </ul>
+              <p>A request atomically locks the item, so two students can never claim the same tool. Every state change
+                 is appended to an immutable log, and the admin portal is gated behind an authenticator code.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="track">
+          <div class="node n0">
+            <div class="bar"></div><div class="st">Available</div>
+            <div class="ev">Listed in the catalog</div>
+          </div>
+          <div class="node n1">
+            <div class="bar"></div><div class="st">Pending</div>
+            <div class="ev">Request locks the item atomically</div>
+          </div>
+          <div class="node n2">
+            <div class="bar"></div><div class="st">Approved</div>
+            <div class="ev">Lender accepts after reading the Trust Score</div>
+          </div>
+          <div class="node n3">
+            <div class="bar"></div><div class="st">Borrowed</div>
+            <div class="ev">Lender scans the borrower’s signed QR</div>
+          </div>
+          <div class="node n4">
+            <div class="bar"></div><div class="st">Completed</div>
+            <div class="ev">Return scan closes it; both parties rate</div>
+          </div>
+        </div>
+
+        <div class="tokenrow">
+          <div class="token">
+            <div class="lbl">Proof of physical handover</div>
+            <div class="tok"><span class="p1">UTMB</span><span class="dot">.</span><span class="p2">&lt;payload&gt;</span><span class="dot">.</span><span class="p3">&lt;signature&gt;</span></div>
+            <p>The <b>payload</b> binds the transaction, the borrower, a random nonce and the issue time. The
+               <b>signature</b> is HMAC-SHA256 over it, computed with a server-held secret and re-verified on every
+               scan. Tokens expire after <b>24 hours</b>, defeating replay of a captured code, and every attempt —
+               success, expired, wrong transaction, already used — is written to a forensic scan log.</p>
+          </div>
+
+          <div class="stack">
+            <div>
+              <div class="lbl">Technology, as built and deployed</div>
+              <div class="tech">
+                React 18 · Tailwind CSS · Framer Motion<br>
+                FastAPI · Python 3.12 · uvicorn<br>
+                MongoDB · Motor async driver<br>
+                JWT HS256 · bcrypt · TOTP 2FA<br>
+                HMAC-SHA256 QR · Server-Sent Events<br>
+                Vercel + Render
+              </div>
+            </div>
+            <div class="shipped">
+              <div class="big">27/27</div>
+              <div class="txt">use cases fully implemented — each with a working endpoint, its database collections, and
+                 the matching screen, all wired together and live.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= BENEFIT ================= -->
+    <section class="block">
+      <div class="letter">B<small>Benefit</small></div>
+      <div class="col">
+        <div class="blockhead">
+          <h2>What the community gets</h2>
+          <span class="note">Borrowers · lenders · the university</span>
+        </div>
+
+        <div class="bens">
+          <article class="ben">
+            <h3>Borrowers stop buying</h3>
+            <p>The <b>RM50–RM150</b> a student currently spends each year on single-use items stays in their pocket.
+               Items are found by college and faculty, so collection is a walk, not a trip — and dorm rooms stay clear
+               of things used once a year.</p>
+          </article>
+          <article class="ben">
+            <h3>Lenders lend without fear</h3>
+            <p>The counterpart is a verified UTM member with a Trust Score that had to be earned. If a dispute arises,
+               there is <b>cryptographic proof of both the handover and the return</b>, timestamped — not a screenshot.</p>
+          </article>
+          <article class="ben">
+            <h3>The university keeps control</h3>
+            <p>The email gate keeps non-affiliates off campus trade entirely. Moderation is MFA-gated and every decision
+               is permanently audited, so student welfare cases can be reviewed rather than argued.</p>
+          </article>
+        </div>
+
+        <p class="sdg">
+          Every item borrowed instead of bought is one fewer purchased, and one fewer discarded at the end of semester.
+          The platform turns that into reportable data for UTM’s <b>Smart &amp; Green Campus</b> agenda and
+          <b>UN SDG 12 — Responsible Consumption and Production</b>. In our survey, <b>69%</b> of students said an
+          environmental-impact screen would make them want to share more.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= COMPETITION ================= -->
+    <section class="block">
+      <div class="letter">C<small>Competition</small></div>
+      <div class="col">
+        <div class="blockhead">
+          <h2>What makes it different from what students use today</h2>
+          <span class="note">Uniqueness</span>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <caption>Assessed against the three channels a UTM student actually has available today.</caption>
+            <colgroup><col><col><col><col><col class="usx"></colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Capability</th>
+                <th scope="col">WhatsApp &amp; Telegram groups</th>
+                <th scope="col">Marketplace apps</th>
+                <th scope="col">Faculty / library loan counter</th>
+                <th scope="col" class="us">UTM Borrow</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Restricted to verified UTM members</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark full"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Reputation earned from completed loans</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Cryptographic proof of physical handover</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Cryptographic proof of return</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Tracked deadline with overdue alerts</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark full"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Structured search by college and faculty</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Moderation over an immutable audit trail</th>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark part"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Student-owned items, no fee and no deposit</th>
+                <td><span class="mark full"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark none"></span></td>
+                <td><span class="mark full"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="legend">
+          <span><i class="mark full"></i> fully supported</span>
+          <span><i class="mark part"></i> partial or informal</span>
+          <span><i class="mark none"></i> absent</span>
+          <span style="margin-left:auto">Marketplace apps sell; loan counters lend only what the university already owns.</span>
+        </div>
+
+        <div class="claim">
+          Not one existing channel can prove that a physical handover actually happened.
+          <b>UTM Borrow can</b> — with a signed, time-limited token that cannot be forged, replayed, or quietly undone.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="l">
+      <span><b>Group Alpha</b></span>
+      <span class="mono">github.com/Alsakkaf-dev/UTMBorrow</span>
+      <span>Faculty of Computing · UTM</span>
+    </div>
+    <div class="qr">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges" role="img" aria-label="QR code linking to the live UTM Borrow application"><g><rect x="0" y="0" width="7" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="13" y="0" width="3" height="1"/><rect x="17" y="0" width="3" height="1"/><rect x="22" y="0" width="7" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="8" y="1" width="5" height="1"/><rect x="14" y="1" width="3" height="1"/><rect x="19" y="1" width="2" height="1"/><rect x="22" y="1" width="1" height="1"/><rect x="28" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="22" y="2" width="1" height="1"/><rect x="24" y="2" width="3" height="1"/><rect x="28" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="3" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="13" y="3" width="1" height="1"/><rect x="18" y="3" width="2" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="3" height="1"/><rect x="28" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="3" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="12" y="4" width="4" height="1"/><rect x="17" y="4" width="3" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="3" height="1"/><rect x="28" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="14" y="5" width="3" height="1"/><rect x="19" y="5" width="2" height="1"/><rect x="22" y="5" width="1" height="1"/><rect x="28" y="5" width="1" height="1"/><rect x="0" y="6" width="7" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="22" y="6" width="7" height="1"/><rect x="9" y="7" width="2" height="1"/><rect x="16" y="7" width="3" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="4" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="9" y="8" width="4" height="1"/><rect x="16" y="8" width="2" height="1"/><rect x="24" y="8" width="1" height="1"/><rect x="27" y="8" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="7" y="9" width="2" height="1"/><rect x="10" y="9" width="2" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="16" y="9" width="2" height="1"/><rect x="20" y="9" width="3" height="1"/><rect x="25" y="9" width="1" height="1"/><rect x="28" y="9" width="1" height="1"/><rect x="3" y="10" width="2" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="14" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="20" y="10" width="2" height="1"/><rect x="26" y="10" width="3" height="1"/><rect x="3" y="11" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="7" y="11" width="5" height="1"/><rect x="13" y="11" width="2" height="1"/><rect x="16" y="11" width="5" height="1"/><rect x="22" y="11" width="2" height="1"/><rect x="27" y="11" width="1" height="1"/><rect x="0" y="12" width="3" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="12" y="12" width="1" height="1"/><rect x="14" y="12" width="4" height="1"/><rect x="19" y="12" width="4" height="1"/><rect x="25" y="12" width="1" height="1"/><rect x="27" y="12" width="2" height="1"/><rect x="4" y="13" width="1" height="1"/><rect x="8" y="13" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="16" y="13" width="2" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="22" y="13" width="1" height="1"/><rect x="25" y="13" width="1" height="1"/><rect x="28" y="13" width="1" height="1"/><rect x="1" y="14" width="2" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="9" y="14" width="3" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="16" y="14" width="2" height="1"/><rect x="22" y="14" width="4" height="1"/><rect x="27" y="14" width="2" height="1"/><rect x="0" y="15" width="2" height="1"/><rect x="3" y="15" width="1" height="1"/><rect x="7" y="15" width="2" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="15" y="15" width="3" height="1"/><rect x="19" y="15" width="1" height="1"/><rect x="21" y="15" width="2" height="1"/><rect x="24" y="15" width="2" height="1"/><rect x="27" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="5" y="16" width="2" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="10" y="16" width="2" height="1"/><rect x="15" y="16" width="4" height="1"/><rect x="20" y="16" width="3" height="1"/><rect x="25" y="16" width="1" height="1"/><rect x="27" y="16" width="2" height="1"/><rect x="3" y="17" width="2" height="1"/><rect x="8" y="17" width="1" height="1"/><rect x="10" y="17" width="4" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="22" y="17" width="1" height="1"/><rect x="25" y="17" width="2" height="1"/><rect x="28" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="2" y="18" width="5" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="12" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="17" y="18" width="1" height="1"/><rect x="20" y="18" width="1" height="1"/><rect x="22" y="18" width="1" height="1"/><rect x="24" y="18" width="1" height="1"/><rect x="27" y="18" width="2" height="1"/><rect x="1" y="19" width="2" height="1"/><rect x="4" y="19" width="1" height="1"/><rect x="7" y="19" width="3" height="1"/><rect x="11" y="19" width="4" height="1"/><rect x="16" y="19" width="2" height="1"/><rect x="20" y="19" width="3" height="1"/><rect x="25" y="19" width="1" height="1"/><rect x="27" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="6" y="20" width="4" height="1"/><rect x="14" y="20" width="4" height="1"/><rect x="19" y="20" width="6" height="1"/><rect x="8" y="21" width="4" height="1"/><rect x="14" y="21" width="1" height="1"/><rect x="17" y="21" width="4" height="1"/><rect x="24" y="21" width="1" height="1"/><rect x="26" y="21" width="3" height="1"/><rect x="0" y="22" width="7" height="1"/><rect x="10" y="22" width="1" height="1"/><rect x="12" y="22" width="2" height="1"/><rect x="17" y="22" width="4" height="1"/><rect x="22" y="22" width="1" height="1"/><rect x="24" y="22" width="2" height="1"/><rect x="27" y="22" width="2" height="1"/><rect x="0" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="12" y="23" width="1" height="1"/><rect x="15" y="23" width="6" height="1"/><rect x="24" y="23" width="2" height="1"/><rect x="0" y="24" width="1" height="1"/><rect x="2" y="24" width="3" height="1"/><rect x="6" y="24" width="1" height="1"/><rect x="8" y="24" width="5" height="1"/><rect x="16" y="24" width="2" height="1"/><rect x="20" y="24" width="5" height="1"/><rect x="27" y="24" width="2" height="1"/><rect x="0" y="25" width="1" height="1"/><rect x="2" y="25" width="3" height="1"/><rect x="6" y="25" width="1" height="1"/><rect x="10" y="25" width="1" height="1"/><rect x="12" y="25" width="1" height="1"/><rect x="16" y="25" width="1" height="1"/><rect x="20" y="25" width="1" height="1"/><rect x="24" y="25" width="1" height="1"/><rect x="26" y="25" width="3" height="1"/><rect x="0" y="26" width="1" height="1"/><rect x="2" y="26" width="3" height="1"/><rect x="6" y="26" width="1" height="1"/><rect x="8" y="26" width="2" height="1"/><rect x="11" y="26" width="1" height="1"/><rect x="13" y="26" width="2" height="1"/><rect x="16" y="26" width="1" height="1"/><rect x="18" y="26" width="3" height="1"/><rect x="23" y="26" width="3" height="1"/><rect x="28" y="26" width="1" height="1"/><rect x="0" y="27" width="1" height="1"/><rect x="6" y="27" width="1" height="1"/><rect x="10" y="27" width="1" height="1"/><rect x="13" y="27" width="6" height="1"/><rect x="20" y="27" width="1" height="1"/><rect x="22" y="27" width="1" height="1"/><rect x="27" y="27" width="1" height="1"/><rect x="0" y="28" width="7" height="1"/><rect x="8" y="28" width="2" height="1"/><rect x="11" y="28" width="4" height="1"/><rect x="17" y="28" width="1" height="1"/><rect x="19" y="28" width="3" height="1"/><rect x="23" y="28" width="3" height="1"/><rect x="27" y="28" width="2" height="1"/></g></svg>
+      <div class="cap"><b>Scan to open the live app</b>utmborrow.alsakkaf.site</div>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  (function () {
+    var poster = document.getElementById('poster');
+    var stage = poster.parentElement;
+
+    function fit() {
+      poster.style.transform = 'none';
+      poster.style.marginBottom = '0px';
+      var naturalW = poster.offsetWidth;
+      var naturalH = poster.offsetHeight;
+      var available = stage.clientWidth - 24;
+      var scale = Math.min(1, available / naturalW);
+      if (scale < 1) {
+        poster.style.transform = 'scale(' + scale + ')';
+        poster.style.marginBottom = -(naturalH * (1 - scale)) + 'px';
+      }
+    }
+
+    // window.print() is blocked inside a sandboxed preview frame; say so
+    // rather than failing silently.
+    document.getElementById('printBtn').addEventListener('click', function () {
+      var blocked = window.self !== window.top;
+      try { window.print(); } catch (e) { blocked = true; }
+      if (blocked) {
+        document.getElementById('hint').textContent =
+          'This preview cannot open a print dialog. Use the A3 PDF in your “To do phase 4” folder.';
+      }
+    });
+
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('beforeprint', function () {
+      poster.style.transform = 'none';
+      poster.style.marginBottom = '0px';
+    });
+    window.addEventListener('afterprint', fit);
+  })();
+</script>
+
+</body>
+</html>

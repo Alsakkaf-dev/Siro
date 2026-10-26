@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ch13 — Intro Slide</title>
+<style>
+  :root{
+    --primary:#065A82; --secondary:#1C7293; --accent:#F59E0B;
+    --bg:#0b1d2a; --card:#0f2a3c; --text:#E6EEF5; --muted:#9fb3c2;
+    --line:#21455c; --ok:#10B981;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(1200px 700px at 70% -10%, #12384e 0%, #0b1d2a 55%, #081521 100%);
+    color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:4vmin;
+  }
+  .slide{ width:min(1100px,96vw); }
+  .kicker{ color:var(--accent); font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-size:14px; }
+  h1{ font-size:clamp(28px,5vw,52px); margin:.2em 0 .1em; line-height:1.05; }
+  .sub{ color:var(--muted); font-size:clamp(15px,2.2vw,20px); margin-bottom:26px; }
+  .who{ display:flex; gap:14px; flex-wrap:wrap; margin:8px 0 30px; }
+  .field{ background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:10px; padding:10px 16px; min-width:220px; }
+  .field label{ display:block; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+  .field [contenteditable]{ font-size:18px; font-weight:600; outline:none; min-width:120px; }
+  .field [contenteditable]:empty:before{ content:attr(data-ph); color:#5d7686; font-weight:400; }
+
+  .flow{ display:flex; align-items:stretch; gap:0; margin:6px 0 8px; flex-wrap:wrap; }
+  .node{ flex:1 1 0; min-width:150px; background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+         border:1px solid var(--line); border-radius:14px; padding:16px; position:relative; }
+  .node .n{ font-size:12px; color:var(--accent); font-weight:700; }
+  .node .t{ font-size:18px; font-weight:700; margin:6px 0 2px; }
+  .node .d{ font-size:12.5px; color:var(--muted); line-height:1.35; }
+  .arrow{ align-self:center; color:var(--secondary); font-size:26px; padding:0 6px; }
+  @media (max-width:760px){ .arrow{transform:rotate(90deg)} }
+
+  .chips{ display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; }
+  .chip{ display:flex; align-items:center; gap:8px; background:rgba(16,185,129,.08);
+         border:1px solid rgba(16,185,129,.35); color:#bdf3dd; padding:8px 14px; border-radius:999px; font-size:13.5px; font-weight:600; }
+  .chip b{ color:#fff; }
+  .foot{ margin-top:26px; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .badge{ color:#0b1d2a; background:var(--accent); border-radius:6px; padding:2px 8px; font-weight:800; font-size:12px; }
+  .hint{ margin-top:14px; font-size:12px; color:#5d7686; }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="kicker">SCSM2223 · Cross-Platform Application Development</div>
+    <h1>Chapter 13 — Application Deployment &amp; Mobile Wrapping</h1>
+    <div class="sub">Full-stack: MySQL · Slim PHP API · Vue 3 · Capacitor (Android)</div>
+
+    <div class="who">
+      <div class="field"><label>Name</label><span contenteditable="true" data-ph="Click to type your name"></span></div>
+      <div class="field"><label>Matric No.</label><span contenteditable="true" data-ph="Click to type"></span></div>
+      <div class="field"><label>Date</label><span contenteditable="true" data-ph="DD / MM / 2026"></span></div>
+    </div>
+
+    <div class="flow">
+      <div class="node"><div class="n">1 · DATA</div><div class="t">MySQL</div><div class="d">books DB · users, books · 8 seeded records</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="n">2 · BACKEND</div><div class="t">Slim API</div><div class="d">JWT auth · GET read + POST/PUT write · JSON</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="n">3 · FRONTEND</div><div class="t">Vue 3</div><div class="d">npm run build · dist/ · live URL</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="n">4 · MOBILE</div><div class="t">Capacitor</div><div class="d">com.utm.books · Android WebView · calls the API</div></div>
+    </div>
+
+    <div class="chips">
+      <span class="chip">✅ <b>Database</b> live + data</span>
+      <span class="chip">✅ <b>API</b> public URL</span>
+      <span class="chip">✅ <b>Frontend</b> deployed</span>
+      <span class="chip">✅ <b>Mobile</b> on emulator</span>
+    </div>
+
+    <div class="foot">
+      <span>Demo logins — <span class="badge">admin@books.test</span> &nbsp; <span class="badge">member@books.test</span> &nbsp; password: <b>password</b></span>
+      <span>Universiti Teknologi Malaysia · Faculty of Computing</span>
+    </div>
+    <div class="hint">Tip: press <b>F11</b> for fullscreen, fill in your name/matric, then start your screen recording on this slide (~10–15 s) before moving to phpMyAdmin.</div>
+  </div>
+</body>
+</html>

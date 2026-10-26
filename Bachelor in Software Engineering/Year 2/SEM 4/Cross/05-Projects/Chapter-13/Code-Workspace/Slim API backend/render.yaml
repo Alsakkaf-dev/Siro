@@ -1,0 +1,40 @@
+# ============================================================================
+#  Render Blueprint — one-click-ish deploy of the Books API as a Docker web
+#  service. In the Render dashboard: New -> Blueprint -> point at this repo.
+#
+#  NOTE: Render's managed database is PostgreSQL, but this API targets MySQL.
+#  Create the MySQL database elsewhere (Railway MySQL / Aiven / PlanetScale /
+#  clever-cloud) and paste its connection details into the env vars below.
+#  (See deploy/DEPLOYMENT.md for the full walkthrough and alternatives.)
+# ============================================================================
+services:
+  - type: web
+    name: books-api
+    runtime: docker
+    plan: free
+    region: singapore          # closest to Malaysia; change if you prefer
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: APP_DEBUG
+        value: "false"
+      - key: DB_DRIVER
+        value: mysql
+      - key: DB_HOST
+        sync: false            # set in dashboard (from your MySQL provider)
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true    # Render generates a strong random secret
+      - key: JWT_ISSUER
+        value: books-api
+      - key: JWT_TTL
+        value: "3600"
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false            # set to your deployed frontend URL(s)

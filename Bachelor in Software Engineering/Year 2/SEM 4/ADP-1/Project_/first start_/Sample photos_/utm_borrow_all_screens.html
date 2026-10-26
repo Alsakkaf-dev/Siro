@@ -1,0 +1,874 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--g:#1D9E75;--gl:#E1F5EE;--gd:#085041;--gm:#0F6E56;
+--am:#EF9F27;--al:#FAEEDA;--ad:#633806;
+--cr:#D85A30;--cl:#FAECE7;--cd:#712B13;
+--bg:#F4F7F5;--card:#fff;--txt:var(--color-text-primary);
+--mt:var(--color-text-secondary);--br:#d8e8e0;
+--phone:#0d1a14;
+}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);padding:20px 14px;color:var(--txt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:28px 20px;max-width:1200px;margin:0 auto}
+.section-head{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:8px 0 4px;border-bottom:1.5px solid var(--br);margin-top:8px}
+.section-head span{font-size:11px;font-weight:700;color:var(--gd);letter-spacing:1px;text-transform:uppercase}
+.section-head hr{flex:1;border:none;border-top:1px solid var(--br)}
+.wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.lbl{font-size:11px;font-weight:600;color:var(--mt);letter-spacing:0.5px;text-align:center}
+.phone{width:188px;border-radius:30px;background:var(--phone);padding:9px;flex-shrink:0}
+.scr{border-radius:22px;overflow:hidden;background:#fff;display:flex;flex-direction:column;position:relative}
+.notch{width:52px;height:14px;background:var(--phone);border-radius:0 0 9px 9px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:9}
+.sb{height:20px;padding:5px 12px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sb .t{font-size:8px;font-weight:800;color:var(--txt)}
+.sb .i{font-size:7px;color:var(--txt);opacity:.7}
+.body{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.bnav{height:44px;display:flex;align-items:center;justify-content:space-around;border-top:0.5px solid var(--br);background:#fff;flex-shrink:0}
+.ni{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ni .ic{width:16px;height:16px}
+.ni .nt{font-size:7px;color:var(--mt)}
+.ni.on .nt{color:var(--g)}
+
+/* ===== SCREEN-SPECIFIC ===== */
+
+/* S1 SPLASH */
+.s1{background:#0d2e1f;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px}
+.logo-box{width:48px;height:48px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.s1 h2{font-size:17px;font-weight:800;color:#fff;text-align:center}
+.s1 p{font-size:9px;color:rgba(255,255,255,.6);text-align:center;line-height:1.5}
+.btn-w{background:#fff;color:var(--gd);font-size:10px;font-weight:800;padding:9px 24px;border-radius:40px;margin-top:6px;text-align:center}
+.s1-sub{font-size:8px;color:rgba(255,255,255,.4)}
+
+/* S2 LOGIN */
+.s2-top{background:var(--gl);padding:20px 14px 14px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.s2-top h3{font-size:13px;font-weight:800;color:var(--gd)}
+.s2-top p{font-size:9px;color:var(--gm);text-align:center}
+.form-area{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.finput{border:1px solid var(--br);border-radius:8px;padding:8px 10px;font-size:9px;color:var(--mt);background:#fafcfb}
+.finput b{display:block;font-size:8px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.btn-g{background:var(--g);color:#fff;font-size:10px;font-weight:800;border-radius:10px;padding:9px;text-align:center}
+.or-row{display:flex;align-items:center;gap:6px;padding:0 12px}
+.or-line{flex:1;height:0.5px;background:var(--br)}
+.or-txt{font-size:8px;color:var(--mt)}
+.google-btn{margin:0 12px;border:1px solid var(--br);border-radius:10px;padding:7px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:9px;font-weight:600;color:var(--txt)}
+
+/* S3 OTP */
+.otp-top{padding:14px 12px 8px;text-align:center}
+.otp-top h3{font-size:12px;font-weight:800;color:var(--txt)}
+.otp-top p{font-size:8px;color:var(--mt);margin-top:3px;line-height:1.4}
+.otp-boxes{display:flex;gap:6px;justify-content:center;padding:10px 12px}
+.ob{width:32px;height:36px;border:1.5px solid var(--br);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--txt)}
+.ob.done{border-color:var(--g);background:var(--gl);color:var(--gd)}
+.ob.act{border-color:var(--g);border-width:2px}
+.otp-note{font-size:8px;color:var(--mt);text-align:center;padding:0 12px}
+.otp-resend{font-size:8px;color:var(--g);font-weight:700;text-align:center;margin-top:4px}
+
+/* S4 REGISTER */
+.reg-head{padding:10px 12px 6px;font-size:12px;font-weight:800;color:var(--txt)}
+.reg-sub{padding:0 12px 8px;font-size:8px;color:var(--mt)}
+.field-row{padding:0 12px;margin-bottom:6px}
+.fl{font-size:8px;font-weight:700;color:var(--txt);margin-bottom:2px}
+.fi{border:1px solid var(--br);border-radius:8px;padding:7px 9px;font-size:9px;color:var(--txt);display:flex;justify-content:space-between;align-items:center}
+.role-row{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:0 12px;margin-bottom:8px}
+.role-opt{border:1px solid var(--br);border-radius:8px;padding:6px 8px;font-size:8px;font-weight:600;color:var(--mt);text-align:center}
+.role-opt.sel{border-color:var(--g);background:var(--gl);color:var(--gd)}
+
+/* S5 HOME */
+.home-hd{padding:10px 12px 6px;display:flex;justify-content:space-between;align-items:center}
+.greet{font-size:11px;font-weight:800;color:var(--txt)}
+.greet span{color:var(--g)}
+.greet sub{font-size:8px;color:var(--mt);display:block;font-weight:400}
+.av{width:28px;height:28px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--gd)}
+.srch{margin:0 12px 6px;background:#f0f5f2;border-radius:9px;display:flex;align-items:center;gap:5px;padding:6px 9px}
+.srch span{font-size:9px;color:var(--mt)}
+.cats{display:flex;gap:5px;padding:0 12px 7px;overflow:hidden}
+.chip{font-size:8px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.chip.on{background:var(--g);color:#fff}
+.chip:not(.on){background:#eef4f1;color:var(--mt)}
+.merit-b{margin:0 12px 7px;background:var(--gl);border-radius:9px;padding:7px 9px;display:flex;align-items:center;gap:7px}
+.mstar{width:24px;height:24px;background:var(--am);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;font-weight:800}
+.mpts{font-size:12px;font-weight:800;color:var(--g)}
+.mlbl{font-size:8px;color:var(--gm)}
+.sec-t{font-size:10px;font-weight:700;color:var(--txt);padding:0 12px 5px}
+.icard{margin:0 12px 6px;border:0.5px solid var(--br);border-radius:11px;padding:8px 9px;display:flex;gap:8px;align-items:center}
+.ith{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.inf{flex:1;min-width:0}
+.iname{font-size:9px;font-weight:700;color:var(--txt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.imeta{font-size:8px;color:var(--mt);margin-top:1px}
+.bdg{font-size:7px;padding:2px 6px;border-radius:8px;font-weight:700;white-space:nowrap}
+.bdg-a{background:var(--gl);color:var(--gd)}
+.bdg-b{background:var(--cl);color:var(--cd)}
+.bdg-p{background:var(--al);color:var(--ad)}
+
+/* S6 BROWSE/SEARCH */
+.browse-hd{padding:10px 12px 6px;font-size:12px;font-weight:800;color:var(--txt)}
+.filter-row{display:flex;gap:5px;padding:0 12px 7px;overflow:hidden}
+.fchip{font-size:8px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;flex-shrink:0;border:0.5px solid var(--br);color:var(--mt)}
+.fchip.on{background:var(--g);color:#fff;border-color:var(--g)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px}
+.gcard{border:0.5px solid var(--br);border-radius:11px;overflow:hidden}
+.gcard-img{height:52px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.gcard-body{padding:6px 7px}
+.gcard-name{font-size:9px;font-weight:700;color:var(--txt)}
+.gcard-loc{font-size:7px;color:var(--mt);margin-top:1px}
+.gcard-row{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+
+/* S7 ITEM DETAIL */
+.hero{height:100px;display:flex;align-items:center;justify-content:center;font-size:42px;background:var(--gl);position:relative;flex-shrink:0}
+.bk{position:absolute;top:8px;left:9px;width:22px;height:22px;background:rgba(255,255,255,.85);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--gd)}
+.hrt{position:absolute;top:8px;right:9px;width:22px;height:22px;background:rgba(255,255,255,.85);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#e24b4a}
+.det{padding:10px 12px;flex:1;overflow:hidden}
+.dtitle{font-size:12px;font-weight:800;color:var(--txt)}
+.downer{display:flex;align-items:center;gap:5px;margin-top:3px}
+.dav{width:16px;height:16px;border-radius:50%;background:var(--gl);font-size:7px;font-weight:800;color:var(--gd);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dname{font-size:8px;color:var(--mt)}
+.dtags{display:flex;gap:4px;margin:6px 0}
+.tag{font-size:7px;padding:2px 7px;border-radius:7px;font-weight:700}
+.tg{background:var(--gl);color:var(--gd)}
+.ta{background:var(--al);color:var(--ad)}
+.tgr{background:#eef4f1;color:var(--mt)}
+.dinfo{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px}
+.dbox{background:#f2f7f4;border-radius:8px;padding:6px 7px}
+.dblbl{font-size:7px;color:var(--mt)}
+.dbval{font-size:10px;font-weight:800;color:var(--txt);margin-top:1px}
+.desc{font-size:8px;color:var(--mt);line-height:1.5;margin-bottom:7px}
+
+/* S8 REQUEST MODAL */
+.modal-overlay{background:rgba(13,26,20,.5);flex:1;display:flex;align-items:flex-end;flex-direction:column;justify-content:flex-end}
+.modal{background:#fff;border-radius:18px 18px 0 0;padding:14px 13px;width:100%}
+.mhandle{width:32px;height:3px;background:var(--br);border-radius:2px;margin:0 auto 10px}
+.mtitle{font-size:11px;font-weight:800;color:var(--txt);margin-bottom:8px}
+.mrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mkey{font-size:8px;color:var(--mt)}
+.mval{font-size:9px;font-weight:700;color:var(--txt)}
+.dur-sel{display:flex;gap:5px;margin-bottom:9px}
+.ds{border:0.5px solid var(--br);border-radius:7px;padding:4px 9px;font-size:8px;font-weight:600;color:var(--mt);text-align:center}
+.ds.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+.note-box{border:0.5px solid var(--br);border-radius:8px;padding:7px 9px;font-size:8px;color:var(--mt);height:32px;margin-bottom:9px;line-height:1.4}
+.ins-row{background:var(--al);border-radius:8px;padding:6px 9px;display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.ins-lbl{font-size:8px;color:var(--ad);font-weight:600}
+.ins-val{font-size:10px;font-weight:800;color:var(--ad)}
+
+/* S9 QR */
+.qr-hd{padding:9px 12px 5px;display:flex;align-items:center;gap:7px}
+.qr-hd-title{font-size:11px;font-weight:800;color:var(--txt)}
+.steps-row{display:flex;align-items:center;padding:0 12px;margin-bottom:8px;gap:2px}
+.st{display:flex;flex-direction:column;align-items:center;gap:2px;flex:0 0 auto}
+.std{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800}
+.st-done{background:var(--g);color:#fff}
+.st-act{background:var(--gl);border:1.5px solid var(--g);color:var(--gd)}
+.st-todo{background:#eef4f1;color:var(--mt)}
+.stl{font-size:7px;color:var(--mt)}
+.sl{flex:1;height:1px;background:var(--br);margin-bottom:12px}
+.qrbox{width:100px;height:100px;border:1.5px solid var(--g);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;background:#fff;position:relative}
+.qr-c{position:absolute;width:12px;height:12px;border-color:var(--g);border-style:solid}
+.qr-tl{top:-1px;left:-1px;border-width:3px 0 0 3px;border-radius:4px 0 0 0}
+.qr-tr{top:-1px;right:-1px;border-width:3px 3px 0 0;border-radius:0 4px 0 0}
+.qr-bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px;border-radius:0 0 0 4px}
+.qr-br{bottom:-1px;right:-1px;border-width:0 3px 3px 0;border-radius:0 0 4px 0}
+.qr-pat{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:70px;height:70px}
+.qp{border-radius:1px}
+.qpd{background:var(--gd)}
+.qpl{background:transparent}
+.qr-icard{margin:0 12px 7px;background:#f2f7f4;border-radius:9px;padding:7px 9px}
+.qr-iname{font-size:9px;font-weight:700;color:var(--txt)}
+.qr-pts{display:flex;justify-content:space-between;margin-top:5px}
+.qr-pt{display:flex;flex-direction:column;gap:1px}
+.qr-pt-l{font-size:7px;color:var(--mt)}
+.qr-pt-v{font-size:8px;font-weight:700;color:var(--txt)}
+
+/* S10 MY BORROWS */
+.mb-hd{padding:10px 12px 5px;font-size:12px;font-weight:800;color:var(--txt)}
+.tabs{display:flex;border-bottom:0.5px solid var(--br);padding:0 12px;margin-bottom:5px}
+.tab{font-size:9px;font-weight:600;padding:5px 0;margin-right:10px;color:var(--mt)}
+.tab.on{color:var(--g);border-bottom:2px solid var(--g)}
+.bitem{margin:0 12px 7px;border:0.5px solid var(--br);border-radius:11px;padding:8px 9px}
+.bit-top{display:flex;gap:7px;align-items:flex-start;margin-bottom:5px}
+.bth{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.bii{flex:1}
+.bname{font-size:9px;font-weight:700;color:var(--txt)}
+.blender{font-size:7px;color:var(--mt);margin-top:1px}
+.spl{font-size:7px;font-weight:700;padding:2px 6px;border-radius:7px}
+.sp-a{background:var(--gl);color:var(--gd)}
+.sp-d{background:var(--cl);color:var(--cd)}
+.sp-p{background:var(--al);color:var(--ad)}
+.pbar-bg{flex:1;height:4px;background:var(--br);border-radius:2px;overflow:hidden}
+.pbar-fill{height:4px;border-radius:2px}
+.pbar-row{display:flex;align-items:center;gap:5px}
+.pbar-lbl{font-size:7px;color:var(--mt);white-space:nowrap}
+
+/* S11 LEND ITEM */
+.lend-hd{padding:10px 12px 5px;font-size:12px;font-weight:800;color:var(--txt)}
+.lend-sub{padding:0 12px 7px;font-size:8px;color:var(--mt)}
+.upload-box{margin:0 12px 8px;border:1.5px dashed var(--br);border-radius:12px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.ub-icon{font-size:20px}
+.ub-txt{font-size:8px;color:var(--mt)}
+.sel-box{border:0.5px solid var(--br);border-radius:8px;padding:7px 9px;font-size:9px;color:var(--mt);display:flex;justify-content:space-between;align-items:center}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:5px 12px}
+.tl{font-size:9px;color:var(--txt);font-weight:600}
+.tog{width:28px;height:15px;background:var(--g);border-radius:8px;position:relative}
+.tog::after{content:'';position:absolute;right:2px;top:2px;width:11px;height:11px;background:#fff;border-radius:50%}
+.tog.off{background:var(--br)}
+.tog.off::after{right:auto;left:2px}
+
+/* S12 NOTIFICATIONS */
+.notif-hd{padding:10px 12px 5px;font-size:12px;font-weight:800;color:var(--txt)}
+.notif-filter{display:flex;gap:5px;padding:0 12px 7px}
+.nfc{font-size:8px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;border:0.5px solid var(--br);color:var(--mt)}
+.nfc.on{background:var(--g);color:#fff;border-color:var(--g)}
+.nitem{margin:0 12px 5px;display:flex;gap:8px;align-items:flex-start;padding:8px 9px;border-radius:10px}
+.nitem.unread{background:var(--gl)}
+.nitem.read{background:#f5f8f6}
+.nic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ntxt{flex:1}
+.ntitle{font-size:9px;font-weight:700;color:var(--txt)}
+.ntime{font-size:7px;color:var(--mt);margin-top:2px}
+.ndot{width:6px;height:6px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:5px}
+
+/* S13 PROFILE */
+.prof-top{background:var(--gl);padding:16px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.prof-av{width:44px;height:44px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff}
+.prof-name{font-size:12px;font-weight:800;color:var(--gd)}
+.prof-email{font-size:8px;color:var(--gm)}
+.prof-role{font-size:8px;background:var(--g);color:#fff;padding:2px 9px;border-radius:10px;font-weight:700}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br);border-top:0.5px solid var(--br)}
+.stat-cell{background:#fff;padding:8px 4px;text-align:center}
+.snum{font-size:13px;font-weight:800;color:var(--g)}
+.slbl{font-size:7px;color:var(--mt)}
+.menu-item{margin:0 12px;border-bottom:0.5px solid var(--br);padding:8px 0;display:flex;justify-content:space-between;align-items:center}
+.mi-left{display:flex;align-items:center;gap:7px}
+.mi-ic{width:22px;height:22px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.mi-txt{font-size:9px;font-weight:600;color:var(--txt)}
+.mi-arr{font-size:10px;color:var(--mt)}
+.mi-badge{font-size:7px;background:var(--g);color:#fff;padding:1px 6px;border-radius:6px;font-weight:700}
+
+/* S14 ADMIN */
+.adm-hd{padding:10px 12px 5px;display:flex;justify-content:space-between;align-items:center}
+.adm-title{font-size:11px;font-weight:800;color:var(--txt)}
+.adm-bdg{font-size:7px;background:var(--gl);color:var(--gd);padding:2px 7px;border-radius:6px;font-weight:700}
+.stats2{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:0 12px 7px}
+.sb2{background:#f2f7f4;border-radius:9px;padding:7px;text-align:center}
+.sn2{font-size:14px;font-weight:800;color:var(--gd)}
+.sl2{font-size:7px;color:var(--mt);margin-top:1px}
+.chart-t{font-size:8px;font-weight:700;color:var(--mt);padding:0 12px 4px}
+.barchart{display:flex;align-items:flex-end;gap:5px;height:48px;padding:0 12px;margin-bottom:7px}
+.bw{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1}
+.bar{border-radius:3px 3px 0 0;background:var(--g);width:100%}
+.bar.hi{background:var(--am)}
+.bl{font-size:6px;color:var(--mt)}
+.cat-rows{padding:0 12px}
+.cr{display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.cn{font-size:7px;color:var(--mt);width:38px}
+.cbg{flex:1;height:4px;background:var(--br);border-radius:2px}
+.cf{height:4px;border-radius:2px}
+.cpct{font-size:7px;font-weight:700;color:var(--txt);width:20px;text-align:right}
+.flag-sec{padding:5px 12px 0}
+.flag-t{font-size:8px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.flag{background:#fff8f0;border:0.5px solid #f5c4b3;border-radius:8px;padding:5px 8px;display:flex;justify-content:space-between;align-items:center}
+.flag-name{font-size:8px;font-weight:600;color:#712B13}
+.flag-reason{font-size:7px;color:var(--mt)}
+.flag-act{font-size:7px;font-weight:700;color:var(--cr)}
+</style>
+
+<div class="grid">
+
+<!-- ── ONBOARDING ── -->
+<div class="section-head"><span>Onboarding</span><hr></div>
+
+<!-- S1 SPLASH -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:370px">
+      <div class="notch"></div>
+      <div class="s1">
+        <div class="logo-box">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="12" fill="#E1F5EE"/><path d="M7 15c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1D9E75" stroke-width="2" stroke-linecap="round"/><path d="M10 18l3-5 3 5" stroke="#085041" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="9" r="2" fill="#1D9E75"/></svg>
+        </div>
+        <div style="font-size:17px;font-weight:800;color:#fff;text-align:center">UTM Borrow</div>
+        <p>Share. Borrow. Save.<br/>A smarter campus community.</p>
+        <div class="btn-w">Get Started</div>
+        <div class="btn-w" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);margin-top:-4px">Sign In</div>
+        <div class="s1-sub">UTM community members only</div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Splash / Landing</div>
+</div>
+
+<!-- S2 LOGIN -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:370px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:41</span><span class="i">●●●</span></div>
+      <div class="s2-top">
+        <div style="font-size:20px">👋</div>
+        <h3>Welcome Back</h3>
+        <p>Sign in with your UTM email to continue</p>
+      </div>
+      <div class="form-area">
+        <div class="finput"><b>UTM Email</b>ahmad@graduate.utm.my</div>
+        <div class="finput"><b>Password</b>••••••••</div>
+        <div style="display:flex;justify-content:flex-end;padding:0;margin-top:-4px"><span style="font-size:8px;color:var(--g);font-weight:700">Forgot password?</span></div>
+        <div class="btn-g">Sign In</div>
+      </div>
+      <div class="or-row"><div class="or-line"></div><div class="or-txt">or continue with</div><div class="or-line"></div></div>
+      <div class="google-btn" style="margin-top:6px">
+        <svg width="12" height="12" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Google (UTM Workspace)
+      </div>
+      <div style="font-size:8px;color:var(--mt);text-align:center;padding:10px">No account? <span style="color:var(--g);font-weight:700">Register here</span></div>
+    </div>
+  </div>
+  <div class="lbl">Login</div>
+</div>
+
+<!-- S3 OTP VERIFY -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:370px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:42</span><span class="i">●●●</span></div>
+      <div style="padding:14px 12px 0;display:flex;align-items:center;gap:7px">
+        <div class="bk" style="position:relative;top:0;left:0">‹</div>
+        <span style="font-size:11px;font-weight:800;color:var(--txt)">Verify Email</span>
+      </div>
+      <div class="otp-top">
+        <div style="font-size:28px;margin:10px 0">📧</div>
+        <h3>Check your inbox</h3>
+        <p>We sent a 6-digit code to<br/><b style="color:var(--gd)">ahmad@graduate.utm.my</b></p>
+      </div>
+      <div class="otp-boxes">
+        <div class="ob done">4</div>
+        <div class="ob done">7</div>
+        <div class="ob done">2</div>
+        <div class="ob act">_</div>
+        <div class="ob"></div>
+        <div class="ob"></div>
+      </div>
+      <div class="otp-note">Enter the 6-digit code above</div>
+      <div class="otp-resend" style="margin-top:6px">Resend code (0:42)</div>
+      <div style="padding:14px 12px 0"><div class="btn-g" style="opacity:.5">Verify & Continue</div></div>
+    </div>
+  </div>
+  <div class="lbl">OTP Verification</div>
+</div>
+
+<!-- S4 REGISTER -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:370px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:43</span><span class="i">●●●</span></div>
+      <div class="reg-head">Create Account</div>
+      <div class="reg-sub">Fill in your UTM details to get started</div>
+      <div class="field-row"><div class="fl">Full Name</div><div class="fi">Ahmad Hafiz Bin Rozali</div></div>
+      <div class="field-row"><div class="fl">Matric / Staff No.</div><div class="fi">A21EC0001</div></div>
+      <div class="field-row"><div class="fl">Faculty</div><div class="fi">Faculty of Computing <span style="font-size:9px;color:var(--mt)">▾</span></div></div>
+      <div style="padding:0 12px;margin-bottom:5px"><div class="fl">I am a...</div></div>
+      <div class="role-row">
+        <div class="role-opt sel">Student</div>
+        <div class="role-opt">Staff</div>
+      </div>
+      <div class="field-row"><div class="fl">Residential College</div><div class="fi">Kolej Tun Razak <span style="font-size:9px;color:var(--mt)">▾</span></div></div>
+      <div style="padding:0 12px;margin-top:4px"><div class="btn-g">Create Account</div></div>
+    </div>
+  </div>
+  <div class="lbl">Register</div>
+</div>
+
+<!-- ── MAIN APP ── -->
+<div class="section-head"><span>Main App</span><hr></div>
+
+<!-- S5 HOME -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:45</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="home-hd">
+          <div><div class="greet">Hey, <span>Ahmad</span> 👋</div><div style="font-size:8px;color:var(--mt)">What do you need today?</div></div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <div style="font-size:8px;background:var(--al);color:var(--ad);padding:2px 6px;border-radius:6px;font-weight:800">48 pts ★</div>
+            <div class="av">AH</div>
+          </div>
+        </div>
+        <div class="srch">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#888" stroke-width="1.5"/><path d="M10.5 10.5l3 3" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Search items, tools, books…</span>
+        </div>
+        <div class="cats">
+          <div class="chip on">All</div><div class="chip">Lab Tools</div><div class="chip">Books</div><div class="chip">Electronics</div>
+        </div>
+        <div class="merit-b">
+          <div class="mstar">★</div>
+          <div><div class="mlbl">Your merit points</div><div class="mpts">48 pts</div></div>
+          <div style="margin-left:auto;font-size:8px;color:var(--g);font-weight:700">Redeem ›</div>
+        </div>
+        <div class="sec-t">Available Near You</div>
+        <div class="icard"><div class="ith" style="background:#e1f5ee">🔬</div><div class="inf"><div class="iname">Digital Vernier Caliper</div><div class="imeta">Block R, Kolej 13</div></div><div class="bdg bdg-a">Free</div></div>
+        <div class="icard"><div class="ith" style="background:#FAEEDA">📚</div><div class="inf"><div class="iname">Calculus Textbook</div><div class="imeta">Faculty of Engineering</div></div><div class="bdg bdg-a">Free</div></div>
+        <div class="icard"><div class="ith" style="background:#FAECE7">💻</div><div class="inf"><div class="iname">Arduino Uno Kit</div><div class="imeta">FKE, Room 2-14</div></div><div class="bdg bdg-b">Borrowed</div></div>
+      </div>
+      <div class="bnav">
+        <div class="ni on"><svg class="ic" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8H4V9z" stroke="#1D9E75" stroke-width="1.5"/></svg><span class="nt" style="color:var(--g)">Home</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="#888" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Browse</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#888" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Borrows</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#888" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Home Feed</div>
+</div>
+
+<!-- S6 BROWSE -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:46</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="browse-hd">Browse Items</div>
+        <div class="srch" style="margin:0 12px 6px">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#888" stroke-width="1.5"/><path d="M10.5 10.5l3 3" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Search…</span>
+        </div>
+        <div class="filter-row">
+          <div class="fchip on">All</div><div class="fchip">Lab Tools</div><div class="fchip">Books</div><div class="fchip">Electronics</div><div class="fchip">Appliances</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 12px 6px">
+          <span style="font-size:8px;color:var(--mt)">48 items found</span>
+          <span style="font-size:8px;color:var(--g);font-weight:700">Filter ⊟</span>
+        </div>
+        <div class="grid2">
+          <div class="gcard"><div class="gcard-img" style="background:#e1f5ee">🔬</div><div class="gcard-body"><div class="gcard-name">Vernier Caliper</div><div class="gcard-loc">Kolej 13</div><div class="gcard-row"><div class="bdg bdg-a">Free</div><span style="font-size:7px;color:var(--mt)">7d max</span></div></div></div>
+          <div class="gcard"><div class="gcard-img" style="background:#FAEEDA">📚</div><div class="gcard-body"><div class="gcard-name">Calculus Book</div><div class="gcard-loc">Fac. Engineering</div><div class="gcard-row"><div class="bdg bdg-a">Free</div><span style="font-size:7px;color:var(--mt)">14d max</span></div></div></div>
+          <div class="gcard"><div class="gcard-img" style="background:#eef4f1">🔧</div><div class="gcard-body"><div class="gcard-name">Torque Wrench</div><div class="gcard-loc">FKM Lab</div><div class="gcard-row"><div class="bdg bdg-a">Free</div><span style="font-size:7px;color:var(--mt)">3d max</span></div></div></div>
+          <div class="gcard"><div class="gcard-img" style="background:#FAECE7">💻</div><div class="gcard-body"><div class="gcard-name">Arduino Kit</div><div class="gcard-loc">FKE, Rm 2-14</div><div class="gcard-row"><div class="bdg bdg-b">Borrowed</div></div></div></div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8H4V9z" stroke="#888" stroke-width="1.5"/></svg><span class="nt">Home</span></div>
+        <div class="ni on"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="#1D9E75" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt" style="color:var(--g)">Browse</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#888" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Borrows</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#888" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Browse / Search</div>
+</div>
+
+<!-- ── BORROWING FLOW ── -->
+<div class="section-head"><span>Borrowing Flow</span><hr></div>
+
+<!-- S7 ITEM DETAIL -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:48</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="hero">
+          🔬
+          <div class="bk">‹</div>
+          <div class="hrt">♥</div>
+        </div>
+        <div class="det">
+          <div class="dtitle">Digital Vernier Caliper</div>
+          <div class="downer"><div class="dav">NR</div><div class="dname">Nurul Rahman · ★ 4.9 (23 lends)</div></div>
+          <div class="dtags">
+            <div class="tag tg">Lab Tools</div><div class="tag ta">Available</div><div class="tag tgr">Kolej 13</div>
+          </div>
+          <div class="dinfo">
+            <div class="dbox"><div class="dblbl">Max duration</div><div class="dbval">7 days</div></div>
+            <div class="dbox"><div class="dblbl">Insurance fee</div><div class="dbval">RM 1.00</div></div>
+            <div class="dbox"><div class="dblbl">Condition</div><div class="dbval">Excellent</div></div>
+            <div class="dbox"><div class="dblbl">Times lent</div><div class="dbval">14×</div></div>
+          </div>
+          <div class="desc">Mitutoyo 150mm digital caliper. Great for workshop & lab. Please return clean and in same condition.</div>
+          <div style="display:flex;gap:6px">
+            <div style="border:0.5px solid var(--g);color:var(--g);font-size:9px;font-weight:700;border-radius:9px;padding:8px;text-align:center;flex:0 0 36px">💬</div>
+            <div class="btn-g" style="flex:1;border-radius:9px;padding:9px;text-align:center">Request to Borrow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Item Detail</div>
+</div>
+
+<!-- S8 REQUEST MODAL -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:49</span><span class="i">●●●</span></div>
+      <div class="body" style="justify-content:flex-end">
+        <div style="flex:1;padding:10px 12px;opacity:.4">
+          <div style="font-size:20px;margin-bottom:6px">🔬</div>
+          <div style="font-size:11px;font-weight:800;color:var(--txt)">Digital Vernier Caliper</div>
+          <div style="font-size:8px;color:var(--mt)">Nurul Rahman · Kolej 13</div>
+        </div>
+        <div class="modal">
+          <div class="mhandle"></div>
+          <div class="mtitle">Borrow Request</div>
+          <div class="mrow"><span class="mkey">Item</span><span class="mval">Digital Vernier Caliper</span></div>
+          <div class="mrow"><span class="mkey">Lender</span><span class="mval">Nurul Rahman</span></div>
+          <div style="font-size:8px;color:var(--mt);margin-bottom:4px;font-weight:700">Duration</div>
+          <div class="dur-sel">
+            <div class="ds on">1 day</div><div class="ds">3 days</div><div class="ds">5 days</div><div class="ds">7 days</div>
+          </div>
+          <div class="note-box">Add a note to lender (optional)…</div>
+          <div class="ins-row"><span class="ins-lbl">Insurance deposit</span><span class="ins-val">RM 1.00</span></div>
+          <div class="btn-g">Submit Request</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Borrow Request</div>
+</div>
+
+<!-- S9 QR HANDOVER -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">10:05</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="qr-hd">
+          <div class="bk" style="position:relative;top:0;left:0">‹</div>
+          <div class="qr-hd-title">QR Handover</div>
+        </div>
+        <div class="steps-row">
+          <div class="st"><div class="std st-done">✓</div><div class="stl">Request</div></div>
+          <div class="sl"></div>
+          <div class="st"><div class="std st-done">✓</div><div class="stl">Approved</div></div>
+          <div class="sl"></div>
+          <div class="st"><div class="std st-act">3</div><div class="stl">Handover</div></div>
+          <div class="sl"></div>
+          <div class="st"><div class="std st-todo">4</div><div class="stl">Return</div></div>
+        </div>
+        <div style="font-size:8px;color:var(--mt);text-align:center;margin-bottom:8px">Show to lender to confirm pickup</div>
+        <div class="qrbox">
+          <div class="qr-c qr-tl"></div><div class="qr-c qr-tr"></div><div class="qr-c qr-bl"></div><div class="qr-c qr-br"></div>
+          <div class="qr-pat">
+            <div class="qp qpd"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div>
+            <div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpl"></div>
+            <div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpd"></div>
+            <div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div>
+            <div class="qp qpd"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpl"></div>
+            <div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpd"></div><div class="qp qpl"></div><div class="qp qpd"></div><div class="qp qpd"></div>
+          </div>
+        </div>
+        <div class="qr-icard">
+          <div class="qr-iname">🔬 Digital Vernier Caliper</div>
+          <div class="qr-pts">
+            <div class="qr-pt"><div class="qr-pt-l">Borrower</div><div class="qr-pt-v">Ahmad H.</div></div>
+            <div style="font-size:14px;color:var(--br);align-self:center">→</div>
+            <div class="qr-pt" style="align-items:flex-end"><div class="qr-pt-l">Lender</div><div class="qr-pt-v">Nurul R.</div></div>
+          </div>
+        </div>
+        <div style="padding:6px 12px"><div class="btn-g">Confirm Handover</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">QR Handover</div>
+</div>
+
+<!-- ── MANAGEMENT ── -->
+<div class="section-head"><span>Borrow Management</span><hr></div>
+
+<!-- S10 MY BORROWS -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">9:55</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="mb-hd">My Borrows</div>
+        <div class="tabs">
+          <div class="tab on">Borrowing</div><div class="tab">Lending</div><div class="tab">History</div>
+        </div>
+        <div class="bitem">
+          <div class="bit-top"><div class="bth" style="background:#e1f5ee">🔬</div><div class="bii"><div class="bname">Digital Vernier Caliper</div><div class="blender">From Nurul R. · Due in 5 days</div></div><div class="spl sp-a">Active</div></div>
+          <div class="pbar-row"><div class="pbar-bg"><div class="pbar-fill" style="width:28%;background:var(--g)"></div></div><div class="pbar-lbl">Day 2/7</div></div>
+        </div>
+        <div class="bitem">
+          <div class="bit-top"><div class="bth" style="background:#FAECE7">📖</div><div class="bii"><div class="bname">Fluid Mechanics (Munson)</div><div class="blender">From Amir Z. · Due tomorrow</div></div><div class="spl sp-d">Due Soon</div></div>
+          <div class="pbar-row"><div class="pbar-bg"><div class="pbar-fill" style="width:86%;background:var(--cr)"></div></div><div class="pbar-lbl">Day 6/7</div></div>
+        </div>
+        <div class="bitem">
+          <div class="bit-top"><div class="bth" style="background:#FAEEDA">🎤</div><div class="bii"><div class="bname">USB Microphone</div><div class="blender">From Siti N. · Awaiting approval</div></div><div class="spl sp-p">Pending</div></div>
+          <div style="font-size:7px;color:var(--mt);margin-top:3px">Request sent 2 hours ago</div>
+        </div>
+        <div class="bitem">
+          <div class="bit-top"><div class="bth" style="background:#eef4f1">📐</div><div class="bii"><div class="bname">Drawing Board A1</div><div class="blender">From Zulaikha M. · Done</div></div><div class="spl" style="background:#eef4f1;color:var(--mt)">Returned</div></div>
+          <div style="font-size:7px;color:var(--mt);margin-top:3px">Returned on Apr 3, 2026 · +5 pts</div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8H4V9z" stroke="#888" stroke-width="1.5"/></svg><span class="nt">Home</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="#888" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Browse</span></div>
+        <div class="ni on"><svg class="ic" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#1D9E75" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt" style="color:var(--g)">Borrows</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#888" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">My Borrows</div>
+</div>
+
+<!-- ── LENDING FLOW ── -->
+<div class="section-head"><span>Lending Flow</span><hr></div>
+
+<!-- S11 LEND ITEM -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">10:12</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="lend-hd">List an Item</div>
+        <div class="lend-sub">Share an item with the UTM community</div>
+        <div class="upload-box">
+          <div class="ub-icon">📷</div>
+          <div class="ub-txt">Tap to add item photos</div>
+        </div>
+        <div class="field-row"><div class="fl">Item Name</div><div class="fi">e.g. Digital Vernier Caliper</div></div>
+        <div class="field-row"><div class="fl">Category</div><div class="sel-box">Lab Tools <span style="font-size:9px;color:var(--mt)">▾</span></div></div>
+        <div class="field-row"><div class="fl">Condition</div>
+          <div style="display:flex;gap:4px">
+            <div class="role-opt sel" style="flex:1;font-size:8px">Excellent</div><div class="role-opt" style="flex:1;font-size:8px">Good</div><div class="role-opt" style="flex:1;font-size:8px">Fair</div>
+          </div>
+        </div>
+        <div class="field-row"><div class="fl">Max Borrow Duration</div><div class="sel-box">7 days <span style="font-size:9px;color:var(--mt)">▾</span></div></div>
+        <div class="toggle-row"><div class="tl">Require insurance deposit (RM1)</div><div class="tog"></div></div>
+        <div style="padding:8px 12px 0"><div class="btn-g">List Item</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">List an Item</div>
+</div>
+
+<!-- S12 LEND REQUESTS (lender view) -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">10:18</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="mb-hd">Incoming Requests</div>
+        <div class="tabs"><div class="tab on">Pending (2)</div><div class="tab">Active</div><div class="tab">Completed</div></div>
+        <div class="bitem" style="border-color:var(--g)">
+          <div class="bit-top">
+            <div class="bth" style="background:#e1f5ee">🔬</div>
+            <div class="bii"><div class="bname">Vernier Caliper</div><div class="blender">Requested by Ahmad H. · 1 day</div></div>
+            <div class="spl sp-p">New</div>
+          </div>
+          <div style="font-size:7px;color:var(--mt);margin:3px 0 6px">"Need it for my project submission on Apr 9"</div>
+          <div style="display:flex;gap:5px">
+            <div style="flex:1;background:#FAECE7;border-radius:7px;padding:5px;text-align:center;font-size:8px;font-weight:700;color:var(--cd)">Decline</div>
+            <div style="flex:2;background:var(--g);border-radius:7px;padding:5px;text-align:center;font-size:8px;font-weight:700;color:#fff">Approve</div>
+          </div>
+        </div>
+        <div class="bitem">
+          <div class="bit-top">
+            <div class="bth" style="background:#FAEEDA">📚</div>
+            <div class="bii"><div class="bname">Thermodynamics Book</div><div class="blender">Requested by Farah I. · 3 days</div></div>
+            <div class="spl sp-p">New</div>
+          </div>
+          <div style="font-size:7px;color:var(--mt);margin:3px 0 6px">"Exam prep this week, will return promptly"</div>
+          <div style="display:flex;gap:5px">
+            <div style="flex:1;background:#FAECE7;border-radius:7px;padding:5px;text-align:center;font-size:8px;font-weight:700;color:var(--cd)">Decline</div>
+            <div style="flex:2;background:var(--g);border-radius:7px;padding:5px;text-align:center;font-size:8px;font-weight:700;color:#fff">Approve</div>
+          </div>
+        </div>
+        <div class="bitem" style="opacity:.7">
+          <div class="bit-top">
+            <div class="bth" style="background:#eef4f1">🔧</div>
+            <div class="bii"><div class="bname">Torque Wrench</div><div class="blender">Returned by Haziq R. · Yesterday</div></div>
+            <div class="spl" style="background:#e1f5ee;color:var(--gd)">Done</div>
+          </div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8H4V9z" stroke="#888" stroke-width="1.5"/></svg><span class="nt">Home</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="#888" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Browse</span></div>
+        <div class="ni on"><svg class="ic" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#1D9E75" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt" style="color:var(--g)">Borrows</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#888" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Lend Requests</div>
+</div>
+
+<!-- ── UTILITY SCREENS ── -->
+<div class="section-head"><span>Utility Screens</span><hr></div>
+
+<!-- S13 NOTIFICATIONS -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">10:20</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="notif-hd">Notifications</div>
+        <div class="notif-filter">
+          <div class="nfc on">All</div><div class="nfc">Borrows</div><div class="nfc">Reminders</div><div class="nfc">System</div>
+        </div>
+        <div class="nitem unread">
+          <div class="nic" style="background:#e1f5ee">✅</div>
+          <div class="ntxt"><div class="ntitle">Request approved! Nurul accepted your caliper request</div><div class="ntime">2 min ago</div></div>
+          <div class="ndot"></div>
+        </div>
+        <div class="nitem unread">
+          <div class="nic" style="background:#FAEEDA">⏰</div>
+          <div class="ntxt"><div class="ntitle">Reminder: Fluid Mechanics book due tomorrow</div><div class="ntime">1 hr ago</div></div>
+          <div class="ndot"></div>
+        </div>
+        <div class="nitem read">
+          <div class="nic" style="background:#eef4f1">📦</div>
+          <div class="ntxt"><div class="ntitle">New request for your Torque Wrench from Haziq R.</div><div class="ntime">3 hrs ago</div></div>
+        </div>
+        <div class="nitem read">
+          <div class="nic" style="background:#e1f5ee">⭐</div>
+          <div class="ntxt"><div class="ntitle">You earned 10 merit points for lending! Total: 48 pts</div><div class="ntime">Yesterday</div></div>
+        </div>
+        <div class="nitem read">
+          <div class="nic" style="background:#FAECE7">⚠️</div>
+          <div class="ntxt"><div class="ntitle">Overdue: Drawing Board A1 was 2 days late</div><div class="ntime">Apr 3, 2026</div></div>
+        </div>
+      </div>
+      <div class="bnav">
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8H4V9z" stroke="#888" stroke-width="1.5"/></svg><span class="nt">Home</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="8" cy="8" r="5" stroke="#888" stroke-width="1.5"/><path d="M13 13l4 4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Browse</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#888" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Borrows</span></div>
+        <div class="ni"><svg class="ic" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="#888" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg><span class="nt">Profile</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Notifications</div>
+</div>
+
+<!-- S14 PROFILE -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">10:30</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="prof-top">
+          <div class="prof-av">AH</div>
+          <div class="prof-name">Ahmad Hafiz</div>
+          <div class="prof-email">ahmad@graduate.utm.my</div>
+          <div class="prof-role">Student · FKomputeran</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-cell"><div class="snum">48</div><div class="slbl">Merit pts</div></div>
+          <div class="stat-cell"><div class="snum">12</div><div class="slbl">Borrowed</div></div>
+          <div class="stat-cell"><div class="snum">7</div><div class="slbl">Lent out</div></div>
+        </div>
+        <div class="menu-item"><div class="mi-left"><div class="mi-ic" style="background:#e1f5ee">📦</div><div class="mi-txt">My Listed Items</div></div><span class="mi-arr">›</span></div>
+        <div class="menu-item"><div class="mi-left"><div class="mi-ic" style="background:#FAEEDA">⭐</div><div class="mi-txt">Merit Points & Rewards</div></div><div style="display:flex;align-items:center;gap:4px"><span class="mi-badge">48 pts</span><span class="mi-arr">›</span></div></div>
+        <div class="menu-item"><div class="mi-left"><div class="mi-ic" style="background:#eef4f1">🔔</div><div class="mi-txt">Notification Settings</div></div><span class="mi-arr">›</span></div>
+        <div class="menu-item"><div class="mi-left"><div class="mi-ic" style="background:#eef4f1">🛡️</div><div class="mi-txt">Trust & Verification</div></div><div style="display:flex;align-items:center;gap:4px"><span class="mi-badge" style="background:var(--g)">Verified</span><span class="mi-arr">›</span></div></div>
+        <div class="menu-item"><div class="mi-left"><div class="mi-ic" style="background:#FAECE7">🚪</div><div class="mi-txt" style="color:var(--cr)">Sign Out</div></div><span class="mi-arr" style="color:var(--cr)">›</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Profile</div>
+</div>
+
+<!-- ── ADMIN ── -->
+<div class="section-head"><span>Admin Panel</span><hr></div>
+
+<!-- S15 ADMIN ANALYTICS -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">11:00</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="adm-hd">
+          <div class="adm-title">Campus Analytics</div>
+          <div class="adm-bdg">Admin</div>
+        </div>
+        <div class="stats2">
+          <div class="sb2"><div class="sn2">342</div><div class="sl2">Active borrows</div></div>
+          <div class="sb2"><div class="sn2">1,204</div><div class="sl2">Items listed</div></div>
+          <div class="sb2"><div class="sn2" style="color:var(--am);font-size:12px">RM 8,310</div><div class="sl2">Est. savings</div></div>
+          <div class="sb2"><div class="sn2">89%</div><div class="sl2">Return rate</div></div>
+        </div>
+        <div class="chart-t">Weekly borrows</div>
+        <div class="barchart">
+          <div class="bw"><div class="bar" style="height:28px"></div><div class="bl">W1</div></div>
+          <div class="bw"><div class="bar" style="height:36px"></div><div class="bl">W2</div></div>
+          <div class="bw"><div class="bar hi" style="height:46px"></div><div class="bl">W3</div></div>
+          <div class="bw"><div class="bar" style="height:32px"></div><div class="bl">W4</div></div>
+        </div>
+        <div class="cat-rows">
+          <div class="cr"><div class="cn">Lab Tools</div><div class="cbg"><div class="cf" style="width:75%;background:var(--g)"></div></div><div class="cpct">75%</div></div>
+          <div class="cr"><div class="cn">Books</div><div class="cbg"><div class="cf" style="width:54%;background:var(--am)"></div></div><div class="cpct">54%</div></div>
+          <div class="cr"><div class="cn">Electronics</div><div class="cbg"><div class="cf" style="width:38%;background:#5DCAA5"></div></div><div class="cpct">38%</div></div>
+          <div class="cr"><div class="cn">Appliances</div><div class="cbg"><div class="cf" style="width:22%;background:#AFA9EC"></div></div><div class="cpct">22%</div></div>
+        </div>
+        <div class="flag-sec">
+          <div class="flag-t">Flagged items</div>
+          <div class="flag">
+            <div><div class="flag-name">USB Oscilloscope</div><div class="flag-reason">3 days overdue · Haziq R.</div></div>
+            <div class="flag-act">Review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Admin Analytics</div>
+</div>
+
+<!-- S16 ADMIN USER MGMT -->
+<div class="wrap">
+  <div class="phone">
+    <div class="scr" style="height:420px">
+      <div class="notch"></div>
+      <div class="sb"><span class="t">11:05</span><span class="i">●●●</span></div>
+      <div class="body">
+        <div class="adm-hd">
+          <div class="adm-title">User Management</div>
+          <div class="adm-bdg">Admin</div>
+        </div>
+        <div class="srch" style="margin:0 12px 8px;background:#f0f5f2">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="#888" stroke-width="1.5"/><path d="M10.5 10.5l3 3" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Search users…</span>
+        </div>
+        <div style="padding:0 12px 6px;display:flex;gap:5px">
+          <div class="fchip on" style="font-size:8px">All Users</div><div class="fchip" style="font-size:8px">Students</div><div class="fchip" style="font-size:8px">Staff</div><div class="fchip" style="font-size:8px">Flagged</div>
+        </div>
+        <div style="padding:0 12px;display:flex;flex-direction:column;gap:5px">
+          <div style="border:0.5px solid var(--br);border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:7px">
+            <div class="av">AH</div>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--txt)">Ahmad Hafiz</div><div style="font-size:7px;color:var(--mt)">Student · 12 borrows · 48 pts</div></div>
+            <div class="bdg bdg-a">Active</div>
+          </div>
+          <div style="border:0.5px solid var(--br);border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:7px">
+            <div class="av" style="background:#eef4f1;color:var(--gm)">NR</div>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--txt)">Nurul Rahman</div><div style="font-size:7px;color:var(--mt)">Student · 23 lends · 120 pts</div></div>
+            <div class="bdg bdg-a">Active</div>
+          </div>
+          <div style="border:0.5px solid #F5C4B3;border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:7px;background:#fff8f5">
+            <div class="av" style="background:#FAECE7;color:var(--cd)">HZ</div>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--cd)">Haziq Zainal</div><div style="font-size:7px;color:var(--mt)">Student · 2 overdue items</div></div>
+            <div class="bdg" style="background:#FAECE7;color:var(--cd)">Flagged</div>
+          </div>
+          <div style="border:0.5px solid var(--br);border-radius:10px;padding:8px 9px;display:flex;align-items:center;gap:7px">
+            <div class="av" style="background:#E6F1FB;color:#0C447C">DR</div>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--txt)">Dr. Rashid Omar</div><div style="font-size:7px;color:var(--mt)">Staff · 5 items listed</div></div>
+            <div class="bdg bdg-a">Active</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Admin: Users</div>
+</div>
+
+</div>

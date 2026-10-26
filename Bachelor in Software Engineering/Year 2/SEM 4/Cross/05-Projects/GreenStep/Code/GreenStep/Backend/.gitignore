@@ -1,0 +1,15 @@
+# Dependencies (restored via `composer install`)
+/vendor/
+
+# Environment / secrets — NEVER commit real credentials or JWT secret
+.env
+
+# IDE / OS noise
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Composer lock is intentionally committed (reproducible builds).
+# Remove the next line only if your team agrees otherwise.
+# composer.lock

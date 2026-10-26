@@ -1,0 +1,145 @@
+@startuml UTMBorrow_Figure_2_1_UseCase
+' ============================================================================
+'  Figure 2.1  -  UTM Borrow : Overall Use-Case Diagram
+'  27 use cases | 9 modules | 3 subsystems
+'  SCSE2243 Application Development Project I  -  Group Alpha
+'  Standard UML use-case notation.  Render at https://www.planttext.com
+'  Actor roles derived from the source code (routers: auth, items,
+'  transactions, qr, moderation, admin).
+' ============================================================================
+
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam ArrowColor #555555
+skinparam actorStyle awesome
+skinparam actorBorderColor #7A1420
+skinparam actorFontStyle bold
+skinparam usecaseBorderColor #7A1420
+skinparam usecaseBackgroundColor #FCF6F7
+skinparam usecaseFontSize 12
+skinparam packageBorderColor #8A8F98
+skinparam packageFontStyle bold
+skinparam packageFontColor #5C0F18
+
+title Figure 2.1  —  UTM Borrow : Overall Use-Case Diagram\n<size:11>27 use cases  ·  9 modules  ·  3 subsystems</size>
+
+' ---------------------------- Actors ----------------------------
+actor "UTM Student\n(Registered Member)" as Student
+actor "Borrower" as Borrower
+actor "Lender" as Lender
+actor "Administrator\n/ Moderator" as Admin
+actor "Email Service" as Email
+
+' A Borrower and a Lender are specialised roles of a UTM Student
+Borrower --|> Student
+Lender  --|> Student
+
+' ------------------------ System boundary ------------------------
+rectangle "UTM Borrow System" {
+
+  package "Subsystem 1 · Identity & User Management" {
+    package "M1 · Authentication" {
+      usecase "UC1101\nRegister Account" as UC1101
+      usecase "UC1102\nLogin Account" as UC1102
+      usecase "UC1103\nRecover Password" as UC1103
+    }
+    package "M2 · Profile & Trust Score" {
+      usecase "UC1201\nManage Profile" as UC1201
+      usecase "UC1202\nRate User" as UC1202
+      usecase "UC1203\nReport User" as UC1203
+    }
+    package "M3 · User Activity Dashboard" {
+      usecase "UC1301\nView Dashboard" as UC1301
+      usecase "UC1302\nView Lent Items" as UC1302
+      usecase "UC1303\nView Borrowed Items" as UC1303
+    }
+  }
+
+  package "Subsystem 2 · Resource Catalog & Discovery" {
+    package "M1 · Item Listing & Management" {
+      usecase "UC2101\nPublish Listing Item" as UC2101
+      usecase "UC2102\nEdit Item Listing" as UC2102
+      usecase "UC2103\nRemove / Refresh Listing" as UC2103
+    }
+    package "M2 · Category & Condition Metadata" {
+      usecase "UC2201\nFilter by Category" as UC2201
+      usecase "UC2202\nFilter by Condition" as UC2202
+      usecase "UC2203\nCombined Category +\nCondition Search" as UC2203
+    }
+    package "M3 · Location-Based Filter" {
+      usecase "UC2301\nFilter by Proximity\n(College / Faculty)" as UC2301
+      usecase "UC2302\nAutomatic Location\nDetection (GPS)" as UC2302
+      usecase "UC2303\nSort by Distance" as UC2303
+    }
+  }
+
+  package "Subsystem 3 · Transaction & Handover" {
+    package "M1 · Request & Approval Workflow" {
+      usecase "UC3101\nSubmit Borrow Request" as UC3101
+      usecase "UC3102\nApprove / Reject Request" as UC3102
+      usecase "UC3103\nCancel Request" as UC3103
+    }
+    package "M2 · QR Verification" {
+      usecase "UC3201\nGenerate QR Code" as UC3201
+      usecase "UC3202\nScan QR for Handover" as UC3202
+      usecase "UC3203\nScan QR for Return" as UC3203
+    }
+    package "M3 · Community Moderation & Reporting" {
+      usecase "UC3301\nReport Inappropriate Item" as UC3301
+      usecase "UC3302\nReview Reported Item" as UC3302
+      usecase "UC3303\nRemove / Suspend Item" as UC3303
+    }
+  }
+}
+
+' ---------------------- Associations ----------------------
+' Shared UTM Student capabilities (inherited by Borrower and Lender)
+Student -- UC1101
+Student -- UC1102
+Student -- UC1103
+Student -- UC1201
+Student -- UC1202
+Student -- UC1203
+Student -- UC1301
+Student -- UC1302
+Student -- UC1303
+Student -- UC2201
+Student -- UC2202
+Student -- UC2203
+Student -- UC2301
+Student -- UC2302
+Student -- UC2303
+Student -- UC3301
+
+' Borrower-specific  (borrower submits, cancels, and displays the handover QR)
+Borrower -- UC3101
+Borrower -- UC3103
+Borrower -- UC3201
+
+' Lender-specific  (owner lists items, approves, and scans the QR)
+Lender -- UC2101
+Lender -- UC2102
+Lender -- UC2103
+Lender -- UC3102
+Lender -- UC3103
+Lender -- UC3202
+Lender -- UC3203
+
+' Administrator / Moderator
+Admin -- UC1102
+Admin -- UC3302
+Admin -- UC3303
+
+' Email Service  (secondary / supporting actor)
+UC1101 -- Email
+UC1103 -- Email
+
+legend bottom
+  Borrower and Lender are specialised roles of a UTM Student (generalisation).
+  Email Service is a secondary (supporting) actor.  "UC" = Use Case.
+  Association = actor participates in a use case.
+endlegend
+
+@enduml

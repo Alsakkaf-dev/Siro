@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>capacitor.config.json — UTM Books</title>
+<style>
+:root{--p:#065A82;--s:#1C7293;--ok:#10B981;--line:#e2e8f0;--muted:#64748b}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;padding:22px 28px}
+header h1{margin:0 0 4px;font-size:22px}header .sub{opacity:.9;font-size:14px}
+.wrap{max-width:900px;margin:24px auto;padding:0 18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
+.card .fn{background:#0f172a;color:#e2e8f0;padding:10px 16px;font-size:13px;font-family:ui-monospace,Consolas,monospace}
+pre{margin:0;padding:20px 22px;font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:15px;line-height:1.7;color:#0f172a;background:#fff;overflow:auto}
+.k{color:#9333ea}.s{color:#047857}.b{color:#0369a1}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 22px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600}
+.badge b{color:var(--p)}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin:26px 0}
+</style></head><body>
+<header><h1>📱 Capacitor Configuration — UTM Books</h1>
+<div class="sub">Wraps the Vue 3 production build (<code style="color:#fff">dist/</code>) into a native Android app</div></header>
+<div class="wrap">
+<div class="badges">
+<span class="badge"><span class="dot"></span><b>appId:</b> com.utm.books</span>
+<span class="badge"><b>appName:</b> UTM Books</span>
+<span class="badge"><b>webDir:</b> dist</span>
+<span class="badge"><b>platform:</b> Android (emulator)</span>
+</div>
+<div class="card">
+<div class="fn">📄 frontend/capacitor.config.json</div>
+<pre>{
+  <span class="k">"appId"</span>:   <span class="s">"com.utm.books"</span>,
+  <span class="k">"appName"</span>: <span class="s">"UTM Books"</span>,
+  <span class="k">"webDir"</span>:  <span class="s">"dist"</span>,
+  <span class="k">"server"</span>: {
+    <span class="k">"androidScheme"</span>: <span class="s">"https"</span>
+  }
+}</pre>
+</div>
+<footer>The same Vue <code>dist/</code> served on the web is synced into the Android project via <code>npx cap sync android</code> · SCSM2223 Chapter 13</footer>
+</div></body></html>
