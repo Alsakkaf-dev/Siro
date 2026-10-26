@@ -1,0 +1,209 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "MSVC",
+	"compiler-id" : "MSVC",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : 
+	{
+		"CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/controller",
+			"source" : "W:/GitHub/inventory-management-system/src/controller/AdminController.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/controller",
+			"source" : "W:/GitHub/inventory-management-system/src/controller/AuthController.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/controller",
+			"source" : "W:/GitHub/inventory-management-system/src/controller/InventoryController.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/model",
+			"source" : "W:/GitHub/inventory-management-system/src/model/Stock.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/model",
+			"source" : "W:/GitHub/inventory-management-system/src/model/User.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/model",
+			"source" : "W:/GitHub/inventory-management-system/src/model/UserRole.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/repository",
+			"source" : "W:/GitHub/inventory-management-system/src/repository/InventoryRepository.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/repository",
+			"source" : "W:/GitHub/inventory-management-system/src/repository/UserRepository.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/service",
+			"source" : "W:/GitHub/inventory-management-system/src/service/AdminService.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/service",
+			"source" : "W:/GitHub/inventory-management-system/src/service/AuthService.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/service",
+			"source" : "W:/GitHub/inventory-management-system/src/service/InventoryService.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/utility",
+			"source" : "W:/GitHub/inventory-management-system/src/utility/Algorithm.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/utility",
+			"source" : "W:/GitHub/inventory-management-system/src/utility/InputValidator.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/utility",
+			"source" : "W:/GitHub/inventory-management-system/src/utility/TxtUtils.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/view",
+			"source" : "W:/GitHub/inventory-management-system/src/view/AdminView.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/view",
+			"source" : "W:/GitHub/inventory-management-system/src/view/AuthView.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/view",
+			"source" : "W:/GitHub/inventory-management-system/src/view/InventoryView.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		},
+		"CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj" : 
+		{
+			"bmi-only" : false,
+			"destination" : null,
+			"name" : "cxx_modules",
+			"relative-directory" : "src/view",
+			"source" : "W:/GitHub/inventory-management-system/src/view/MainView.cppm",
+			"type" : "CXX_MODULES",
+			"visibility" : "PUBLIC"
+		}
+	},
+	"database-info" : null,
+	"dir-cur-bld" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio",
+	"dir-cur-src" : "W:/GitHub/inventory-management-system",
+	"dir-top-bld" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio",
+	"dir-top-src" : "W:/GitHub/inventory-management-system",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir",
+	"sources" : 
+	{
+		"CMakeFiles/inventory_management_system.dir/src/main.cpp.obj" : 
+		{
+			"language" : "CXX",
+			"source" : "W:/GitHub/inventory-management-system/src/main.cpp"
+		}
+	}
+}

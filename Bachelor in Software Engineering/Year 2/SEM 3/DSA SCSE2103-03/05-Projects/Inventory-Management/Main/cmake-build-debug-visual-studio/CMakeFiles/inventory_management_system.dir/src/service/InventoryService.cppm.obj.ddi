@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\service\\InventoryService.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\service\\InventoryService.cppm.obj.ddi",
+                "service.InventoryService.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "service.InventoryService",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\service\\inventoryservice.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "repository.InventoryRepository"
+                },
+                {
+                    "logical-name": "model.Stock"
+                },
+                {
+                    "logical-name": "utility.Algorithm"
+                }
+            ]
+        }
+    ]
+}

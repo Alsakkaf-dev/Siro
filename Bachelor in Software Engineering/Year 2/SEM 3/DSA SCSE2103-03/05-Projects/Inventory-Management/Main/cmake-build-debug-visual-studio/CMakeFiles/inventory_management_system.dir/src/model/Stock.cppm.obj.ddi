@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\model\\Stock.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\model\\Stock.cppm.obj.ddi",
+                "model.Stock.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "model.Stock",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\model\\stock.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

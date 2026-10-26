@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\view\\InventoryView.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\view\\InventoryView.cppm.obj.ddi",
+                "view.InventoryView.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "view.InventoryView",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\view\\inventoryview.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "model.Stock"
+                },
+                {
+                    "logical-name": "utility.Algorithm"
+                },
+                {
+                    "logical-name": "controller.InventoryController"
+                },
+                {
+                    "logical-name": "utility.InputValidator"
+                }
+            ]
+        }
+    ]
+}

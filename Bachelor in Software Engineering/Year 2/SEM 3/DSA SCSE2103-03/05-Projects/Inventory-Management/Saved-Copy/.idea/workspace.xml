@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackendCodeEditorMiscSettings">
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppIncludesOrderOptions" type="string" />
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="inventory_management_system" targetName="inventory_management_system" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug-Visual Studio" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fc5f1e50-2470-47d5-a3d3-0d96f840e1dc" name="Changes" comment="Added prebuilt dir">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug-visual-studio/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug-visual-studio/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug-visual-studio/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug-visual-studio/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.ilk" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.ilk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug-visual-studio/inventory_management_system.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/AdminView.cppm" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AdminView.cppm" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true" />
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Visual Studio" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;adzarf&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/adzarf/inventory_management_system.git&quot;,
+    &quot;accountId&quot;: &quot;a2462678-b229-4097-a485-3ca6ac7569c8&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://W:/GitHub/inventory-management-system/src/controller/AdminController.cppm" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/controller/AdminController.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/controller/AuthController.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/controller/InventoryController.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/Stock.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/User.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/UserRole.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/InventoryRepository.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/UserRepository.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/service/AdminService.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/service/AuthService.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/service/InventoryService.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/utility/Algorithm.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/utility/InputValidator.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/utility/TxtUtils.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/view/AdminView.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/view/AuthView.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/view/InventoryView.cppm" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/view/MainView.cppm" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="NamedScopeManager">
+    <scope name="src" pattern="file[inventory-management-system]:src//*" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2025" />
+    <option name="minorVersion" value="2.3" />
+    <option name="productBranch" value="Classic" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="35y27iuddhzqOj4H1Hkdz3Fl2dc" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CMake Application.inventory_management_system.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="W:\GitHub\inventory-management-system\cmake-build-debug-visual-studio" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="W:\GitHub\inventory-management-system\src" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="inventory_management_system" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="inventory_management_system" TARGET_NAME="inventory_management_system" CONFIG_NAME="Debug-Visual Studio" RUN_TARGET_PROJECT_NAME="inventory_management_system" RUN_TARGET_NAME="inventory_management_system">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fc5f1e50-2470-47d5-a3d3-0d96f840e1dc" name="Changes" comment="" />
+      <created>1764067825857</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764067825857</updated>
+      <workItem from="1764067826917" duration="90000" />
+      <workItem from="1764068057048" duration="751000" />
+      <workItem from="1764068883225" duration="1864000" />
+      <workItem from="1764229094009" duration="2580000" />
+      <workItem from="1764232135435" duration="177000" />
+      <workItem from="1764234149052" duration="6323000" />
+      <workItem from="1764240548129" duration="1552000" />
+      <workItem from="1764258011827" duration="5081000" />
+      <workItem from="1764263155512" duration="1298000" />
+      <workItem from="1764264574866" duration="22798000" />
+      <workItem from="1764353509063" duration="27000" />
+      <workItem from="1764354457567" duration="884000" />
+      <workItem from="1764378699067" duration="6276000" />
+      <workItem from="1764387808467" duration="4086000" />
+      <workItem from="1764406931960" duration="13073000" />
+      <workItem from="1764424704772" duration="1298000" />
+      <workItem from="1764429712069" duration="15717000" />
+      <workItem from="1764483898712" duration="5674000" />
+      <workItem from="1764522500755" duration="5400000" />
+      <workItem from="1764529023935" duration="7313000" />
+      <workItem from="1764574326134" duration="3108000" />
+      <workItem from="1764578605291" duration="80000" />
+      <workItem from="1764578907401" duration="485000" />
+      <workItem from="1764608287144" duration="27000" />
+      <workItem from="1764639480549" duration="255000" />
+      <workItem from="1764644346029" duration="3270000" />
+      <workItem from="1765091002817" duration="5261000" />
+      <workItem from="1765182651777" duration="3694000" />
+      <workItem from="1765218309941" duration="733000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initialized a CMAKE project">
+      <option name="closed" value="true" />
+      <created>1764069167824</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764069167824</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Removed JsonParser and renamed data file to txt file.">
+      <option name="closed" value="true" />
+      <created>1764300458562</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764300458562</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Replaced all includes with import to ensure consistency">
+      <option name="closed" value="true" />
+      <created>1764301431451</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764301431451</updated>
+    </task>
+    <task id="LOCAL-00004" summary="bad idea... Reverted imports to includes for std library&#10;&#10;Use global module fragment to include std library.">
+      <option name="closed" value="true" />
+      <created>1764302400779</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764302400779</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added and Implemented TxtParser&#10;&#10;Added data in Inventory.txt and User.txt&#10;&#10;Added dependency on TxtParser when creating InventoryRepository.cppm and UserRepository.cppm&#10;&#10;Implemented InputValidator.cppm to gracefully handle user input">
+      <option name="closed" value="true" />
+      <created>1764323386616</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764323386616</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added a ranged int input handling in InputValidator.cppm">
+      <option name="closed" value="true" />
+      <created>1764324641858</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764324641858</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added getRole to User.cppm, Changed NON_ADMIN to USER in UserRole.cppm,&#10;Refactored User.txt">
+      <option name="closed" value="true" />
+      <created>1764340582448</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764340582448</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Refactored TxtParser.cppm to parse user roles correctly due to previous change in user role naming">
+      <option name="closed" value="true" />
+      <created>1764343387962</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764343387962</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Changed Stock and User entries in Inventory.txt and User.txt">
+      <option name="closed" value="true" />
+      <created>1764379038322</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764379038322</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Renamed TxtParser to TxtUtils to support deserializing">
+      <option name="closed" value="true" />
+      <created>1764379185878</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764379185878</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Renamed TxtParser to TxtUtils to support deserializing">
+      <option name="closed" value="true" />
+      <created>1764379265443</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764379265443</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Implemented Auth">
+      <option name="closed" value="true" />
+      <created>1764386610930</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764386610930</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Implemented Auth">
+      <option name="closed" value="true" />
+      <created>1764387983056</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1764387983056</updated>
+    </task>
+    <task id="LOCAL-00014" summary="DRY: DONT REPEAT YOURSELF!! and stop using namespace std, its polluting the global namespace">
+      <option name="closed" value="true" />
+      <created>1764393031467</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764393031467</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added Functions to be implemented in the controllers and views, and Refactored InputValidator.cppm">
+      <option name="closed" value="true" />
+      <created>1764411345339</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764411345339</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Created CommonController.cppm, refactored some files">
+      <option name="closed" value="true" />
+      <created>1764414904649</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764414904649</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Refactored AdminView, CommonView, and InventoryView.&#10;&#10;Changed vectors to const arrays(idk why u need vector)&#10;&#10;Moved menu elements printer to CommonView, cus Don't Repeat Yourself. Keep it DRY">
+      <option name="closed" value="true" />
+      <created>1764422581705</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764422581705</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Refactored views to use std::format for text blocks. Removed &quot;using namespace std&quot;.">
+      <option name="closed" value="true" />
+      <created>1764432227007</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1764432227007</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Removed &lt;cstdlib&gt; since it causes inconsistent output bug.&#10;&#10;Fixed inconsistency in AuthView">
+      <option name="closed" value="true" />
+      <created>1764432764766</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1764432764766</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Implemented stocks serializer in TxtUtils, implemented bubble sort, implemented services for admin and user">
+      <option name="closed" value="true" />
+      <created>1764477970399</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1764477970399</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Updated .gitignore">
+      <option name="closed" value="true" />
+      <created>1764484072779</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1764484072780</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Implemented services">
+      <option name="closed" value="true" />
+      <created>1764493752261</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1764493752261</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Enlightenment">
+      <option name="closed" value="true" />
+      <created>1764536459549</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1764536459549</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fixed incorrect use of imports in InventoryController.cppm">
+      <option name="closed" value="true" />
+      <created>1764577442105</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1764577442105</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Implemented InventoryView">
+      <option name="closed" value="true" />
+      <created>1765183194845</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1765183194845</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Implemented AdminView">
+      <option name="closed" value="true" />
+      <created>1765183502131</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1765183502131</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Assignment 1">
+      <option name="closed" value="true" />
+      <created>1765217199969</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1765217199969</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Assignment 1">
+      <option name="closed" value="true" />
+      <created>1765218018801</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1765218018801</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Updated gitignore">
+      <option name="closed" value="true" />
+      <created>1765218197677</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1765218197677</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Updated gitignore">
+      <option name="closed" value="true" />
+      <created>1765218279954</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1765218279954</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Added prebuilt dir">
+      <option name="closed" value="true" />
+      <created>1765218381748</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1765218381748</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Replaced all includes with import to ensure consistency" />
+    <MESSAGE value="bad idea... Reverted imports to includes for std library&#10;&#10;Use global module fragment to include std library." />
+    <MESSAGE value="Added and Implemented TxtParser&#10;&#10;Added data in Inventory.txt and User.txt&#10;&#10;Added dependency on TxtParser when creating InventoryRepository.cppm and UserRepository.cppm&#10;&#10;Implemented InputValidator.cppm to gracefully handle user input" />
+    <MESSAGE value="Added a ranged int input handling in InputValidator.cppm" />
+    <MESSAGE value="Added getRole to User.cppm, Changed NON_ADMIN to USER in UserRole.cppm,&#10;Refactored User.txt" />
+    <MESSAGE value="Refactored TxtParser.cppm to parse user roles correctly due to previous change in user role naming" />
+    <MESSAGE value="Changed Stock and User entries in Inventory.txt and User.txt" />
+    <MESSAGE value="Renamed TxtParser to TxtUtils to support deserializing" />
+    <MESSAGE value="Implemented Auth" />
+    <MESSAGE value="DRY: DONT REPEAT YOURSELF!! and stop using namespace std, its polluting the global namespace" />
+    <MESSAGE value="Added Functions to be implemented in the controllers and views, and Refactored InputValidator.cppm" />
+    <MESSAGE value="Created CommonController.cppm, refactored some files" />
+    <MESSAGE value="Refactored AdminView, CommonView, and InventoryView.&#10;&#10;Changed vectors to const arrays(idk why u need vector)&#10;&#10;Moved menu elements printer to CommonView, cus Don't Repeat Yourself. Keep it DRY" />
+    <MESSAGE value="Refactored views to use std::format for text blocks. Removed &quot;using namespace std&quot;." />
+    <MESSAGE value="Removed &lt;cstdlib&gt; since it causes inconsistent output bug.&#10;&#10;Fixed inconsistency in AuthView" />
+    <MESSAGE value="Implemented stocks serializer in TxtUtils, implemented bubble sort, implemented services for admin and user" />
+    <MESSAGE value="Updated .gitignore" />
+    <MESSAGE value="Implemented services" />
+    <MESSAGE value="Enlightenment" />
+    <MESSAGE value="Fixed incorrect use of imports in InventoryController.cppm" />
+    <MESSAGE value="Implemented InventoryView" />
+    <MESSAGE value="Implemented AdminView" />
+    <MESSAGE value="Assignment 1" />
+    <MESSAGE value="Updated gitignore" />
+    <MESSAGE value="Added prebuilt dir" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added prebuilt dir" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

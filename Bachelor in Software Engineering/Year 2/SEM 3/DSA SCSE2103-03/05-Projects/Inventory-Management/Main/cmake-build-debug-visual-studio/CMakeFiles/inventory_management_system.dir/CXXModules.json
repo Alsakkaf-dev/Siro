@@ -1,0 +1,341 @@
+{
+	"modules" : 
+	{
+		"controller.AdminController" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AdminController.ifc",
+			"is-private" : false
+		},
+		"controller.AuthController" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AuthController.ifc",
+			"is-private" : false
+		},
+		"controller.InventoryController" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.InventoryController.ifc",
+			"is-private" : false
+		},
+		"model.Stock" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.Stock.ifc",
+			"is-private" : false
+		},
+		"model.User" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.User.ifc",
+			"is-private" : false
+		},
+		"model.UserRole" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.UserRole.ifc",
+			"is-private" : false
+		},
+		"repository.InventoryRepository" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.InventoryRepository.ifc",
+			"is-private" : false
+		},
+		"repository.UserRepository" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.UserRepository.ifc",
+			"is-private" : false
+		},
+		"service.AdminService" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AdminService.ifc",
+			"is-private" : false
+		},
+		"service.AuthService" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AuthService.ifc",
+			"is-private" : false
+		},
+		"service.InventoryService" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.InventoryService.ifc",
+			"is-private" : false
+		},
+		"utility.Algorithm" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.Algorithm.ifc",
+			"is-private" : false
+		},
+		"utility.InputValidator" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.InputValidator.ifc",
+			"is-private" : false
+		},
+		"utility.TxtParser" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.TxtParser.ifc",
+			"is-private" : false
+		},
+		"view.AdminView" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AdminView.ifc",
+			"is-private" : false
+		},
+		"view.AuthView" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AuthView.ifc",
+			"is-private" : false
+		},
+		"view.InventoryView" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.InventoryView.ifc",
+			"is-private" : false
+		},
+		"view.MainView" : 
+		{
+			"bmi" : "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.MainView.ifc",
+			"is-private" : false
+		}
+	},
+	"references" : 
+	{
+		"controller.AdminController" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\controller.AdminController.ifc"
+		},
+		"controller.AuthController" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\controller.AuthController.ifc"
+		},
+		"controller.InventoryController" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\controller.InventoryController.ifc"
+		},
+		"model.Stock" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\model.Stock.ifc"
+		},
+		"model.User" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\model.User.ifc"
+		},
+		"model.UserRole" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\model.UserRole.ifc"
+		},
+		"repository.InventoryRepository" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\repository.InventoryRepository.ifc"
+		},
+		"repository.UserRepository" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\repository.UserRepository.ifc"
+		},
+		"service.AdminService" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\service.AdminService.ifc"
+		},
+		"service.AuthService" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\service.AuthService.ifc"
+		},
+		"service.InventoryService" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\service.InventoryService.ifc"
+		},
+		"utility.Algorithm" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\utility.Algorithm.ifc"
+		},
+		"utility.InputValidator" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\utility.InputValidator.ifc"
+		},
+		"utility.TxtParser" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\utility.TxtParser.ifc"
+		},
+		"view.AdminView" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\view.AdminView.ifc"
+		},
+		"view.AuthView" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\view.AuthView.ifc"
+		},
+		"view.InventoryView" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\view.InventoryView.ifc"
+		},
+		"view.MainView" : 
+		{
+			"lookup-method" : "by-name",
+			"path" : "CMakeFiles\\inventory_management_system.dir\\view.MainView.ifc"
+		}
+	},
+	"usages" : 
+	{
+		"controller.AdminController" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"service.AdminService",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.TxtParser"
+		],
+		"controller.AuthController" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.UserRepository",
+			"service.AuthService",
+			"utility.TxtParser"
+		],
+		"controller.InventoryController" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.TxtParser"
+		],
+		"model.User" : 
+		[
+			"model.UserRole"
+		],
+		"repository.InventoryRepository" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"utility.Algorithm",
+			"utility.TxtParser"
+		],
+		"repository.UserRepository" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"utility.TxtParser"
+		],
+		"service.AdminService" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.TxtParser"
+		],
+		"service.AuthService" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.UserRepository",
+			"utility.TxtParser"
+		],
+		"service.InventoryService" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"utility.Algorithm",
+			"utility.TxtParser"
+		],
+		"utility.Algorithm" : 
+		[
+			"model.Stock"
+		],
+		"utility.TxtParser" : 
+		[
+			"model.Stock",
+			"model.User",
+			"model.UserRole"
+		],
+		"view.AdminView" : 
+		[
+			"controller.AdminController",
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"service.AdminService",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.InputValidator",
+			"utility.TxtParser"
+		],
+		"view.AuthView" : 
+		[
+			"controller.AdminController",
+			"controller.AuthController",
+			"controller.InventoryController",
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"repository.UserRepository",
+			"service.AdminService",
+			"service.AuthService",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.InputValidator",
+			"utility.TxtParser",
+			"view.AdminView",
+			"view.InventoryView"
+		],
+		"view.InventoryView" : 
+		[
+			"controller.InventoryController",
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.InputValidator",
+			"utility.TxtParser"
+		],
+		"view.MainView" : 
+		[
+			"controller.AdminController",
+			"controller.AuthController",
+			"controller.InventoryController",
+			"model.Stock",
+			"model.User",
+			"model.UserRole",
+			"repository.InventoryRepository",
+			"repository.UserRepository",
+			"service.AdminService",
+			"service.AuthService",
+			"service.InventoryService",
+			"utility.Algorithm",
+			"utility.InputValidator",
+			"utility.TxtParser",
+			"view.AdminView",
+			"view.AuthView",
+			"view.InventoryView"
+		]
+	}
+}

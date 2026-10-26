@@ -1,0 +1,10 @@
+Ayam,30,5.4
+Daging,20,7.0
+Ikan Jenahak,50,3.2
+Sawi,56,2.2
+Bayam,10,2.0
+Kangkung,6,2.1
+Cendawan,23,3.0
+Kambing,7,10.0
+Sagu,9,1.0
+Ikan Talapia,10,3.9

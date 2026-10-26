@@ -1,0 +1,3 @@
+W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir
+W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug/CMakeFiles/edit_cache.dir
+W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

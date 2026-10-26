@@ -1,0 +1,7 @@
+Student Name   Mark
+---------------------
+Adli           80
+Lai            90
+Farah          70
+
+Average mark: 80

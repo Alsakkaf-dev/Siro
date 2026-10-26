@@ -1,0 +1,26 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\view\\MainView.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\view\\MainView.cppm.obj.ddi",
+                "view.MainView.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "view.MainView",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\view\\mainview.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "view.AuthView"
+                }
+            ]
+        }
+    ]
+}

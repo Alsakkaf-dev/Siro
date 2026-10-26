@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\utility\\InputValidator.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\utility\\InputValidator.cppm.obj.ddi",
+                "utility.InputValidator.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "utility.InputValidator",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\utility\\inputvalidator.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+C:\CLion-2024.2.3.win\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/CLion-2024.2.3.win/bin/ninja/win/x64/ninja.exe -G Ninja -S "W:\GitHub\inventory-management-system\DSA Assignment 2" -B "W:\GitHub\inventory-management-system\DSA Assignment 2\cmake-build-debug"
+-- The C compiler identification is MSVC 19.50.35719.0
+-- The CXX compiler identification is MSVC 19.50.35719.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (1.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug

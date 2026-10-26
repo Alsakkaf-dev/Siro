@@ -1,0 +1,32 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\utility\\TxtUtils.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\utility\\TxtUtils.cppm.obj.ddi",
+                "utility.TxtParser.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "utility.TxtParser",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\utility\\txtutils.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "model.Stock"
+                },
+                {
+                    "logical-name": "model.User"
+                },
+                {
+                    "logical-name": "model.UserRole"
+                }
+            ]
+        }
+    ]
+}

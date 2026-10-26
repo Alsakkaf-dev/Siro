@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "W:/GitHub/inventory-management-system/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/embed.manifest"

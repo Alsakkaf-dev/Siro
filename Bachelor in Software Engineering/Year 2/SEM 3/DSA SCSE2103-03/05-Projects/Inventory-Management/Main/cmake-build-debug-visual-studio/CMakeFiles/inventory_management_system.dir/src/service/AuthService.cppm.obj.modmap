@@ -1,0 +1,7 @@
+-interface
+-ifcOutput CMakeFiles\inventory_management_system.dir\service.AuthService.ifc
+-reference repository.UserRepository=CMakeFiles\inventory_management_system.dir\repository.UserRepository.ifc
+-reference model.User=CMakeFiles\inventory_management_system.dir\model.User.ifc
+-reference model.UserRole=CMakeFiles\inventory_management_system.dir\model.UserRole.ifc
+-reference model.Stock=CMakeFiles\inventory_management_system.dir\model.Stock.ifc
+-reference utility.TxtParser=CMakeFiles\inventory_management_system.dir\utility.TxtParser.ifc

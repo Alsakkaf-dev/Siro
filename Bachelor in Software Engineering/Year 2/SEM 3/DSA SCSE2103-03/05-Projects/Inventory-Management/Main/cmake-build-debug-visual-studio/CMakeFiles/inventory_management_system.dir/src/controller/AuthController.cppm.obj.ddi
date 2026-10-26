@@ -1,0 +1,29 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\controller\\AuthController.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\controller\\AuthController.cppm.obj.ddi",
+                "controller.AuthController.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "controller.AuthController",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\controller\\authcontroller.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "model.UserRole"
+                },
+                {
+                    "logical-name": "service.AuthService"
+                }
+            ]
+        }
+    ]
+}

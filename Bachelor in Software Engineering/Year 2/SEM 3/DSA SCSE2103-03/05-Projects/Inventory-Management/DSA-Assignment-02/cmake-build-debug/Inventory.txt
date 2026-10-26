@@ -1,0 +1,10 @@
+Sagu,9,1
+Bayam,10,2
+Kangkung,6,2.1
+Sawi,56,2.2
+Cendawan,23,3
+Ikan Jenahak,50,3.2
+Ikan Talapia,10,3.9
+Ayam,31,5.4
+Daging,20,7
+Kambing,7,10

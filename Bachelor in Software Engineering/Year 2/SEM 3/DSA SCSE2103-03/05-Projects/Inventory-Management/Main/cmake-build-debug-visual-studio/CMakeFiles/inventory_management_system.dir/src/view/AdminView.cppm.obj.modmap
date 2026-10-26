@@ -1,0 +1,12 @@
+-interface
+-ifcOutput CMakeFiles\inventory_management_system.dir\view.AdminView.ifc
+-reference controller.AdminController=CMakeFiles\inventory_management_system.dir\controller.AdminController.ifc
+-reference utility.InputValidator=CMakeFiles\inventory_management_system.dir\utility.InputValidator.ifc
+-reference model.Stock=CMakeFiles\inventory_management_system.dir\model.Stock.ifc
+-reference utility.Algorithm=CMakeFiles\inventory_management_system.dir\utility.Algorithm.ifc
+-reference model.User=CMakeFiles\inventory_management_system.dir\model.User.ifc
+-reference model.UserRole=CMakeFiles\inventory_management_system.dir\model.UserRole.ifc
+-reference repository.InventoryRepository=CMakeFiles\inventory_management_system.dir\repository.InventoryRepository.ifc
+-reference service.AdminService=CMakeFiles\inventory_management_system.dir\service.AdminService.ifc
+-reference service.InventoryService=CMakeFiles\inventory_management_system.dir\service.InventoryService.ifc
+-reference utility.TxtParser=CMakeFiles\inventory_management_system.dir\utility.TxtParser.ifc

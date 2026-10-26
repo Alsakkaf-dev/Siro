@@ -1,0 +1,27 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "MSVC",
+	"compiler-id" : "MSVC",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"database-info" : null,
+	"dir-cur-bld" : "W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug",
+	"dir-cur-src" : "W:/GitHub/inventory-management-system/DSA Assignment 2",
+	"dir-top-bld" : "W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug",
+	"dir-top-src" : "W:/GitHub/inventory-management-system/DSA Assignment 2",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "W:/GitHub/inventory-management-system/DSA Assignment 2/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir",
+	"sources" : 
+	{
+		"CMakeFiles/DSA_Assignment_2.dir/main.cpp.obj" : 
+		{
+			"language" : "CXX",
+			"source" : "W:/GitHub/inventory-management-system/DSA Assignment 2/main.cpp"
+		}
+	}
+}

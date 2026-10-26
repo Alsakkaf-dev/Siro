@@ -1,0 +1,3 @@
+-interface
+-ifcOutput CMakeFiles\inventory_management_system.dir\model.User.ifc
+-reference model.UserRole=CMakeFiles\inventory_management_system.dir\model.UserRole.ifc

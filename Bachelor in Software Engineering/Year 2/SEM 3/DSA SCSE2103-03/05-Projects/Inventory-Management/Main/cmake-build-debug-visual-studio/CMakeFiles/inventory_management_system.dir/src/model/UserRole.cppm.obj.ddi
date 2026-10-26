@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\model\\UserRole.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\model\\UserRole.cppm.obj.ddi",
+                "model.UserRole.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "model.UserRole",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\model\\userrole.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

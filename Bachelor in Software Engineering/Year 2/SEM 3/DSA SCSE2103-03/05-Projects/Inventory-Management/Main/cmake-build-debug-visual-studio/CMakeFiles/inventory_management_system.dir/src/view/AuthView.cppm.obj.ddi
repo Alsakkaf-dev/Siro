@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "CMakeFiles\\inventory_management_system.dir\\src\\view\\AuthView.cppm.obj",
+            "outputs": [
+                "W:\\GitHub\\inventory-management-system\\cmake-build-debug-visual-studio\\vc140.pdb",
+                "CMakeFiles\\inventory_management_system.dir\\src\\view\\AuthView.cppm.obj.ddi",
+                "view.AuthView.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "view.AuthView",
+                    "source-path": "w:\\github\\inventory-management-system\\src\\view\\authview.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": [
+                {
+                    "logical-name": "model.User"
+                },
+                {
+                    "logical-name": "view.AdminView"
+                },
+                {
+                    "logical-name": "view.InventoryView"
+                },
+                {
+                    "logical-name": "controller.AuthController"
+                },
+                {
+                    "logical-name": "utility.InputValidator"
+                }
+            ]
+        }
+    ]
+}
