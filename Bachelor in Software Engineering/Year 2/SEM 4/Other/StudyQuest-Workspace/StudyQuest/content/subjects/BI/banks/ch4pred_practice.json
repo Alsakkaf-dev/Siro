@@ -1,0 +1,86 @@
+{
+  "bankId": "bi-ch4pred-practice",
+  "title": "Predictive workflow scenarios",
+  "questions": [
+    { "id": "bp-1", "type": "mcq", "source": "Challenge S2.1 — Field Summary anchors",
+      "prompt": "Field Summary outputs three anchors. Which mapping is correct?",
+      "options": [
+        "O = summary dataset for downstream · R = static written report · I = interactive profiling dashboard",
+        "O = chart · R = raw data · I = errors",
+        "All three are identical",
+        "O = output file · R = rerun · I = input"
+      ],
+      "answer": 0,
+      "explain": "**O** feeds further workflow (rows = fields, cols = stats), **R** = static report for documentation/Render, **I** = the interactive dashboard you Browse for EDA. The drill's reading: UnitPrice may have mild outliers." },
+    { "id": "bp-2", "type": "mcq", "source": "Challenge S2.2 — investigation battery",
+      "prompt": "Match: correlation between Age and MonthlyIncome → ? · counts per Gender → ? · Gender × Region joint counts → ?",
+      "options": [
+        "Association Analysis (Pearson) · Frequency Table · Contingency Table",
+        "Scatterplot · Histogram · Join",
+        "Plot of Means · Field Summary · Union",
+        "TS Plot · Lift Chart · Score"
+      ],
+      "answer": 0,
+      "explain": "**Association Analysis** = correlation matrix (tick a target for detail); **Frequency Table** = one categorical's counts; **Contingency Table** = two categoricals crossed; **Plot of Means** = averages of a measure per group; **Scatterplot** = two numerics." },
+    { "id": "bp-3", "type": "mcq", "source": "Challenge S2.3 — TS prerequisite",
+      "prompt": "Before TS Plot / ETS / ARIMA, the data must be:",
+      "options": [
+        "Aggregated to EXACTLY ONE observation per period (Summarize: GroupBy month, Sum measure)",
+        "Sorted by customer",
+        "Joined to demographics",
+        "Oversampled"
+      ],
+      "answer": 0,
+      "explain": "Time-series tools demand **one row per period** — hence Summarize (GroupBy OrderDate-by-month + Sum TotalSales). ETS and ARIMA are then both fed from that same stream, named models each." },
+    { "id": "bp-4", "type": "mcq", "source": "Challenge S2.4 — TS Compare",
+      "prompt": "TS Compare's two inputs are:",
+      "options": [
+        "L = the unioned model objects (ETS O + ARIMA O) · R = HOLDOUT data (most recent 10–20% of periods, withheld from training)",
+        "L = raw data · R = a chart",
+        "Both inputs are the full dataset",
+        "L = forecasts · R = residuals"
+      ],
+      "answer": 0,
+      "explain": "Models (via **Union**) into L; the **holdout** (last 10–20% of periods — slide-exact figure) into R. Metrics: **MAPE, RMSE, MAE, MASE — lower is better**. Winner's O → TS Forecast (95 + 80 intervals, 6 periods)." },
+    { "id": "bp-5", "type": "mcq", "source": "Challenge S2.5 — regression pipeline",
+      "prompt": "The standard supervised pipeline order is:",
+      "options": [
+        "Create Samples (70 E / 30 V) → model on E → (Stepwise refine) → Score with D = V data, M = model",
+        "Score → model → sample",
+        "Model on ALL data → evaluate on the same data",
+        "Union → Join → Browse"
+      ],
+      "answer": 0,
+      "explain": "**Estimation/Validation split first** (anchors E/V/H), train on E, refine with **Stepwise** (direction Both, fit measure **AICc** — 'recommended for small datasets', keep MINIMUM AIC), then **Score**: D input = V rows, M input = model O. R anchor shows coefficients/p-values/R²." },
+    { "id": "bp-6", "type": "mcq", "source": "Challenge S2.6 — imbalanced target",
+      "prompt": "Response = 1 is rare in the mailing data. Before logistic regression, the lab's fix is:",
+      "options": [
+        "Oversample Field — field Response, level 1, percentage ≈ 50",
+        "Delete the 0s",
+        "Double the dataset with Union",
+        "Lower α to 0.01"
+      ],
+      "answer": 0,
+      "explain": "**Oversample Field** rebalances the minority class for training. Note the original response rate FIRST (Frequency Table) — the Lift Chart later needs that **true response rate**; good lift = 'top 2 deciles capture most responders'." },
+    { "id": "bp-7", "type": "mcq", "source": "Challenge S2.7 — model tournament",
+      "prompt": "To rank Logistic/Decision Tree/Forest/Neural Net on validation data, you:",
+      "options": [
+        "Union the four model O anchors → Model Comparison (M = models, D = V rows) → read the E anchor's error table (Accuracy, AUC, F1)",
+        "Browse each model and eyeball",
+        "Score each separately and average",
+        "Pick the Forest always"
+      ],
+      "answer": 0,
+      "explain": "**Union models → Model Comparison**: E = error-measure scoreboard, P = actual-vs-predicted, R = diagnostic plots. Forest beats a single tree because bootstrapped trees + limited variables per split **reduce overfitting**." },
+    { "id": "bp-8", "type": "mcq", "source": "Challenge S2.8 — clustering",
+      "prompt": "Customer segmentation with UNKNOWN K: the correct tool order is:",
+      "options": [
+        "K-Centroids Diagnostics (test K range, z-score standardize) → K-Centroids Cluster Analysis (K from diagnostics) → Append Cluster → Summarize per cluster",
+        "Append Cluster first",
+        "Score → Lift Chart",
+        "Linear Regression with K predictors"
+      ],
+      "answer": 0,
+      "explain": "Unsupervised (no target given): **Diagnostics** picks K (adjusted-Rand/CH indices peak), **Cluster Analysis** builds the solution (z-score, K-Means), **Append Cluster** labels every record (no config needed — slide-verbatim), then Summarize Avg per cluster to NAME the segments ('young high-spenders'…). Exclude Customer_ID from the fields!" }
+  ]
+}

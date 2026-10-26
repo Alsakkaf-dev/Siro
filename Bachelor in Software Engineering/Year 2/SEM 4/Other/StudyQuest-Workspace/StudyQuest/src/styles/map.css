@@ -1,0 +1,176 @@
+/* ============================================================
+   StudyQuest — Map views (world / country / city)
+   ============================================================ */
+
+.map-stage {
+  position: relative; width: 100%; flex: 1; min-height: 0;
+  display: flex; flex-direction: column;
+}
+.map-svg-wrap {
+  flex: 1; display: flex; justify-content: center; align-items: flex-start;
+  overflow: auto; padding: 10px;
+}
+.map-svg { width: 100%; max-width: 1500px; height: auto; }
+
+/* ---------- World view: full-bleed game screen ---------- */
+/* The ocean fills the whole viewport and runs UNDER the glass topbar;
+   preserveAspectRatio="slice" keeps it covering at any window size. */
+.world-stage { position: fixed; inset: 0; overflow: hidden; z-index: 0; }
+.world-stage .world-fullbleed {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; max-width: none; display: block;
+}
+.world-overlay {
+  position: absolute; top: 86px; /* clears the sticky topbar */
+  left: 0; right: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  pointer-events: none; z-index: 2;
+}
+.world-overlay > * { pointer-events: auto; margin: 0; }
+
+/* ---------- World view ---------- */
+/* Hover must NEVER move geometry — a scale here makes the element escape the
+   cursor and re-enter it in a fast infinite flicker loop. Glow only. */
+.island-group { cursor: pointer; transition: filter .2s; }
+.island-group:hover { filter: brightness(1.07) drop-shadow(0 8px 16px rgba(15, 45, 90, 0.35)); }
+.island-label { font-family: var(--font-display); font-weight: 800; fill: #fff; text-anchor: middle; }
+.island-sub { font-family: var(--font-body); font-weight: 700; fill: rgba(255,255,255,.85); text-anchor: middle; }
+/* the active island BOTH floats and glows — must be one combined animation list,
+   because two classes each setting `animation` would cancel each other */
+.island-active-glow { animation: pulse-glow 1.6s ease-in-out infinite; }
+.anim-float.island-active-glow {
+  animation: islandFloat 7s ease-in-out infinite, pulse-glow 1.6s ease-in-out infinite;
+}
+/* THE LIT ISLAND LAW: the one focus island is always bright — day or night —
+   on its own inner layer so the outer pulse-glow animation can't override it. */
+.island-lit { filter: brightness(1.15) saturate(1.14); }
+
+.world-banner {
+  margin: 14px auto 0; max-width: 720px; text-align: center;
+  background: rgba(255,255,255,.92); border-radius: var(--r-big); padding: 12px 26px;
+  box-shadow: var(--shadow-soft);
+}
+.world-banner.glassy {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,.97), rgba(232,243,255,.88));
+  border: 2px solid rgba(255,255,255,.85);
+  box-shadow: 0 16px 42px rgba(8, 40, 90, .32), inset 0 2px 0 rgba(255,255,255,.95);
+}
+.world-banner.glassy::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 60px;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.65), transparent);
+  transform: skewX(-20deg) translateX(-120px);
+  animation: htmlSheen 7s ease-in-out infinite; pointer-events: none;
+}
+@keyframes htmlSheen {
+  0%   { transform: skewX(-20deg) translateX(-120px); }
+  22%  { transform: skewX(-20deg) translateX(820px); }
+  100% { transform: skewX(-20deg) translateX(820px); }
+}
+.world-banner h1 { font-size: 1.5rem; }
+.world-banner .muted { font-size: .85rem; }
+.world-banner.mock-week { background: linear-gradient(90deg, #fff3c4, #ffd9ec); }
+
+/* ---------- Calibrated quota strip (under the banner) ---------- */
+.quota-strip {
+  margin: 10px auto 0; max-width: 900px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 7px 12px;
+  background: linear-gradient(180deg, rgba(16,28,64,.80), rgba(16,28,64,.64));
+  border: 2px solid rgba(255,255,255,.35); border-radius: 999px;
+  padding: 8px 20px; box-shadow: 0 10px 26px rgba(8,40,90,.30), inset 0 1px 0 rgba(255,255,255,.25);
+  color: #fff; font-family: var(--font-body); font-size: .84rem;
+}
+.quota-strip .quota-label { font-family: var(--font-display); font-weight: 800; font-size: .92rem; }
+.quota-strip .quota-item {
+  background: rgba(255,255,255,.14); border-radius: 999px; padding: 3px 12px; font-weight: 700;
+}
+.rebalance-btn {
+  font-family: var(--font-display); font-weight: 800; font-size: .78rem;
+  color: #6b4d00; background: linear-gradient(180deg, #ffe06f, var(--gold));
+  border: none; border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  box-shadow: 0 3px 0 var(--gold-dark);
+  transition: filter .15s;
+}
+.rebalance-btn:hover { filter: brightness(1.1); }
+
+/* boxless halo chips: island pace + city due dates */
+.pace-chip { font-family: var(--font-display); font-weight: 800; text-anchor: middle; }
+.pace-chip.ok { fill: #7cffa8; }
+.pace-chip.behind { fill: #ff8fa6; }
+.city-due { font-family: var(--font-display); font-weight: 800; fill: #ffe9a8; text-anchor: middle; }
+
+/* ---------- Country / city path ---------- */
+.path-under { fill: none; stroke: rgba(43,35,80,.30); stroke-linecap: round; }
+.path-over { fill: none; stroke-linecap: round; }
+.path-dash { fill: none; stroke: rgba(255,255,255,.9); stroke-linecap: round; stroke-dasharray: 2 26; }
+
+.city-node, .station-node { cursor: pointer; transition: filter .15s; }
+.city-node:hover, .station-node:hover { filter: brightness(1.12) drop-shadow(0 5px 12px rgba(43, 35, 80, 0.4)); }
+.city-node.locked, .station-node.locked { cursor: not-allowed; filter: grayscale(.9) brightness(.85); }
+.city-node.locked:hover, .station-node.locked:hover { filter: grayscale(.9) brightness(.85); }
+
+.node-label {
+  font-family: var(--font-display); font-weight: 800; text-anchor: middle; fill: #fff;
+  paint-order: stroke; stroke: rgba(43,35,80,.55); stroke-width: 3px;
+}
+.node-title { font-family: var(--font-display); font-weight: 700; text-anchor: middle; fill: var(--ink); }
+.node-title-bg { fill: rgba(255,255,255,.9); rx: 10; }
+
+.avatar-pin { animation: bob 1s ease-in-out infinite; pointer-events: none; }
+
+.star { transition: transform .2s; }
+.star.earned { animation: pop .4s; }
+
+/* ---------- Country header card ---------- */
+.country-head {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  background: rgba(255,255,255,.94); border-radius: var(--r-big);
+  padding: 14px 22px; box-shadow: var(--shadow-soft); margin-bottom: 6px;
+}
+.country-head .flag { font-size: 2.6rem; }
+.country-head h1 { font-size: 1.45rem; line-height: 1.1; }
+.country-head .stats { display: flex; gap: 14px; margin-left: auto; flex-wrap: wrap; align-items: center; }
+.stat-pill {
+  display: flex; flex-direction: column; align-items: center; padding: 6px 16px;
+  background: linear-gradient(180deg, #fffdf6, #f4ead2);
+  border-radius: 16px; border: 2px solid rgba(43,35,80,.10);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.95), 0 3px 0 rgba(43,35,80,.10);
+}
+.stat-pill .v { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; }
+.stat-pill .k { font-size: .62rem; font-weight: 700; color: var(--ink-soft); letter-spacing: .08em; text-transform: uppercase; }
+.stat-pill.danger .v { color: var(--bad); }
+
+/* ---------- Countdown ---------- */
+.countdown { font-variant-numeric: tabular-nums; font-family: var(--font-display); font-weight: 800; }
+.countdown.urgent { color: var(--bad); animation: wiggle .6s infinite; display: inline-block; }
+
+/* ---------- Progress ring ---------- */
+.progress-ring-text { font-family: var(--font-display); font-weight: 800; text-anchor: middle; dominant-baseline: central; }
+
+/* ---------- City view mission list panel ---------- */
+.mission-detail-overlay {
+  position: fixed; inset: 0; z-index: 200; background: rgba(20, 25, 60, .55);
+  backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: stretch;
+  padding: clamp(0px, 2vw, 30px);
+}
+.mission-detail {
+  background: var(--paper); border-radius: var(--r-big); width: 100%; max-width: 1250px;
+  display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--shadow-soft);
+}
+.mission-detail-head {
+  display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+  border-bottom: 3px solid rgba(43,35,80,.08); flex-wrap: wrap;
+}
+.mission-detail-head h2 { font-size: 1.15rem; flex: 1; min-width: 200px; }
+.mission-detail-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: auto; }
+
+.goal-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.goal-chip {
+  display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 800;
+  padding: 5px 12px; border-radius: 999px; background: var(--paper-warm);
+  border: 2px solid rgba(43,35,80,.1); font-variant-numeric: tabular-nums;
+}
+.goal-chip.met { background: #d9f7e4; border-color: #3ecf6e; color: #1d7a3e; }
+
+/* ---------- Decorations ---------- */
+.deco { pointer-events: none; opacity: .9; }

@@ -1,0 +1,1544 @@
+{
+  "calibratedAt": "2026-06-12T13:18:16.304Z",
+  "from": "2026-06-12T13:18:15.785Z",
+  "subjects": {
+    "NC": {
+      "pace": 120,
+      "totalPages": 421,
+      "donePages": 0,
+      "remainingPages": 421,
+      "practiceGateMin": 123,
+      "budgetMin": 1400,
+      "bufferMin": 435,
+      "tight": false,
+      "sessions": [
+        {
+          "date": "2026-06-13",
+          "day": "Sat",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read1",
+              "title": "Data Plane slides — Part 1",
+              "fromPage": 1,
+              "toPage": 65,
+              "pages": 65
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-13",
+          "day": "Sat",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read1",
+              "title": "Data Plane slides — Part 1",
+              "fromPage": 66,
+              "toPage": 72,
+              "pages": 7
+            },
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read2",
+              "title": "Data Plane slides — Part 2",
+              "fromPage": 73,
+              "toPage": 130,
+              "pages": 58
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-17",
+          "day": "Wed",
+          "start": "07:00",
+          "end": "10:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read2",
+              "title": "Data Plane slides — Part 2",
+              "fromPage": 131,
+              "toPage": 144,
+              "pages": 14
+            },
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read3",
+              "title": "Control Plane — STEALTH MARKS (Dijkstra!)",
+              "fromPage": 1,
+              "toPage": 76,
+              "pages": 76
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-18",
+          "day": "Thu",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch4-read3",
+              "title": "Control Plane — STEALTH MARKS (Dijkstra!)",
+              "fromPage": 77,
+              "toPage": 80,
+              "pages": 4
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "nc-ch4-prac1",
+              "title": "Subnetting Reflex drills",
+              "minutes": 27
+            },
+            {
+              "type": "GATE",
+              "missionId": "nc-ch4-gate",
+              "title": "Network Layer Gate",
+              "minutes": 23
+            },
+            {
+              "type": "READ",
+              "missionId": "nc-ch5-read1",
+              "title": "Link Layer & LANs slides",
+              "fromPage": 1,
+              "toPage": 36,
+              "pages": 36
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-20",
+          "day": "Sat",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch5-read1",
+              "title": "Link Layer & LANs slides",
+              "fromPage": 37,
+              "toPage": 101,
+              "pages": 65
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-20",
+          "day": "Sat",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch5-read1",
+              "title": "Link Layer & LANs slides",
+              "fromPage": 102,
+              "toPage": 107,
+              "pages": 6
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "nc-ch5-prac1",
+              "title": "Link Layer drills (ARP · switch · CRC)",
+              "minutes": 15
+            },
+            {
+              "type": "GATE",
+              "missionId": "nc-ch5-gate",
+              "title": "Link Layer Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "nc-ch6-read1",
+              "title": "Wireless & Mobile slides",
+              "fromPage": 1,
+              "toPage": 41,
+              "pages": 41
+            }
+          ],
+          "bufferMin": 1
+        },
+        {
+          "date": "2026-06-24",
+          "day": "Wed",
+          "start": "07:00",
+          "end": "10:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "nc-ch6-read1",
+              "title": "Wireless & Mobile slides",
+              "fromPage": 42,
+              "toPage": 90,
+              "pages": 49
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "nc-ch6-prac1",
+              "title": "Wireless drills (802.11 · mobility · 3G)",
+              "minutes": 18
+            },
+            {
+              "type": "GATE",
+              "missionId": "nc-ch6-gate",
+              "title": "Wireless Gate — FINAL",
+              "minutes": 20
+            }
+          ],
+          "bufferMin": 44
+        },
+        {
+          "date": "2026-06-25",
+          "day": "Thu",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [],
+          "bufferMin": 130
+        },
+        {
+          "date": "2026-06-27",
+          "day": "Sat",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [],
+          "bufferMin": 130
+        },
+        {
+          "date": "2026-06-27",
+          "day": "Sat",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [],
+          "bufferMin": 130
+        }
+      ],
+      "cityDue": {
+        "nc-ch4": "2026-06-18",
+        "nc-ch5": "2026-06-20",
+        "nc-ch6": "2026-06-24"
+      },
+      "expected": [
+        {
+          "date": "2026-06-13",
+          "pages": 130
+        },
+        {
+          "date": "2026-06-17",
+          "pages": 220
+        },
+        {
+          "date": "2026-06-18",
+          "pages": 260
+        },
+        {
+          "date": "2026-06-20",
+          "pages": 372
+        },
+        {
+          "date": "2026-06-24",
+          "pages": 421
+        },
+        {
+          "date": "2026-06-25",
+          "pages": 421
+        },
+        {
+          "date": "2026-06-27",
+          "pages": 421
+        }
+      ]
+    },
+    "Cross": {
+      "pace": 120,
+      "totalPages": 209,
+      "donePages": 3,
+      "remainingPages": 206,
+      "practiceGateMin": 211,
+      "budgetMin": 1500,
+      "bufferMin": 878,
+      "tight": false,
+      "sessions": [
+        {
+          "date": "2026-06-13",
+          "day": "Sat",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch1-read1",
+              "title": "Introduction slides",
+              "fromPage": 4,
+              "toPage": 27,
+              "pages": 24
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch1-read2",
+              "title": "Web Architecture slides",
+              "fromPage": 1,
+              "toPage": 6,
+              "pages": 6
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-14",
+          "day": "Sun",
+          "start": "07:00",
+          "end": "10:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch1-read2",
+              "title": "Web Architecture slides",
+              "fromPage": 7,
+              "toPage": 18,
+              "pages": 12
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch1-prac1",
+              "title": "Broken Code: HTML · CSS · DOM",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch1-gate",
+              "title": "Foundations Gate",
+              "minutes": 20
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch45-prac1",
+              "title": "Broken Code: Fetch · AJAX · JSON",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch45-gate",
+              "title": "Fetch Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch6-read1",
+              "title": "Vue Basics slides",
+              "fromPage": 1,
+              "toPage": 21,
+              "pages": 21
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch6-prac1",
+              "title": "Broken Code: Vue reactivity",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch6-gate",
+              "title": "Vue Basics Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch7-read1",
+              "title": "Full Vue Apps slides",
+              "fromPage": 1,
+              "toPage": 9,
+              "pages": 9
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-14",
+          "day": "Sun",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch7-read1",
+              "title": "Full Vue Apps slides",
+              "fromPage": 10,
+              "toPage": 22,
+              "pages": 13
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch7-prac1",
+              "title": "Broken Code: components · router · Pinia",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch7-gate",
+              "title": "Vue Apps Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch89-read1",
+              "title": "Backend Development slides",
+              "fromPage": 1,
+              "toPage": 1,
+              "pages": 1
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-15",
+          "day": "Mon",
+          "start": "11:00",
+          "end": "12:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch89-read1",
+              "title": "Backend Development slides",
+              "fromPage": 2,
+              "toPage": 31,
+              "pages": 30
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-15",
+          "day": "Mon",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch89-read1",
+              "title": "Backend Development slides",
+              "fromPage": 32,
+              "toPage": 40,
+              "pages": 9
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch89-read2",
+              "title": "Ch9 slides (REST + Slim)",
+              "fromPage": 1,
+              "toPage": 21,
+              "pages": 21
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-16",
+          "day": "Tue",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch89-read2",
+              "title": "Ch9 slides (REST + Slim)",
+              "fromPage": 22,
+              "toPage": 26,
+              "pages": 5
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch89-prac1",
+              "title": "Broken Code: Express + Slim routes",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch89-gate",
+              "title": "Backend Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch10-read1",
+              "title": "Ch10 slides (MySQL integration)",
+              "fromPage": 1,
+              "toPage": 9,
+              "pages": 9
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-17",
+          "day": "Wed",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch10-read1",
+              "title": "Ch10 slides (MySQL integration)",
+              "fromPage": 10,
+              "toPage": 23,
+              "pages": 14
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch10-prac1",
+              "title": "Broken Code: schema · PDO · transactions",
+              "minutes": 9
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch10-gate",
+              "title": "MySQL Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch11-read1",
+              "title": "Ch11 slides (JWT)",
+              "fromPage": 1,
+              "toPage": 2,
+              "pages": 2
+            }
+          ],
+          "bufferMin": 1
+        },
+        {
+          "date": "2026-06-18",
+          "day": "Thu",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "cross-ch11-read1",
+              "title": "Ch11 slides (JWT)",
+              "fromPage": 3,
+              "toPage": 18,
+              "pages": 16
+            },
+            {
+              "type": "READ",
+              "missionId": "cross-ch11-read2",
+              "title": "Introduction to JWT",
+              "fromPage": 1,
+              "toPage": 14,
+              "pages": 14
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-20",
+          "day": "Sat",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [
+            {
+              "type": "PRACTICE",
+              "missionId": "cross-ch11-prac1",
+              "title": "Broken Code: hashing · JwtService · middleware",
+              "minutes": 9
+            },
+            {
+              "type": "GATE",
+              "missionId": "cross-ch11-gate",
+              "title": "JWT Gate — FINAL",
+              "minutes": 19
+            }
+          ],
+          "bufferMin": 33
+        },
+        {
+          "date": "2026-06-21",
+          "day": "Sun",
+          "start": "07:00",
+          "end": "10:00",
+          "minutes": 180,
+          "items": [],
+          "bufferMin": 180
+        },
+        {
+          "date": "2026-06-21",
+          "day": "Sun",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-22",
+          "day": "Mon",
+          "start": "11:00",
+          "end": "12:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-22",
+          "day": "Mon",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-23",
+          "day": "Tue",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-24",
+          "day": "Wed",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-25",
+          "day": "Thu",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-27",
+          "day": "Sat",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        },
+        {
+          "date": "2026-06-28",
+          "day": "Sun",
+          "start": "07:00",
+          "end": "10:00",
+          "minutes": 180,
+          "items": [],
+          "bufferMin": 180
+        },
+        {
+          "date": "2026-06-28",
+          "day": "Sun",
+          "start": "21:00",
+          "end": "22:00",
+          "minutes": 60,
+          "items": [],
+          "bufferMin": 60
+        }
+      ],
+      "cityDue": {
+        "cross-ch1-3": "2026-06-14",
+        "cross-ch4-5": "2026-06-14",
+        "cross-ch6": "2026-06-14",
+        "cross-ch7": "2026-06-14",
+        "cross-ch8-9": "2026-06-16",
+        "cross-ch10": "2026-06-17",
+        "cross-ch11": "2026-06-20"
+      },
+      "expected": [
+        {
+          "date": "2026-06-13",
+          "pages": 33
+        },
+        {
+          "date": "2026-06-14",
+          "pages": 89
+        },
+        {
+          "date": "2026-06-15",
+          "pages": 149
+        },
+        {
+          "date": "2026-06-16",
+          "pages": 163
+        },
+        {
+          "date": "2026-06-17",
+          "pages": 179
+        },
+        {
+          "date": "2026-06-18",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-20",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-21",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-22",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-23",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-24",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-25",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-27",
+          "pages": 209
+        },
+        {
+          "date": "2026-06-28",
+          "pages": 209
+        }
+      ]
+    },
+    "SDA": {
+      "pace": 120,
+      "totalPages": 252,
+      "donePages": 2,
+      "remainingPages": 250,
+      "practiceGateMin": 189,
+      "budgetMin": 1320,
+      "bufferMin": 631,
+      "tight": false,
+      "sessions": [
+        {
+          "date": "2026-06-13",
+          "day": "Sat",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "sda-ch12-read1",
+              "title": "Ch1 slides (new — S1)",
+              "fromPage": 3,
+              "toPage": 17,
+              "pages": 15
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch12-read2",
+              "title": "Ch2 slides (new — S2, UML)",
+              "fromPage": 1,
+              "toPage": 19,
+              "pages": 19
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch12-prac1",
+              "title": "Foundations drills",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch12-gate",
+              "title": "Foundations Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch34-read1",
+              "title": "Ch3 slides (new)",
+              "fromPage": 1,
+              "toPage": 12,
+              "pages": 12
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch34-read2",
+              "title": "Ch4 slides (new — styles)",
+              "fromPage": 1,
+              "toPage": 13,
+              "pages": 13
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch34-prac1",
+              "title": "Architecture drills",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch34-gate",
+              "title": "Architecture Gate",
+              "minutes": 20
+            }
+          ],
+          "bufferMin": 1
+        },
+        {
+          "date": "2026-06-14",
+          "day": "Sun",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "sda-ch5-read1",
+              "title": "Ch5 slides (new)",
+              "fromPage": 1,
+              "toPage": 13,
+              "pages": 13
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch5-read2",
+              "title": "Liskov Substitution deep-dive",
+              "fromPage": 1,
+              "toPage": 13,
+              "pages": 13
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch5-prac1",
+              "title": "SOLID violation drills",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch5-gate",
+              "title": "SOLID Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch6-read1",
+              "title": "Creational patterns — Session I",
+              "fromPage": 1,
+              "toPage": 30,
+              "pages": 30
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch6-read2",
+              "title": "Creational patterns — Session II + III",
+              "fromPage": 1,
+              "toPage": 18,
+              "pages": 18
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-16",
+          "day": "Tue",
+          "start": "11:00",
+          "end": "13:00",
+          "minutes": 120,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "sda-ch6-read2",
+              "title": "Creational patterns — Session II + III",
+              "fromPage": 19,
+              "toPage": 20,
+              "pages": 2
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch6-prac1",
+              "title": "Pattern recognition (creational)",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch6-gate",
+              "title": "Creational Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch7-read1",
+              "title": "Structural & behavioral — Session I",
+              "fromPage": 1,
+              "toPage": 18,
+              "pages": 18
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch7-read2",
+              "title": "Structural & behavioral — Session II",
+              "fromPage": 1,
+              "toPage": 24,
+              "pages": 24
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-20",
+          "day": "Sat",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "sda-ch7-read2",
+              "title": "Structural & behavioral — Session II",
+              "fromPage": 25,
+              "toPage": 29,
+              "pages": 5
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch7-prac1",
+              "title": "Pattern recognition + code (structural/behavioral)",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch7-gate",
+              "title": "Patterns Gate",
+              "minutes": 20
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch89-read1",
+              "title": "Construction design — Session I (modified)",
+              "fromPage": 1,
+              "toPage": 29,
+              "pages": 29
+            },
+            {
+              "type": "READ",
+              "missionId": "sda-ch89-read2",
+              "title": "Design management — Session II (EVM)",
+              "fromPage": 1,
+              "toPage": 39,
+              "pages": 39
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-21",
+          "day": "Sun",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [
+            {
+              "type": "PRACTICE",
+              "missionId": "sda-ch89-prac1",
+              "title": "Complexity + EVM drills",
+              "minutes": 14
+            },
+            {
+              "type": "GATE",
+              "missionId": "sda-ch89-gate",
+              "title": "Final Gate — Construction & Command",
+              "minutes": 20
+            }
+          ],
+          "bufferMin": 147
+        },
+        {
+          "date": "2026-06-23",
+          "day": "Tue",
+          "start": "11:00",
+          "end": "13:00",
+          "minutes": 120,
+          "items": [],
+          "bufferMin": 120
+        },
+        {
+          "date": "2026-06-27",
+          "day": "Sat",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [],
+          "bufferMin": 180
+        },
+        {
+          "date": "2026-06-28",
+          "day": "Sun",
+          "start": "10:00",
+          "end": "13:00",
+          "minutes": 180,
+          "items": [],
+          "bufferMin": 180
+        }
+      ],
+      "cityDue": {
+        "sda-ch1-2": "2026-06-13",
+        "sda-ch3-4": "2026-06-13",
+        "sda-ch5": "2026-06-14",
+        "sda-ch6": "2026-06-16",
+        "sda-ch7": "2026-06-20",
+        "sda-ch8-9": "2026-06-21"
+      },
+      "expected": [
+        {
+          "date": "2026-06-13",
+          "pages": 61
+        },
+        {
+          "date": "2026-06-14",
+          "pages": 135
+        },
+        {
+          "date": "2026-06-16",
+          "pages": 179
+        },
+        {
+          "date": "2026-06-20",
+          "pages": 252
+        },
+        {
+          "date": "2026-06-21",
+          "pages": 252
+        },
+        {
+          "date": "2026-06-23",
+          "pages": 252
+        },
+        {
+          "date": "2026-06-27",
+          "pages": 252
+        },
+        {
+          "date": "2026-06-28",
+          "pages": 252
+        }
+      ]
+    },
+    "PSDA": {
+      "pace": 120,
+      "totalPages": 376,
+      "donePages": 0,
+      "remainingPages": 376,
+      "practiceGateMin": 151,
+      "budgetMin": 1520,
+      "bufferMin": 617,
+      "tight": false,
+      "sessions": [
+        {
+          "date": "2026-06-14",
+          "day": "Sun",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch5a-read1",
+              "title": "Ch5 Part 1 — Point Estimate slides",
+              "fromPage": 1,
+              "toPage": 38,
+              "pages": 38
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch5a-read2",
+              "title": "Ch5 Part 2 — Hypothesis Testing (1 sample)",
+              "fromPage": 1,
+              "toPage": 27,
+              "pages": 27
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-14",
+          "day": "Sun",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch5a-read2",
+              "title": "Ch5 Part 2 — Hypothesis Testing (1 sample)",
+              "fromPage": 28,
+              "toPage": 67,
+              "pages": 40
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "psda-ch5a-prac1",
+              "title": "CI + one-sample drills (calculator out!)",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "psda-ch5a-gate",
+              "title": "One-Sample Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch5b-read1",
+              "title": "Ch5 Part 3 — Hypothesis Testing (2 samples)",
+              "fromPage": 1,
+              "toPage": 9,
+              "pages": 9
+            }
+          ],
+          "bufferMin": 2
+        },
+        {
+          "date": "2026-06-17",
+          "day": "Wed",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch5b-read1",
+              "title": "Ch5 Part 3 — Hypothesis Testing (2 samples)",
+              "fromPage": 10,
+              "toPage": 74,
+              "pages": 65
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-19",
+          "day": "Fri",
+          "start": "07:00",
+          "end": "11:00",
+          "minutes": 240,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch5b-read1",
+              "title": "Ch5 Part 3 — Hypothesis Testing (2 samples)",
+              "fromPage": 75,
+              "toPage": 84,
+              "pages": 10
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "psda-ch5b-prac1",
+              "title": "Two-sample drills (paired t = guaranteed marks)",
+              "minutes": 11
+            },
+            {
+              "type": "GATE",
+              "missionId": "psda-ch5b-gate",
+              "title": "Two-Sample Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch6-read1",
+              "title": "Ch6 — Chi-Square & Contingency slides",
+              "fromPage": 1,
+              "toPage": 69,
+              "pages": 69
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "psda-ch6-prac1",
+              "title": "GOF + independence drills",
+              "minutes": 12
+            },
+            {
+              "type": "GATE",
+              "missionId": "psda-ch6-gate",
+              "title": "Chi-Square Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch7-read1",
+              "title": "Ch7 Part 1 — Correlation slides",
+              "fromPage": 1,
+              "toPage": 11,
+              "pages": 11
+            }
+          ],
+          "bufferMin": 1
+        },
+        {
+          "date": "2026-06-21",
+          "day": "Sun",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch7-read1",
+              "title": "Ch7 Part 1 — Correlation slides",
+              "fromPage": 12,
+              "toPage": 46,
+              "pages": 35
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch7-read2",
+              "title": "Ch7 Part 2 — Linear Regression slides",
+              "fromPage": 1,
+              "toPage": 30,
+              "pages": 30
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-21",
+          "day": "Sun",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "psda-ch7-read2",
+              "title": "Ch7 Part 2 — Linear Regression slides",
+              "fromPage": 31,
+              "toPage": 50,
+              "pages": 20
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "psda-ch7-prac1",
+              "title": "Correlation + regression drills",
+              "minutes": 14
+            },
+            {
+              "type": "GATE",
+              "missionId": "psda-ch7-gate",
+              "title": "Regression Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "psda-ch8-read1",
+              "title": "Ch8 — ANOVA slides",
+              "fromPage": 1,
+              "toPage": 22,
+              "pages": 22
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "psda-ch8-prac1",
+              "title": "ANOVA drills",
+              "minutes": 11
+            }
+          ],
+          "bufferMin": 4
+        },
+        {
+          "date": "2026-06-24",
+          "day": "Wed",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "GATE",
+              "missionId": "psda-ch8-gate",
+              "title": "ANOVA Gate — FINAL",
+              "minutes": 19
+            }
+          ],
+          "bufferMin": 112
+        },
+        {
+          "date": "2026-06-26",
+          "day": "Fri",
+          "start": "07:00",
+          "end": "11:00",
+          "minutes": 240,
+          "items": [],
+          "bufferMin": 240
+        },
+        {
+          "date": "2026-06-28",
+          "day": "Sun",
+          "start": "14:00",
+          "end": "16:10",
+          "minutes": 130,
+          "items": [],
+          "bufferMin": 130
+        },
+        {
+          "date": "2026-06-28",
+          "day": "Sun",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [],
+          "bufferMin": 130
+        }
+      ],
+      "cityDue": {
+        "psda-ch5a": "2026-06-14",
+        "psda-ch5b": "2026-06-19",
+        "psda-ch6": "2026-06-19",
+        "psda-ch7": "2026-06-21",
+        "psda-ch8": "2026-06-24"
+      },
+      "expected": [
+        {
+          "date": "2026-06-14",
+          "pages": 114
+        },
+        {
+          "date": "2026-06-17",
+          "pages": 179
+        },
+        {
+          "date": "2026-06-19",
+          "pages": 269
+        },
+        {
+          "date": "2026-06-21",
+          "pages": 376
+        },
+        {
+          "date": "2026-06-24",
+          "pages": 376
+        },
+        {
+          "date": "2026-06-26",
+          "pages": 376
+        },
+        {
+          "date": "2026-06-28",
+          "pages": 376
+        }
+      ]
+    },
+    "BI": {
+      "pace": 120,
+      "totalPages": 338,
+      "donePages": 1,
+      "remainingPages": 337,
+      "practiceGateMin": 115,
+      "budgetMin": 980,
+      "bufferMin": 192,
+      "tight": false,
+      "sessions": [
+        {
+          "date": "2026-06-16",
+          "day": "Tue",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "bi-ch13-read1",
+              "title": "Ch1 — BI Introduction",
+              "fromPage": 2,
+              "toPage": 32,
+              "pages": 31
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch13-read2",
+              "title": "Ch2 — BI Architecture Components",
+              "fromPage": 1,
+              "toPage": 34,
+              "pages": 34
+            }
+          ],
+          "bufferMin": 0
+        },
+        {
+          "date": "2026-06-18",
+          "day": "Thu",
+          "start": "07:00",
+          "end": "13:00",
+          "minutes": 360,
+          "items": [
+            {
+              "type": "READ",
+              "missionId": "bi-ch13-read2",
+              "title": "Ch2 — BI Architecture Components",
+              "fromPage": 35,
+              "toPage": 91,
+              "pages": 57
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch13-read3",
+              "title": "Ch3 — BI Front-End",
+              "fromPage": 1,
+              "toPage": 34,
+              "pages": 34
+            },
+            {
+              "type": "GATE",
+              "missionId": "bi-ch13-gate",
+              "title": "Foundations Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch4e-read1",
+              "title": "Ch4.1 — Data Preprocessing",
+              "fromPage": 1,
+              "toPage": 23,
+              "pages": 23
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch4e-read2",
+              "title": "Ch4.2 — ETL in Alteryx (Lab 1)",
+              "fromPage": 1,
+              "toPage": 47,
+              "pages": 47
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "bi-ch4e-prac1",
+              "title": "ETL workflow scenarios (do them in Alteryx too!)",
+              "minutes": 14
+            }
+          ],
+          "bufferMin": 6
+        },
+        {
+          "date": "2026-06-23",
+          "day": "Tue",
+          "start": "17:00",
+          "end": "19:10",
+          "minutes": 130,
+          "items": [
+            {
+              "type": "GATE",
+              "missionId": "bi-ch4e-gate",
+              "title": "ETL Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch4p-read1",
+              "title": "Ch4.3 — Investigation & Predictive (Labs 2–3)",
+              "fromPage": 1,
+              "toPage": 48,
+              "pages": 48
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "bi-ch4p-prac1",
+              "title": "Predictive workflow scenarios",
+              "minutes": 12
+            }
+          ],
+          "bufferMin": 4
+        },
+        {
+          "date": "2026-06-25",
+          "day": "Thu",
+          "start": "07:00",
+          "end": "13:00",
+          "minutes": 360,
+          "items": [
+            {
+              "type": "GATE",
+              "missionId": "bi-ch4p-gate",
+              "title": "Predictive Gate",
+              "minutes": 19
+            },
+            {
+              "type": "READ",
+              "missionId": "bi-ch5-read1",
+              "title": "Ch5 — DataViz in Tableau (Lab 5)",
+              "fromPage": 1,
+              "toPage": 63,
+              "pages": 63
+            },
+            {
+              "type": "PRACTICE",
+              "missionId": "bi-ch5-prac1",
+              "title": "Tableau build scenarios",
+              "minutes": 15
+            },
+            {
+              "type": "GATE",
+              "missionId": "bi-ch5-gate",
+              "title": "Tableau Gate — FINAL",
+              "minutes": 19
+            }
+          ],
+          "bufferMin": 182
+        }
+      ],
+      "cityDue": {
+        "bi-ch1-3": "2026-06-18",
+        "bi-ch4etl": "2026-06-23",
+        "bi-ch4pred": "2026-06-25",
+        "bi-ch5": "2026-06-25"
+      },
+      "expected": [
+        {
+          "date": "2026-06-16",
+          "pages": 66
+        },
+        {
+          "date": "2026-06-18",
+          "pages": 227
+        },
+        {
+          "date": "2026-06-23",
+          "pages": 275
+        },
+        {
+          "date": "2026-06-25",
+          "pages": 338
+        }
+      ]
+    }
+  }
+}

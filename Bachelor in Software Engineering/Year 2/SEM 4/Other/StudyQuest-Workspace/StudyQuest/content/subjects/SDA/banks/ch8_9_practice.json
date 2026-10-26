@@ -1,0 +1,76 @@
+{
+  "bankId": "sda-ch8-9-practice",
+  "title": "Complexity + EVM drills",
+  "questions": [
+    { "id": "s89p-1", "type": "mcq", "source": "Drill CH8-9 Q1",
+      "prompt": "Construction design is best described as:",
+      "options": [
+        "The LOWEST level of detailed design — modelling/specifying function implementations (IEEE 'algorithmic viewpoint')",
+        "The architecture of the build server",
+        "Writing user manuals",
+        "Database schema design"
+      ],
+      "answer": 0,
+      "explain": "Construction design = algorithm analysis & design at function level — the lowest rung of detailed design (IEEE algorithmic viewpoint)." },
+    { "id": "s89p-2", "type": "mcq", "source": "Drill CH8-9 Q2",
+      "prompt": "Match the notation to its best-fit situation: dense cause-effect conditionals where nesting would be error-prone →",
+      "options": [
+        "Table-based (decision tables)",
+        "Flow-based (flowcharts/activity diagrams)",
+        "State-based (state diagrams)",
+        "Class-based (class diagrams)"
+      ],
+      "answer": 0,
+      "explain": "**Flow-based** = sequential process with branches/loops (order processing). **State-based** = behavior dictated by modes (ATM session). **Table-based** = many combined conditions → actions (discount/eligibility rules) — tables beat error-prone nested ifs." },
+    { "id": "s89p-3", "type": "numeric", "source": "Drill CH8-9 Q3 — count it yourself",
+      "prompt": "Count cyclomatic complexity C = π + 1 for a routine containing:\n- `if (age > 60 && member)` (compound!)\n- one `for` loop\n- one `while` loop\n- a `switch` with 4 branches\n- one more simple `if`\n\nC = ?",
+      "answer": 9,
+      "tolerance": 0,
+      "explain": "π: compound if = **2** (each && / || condition counts) + for **1** + while **1** + switch 4 branches = n−1 = **3** + if **1** → π = 8 → **C = 9**. Threshold judgment: 9 ≤ 10 (McCabe) — acceptable but close; consider table-driven simplification of the switch." },
+    { "id": "s89p-4", "type": "numeric", "source": "Drill CH8-9 Q4(a)",
+      "prompt": "A control-flow graph has e = 12 edges, n = 9 nodes, p = 1 connected component. V(G) = e − n + 2p = ?",
+      "answer": 5,
+      "tolerance": 0,
+      "explain": "V(G) = 12 − 9 + 2(1) = **5**. Cross-check via regions: C = r + 1 → 4 enclosed regions. Meaning: **5 linearly independent paths = the MINIMUM number of test cases** for path coverage — complexity quantifies TESTABILITY." },
+    { "id": "s89p-5", "type": "mcq", "source": "Drill CH8-9 Q5 — LEDT",
+      "prompt": "A decision table with n Boolean conditions has how many elementary policies (columns), and what does the drill's discount table give a member with RM80 purchase?",
+      "options": [
+        "2^n policies; member + ≤RM100 → 10% discount",
+        "n² policies; member + ≤RM100 → 20%",
+        "n+1 policies; 5%",
+        "2n policies; no discount"
+      ],
+      "answer": 0,
+      "explain": "LEDT rule: **2^n** (2 conditions → 4 policies). Table: member+>100 → 20%; **member+≤100 → 10%**; non-member+>100 → 5%; neither → none. Table-driven code: `rate[(isMember?2:0)+(total>100?1:0)]` — lower complexity than nested ifs." },
+    { "id": "s89p-6", "type": "mcq", "source": "Drill CH8-9 Q6",
+      "prompt": "The FOUR components of design management are:",
+      "options": [
+        "Planning (WBS/budget/schedule) · Execution (monitoring & controlling, EVM) · Termination (transition, archive, report) · Leadership & Ethics",
+        "Coding · Testing · Deployment · Marketing",
+        "Analysis · Design · Implementation · Maintenance",
+        "Scrum · Kanban · XP · Waterfall"
+      ],
+      "answer": 0,
+      "explain": "**Planning** (scoping: WBS + budgeting; organizing: LRC, Gantt) → **Execution** (most effort; monitor vs plan via Gantt + EVM) → **Termination** (store docs per config management, update values, report up) — all under **Leadership & Ethics**." },
+    { "id": "s89p-7", "type": "numeric", "source": "Drill CH8-9 Q7 — EVM (the recycled computation)",
+      "prompt": "8 equal tasks, BAC = RM16,000 (RM2,000/task, 1 task/month). After 4 months: 2 tasks done, AC = RM6,000.\n\nCompute **SV = EV − PV** (in RM, negative allowed).",
+      "answer": -4000,
+      "tolerance": 0,
+      "explain": "EV = 2/8 × 16,000 = **4,000**. PV (4 months planned = 4 tasks) = **8,000**. **SV = 4,000 − 8,000 = −4,000** → behind schedule. (CV = EV−AC = −2,000 → over budget.)" },
+    { "id": "s89p-8", "type": "numeric", "source": "Drill CH8-9 Q7 — EVM continued",
+      "prompt": "Same project (EV = 4,000, AC = 6,000, BAC = 16,000). Compute **EAC = AC + (BAC − EV)/CPI** in RM.",
+      "answer": 24000,
+      "tolerance": 100,
+      "explain": "CPI = EV/AC = 4,000/6,000 = **0.667**. EAC = 6,000 + 12,000/0.667 = 6,000 + 18,000 = **RM24,000** (≡ BAC/CPI). Interpretation: SPI 0.5 = half planned pace; CPI 0.667 = RM0.67 value per ringgit; projected RM8,000 over budget → trigger mitigation (re-scope/re-staff/re-baseline) NOW." },
+    { "id": "s89p-9", "type": "mcq", "source": "Drill CH8-9 Q8",
+      "prompt": "WBS evaluation criteria + why comments must record the WHY:",
+      "options": [
+        "Scope accuracy (tasks only), completeness, level of detail · good naming self-documents WHAT, but the RATIONALE can't be inferred from syntax",
+        "Font size, color, length · comments repeat the code for emphasis",
+        "Duration estimates inside the WBS · comments list authors",
+        "Alphabetical task order · comments explain syntax"
+      ],
+      "answer": 0,
+      "explain": "WBS = hierarchical breakdown (SOW → tasks → subtasks → work packages); judge **scope accuracy** (no durations/precedence inside), **completeness**, **level of detail**. Comments: code shows WHAT; only comments preserve **WHY** (rationale, rejected alternatives). Power taxonomy bonus: position power (reward, coercive) vs personal power (expert, connection)." }
+  ]
+}

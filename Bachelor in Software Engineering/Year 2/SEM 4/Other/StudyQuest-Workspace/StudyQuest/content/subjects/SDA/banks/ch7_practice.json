@@ -1,0 +1,66 @@
+{
+  "bankId": "sda-ch7-practice",
+  "title": "Pattern recognition — structural & behavioral",
+  "questions": [
+    { "id": "s7p-1", "type": "mcq", "source": "Drill CH6-7 Q6",
+      "prompt": "A legacy `BillingApi.GetRowsAsXml()` must satisfy the new `IDataSource.FetchRecords()` — neither side may be modified. Pattern?",
+      "options": ["Adapter", "Facade", "Composite", "Observer"],
+      "answer": 0,
+      "explain": "**Adapter** signal: INCOMPATIBLE INTERFACES, neither modifiable — the adapter realizes the Target interface and WRAPS the Adaptee, converting calls. (Facade would simplify, not convert.)" },
+    { "id": "s7p-2", "type": "mcq", "source": "Drill CH6-7 Q7",
+      "prompt": "Folders contain files AND folders; `GetSize()` must work identically on a single file or a whole tree. Pattern?",
+      "options": ["Composite", "Adapter", "Builder", "Singleton"],
+      "answer": 0,
+      "explain": "**Composite** signal: PART-WHOLE TREE + UNIFORM treatment of leaf and group. The heart of the code: the composite's operation loops `foreach (child) child.SameOperation()`." },
+    { "id": "s7p-3", "type": "mcq", "source": "Drill CH6-7 Q8",
+      "prompt": "`LeaveHomeMode()` is one simple call that internally coordinates lights, thermostat, locks and camera APIs. Pattern?",
+      "options": ["Facade", "Adapter", "Abstract Factory", "Prototype"],
+      "answer": 0,
+      "explain": "**Facade** signal: ONE SIMPLIFIED ENTRY POINT over a COMPLEX SUBSYSTEM. No interface mismatch (that's Adapter) — just complexity reduction." },
+    { "id": "s7p-4", "type": "mcq", "source": "Drill CH6-7 Q9",
+      "prompt": "When a stock price changes, ALL registered dashboards update automatically; the price object doesn't know the concrete dashboards. Pattern?",
+      "options": ["Observer", "Facade", "Composite", "Iterator"],
+      "answer": 0,
+      "explain": "**Observer** signal: ONE-TO-MANY automatic notification on state change. Mechanics: Subject keeps a list of IObserver, **Attach/Detach/Notify**; Notify fires inside the state setter and calls every observer's **Update**." },
+    { "id": "s7p-5", "type": "order", "source": "Drill CH6-7 Q11 — Observer code",
+      "prompt": "Order the Observer subject's flow when its state changes:",
+      "items": [
+        "set { if (_state != value) { _state = value;",
+        "Notify();",
+        "foreach (IObserver o in _observers) o.Update(this);",
+        "} } // observers re-read state via Update"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Notify lives **in the Subject** and fires inside the setter only when state ACTUALLY changes; it loops the observer list calling the contract method **Update**. (Drill Q11's exact missing lines.)" },
+    { "id": "s7p-6", "type": "mcq", "source": "Drill CH6-7 Q12 — Composite code",
+      "prompt": "In Composite, the composite class's `ReadData()` contains `foreach (var s in _sensors) s.ReadData();` while the leaf's just reads its own value. Why is the foreach 'the heart' of the pattern?",
+      "options": [
+        "The composite delegates the SAME operation recursively to every child — uniformity is what lets clients ignore leaf vs group",
+        "It is faster than a for loop",
+        "It prevents null children",
+        "It sorts the children"
+      ],
+      "answer": 0,
+      "explain": "Uniform recursion = the whole point: clients call ReadData() on ANY node; trees of any depth respond correctly. Leaf methods that can't apply (AddSensor on a leaf) throw NotImplementedException in the drill's variant." },
+    { "id": "s7p-7", "type": "mcq", "source": "Drill CH6-7 Q14 — combined scenario",
+      "prompt": "Flight status boards, mobile apps and gate displays all update THE MOMENT a flight changes; one display is a vendor panel exposing only `PushText(string)`. Which TWO patterns?",
+      "options": [
+        "Observer (one-to-many updates) + Adapter (VendorXAdapter realizes IDisplay and wraps PushText)",
+        "Facade + Singleton",
+        "Composite + Builder",
+        "Observer + Facade"
+      ],
+      "answer": 0,
+      "explain": "'ALL update the moment it changes' = **Observer** (FlightStatus = Subject; displays = observers behind IDisplay). The vendor panel's incompatible `PushText(string)` needs an **Adapter** that implements `IDisplay.Render(FlightInfo)` and converts: `_panel.PushText(Format(info))`." },
+    { "id": "s7p-8", "type": "mcq", "source": "Gate-prep — Adapter vs Facade reflex",
+      "prompt": "Adapter vs Facade — the one-line distinction:",
+      "options": [
+        "Adapter CONVERTS an incompatible interface; Facade SIMPLIFIES a complex but compatible subsystem",
+        "Adapter is for UIs, Facade for databases",
+        "Facade converts types, Adapter hides complexity",
+        "They are interchangeable"
+      ],
+      "answer": 0,
+      "explain": "Ask: is there an interface MISMATCH (→ Adapter) or just TOO MANY calls to make (→ Facade)? Exam questions hinge on this exact distinction." }
+  ]
+}

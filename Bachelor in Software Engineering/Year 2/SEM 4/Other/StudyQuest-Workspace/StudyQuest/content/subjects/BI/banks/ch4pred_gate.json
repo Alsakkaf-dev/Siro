@@ -1,0 +1,80 @@
+{
+  "bankId": "bi-ch4pred-gate",
+  "title": "Predictive Gate",
+  "questions": [
+    { "id": "bpg-1", "type": "mcq", "source": "Gate — supervised vs unsupervised",
+      "prompt": "Regression/classification vs clustering — the defining difference:",
+      "options": [
+        "Supervised learns from a known TARGET field; clustering has no target — it groups by similarity",
+        "Clustering needs more data",
+        "Supervised has no predictors",
+        "They are the same"
+      ],
+      "answer": 0,
+      "explain": "Slide-verbatim for clustering: 'you do not provide the target groups'. Regression (numeric target), classification (categorical target) = supervised; K-Centroids = unsupervised." },
+    { "id": "bpg-2", "type": "mcq", "source": "Gate — Create Samples",
+      "prompt": "Create Samples set to 70/30 on 1000 records yields:",
+      "options": [
+        "≈700 rows on E (estimation/training) and ≈300 on V (validation); H = holdout if configured",
+        "700 columns and 300 rows",
+        "Two identical copies",
+        "70 clusters"
+      ],
+      "answer": 0,
+      "explain": "**E = train, V = validate** — the model never sees V during training, making V the honest test. Score's D input takes V; Model Comparison's D input takes V." },
+    { "id": "bpg-3", "type": "mcq", "source": "Gate — Score tool wiring",
+      "prompt": "The Score tool's two inputs are:",
+      "options": [
+        "D = the data to predict on (e.g., the V anchor) · M = the model object (the model's O anchor)",
+        "D = the model · M = the data",
+        "Both take models",
+        "It has one input"
+      ],
+      "answer": 0,
+      "explain": "**D** = data, **M** = model. Output adds the prediction column(s) (Score_0/Score_1 for classification, or the named field for regression) beside the actuals." },
+    { "id": "bpg-4", "type": "mcq", "source": "Gate — Stepwise rule",
+      "prompt": "Stepwise's selection rule and recommended fit measure (small datasets) are:",
+      "options": [
+        "Keep the model with MINIMUM AIC/AICc · fit measure AICc, search direction Both",
+        "Maximum AIC · R² only",
+        "Most predictors wins",
+        "Random selection"
+      ],
+      "answer": 0,
+      "explain": "Inputs = Linear Regression **O** + the SAME **E** data; **direction Both**, **AICc** ('recommended for small datasets'); **minimum AIC/AICc wins** — a trimmed predictor list comes out." },
+    { "id": "bpg-5", "type": "mcq", "source": "Gate — lift chart reading",
+      "prompt": "A GOOD lift chart for a mailing model shows:",
+      "options": [
+        "The cumulative-response curve rising far ABOVE the diagonal early — e.g., 'top 20% of scored customers capture most responders'",
+        "A flat line on the diagonal",
+        "A curve below the diagonal",
+        "No curve at all"
+      ],
+      "answer": 0,
+      "explain": "Diagonal = random mailing. The exam sentence: 'Mailing the top X% scored customers captures ~Y% of all responders — Z× better than random.' Configure with the **true (original) response rate** from the Data Investigation step; if the tool wants a bottom input, feed the Quantiles dummy CSV." },
+    { "id": "bpg-6", "type": "mcq", "source": "Gate — metric vocabulary",
+      "prompt": "Classification models are compared on ______; time-series models on ______:",
+      "options": [
+        "Accuracy / AUC / F1 (confusion-matrix family) · MAPE / RMSE / MAE / MASE (lower = better)",
+        "R² · p-values",
+        "Lift · clusters",
+        "AIC · K"
+      ],
+      "answer": 0,
+      "explain": "Model Comparison's E table reports the confusion-matrix family; TS Compare reports the error measures — **lower is better** for all of MAPE/RMSE/MAE/MASE; quote MAPE + RMSE (the lab names these two)." },
+    { "id": "bpg-7", "type": "mcq", "source": "Gate — why Forest wins",
+      "prompt": "Why does a Forest Model usually beat a single Decision Tree?",
+      "options": [
+        "Aggregating many bootstrapped trees with limited variables per split REDUCES OVERFITTING",
+        "It runs faster",
+        "It needs no data",
+        "Trees are deprecated"
+      ],
+      "answer": 0,
+      "explain": "The lab's phrase: bagging + random feature selection → variance reduction → **less overfitting**, better validation accuracy. (Iris encore: 3-class target → Naive Bayes/DT/Forest/NN, highest accuracy wins.)" },
+    { "id": "bpg-8", "type": "numeric", "source": "Gate — holdout sizing",
+      "prompt": "A monthly series has 60 periods. Using the slide's 10–20% holdout rule, what is the MAXIMUM number of holdout months?",
+      "answer": 12, "tolerance": 0,
+      "explain": "20% of 60 = **12 months** (10% would be 6). Models train on the first 48–54; TS Compare grades them on the withheld recent months." }
+  ]
+}

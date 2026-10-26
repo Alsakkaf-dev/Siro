@@ -1,0 +1,86 @@
+{
+  "bankId": "cross-ch1-3-gate",
+  "title": "Foundations Gate",
+  "questions": [
+    { "id": "c13g-1", "type": "mcq", "source": "MCQ Bank Q1 (Ch1)",
+      "prompt": "Cross-platform application development refers to the ability to:",
+      "options": [
+        "Develop an application once and run it on multiple operating systems or devices with minimal modification",
+        "Compile separate codebases per operating system",
+        "Run applications only inside the Java Virtual Machine",
+        "Convert desktop apps into mobile apps automatically"
+      ],
+      "answer": 0,
+      "explain": "The slides' definition verbatim: **develop once, run on multiple OS/devices with minimal modification**." },
+    { "id": "c13g-2", "type": "mcq", "source": "MCQ Bank Q2 (Ch1)",
+      "prompt": "In the Java approach, source code is compiled into ______ which runs on the ______.",
+      "options": ["bytecode / Java Virtual Machine", "machine code / operating system", "WebAssembly / browser", "scripts / interpreter"],
+      "answer": 0,
+      "explain": "Java: source → compiler → **bytecode** → **JVM** → OS. \"Write Once, Run Anywhere\"." },
+    { "id": "c13g-3", "type": "mcq", "source": "MCQ Bank Q3 (Ch1)",
+      "prompt": "Which statement correctly contrasts MPA and SPA?",
+      "options": [
+        "MPA reloads the entire page per action; SPA loads once and updates sections via JS, with the backend returning JSON",
+        "MPA updates parts of the page; SPA reloads the entire page",
+        "MPA is client-centric; SPA is server-centric",
+        "MPA requires WebSockets; SPA requires CGI"
+      ],
+      "answer": 0,
+      "explain": "MPA = server-centric full reloads; **SPA = one load, JS updates sections, backend provides JSON via API**." },
+    { "id": "c13g-4", "type": "mcq", "source": "MCQ Bank Q4–5 (Ch1)",
+      "prompt": "In a hybrid mobile app, the SPA runs inside a ______, and wrappers like Cordova/Capacitor/Ionic provide ______.",
+      "options": [
+        "WebView container / a web-to-native bridge, plugin management and cross-platform packaging",
+        "JVM / bytecode compilation",
+        "Docker container / orchestration",
+        "Browser extension / CSS preprocessing"
+      ],
+      "answer": 0,
+      "explain": "Hybrid = SPA (HTML/CSS/JS) loaded by a **WebView** inside a native container. Wrapper roles: **web-to-native bridge, WebView container, plugin management, packaging** — they complement (not replace) Android Studio/Xcode." },
+    { "id": "c13g-5", "type": "mcq", "source": "MCQ Bank Q6 (Ch2–3)",
+      "prompt": "Which browser → rendering engine pairing is correct?",
+      "options": ["Firefox → Gecko", "Chrome → WebKit", "Safari → Blink", "Edge → Trident"],
+      "answer": 0,
+      "explain": "**Gecko = Firefox.** Chrome/Edge = Blink; Safari = WebKit; Trident = old IE." },
+    { "id": "c13g-6", "type": "mcq", "source": "MCQ Bank Q7 (Ch2–3)",
+      "prompt": "In an accessible HTML table, `scope=\"col\"` on a `<th>` means:",
+      "options": [
+        "The header applies to all cells below it in that column",
+        "The header applies to all cells to its right",
+        "The cell spans multiple columns",
+        "The column is sortable"
+      ],
+      "answer": 0,
+      "explain": "`scope=\"col\"` governs the cells **below**; `scope=\"row\"` governs cells to the **right**." },
+    { "id": "c13g-7", "type": "mcq", "source": "MCQ Bank Q8 (Ch2–3)",
+      "prompt": "Which CSS line makes padding and border count INSIDE an element's declared width?",
+      "options": ["`box-sizing: border-box;`", "`margin: auto;`", "`display: block;`", "`overflow: hidden;`"],
+      "answer": 0,
+      "explain": "`box-sizing: border-box` makes padding+border part of the declared width — the lab's reset, predictable boxes." },
+    { "id": "c13g-8", "type": "mcq", "source": "MCQ Bank Q9 (Ch2–3)",
+      "prompt": "`grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));` causes:",
+      "options": [
+        "Cards of at least 260px that fill the row and wrap automatically, with empty tracks collapsing",
+        "Exactly 260 columns",
+        "A single column at all widths",
+        "Horizontal scrolling beyond 260px"
+      ],
+      "answer": 0,
+      "explain": "**auto-fit + minmax = responsive card grid**; empty tracks collapse so cards stretch. The lab's signature line." },
+    { "id": "c13g-9", "type": "mcq", "source": "MCQ Bank Q10 (Ch2–3)",
+      "prompt": "In the Quick Notes lab, why must `addEventListener` calls NOT be placed inside `renderNotes()`?",
+      "options": [
+        "renderNotes() runs every time the list changes, so duplicate listeners would accumulate",
+        "Event listeners are forbidden inside functions",
+        "The browser only allows one listener per page",
+        "renderNotes() runs before the DOM exists"
+      ],
+      "answer": 0,
+      "explain": "renderNotes() re-runs per change; listeners attached there would **stack up** — attach once in init() (or use event delegation on the parent)." },
+    { "id": "c13g-10", "type": "text", "source": "BrokenCode 1.3 — design tokens",
+      "prompt": "Which CSS pseudo-class selector is the home of custom properties (design tokens)? (type the selector)",
+      "accept": [":root"],
+      "normalize": "trim-lower",
+      "explain": "`:root` = the document root — where custom properties live (`--color-primary: …`), read later with `var(--color-primary)`. No hard-coded hex allowed in the lab." }
+  ]
+}

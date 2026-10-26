@@ -1,0 +1,76 @@
+{
+  "bankId": "cross-ch7-gate",
+  "title": "Vue Apps Gate",
+  "questions": [
+    { "id": "c7g-1", "type": "mcq", "source": "MCQ Bank Q24",
+      "prompt": "The command to scaffold a new Vue 3 project (the course's way) is:",
+      "options": ["npm create vue@latest", "vue create my-app", "npx create-react-app", "composer create-project vue/vue"],
+      "answer": 0,
+      "explain": "**`npm create vue@latest`** — create-vue powered by Vite (replaces the old Vue CLI)." },
+    { "id": "c7g-2", "type": "mcq", "source": "MCQ Bank Q25",
+      "prompt": "In a Single File Component, `<style scoped>` means:",
+      "options": [
+        "The CSS only affects elements of this component",
+        "Styles are inlined into the elements",
+        "Styles load before the template",
+        "The CSS is global but minified"
+      ],
+      "answer": 0,
+      "explain": "scoped rewrites selectors (data attributes) so CSS only matches **this component's** elements." },
+    { "id": "c7g-3", "type": "mcq", "source": "MCQ Bank Q26",
+      "prompt": "Component communication in Vue follows which direction rule?",
+      "options": [
+        "Props down (parent→child), events up (child→parent)",
+        "Props up, events down",
+        "Everything through localStorage",
+        "Children mutate parent data directly"
+      ],
+      "answer": 0,
+      "explain": "**Props down, events up**; shared state → Pinia." },
+    { "id": "c7g-4", "type": "mcq", "source": "MCQ Bank Q27",
+      "prompt": "Inside a component, you need to READ the `:id` from `/todos/:id`. Which is correct?",
+      "options": [
+        "const route = useRoute(); route.params.id",
+        "const router = useRouter(); router.params.id",
+        "this.$route.query.id",
+        "import.meta.env.id"
+      ],
+      "answer": 0,
+      "explain": "**useRoute() reads params; useRouter() navigates.** (`this.$route` is Options-API style, not the course's; and `:id` is a param, not query.)" },
+    { "id": "c7g-5", "type": "mcq", "source": "MCQ Bank Q28",
+      "prompt": "In a Pinia setup-style store, which statement is TRUE?",
+      "options": [
+        "Only the names returned from the setup function become the store's public API",
+        "State must be a plain object literal",
+        "Actions must be declared with the actions: option",
+        "Pinia state survives a full page reload by default"
+      ],
+      "answer": 0,
+      "explain": "Only **returned names** are public. State = refs; does NOT survive reload by default." },
+    { "id": "c7g-6", "type": "mcq", "source": "BrokenCode 3.8 — lazy loading",
+      "prompt": "`component: () => import('@/views/TodoDetailView.vue')` in a route means:",
+      "options": [
+        "The view is LAZY-LOADED — fetched only when the route is first visited",
+        "The view loads twice",
+        "The import is synchronous",
+        "The route is disabled in production"
+      ],
+      "answer": 0,
+      "explain": "Arrow returning `import()` = **lazy loading / code-splitting** — the chunk downloads on first visit. `@` = the src/ alias; component imports include `.vue`." },
+    { "id": "c7g-7", "type": "text", "source": "BrokenCode 3.7 — list identity",
+      "prompt": "In `v-for`, which attribute gives each row a stable identity so Vue can track list changes? (attribute name with the bind shorthand, e.g. `:xxx`)",
+      "accept": [":key", "key", "v-bind:key"],
+      "normalize": "trim-lower",
+      "explain": "**`:key=\"t.id\"`** — stable identity per row. Never use the array index as key when the list can reorder/mutate." },
+    { "id": "c7g-8", "type": "mcq", "source": "BrokenCode 3.6 — emit payload",
+      "prompt": "A child renders a checkbox per todo and must tell the parent WHICH todo to toggle. The template-side call is:",
+      "options": [
+        "$emit('toggle', todo.id)",
+        "emit.toggle(todo)",
+        "this.parent.toggle(todo.id)",
+        "props.toggle(todo.id)"
+      ],
+      "answer": 0,
+      "explain": "`$emit('toggle', todo.id)` — event name + payload. The parent listens `@toggle=\"store.toggle\"` and the id flows into the handler. Declared via `defineEmits(['toggle', 'remove'])`." }
+  ]
+}

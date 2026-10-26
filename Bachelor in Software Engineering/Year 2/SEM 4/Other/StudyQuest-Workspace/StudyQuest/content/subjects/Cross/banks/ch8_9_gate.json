@@ -1,0 +1,81 @@
+{
+  "bankId": "cross-ch8-9-gate",
+  "title": "Backend Gate",
+  "questions": [
+    { "id": "c89g-1", "type": "mcq", "source": "MCQ Bank Q29",
+      "prompt": "Why did the course choose Axios over fetch? Pick the TRUE advantage set.",
+      "options": [
+        "Auto JSON parsing, rejects on 4xx/5xx, interceptors and instances",
+        "Axios is built into the browser",
+        "Axios works without promises",
+        "Axios bypasses CORS"
+      ],
+      "answer": 0,
+      "explain": "The slides' exact advantage list: **auto parse, reject on HTTP errors, interceptors, instances**. Nothing bypasses CORS." },
+    { "id": "c89g-2", "type": "mcq", "source": "MCQ Bank Q30",
+      "prompt": "After `const res = await apiClient.get('/students/1')`, the parsed record is in:",
+      "options": ["res.data", "res.body", "res.json()", "res.payload"],
+      "answer": 0,
+      "explain": "Axios puts the parsed body in **`res.data`** (fetch would need `await res.json()`)." },
+    { "id": "c89g-3", "type": "mcq", "source": "MCQ Bank Q31",
+      "prompt": "In Express, `app.use(express.json())` exists so that:",
+      "options": [
+        "req.body contains the parsed JSON payload of incoming requests",
+        "Responses are compressed",
+        "Static files are served",
+        "CORS headers are added"
+      ],
+      "answer": 0,
+      "explain": "express.json() = **body parser middleware** for application/json — without it `req.body` is undefined." },
+    { "id": "c89g-4", "type": "mcq", "source": "MCQ Bank Q32",
+      "prompt": "An Axios error handler sees `err.response` is undefined but `err.request` exists. This means:",
+      "options": [
+        "The request was sent but no response arrived (e.g., API server down)",
+        "The server returned 404",
+        "The request config was invalid",
+        "CORS succeeded"
+      ],
+      "answer": 0,
+      "explain": "err.request without err.response = **sent, nothing came back** (server down/unreachable). err.response set = HTTP error; neither = config error." },
+    { "id": "c89g-5", "type": "mcq", "source": "MCQ Bank Q33",
+      "prompt": "Which HTTP verb/property pairing is correct (REST)?",
+      "options": ["PUT — idempotent", "GET — not idempotent", "POST — idempotent", "DELETE — unsafe and not idempotent"],
+      "answer": 0,
+      "explain": "**PUT is idempotent** (same result if repeated). GET = safe + idempotent; POST = NOT idempotent (each call creates); DELETE IS idempotent (deleting twice = same end state)." },
+    { "id": "c89g-6", "type": "mcq", "source": "MCQ Bank Q34",
+      "prompt": "Slim 4 is described in the course as:",
+      "options": [
+        "A PHP micro framework built on PSR-7 (request/response) and PSR-15 (middleware)",
+        "A full-stack framework with built-in ORM and admin panel",
+        "A Node.js routing library",
+        "A template engine"
+      ],
+      "answer": 0,
+      "explain": "Slim = **micro framework on PSR-7 + PSR-15** — routes + middleware, nothing more." },
+    { "id": "c89g-7", "type": "mcq", "source": "MCQ Bank Q35",
+      "prompt": "`withHeader()` and `withStatus()` must be handled carefully in Slim because:",
+      "options": [
+        "The PSR-7 response is immutable — they return a NEW object which you must return",
+        "They mutate the response in place",
+        "They only work inside middleware",
+        "They require the JSON extension"
+      ],
+      "answer": 0,
+      "explain": "**PSR-7 immutability**: withX() returns a NEW response — chain them and ALWAYS return the result." },
+    { "id": "c89g-8", "type": "text", "source": "BrokenCode 4.3",
+      "prompt": "Which HTTP status code does a successful POST that creates a resource return? (number)",
+      "accept": ["201"],
+      "normalize": "trim-lower",
+      "explain": "**201 Created** — with the new id in the body (`id: r.insertId` in mysql2) and, in Slim, a `Location: /api/books/<id>` header." },
+    { "id": "c89g-9", "type": "mcq", "source": "BrokenCode 4.2 — injection-adjacent trap",
+      "prompt": "Why can't a sort column name be passed as a `?` parameter, and what's the safe approach?",
+      "options": [
+        "Placeholders only cover VALUES, not identifiers — whitelist the column against an allowed list",
+        "It can — `ORDER BY ?` is fine",
+        "Quote it with backticks and trust the client",
+        "Lowercase it first, then interpolate"
+      ],
+      "answer": 0,
+      "explain": "Prepared-statement placeholders carry **data values only**; identifiers (column/table names) can't be parameterised. The lab's pattern: `allowedSort.includes(sortBy)` whitelist, else reject/default." }
+  ]
+}

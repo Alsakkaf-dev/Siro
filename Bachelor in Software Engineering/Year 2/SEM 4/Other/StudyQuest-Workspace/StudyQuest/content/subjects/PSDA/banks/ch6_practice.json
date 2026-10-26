@@ -1,0 +1,62 @@
+{
+  "bankId": "psda-ch6-practice",
+  "title": "Chi-square drills",
+  "questions": [
+    { "id": "p6-1", "type": "numeric", "source": "Drill CH6 P1 — GOF equal expected",
+      "prompt": "Tickets per weekday: 52, 44, 38, 41, 55 (n = 230, 5 days, H₀: equal). The expected count per day E = ?",
+      "answer": 46, "tolerance": 0,
+      "explain": "E = n/k = 230/5 = **46**. χ²₀ = Σ(O−E)²/E = 0.783+0.087+1.391+0.543+1.761 = **4.565**; df = 4; χ²(0.05, 4) = 9.488 → fail to reject: no evidence of uneven distribution." },
+    { "id": "p6-2", "type": "numeric", "source": "Drill CH6 P2 — die GOF",
+      "prompt": "Die rolled 60×: faces 8, 13, 7, 12, 11, 9 (E = 10 each). Compute χ²₀ = Σ(O−E)²/E (1 decimal).",
+      "answer": 2.8, "tolerance": 0.05,
+      "explain": "(4+9+9+4+1+1)/10 = 28/10 = **2.800**. df = 5; χ²(0.05, 5) = 11.070 → 2.8 < 11.07 → fail to reject: no evidence of bias." },
+    { "id": "p6-3", "type": "mcq", "source": "Drill CH6 P3 — GOF unequal",
+      "prompt": "Vendor claims Android 60%, iOS 25%, Windows 10%, Others 5%. In a sample of 500, the EXPECTED counts are:",
+      "options": [
+        "300, 125, 50, 25 (E = n·pᵢ per category)",
+        "125 each (equal split)",
+        "274, 139, 55, 32 (the observed values)",
+        "60, 25, 10, 5"
+      ],
+      "answer": 0,
+      "explain": "Unequal GOF: **E = n·pᵢ** → 500×0.6 = 300, etc. χ²₀ = 2.253+1.568+0.500+1.960 = **6.281**; df = k−1 = 3; χ²(0.05, 3) = 7.815 → fail to reject: data consistent with the claim." },
+    { "id": "p6-4", "type": "mcq", "source": "Drill CH6 P4 — expected counts",
+      "prompt": "In an independence test, the expected count for cell (row i, col j) is computed as:",
+      "options": [
+        "e_ij = (row total × column total) / grand total",
+        "e_ij = observed / 2",
+        "e_ij = grand total / number of cells",
+        "e_ij = row total − column total"
+      ],
+      "answer": 0,
+      "explain": "**e_ij = (row × col)/n** — e.g. 200×105/400 = 52.5. Check every e_ij ≥ 5 (validity condition, worth a mark)." },
+    { "id": "p6-5", "type": "mcq", "source": "Drill CH6 P4 — 2×2 whisker verdict",
+      "prompt": "Device × churn: χ²₀ = 3.732, df = (2−1)(2−1) = 1, χ²(0.05, 1) = 3.841. Verdict?",
+      "options": [
+        "Fail to reject H₀ by a whisker (3.732 < 3.841) — insufficient evidence churn depends on device",
+        "Reject H₀ — close enough",
+        "Reject H₀ — df is too small",
+        "Redo with z-test"
+      ],
+      "answer": 0,
+      "explain": "**3.732 < 3.841 → fail to reject** — the classic exam trap: LOOKS significant, isn't (by 0.109). The verdict follows the math, not the eyeball." },
+    { "id": "p6-6", "type": "numeric", "source": "Drill CH6 P5 — df for r×c",
+      "prompt": "A 2×3 contingency table (region × payment). df = (r−1)(c−1) = ?",
+      "answer": 2, "tolerance": 0,
+      "explain": "df = (2−1)(3−1) = **2**. The drill: χ²₀ = 9.920 > χ²(0.01, 2) = 9.210 → reject at 1%: payment preference IS related to region (urban→e-wallet, rural→transfer)." },
+    { "id": "p6-7", "type": "numeric", "source": "Drill CH6 P6 — 3×3 computation",
+      "prompt": "Shift × defect (3×3): row totals 60 each; columns Scratch 80, Dent 60, Mis 40; n = 180. Expected count for (any shift, Scratch) = ? (3 decimals)",
+      "answer": 26.667, "tolerance": 0.01,
+      "explain": "e = 60×80/180 = **26.667**. Full table → χ²₀ = **15.400**, df = 4, χ²(0.05, 4) = 9.488 → reject: defect type depends on shift (largest contributions: night-mis 3.333, night-scratch 4.267)." },
+    { "id": "p6-8", "type": "mcq", "source": "Gate-prep — GOF vs independence",
+      "prompt": "Choosing the chi-square flavour: claimed percentage split of ONE variable → ? · relationship between TWO categorical variables → ?",
+      "options": [
+        "Goodness-of-fit (df = k−1) · test of independence (df = (r−1)(c−1))",
+        "Independence · GOF",
+        "Both GOF",
+        "ANOVA · regression"
+      ],
+      "answer": 0,
+      "explain": "**GOF** = does ONE categorical variable match claimed proportions (equal or unequal)? df = k−1. **Independence** = are TWO categorical variables related? df = (r−1)(c−1), expected = row×col/n. Both always RIGHT-tailed." }
+  ]
+}

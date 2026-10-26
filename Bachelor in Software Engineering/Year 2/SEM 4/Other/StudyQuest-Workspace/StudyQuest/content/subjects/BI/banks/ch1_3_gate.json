@@ -1,0 +1,86 @@
+{
+  "bankId": "bi-ch1-3-gate",
+  "title": "Foundations Gate",
+  "questions": [
+    { "id": "b13g-1", "type": "mcq", "source": "Ch1 — BI definition",
+      "prompt": "Business Intelligence is best described as:",
+      "options": [
+        "Technologies + processes that transform raw data into meaningful information for better business decisions",
+        "A single database product",
+        "Manual spreadsheet bookkeeping",
+        "Marketing analytics only"
+      ],
+      "answer": 0,
+      "explain": "BI = the **data → information → decision** pipeline: gathering, storing (warehouse), analyzing and presenting business data so decisions are evidence-based rather than gut-based." },
+    { "id": "b13g-2", "type": "order", "source": "Ch2 — BI architecture flow",
+      "prompt": "Order the standard BI architecture data flow:",
+      "items": [
+        "Source systems (operational DBs, files, external)",
+        "ETL — Extract, Transform, Load",
+        "Data warehouse (+ data marts)",
+        "Front-end: reporting, dashboards, OLAP, data mining"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "**Sources → ETL → warehouse/marts → front-end analytics.** Every Ch2 exam question hangs off this picture — know which component does what and in which order data moves." },
+    { "id": "b13g-3", "type": "mcq", "source": "Ch2 — ETL",
+      "prompt": "The TRANSFORM step of ETL includes:",
+      "options": [
+        "Cleansing, standardizing formats, deduplicating, deriving fields, integrating sources",
+        "Only copying files",
+        "Building dashboards",
+        "User authentication"
+      ],
+      "answer": 0,
+      "explain": "Extract = pull from sources; **Transform = clean/standardize/derive/integrate** (the heavy lifting — exactly what Alteryx does in Lab 1); Load = write into the warehouse." },
+    { "id": "b13g-4", "type": "mcq", "source": "Ch2 — warehouse vs operational DB",
+      "prompt": "Data warehouse vs operational (OLTP) database — which contrast is correct?",
+      "options": [
+        "Warehouse: subject-oriented, integrated, time-variant, non-volatile for ANALYSIS · OLTP: current, volatile, optimized for fast transactions",
+        "Warehouse handles daily transactions; OLTP stores history",
+        "They are the same thing",
+        "OLTP is read-only"
+      ],
+      "answer": 0,
+      "explain": "Inmon's four warehouse words: **subject-oriented, integrated, time-variant, non-volatile** — built for queries/analysis over history. OLTP serves the day-to-day inserts/updates of operations." },
+    { "id": "b13g-5", "type": "mcq", "source": "Ch3 — front-end applications",
+      "prompt": "Which list contains BI FRONT-END applications?",
+      "options": [
+        "Reports, dashboards, OLAP analysis, data mining / predictive tools",
+        "Routers, switches, firewalls",
+        "Compilers and linkers",
+        "ETL engines only"
+      ],
+      "answer": 0,
+      "explain": "The front-end is what decision-makers touch: **reporting, dashboards/scorecards, OLAP (slice/dice/drill), data mining & predictive analytics** — Tableau and the Alteryx predictive palette are this course's instances." },
+    { "id": "b13g-6", "type": "mcq", "source": "Ch3 — dashboard vs report",
+      "prompt": "Dashboard vs report — the practical difference:",
+      "options": [
+        "Dashboard = at-a-glance visual monitor of multiple KPIs, often interactive; report = structured, detailed, typically static/printable",
+        "Reports are always graphical",
+        "Dashboards cannot show charts",
+        "No difference"
+      ],
+      "answer": 0,
+      "explain": "**Dashboard** = single screen, many KPIs, interactivity (filters/drill). **Report** = depth + structure for one topic (the Alteryx Render-to-PDF output in Challenge S1.8 is a report)." },
+    { "id": "b13g-7", "type": "mcq", "source": "Ch1 — why BI (exam favourite)",
+      "prompt": "The main business value of BI is:",
+      "options": [
+        "Faster, evidence-based decisions — spotting trends, problems and opportunities in data instead of intuition",
+        "Cheaper hardware",
+        "Replacing all employees",
+        "Faster internet"
+      ],
+      "answer": 0,
+      "explain": "Quote-worthy line: BI turns data into **actionable insight** — better/faster decisions, competitive advantage, performance monitoring. Tie any open answer back to DECISIONS." },
+    { "id": "b13g-8", "type": "mcq", "source": "Ch2 — data mart",
+      "prompt": "A data MART is:",
+      "options": [
+        "A subject/department-focused subset of the warehouse (e.g., just sales)",
+        "A backup of the OLTP database",
+        "A shopping feature",
+        "An ETL scheduling tool"
+      ],
+      "answer": 0,
+      "explain": "**Mart = departmental slice of the warehouse** — smaller scope, faster queries for one business area. Architecture diagrams place marts between the warehouse and the front-end." }
+  ]
+}

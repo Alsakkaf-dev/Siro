@@ -1,0 +1,62 @@
+{
+  "bankId": "cross-ch10-practice",
+  "title": "Broken Code: schema · PDO · transactions",
+  "questions": [
+    { "id": "c10p-1", "type": "mcq", "source": "BrokenCode 5.1 — schema.sql",
+      "prompt": "The course's CREATE TABLE conventions include which set?",
+      "options": [
+        "utf8mb4 charset · AUTO_INCREMENT ids · ON UPDATE CURRENT_TIMESTAMP for updated_at · ENGINE=InnoDB",
+        "utf8 charset · UUID ids · manual updated_at · MyISAM",
+        "latin1 · SERIAL ids · triggers for timestamps · MEMORY engine",
+        "ascii · GUID ids · no timestamps · CSV engine"
+      ],
+      "answer": 0,
+      "explain": "**utf8mb4** (real 4-byte Unicode — MySQL's `utf8` is broken 3-byte), **AUTO_INCREMENT** (id returned as lastInsertId/insertId), **ON UPDATE CURRENT_TIMESTAMP** re-stamps updated_at, **InnoDB** = transactional/ACID engine in every course table." },
+    { "id": "c10p-2", "type": "mcq", "source": "BrokenCode 5.2 — PDO connection",
+      "prompt": "The three sacred PDO options of the course are:",
+      "options": [
+        "ERRMODE_EXCEPTION · FETCH_ASSOC · EMULATE_PREPARES = false",
+        "ERRMODE_SILENT · FETCH_NUM · EMULATE_PREPARES = true",
+        "ERRMODE_WARNING · FETCH_BOTH · PERSISTENT = true",
+        "ERRMODE_EXCEPTION · FETCH_OBJ · AUTOCOMMIT = false"
+      ],
+      "answer": 0,
+      "explain": "**ERRMODE_EXCEPTION** (throw PDOException → try/catch works), **FETCH_ASSOC** (assoc arrays, JSON-friendly), **EMULATE_PREPARES=false** (real server-side prepared statements). DSN format: `mysql:host=127.0.0.1;dbname=books_api;charset=utf8mb4`." },
+    { "id": "c10p-3", "type": "mcq", "source": "BrokenCode 5.2/5.3 — prepared statements",
+      "prompt": "The safe way to fetch a book by user-supplied id:",
+      "options": [
+        "$stmt = $pdo->prepare('SELECT * FROM books WHERE id = ?'); $stmt->execute([$id]); $rows = $stmt->fetchAll();",
+        "$pdo->query(\"SELECT * FROM books WHERE id = $id\")",
+        "$pdo->exec('SELECT * FROM books WHERE id = ' . intval($id))",
+        "mysql_query(\"SELECT * FROM books WHERE id = '$id'\")"
+      ],
+      "answer": 0,
+      "explain": "**Data goes through a placeholder — never into the SQL string.** prepare → execute([$id]) → fetchAll. That separation of code from data is exactly what defeats SQL injection." },
+    { "id": "c10p-4", "type": "mcq", "source": "BrokenCode 5.3 — named placeholders quirk",
+      "prompt": "With EMULATE_PREPARES=false, why does `WHERE title LIKE :q OR author LIKE :q` fail?",
+      "options": [
+        "A named placeholder cannot be reused — each must be unique (:q_title, :q_author) or you get SQLSTATE HY093",
+        "LIKE doesn't work with placeholders",
+        "Named placeholders need the @ prefix",
+        "OR is not allowed in prepared statements"
+      ],
+      "answer": 0,
+      "explain": "Real prepared statements forbid reusing a named placeholder: use **unique names** (`:q_title`, `:q_author`) and bind both, else **SQLSTATE HY093**. New PK after INSERT: `$pdo->lastInsertId()`; rows affected: `$stmt->rowCount()`." },
+    { "id": "c10p-5", "type": "order", "source": "BrokenCode 5.4 — transaction",
+      "prompt": "Order the money-transfer transaction:",
+      "items": [
+        "$pdo->beginTransaction();",
+        "UPDATE accounts SET balance = balance - 100 WHERE id = 1",
+        "UPDATE accounts SET balance = balance + 100 WHERE id = 2",
+        "$pdo->commit();",
+        "catch (Exception $e) { $pdo->rollBack(); }"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "**beginTransaction** opens the all-or-nothing block → both updates → **commit** makes them permanent; ANY exception → **rollBack** undoes everything. Counting: `SELECT COUNT(*) AS total` then `fetchColumn()` pulls the single scalar." },
+    { "id": "c10p-6", "type": "text", "source": "BrokenCode 5.4 — scalar fetch",
+      "prompt": "After `SELECT COUNT(*) AS total FROM books`, which PDOStatement method pulls the single scalar out? (method name)",
+      "accept": ["fetchcolumn", "fetchcolumn()", "fetchColumn"],
+      "normalize": "trim-lower",
+      "explain": "**`fetchColumn()`** — returns the first column of the next row; perfect for single-value aggregates." }
+  ]
+}

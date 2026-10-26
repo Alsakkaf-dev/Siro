@@ -1,0 +1,47 @@
+##About the Topic she said :## 
+ The Effects of Caffeine Consumption on Sleep Quality and Cognitive Focus Among UTM Students
+
+ About the Target REspondents she said : 
+ (too generalize)
+
+
+ ##About her : Comment on Proposal : she said :## 
+ 1.Some questions are repetitive (type of caffeine appears more than once).
+2.Measurement levels contain several issues.
+-“How many cups per week” should not be labeled as Ratio when using fixed categories.
+-“Effectiveness percentage (0–100)” is not true Ratio in this format.
+-“Sleep quality change” is unclear and incorrectly structured.
+3.Some questions are not clearly defined.
+-“Rate value” for focus improvement is vague and must be specified properly.
+4.Input structure is inconsistent.
+-“Others” option in numeric-type questions will affect data consistency.
+5.The proposed analysis is not aligned with descriptive requirement.
+6.Focus only on frequency, percentage, and distribution.
+7.Avoid repeated “analyze…” statements without clear descriptive output.
+8.Overall proposal is good but needs refinement in measurement accuracy, clarity of questions, and analysis alignment.
+
+
+
+ ##About her : Comment on Project I : she said :##
+  1. Suitable for:
+correlation,
+regression,
+hypothesis testing,
+ANOVA.
+-Choose strong variables especially if you are using anova from your project
+2. It suits anova very well, 
+Because:
+there are multiple consumption groups,
+and the group wants to compare mean focus/sleep scores across those groups.
+
+This is exactly the purpose of One-Way ANOVA.
+3. The project can become much stronger if regression is included.
+Choose the right X and Y.
+4. The dataset is heavily dominated by:
+Year 1 students,
+male respondents,
+Faculty of Computing students.
+
+This creates:
+demographic bias,
+weaker generalizability. So make sure the interpretation in Project II is given focus.

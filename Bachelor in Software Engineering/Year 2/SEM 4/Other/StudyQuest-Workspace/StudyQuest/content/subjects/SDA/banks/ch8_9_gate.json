@@ -1,0 +1,61 @@
+{
+  "bankId": "sda-ch8-9-gate",
+  "title": "Final Gate — Construction & Command",
+  "questions": [
+    { "id": "s89g-1", "type": "numeric", "source": "Gate — cyclomatic variant",
+      "prompt": "A routine has: `if (a || b)` · two `for` loops · a `switch` with 3 branches. C = π + 1 = ?",
+      "answer": 7,
+      "tolerance": 0,
+      "explain": "π = compound if **2** + for **1** + for **1** + switch (3 branches → n−1) **2** = 6 → **C = 7**. Each `&&`/`||` term counts separately; switch contributes branches − 1." },
+    { "id": "s89g-2", "type": "mcq", "source": "Gate — V(G) meaning",
+      "prompt": "V(G) = 5 for a module. The PRACTICAL meaning for testing is:",
+      "options": [
+        "At least 5 test cases are needed to cover the linearly independent paths",
+        "The module has 5 bugs",
+        "5 developers must review it",
+        "It compiles in 5 seconds"
+      ],
+      "answer": 0,
+      "explain": "V(G) = number of **linearly independent paths** = minimum test cases for path/branch coverage — complexity quantifies **testability** (and maintainability). McCabe threshold: ≤ 10." },
+    { "id": "s89g-3", "type": "numeric", "source": "Gate — graph formula",
+      "prompt": "Control-flow graph: e = 14, n = 10, p = 1. V(G) = ?",
+      "answer": 6,
+      "tolerance": 0,
+      "explain": "V(G) = e − n + 2p = 14 − 10 + 2 = **6**. Region check: 5 enclosed regions + outer = 6 total regions." },
+    { "id": "s89g-4", "type": "numeric", "source": "Gate — LEDT sizing",
+      "prompt": "A decision table has 3 Boolean conditions. How many elementary policies (columns)?",
+      "answer": 8,
+      "tolerance": 0,
+      "explain": "**2^n = 2³ = 8**. The drill's RM-discount table (2 conditions → 4 policies) is the canonical example; the table-driven array implementation has lower cyclomatic complexity than nested ifs." },
+    { "id": "s89g-5", "type": "numeric", "source": "Gate — EVM fresh numbers",
+      "prompt": "BAC = RM20,000 over 10 equal tasks (1/month). After 5 months: 3 tasks done, AC = RM9,000. Compute **CPI = EV/AC** (3 decimals, e.g. 0.667).",
+      "answer": 0.667,
+      "tolerance": 0.01,
+      "explain": "EV = 3/10 × 20,000 = 6,000. **CPI = 6,000/9,000 = 0.667** — RM0.67 earned per ringgit spent (over budget). SPI = EV/PV = 6,000/10,000 = 0.6 (behind schedule). EAC = BAC/CPI ≈ RM30,000." },
+    { "id": "s89g-6", "type": "mcq", "source": "Gate — EVM interpretation",
+      "prompt": "SPI = 0.50 and CPI = 0.667 mean:",
+      "options": [
+        "Progressing at HALF the planned rate AND over budget — trigger risk mitigation (re-scope/re-staff/re-baseline)",
+        "Ahead of schedule, under budget — relax",
+        "On schedule, on budget",
+        "The metrics conflict and cancel out"
+      ],
+      "answer": 0,
+      "explain": "SPI < 1 = behind schedule (0.5 = half pace); CPI < 1 = over budget (0.667 = 67 sen of value per ringgit). Both red → act now; projected EAC = BAC/CPI overshoots BAC badly." },
+    { "id": "s89g-7", "type": "mcq", "source": "Gate — termination stage",
+      "prompt": "The TERMINATION stage of design management requires:",
+      "options": [
+        "Storing latest design docs per configuration management, updating schedule/cost values, re-evaluating plans, reporting to upper management",
+        "Deleting the repository",
+        "Starting the next sprint immediately",
+        "Hiring the test team"
+      ],
+      "answer": 0,
+      "explain": "Termination = verified smooth transition to construction: **archive docs (config management), update values, re-evaluate, report up**. Execution (not termination) is where most effort/deliverables happen." },
+    { "id": "s89g-8", "type": "mcq", "source": "Gate — power taxonomy",
+      "prompt": "Expert power and connection power are sub-types of:",
+      "options": ["Personal power (from behavior)", "Position power (from hierarchy)", "Coercive power", "Reward power"],
+      "answer": 0,
+      "explain": "**Position power** (hierarchy): reward, coercive. **Personal power** (behavior): **expert, connection**. A 2-mark classification favourite." }
+  ]
+}

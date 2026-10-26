@@ -1,0 +1,77 @@
+{
+  "bankId": "cross-ch8-9-practice",
+  "title": "Broken Code: Express + Slim",
+  "questions": [
+    { "id": "c89p-1", "type": "order", "source": "BrokenCode 4.1 — Express skeleton",
+      "prompt": "Order the Express bootstrap lines:",
+      "items": [
+        "const app = express()",
+        "app.use(cors())",
+        "app.use(express.json())",
+        "app.get('/api/students', handler)",
+        "app.listen(PORT, () => console.log(`http://localhost:${PORT}`))"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "Factory → middleware (cors() **called**, allows the 5173 origin; express.json() — without it `req.body` is undefined) → routes → **listen last**." },
+    { "id": "c89p-2", "type": "mcq", "source": "BrokenCode 4.2 — search/sort endpoint",
+      "prompt": "A GET list endpoint takes `?q=&sortBy=&order=`. Which practices are correct?",
+      "options": [
+        "Read from req.query · wildcards go in the VALUE (`%${q}%`) · whitelist sortBy with allowedSort.includes() — column names cannot be parameterised",
+        "Read from req.params · interpolate q into the SQL string · trust sortBy as-is",
+        "Read from req.body · use LIKE '%q%' literally · escape sortBy with quotes",
+        "Read from req.headers · use regex matching · lowercase sortBy"
+      ],
+      "answer": 0,
+      "explain": "Query params live on **req.query**. Wildcards go in the parameter VALUE, never the SQL string. **Column names cannot be `?`-parameterised** → whitelist them. mysql2/promise returns `[rows, fields]` — destructure `[rows]`; DB failures → `res.status(500)`." },
+    { "id": "c89p-3", "type": "mcq", "source": "BrokenCode 4.3 — GET one + POST",
+      "prompt": "Match the status codes: id not found · created with new id · duplicate unique key:",
+      "options": [
+        "404 · 201 with id: r.insertId · 409",
+        "400 · 200 with id: r.id · 500",
+        "404 · 204 no body · 422",
+        "410 · 201 with id: r.lastId · 401"
+      ],
+      "answer": 0,
+      "explain": "Empty result for `req.params.id` → **404 Not Found**. mysql2 exposes the AUTO_INCREMENT id as **insertId** → 201 Created. Duplicate unique key (ER_DUP_ENTRY) → **409 Conflict**." },
+    { "id": "c89p-4", "type": "mcq", "source": "BrokenCode 4.4 — PUT + DELETE",
+      "prompt": "After `UPDATE students SET ... WHERE id=?`, how do you detect 'id didn't exist' and what does the lab's DELETE return?",
+      "options": [
+        "if (!r.affectedRows) → 404 · res.json({ deleted: true })",
+        "if (r.insertId === 0) → 400 · res.send('ok')",
+        "try/catch around the UPDATE · 204 always",
+        "Check r.changedRows === null · res.end()"
+      ],
+      "answer": 0,
+      "explain": "**0 affectedRows = the id didn't exist → 404.** The WHERE id=? value is the LAST array item (req.params.id). DELETE is registered with `app.delete(path, handler)` and returns the lab's confirmation shape `{ deleted: true }` — always parameterised, always with WHERE." },
+    { "id": "c89p-5", "type": "order", "source": "BrokenCode 4.5 — Slim bootstrap",
+      "prompt": "Order the Slim 4 bootstrap:",
+      "items": [
+        "$app = AppFactory::create();",
+        "$app->addRoutingMiddleware();",
+        "$app->get('/', function ($req, $res) { $res->getBody()->write('hi'); return $res; });",
+        "$app->run();"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "AppFactory::create() builds the app → addRoutingMiddleware enables dispatch → handlers write through `getBody()` and **MUST return the response** → `run()` last (starts the middleware/dispatch lifecycle)." },
+    { "id": "c89p-6", "type": "mcq", "source": "BrokenCode 4.6/4.7 — Slim routes + handler",
+      "prompt": "Slim path parameters and the 201-creation pattern:",
+      "options": [
+        "Params use {curly} braces (/books/{id}) arriving in array $args; 201 sets a Location: /api/books/<id> header",
+        "Params use :colon (/books/:id) arriving in $_GET; 201 needs no headers",
+        "Params use <angle> brackets; the body is in $_POST",
+        "Slim has no path params; use query strings"
+      ],
+      "answer": 0,
+      "explain": "Slim uses `{id}` braces; the third callback parameter `array $args` receives them. Body comes from `getParsedBody()` (requires the JsonBodyParser middleware). **201 responses point at the new resource** with a `Location` header. `json_encode($data)` once; the helper sets header + status." },
+    { "id": "c89p-7", "type": "mcq", "source": "BrokenCode 4.8 — Slim middleware",
+      "prompt": "In the JSON-body-parser middleware, why `$request->withParsedBody($data)` and what special method needs CORS handling?",
+      "options": [
+        "PSR-7 requests are immutable — withParsedBody returns a NEW request to pass to $handler->handle(); OPTIONS preflight must be answered with 204 + headers, skipping the route",
+        "withParsedBody mutates in place; GET needs preflight",
+        "It clones the response; HEAD needs preflight",
+        "It caches the body; PUT needs preflight"
+      ],
+      "answer": 0,
+      "explain": "**PSR-7 immutability**: withX() returns a NEW object — pass it on via `$handler->handle($request)`. The browser's CORS preflight is **OPTIONS** → answer 204 + headers (`Access-Control-Allow-Headers: Content-Type, Authorization` — Authorization carries the JWT in Ch11). `json_decode($raw, true)` = associative array." }
+  ]
+}

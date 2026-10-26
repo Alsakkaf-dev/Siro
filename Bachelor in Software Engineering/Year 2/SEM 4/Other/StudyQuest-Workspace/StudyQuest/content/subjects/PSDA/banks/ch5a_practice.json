@@ -1,0 +1,51 @@
+{
+  "bankId": "psda-ch5a-practice",
+  "title": "CI + one-sample drills",
+  "questions": [
+    { "id": "p5a-1", "type": "numeric", "source": "Drill CH5 P1 — CI for proportion",
+      "prompt": "132 of 400 subscribers would pay for an ad-free tier. Compute the point estimate **p̂** (3 decimals).",
+      "answer": 0.33, "tolerance": 0.001,
+      "explain": "p̂ = 132/400 = **0.330**. The 95% CI: E = 1.96·√(0.33×0.67/400) = 1.96×0.0235 = 0.046 → **(0.284, 0.376)**. Interpretation sentence: 'We are 95% confident that the true proportion … is between 0.284 and 0.376.'" },
+    { "id": "p5a-2", "type": "numeric", "source": "Drill CH5 P1 — CI bound",
+      "prompt": "Same data (p̂ = 0.330, n = 400, 95% → z = 1.96). Compute the UPPER limit of the CI (3 decimals).",
+      "answer": 0.376, "tolerance": 0.003,
+      "explain": "SE = √(0.33×0.67/400) = 0.0235; E = 1.96×0.0235 = 0.046; upper = 0.330 + 0.046 = **0.376**." },
+    { "id": "p5a-3", "type": "numeric", "source": "Drill CH5 P2(ii) — sample size",
+      "prompt": "σ = 1.2 min, target margin E = 0.25 at 90% confidence (z = 1.645). Required sample size n = ? (whole number — remember the rounding rule!)",
+      "answer": 63, "tolerance": 0,
+      "explain": "n = (z·σ/E)² = (1.645×1.2/0.25)² = 7.896² = 62.35 → **round UP always** → **n = 63**. Rounding down would miss the precision target." },
+    { "id": "p5a-4", "type": "mcq", "source": "Drill CH5 P3 — z or t?",
+      "prompt": "σ unknown, n = 12. Which distribution and df for the mean's CI?",
+      "options": ["t-distribution with df = 11", "z-distribution", "t with df = 12", "χ² with df = 11"],
+      "answer": 0,
+      "explain": "**σ unknown + small n → t, df = n−1 = 11.** t(0.025, 11) = 2.201 for 95%. The z/t decision is the first mark of every Q1: σ known → z; σ unknown → t (df = n−1)." },
+    { "id": "p5a-5", "type": "mcq", "source": "Drill CH5 P4 — hypotheses",
+      "prompt": "Claim: \"mean response time EXCEEDS 200 ms.\" The hypotheses are:",
+      "options": [
+        "H₀: μ = 200 vs H₁: μ > 200 (right-tailed)",
+        "H₀: μ > 200 vs H₁: μ = 200",
+        "H₀: μ = 200 vs H₁: μ ≠ 200 (two-tailed)",
+        "H₀: μ < 200 vs H₁: μ > 200"
+      ],
+      "answer": 0,
+      "explain": "The claim ('exceeds') goes to **H₁: μ > 200**; H₀ always carries equality. Right-tailed → critical z(0.05) = 1.645." },
+    { "id": "p5a-6", "type": "numeric", "source": "Drill CH5 P4 — z statistic",
+      "prompt": "x̄ = 212, μ₀ = 200, σ = 35, n = 50. Compute z₀ = (x̄−μ₀)/(σ/√n) (3 decimals).",
+      "answer": 2.424, "tolerance": 0.01,
+      "explain": "z₀ = 12/(35/√50) = 12/4.950 = **2.424** > 1.645 → reject H₀. Conclusion sentence: 'At α = 0.05 there is sufficient evidence that the mean response time exceeds 200 ms.'" },
+    { "id": "p5a-7", "type": "mcq", "source": "Drill CH5 P5 — two-tailed t verdict",
+      "prompt": "t₀ = −2.269, df = 9, α = 0.01 two-tailed → critical t(0.005, 9) = 3.250. Verdict?",
+      "options": [
+        "Fail to reject H₀ — |−2.269| < 3.250: insufficient evidence the mean differs from 15",
+        "Reject H₀ — the statistic is negative",
+        "Reject H₀ — 2.269 > 0.01",
+        "Cannot decide without the p-value"
+      ],
+      "answer": 0,
+      "explain": "Two-tailed rule: reject iff **|t₀| > critical**. 2.269 < 3.250 → **fail to reject**. Write the full sentence: 'At α = 0.01 there is insufficient evidence that the mean session length differs from 15 minutes.'" },
+    { "id": "p5a-8", "type": "numeric", "source": "Drill CH5 P6 — χ² on σ (the sneaky one)",
+      "prompt": "Claim: σ < 2.5 days. n = 20, s = 1.9. Compute χ²₀ = (n−1)s²/σ₀² (3 decimals).",
+      "answer": 10.974, "tolerance": 0.05,
+      "explain": "χ²₀ = 19×1.9²/2.5² = 19×3.61/6.25 = **10.974**. LEFT-tailed (claim 'less than') → critical = χ²(0.95, 19) = **10.117** (use the right-tail-0.95 column!). 10.974 > 10.117 → NOT in rejection region → **fail to reject**. The left-tail lookup is where everyone loses marks." }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "subjectId": "BI",
+  "note": "Hands-on PC exam (Alteryx + Tableau). Banks are tool-workflow scenarios from the Challenge sets; the real practice is DOING the challenges in Alteryx/Tableau alongside.",
+  "cities": [
+    {
+      "id": "bi-ch1-3",
+      "name": "BI Foundations & Front-End",
+      "desc": "What BI is, architecture components, front-end applications",
+      "unlock": {
+        "type": "always"
+      },
+      "missions": [
+        {
+          "id": "bi-ch13-read1",
+          "type": "READ",
+          "title": "Ch1 — BI Introduction",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH01P1_BusinessIntelligence_Intro.pdf",
+            "pages": [
+              1,
+              32
+            ]
+          },
+          "goal": {
+            "minSeconds": 3752
+          },
+          "xp": 70
+        },
+        {
+          "id": "bi-ch13-read2",
+          "type": "READ",
+          "title": "Ch2 — BI Architecture Components",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH02_Components of BI Architecture_2526s2.pdf",
+            "pages": [
+              1,
+              91
+            ]
+          },
+          "goal": {
+            "minSeconds": 10920
+          },
+          "xp": 110
+        },
+        {
+          "id": "bi-ch13-read3",
+          "type": "READ",
+          "title": "Ch3 — BI Front-End",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH03_Business Intelligence FrontEnd.pdf",
+            "pages": [
+              1,
+              34
+            ]
+          },
+          "goal": {
+            "minSeconds": 4080
+          },
+          "xp": 70
+        },
+        {
+          "id": "bi-ch13-gate",
+          "type": "GATE",
+          "title": "Foundations Gate",
+          "bank": "subjects/BI/banks/ch1_3_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "bi-ch4etl",
+      "name": "Alteryx ETL Workshop",
+      "desc": "Preprocessing + the ETL tool belt: Input, Union, Join, Formula, Summarize, Transpose…",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "bi-ch1-3"
+      },
+      "missions": [
+        {
+          "id": "bi-ch4e-read1",
+          "type": "READ",
+          "title": "Ch4.1 — Data Preprocessing",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH04P1 Data Preprocessing.pdf",
+            "pages": [
+              1,
+              23
+            ]
+          },
+          "goal": {
+            "minSeconds": 2760
+          },
+          "xp": 60
+        },
+        {
+          "id": "bi-ch4e-read2",
+          "type": "READ",
+          "title": "Ch4.2 — ETL in Alteryx (Lab 1)",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH04P2_ETL in Alteryx (Lab1).pdf",
+            "pages": [
+              1,
+              47
+            ]
+          },
+          "goal": {
+            "minSeconds": 5640
+          },
+          "xp": 90
+        },
+        {
+          "id": "bi-ch4e-prac1",
+          "type": "PRACTICE",
+          "title": "ETL workflow scenarios (do them in Alteryx too!)",
+          "bank": "subjects/BI/banks/ch4etl_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 160
+        },
+        {
+          "id": "bi-ch4e-gate",
+          "type": "GATE",
+          "title": "ETL Gate",
+          "bank": "subjects/BI/banks/ch4etl_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "bi-ch4pred",
+      "name": "Alteryx Predictive Lab",
+      "desc": "Investigation, time series, regression, classification, clustering",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "bi-ch4etl"
+      },
+      "missions": [
+        {
+          "id": "bi-ch4p-read1",
+          "type": "READ",
+          "title": "Ch4.3 — Investigation & Predictive (Labs 2–3)",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH04P3_Data Investigation and Predictive in Alteryx (Lab2  Lab 3).pdf",
+            "pages": [
+              1,
+              48
+            ]
+          },
+          "goal": {
+            "minSeconds": 5760
+          },
+          "xp": 90
+        },
+        {
+          "id": "bi-ch4p-prac1",
+          "type": "PRACTICE",
+          "title": "Predictive workflow scenarios",
+          "bank": "subjects/BI/banks/ch4pred_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 170
+        },
+        {
+          "id": "bi-ch4p-gate",
+          "type": "GATE",
+          "title": "Predictive Gate",
+          "bank": "subjects/BI/banks/ch4pred_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "bi-ch5",
+      "name": "Tableau Vista",
+      "desc": "Charts, table calcs, sets, maps, forecasts, dashboards & stories",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "bi-ch4pred"
+      },
+      "missions": [
+        {
+          "id": "bi-ch5-read1",
+          "type": "READ",
+          "title": "Ch5 — DataViz in Tableau (Lab 5)",
+          "target": {
+            "kind": "pdf",
+            "path": "BI/Storage/Materials/LECTURE NOTES/CH05P1_DataViz in Tableau (Lab 5).pdf",
+            "pages": [
+              1,
+              63
+            ]
+          },
+          "goal": {
+            "minSeconds": 7560
+          },
+          "xp": 100
+        },
+        {
+          "id": "bi-ch5-prac1",
+          "type": "PRACTICE",
+          "title": "Tableau build scenarios",
+          "bank": "subjects/BI/banks/ch5_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 170
+        },
+        {
+          "id": "bi-ch5-gate",
+          "type": "GATE",
+          "title": "Tableau Gate — FINAL",
+          "bank": "subjects/BI/banks/ch5_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 350
+        }
+      ]
+    }
+  ]
+}

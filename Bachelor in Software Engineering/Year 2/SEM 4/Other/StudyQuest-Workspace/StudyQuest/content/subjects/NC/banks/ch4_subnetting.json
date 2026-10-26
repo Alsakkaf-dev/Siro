@@ -1,0 +1,193 @@
+{
+  "bankId": "nc-ch4-subnetting",
+  "title": "Subnetting Reflex",
+  "questions": [
+    {
+      "id": "sub-1",
+      "type": "text",
+      "source": "Drill P1 — mask mechanics",
+      "prompt": "Convert **/26** to a dotted-decimal subnet mask.",
+      "accept": ["255.255.255.192"],
+      "normalize": "trim-lower",
+      "explain": "Last-octet masks to know cold: **/25=128, /26=192, /27=224, /28=240, /29=248, /30=252**.\n\n/26 = 26 ones: `11111111.11111111.11111111.11000000` → **255.255.255.192**."
+    },
+    {
+      "id": "sub-2",
+      "type": "numeric",
+      "source": "Drill P1 — mask mechanics",
+      "prompt": "How many **usable host addresses** does a **/27** subnet have?",
+      "answer": 30,
+      "tolerance": 0,
+      "explain": "/27 leaves 32−27 = **5 host bits** → 2⁵ − 2 = **30 usable** (subtract network + broadcast).\n\n| Prefix | Mask | Usable |\n|---|---|---|\n| /24 | 255.255.255.0 | 254 |\n| /25 | .128 | 126 |\n| /26 | .192 | 62 |\n| /27 | .224 | **30** |\n| /30 | .252 | 2 |"
+    },
+    {
+      "id": "sub-3",
+      "type": "text",
+      "source": "Drill P2 — CIDR prefixes",
+      "prompt": "Write the CIDR prefix (e.g. `/24`) for the mask **255.255.248.0**.",
+      "accept": ["/21", "21"],
+      "normalize": "trim-lower",
+      "explain": "248 in the THIRD octet = `11111000` = 5 ones → 8+8+5 = **/21**.\n\nTrick: 256−248 = 8 → block size 8 in the third octet."
+    },
+    {
+      "id": "sub-4",
+      "type": "numeric",
+      "source": "Drill P2",
+      "prompt": "How many **/24** networks fit inside one **/20**?",
+      "answer": 16,
+      "tolerance": 0,
+      "explain": "2^(24−20) = 2⁴ = **16**. Each extra prefix bit doubles the count of smaller networks."
+    },
+    {
+      "id": "sub-5",
+      "type": "text",
+      "source": "Drill P3 — 192.168.1.77/26",
+      "prompt": "For **192.168.1.77/26**, what is the **network address**? (dotted decimal)",
+      "accept": ["192.168.1.64"],
+      "normalize": "trim-lower",
+      "explain": "Last octet 77 = **01**001101. /26 ⇒ 2 network bits in the last octet, 6 host bits.\nNetwork = host bits→0: **01**000000 = 64 → **192.168.1.64**.\nBlock-size shortcut: 256−192=64 → blocks at 0, 64, 128, 192; 77 falls in the 64-block."
+    },
+    {
+      "id": "sub-6",
+      "type": "text",
+      "source": "Drill P3 — 192.168.1.77/26",
+      "prompt": "Same subnet (**192.168.1.77/26**) — what is the **broadcast address**?",
+      "accept": ["192.168.1.127"],
+      "normalize": "trim-lower",
+      "explain": "Broadcast = host bits→1: **01**111111 = 127 → **192.168.1.127**.\nUsable range: 192.168.1.65 – 192.168.1.126 (62 hosts)."
+    },
+    {
+      "id": "sub-7",
+      "type": "text",
+      "source": "Drill P4 — mask boundary inside 3rd octet",
+      "prompt": "For **172.16.45.200/21**, what is the **network address**? ⚠️ The /21 boundary is inside the THIRD octet.",
+      "accept": ["172.16.40.0"],
+      "normalize": "trim-lower",
+      "explain": "/21 ⇒ third octet has 5 network bits. 45 = **00101**101.\nNetwork third octet: **00101**000 = 40 → **172.16.40.0/21** (mask 255.255.248.0).\nBroadcast: 172.16.47.255; usable 172.16.40.1 – 172.16.47.254 (2046 hosts).\nBlock size in 3rd octet: 256−248 = 8 → blocks 40, 48… and 45 sits in the 40-block."
+    },
+    {
+      "id": "sub-8",
+      "type": "mcq",
+      "source": "Drill P5 — 2020/21 final, 2 marks",
+      "prompt": "You are given **192.168.1.4/30**. Which statement labels the four addresses of this subnet correctly?",
+      "options": [
+        ".4 = network, .5 & .6 = usable hosts, .7 = broadcast",
+        ".4 = usable, .5 = network, .6 = broadcast, .7 = unused",
+        ".4 = broadcast, .5 & .6 = usable hosts, .7 = network",
+        ".4 = network, .5–.7 = three usable hosts"
+      ],
+      "answer": 0,
+      "explain": "/30 ⇒ block size 4; the block containing .4 starts AT 4:\n- **192.168.1.4 — network address**\n- **.5, .6 — usable hosts**\n- **.7 — broadcast**\n\n*Exam tip: a /30 is the standard router-to-router link: exactly 2 usable.*"
+    },
+    {
+      "id": "sub-9",
+      "type": "mcq",
+      "source": "Drill P6 — invalid config trap",
+      "prompt": "A technician configures a PC as **10.130.73.95/27**. Why is this configuration **invalid**?",
+      "options": [
+        ".95 is the broadcast address of subnet 10.130.73.64/27 — host bits all 1, never assignable",
+        ".95 is the network address of the subnet",
+        "/27 is not a legal prefix for a Class A address",
+        "10.x.x.x addresses cannot be subnetted"
+      ],
+      "answer": 0,
+      "explain": "Last octet 95 = **010**11111; /27 ⇒ 3 network bits in last octet.\nNetwork = **010**00000 = 64 → 10.130.73.64; Broadcast = **010**11111 = **95**.\n**.95 IS the broadcast address** — it can never be assigned to a device. (Twin trap: .64 = network address, also unassignable.)"
+    },
+    {
+      "id": "sub-10",
+      "type": "text",
+      "source": "Drill P7 — 2020/21 final, 3 marks (recycled pattern!)",
+      "prompt": "**192.168.4.0/24** is divided into **4 equal subnets**. What is the **first usable address of Subnet 1** (the second subnet)?",
+      "accept": ["192.168.4.65"],
+      "normalize": "trim-lower",
+      "explain": "4 subnets ⇒ borrow 2 bits ⇒ **/26**, mask **255.255.255.192**, block size 64.\n\n| Subnet | Network | Usable | Broadcast |\n|---|---|---|---|\n| 0 | 192.168.4.0 | .1–.62 | .63 |\n| **1** | **192.168.4.64** | **.65 – .126** | .127 |\n| 2 | 192.168.4.128 | .129–.190 | .191 |\n| 3 | 192.168.4.192 | .193–.254 | .255 |"
+    },
+    {
+      "id": "sub-11",
+      "type": "text",
+      "source": "Drill P8 — 2020/21 final, 3 marks",
+      "prompt": "**172.16.14.0/24** divided into **8 equal subnets**. Give the **subnet mask** (dotted decimal) of the new subnets.",
+      "accept": ["255.255.255.224"],
+      "normalize": "trim-lower",
+      "explain": "8 subnets ⇒ borrow 3 bits ⇒ **/27** = **255.255.255.224**, block size 32.\nSubnet 2 starts at 2×32 = 64: network 172.16.14.64, broadcast .95, **usable .65 – .94**."
+    },
+    {
+      "id": "sub-12",
+      "type": "numeric",
+      "source": "Drill P9 — slide self-study pattern",
+      "prompt": "**200.23.0.0/20** must be divided into **5** subnets (round up to a power of 2). After subnetting, how many **usable hosts per subnet**?",
+      "answer": 510,
+      "tolerance": 0,
+      "explain": "Need 5 ⇒ round to 2³ = 8 subnets ⇒ borrow 3 bits ⇒ **/23** (mask 255.255.254.0).\nHost bits = 32−23 = 9 ⇒ 2⁹ − 2 = **510 hosts**.\nSubnets step by 2 in the 3rd octet: 200.23.0.0/23, 200.23.2.0/23 … 200.23.14.0/23 (3 spare for the future)."
+    },
+    {
+      "id": "sub-13",
+      "type": "text",
+      "source": "Drill P10(d) — 2016/17 final, real",
+      "prompt": "For the address **168.23.20.35/23**, calculate its **network address**.",
+      "accept": ["168.23.20.0"],
+      "normalize": "trim-lower",
+      "explain": "/23 leaves the LAST bit of the 3rd octet as a host bit. 20 = 0001010**0** — 20 is even, so AND with 254 keeps it 20.\n**Network = 168.23.20.0/23** (range 168.23.20.0 – 168.23.21.255).\nIf the 3rd octet were ODD (e.g. 21), it would round DOWN to the even number (20)."
+    },
+    {
+      "id": "sub-14",
+      "type": "mcq",
+      "source": "Drill P11 — your 2024/25 midterm, 7 marks (VLSM)",
+      "prompt": "VLSM design from **192.168.10.0/24**, largest-first: HR needs **50** hosts. Which subnet does HR get?",
+      "options": [
+        "192.168.10.0/26 (62 usable)",
+        "192.168.10.0/27 (30 usable)",
+        "192.168.10.0/25 (126 usable)",
+        "192.168.10.64/26 (62 usable)"
+      ],
+      "answer": 0,
+      "explain": "50 + 2 ≤ 64 = 2⁶ ⇒ 6 host bits ⇒ **/26** (62 usable) — /27 gives only 30 (too small), /25 wastes 76.\nLargest-first allocation:\n\n| Dept | Subnet | First–Last usable |\n|---|---|---|\n| HR (50) | **192.168.10.0/26** | .1 – .62 |\n| IT (30) | 192.168.10.64/27 | .65 – .94 |\n| Sales (20) | 192.168.10.96/27 | .97 – .126 |\n| Mgmt (10) | 192.168.10.128/28 | .129 – .142 |\n\n*Trap check: IT needs 30 and /27 gives exactly 30 usable — legal. If they asked for 31, jump to /26.*"
+    },
+    {
+      "id": "sub-15",
+      "type": "text",
+      "source": "Drill P13 — ISP allocation",
+      "prompt": "An organization needs **2000 host addresses**. Which **prefix length** must its ISP allocate? (answer like `/xx`)",
+      "accept": ["/21", "21"],
+      "normalize": "trim-lower",
+      "explain": "2000 + 2 ≤ 2¹¹ = 2048 ⇒ **11 host bits** ⇒ prefix **32 − 11 = /21**.\nE.g. 163.44.224.0/21 → 2046 usable: 163.44.224.1 – 163.44.231.254.\nClassful would force a **Class B** (65,534 hosts) — wasting >63,000 addresses. CIDR fixes exactly this."
+    },
+    {
+      "id": "sub-16",
+      "type": "mcq",
+      "source": "Drill P14 — 2017/18 final, 10 marks (longest prefix match)",
+      "prompt": "A router's table has these prefixes:\n\n| Prefix | Link |\n|---|---|\n| `11001000 00010111 00010*** ********` (21 bits) | 0 |\n| `11001000 00010111 00011000 ********` (24 bits) | 1 |\n| `11001000 00010111 00011*** ********` (21 bits) | 2 |\n| otherwise | 3 |\n\nDestination **`11001000 00010111 00011000 10101010`** → which link?",
+      "options": ["Link 1", "Link 2", "Link 0", "Link 3"],
+      "answer": 0,
+      "explain": "The destination matches link 2's 21-bit prefix AND link 1's 24-bit prefix → **longest prefix wins → Link 1**.\n\n*Method sentence to write in the exam: \"the entry with the longest address prefix that matches the destination address is selected.\"*"
+    },
+    {
+      "id": "sub-17",
+      "type": "mcq",
+      "source": "Drill P15 — forwarding + default route",
+      "prompt": "Router R: if0 → 192.168.4.0/26, if1 → 192.168.4.64/26, if2 → default (ISP). Destination **192.168.4.130** goes out of which interface?",
+      "options": [
+        "if2 — no specific entry matches; falls to the default route",
+        "if1 — it is in the .64 subnet",
+        "if0 — it is in the .0 subnet",
+        "dropped — invalid address"
+      ],
+      "answer": 0,
+      "explain": "192.168.4.130 lies in .128–.191 — that subnet (.128/26) is **NOT configured** on R; only .0/26 and .64/26 exist. No specific match → **if2 (default 0.0.0.0/0)**.\n\n*This is the classic trap: don't invent a third LAN subnet that isn't in the table.*"
+    },
+    {
+      "id": "sub-18",
+      "type": "mcq",
+      "source": "Drill P15(c) — NAT translation",
+      "prompt": "Host **192.168.4.10:4502** connects to web server **93.184.216.34:80** through NAT (WAN addr **203.0.113.5**, assigned external port **6001**). What is the (src, dst) of the datagram **after** outgoing translation?",
+      "options": [
+        "src 203.0.113.5:6001 → dst 93.184.216.34:80",
+        "src 192.168.4.10:4502 → dst 93.184.216.34:80",
+        "src 203.0.113.5:4502 → dst 93.184.216.34:80",
+        "src 93.184.216.34:80 → dst 203.0.113.5:6001"
+      ],
+      "answer": 0,
+      "explain": "NAT rewrites **only the source** on the way out: (192.168.4.10:4502 → …) becomes (**203.0.113.5:6001** → 93.184.216.34:80).\n\nNAT table row:\n\n| WAN side | LAN side |\n|---|---|\n| 203.0.113.5:6001 | 192.168.4.10:4502 |\n\nThe reply (s=93.184.216.34:80 → d=203.0.113.5:6001) is rewritten back to d=**192.168.4.10:4502**."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+respondent_id,gender,year_of_study,faculty,regular_consumer,caffeine_type,cups_per_day,focus_score,effect_duration_hr,sleep_impact,consumption_level
+1,Male,Year 1,Other,Yes,Coffee-based,5,9,4,1,High
+2,Male,Year 1,FABU,Yes,Energy Drink,3,10,7,2,High
+3,Male,Year 1,FKA,Yes,Tea-based,3,10,4,2,High
+4,Male,Year 1,FK,Yes,Coffee-based,1,3,2,5,Low
+5,Male,Year 1,FKE,Yes,Coffee-based,2,8,0,3,Moderate
+6,Male,Year 1,FK,Yes,Tea-based,2,6,4,3,Moderate
+7,Male,Year 1,FKM,Yes,Coffee-based,1,8,1,3,Low
+8,Male,Year 1,Other,Yes,Coffee-based,3,6,3,2,High
+9,Male,Bridging Programme,FKE,Yes,Energy Drink,2,6,3,3,Moderate
+10,Male,Year 1,FKE,Yes,Coffee-based,2,1,2,2,Moderate
+11,Male,Year 1,FKM,Yes,Energy Drink,2,6,4,3,Moderate
+12,Male,Year 1,FKE,Yes,Coffee-based,1,5,2,3,Low
+13,Male,Bridging Programme,FS,Yes,Coffee-based,2,8,2,4,Moderate
+14,Male,Bridging Programme,FK,Yes,Coffee-based,4,2,5,1,High
+15,Male,Bridging Programme,FKE,Yes,Tea-based,1,7,0,4,Low
+16,Male,Year 1,FK,Yes,Tea-based,2,10,1,3,Moderate
+17,Male,Year 1,FKA,Yes,Tea-based,2,3,3,2,Moderate
+18,Male,Year 3,FKE,Yes,Coffee-based,3,4,5,3,High
+19,Male,Year 1,FK,Yes,Tea-based,2,5,3,4,Moderate
+20,Male,Year 1,FK,Yes,Soda,3,4,7,1,High
+21,Male,Year 1,FK,Yes,Coffee-based,1,8,2,3,Low
+22,Male,Year 4 (Final Year),FKM,Yes,Energy Drink,1,8,1,3,Low
+23,Male,Year 1,FK,Yes,Coffee-based,3,9,7,2,High
+24,Male,Bridging Programme,FK,Yes,Soda,2,6,5,3,Moderate
+25,Male,Bridging Programme,FK,Yes,Tea-based,2,5,1,4,Moderate
+26,Male,Year 1,FKA,Yes,Coffee-based,1,7,2,4,Low
+27,Male,Year 1,FKE,Yes,Soft Drink,1,8,4,3,Low
+28,Male,Year 1,FK,Yes,Tea-based,1,7,2,3,Low
+29,Male,Year 1,Other,Yes,Coffee-based,1,10,2,1,Low
+30,Male,Year 1,FK,Yes,Tea-based,3,3,4,3,High
+31,Male,Year 2,FKM,Yes,Coffee-based,2,8,1,4,Moderate
+32,Male,Bridging Programme,FK,Yes,Soft Drink,2,7,1,4,Moderate
+33,Male,Year 1,Other,Yes,Soda,1,4,6,3,Low
+34,Male,Bridging Programme,Other,Yes,Energy Drink,2,10,5,2,Moderate
+35,Male,Bridging Programme,FKT,Yes,Tea-based,4,4,2,2,High
+36,Male,Year 1,FK,Yes,Coffee-based,2,7,6,4,Moderate
+37,Male,Year 1,FK,Yes,Tea-based,1,6,3,4,Low
+38,Male,Year 1,FK,Yes,Coffee-based,2,6,3,2,Moderate
+39,Male,Year 1,Other,Yes,Soda,4,7,8,1,High
+40,Male,Year 1,FK,Yes,Coffee-based,2,8,4,2,Moderate
+41,Male,Bridging Programme,Other,Yes,Coffee-based,2,5,3,5,Moderate
+42,Male,Bridging Programme,FS,Yes,Soda,1,6,1,3,Low
+43,Male,Year 1,FKE,Yes,Coffee-based,1,8,2,4,Low
+44,Male,Year 1,Other,Yes,Tea-based,1,5,3,5,Low
+45,Male,Year 1,Other,Yes,Tea-based,4,8,6,1,High
+46,Male,Year 1,FK,Yes,Energy Drink,3,5,6,2,High
+47,Female,Year 1,FSSH,Yes,Tea-based,1,7,2,3,Low
+48,Female,Year 1,FK,Yes,Coffee-based,2,7,3,4,Moderate
+49,Female,Year 1,FKA,Yes,Coffee-based,3,7,5,2,High
+50,Female,Year 1,FK,Yes,Coffee-based,2,8,2,2,Moderate
+51,Female,Bridging Programme,Other,Yes,Coffee-based,2,8,3,1,Moderate
+52,Female,Year 1,FK,Yes,Coffee-based,0,8,0,4,Low
+53,Female,Year 1,Other,Yes,Soft Drink,2,9,5,3,Moderate
+54,Female,Year 1,Other,Yes,Energy Drink,2,9,4,5,Moderate
+55,Female,Year 2,FK,Yes,Coffee-based,2,9,3,2,Moderate
+56,Male,Year 1,FKE,No,None,,,,,None
+57,Male,Year 1,FK,No,None,,,,,None
+58,Male,Year 1,FKBS,No,None,,,,,None
+59,Male,Year 3,FK,No,None,,,,,None
+60,Male,Bridging Programme,FKE,No,None,,,,,None
+61,Male,Year 1,FK,No,None,,,,,None
+62,Male,Year 1,Other,No,None,,,,,None
+63,Male,Year 1,FKM,No,None,,,,,None
+64,Male,Year 2,FKM,No,None,,,,,None
+65,Male,Year 3,FK,No,None,,,,,None
+66,Male,Year 1,FKE,No,None,,,,,None
+67,Male,Year 1,FKT,No,None,,,,,None
+68,Male,Year 2,FKA,No,None,,,,,None
+69,Male,Year 1,FKA,No,None,,,,,None
+70,Male,Year 1,FK,No,None,,,,,None
+71,Male,Year 2,Other,No,None,,,,,None
+72,Female,Year 1,FKT,No,None,,,,,None
+73,Female,Year 1,Other,No,None,,,,,None
+74,Female,Bridging Programme,AHIBS,No,None,,,,,None

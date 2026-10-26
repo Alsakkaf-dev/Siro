@@ -1,0 +1,81 @@
+{
+  "bankId": "cross-ch6-gate",
+  "title": "Vue Basics Gate",
+  "questions": [
+    { "id": "c6g-1", "type": "mcq", "source": "MCQ Bank Q18",
+      "prompt": "Vue.js is best described as:",
+      "options": [
+        "A progressive JavaScript framework for building user interfaces, created by Evan You",
+        "A full server-side framework backed by Google",
+        "A CSS preprocessor",
+        "A database ORM backed by Meta"
+      ],
+      "answer": 0,
+      "explain": "Vue slide: **progressive framework for UIs**, Evan You, 2014, MIT license, vuejs.org." },
+    { "id": "c6g-2", "type": "mcq", "source": "MCQ Bank Q19",
+      "prompt": "In the Composition API, what is `setup()`?",
+      "options": [
+        "The entry point that declares reactive state and returns what the template can use",
+        "A lifecycle hook that runs on unmount",
+        "A method for registering global components",
+        "The function that mounts the app"
+      ],
+      "answer": 0,
+      "explain": "setup() = Composition API **entry point**; whatever it returns is template-visible — nothing else is." },
+    { "id": "c6g-3", "type": "mcq", "source": "MCQ Bank Q20 — the #1 trap",
+      "prompt": "Given `const count = ref(0)`, how do you increment it in a JS function and render it in the template?",
+      "options": [
+        "count.value++ in script / {{ count }} in template",
+        "count++ / {{ count.value }}",
+        "count.value++ / {{ count.value }}",
+        "count++ / {{ count }}"
+      ],
+      "answer": 0,
+      "explain": "**`.value` in script, auto-unwrapped in template** — the #1 Vue trap. `{{ count.value }}` in a template is wrong (renders undefined-ish for nested cases); `count++` in script doesn't touch the inner value." },
+    { "id": "c6g-4", "type": "mcq", "source": "MCQ Bank Q21",
+      "prompt": "Which directive shorthand pair is correct?",
+      "options": [
+        "v-bind shorthand is ':', v-on shorthand is '@'",
+        "v-bind shorthand is '@', v-on shorthand is ':'",
+        "Both shorten to '$'",
+        "Neither has a shorthand"
+      ],
+      "answer": 0,
+      "explain": "**`:` = v-bind** (attributes follow state), **`@` = v-on** (events). `:src=\"avatar\"`, `@click=\"add\"`." },
+    { "id": "c6g-5", "type": "mcq", "source": "MCQ Bank Q22",
+      "prompt": "v-if vs v-show — which is TRUE?",
+      "options": [
+        "v-if adds/removes the element from the DOM; v-show keeps it rendered and toggles CSS display",
+        "v-show removes the element from the DOM",
+        "v-if toggles display:none",
+        "They are aliases"
+      ],
+      "answer": 0,
+      "explain": "v-if = DOM add/remove (rare toggles); v-show = display toggle (frequent toggles)." },
+    { "id": "c6g-6", "type": "mcq", "source": "MCQ Bank Q23",
+      "prompt": "A computed property differs from a method because it:",
+      "options": [
+        "Is cached and re-evaluates only when its dependencies change",
+        "Cannot use reactive state",
+        "Runs on every DOM event",
+        "Must return a Promise"
+      ],
+      "answer": 0,
+      "explain": "Computed = **cached + dependency-tracked**; methods re-run every call." },
+    { "id": "c6g-7", "type": "text", "source": "BrokenCode 3.1",
+      "prompt": "After all `app.use(...)` calls, which method attaches the Vue app to `#app`? (method name only)",
+      "accept": ["mount", ".mount", "mount()"],
+      "normalize": "trim-lower",
+      "explain": "`app.mount('#app')` — always the LAST call in main.js / the CDN bootstrap." },
+    { "id": "c6g-8", "type": "mcq", "source": "BrokenCode 3.5",
+      "prompt": "`const user = reactive({ age: 22 })` vs `const user2 = ref({ age: 22 })` — how do you increment each age in script?",
+      "options": [
+        "user.age++ · user2.value.age++",
+        "user.value.age++ · user2.age++",
+        "Both need .value",
+        "Neither needs .value"
+      ],
+      "answer": 0,
+      "explain": "**reactive** objects mutate via plain property access (no .value); a **ref holding an object** goes through `.value` first. That asymmetry is a favourite exam trap." }
+  ]
+}

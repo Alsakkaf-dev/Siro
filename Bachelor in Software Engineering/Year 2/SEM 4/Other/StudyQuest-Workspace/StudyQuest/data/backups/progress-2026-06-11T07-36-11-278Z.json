@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "xp": 0,
+  "missions": {
+    "nc-ch0-read1": {
+      "status": "active",
+      "secondsSpent": 30,
+      "pagesViewed": [],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "sda-ch12-read1": {
+      "status": "active",
+      "secondsSpent": 105,
+      "pagesViewed": [
+        1,
+        2
+      ],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "cross-ch1-read1": {
+      "status": "active",
+      "secondsSpent": 103,
+      "pagesViewed": [
+        1,
+        9
+      ],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    }
+  },
+  "reading": {
+    "Cross/BOOT.md": {
+      "seconds": 15,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T07:09:12.834Z"
+    },
+    "Cross/Storage/Materials/CI-SCSM2223 Cross-Platform Application Development.pdf": {
+      "seconds": 15,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T07:09:19.022Z"
+    },
+    "NC/Learning space/01_Mastery/CH0_Prerequisite_Refresher.md": {
+      "seconds": 30,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T07:26:21.424Z"
+    },
+    "SDA/Storage/Materials/Slides/Chapter 1/chapter 1 - new/SPACE SDA (S1).pptx": {
+      "seconds": 105,
+      "pagesViewed": [
+        1,
+        2
+      ],
+      "lastAt": "2026-06-11T07:28:53.255Z"
+    },
+    "Cross/Storage/Materials/Slides/Chapter 1/01-Introduction.pdf": {
+      "seconds": 103,
+      "pagesViewed": [
+        1,
+        9
+      ],
+      "lastAt": "2026-06-11T07:36:08.267Z"
+    }
+  },
+  "updatedAt": "2026-06-11T07:36:08.268Z"
+}

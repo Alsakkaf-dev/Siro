@@ -1,0 +1,115 @@
+{
+  "system": "Autonomous Academic Architect (AAA)",
+  "student": "Mohammed Alsakkaf",
+  "mission": "A+ across 5 finals",
+  "exam_deadline": "2026-07-06",
+  "forge_deadline": "2026-06-29",
+  "session_4_command_center": {
+    "date": "2026-06-11",
+    "deliverable": "COMMAND_CENTER.html (Finals Subjects root) — single-file dependency-free gamified dashboard fronting the Tower. HUD (XP/level/streak/mastery/velocity-lag warnings), 25-day war map with per-day quests, 5 portal engines (PSDA template tracker, NC subnet reflex range, Cross dual-backend syntax bible, SDA scenario decoder, BI 26-build matrix), Study Forge timed mock engine with 52 real harvested questions, 13 SVG badges, localStorage persistence + export/import.",
+    "verification": "jsdom automated browser harness: 22/22 functional checks, 0 runtime errors. Fixed during testing: unescaped snippet titles swallowed DOM, startForge view-state, opaque-origin storage fallback, file-tail sync duplication.",
+    "sync_protocol": "Dashboard state lives in browser localStorage. Controllers: after each tutoring session tell Mohammed which units/checks to tick. He can paste a Save/Sync Bay snapshot into chat for state alignment."
+  },
+  "session_3_overnight_build": {
+    "date": "2026-06-11",
+    "what_happened": "Autonomous overnight build while Mohammed slept. Five content-engineering agents generated ~90 files from his actual materials into each subject's Learning space: 01_Mastery chapter docs, 02_Drills/Challenges with answers, 03_Exam_Intelligence, 04_Emergency_Final_Review, 05_Mock_Final_v1. Boot beacons (BOOT.md) planted in every subject folder + AAA_BOOT.md at MY SPACE root. All STATUS files updated with arsenal registry + overnight intel.",
+    "critical_discoveries": {
+      "PSDA": "Final is a fixed 6-question template since 2021/22; formula sheet printed in paper; paired-t + regression line + ANOVA appear in 8/8 papers (~50 marks); professor recycles tutorial datasets verbatim.",
+      "NC": "SECR1033 2022_23 & 2023_24 'past papers' are Computer Organization exams (MISFILED — do not study). Slide filenames shifted: file Chapter_5=Control Plane, real Link Layer=file Chapter_6, Wireless=file Chapter_7. Dijkstra/Bellman-Ford are stealth marks (3 of last 4 finals). Six archetypes ≈60+ marks recycle every year.",
+      "Cross": "Vue 3 Composition API only. DUAL BACKEND: Express+mysql2 (Ch8) but PHP Slim 4 + PDO + firebase/php-jwt (Ch9-11). Professor reuses app worlds (Quick Notes, Kanban, Todo SPA, Books API...) — exam blanks will be those exact lines.",
+      "SDA": "Midterm decoded: A) 10 MCQ x2, B) 3x16 structured, C) 32-mark chained scenario with answers embedded in quotable phrases. Class-diagram-to-code worth 14+ marks. Scope prediction 85%: cumulative, Ch5-9 weighted. Ch9 EVM slide has an arithmetic discrepancy (flagged).",
+      "BI": "25 of 30 final marks are hands-on (CLO decode). Professor's practical style: starter .yxmd + questions in text boxes + grading vs expected-output files -> reflex = reverse-engineer output columns into tool configs. 47 Alteryx tools inventoried. Power BI on syllabus week 14 but zero materials (ask professor)."
+    }
+  },
+  "last_session": {
+    "date": "2026-06-10",
+    "session_id": 2,
+    "actions": ["Session 1: full audit + dependency maps", "Session 2: Mohammed's real requirements received. Per-subject controller files created in each subject's Storage/Update_status. Root START_HERE.md created with boot commands + master schedule.", "Intel corrections: BI final is HANDS-ON ON PC in Alteryx/Tableau (risk raised to HIGH). Cross scope = ALL chapters, format 30 MCQ + 70 marks/5 structured broken-code questions; Mohammed understands concepts, gap is code recall. SDA test covered Ch1-4, final scope unannounced (prediction: cumulative, Ch5-9 weighted)."]
+  },
+  "architecture": {
+    "activation": "Mohammed says 'Hello <SUBJECT>' in a new chat -> AI reads Finals Subjects/<SUBJECT>/Storage/Update_status/<SUBJECT>_STATUS.md -> follows its BOOT PROTOCOL -> teaches -> saves state at session end.",
+    "state_files": ["PSDA/Storage/Update_status/PSDA_STATUS.md", "NC/Storage/Update_status/NC_STATUS.md", "Cross/Storage/Update_status/CROSS_STATUS.md", "BI/Storage/Update_status/BI_STATUS.md", "SDA/Storage/Update_status/SDA_STATUS.md"],
+    "boot_file": "START_HERE.md (root) — master schedule, rules, risk board, open action items"
+  },
+  "critical_intel": {
+    "CROSS_CORRECTION": "Subject is NOT Java. SCSM2223 = Cross-Platform Web Dev: HTML/CSS/JS, Vue.js, Node/Express, MySQL, JWT. Fill-in-the-blank drills must target JS/Vue/Express syntax.",
+    "SDA_SCOPE_SOLVED": "CI 2526-2 lists 14 meetings = full syllabus Ch1-9. Final will weight Ch5-9 (SOLID + Design Patterns + Construction + Management) since midterm sample covers Ch1-4. Reference book: Design Patterns in C# (Sarkar) — professor is patterns-focused.",
+    "MISSING_DATA": ["Exam timetable per subject (NEEDED to finalize daily schedule)", "Cross Ch12-13 materials absent", "Cross Ch2-5 slides absent (covered via Lab PDFs only)", "PSDA final exam weight %", "SDA final exam weight %"]
+  },
+  "subjects": {
+    "SDA": {
+      "code": "SCSE2233",
+      "risk": "CRITICAL",
+      "status": "not_started",
+      "progress_pct": 0,
+      "scope": "Ch1-9 (full syllabus, confirmed via CI 2526-2)",
+      "dependency_order": ["Ch1 Intro/Design Process", "Ch2 UML (gateway prerequisite)", "Ch3 Architecture Principles + 4+1 View", "Ch4 Architecture Styles", "Ch5 Detailed Design + SOLID (LSP/ISP)", "Ch6 Creational Patterns", "Ch7 Structural & Behavioral Patterns", "Ch8 Construction Design", "Ch9 Design Management/Leadership/Ethics"],
+      "material_notes": "Use 'new' PDF versions as primary (Ch1,2,3,4,6,7.1,9.1). Ch5/Ch8 only have pptx. One midterm sample available (Set1 SECJ3323).",
+      "unlocked": ["Ch1"],
+      "blocked": ["Ch3-9 until Ch2 UML mastered"]
+    },
+    "Cross": {
+      "code": "SCSM2223",
+      "risk": "HIGH",
+      "status": "not_started",
+      "progress_pct": 0,
+      "exam_format": "30% MCQ, 70% fill-in-the-blank code blocks. FE weight: 30%.",
+      "scope": "Ch1-13 per CI; materials present for Ch1,6,7,8,9,10,11 + Labs 1-3",
+      "dependency_order": ["Ch1 Web Landscape", "Ch2-3 HTML/CSS (via Lab 1)", "Ch4-5 JS/JSON/AJAX/Fetch/jQuery (via Lab 3)", "Ch6 Vue Basics", "Ch7 Full Vue Apps", "Ch8 Backend Node/Express", "Ch9 Server-Side", "Ch10 MySQL Connection", "Ch11 JWT/API Security", "Ch12-13 GAP — source materials"],
+      "training_protocol": "Broken Code Simulations: JS/Vue/Express snippets with missing critical lines",
+      "unlocked": ["Ch1"],
+      "blocked": ["Ch6+ until JS fundamentals reflexive"]
+    },
+    "PSDA": {
+      "code": "SCST1223",
+      "risk": "MEDIUM",
+      "status": "not_started",
+      "progress_pct": 0,
+      "scope": "Ch5-end (Ch3-4 are prerequisites to verify)",
+      "dependency_order": ["Ch4 refresh: distributions (normal/t) — prerequisite gate", "Ch5.1 Point Estimation", "Ch5.2 Hypothesis Testing 1-Sample", "Ch5.3 Hypothesis Testing 2-Sample", "Ch6 Chi-Square & Contingency", "Ch7.1 Correlation", "Ch7.2 Linear Regression", "Ch8 ANOVA (needs F-dist from 5.3)"],
+      "assets": "~20 past finals, tutorials WITH answers, Triola formula card. Best practice bank of all subjects.",
+      "training_protocol": "First Principles — why before how",
+      "unlocked": ["Ch4 refresh"],
+      "blocked": ["Ch5+ until distribution fluency confirmed"]
+    },
+    "NC": {
+      "code": "SCSR2213",
+      "risk": "MEDIUM",
+      "status": "not_started",
+      "progress_pct": 0,
+      "scope": "Ch4-end: Ch4 Network Layer Data Plane, Ch5 Link Layer & LANs, Ch6 Wireless. Ch7 slides exist (old syllabus) — verify if in scope. FE weight: 35%.",
+      "dependency_order": ["Layered-model refresher (Ch1-3: encapsulation, TCP/UDP)", "Ch4 IP addressing + SUBNETTING (computational core)", "Ch5 Ethernet/MAC/ARP/Switching", "Ch6 802.11/Wireless/Mobility", "Ch7 verify scope"],
+      "assets": "17 past final papers + answer sets. Mid-term 2425 paper available.",
+      "training_protocol": "Systemic Visualization — protocols as real-world logistics",
+      "unlocked": ["Refresher"],
+      "blocked": ["Ch5-6 until subnetting reflexive"]
+    },
+    "BI": {
+      "code": "SCSP3213",
+      "risk": "LOW-MEDIUM",
+      "status": "not_started",
+      "progress_pct": 0,
+      "scope": "Ch1-5. FE weight: 30% (5+15+10 split across CLOs).",
+      "dependency_order": ["Ch1 BI Intro", "Ch2 BI Architecture Components", "Ch3 BI Front-End", "Ch4.1 Data Preprocessing", "Ch4.2 ETL in Alteryx (Lab1)", "Ch4.3 Investigation+Predictive Alteryx (Labs 2-3)", "Ch5 Tableau DataViz (Lab 5)"],
+      "training_protocol": "Senior Data Analyst mode: slides then Technical Workflow Challenges (Alteryx tool-sequences, Tableau viz logic)",
+      "unlocked": ["Ch1"],
+      "blocked": ["Ch4.2+ until preprocessing concepts solid"]
+    }
+  },
+  "brain_map": {
+    "strengths": [],
+    "weaknesses": [],
+    "note": "Baseline 0% assumed. Populate after first diagnostic drills per subject."
+  },
+  "master_timeline": {
+    "week_1_jun10_16": "SDA Ch1-5 | PSDA Ch4-refresh + Ch5 (all parts) | Cross Ch1-5 fundamentals | BI Ch1-3 (light theory)",
+    "week_2_jun17_23": "SDA Ch6-9 (patterns core) | Cross Ch6-11 | NC Ch4-5 | PSDA Ch6-7",
+    "week_3_jun24_29": "BI Ch4-5 (Alteryx/Tableau) | NC Ch6+verify Ch7 | PSDA Ch8 | Cross Ch12-13 gap-fill | full-syllabus buffer",
+    "arena_jun30_jul5": "Zero new theory. Mock finals per subject in Learning space, graded strictly."
+  },
+  "next_session": {
+    "entry_point": "SDA Chapter 1 (SPACE SDA S1 new PDF) + collect exam timetable from Mohammed",
+    "first_action": "Read this file, confirm exam dates, begin SDA Ch1 ingestion + diagnostic drill",
+    "daily_structure": "AM block: critical-risk subject (SDA/Cross). PM block: math/networks (PSDA/NC). Rotate BI in."
+  }
+}

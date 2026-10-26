@@ -1,0 +1,128 @@
+{
+  "bankId": "nc-ch6-gate",
+  "title": "Wireless Gate — FINAL",
+  "questions": [
+    {
+      "id": "g6-1",
+      "type": "mcq",
+      "source": "Gate — CSMA/CA vs CSMA/CD (recurring comparison)",
+      "prompt": "The KEY philosophical difference between CSMA/**CA** and CSMA/**CD**:",
+      "options": [
+        "CA AVOIDS collisions before sending (DIFS, early random backoff, ACKs, RTS/CTS) because it cannot detect them; CD detects mid-transmission and recovers (abort + jam + backoff)",
+        "CA detects collisions faster than CD",
+        "CD is for wireless, CA for wired",
+        "CA needs no backoff at all"
+      ],
+      "answer": 0,
+      "explain": "**CD** (wired): listen WHILE transmitting → abort early + jam + binary exponential backoff.\n**CA** (wireless): cannot detect → **avoid**: wait DIFS, random backoff BEFORE sending even when idle, require **ACKs** (after SIFS), optionally reserve with **RTS/CTS**.\nvs pure CSMA: CSMA transmits through a collision wasting the whole frame time."
+    },
+    {
+      "id": "g6-2",
+      "type": "mcq",
+      "source": "Gate — beacon + association",
+      "prompt": "A laptop joins a WLAN passively. The correct sequence of what it RECEIVES/SENDS is:",
+      "options": [
+        "Receives beacons (SSID + AP MAC) → sends Association Request → receives Association Response → DHCP exchange",
+        "Sends beacons → receives Probe → sends DHCP Offer",
+        "Sends Association Response → receives beacon → ARP",
+        "Receives Probe Request → sends beacon → DHCP"
+      ],
+      "answer": 0,
+      "explain": "Passive scanning = listen for **beacons** (AP broadcasts SSID + MAC). Then **Association Request** → **Association Response** → **DHCP** (D-O-R-A) to obtain an IP. (Active scanning would start with the host's own Probe Request instead.)"
+    },
+    {
+      "id": "g6-3",
+      "type": "mcq",
+      "source": "Gate — 802.11 addresses inbound",
+      "prompt": "A frame travels FROM router R1 THROUGH the AP TO wireless host H1. Address 1 / 2 / 3 of the 802.11 frame (AP→H1 leg) are:",
+      "options": [
+        "A1 = H1 (receiver), A2 = AP (transmitter), A3 = R1 (wired-side source)",
+        "A1 = AP, A2 = H1, A3 = R1",
+        "A1 = R1, A2 = AP, A3 = H1",
+        "A1 = H1, A2 = R1, A3 = AP"
+      ],
+      "answer": 0,
+      "explain": "Same rules, reversed direction: **A1 = receiver of this wireless transmission (H1)**, **A2 = transmitter (AP)**, **A3 = the wired-side node (R1)** so H1 knows the frame's true origin link. The AP is a relay between two links — that's why three addresses exist at all."
+    },
+    {
+      "id": "g6-4",
+      "type": "mcq",
+      "source": "Gate — mobility vocabulary",
+      "prompt": "The **triangle routing problem** in mobile IP refers to:",
+      "options": [
+        "Indirect routing detours every datagram correspondent → home network → mobile, inefficient when both are in the same visited network",
+        "Three routers forming a forwarding loop",
+        "RTS, CTS and DATA forming a triangle",
+        "The home agent sending to three foreign agents"
+      ],
+      "answer": 0,
+      "explain": "Indirect routing: B → home agent → (tunnel to COA) → foreign agent → A. The detour via home is the **triangle**. **Direct routing** fixes it (B learns the COA once, sends straight) at the cost of transparency + anchor-agent chaining when A moves again."
+    },
+    {
+      "id": "g6-5",
+      "type": "mcq",
+      "source": "Gate — 3G voice path (1617 real)",
+      "prompt": "A 3G user's **voice call** to a landline follows:",
+      "options": [
+        "Mobile → Node B → RNC → MSC → Gateway MSC → public telephone network",
+        "Mobile → Node B → RNC → SGSN → GGSN → telephone network",
+        "Mobile → RNC → GGSN → Internet → VoIP",
+        "Mobile → MSC → Node B → telephone network"
+      ],
+      "answer": 0,
+      "explain": "Voice rides the (unchanged) **circuit core**: radio leg (UTRAN: mobile → Node B → **RNC**) then **MSC → GMSC** → PSTN. Data forks at the RNC into **SGSN → GGSN → Internet**. Two parallel cores, one radio access network."
+    },
+    {
+      "id": "g6-6",
+      "type": "order",
+      "source": "Gate — handoff steps (same MSC)",
+      "prompt": "Order the **handoff** steps when a mobile on a call moves to a new base station (same MSC):",
+      "items": [
+        "Old BSS tells the MSC a handoff is needed (names candidate new BSS)",
+        "MSC sets up the path/resources to the new BSS",
+        "New BSS allocates a radio channel and signals ready",
+        "Old BSS tells the mobile: perform handoff; mobile activates the new channel",
+        "MSC reroutes the call and releases old-BSS resources"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "Old BSS initiates → MSC prepares path → new BSS allocates channel → mobile switches → **MSC reroutes + cleanup**. Triggers worth quoting: stronger signal at new BSS, load balancing. The call never drops — design goal."
+    },
+    {
+      "id": "g6-7",
+      "type": "mcq",
+      "source": "Gate — hidden terminal + fading distinction",
+      "prompt": "Hidden terminal vs fading — what distinguishes them?",
+      "options": [
+        "Hidden terminal = out of range/obstacle blocks sensing; fading = signals too ATTENUATED to sense each other yet still collide at the receiver",
+        "They are two names for the same effect",
+        "Fading only happens at night",
+        "Hidden terminal is a routing problem, fading a transport problem"
+      ],
+      "answer": 0,
+      "explain": "Both end the same way (undetectable collision at B), but the cause differs: **hidden terminal** = A and C physically cannot hear each other (range/obstacle); **fading** = the A↔C signal exists but is too weak at each other's location, while both remain strong enough at B to interfere. Exam wants both named + the sketch."
+    },
+    {
+      "id": "g6-8",
+      "type": "mcq",
+      "source": "Gate — why ACKs in 802.11",
+      "prompt": "Why does 802.11 use link-layer **ACKs** when Ethernet does not?",
+      "options": [
+        "A wireless sender cannot detect collisions/loss at the receiver (hidden terminals, fading), so explicit confirmation after SIFS is the only way to know the frame arrived",
+        "Wireless frames are more valuable",
+        "ACKs synchronize the clocks of the stations",
+        "It is required by DHCP"
+      ],
+      "answer": 0,
+      "explain": "Wired CSMA/CD senders KNOW when a collision happens — wireless senders don't (own-signal swamping + hidden terminals). Hence the receiver confirms every good frame with an **ACK after SIFS**; a missing ACK triggers backoff + retransmission. This is the standard 'why ACK' 2-marker."
+    },
+    {
+      "id": "g6-9",
+      "type": "text",
+      "source": "Gate — vocabulary reflex",
+      "prompt": "Name the process when a mobile's base station changes mid-call (one word).",
+      "accept": ["handoff", "handover"],
+      "normalize": "trim-lower",
+      "explain": "**Handoff** (also written handover) — old BSS → MSC → new BSS channel allocation → mobile switches → MSC reroutes. Two triggers: stronger signal, load balancing."
+    }
+  ]
+}

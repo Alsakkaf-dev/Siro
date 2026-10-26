@@ -1,0 +1,87 @@
+{
+  "bankId": "cross-ch4-5-practice",
+  "title": "Broken Code: Fetch · AJAX · JSON",
+  "questions": [
+    { "id": "c45p-1", "type": "mcq", "source": "BrokenCode 2.1 — JSON round-trip",
+      "prompt": "Which JSON snippet is VALID?",
+      "options": [
+        "{ \"city\": \"Johor Bahru\" }",
+        "{ 'city': 'Johor Bahru' }",
+        "{ \"city\": \"Johor Bahru\", }",
+        "{ city: \"Johor Bahru\" }"
+      ],
+      "answer": 0,
+      "explain": "JSON keys/strings need **double quotes**; trailing commas and bare keys are illegal. `JSON.parse` = string → object (arriving); `JSON.stringify(obj, null, 2)` = object → pretty string (leaving, 2-space indent)." },
+    { "id": "c45p-2", "type": "order", "source": "BrokenCode 2.2 — XHR GET",
+      "prompt": "Order the classic XHR GET steps:",
+      "items": [
+        "const xhr = new XMLHttpRequest()",
+        "xhr.open(\"GET\", url, true)",
+        "xhr.onload = () => { if (xhr.status === 200) { ... } }",
+        "const data = JSON.parse(xhr.responseText)",
+        "xhr.send()"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "Create → open (3rd arg `true` = **asynchronous**) → onload with `status === 200` check → `JSON.parse(responseText)` (it's a raw string) → **send()** — nothing happens until you send. (Parsing happens inside onload when the response arrives; the lab writes them in this order.)" },
+    { "id": "c45p-3", "type": "mcq", "source": "BrokenCode 2.3 — XHR POST",
+      "prompt": "An XHR POST of JSON needs which header call and which success status?",
+      "options": [
+        "xhr.setRequestHeader(\"Content-Type\", \"application/json\") · 201 Created",
+        "xhr.setHeader(\"Accept\", \"text/html\") · 200 OK",
+        "xhr.addHeader(\"Content-Length\", \"auto\") · 204 No Content",
+        "No header needed · 302 Found"
+      ],
+      "answer": 0,
+      "explain": "`setRequestHeader` announces the JSON body; the body itself must be `JSON.stringify(newPost)` (bodies travel as strings). A successful resource creation returns **201 Created**." },
+    { "id": "c45p-4", "type": "mcq", "source": "BrokenCode 2.4 — fetch .then chain",
+      "prompt": "Why must the first `.then` RETURN `response.json()`?",
+      "options": [
+        ".json() returns ANOTHER promise — returning it feeds the parsed data into the next .then",
+        "It converts the response to a string",
+        "Otherwise fetch retries the request",
+        "It sets the Content-Type header"
+      ],
+      "answer": 0,
+      "explain": "First .then = Response envelope; **`.json()` is async (returns a Promise)** → return it so the data lands in the second .then. Errors (network + thrown) land in the chain's `.catch`." },
+    { "id": "c45p-5", "type": "mcq", "source": "BrokenCode 2.5 — async/await",
+      "prompt": "In the async/await version, why is `if (!response.ok)` mandatory?",
+      "options": [
+        "fetch does NOT reject on 404/500 — it only rejects on network failure, so you must check ok (status 200–299) yourself",
+        "response.ok parses the JSON",
+        "await would hang forever without it",
+        "It enables CORS"
+      ],
+      "answer": 0,
+      "explain": "**fetch only rejects on network failure**; HTTP errors still resolve. Check `response.ok` and throw — the `try/catch` is the async/await replacement for `.catch()`. And `await response.json()` too — the body parse is async as well." },
+    { "id": "c45p-6", "type": "mcq", "source": "BrokenCode 2.6 — fetch POST + timeout",
+      "prompt": "The WeatherNow lab cancels a slow fetch after 10s. The pattern is:",
+      "options": [
+        "const controller = new AbortController(); setTimeout(() => controller.abort(), 10000); fetch(url, { signal: controller.signal })",
+        "fetch(url, { timeout: 10000 })",
+        "Promise.race([fetch(url), sleep(10000)]).cancel()",
+        "xhr.timeout = 10000 inside fetch options"
+      ],
+      "answer": 0,
+      "explain": "**AbortController** is the cancellation mechanism: `controller.abort()` fires → fetch rejects with an **AbortError**. fetch has no built-in timeout option. POST options keys: `method`, headers `\"Content-Type\"`, and `body: JSON.stringify(payload)`." },
+    { "id": "c45p-7", "type": "mcq", "source": "BrokenCode 2.7 — jQuery live search",
+      "prompt": "The jQuery live search waits for the DOM, fires per released keystroke, and clears old results. Which trio?",
+      "options": [
+        "$(document).ready(fn) · keyup · .empty()",
+        "$(window).load(fn) · keydown · .remove()",
+        "$.holdReady() · change · .detach()",
+        "document.onload · input · .hide()"
+      ],
+      "answer": 0,
+      "explain": "`$(document).ready` waits for the DOM; **keyup** fires after each released keystroke (the live-search trigger); `.empty()` removes all children before appending fresh results. `$.get(url, callback)` is the GET shorthand; `$(this)` = the element the event fired on." },
+    { "id": "c45p-8", "type": "mcq", "source": "BrokenCode 2.8 — $.ajax promise style",
+      "prompt": "Promise-style jQuery handlers (the rubric forbids config callbacks): success, and always-run?",
+      "options": [
+        ".done(...) · .always(...)",
+        ".success(...) · .complete(...)",
+        ".then(...) · .catch(...)",
+        ".ok(...) · .finally(...)"
+      ],
+      "answer": 0,
+      "explain": "`$.ajax({...}).done(fn).fail(fn).always(fn)` — **done** = success, **always** runs after success OR failure (the timestamp logger). With `contentType: 'application/json'` the data must be `JSON.stringify`-ed." }
+  ]
+}

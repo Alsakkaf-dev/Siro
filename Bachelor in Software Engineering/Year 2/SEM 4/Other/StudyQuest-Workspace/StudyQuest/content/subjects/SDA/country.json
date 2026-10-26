@@ -1,0 +1,443 @@
+{
+  "subjectId": "SDA",
+  "note": "Folder names with odd spacing ('Chapter = 5 - old', 'chapter 1 - new') are real — verbatim. Slides are pptx; server serves converted PDFs.",
+  "cities": [
+    {
+      "id": "sda-ch1-2",
+      "name": "Foundations & UML",
+      "desc": "Design process, coupling/cohesion, UML diagrams",
+      "unlock": {
+        "type": "always"
+      },
+      "missions": [
+        {
+          "id": "sda-ch12-read1",
+          "type": "READ",
+          "title": "Ch1 slides (new — S1)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 1/chapter 1 - new/SPACE SDA (S1).pptx",
+            "pages": [
+              1,
+              17
+            ]
+          },
+          "goal": {
+            "minSeconds": 2048
+          },
+          "xp": 60
+        },
+        {
+          "id": "sda-ch12-read2",
+          "type": "READ",
+          "title": "Ch2 slides (new — S2, UML)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 2/chapter 2 - new/SDA (S2).pptx",
+            "pages": [
+              1,
+              19
+            ]
+          },
+          "goal": {
+            "minSeconds": 2280
+          },
+          "xp": 60
+        },
+        {
+          "id": "sda-ch12-prac1",
+          "type": "PRACTICE",
+          "title": "Foundations drills",
+          "bank": "subjects/SDA/banks/ch1_2_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 140
+        },
+        {
+          "id": "sda-ch12-gate",
+          "type": "GATE",
+          "title": "Foundations Gate",
+          "bank": "subjects/SDA/banks/ch1_2_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 260
+        }
+      ]
+    },
+    {
+      "id": "sda-ch3-4",
+      "name": "Architecture Heights",
+      "desc": "4+1 views, quality attributes, architectural styles",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "sda-ch1-2"
+      },
+      "missions": [
+        {
+          "id": "sda-ch34-read1",
+          "type": "READ",
+          "title": "Ch3 slides (new)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 3/new/Chapter 3.pptx",
+            "pages": [
+              1,
+              12
+            ]
+          },
+          "goal": {
+            "minSeconds": 1440
+          },
+          "xp": 50
+        },
+        {
+          "id": "sda-ch34-read2",
+          "type": "READ",
+          "title": "Ch4 slides (new — styles)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 4/Chapter 4 - new/Chapter 4.pptx",
+            "pages": [
+              1,
+              13
+            ]
+          },
+          "goal": {
+            "minSeconds": 1560
+          },
+          "xp": 50
+        },
+        {
+          "id": "sda-ch34-prac1",
+          "type": "PRACTICE",
+          "title": "Architecture drills",
+          "bank": "subjects/SDA/banks/ch3_4_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 140
+        },
+        {
+          "id": "sda-ch34-gate",
+          "type": "GATE",
+          "title": "Architecture Gate",
+          "bank": "subjects/SDA/banks/ch3_4_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 260
+        }
+      ]
+    },
+    {
+      "id": "sda-ch5",
+      "name": "SOLID Citadel",
+      "desc": "Detailed design + the five SOLID principles",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "sda-ch3-4"
+      },
+      "missions": [
+        {
+          "id": "sda-ch5-read1",
+          "type": "READ",
+          "title": "Ch5 slides (new)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 5/Chapter 5 - new/Chapter 5.pptx",
+            "pages": [
+              1,
+              13
+            ]
+          },
+          "goal": {
+            "minSeconds": 1560
+          },
+          "xp": 50
+        },
+        {
+          "id": "sda-ch5-read2",
+          "type": "READ",
+          "title": "Liskov Substitution deep-dive",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 5/Chapter = 5 - old/Liskov Substitution Principle.ppt",
+            "pages": [
+              1,
+              13
+            ]
+          },
+          "goal": {
+            "minSeconds": 1560
+          },
+          "xp": 50
+        },
+        {
+          "id": "sda-ch5-prac1",
+          "type": "PRACTICE",
+          "title": "SOLID violation drills",
+          "bank": "subjects/SDA/banks/ch5_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "sda-ch5-gate",
+          "type": "GATE",
+          "title": "SOLID Gate",
+          "bank": "subjects/SDA/banks/ch5_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "sda-ch6",
+      "name": "Creational Forge",
+      "desc": "Singleton · Factory · Abstract Factory · Builder · Prototype",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "sda-ch5"
+      },
+      "missions": [
+        {
+          "id": "sda-ch6-read1",
+          "type": "READ",
+          "title": "Creational patterns — Session I",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 6/old/Chapter 6 - Creational Design Patterns - Session I.pptx",
+            "pages": [
+              1,
+              30
+            ]
+          },
+          "goal": {
+            "minSeconds": 3600
+          },
+          "xp": 70
+        },
+        {
+          "id": "sda-ch6-read2",
+          "type": "READ",
+          "title": "Creational patterns — Session II + III",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 6/old/Chapter 6 - Creational Design Patterns - Session II.pptx",
+            "pages": [
+              1,
+              20
+            ]
+          },
+          "goal": {
+            "minSeconds": 2400
+          },
+          "xp": 60
+        },
+        {
+          "id": "sda-ch6-prac1",
+          "type": "PRACTICE",
+          "title": "Pattern recognition (creational)",
+          "bank": "subjects/SDA/banks/ch6_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "sda-ch6-gate",
+          "type": "GATE",
+          "title": "Creational Gate",
+          "bank": "subjects/SDA/banks/ch6_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "sda-ch7",
+      "name": "Pattern Peaks",
+      "desc": "Adapter · Composite · Facade · Observer · Iterator",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "sda-ch6"
+      },
+      "missions": [
+        {
+          "id": "sda-ch7-read1",
+          "type": "READ",
+          "title": "Structural & behavioral — Session I",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 7/Old/Chapter 7 - Structural and Behavioral Design Patterns - Session I.pptx",
+            "pages": [
+              1,
+              18
+            ]
+          },
+          "goal": {
+            "minSeconds": 2160
+          },
+          "xp": 60
+        },
+        {
+          "id": "sda-ch7-read2",
+          "type": "READ",
+          "title": "Structural & behavioral — Session II",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 7/Old/Chapter 7 - Structural and Behavioral Design Patterns - Session II.pptx",
+            "pages": [
+              1,
+              29
+            ]
+          },
+          "goal": {
+            "minSeconds": 3480
+          },
+          "xp": 70
+        },
+        {
+          "id": "sda-ch7-prac1",
+          "type": "PRACTICE",
+          "title": "Pattern recognition + code (structural/behavioral)",
+          "bank": "subjects/SDA/banks/ch7_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "sda-ch7-gate",
+          "type": "GATE",
+          "title": "Patterns Gate",
+          "bank": "subjects/SDA/banks/ch7_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "sda-ch8-9",
+      "name": "Construction & Command",
+      "desc": "Cyclomatic complexity, decision tables, WBS, EVM",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "sda-ch7"
+      },
+      "missions": [
+        {
+          "id": "sda-ch89-read1",
+          "type": "READ",
+          "title": "Construction design — Session I (modified)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 8/Chapter 8 - Principles of Construction Design - Session I - MODIFIED.pptx",
+            "pages": [
+              1,
+              29
+            ]
+          },
+          "goal": {
+            "minSeconds": 3480
+          },
+          "xp": 70
+        },
+        {
+          "id": "sda-ch89-read2",
+          "type": "READ",
+          "title": "Design management — Session II (EVM)",
+          "target": {
+            "kind": "pdf",
+            "path": "SDA/Storage/Materials/Slides/Chapter 9/Chapter 9 - SW Design Management - Session II.pptx",
+            "pages": [
+              1,
+              39
+            ]
+          },
+          "goal": {
+            "minSeconds": 4680
+          },
+          "xp": 80
+        },
+        {
+          "id": "sda-ch89-prac1",
+          "type": "PRACTICE",
+          "title": "Complexity + EVM drills",
+          "bank": "subjects/SDA/banks/ch8_9_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "sda-ch89-gate",
+          "type": "GATE",
+          "title": "Final Gate — Construction & Command",
+          "bank": "subjects/SDA/banks/ch8_9_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 350
+        }
+      ]
+    }
+  ]
+}

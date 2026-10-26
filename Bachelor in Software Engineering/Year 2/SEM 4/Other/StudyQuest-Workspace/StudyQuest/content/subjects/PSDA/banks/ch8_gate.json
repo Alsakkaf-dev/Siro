@@ -1,0 +1,58 @@
+{
+  "bankId": "psda-ch8-gate",
+  "title": "ANOVA Gate — FINAL",
+  "questions": [
+    { "id": "g8-1", "type": "mcq", "source": "Gate — hypotheses",
+      "prompt": "The one-way ANOVA hypotheses for 4 server configs are:",
+      "options": [
+        "H₀: μ₁ = μ₂ = μ₃ = μ₄ vs H₁: at least one mean differs",
+        "H₀: all means differ vs H₁: all equal",
+        "H₀: σ₁ = σ₂ = σ₃ = σ₄ vs H₁: variances differ",
+        "H₀: μ₁ > μ₂ > μ₃ > μ₄"
+      ],
+      "answer": 0,
+      "explain": "H₁ is **'at least one differs'** — never 'all differ'. (And it's about MEANS; equal variances is an assumption, not the hypothesis.)" },
+    { "id": "g8-2", "type": "numeric", "source": "Gate — df fresh",
+      "prompt": "k = 4 groups, n = 6 per group. df₂ (within) = ?",
+      "answer": 20, "tolerance": 0,
+      "explain": "df₂ = k(n−1) = 4×5 = **20** (df₁ = 3). F(0.05; 3, 20) = 3.098 — the drill's P5 lookup." },
+    { "id": "g8-3", "type": "numeric", "source": "Gate — F from variance estimates",
+      "prompt": "Between-group estimate n·s_x̄² = 2810.153, within-group s_p² = 53.275. F₀ = ? (1 decimal)",
+      "answer": 52.7, "tolerance": 0.3,
+      "explain": "F₀ = 2810.153/53.275 = **52.748** ≫ F(0.05; 3, 20) = 3.098 → reject: the server configurations differ significantly in mean response time (the drill's 20-marker)." },
+    { "id": "g8-4", "type": "mcq", "source": "Gate — F < 1 reflex",
+      "prompt": "You compute F₀ = 0.74. Without any table you already know:",
+      "options": [
+        "Fail to reject H₀ — critical F values are always > 1; between-variation is smaller than within-noise",
+        "Reject H₀ — F is small",
+        "The computation must be wrong",
+        "You must square it first"
+      ],
+      "answer": 0,
+      "explain": "**F₀ < 1 ⇒ automatic fail-to-reject** for any reasonable α/df: the groups differ LESS than their internal noise predicts. (Drill P3's SSD brands: F = 0.743.)" },
+    { "id": "g8-5", "type": "numeric", "source": "Gate — between estimate",
+      "prompt": "Group means 82.6, 71.8, 88.2 (n = 5 each), variance of the means s_x̄² = 69.493. Between-group estimate = n·s_x̄² = ? (1 decimal)",
+      "answer": 347.5, "tolerance": 0.5,
+      "explain": "**5 × 69.493 = 347.467.** Within = mean of group variances (15.8+8.2+8.2)/3 = 10.733 → F₀ = 32.373 > F(0.01; 2, 12) = 6.927 → reject at 1%." },
+    { "id": "g8-6", "type": "mcq", "source": "Gate — what ANOVA can't say",
+      "prompt": "A significant ANOVA (reject H₀) tells you:",
+      "options": [
+        "At least one mean differs — but NOT which one (that needs post-hoc comparisons)",
+        "Exactly which group is best",
+        "All groups differ from each other",
+        "The variances are unequal"
+      ],
+      "answer": 0,
+      "explain": "ANOVA's conclusion stops at 'not all equal'. Pointing at the winner needs **post-hoc tests** (outside this syllabus) — quoting this limitation is a free theory mark." },
+    { "id": "g8-7", "type": "mcq", "source": "Gate — the 7-step ANOVA recipe",
+      "prompt": "The full-marks ANOVA structure is:",
+      "options": [
+        "Hypotheses → group means + variances → between estimate (n·s_x̄²) → within estimate (mean of s²) → F₀ → df pair + critical F → compare + conclusion sentence",
+        "Just compute F and circle it",
+        "Plot the groups and eyeball",
+        "Run three t-tests"
+      ],
+      "answer": 0,
+      "explain": "Q6's 20 marks are spread across the steps: hypotheses (2), group stats (6), between (3), within (2), F (2), df + critical (2), decision + sentence (3). Show EVERY step — partial credit is the safety net." }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "bankId": "psda-ch6-gate",
+  "title": "Chi-Square Gate",
+  "questions": [
+    { "id": "g6-1", "type": "mcq", "source": "Gate — hypotheses GOF",
+      "prompt": "For the help-desk GOF test (5 weekdays), the hypotheses are:",
+      "options": [
+        "H₀: p₁ = … = p₅ = 1/5 vs H₁: at least one proportion differs",
+        "H₀: all days differ vs H₁: all equal",
+        "H₀: μ₁ = … = μ₅ vs H₁: not all equal",
+        "H₀: the table is independent vs H₁: dependent"
+      ],
+      "answer": 0,
+      "explain": "GOF-equal: **H₀ states the claimed proportions** (uniform 1/k); H₁ = 'at least one differs'. Means (μ) language belongs to ANOVA, not χ²." },
+    { "id": "g6-2", "type": "numeric", "source": "Gate — fresh GOF",
+      "prompt": "4 categories, n = 200, H₀: equal proportions. O = 60, 45, 50, 45. Compute χ²₀ (1 decimal).",
+      "answer": 3.0, "tolerance": 0.1,
+      "explain": "E = 200/4 = 50 each. χ²₀ = (60−50)²/50 + (45−50)²/50 + (50−50)²/50 + (45−50)²/50 = 2.0 + 0.5 + 0 + 0.5 = **3.0**. df = 3; χ²(0.05, 3) = 7.815 → 3.0 < 7.815 → fail to reject H₀." },
+    { "id": "g6-3", "type": "numeric", "source": "Gate — df reflex",
+      "prompt": "Independence test on a 4×3 table. df = ?",
+      "answer": 6, "tolerance": 0,
+      "explain": "df = (r−1)(c−1) = 3×2 = **6**. GOF with k categories: df = k−1." },
+    { "id": "g6-4", "type": "mcq", "source": "Gate — validity condition",
+      "prompt": "Before trusting a χ² test you must check:",
+      "options": [
+        "Every EXPECTED count ≥ 5 (combine categories if not)",
+        "Every observed count ≥ 30",
+        "n ≥ 1000",
+        "The table is square"
+      ],
+      "answer": 0,
+      "explain": "**All e_ij ≥ 5** — the standard validity condition (worth a mark; state it). Observed counts may be anything." },
+    { "id": "g6-5", "type": "mcq", "source": "Gate — tail direction",
+      "prompt": "Chi-square GOF and independence tests are ALWAYS:",
+      "options": [
+        "Right-tailed — large χ²₀ means observed counts far from expected",
+        "Left-tailed",
+        "Two-tailed",
+        "Depends on the claim wording"
+      ],
+      "answer": 0,
+      "explain": "Deviations in ANY direction inflate Σ(O−E)²/E, so only LARGE values are evidence against H₀ → **right tail only**. (Contrast: χ² tests on σ can be left/right/two-tailed.)" },
+    { "id": "g6-6", "type": "numeric", "source": "Gate — independence expected",
+      "prompt": "2×2 table: row₁ total = 200, col₁ total = 105, n = 400. e₁₁ = ? (1 decimal)",
+      "answer": 52.5, "tolerance": 0.1,
+      "explain": "e₁₁ = 200×105/400 = **52.5**. The drill's verdict: χ²₀ = 3.732 < 3.841 = χ²(0.05, 1) → fail to reject by 0.109 — write the comparison explicitly." },
+    { "id": "g6-7", "type": "mcq", "source": "Gate — interpretation",
+      "prompt": "χ²₀ = 15.400 > χ²(0.05, 4) = 9.488 for shift × defect. The conclusion sentence is:",
+      "options": [
+        "\"Reject H₀ — at α = 0.05 there is sufficient evidence that defect type and shift are related (not independent)\"",
+        "\"Fail to reject — shifts are equal\"",
+        "\"The shifts cause defects\"",
+        "\"χ² proves night shift is worst\""
+      ],
+      "answer": 0,
+      "explain": "Rejecting independence ⇒ **related/dependent** — phrase it exactly. χ² doesn't prove causation nor rank the shifts (though the largest (O−E)²/E contributions show WHERE the dependence comes from — a nice bonus sentence)." }
+  ]
+}

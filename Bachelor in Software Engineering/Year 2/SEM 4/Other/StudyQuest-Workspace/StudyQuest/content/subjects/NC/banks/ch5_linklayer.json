@@ -1,0 +1,142 @@
+{
+  "bankId": "nc-ch5-linklayer",
+  "title": "Link Layer drills",
+  "questions": [
+    {
+      "id": "ll-1",
+      "type": "mcq",
+      "source": "Drill P1 — 1819 final Q8a (ARP, same subnet)",
+      "prompt": "PCA (192.168.1.111) must send to PCB (192.168.1.115) on the **same subnet**; PCA's ARP table is empty. What is the **destination MAC of PCA's ARP query**?",
+      "options": [
+        "FF-FF-FF-FF-FF-FF — broadcast, so all LAN1 nodes receive it",
+        "PCB's MAC 31-13-33-33-45-56",
+        "The router's MAC 6A-12-55-34-55-55",
+        "00-00-00-00-00-00 — unknown placeholder"
+      ],
+      "answer": 0,
+      "explain": "ARP process (4 marks):\n1. PCA checks 192.168.1.115 against its mask → **same subnet** → needs **PCB's MAC** directly.\n2. Not in the (empty) ARP table → PCA **broadcasts an ARP query** containing PCB's IP; dst MAC = **FF-FF-FF-FF-FF-FF**.\n3. Only **PCB replies**, unicast to PCA's MAC, carrying 31-13-33-33-45-56.\n4. PCA **caches** the mapping (TTL ≈ 20 min) and sends the frame."
+    },
+    {
+      "id": "ll-2",
+      "type": "mcq",
+      "source": "Drill P2 — 1819 final Q8b (ARP, different subnet)",
+      "prompt": "PCA must send to PCC (**different subnet**, behind router R1). Whose MAC does PCA actually need?",
+      "options": [
+        "R1 int1's MAC (the default gateway) — a frame cannot cross a router",
+        "PCC's MAC — ARP works end-to-end",
+        "R1 int2's MAC (the far interface)",
+        "No MAC needed — IP handles it"
+      ],
+      "answer": 0,
+      "explain": "Different subnet → the frame goes to PCA's **default gateway, R1 int1**. PCA ARPs for **192.168.1.1** and gets 6A-12-55-34-55-55.\n**MAC addresses only have meaning on the local LAN** — the datagram inside still carries dst IP = 192.168.55.222 (PCC); R1 re-ARPs on LAN2."
+    },
+    {
+      "id": "ll-3",
+      "type": "mcq",
+      "source": "Drill P3(b) — 1617 Q4a (frame rewrite table)",
+      "prompt": "Datagram PCA→PCC crossing R1. On **LAN2 (R1→PCC)**, which addresses does the frame carry?\n\n(PCA=01-12-…-56, R1 int1=6A-…-55, R1 int2=9A-…-58, PCC=62-FE-…-A3)",
+      "options": [
+        "src IP 192.168.1.111 · dst IP 192.168.55.222 · src MAC 9A-12-66-34-75-58 (R1 int2) · dst MAC 62-FE-F7-11-89-A3 (PCC)",
+        "src IP 192.168.55.1 · dst IP 192.168.55.222 · src MAC 9A-… · dst MAC 62-FE-…",
+        "src IP 192.168.1.111 · dst IP 192.168.55.222 · src MAC 01-12-… (PCA) · dst MAC 62-FE-…",
+        "src IP 192.168.1.111 · dst IP 192.168.55.1 · src MAC 6A-… · dst MAC 9A-…"
+      ],
+      "answer": 0,
+      "explain": "**Rule: IP addresses never change in transit; MAC addresses are rewritten at every hop.**\n\n| Location | src IP | dst IP | src MAC | dst MAC |\n|---|---|---|---|---|\n| X (PCA→R1, LAN1) | 192.168.1.111 | 192.168.55.222 | PCA 01-12-… | **R1 int1 6A-…** |\n| Y (R1→PCC, LAN2) | 192.168.1.111 | 192.168.55.222 | **R1 int2 9A-…** | PCC 62-FE-… |"
+    },
+    {
+      "id": "ll-4",
+      "type": "mcq",
+      "source": "Drill P3(a) — ARP table contents",
+      "prompt": "PCC (LAN2) has been sending to PCD (same LAN) and PCB (other LAN). PCC's ARP table contains:",
+      "options": [
+        "PCD's entry + R1 int2's entry (192.168.55.1) — never PCB's MAC",
+        "PCD's entry + PCB's entry",
+        "PCB, PCD and both router interfaces",
+        "Only PCD's entry"
+      ],
+      "answer": 0,
+      "explain": "Same subnet → direct entry (PCD → 7C-BA-B2-B4-91-10). Other subnet → entry for the **router interface on PCC's side** (R1 int2, 192.168.55.1 → 9A-12-66-34-75-58). An ARP table NEVER holds MACs from another LAN."
+    },
+    {
+      "id": "ll-5",
+      "type": "mcq",
+      "source": "Drill P4 — 1718 Q7 (switch self-learning)",
+      "prompt": "Switch table initially **empty**; hosts A–F on ports 1–6. **C sends a frame to A.** What does the switch do?",
+      "options": [
+        "Learns (C, port 3); FLOODS the frame on every port except 3 — A's location is unknown",
+        "Learns (A, port 1); forwards on port 1 only",
+        "Drops the frame — destination unknown",
+        "Learns (C, port 3); forwards on port 1 only"
+      ],
+      "answer": 0,
+      "explain": "Self-learning: the switch records the **SOURCE** (C, 3). The destination A is **unknown → flood** all ports except the arrival port.\nNext events: A→C is **selective forward to port 3 only** (C now known) and the switch learns (A,1); F→A forwards on **1 only**; etc.\nMarking pattern: 1 mark per learned entry, 1 per correct forwarding decision + justification."
+    },
+    {
+      "id": "ll-6",
+      "type": "text",
+      "source": "Drill P5 — 2020/21 + 1819 real (CRC sender)",
+      "prompt": "Sender data **D = 100100**, generator **G = 1101**, r = 3. Compute the CRC remainder **R** (3 bits).",
+      "accept": ["001"],
+      "normalize": "trim-lower",
+      "explain": "Append r=3 zeros → dividend **100100000**, XOR-divide by 1101:\n```\n1 0 0 1 0 0 0 0 0\n1 1 0 1            → 0101 0…\n  1 1 0 1          → 0010 1…\n    1 1 0 1        → 0001 11…\n      1 1 0 1      → 0000 011 0 0\n           1 1 0 1 → remainder 001\n```\n**R = 001**, transmitted pattern ⟨D,R⟩ = **100100001**.\n*Self-check: 100100001 ÷ 1101 leaves remainder 000.*"
+    },
+    {
+      "id": "ll-7",
+      "type": "mcq",
+      "source": "Drill P6(a) — 2020/21 real (CRC receiver)",
+      "prompt": "Receiver gets **100100001** and divides by G = 1101. The remainder is **000**. Verdict?",
+      "options": [
+        "No error detected — the frame is accepted",
+        "Error detected — the frame is rejected",
+        "Cannot tell without the original data",
+        "The receiver must request the generator first"
+      ],
+      "answer": 0,
+      "explain": "Receiver divides the WHOLE received string by G: **remainder 000 → no error detected; accept.** (It is exactly the P5 transmission.)\nContrast P6(b): received 100000001 → remainder **011 ≠ 0 → error detected; reject**.\nMarking (5m): setup 1, visible XOR steps 2, remainder 1, verdict stated 1."
+    },
+    {
+      "id": "ll-8",
+      "type": "mcq",
+      "source": "Drill P7 — 2-D even parity",
+      "prompt": "In the received 2-D even-parity block, **row 2 has five 1s (parity fails)** and **column 5 has three 1s (parity fails)**. What does the receiver conclude?",
+      "options": [
+        "Single-bit error at (row 2, column 5) — flip it: received 1, corrected to 0",
+        "Two errors — discard the block",
+        "The parity row itself is corrupt",
+        "Error at (row 5, column 2)"
+      ],
+      "answer": 0,
+      "explain": "2-D parity can **detect AND CORRECT a single-bit error**: the failing row × failing column intersect at the bad bit → **(row 2, col 5): 1 → 0**. Single-bit parity can only detect (odd numbers of) errors — that's the advantage sentence worth a mark."
+    },
+    {
+      "id": "ll-9",
+      "type": "order",
+      "source": "Drill P8 — 1819 Q7 essay (CSMA/CD operation)",
+      "prompt": "Arrange the **CSMA/CD** steps in order (Ethernet NIC):",
+      "items": [
+        "Sense the channel; if idle, transmit the entire frame; if busy, defer",
+        "While transmitting, listen for other transmissions",
+        "On detecting a collision: abort immediately and send a JAM signal",
+        "Pick K from {0,1,…,2^m − 1} and wait K × 512 bit times (binary exponential backoff)",
+        "Return to carrier sensing and retry"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "CSMA/CD = **carrier sense** (listen before) + **collision detection** (listen WHILE transmitting).\nCollision → **abort early + jam** (everyone learns; channel wastage cut short) → **binary exponential backoff**: after the m-th collision, K ∈ {0…2^m−1}, wait **K × 512 bit times** — more collisions ⇒ wider window ⇒ adaptively lighter load.\nCollisions exist at all because of **propagation delay**."
+    },
+    {
+      "id": "ll-10",
+      "type": "mcq",
+      "source": "Drill P8 close — CD vs wireless",
+      "prompt": "Why does collision **detection** work on wired Ethernet but **not** on wireless?",
+      "options": [
+        "Wired NICs can compare transmitted vs received signal; in wireless your own transmission overwhelms the received signal, and hidden terminals make some collisions undetectable",
+        "Radio waves travel too fast to detect",
+        "Wireless frames have no addresses",
+        "Wireless uses TCP instead of CSMA"
+      ],
+      "answer": 0,
+      "explain": "On a wire you can detect a collision by comparing signal strengths. A wireless sender is deaf while transmitting (its own signal drowns everything) and **hidden terminals** mean a collision at the receiver may be physically invisible at the sender — hence 802.11 uses **CSMA/CA** (avoidance + ACKs) instead."
+    }
+  ]
+}

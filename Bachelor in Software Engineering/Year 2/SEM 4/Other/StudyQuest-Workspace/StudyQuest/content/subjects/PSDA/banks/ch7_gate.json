@@ -1,0 +1,52 @@
+{
+  "bankId": "psda-ch7-gate",
+  "title": "Regression Gate",
+  "questions": [
+    { "id": "g7-1", "type": "numeric", "source": "Gate — Pearson fresh",
+      "prompt": "n = 8, Σx = 44, Σy = 123, Σx² = 284, Σy² = 2003, Σxy = 744. Compute r (3 decimals).",
+      "answer": 0.985, "tolerance": 0.005,
+      "explain": "Num: 744 − 44×123/8 = 67.5. Den: √[(284 − 242)(2003 − 1891.125)] = √(42 × 111.875) = 68.547. **r = 0.985** — very strong positive: higher ad spend ↔ higher sales (no causation claim!)." },
+    { "id": "g7-2", "type": "mcq", "source": "Gate — r interpretation scale",
+      "prompt": "r = −0.85 means:",
+      "options": [
+        "Strong NEGATIVE linear relationship — as x rises, y tends to fall",
+        "Weak relationship because it's negative",
+        "85% of y is explained by x",
+        "The slope is −0.85"
+      ],
+      "answer": 0,
+      "explain": "Sign = direction, magnitude = strength: |r| ≈ 0.85 is strong. The '% explained' is **r² = 0.7225 (72.25%)**, not r; and the slope b₁ has different units entirely." },
+    { "id": "g7-3", "type": "numeric", "source": "Gate — Spearman fresh",
+      "prompt": "n = 6 ranked items, Σd² = 8. Compute r_s (3 decimals).",
+      "answer": 0.771, "tolerance": 0.005,
+      "explain": "r_s = 1 − 6(8)/(6×35) = 1 − 48/210 = 1 − 0.2286 = **0.771** — strong positive rank agreement." },
+    { "id": "g7-4", "type": "numeric", "source": "Gate — intercept",
+      "prompt": "x̄ = 6.286, ȳ = 4.929, b₁ = 0.367. Compute b₀ = ȳ − b₁x̄ (3 decimals).",
+      "answer": 2.625, "tolerance": 0.01,
+      "explain": "b₀ = 4.929 − 0.367×6.286 = 4.929 − 2.304 = **2.625**. The least-squares line ALWAYS passes through (x̄, ȳ) — that's why this formula works." },
+    { "id": "g7-5", "type": "mcq", "source": "Gate — slope interpretation",
+      "prompt": "In ŷ = 2.625 + 0.367x (salary in RM-thousands vs years of experience), b₁ = 0.367 means:",
+      "options": [
+        "Each additional year of experience is associated with ≈ RM367/month more salary",
+        "Salary starts at RM367",
+        "36.7% of salary is explained",
+        "Experience grows 0.367 years per RM"
+      ],
+      "answer": 0,
+      "explain": "**Slope = change in ŷ per unit change in x.** Intercept b₀ = 2.625 = baseline at x = 0 (entry-level ≈ RM2,625). The interpretation marks demand units + direction." },
+    { "id": "g7-6", "type": "numeric", "source": "Gate — R² fresh",
+      "prompt": "SST = 200, SSE = 38. R² = ? (2 decimals)",
+      "answer": 0.81, "tolerance": 0.005,
+      "explain": "SSR = 200 − 38 = 162; **R² = 162/200 = 0.81** → '81% of the variation in y is explained by the variation in x.'" },
+    { "id": "g7-7", "type": "mcq", "source": "Gate — full Q4+Q5 structure",
+      "prompt": "The exam's regression question typically asks, in order:",
+      "options": [
+        "Sums table → r (+ strength sentence) → b₁, b₀ → line ŷ = b₀ + b₁x → predict ŷ(x₀) inside the range → R² or slope t-test",
+        "Slope first, then r, then sums",
+        "Only a scatter plot",
+        "ANOVA table first"
+      ],
+      "answer": 0,
+      "explain": "Q4 (Pearson + interpretation) feeds Q5 (line + prediction + R²/slope test) — the SAME sums (Σx, Σy, Σx², Σy², Σxy) power everything. Compute them once, carefully, with a table." }
+  ]
+}

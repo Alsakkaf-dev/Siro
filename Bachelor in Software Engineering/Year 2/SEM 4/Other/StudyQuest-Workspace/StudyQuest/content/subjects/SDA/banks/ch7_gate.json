@@ -1,0 +1,66 @@
+{
+  "bankId": "sda-ch7-gate",
+  "title": "Patterns Gate",
+  "questions": [
+    { "id": "s7g-1", "type": "mcq", "source": "Gate — diagram recognition (drill Q13)",
+      "prompt": "A class diagram shows a Component interface, a Leaf, and a Composite holding a collection of Components with Add/Remove. Pattern?",
+      "options": ["Composite", "Observer", "Adapter", "Decorator"],
+      "answer": 0,
+      "explain": "**Composite** diagram signature: Component / Leaf / Composite-with-child-aggregation. Observer's signature is Subject with Attach/Detach/Notify against IObserver.Update; Adapter realizes the Target AND wraps the Adaptee." },
+    { "id": "s7g-2", "type": "mcq", "source": "Gate — diagram recognition",
+      "prompt": "A diagram shows class X realizing interface `ITarget` and holding a reference to class `LegacyLib` whose method names differ. Pattern?",
+      "options": ["Adapter", "Facade", "Factory", "Prototype"],
+      "answer": 0,
+      "explain": "**Adapter** = realizes Target + association to Adaptee, translating inside. (Drill Q13(v).)" },
+    { "id": "s7g-3", "type": "mcq", "source": "Gate — scenario",
+      "prompt": "An e-commerce checkout calls inventory, payment, shipping and email subsystems through one `PlaceOrder()` method that hides the choreography. Pattern?",
+      "options": ["Facade", "Adapter", "Observer", "Composite"],
+      "answer": 0,
+      "explain": "One simplified entry point over many subsystem APIs, no interface mismatch = **Facade**." },
+    { "id": "s7g-4", "type": "mcq", "source": "Gate — Observer roles",
+      "prompt": "In Observer, which is TRUE?",
+      "options": [
+        "The Subject holds a list of observers behind an interface and calls Update on each in Notify — it never knows concrete observer classes",
+        "Observers poll the subject every second",
+        "The Subject subclasses every observer",
+        "Update is called by the observers themselves"
+      ],
+      "answer": 0,
+      "explain": "Subject knows only **IObserver** — that's the decoupling. Notify (fired on real state change) loops the list calling Update. Polling is exactly what Observer eliminates." },
+    { "id": "s7g-5", "type": "mcq", "source": "Gate — flight scenario code (drill Q14)",
+      "prompt": "In the flight-status design, why does `VendorXAdapter` implement `IDisplay` rather than modify `VendorXPanel`?",
+      "options": [
+        "The vendor class can't be modified; the adapter realizes the expected interface and converts Render(info) into panel.PushText(formatted)",
+        "Adapters are faster than direct calls",
+        "IDisplay requires exactly one implementation",
+        "PushText is private"
+      ],
+      "answer": 0,
+      "explain": "Classic Adapter constraint: the Adaptee is closed (vendor/legacy). The adapter is the bridge: `Render(info) => _panel.PushText(info.FlightNo + \" : \" + info.StatusText)` — and the Subject just sees another IDisplay observer." },
+    { "id": "s7g-6", "type": "mcq", "source": "Gate — pattern category check",
+      "prompt": "Which row classifies the patterns correctly?",
+      "options": [
+        "Creational: Singleton/Factory/Builder/Prototype · Structural: Adapter/Composite/Facade · Behavioral: Observer/Iterator",
+        "Creational: Adapter/Facade · Structural: Singleton · Behavioral: Builder",
+        "All seven are behavioral",
+        "Structural: Observer · Behavioral: Composite"
+      ],
+      "answer": 0,
+      "explain": "**Creational** = object creation (Singleton, Factory, Abstract Factory, Builder, Prototype). **Structural** = composition (Adapter, Composite, Facade). **Behavioral** = interaction/responsibility (Observer, Iterator)." },
+    { "id": "s7g-7", "type": "mcq", "source": "Gate — scenario, mixed",
+      "prompt": "A drawing app groups shapes; a group can contain shapes AND other groups, and `Move(dx,dy)` must work on anything selected. Also, every move must instantly refresh all open views of the document. Which TWO patterns?",
+      "options": [
+        "Composite (part-whole Move) + Observer (views auto-refresh)",
+        "Adapter + Facade",
+        "Builder + Prototype",
+        "Singleton + Iterator"
+      ],
+      "answer": 0,
+      "explain": "Part-whole uniform operation = **Composite**; one-to-many auto-refresh of views on model change = **Observer**. Exam loves two-pattern scenarios — name both AND justify each with the signal phrase." },
+    { "id": "s7g-8", "type": "text", "source": "Gate — vocabulary",
+      "prompt": "In Adapter terminology, the existing incompatible class being wrapped is called the ______. (one word)",
+      "accept": ["adaptee"],
+      "normalize": "trim-lower",
+      "explain": "**Adaptee** (e.g. VendorXPanel / BillingApi); the interface clients expect is the **Target** (IDisplay/IDataSource); the converter in between is the **Adapter**." }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "bankId": "sda-ch1-2-gate",
+  "title": "Foundations Gate",
+  "questions": [
+    { "id": "s12g-1", "type": "mcq", "source": "Gate — design process",
+      "prompt": "The two stages of software design, in order, are:",
+      "options": [
+        "Architectural design (system skeleton, quality attributes) → detailed design (component internals, functional behavior)",
+        "Coding → testing",
+        "Detailed design → architectural design",
+        "Requirements → deployment"
+      ],
+      "answer": 0,
+      "explain": "Design sits between analysis and construction: **architecture first** (major components, interfaces, quality trade-offs), then **detailed design** (algorithms, data structures, internals of each component)." },
+    { "id": "s12g-2", "type": "order", "source": "Gate — coupling ranking",
+      "prompt": "Order coupling types from WORST to BEST:",
+      "items": ["Content coupling", "Common coupling", "Control coupling", "Stamp coupling", "Data coupling"],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "**Content** (touching internals — worst) > **Common** (shared globals) > **Control** (passing flags that steer logic) > **Stamp** (passing whole structures when only parts are needed) > **Data** (simple parameters — the acceptable kind)." },
+    { "id": "s12g-3", "type": "mcq", "source": "Gate — cohesion target",
+      "prompt": "The BEST level of cohesion, where a module performs exactly one well-defined task, is called:",
+      "options": ["Functional cohesion", "Coincidental cohesion", "Temporal cohesion", "Logical cohesion"],
+      "answer": 0,
+      "explain": "**Functional cohesion** = single well-defined responsibility — the target. Coincidental (random grab-bag) is the worst; temporal = grouped only by when they run; logical = grouped by category with a flag selecting behavior." },
+    { "id": "s12g-4", "type": "mcq", "source": "Drill Q8 — banking use case",
+      "prompt": "Every execution of 'Transfer Funds' must run 'Verify OTP', and 'Convert Currency' runs only for foreign transfers. The correct relationships are:",
+      "options": [
+        "Transfer Funds —<<include>>→ Verify OTP · Convert Currency —<<extend>>→ Transfer Funds",
+        "Transfer Funds —<<extend>>→ Verify OTP · Convert Currency —<<include>>→ Transfer Funds",
+        "Both are <<include>>",
+        "Both are generalizations"
+      ],
+      "answer": 0,
+      "explain": "Mandatory → **include** (base points to included). Conditional/optional → **extend** (extension points to base). Getting the arrow directions right is where the marks hide." },
+    { "id": "s12g-5", "type": "mcq", "source": "Gate — UML visibilities",
+      "prompt": "UML member prefixes `+`, `-`, `#` translate to:",
+      "options": ["public, private, protected", "private, public, internal", "protected, private, static", "public, abstract, sealed"],
+      "answer": 0,
+      "explain": "`+` = **public**, `-` = **private**, `#` = **protected** (`~` = package/internal). Italics or {abstract} = abstract." },
+    { "id": "s12g-6", "type": "mcq", "source": "Gate — diagram choice",
+      "prompt": "You must show the ORDER of messages between objects over time for one scenario. Which diagram?",
+      "options": ["Sequence diagram", "Class diagram", "Deployment diagram", "Package diagram"],
+      "answer": 0,
+      "explain": "**Sequence diagram** = behavioral, time flows downward, lifelines + messages. Class = static structure; deployment = hardware mapping; package = code organization." },
+    { "id": "s12g-7", "type": "mcq", "source": "Drill Q9 — association in code",
+      "prompt": "A UML association `Invoice 1 — 1..* Payment` is implemented in C# as:",
+      "options": [
+        "A `List<Payment>` field inside Invoice plus methods that operate on it",
+        "Invoice inherits from Payment",
+        "A global static array of payments",
+        "Payment holds a List<Invoice>"
+      ],
+      "answer": 0,
+      "explain": "Multiplicity 1..* on Payment's side → Invoice holds a **collection of Payment** (`private List<Payment> payments`) with an `AddPayment(Payment p)` method. Inheritance would be a generalization arrow, not an association." },
+    { "id": "s12g-8", "type": "mcq", "source": "Gate — abstract class contract",
+      "prompt": "`public abstract class Payment { public abstract void Process(); }` — which statement is TRUE?",
+      "options": [
+        "Payment cannot be instantiated; every concrete subclass MUST override Process()",
+        "Payment can be instantiated if Process is not called",
+        "Subclasses may skip Process() silently",
+        "abstract methods need a body"
+      ],
+      "answer": 0,
+      "explain": "Abstract class = no instantiation; abstract method = no body + **mandatory override** in concrete subclasses (`public override void Process()` with base-constructor chaining `: base(amount)` where needed)." },
+    { "id": "s12g-9", "type": "mcq", "source": "Drill Q5 — design challenges",
+      "prompt": "\"Customers want a bigger house with more windows — by next week\" illustrates which design challenge?",
+      "options": ["Requirements volatility", "Ethics", "Technology churn", "Process inconsistency"],
+      "answer": 0,
+      "explain": "**Requirements (volatility)**: requirements change mid-project; designs must absorb change or rework explodes. The other documented challenges: processes, technology, ethics, management of design influences." }
+  ]
+}

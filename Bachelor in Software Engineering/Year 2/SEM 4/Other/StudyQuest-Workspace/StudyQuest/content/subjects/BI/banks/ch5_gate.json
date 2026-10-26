@@ -1,0 +1,81 @@
+{
+  "bankId": "bi-ch5-gate",
+  "title": "Tableau Gate — FINAL",
+  "questions": [
+    { "id": "btg-1", "type": "mcq", "source": "Gate — chart selection",
+      "prompt": "Match the question to the chart: trend over time → ? · contribution ranking → ? · relationship of two measures → ? · single value per region/segment cell → ?",
+      "options": [
+        "Line · sorted bar (+ % of total) · scatter · highlight/heat table",
+        "Pie · pie · pie · pie",
+        "Scatter · line · map · histogram",
+        "Box plot · scatter · bar · story"
+      ],
+      "answer": 0,
+      "explain": "The exam gives a BUSINESS question; you pick the standard encoding: time → **line**, ranking → **sorted bars**, two measures → **scatter**, matrix of one aggregate → **heat map** (Color on Marks). Box plot when DISTRIBUTION (median/quartiles/outliers) matters." },
+    { "id": "btg-2", "type": "mcq", "source": "Gate — dimensions vs measures",
+      "prompt": "In Tableau, dimensions vs measures:",
+      "options": [
+        "Dimensions = categorical fields that slice the view (blue); measures = numeric fields that get aggregated (green)",
+        "Dimensions are always dates",
+        "Measures cannot be filtered",
+        "They are interchangeable labels with no effect"
+      ],
+      "answer": 0,
+      "explain": "**Dimensions slice, measures aggregate** — the core mental model. Blue/green also encodes discrete/continuous, which controls headers vs axes." },
+    { "id": "btg-3", "type": "mcq", "source": "Gate — table calc vs calculated field",
+      "prompt": "Percent-of-total via Quick Table Calculation vs a calculated field — the difference:",
+      "options": [
+        "Table calc transforms the AGGREGATED result in the view; a calculated field creates a real new field usable anywhere",
+        "They are identical in every way",
+        "Table calcs change the source data",
+        "Calculated fields are view-only"
+      ],
+      "answer": 0,
+      "explain": "**Table calcs** (Percent of Total, Running Sum…) post-process the view's aggregates. **Calculated fields** (e.g., Margin = SUM(Profit)/SUM(Sales), shown as AGG) become reusable fields in the Data pane." },
+    { "id": "btg-4", "type": "mcq", "source": "Gate — dashboard interactivity",
+      "prompt": "One Category filter must drive ALL sheets (different data sources) on a dashboard:",
+      "options": [
+        "Filter card caret → Apply to Worksheets → All Using Related Data Sources",
+        "Copy the filter to each sheet manually every time",
+        "Filters only work on one sheet",
+        "Use a story instead"
+      ],
+      "answer": 0,
+      "explain": "**Apply to Worksheets → All Using Related Data Sources** = the global-filter move (Challenge S3.10c). Clicking a Category value then filters map + line + scatter simultaneously." },
+    { "id": "btg-5", "type": "mcq", "source": "Gate — story vs dashboard",
+      "prompt": "Dashboard vs Story:",
+      "options": [
+        "Dashboard = one interactive screen of multiple sheets; Story = a sequence of captioned points (dashboards/sheets) that narrate insights",
+        "Story = printable dashboard",
+        "Dashboards cannot hold filters",
+        "Stories auto-generate captions"
+      ],
+      "answer": 0,
+      "explain": "**Story points** carry navigator captions ('the takeaway sentence') — the narrative layer. Export everything with **File → Export Packaged Workbook (.twbx)**." },
+    { "id": "btg-6", "type": "mcq", "source": "Gate — combined sets",
+      "prompt": "To count customers who purchased in BOTH 2017 and 2018:",
+      "options": [
+        "Create a set per year → Combined Set ('Shared members in both sets') → filter + COUNTD(Customer Name)",
+        "Add the two yearly counts",
+        "Filter year = 2017 OR 2018",
+        "Use a trend line"
+      ],
+      "answer": 0,
+      "explain": "OR-filtering counts EITHER year; the **combined set's intersection** counts BOTH. COUNTD = distinct customers. Lecture answer: **605**." },
+    { "id": "btg-7", "type": "mcq", "source": "Gate — map reading",
+      "prompt": "On a filled map with Profit → Color (diverging) and Sales → Size, the biggest-loss state is found by:",
+      "options": [
+        "The darkest color at the negative end of the diverging palette (hover to confirm the value)",
+        "The biggest circle",
+        "The northernmost state",
+        "The first alphabetically"
+      ],
+      "answer": 0,
+      "explain": "**Color = profit** (the diverging palette's negative extreme), **size = sales** — two channels, two questions. Hover for the tooltip's exact number before answering." },
+    { "id": "btg-8", "type": "text", "source": "Gate — forecasting",
+      "prompt": "Tableau's forecast band represents the prediction interval at what default confidence percentage? (number)",
+      "accept": ["95"],
+      "normalize": "trim-lower",
+      "explain": "**95%** by default. Horizon: right-click forecast → Forecast Options → 'Exactly N months'. Trend lines: hover shows equation, R², p-value." }
+  ]
+}

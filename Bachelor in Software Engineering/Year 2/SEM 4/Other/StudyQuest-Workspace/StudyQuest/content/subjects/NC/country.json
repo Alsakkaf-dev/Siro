@@ -1,0 +1,235 @@
+{
+  "subjectId": "NC",
+  "note": "SLIDE FILES ARE MISLABELED (per NC_STATUS.md): file 'Chapter_5*' = Network Layer CONTROL PLANE; real Link Layer = file 'Chapter_6*'; Wireless = file 'Chapter_7*'. Mapping below is corrected — do not 'fix' it.",
+  "cities": [
+    {
+      "id": "nc-ch0",
+      "name": "Base Camp — Refresher",
+      "desc": "Ch1–3 survival kit: layers, encapsulation, TCP vs UDP",
+      "unlock": {
+        "type": "always"
+      },
+      "missions": [
+        {
+          "id": "nc-ch0-gate",
+          "type": "GATE",
+          "title": "Base Camp Gate",
+          "bank": "subjects/NC/banks/ch0_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 6,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 150
+        }
+      ]
+    },
+    {
+      "id": "nc-ch4",
+      "name": "Network Layer City",
+      "desc": "IPv4, subnetting reflex, forwarding, DHCP/NAT + stealth routing algorithms",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "nc-ch0"
+      },
+      "missions": [
+        {
+          "id": "nc-ch4-read1",
+          "type": "READ",
+          "title": "Data Plane slides — Part 1",
+          "target": {
+            "kind": "pdf",
+            "path": "NC/Storage/Materials/Slides/Chapter_4_V8_0 Muhalim Firoz Fariz v3 2024.pptx",
+            "pages": [
+              1,
+              72
+            ]
+          },
+          "goal": {
+            "minSeconds": 8711
+          },
+          "xp": 80
+        },
+        {
+          "id": "nc-ch4-read2",
+          "type": "READ",
+          "title": "Data Plane slides — Part 2",
+          "target": {
+            "kind": "pdf",
+            "path": "NC/Storage/Materials/Slides/Chapter_4_V8_0 Muhalim Firoz Fariz v3 2024.pptx",
+            "pages": [
+              73,
+              144
+            ]
+          },
+          "goal": {
+            "minSeconds": 8640
+          },
+          "xp": 80
+        },
+        {
+          "id": "nc-ch4-read3",
+          "type": "READ",
+          "title": "Control Plane — STEALTH MARKS (Dijkstra!)",
+          "target": {
+            "kind": "pdf",
+            "path": "NC/Storage/Materials/Slides/Chapter_5_v8.0 Muhalim Firoz v2 (7 Dec 2022) Updated.pptx",
+            "pages": [
+              1,
+              80
+            ]
+          },
+          "goal": {
+            "minSeconds": 9600
+          },
+          "xp": 80
+        },
+        {
+          "id": "nc-ch4-prac1",
+          "type": "PRACTICE",
+          "title": "Subnetting Reflex drills",
+          "bank": "subjects/NC/banks/ch4_subnetting.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "nc-ch4-gate",
+          "type": "GATE",
+          "title": "Network Layer Gate",
+          "bank": "subjects/NC/banks/ch4_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 10,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "nc-ch5",
+      "name": "Link Layer City",
+      "desc": "Ethernet, ARP, switches, CRC — the file is NAMED Chapter_6 but IS Link Layer",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "nc-ch4"
+      },
+      "missions": [
+        {
+          "id": "nc-ch5-read1",
+          "type": "READ",
+          "title": "Link Layer & LANs slides",
+          "target": {
+            "kind": "pdf",
+            "path": "NC/Storage/Materials/Slides/Chapter_6_V7.01_AFA_Update.pptx",
+            "pages": [
+              1,
+              107
+            ]
+          },
+          "goal": {
+            "minSeconds": 12840
+          },
+          "xp": 110
+        },
+        {
+          "id": "nc-ch5-prac1",
+          "type": "PRACTICE",
+          "title": "Link Layer drills (ARP · switch · CRC)",
+          "bank": "subjects/NC/banks/ch5_linklayer.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "nc-ch5-gate",
+          "type": "GATE",
+          "title": "Link Layer Gate",
+          "bank": "subjects/NC/banks/ch5_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "nc-ch6",
+      "name": "Wireless Summit",
+      "desc": "802.11, CSMA/CA, mobility, 3G — the file is NAMED Chapter_7 but IS Wireless",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "nc-ch5"
+      },
+      "missions": [
+        {
+          "id": "nc-ch6-read1",
+          "type": "READ",
+          "title": "Wireless & Mobile slides",
+          "target": {
+            "kind": "pdf",
+            "path": "NC/Storage/Materials/Slides/Chapter_7_V7_01_M@dni Updated Version.pptx",
+            "pages": [
+              1,
+              90
+            ]
+          },
+          "goal": {
+            "minSeconds": 10800
+          },
+          "xp": 100
+        },
+        {
+          "id": "nc-ch6-prac1",
+          "type": "PRACTICE",
+          "title": "Wireless drills (802.11 · mobility · 3G)",
+          "bank": "subjects/NC/banks/ch6_wireless.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 150
+        },
+        {
+          "id": "nc-ch6-gate",
+          "type": "GATE",
+          "title": "Wireless Gate — FINAL",
+          "bank": "subjects/NC/banks/ch6_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 400
+        }
+      ]
+    }
+  ]
+}

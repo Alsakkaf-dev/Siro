@@ -1,0 +1,106 @@
+{
+  "bankId": "bi-ch5-practice",
+  "title": "Tableau build scenarios",
+  "questions": [
+    { "id": "bt-1", "type": "mcq", "source": "Challenge S3.1 — data source page",
+      "prompt": "Record ID is numeric but should never be summed. On the Data Source page you:",
+      "options": [
+        "Click the data-type icon atop the column → String (it's an identifier, not a quantity)",
+        "Delete the column",
+        "Convert to Float",
+        "Hide the toolbar"
+      ],
+      "answer": 0,
+      "explain": "Identifiers → **String** so Tableau never aggregates them. Same page: double-click name to rename; right-click → **Split** (auto-detects the hyphen); right-click → **Describe** for role/type/distinct values." },
+    { "id": "bt-2", "type": "mcq", "source": "Challenge S3.2 — dates",
+      "prompt": "A BLUE date pill vs a GREEN date pill on a shelf means:",
+      "options": [
+        "Blue = discrete date PARTS (headers); green = continuous date axis",
+        "Blue = sorted; green = filtered",
+        "Blue = year only; green = month only",
+        "Color is random"
+      ],
+      "answer": 0,
+      "explain": "**Blue = discrete** (YEAR, QUARTER… as headers), **green = continuous** (a true time axis). Drill-down: click the **+ on the date pill** → next level appears; drag unwanted levels off." },
+    { "id": "bt-3", "type": "mcq", "source": "Challenge S3.3 — percent of total",
+      "prompt": "Bars must show each sub-category's share of total sales. After sorting descending, you:",
+      "options": [
+        "Right-click SUM(Sales) → Quick Table Calculation → Percent of Total (+ show labels)",
+        "Create a new data source",
+        "Divide by 100 in a calc",
+        "Use a pie chart only"
+      ],
+      "answer": 0,
+      "explain": "**Quick Table Calculation → Percent of Total** converts the displayed aggregation without touching the data. Sort via the pill's Sort… or the toolbar icon." },
+    { "id": "bt-4", "type": "mcq", "source": "Challenge S3.4 — de-aggregation",
+      "prompt": "A Sales-vs-Profit scatter shows ONE dot. To get one mark per ROW of data:",
+      "options": [
+        "Analysis menu → untick Aggregate Measures",
+        "Add more measures",
+        "Restart Tableau",
+        "Convert measures to dimensions permanently"
+      ],
+      "answer": 0,
+      "explain": "**Analysis → Aggregate Measures off** = de-aggregate. Then Category → Color (Marks) or → Columns for separate panels. Reading: high sales + negative profit = discount damage." },
+    { "id": "bt-5", "type": "mcq", "source": "Challenge S3.6 — dual axis",
+      "prompt": "Bars (Sales) with an overlaid line (Discount) on two y-axes requires:",
+      "options": [
+        "Both measures on Rows → right-click the 2nd pill → Dual Axis → set per-measure mark types (Bar / Line)",
+        "Two separate sheets",
+        "A calculated field",
+        "A story point"
+      ],
+      "answer": 0,
+      "explain": "**Dual Axis** merges the second measure onto an opposite axis; the Marks card grows per-measure tabs (SUM(Sales) → Bar, SUM(Discount) → Line). Bar-in-bar bonus: dual axis + both Bar + different Sizes + **Synchronize Axis**." },
+    { "id": "bt-6", "type": "mcq", "source": "Challenge S3.7 — AGG() pill",
+      "prompt": "The calculated field `SUM([Profit])/SUM([Sales])` shows as AGG(Margin) because:",
+      "options": [
+        "The calculation is ALREADY aggregated — Tableau cannot re-aggregate it (no SUM-of-AGG)",
+        "It contains an error",
+        "Margins are always AGG",
+        "It needs a parameter"
+      ],
+      "answer": 0,
+      "explain": "Ratio-of-sums must be computed at aggregate level (sum first, divide after) — hence **AGG()**, and the pill's aggregation menu is locked. This beats a row-level Profit/Sales which would average ratios incorrectly." },
+    { "id": "bt-7", "type": "mcq", "source": "Challenge S3.7(b,c) — sets",
+      "prompt": "\"Customers with total sales > 5000\" as a reusable In/Out object, and \"customers active in BOTH 2017 and 2018\":",
+      "options": [
+        "Create Set (Condition: Sum of Sales > 5000) · two sets + Create Combined Set → 'Shared members in both sets'",
+        "Two filters ANDed",
+        "A group and a hierarchy",
+        "Parameters only"
+      ],
+      "answer": 0,
+      "explain": "**Sets** are reusable membership objects: Condition tab (By field: Sales/Sum/>5000). Year-overlap: build a set per year, Ctrl-select both → **Combined Set → shared members** → filter + COUNTD(Customer Name). Lecture's answer: **605 customers**." },
+    { "id": "bt-8", "type": "mcq", "source": "Challenge S3.8 — maps",
+      "prompt": "Double-clicking the State field instantly builds a map because:",
+      "options": [
+        "Tableau assigns a GEOGRAPHIC ROLE and auto-generates Latitude/Longitude on Rows/Columns",
+        "State is numeric",
+        "Maps need no data",
+        "It loads an image"
+      ],
+      "answer": 0,
+      "explain": "Geographic role → generated lat/long. Then **Profit → Color** (diverging palette; darkest = biggest loss), **Sales → Size**, drill State → City via the pill's +, and right-click Category → **Show Filter**." },
+    { "id": "bt-9", "type": "mcq", "source": "Challenge S3.9 — trend + forecast",
+      "prompt": "Hovering a trend line reveals ______; the shaded forecast band is ______:",
+      "options": [
+        "The equation, R² and p-value · the prediction interval (default 95%)",
+        "Only the slope · an error",
+        "The data source name · a heat map",
+        "Nothing · decoration"
+      ],
+      "answer": 0,
+      "explain": "Analytics pane → **Trend Line** (Linear/Log/Exp/Polynomial/Power); hover = equation + R² + p-value. **Forecast** drag-on → band = 95% prediction interval; horizon via Forecast Options → 'Exactly 6 months'." },
+    { "id": "bt-10", "type": "mcq", "source": "Challenge S3.10 — blending",
+      "prompt": "With two data sources on one sheet, blue check vs orange check means:",
+      "options": [
+        "Blue = PRIMARY source; orange = SECONDARY, auto-linked on the common field (orange chain-link icon)",
+        "Blue = broken; orange = working",
+        "Colors indicate file format",
+        "Blue = Excel; orange = CSV"
+      ],
+      "answer": 0,
+      "explain": "First-used source = **primary (blue)**; fields pulled from the other make it **secondary (orange)**, blended on the common field (e.g., Category). Data Interpreter cleans junk headers; Pivot turns Jan-15…Dec-18 columns into Date/Value rows." }
+  ]
+}

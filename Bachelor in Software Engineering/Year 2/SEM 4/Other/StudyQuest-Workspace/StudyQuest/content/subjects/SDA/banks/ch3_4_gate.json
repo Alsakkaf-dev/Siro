@@ -1,0 +1,66 @@
+{
+  "bankId": "sda-ch3-4-gate",
+  "title": "Architecture Gate",
+  "questions": [
+    { "id": "s34g-1", "type": "mcq", "source": "Gate — 4+1 process view",
+      "prompt": "Which 4+1 view addresses concurrency, synchronization and performance at runtime?",
+      "options": ["Process view", "Logical view", "Development view", "Physical view"],
+      "answer": 0,
+      "explain": "**Process view** = runtime behavior (Sequence/Communication diagrams; integrators, performance engineers). Logical = functionality; Development = code organization; Physical = deployment to hardware." },
+    { "id": "s34g-2", "type": "mcq", "source": "Gate — 4+1 physical view",
+      "prompt": "Mapping software onto hardware nodes/networks for scalability and availability is the job of the:",
+      "options": ["Physical (deployment) view", "Scenarios", "Logical view", "Development view"],
+      "answer": 0,
+      "explain": "**Physical view** — Deployment/Infrastructure diagrams; stakeholders: system engineers, operators/DevOps." },
+    { "id": "s34g-3", "type": "mcq", "source": "Gate — style recognition",
+      "prompt": "A presentation tier calls a business-logic tier which calls a data tier; each layer may only use the layer directly below. Which style?",
+      "options": ["Layered architecture", "Blackboard", "Microservices", "Peer-to-peer"],
+      "answer": 0,
+      "explain": "**Layered**: hierarchical separation with strict usage rules — changes isolated per layer; classic 3-tier enterprise shape." },
+    { "id": "s34g-4", "type": "mcq", "source": "Gate — style recognition",
+      "prompt": "Components publish events; subscribers react without the publisher knowing them. Which style, and its key benefit?",
+      "options": [
+        "Event-driven — extreme decoupling of producers from consumers",
+        "Client-server — central control",
+        "Pipes and filters — fixed order",
+        "Layered — strict hierarchy"
+      ],
+      "answer": 0,
+      "explain": "**Event-driven** (publish/subscribe): producers don't know consumers → add/remove subscribers without touching publishers. (Observer is the same idea at object scale.)" },
+    { "id": "s34g-5", "type": "mcq", "source": "Drill Q12 — defining criterion",
+      "prompt": "The DEFINING criterion that makes a system 'microservices' rather than a modular monolith is:",
+      "options": [
+        "Services are INDEPENDENTLY DEPLOYABLE units behind stable interfaces",
+        "It uses Docker",
+        "It has more than five classes",
+        "It uses a single shared database"
+      ],
+      "answer": 0,
+      "explain": "**Independent deployability** (with independent scaling + fault isolation) is the defining property; one shared database would couple them again. Each service owns its data store and communicates via APIs/events." },
+    { "id": "s34g-6", "type": "mcq", "source": "Gate — quality attribute trade-off",
+      "prompt": "Adding encryption everywhere improves security but slows responses. This illustrates:",
+      "options": [
+        "Quality attributes TRADE OFF against each other — the architect balances stakeholder concerns",
+        "Security is always the top priority",
+        "Performance cannot be measured",
+        "Quality attributes are independent"
+      ],
+      "answer": 0,
+      "explain": "Architectural decisions trade quality attributes (security vs performance vs usability…). Managing these competing **influences/stakeholder concerns** is one of the architect's documented duties." },
+    { "id": "s34g-7", "type": "text", "source": "Gate — vocabulary",
+      "prompt": "In the blackboard style, the shared central data structure that all knowledge sources read and write is called the ______. (one word)",
+      "accept": ["blackboard"],
+      "normalize": "trim-lower",
+      "explain": "The style is NAMED after its central shared dataset — the **blackboard** — written/read opportunistically by independent knowledge sources under a controller." },
+    { "id": "s34g-8", "type": "mcq", "source": "Gate — client-server",
+      "prompt": "Which pairing of style → weakness is correct?",
+      "options": [
+        "Client-server → the server is a bottleneck / single point of failure",
+        "Microservices → cannot scale horizontally",
+        "Layered → no separation of concerns",
+        "Pipes and filters → cannot chain transformations"
+      ],
+      "answer": 0,
+      "explain": "Client-server centralizes service provision: capacity and availability hinge on the server. The other pairings invert each style's actual STRENGTH." }
+  ]
+}

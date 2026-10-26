@@ -1,0 +1,68 @@
+{
+  "bankId": "psda-ch5a-gate",
+  "title": "One-Sample Gate",
+  "questions": [
+    { "id": "g5a-1", "type": "mcq", "source": "Gate — z vs t decision tree",
+      "prompt": "Which row of the test-statistic decision tree is CORRECT?",
+      "options": [
+        "σ known → z · σ unknown → t (df = n−1) · testing σ/σ² itself → χ² (df = n−1)",
+        "σ known → t · σ unknown → z · σ → F",
+        "Always z for means",
+        "n > 30 → χ², else t"
+      ],
+      "answer": 0,
+      "explain": "The opening decision of every exam Q1: **σ known → z; σ unknown → t (df = n−1); claims about spread (σ or σ²) → χ² with χ²₀ = (n−1)s²/σ₀²**." },
+    { "id": "g5a-2", "type": "numeric", "source": "Gate — fresh CI",
+      "prompt": "x̄ = 4.8 min, σ = 1.2 (known), n = 40, 90% confidence (z = 1.645). Compute the margin of error E (3 decimals).",
+      "answer": 0.312, "tolerance": 0.005,
+      "explain": "E = z·σ/√n = 1.645×1.2/√40 = 1.645×0.1897 = **0.312** → CI = (4.488, 5.112) minutes." },
+    { "id": "g5a-3", "type": "mcq", "source": "Gate — interpretation sentence",
+      "prompt": "The CORRECT interpretation of a 95% CI (34.293, 35.290) for mean battery life is:",
+      "options": [
+        "\"We are 95% confident the true mean battery life is between 34.293 and 35.290 hours\"",
+        "\"95% of batteries last between 34.293 and 35.290 hours\"",
+        "\"The sample mean has a 95% chance of being in this interval\"",
+        "\"5% of batteries fail before 34.293 hours\""
+      ],
+      "answer": 0,
+      "explain": "The CI speaks about the **true population MEAN**, not individual batteries (that's a prediction interval) nor the sample mean (which is certainly in its own interval). The exact sentence earns the interpretation mark." },
+    { "id": "g5a-4", "type": "numeric", "source": "Gate — sample size fresh numbers",
+      "prompt": "σ = 2.0, desired E = 0.5, 95% (z = 1.96). Required n = ? (whole number)",
+      "answer": 62, "tolerance": 0,
+      "explain": "n = (1.96×2.0/0.5)² = (7.84)² = 61.47 → round **UP** → **62**." },
+    { "id": "g5a-5", "type": "mcq", "source": "Gate — claim placement",
+      "prompt": "Claim: \"the average is NO MORE than 50\" (i.e. μ ≤ 50). The hypotheses are:",
+      "options": [
+        "H₀: μ = 50 (claim side, has equality) vs H₁: μ > 50 — right-tailed; rejecting H₀ rejects the claim",
+        "H₀: μ > 50 vs H₁: μ = 50",
+        "H₀: μ ≠ 50 vs H₁: μ = 50",
+        "H₀: μ < 50 vs H₁: μ ≥ 50"
+      ],
+      "answer": 0,
+      "explain": "Equality ALWAYS sits in H₀. 'No more than' (≤) contains equality → the claim lives in H₀; H₁ is the complement (μ > 50). Compare: 'exceeds' (>) has no equality → that claim goes to H₁." },
+    { "id": "g5a-6", "type": "numeric", "source": "Gate — t statistic fresh",
+      "prompt": "x̄ = 14.15, μ₀ = 15, s = 1.184, n = 10. Compute t₀ (3 decimals, sign matters).",
+      "answer": -2.269, "tolerance": 0.02,
+      "explain": "t₀ = (14.15−15)/(1.184/√10) = −0.850/0.3745 = **−2.269**, df = 9. Against t(0.005, 9) = 3.250 two-tailed: |−2.269| < 3.250 → fail to reject." },
+    { "id": "g5a-7", "type": "mcq", "source": "Gate — χ² left-tail trap",
+      "prompt": "Testing H₁: σ < 2.5 at α = 0.05 with df = 19 — which critical value do you look up?",
+      "options": [
+        "χ²(0.95, 19) = 10.117 — the LEFT tail uses the 0.95 right-tail column; reject if χ²₀ < 10.117",
+        "χ²(0.05, 19) = 30.144 — reject if larger",
+        "z = 1.645",
+        "t(0.05, 19) = 1.729"
+      ],
+      "answer": 0,
+      "explain": "χ² tables list RIGHT-tail areas. A left-tailed test at α = 0.05 needs the value with **0.95 to its right** → χ²(0.95, 19) = 10.117; rejection region is BELOW it. This lookup is the most-lost mark in Q1." },
+    { "id": "g5a-8", "type": "mcq", "source": "Gate — the 7-step recipe",
+      "prompt": "The full-marks structure for ANY hypothesis test answer is:",
+      "options": [
+        "Hypotheses → test choice (z/t/χ²) → statistic computed → critical value/region → compare → decision (reject / fail to reject) → conclusion sentence with α and context",
+        "Statistic → p-value → done",
+        "Hypotheses → conclusion",
+        "Critical value → statistic → guess"
+      ],
+      "answer": 0,
+      "explain": "Markers tick each step: **H₀/H₁ · test selection with reason · computation · critical value · comparison · decision · plain-English conclusion** ('At α = 0.05 there is sufficient/insufficient evidence that…'). Skipping the sentence loses easy marks every time." }
+  ]
+}

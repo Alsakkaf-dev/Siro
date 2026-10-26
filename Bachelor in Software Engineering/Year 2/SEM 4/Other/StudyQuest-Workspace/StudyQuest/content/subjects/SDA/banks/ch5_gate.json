@@ -1,0 +1,66 @@
+{
+  "bankId": "sda-ch5-gate",
+  "title": "SOLID Gate",
+  "questions": [
+    { "id": "s5g-1", "type": "text", "source": "Gate — acronym reflex",
+      "prompt": "SOLID: S = Single Responsibility, O = Open-Closed, L = Liskov Substitution, I = Interface Segregation, D = ______ ______ (two words).",
+      "accept": ["dependency inversion", "dependency inversion principle"],
+      "normalize": "trim-lower",
+      "explain": "**Dependency Inversion Principle** — high-level modules and low-level modules both depend on ABSTRACTIONS; details depend on abstractions, never the reverse." },
+    { "id": "s5g-2", "type": "mcq", "source": "Gate — SRP definition",
+      "prompt": "SRP states that a class should have:",
+      "options": ["Exactly one reason to change", "Exactly one method", "Exactly one instance", "No dependencies"],
+      "answer": 0,
+      "explain": "**One reason to change** = one responsibility/change axis. Not about method count (that's a smell signal, not the definition); one instance is Singleton." },
+    { "id": "s5g-3", "type": "mcq", "source": "Gate — principle recognition",
+      "prompt": "\"No client should be forced to depend on methods it does not use\" is the definition of:",
+      "options": ["ISP", "LSP", "OCP", "DIP"],
+      "answer": 0,
+      "explain": "**Interface Segregation Principle** — split fat interfaces by client need; compose multiple small interfaces for rich devices." },
+    { "id": "s5g-4", "type": "mcq", "source": "Gate — Rectangle/Square verdict",
+      "prompt": "The course-approved fix for the Rectangle/Square LSP problem is:",
+      "options": [
+        "Don't derive mutable Square from mutable Rectangle — make both implement IShape with GetArea(), immutably constructed",
+        "Override the assert to skip squares",
+        "Make Square set only width",
+        "Catch the exception in Resize"
+      ],
+      "answer": 0,
+      "explain": "Remove the inheritance that lies: **immutable Rectangle(w,h) and Square(s), both `IShape.GetArea()`** — substitutable everywhere IShape is expected, no width/height contract left to break." },
+    { "id": "s5g-5", "type": "mcq", "source": "Gate — DIP direction",
+      "prompt": "DIP says the dependency arrows should point:",
+      "options": [
+        "From BOTH high-level policy and low-level detail toward a shared ABSTRACTION",
+        "From abstraction to detail",
+        "From high-level to low-level concrete classes",
+        "From the database upward"
+      ],
+      "answer": 0,
+      "explain": "Policy →(depends on)→ **IDatabase** ←(implements)← SqlDatabase. The detail's arrow is INVERTED (it points up to the abstraction) — hence 'inversion'. Constructor injection delivers the implementation." },
+    { "id": "s5g-6", "type": "mcq", "source": "Gate — principle synergy",
+      "prompt": "Which synergy statement is from the course material?",
+      "options": [
+        "DIP enables OCP — once a class depends only on an abstraction, it is closed against new implementations",
+        "SRP contradicts ISP",
+        "LSP requires Singleton",
+        "OCP forbids inheritance"
+      ],
+      "answer": 0,
+      "explain": "After the DIP refactor, ReportService never changes for a new database — **the dependency inversion is exactly what closes it (OCP)**. The principles reinforce each other." },
+    { "id": "s5g-7", "type": "mcq", "source": "Gate — violation spotting",
+      "prompt": "A NotSupportedException thrown from an interface method a class 'doesn't really need' signals:",
+      "options": [
+        "ISP violation (fat interface) creating an LSP hazard (non-substitutable implementation)",
+        "Good defensive programming",
+        "An OCP success",
+        "A required pattern"
+      ],
+      "answer": 0,
+      "explain": "The class was FORCED to depend on methods it doesn't use (**ISP**), and the throwing stub means it can't substitute for the interface (**LSP**) — callers crash. Segregate the interface instead." },
+    { "id": "s5g-8", "type": "mcq", "source": "Gate — exam scenario phrasing",
+      "prompt": "Exam scenarios quote principles in disguise. \"The module was designed so future report formats could be added without altering tested code\" hides which principle?",
+      "options": ["OCP", "LSP", "SRP", "ISP"],
+      "answer": 0,
+      "explain": "\"Added **without altering** existing/tested code\" = open for extension, closed for modification = **OCP**. Learn the disguise phrases: 'can replace…preserving behavior' = LSP; 'one reason to change' = SRP; 'depends only on methods it uses' = ISP; 'depends on abstraction, injected' = DIP." }
+  ]
+}

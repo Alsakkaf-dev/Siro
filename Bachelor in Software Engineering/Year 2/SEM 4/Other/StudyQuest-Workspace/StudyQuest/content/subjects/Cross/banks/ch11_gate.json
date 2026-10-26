@@ -1,0 +1,71 @@
+{
+  "bankId": "cross-ch11-gate",
+  "title": "JWT Gate — FINAL",
+  "questions": [
+    { "id": "c11g-1", "type": "mcq", "source": "MCQ Bank Q39",
+      "prompt": "A JWT consists of three base64url parts separated by dots:",
+      "options": ["header.payload.signature", "secret.payload.checksum", "issuer.subject.expiry", "token.claims.hash"],
+      "answer": 0,
+      "explain": "**header.payload.signature** — each base64url encoded; the signature = HMAC of the first two parts with the server secret." },
+    { "id": "c11g-2", "type": "mcq", "source": "MCQ Bank Q40 — the 401 vs 403 question",
+      "prompt": "A logged-in member (role=member) sends a VALID token with `DELETE /api/books/1`, which requires admin. The correct response is:",
+      "options": ["403 Forbidden", "401 Unauthorized", "404 Not Found", "200 OK"],
+      "answer": 0,
+      "explain": "**Valid token (authenticated) but insufficient role → 403 Forbidden.** 401 = missing/invalid token (unauthenticated). Memorize this pair — it's the classic JWT exam question." },
+    { "id": "c11g-3", "type": "mcq", "source": "CH11 — token validation",
+      "prompt": "Why can the server trust a JWT WITHOUT a database lookup?",
+      "options": [
+        "The signature is an HMAC over header.payload with the server's secret — any tampering with the payload invalidates it",
+        "The token is encrypted so nobody can read it",
+        "Browsers refuse to modify tokens",
+        "The payload is stored in the session"
+      ],
+      "answer": 0,
+      "explain": "JWTs are **signed, not encrypted** — anyone can READ the payload (base64url), but only the secret-holder can produce a valid signature. Change one byte of the payload and verification fails. That's stateless auth." },
+    { "id": "c11g-4", "type": "mcq", "source": "CH11 — expiry",
+      "prompt": "The `exp` claim contains:",
+      "options": [
+        "A Unix timestamp (issued time + TTL) after which decode/validation rejects the token",
+        "The number of allowed uses",
+        "The user's logout time",
+        "The session cookie lifetime"
+      ],
+      "answer": 0,
+      "explain": "**exp = $now + ttl** (e.g. 3600s). Validation rejects expired tokens automatically — the client must log in again (or refresh). sub carries the user id; role is a custom claim baked at login." },
+    { "id": "c11g-5", "type": "mcq", "source": "CH11 — transport",
+      "prompt": "The client sends the JWT on every protected request via:",
+      "options": [
+        "The Authorization header: `Authorization: Bearer <token>`",
+        "The URL: `?jwt=<token>`",
+        "A hidden form field",
+        "The User-Agent header"
+      ],
+      "answer": 0,
+      "explain": "**`Authorization: Bearer <token>`** — which is also why the CORS preflight must allow the Authorization header. Middleware regex: `/^Bearer\\s+(.+)$/i`." },
+    { "id": "c11g-6", "type": "mcq", "source": "BrokenCode 5.6 — decode safety",
+      "prompt": "Why does `JWT::decode` require `new Key($secret, 'HS256')` instead of just the secret?",
+      "options": [
+        "Pinning the algorithm prevents algorithm-swap attacks (e.g. an attacker setting alg:none or downgrading)",
+        "Keys are faster than strings",
+        "HS256 requires two parameters",
+        "It enables RSA automatically"
+      ],
+      "answer": 0,
+      "explain": "The Key object pins secret **AND algorithm** — the historic JWT vulnerability was servers honoring the header's `alg` field (`none`/downgrade attacks). Never trust the token to tell you how to verify it." },
+    { "id": "c11g-7", "type": "text", "source": "MCQ Bank Q40 inverse",
+      "prompt": "A request arrives with NO token at all on a protected route. Which status code? (number)",
+      "accept": ["401"],
+      "normalize": "trim-lower",
+      "explain": "**401 Unauthorized** (+ `WWW-Authenticate: Bearer`) = unauthenticated. 403 = authenticated but lacking the role." },
+    { "id": "c11g-8", "type": "mcq", "source": "CH11 — full login flow",
+      "prompt": "Order-check: the correct LOGIN flow is —",
+      "options": [
+        "POST /login → verify password_verify → build payload (sub, role, exp) → JWT::encode → return token → client stores it and sends Bearer header on each request",
+        "GET /login?password=... → compare plaintext → set $_SESSION → done",
+        "POST /login → store password in the token → client re-sends the password each time",
+        "Client builds the token itself → server trusts the role claim"
+      ],
+      "answer": 0,
+      "explain": "Login: verify against the bcrypt hash → mint the signed token with sub/role/exp → client keeps it and presents `Authorization: Bearer` per request → middleware verifies signature + expiry, attaches the payload, handlers check the role. The client can never mint or alter tokens (no secret)." }
+  ]
+}

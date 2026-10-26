@@ -1,0 +1,76 @@
+{
+  "bankId": "sda-ch6-gate",
+  "title": "Creational Gate",
+  "questions": [
+    { "id": "s6g-1", "type": "mcq", "source": "Gate — Singleton mechanics",
+      "prompt": "The THREE structural ingredients of a Singleton are:",
+      "options": [
+        "Private constructor · static instance field · public static accessor (GetInstance)",
+        "Public constructor · instance counter · destructor",
+        "Abstract base · factory method · registry",
+        "Interface · adapter · facade"
+      ],
+      "answer": 0,
+      "explain": "**Private constructor** (nobody else news it) + **static _instance** + **static GetInstance()** with the lazy `if (_instance == null)` guard (locked for thread safety)." },
+    { "id": "s6g-2", "type": "mcq", "source": "Gate — Factory vs Abstract Factory",
+      "prompt": "Factory Method vs Abstract Factory — the key difference:",
+      "options": [
+        "Factory Method creates ONE product by subtype choice; Abstract Factory creates FAMILIES of related products that stay consistent",
+        "Abstract Factory is just a renamed Factory Method",
+        "Factory Method needs reflection",
+        "Abstract Factory can only make two products"
+      ],
+      "answer": 0,
+      "explain": "FM: one creator method → one product hierarchy. **AF: a factory INTERFACE producing a coordinated SET** (button+menu+dialog per theme) — swap the whole family, never mix members." },
+    { "id": "s6g-3", "type": "mcq", "source": "Gate — scenario",
+      "prompt": "A report object needs title, optional header, optional footer, optional charts, optional appendix — building it has 20 constructor permutations. Pattern?",
+      "options": ["Builder", "Prototype", "Singleton", "Abstract Factory"],
+      "answer": 0,
+      "explain": "Telescoping-constructor pain + many OPTIONAL parts = **Builder**: fluent `.WithHeader(...).WithCharts(...).Build()`." },
+    { "id": "s6g-4", "type": "mcq", "source": "Gate — scenario",
+      "prompt": "A game spawns 10,000 enemies per level; constructing one from config files takes 50ms, but copying a configured template takes 0.1ms. Pattern?",
+      "options": ["Prototype", "Builder", "Factory Method", "Facade"],
+      "answer": 0,
+      "explain": "**Prototype**: expensive creation → clone preconfigured templates. (The drill's version: user preference/theme objects, game-scaled.)" },
+    { "id": "s6g-5", "type": "mcq", "source": "Gate — why not new",
+      "prompt": "The common purpose of ALL creational patterns is to:",
+      "options": [
+        "Decouple clients from concrete classes and the mechanics of object creation",
+        "Make objects smaller",
+        "Speed up garbage collection",
+        "Replace inheritance entirely"
+      ],
+      "answer": 0,
+      "explain": "Creational patterns move `new` out of client code: clients depend on **abstractions**, creation logic is centralized/configurable — enabling OCP/DIP at the creation site." },
+    { "id": "s6g-6", "type": "mcq", "source": "Gate — code reading",
+      "prompt": "`public static PaymentGateway Create(string region) { return region == \"MY\" ? new MyGateway() : new GlobalGateway(); }` — this is:",
+      "options": [
+        "A Factory Method choosing the concrete by runtime input",
+        "A Singleton accessor",
+        "A Prototype clone",
+        "An Abstract Factory family"
+      ],
+      "answer": 0,
+      "explain": "Creator method + runtime-input dispatch + clients receiving the BASE type = **Factory**. The client never mentions MyGateway/GlobalGateway." },
+    { "id": "s6g-7", "type": "mcq", "source": "Gate — Singleton trap",
+      "prompt": "Why must the Singleton's constructor be PRIVATE?",
+      "options": [
+        "To make GetInstance the ONLY creation path — a public constructor would allow multiple instances",
+        "To save memory",
+        "Because static classes require it",
+        "To prevent inheritance only"
+      ],
+      "answer": 0,
+      "explain": "The whole guarantee rests on the constructor being unreachable from outside; **GetInstance is the single gate**. (A favourite fill-in-the-line exam item — drill Q10's line 1.)" },
+    { "id": "s6g-8", "type": "mcq", "source": "Gate — Abstract Factory consistency",
+      "prompt": "In the theme example (DarkButton+DarkMenu vs LightButton+LightMenu), what specifically does Abstract Factory PREVENT?",
+      "options": [
+        "Mixing members of different families (a DarkButton with a LightMenu)",
+        "Creating more than one button",
+        "Using interfaces",
+        "Changing themes at startup"
+      ],
+      "answer": 0,
+      "explain": "Each concrete factory produces members of ONE family — clients can never accidentally combine across families, and swapping factories swaps the whole family consistently." }
+  ]
+}

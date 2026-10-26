@@ -1,0 +1,81 @@
+{
+  "bankId": "sda-ch5-practice",
+  "title": "SOLID violation drills",
+  "questions": [
+    { "id": "s5p-1", "type": "mcq", "source": "Drill CH5 Q1",
+      "prompt": "\"Open for extension, closed for modification\" — new behavior is added by writing a NEW subclass while existing code stays untouched. Which principle?",
+      "options": ["OCP — Open-Closed Principle", "SRP — Single Responsibility", "DIP — Dependency Inversion", "ISP — Interface Segregation"],
+      "answer": 0,
+      "explain": "**OCP**: extend by ADDING code (new subclass/implementation), never by EDITING working code. The drill's exporter example: new formats plug in as new classes." },
+    { "id": "s5p-2", "type": "mcq", "source": "Drill CH5 Q3 — type-test smell",
+      "prompt": "`RenderShape(Shape s) { if (s is Circle) ... else if (s is Square) ... }` — every new shape forces editing this method. Which principles are violated, and what is the fix?",
+      "options": [
+        "OCP (and LSP in spirit) — replace type tests with polymorphism: abstract Draw() overridden per shape; RenderShape calls s.Draw() and is closed forever",
+        "SRP only — split the if into two methods",
+        "DIP only — inject the if-statement",
+        "Nothing is wrong — type tests are idiomatic"
+      ],
+      "answer": 0,
+      "explain": "A function that must know every derivative of its base **violates OCP** (changes whenever a new derivative appears) and abuses the base-class reference (LSP in spirit). Fix = **dynamic binding**: `public abstract void Draw();` per-shape overrides; `RenderShape(Shape s) => s.Draw();`." },
+    { "id": "s5p-3", "type": "mcq", "source": "Drill CH5 Q4 — Rectangle/Square",
+      "prompt": "`Resize(Rectangle r)` sets width and asserts height unchanged; passing a `Square` (where setting width also sets height) breaks it. Which principle and why?",
+      "options": [
+        "LSP — the subclass breaks the implied contract clients have with the base class (5×4 became 4×4)",
+        "OCP — the method wasn't extended",
+        "ISP — the interface is too fat",
+        "SRP — Resize does two things"
+      ],
+      "answer": 0,
+      "explain": "**LSP violation**: clients of Rectangle reasonably assume setting width leaves height alone; Square breaks that. \"A model that is self-consistent is not necessarily consistent with all its users.\" Fix: don't derive mutable Square from mutable Rectangle — both implement `IShape.GetArea()` (immutable), nothing to break." },
+    { "id": "s5p-4", "type": "mcq", "source": "Drill CH5 Q4(b) — LSP rules",
+      "prompt": "Under LSP's Methods Rule, a subtype's overriding method may:",
+      "options": [
+        "WEAKEN preconditions (require less) and STRENGTHEN postconditions (deliver more) — never the reverse",
+        "Strengthen preconditions and weaken postconditions",
+        "Change the method signature freely",
+        "Throw NotSupportedException for unneeded methods"
+      ],
+      "answer": 0,
+      "explain": "**Signature Rule**: preserve supertype signatures. **Methods Rule**: weaker preconditions, stronger postconditions, invariants maintained — so all reasoning about base-class calls stays valid. Throwing 'not supported' stubs is itself an LSP breach." },
+    { "id": "s5p-5", "type": "mcq", "source": "Drill CH5 Q5 — fat interface",
+      "prompt": "`IMachine { Print; Scan; Fax }` forces BasicPrinter to stub Scan/Fax with NotSupportedException. Diagnose + fix:",
+      "options": [
+        "ISP violated (fat interface) — segregate into IPrinter/IScanner/IFax; the MFP implements all three; the stubs were also an LSP danger",
+        "OCP violated — add a fourth method",
+        "DIP violated — new the printer inside",
+        "SRP violated — printers can't scan"
+      ],
+      "answer": 0,
+      "explain": "**ISP**: no client should depend on methods it doesn't use. Segregate by client need; multifunction devices COMPOSE interfaces (`OfficeMFP : IPrinter, IScanner, IFax`). The throwing stubs would blow up anywhere an IMachine is expected — Martin notes exactly this LSP hazard in the ISP paper." },
+    { "id": "s5p-6", "type": "mcq", "source": "Drill CH5 Q6 — god class",
+      "prompt": "`OrderManager` validates, computes tax, saves to DB, and emails — three teams keep colliding in it. Diagnose + fix:",
+      "options": [
+        "SRP violated (four reasons to change) — split into OrderValidator, TaxCalculator, OrderRepository, CustomerNotifier + an OrderService coordinator",
+        "LSP violated — OrderManager needs a base class",
+        "OCP violated — make every method virtual",
+        "ISP violated — make one big interface"
+      ],
+      "answer": 0,
+      "explain": "**SRP**: one reason to change per class. Validation rules, tax law, persistence tech and email content are FOUR independent change axes — split them; a thin coordinator orchestrates via their interfaces; team edits stop colliding." },
+    { "id": "s5p-7", "type": "mcq", "source": "Drill CH5 Q7 — concrete dependency",
+      "prompt": "`ReportService` does `new SqlDatabase()` internally. Diagnose + fix:",
+      "options": [
+        "DIP violated — high-level policy depends on a low-level detail; both should depend on IDatabase, injected via constructor",
+        "ISP violated — SqlDatabase has too many methods",
+        "SRP violated — reports shouldn't query",
+        "Nothing wrong — new is required somewhere"
+      ],
+      "answer": 0,
+      "explain": "**DIP**: depend on abstractions. `ReportService(IDatabase db)` (constructor injection) → swapping SQL→Mongo = a new IDatabase implementation, ReportService unchanged. Note the synergy: **DIP enables OCP** (ReportService is now closed)." },
+    { "id": "s5p-8", "type": "mcq", "source": "Drill CH5 Q8 — codec scenario",
+      "prompt": "\"Add new codec decoders WITHOUT altering the playback engine\" + \"each decoder subclass can replace another preserving expected behavior\" name which two principles?",
+      "options": [
+        "OCP (extension without modification) and LSP (substitutability preserving behavior)",
+        "SRP and DIP",
+        "ISP and SRP",
+        "DIP and ISP"
+      ],
+      "answer": 0,
+      "explain": "Sentence 1 is the OCP definition; sentence 2 is LSP. Design: `IAudioDecoder.Decode(stream)` (same signature for all — Signature Rule); `PlaybackEngine.Play(IAudioDecoder d)` depends only on the abstraction — closed forever." }
+  ]
+}

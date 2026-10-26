@@ -1,0 +1,61 @@
+{
+  "bankId": "cross-ch11-practice",
+  "title": "Broken Code: hashing · JwtService · middleware",
+  "questions": [
+    { "id": "c11p-1", "type": "mcq", "source": "BrokenCode 5.5 — users table + hashing",
+      "prompt": "The users table and password handling conventions:",
+      "options": [
+        "email UNIQUE (violations → 409) · password VARCHAR(255) for bcrypt · default role 'member' · password_hash() to store, password_verify(plain, storedHash) to check",
+        "email indexed only · password VARCHAR(32) · default role 'admin' · md5() to store, strcmp to check",
+        "username UNIQUE · password TEXT plaintext · role enum('root') · base64 encode",
+        "email PRIMARY KEY · password CHAR(60) · role nullable · sha1 + salt column"
+      ],
+      "answer": 0,
+      "explain": "**UNIQUE email** = one account per address (duplicate → 409 in register). bcrypt hashes are long → **VARCHAR(255)** (truncation silently breaks verify!). New users are **member**; admin assigned explicitly. `password_hash($plain, PASSWORD_DEFAULT)` → `$2y$...`; `password_verify(plain, hash)` — that argument order." },
+    { "id": "c11p-2", "type": "mcq", "source": "BrokenCode 5.6 — JwtService",
+      "prompt": "Building the token payload: which claims and signing call?",
+      "options": [
+        "sub = user id, exp = $now + ttl · JWT::encode($payload, $secret, 'HS256')",
+        "uid = email, ttl = 3600 · JWT::sign($payload)",
+        "user = full row, never expires · hash_hmac('md5', ...)",
+        "sub = role, exp = $now − ttl · base64_encode($payload)"
+      ],
+      "answer": 0,
+      "explain": "**sub** (subject) = user id; **exp** = issued time + TTL seconds (3600 default). `JWT::encode($payload, $secret, 'HS256')` signs. Decoding requires `new Key($this->secret, $this->algo)` — the Key pins the secret AND the algorithm (stops algorithm-swap attacks)." },
+    { "id": "c11p-3", "type": "mcq", "source": "BrokenCode 5.7 — AuthMiddleware",
+      "prompt": "The auth middleware reads the token from the request with:",
+      "options": [
+        "getHeaderLine('Authorization') matched against /^Bearer\\s+(.+)$/i, token = $m[1]; invalid/missing → 401 + WWW-Authenticate: Bearer",
+        "$_COOKIE['jwt'] directly; invalid → 500",
+        "getParsedBody()['token']; invalid → 200 with error flag",
+        "The URL query ?token=...; invalid → redirect to /login"
+      ],
+      "answer": 0,
+      "explain": "PSR-7: **getHeaderLine** reads the header string; the regex matches the **Bearer scheme** (capture group 1 = raw token). On success the payload is attached with **withAttribute** (immutable request → returns a NEW one). Missing/invalid → **401** + `WWW-Authenticate: Bearer`." },
+    { "id": "c11p-4", "type": "mcq", "source": "BrokenCode 5.8 — route protection",
+      "prompt": "Protecting routes and checking roles in Slim:",
+      "options": [
+        "->add($auth) on a route or whole group · handler reads getAttribute('auth') and checks $auth['role'] · wrong role → 403",
+        "Global if-statement in index.php · check $_SESSION['role'] · wrong role → 401",
+        "JavaScript guard on the frontend only",
+        "->middleware('auth') · check $request->role · wrong role → 404"
+      ],
+      "answer": 0,
+      "explain": "`->add($auth)` attaches middleware to one route or a **whole group** (POST/PUT/DELETE gated at once). The handler reads what the middleware attached: `getAttribute('auth')` → `$auth['role']` (baked into the token at login). Authenticated but not allowed → **403 Forbidden** (401 would mean no/invalid token)." },
+    { "id": "c11p-5", "type": "text", "source": "BrokenCode 5.5 — hashing function",
+      "prompt": "Which PHP function checks a login attempt against the stored bcrypt hash? (function name)",
+      "accept": ["password_verify", "password_verify()"],
+      "normalize": "trim-lower",
+      "explain": "**`password_verify($plain, $storedHash)`** — plain attempt first, stored hash second. Storing uses `password_hash($plain, PASSWORD_DEFAULT)`." },
+    { "id": "c11p-6", "type": "mcq", "source": "CH11 mastery — why 255",
+      "prompt": "Why must the password column be VARCHAR(255) rather than VARCHAR(32)?",
+      "options": [
+        "bcrypt output is ~60 chars and future algorithms may be longer — a short column TRUNCATES the hash and password_verify silently fails forever",
+        "Long passwords need long columns",
+        "MySQL requires 255 for indexes",
+        "It compresses better"
+      ],
+      "answer": 0,
+      "explain": "The stored value is the **hash**, not the password. Truncate it and every future verify fails with no error — the classic silent-death bug. 255 is the lab's size." }
+  ]
+}

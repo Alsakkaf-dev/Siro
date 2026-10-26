@@ -1,0 +1,76 @@
+{
+  "bankId": "bi-ch4etl-gate",
+  "title": "ETL Gate",
+  "questions": [
+    { "id": "beg-1", "type": "mcq", "source": "Gate — tool selection reflex",
+      "prompt": "Match the need to the tool: stack same-structure tables → ? · combine on a key field → ? · deduplicate → ?",
+      "options": [
+        "Union · Join · Unique",
+        "Join · Union · Filter",
+        "Cross Tab · Transpose · Sample",
+        "Summarize · Formula · Select"
+      ],
+      "answer": 0,
+      "explain": "**Union** appends rows (Auto Config by Name); **Join** matches on keys (J/L/R anchors); **Unique** splits U/D on the chosen fields. The trio appears in every assessment." },
+    { "id": "beg-2", "type": "mcq", "source": "Gate — Filter anchors",
+      "prompt": "Filter configured 'Status Equals Cancelled'. You want to CONTINUE the workflow with non-cancelled orders. Which anchor?",
+      "options": ["F (False) anchor", "T (True) anchor", "J anchor", "Output anchor"],
+      "answer": 0,
+      "explain": "T = rows matching the condition (cancelled); **F = everything else** — the stream you keep. Reading the condition then picking the anchor is the classic trap (Challenge S1.2 step 4)." },
+    { "id": "beg-3", "type": "mcq", "source": "Gate — Summarize",
+      "prompt": "\"Total sales per menu category, biggest first\" needs:",
+      "options": [
+        "Summarize (GroupBy MENU CATEGORY, Sum Sales) → Sort (Sum_Sales descending)",
+        "Filter → Unique",
+        "Transpose → Browse",
+        "Join → Union"
+      ],
+      "answer": 0,
+      "explain": "**Summarize** does GROUP BY + aggregates (Sum/Avg/Max/Count, auto-named Sum_Sales etc.) → **Sort desc** ranks. Add a leading Filter to exclude segments (e.g., `[SEGMENT] != \"Quick Service\"`) when asked." },
+    { "id": "beg-4", "type": "mcq", "source": "Gate — Dynamic Input",
+      "prompt": "Dynamic Input's two configuration essentials are:",
+      "options": [
+        "An Input Data Source Template + a list field with action 'Change File/Table Name'",
+        "A wildcard and a password",
+        "Two Join keys",
+        "A formula and an output path"
+      ],
+      "answer": 0,
+      "explain": "**Template** (one example sheet/file) + **Read a List of Data Sources** (Field = Sheet Names, Action = Change File/Table Name). Paired upstream with Input Data's **<List of Sheet Names>** option." },
+    { "id": "beg-5", "type": "mcq", "source": "Gate — Imputation",
+      "prompt": "Quantity has NULLs that should become the median. Which tool/config?",
+      "options": [
+        "Imputation — Incoming value to replace = Null(), Replace with = Median",
+        "Formula — IF NULL THEN 0",
+        "Filter out the nulls",
+        "Select — change type"
+      ],
+      "answer": 0,
+      "explain": "**Imputation** is the purpose-built tool (Null() → Median/Mean/Mode/custom). Filtering nulls would LOSE orders — different business outcome." },
+    { "id": "beg-6", "type": "mcq", "source": "Gate — GiftRecords pattern (S1.4)",
+      "prompt": "\"Highest gift per College among San Francisco donors, biggest first\" — after stacking all year-sheets, the chain is:",
+      "options": [
+        "Filter (City = San Francisco) → Summarize (GroupBy College, Max Gift Amount) → Sort (desc)",
+        "Summarize → Filter → Unique",
+        "Join → Cross Tab → Sample",
+        "Sort → Sample → Union"
+      ],
+      "answer": 0,
+      "explain": "Filter first (smaller data), **GroupBy + Max**, then Sort descending. Summarize's Max output auto-names `Max_Gift Amount`." },
+    { "id": "beg-7", "type": "text", "source": "Gate — output syntax",
+      "prompt": "In an Output Data path, which 3-character separator names the Excel sheet (e.g. `file.xlsx???Mailing`)? Type the separator.",
+      "accept": ["|||"],
+      "normalize": "trim-lower",
+      "explain": "**`|||`** — `BizRecords_Clean.xlsx|||Mailing` writes to sheet 'Mailing'. Small syntax, real marks." },
+    { "id": "beg-8", "type": "mcq", "source": "Gate — containers & hygiene",
+      "prompt": "Grouping a finished tool chain under a labeled box in the canvas is done with:",
+      "options": [
+        "Select all → right-click → Add to New Container → rename",
+        "A Comment tool only",
+        "Saving as a macro",
+        "Zooming out"
+      ],
+      "answer": 0,
+      "explain": "**Tool Container** with a meaningful label ('Customer Master') — workflow hygiene the lab explicitly asks for (and easy marks in a practical exam)." }
+  ]
+}

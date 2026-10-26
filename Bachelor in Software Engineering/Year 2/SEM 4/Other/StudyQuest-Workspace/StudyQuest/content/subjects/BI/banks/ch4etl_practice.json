@@ -1,0 +1,91 @@
+{
+  "bankId": "bi-ch4etl-practice",
+  "title": "ETL workflow scenarios",
+  "questions": [
+    { "id": "be-1", "type": "mcq", "source": "Challenge S1.1 — multi-file input",
+      "prompt": "Three CSVs `Customers_Part1/2/3.csv` share identical fields. The ONE-tool way to read all three at once is:",
+      "options": [
+        "Input Data with a wildcard path: Customers_*.csv",
+        "Three Browse tools",
+        "A Join tool with three inputs",
+        "Text To Columns"
+      ],
+      "answer": 0,
+      "explain": "**Wildcard in Input Data** works when files share fields/types. Alternative: 3 × Input Data → **Union** (Auto Config by Name). Then **Unique** on Customer ID — **U anchor** = uniques, **D anchor** = duplicates (the D count answers 'how many duplicates')." },
+    { "id": "be-2", "type": "mcq", "source": "Challenge S1.2 — sheets + nulls + anchor trap",
+      "prompt": "Orders for 2021/2022 sit on separate Excel SHEETS. After listing sheet names, which tool streams every sheet as one table?",
+      "options": [
+        "Dynamic Input (template = one sheet; read list of Sheet Names; Change File/Table Name)",
+        "Cross Tab",
+        "Imputation",
+        "Sample"
+      ],
+      "answer": 0,
+      "explain": "Input Data with **<List of Sheet Names>** → **Dynamic Input** stacks all sheets. Then **Imputation** (Null() → Median) fixes Quantity, and the Filter 'Status Equals Cancelled' — ⚠ continue from the **F anchor** to KEEP non-cancelled (the classic anchor trap)." },
+    { "id": "be-3", "type": "mcq", "source": "Challenge S1.2 — join anchors",
+      "prompt": "After Join (orders ↔ Products.csv on Product ID), rows on the **L anchor** are:",
+      "options": [
+        "Orders whose Product ID has NO match in Products.csv (unknown products)",
+        "Successfully joined rows",
+        "Products never ordered",
+        "Duplicate orders"
+      ],
+      "answer": 0,
+      "explain": "**J** = matched both sides · **L** = left-only (orders with unknown products) · **R** = right-only (products never ordered). Mentioning what the L rows MEAN is where the marks hide." },
+    { "id": "be-4", "type": "text", "source": "Challenge S1.3 — date math",
+      "prompt": "Which Alteryx formula function returns whole days between Ship Date and Order Date? (function name only)",
+      "accept": ["datetimediff", "datetimediff()"],
+      "normalize": "trim-lower",
+      "explain": "`DateTimeDiff([Ship Date],[Order Date],\"days\")` → Int. Then the Shipping Status formula: IF actual = scheduled THEN \"Shipped On Time\" ELSEIF actual > scheduled THEN \"Shipped Late\" ELSE \"Shipped Early\" ENDIF — finished with **Summarize** (GroupBy Region + Status, Count)." },
+    { "id": "be-5", "type": "mcq", "source": "Challenge S1.5 — reshaping",
+      "prompt": "EduFunGames has columns January_Sales … December_Sales that must become ROWS (month, value). Which tool, and what's its inverse?",
+      "options": [
+        "Transpose (Key: Product+Category; Data: the 12 month columns) — inverse is Cross Tab",
+        "Cross Tab — inverse is Transpose... the other way round",
+        "Summarize — inverse is Filter",
+        "Select — inverse is Sort"
+      ],
+      "answer": 0,
+      "explain": "**Transpose** = wide→long (Name/Value columns appear). **Cross Tab** = long→wide (group rows, header column, value aggregation) — the inverse pair. Cross Tab quirk: output columns sort alphabetically." },
+    { "id": "be-6", "type": "mcq", "source": "Challenge S1.6 — splitting",
+      "prompt": "`Address` holds \"2316 E 5th Ave, Denver, CO 80206-4205\". To get Street/City/StateZip columns:",
+      "options": [
+        "Text To Columns — delimiter ',' — Split to 3 Columns",
+        "Formula with Substring only",
+        "Unique on Address",
+        "Transpose with 3 keys"
+      ],
+      "answer": 0,
+      "explain": "**Text To Columns**, comma delimiter, 3 columns → rename in a **Select**. Output Data path trick for a named Excel sheet: `BizRecords_Clean.xlsx|||Mailing` (the `|||sheet` syntax)." },
+    { "id": "be-7", "type": "mcq", "source": "Challenge S1.7 — string cleaning (where marks hide)",
+      "prompt": "Sales arrive as strings like `\"$3,101 \"`. A Select-tool conversion to Double yields nulls. The working recipe is:",
+      "options": [
+        "Formula: ToNumber(Trim(ReplaceString(ReplaceString([field],\"$\",\"\"),\",\",\"\")))",
+        "Select to Double twice",
+        "Imputation with mean",
+        "Sort then convert"
+      ],
+      "answer": 0,
+      "explain": "Strip **$** and **,** with nested ReplaceString, Trim spaces, THEN ToNumber → Double. The Select tool alone cannot strip characters — this cleaning step is exactly 'where marks hide' per the solutions." },
+    { "id": "be-8", "type": "mcq", "source": "Challenge S1.7(c) — top-N pipeline",
+      "prompt": "\"Average units of the 10 largest Casual Dining chains by sales\" — the tool chain is:",
+      "options": [
+        "Filter (SEGMENT = Casual Dining) → Sort (Sales desc) → Sample (First 10) → Summarize (Avg Units)",
+        "Summarize → Filter → Join → Browse",
+        "Sample → Filter → Sort → Union",
+        "Unique → Transpose → Cross Tab"
+      ],
+      "answer": 0,
+      "explain": "Filter the segment → **Sort descending** → **Sample First N = 10** → **Summarize Avg**. Memorize this top-N idiom; assessments recycle it." },
+    { "id": "be-9", "type": "mcq", "source": "Challenge S1.8 — reporting branch",
+      "prompt": "To produce a titled PDF of a summary table, the Alteryx reporting chain is:",
+      "options": [
+        "Table → Report Header (title + date) → Render (Output Mode = PDF)",
+        "Browse → Print",
+        "Output Data → .pdf extension",
+        "Render → Table → Header"
+      ],
+      "answer": 0,
+      "explain": "**Table** styles the grid → **Report Header** adds title/date → **Render** writes the PDF. Note Summarize GroupBy sorts alphabetically (April, August, February…) — that IS the expected output order." }
+  ]
+}

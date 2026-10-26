@@ -1,0 +1,77 @@
+{
+  "title": "StudyQuest — Finals World",
+  "syllabusDeadline": "2026-06-29T00:00:00",
+  "mockWeek": { "from": "2026-06-29", "to": "2026-07-05" },
+  "subjects": [
+    {
+      "id": "NC",
+      "name": "Network Communications",
+      "code": "SCSR2213",
+      "color": "#22d3ee",
+      "colorDark": "#0e7490",
+      "emoji": "🛰️",
+      "tagline": "Routers, links & wireless waves",
+      "examAt": "2026-07-07T09:00:00",
+      "slides": 444,
+      "island": { "x": 240, "y": 330, "blobId": 1 },
+      "resourceRoot": "NC",
+      "countryFile": "subjects/NC/country.json"
+    },
+    {
+      "id": "Cross",
+      "name": "Cross-Platform Development",
+      "code": "SCSM2223",
+      "color": "#fbbf24",
+      "colorDark": "#b45309",
+      "emoji": "🧩",
+      "tagline": "HTML → Vue → Express → JWT",
+      "examAt": "2026-07-07T14:30:00",
+      "slides": 263,
+      "island": { "x": 790, "y": 430, "blobId": 2 },
+      "resourceRoot": "Cross",
+      "countryFile": "subjects/Cross/country.json"
+    },
+    {
+      "id": "SDA",
+      "name": "Software Design & Architecture",
+      "code": "SECJ3323",
+      "color": "#fb7185",
+      "colorDark": "#9f1239",
+      "emoji": "🏛️",
+      "tagline": "UML, patterns & SOLID kingdoms",
+      "examAt": "2026-07-09T14:30:00",
+      "slides": 500,
+      "island": { "x": 1340, "y": 320, "blobId": 3 },
+      "resourceRoot": "SDA",
+      "countryFile": "subjects/SDA/country.json"
+    },
+    {
+      "id": "PSDA",
+      "name": "Probability & Statistics for DA",
+      "code": "PSDA",
+      "color": "#a78bfa",
+      "colorDark": "#6d28d9",
+      "emoji": "🎲",
+      "tagline": "Hypotheses, χ², regression & ANOVA",
+      "examAt": "2026-07-11T14:00:00",
+      "slides": 376,
+      "island": { "x": 440, "y": 680, "blobId": 4 },
+      "resourceRoot": "PSDA",
+      "countryFile": "subjects/PSDA/country.json"
+    },
+    {
+      "id": "BI",
+      "name": "Business Intelligence",
+      "code": "BI",
+      "color": "#34d399",
+      "colorDark": "#047857",
+      "emoji": "📊",
+      "tagline": "Alteryx pipelines & Tableau vistas",
+      "examAt": "2026-07-14T09:00:00",
+      "slides": 275,
+      "island": { "x": 1130, "y": 680, "blobId": 5 },
+      "resourceRoot": "BI",
+      "countryFile": "subjects/BI/country.json"
+    }
+  ]
+}

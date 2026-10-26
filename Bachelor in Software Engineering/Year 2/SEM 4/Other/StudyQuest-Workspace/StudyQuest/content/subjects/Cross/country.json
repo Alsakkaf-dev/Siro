@@ -1,0 +1,431 @@
+{
+  "subjectId": "Cross",
+  "note": "Folder 'Chpater 10' typo is real — keep verbatim. Ch12-13 slides not yet downloaded (add later).",
+  "cities": [
+    {
+      "id": "cross-ch1-3",
+      "name": "Web Foundations",
+      "desc": "Cross-platform concepts · HTML · CSS · DOM",
+      "unlock": {
+        "type": "always"
+      },
+      "missions": [
+        {
+          "id": "cross-ch1-read1",
+          "type": "READ",
+          "title": "Introduction slides",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 1/01-Introduction.pdf",
+            "pages": [
+              1,
+              27
+            ]
+          },
+          "goal": {
+            "minSeconds": 3100
+          },
+          "xp": 60
+        },
+        {
+          "id": "cross-ch1-read2",
+          "type": "READ",
+          "title": "Web Architecture slides",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 1/002 Web Architecture.pdf",
+            "pages": [
+              1,
+              18
+            ]
+          },
+          "goal": {
+            "minSeconds": 2160
+          },
+          "xp": 50
+        },
+        {
+          "id": "cross-ch1-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: HTML · CSS · DOM",
+          "bank": "subjects/Cross/banks/ch1_3_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 130
+        },
+        {
+          "id": "cross-ch1-gate",
+          "type": "GATE",
+          "title": "Foundations Gate",
+          "bank": "subjects/Cross/banks/ch1_3_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "cross-ch4-5",
+      "name": "JS · JSON · Fetch Valley",
+      "desc": "JSON, XHR, fetch, promises, async/await, jQuery",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch1-3"
+      },
+      "missions": [
+        {
+          "id": "cross-ch45-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: Fetch · AJAX · JSON",
+          "bank": "subjects/Cross/banks/ch4_5_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 130
+        },
+        {
+          "id": "cross-ch45-gate",
+          "type": "GATE",
+          "title": "Fetch Gate",
+          "bank": "subjects/Cross/banks/ch4_5_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "cross-ch6",
+      "name": "Vue Basics Town",
+      "desc": "createApp, ref, directives, computed, watch",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch4-5"
+      },
+      "missions": [
+        {
+          "id": "cross-ch6-read1",
+          "type": "READ",
+          "title": "Vue Basics slides",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 6/Chapter_6_Vue_Basics_Slides.pdf",
+            "pages": [
+              1,
+              21
+            ]
+          },
+          "goal": {
+            "minSeconds": 2520
+          },
+          "xp": 70
+        },
+        {
+          "id": "cross-ch6-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: Vue reactivity",
+          "bank": "subjects/Cross/banks/ch6_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 130
+        },
+        {
+          "id": "cross-ch6-gate",
+          "type": "GATE",
+          "title": "Vue Basics Gate",
+          "bank": "subjects/Cross/banks/ch6_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "cross-ch7",
+      "name": "Full Vue Apps City",
+      "desc": "SFCs, components, props/emits, router, Pinia",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch6"
+      },
+      "missions": [
+        {
+          "id": "cross-ch7-read1",
+          "type": "READ",
+          "title": "Full Vue Apps slides",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 7/Chapter_7_Full_Vue_Apps_Slides.pdf",
+            "pages": [
+              1,
+              22
+            ]
+          },
+          "goal": {
+            "minSeconds": 2640
+          },
+          "xp": 70
+        },
+        {
+          "id": "cross-ch7-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: components · router · Pinia",
+          "bank": "subjects/Cross/banks/ch7_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 130
+        },
+        {
+          "id": "cross-ch7-gate",
+          "type": "GATE",
+          "title": "Vue Apps Gate",
+          "bank": "subjects/Cross/banks/ch7_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "cross-ch8-9",
+      "name": "Backend Highlands",
+      "desc": "Node + Express · REST · Slim/PSR-7 · Axios",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch7"
+      },
+      "missions": [
+        {
+          "id": "cross-ch89-read1",
+          "type": "READ",
+          "title": "Backend Development slides",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 8/Chapter8_Backend_Development  -  update.pdf",
+            "pages": [
+              1,
+              40
+            ]
+          },
+          "goal": {
+            "minSeconds": 4800
+          },
+          "xp": 90
+        },
+        {
+          "id": "cross-ch89-read2",
+          "type": "READ",
+          "title": "Ch9 slides (REST + Slim)",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 9/SCSM2223_Ch9_Slides.pdf",
+            "pages": [
+              1,
+              26
+            ]
+          },
+          "goal": {
+            "minSeconds": 3120
+          },
+          "xp": 80
+        },
+        {
+          "id": "cross-ch89-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: Express + Slim routes",
+          "bank": "subjects/Cross/banks/ch8_9_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 140
+        },
+        {
+          "id": "cross-ch89-gate",
+          "type": "GATE",
+          "title": "Backend Gate",
+          "bank": "subjects/Cross/banks/ch8_9_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 8,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "cross-ch10",
+      "name": "MySQL Kingdom",
+      "desc": "Schema, PDO, prepared statements, transactions",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch8-9"
+      },
+      "missions": [
+        {
+          "id": "cross-ch10-read1",
+          "type": "READ",
+          "title": "Ch10 slides (MySQL integration)",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chpater 10/SCSM2223_Ch10_Slides_v2.pdf",
+            "pages": [
+              1,
+              23
+            ]
+          },
+          "goal": {
+            "minSeconds": 2760
+          },
+          "xp": 70
+        },
+        {
+          "id": "cross-ch10-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: schema · PDO · transactions",
+          "bank": "subjects/Cross/banks/ch10_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 130
+        },
+        {
+          "id": "cross-ch10-gate",
+          "type": "GATE",
+          "title": "MySQL Gate",
+          "bank": "subjects/Cross/banks/ch10_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "cross-ch11",
+      "name": "JWT Citadel",
+      "desc": "Tokens, auth middleware, roles — the final fortress",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "cross-ch10"
+      },
+      "missions": [
+        {
+          "id": "cross-ch11-read1",
+          "type": "READ",
+          "title": "Ch11 slides (JWT)",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 11/SCSM2223_Ch11_Slides.pptx",
+            "pages": [
+              1,
+              18
+            ]
+          },
+          "goal": {
+            "minSeconds": 2160
+          },
+          "xp": 60
+        },
+        {
+          "id": "cross-ch11-read2",
+          "type": "READ",
+          "title": "Introduction to JWT",
+          "target": {
+            "kind": "pdf",
+            "path": "Cross/Storage/Materials/Slides/Chapter 11/Introduction to JWT.pdf",
+            "pages": [
+              1,
+              14
+            ]
+          },
+          "goal": {
+            "minSeconds": 1680
+          },
+          "xp": 50
+        },
+        {
+          "id": "cross-ch11-prac1",
+          "type": "PRACTICE",
+          "title": "Broken Code: hashing · JwtService · middleware",
+          "bank": "subjects/Cross/banks/ch11_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 140
+        },
+        {
+          "id": "cross-ch11-gate",
+          "type": "GATE",
+          "title": "JWT Gate — FINAL",
+          "bank": "subjects/Cross/banks/ch11_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 350
+        }
+      ]
+    }
+  ]
+}

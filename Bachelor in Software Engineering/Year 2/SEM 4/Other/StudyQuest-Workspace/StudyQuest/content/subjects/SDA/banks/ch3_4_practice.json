@@ -1,0 +1,68 @@
+{
+  "bankId": "sda-ch3-4-practice",
+  "title": "Architecture drills",
+  "questions": [
+    { "id": "s34p-1", "type": "mcq", "source": "Drill CH1-4 Q3",
+      "prompt": "Independent knowledge sources read/write a shared central dataset under a controller, solving opportunistically (no fixed sequence) — an expert-system domain. Which architectural style?",
+      "options": ["Blackboard", "Pipes and filters", "Client-server", "Layered"],
+      "answer": 0,
+      "explain": "**Blackboard** signals: independent knowledge sources + shared central data + controller/mediator + opportunistic solving. Pipes-and-filters needs a fixed sequential transformation; client-server has no collaborative solving; layered is hierarchical separation." },
+    { "id": "s34p-2", "type": "mcq", "source": "Drill CH1-4 Q10 — 4+1 views",
+      "prompt": "In Kruchten's 4+1, the LOGICAL view captures ______ and serves ______:",
+      "options": [
+        "Functional structure (classes/components) · end users and analysts/designers",
+        "Deployment to hardware · DevOps",
+        "Code organization · programmers",
+        "Concurrency · performance engineers"
+      ],
+      "answer": 0,
+      "explain": "4+1 map: **Logical** = functionality (Class/Component diagrams; end users) · **Process** = runtime concurrency (Sequence/Communication; integrators) · **Development** = code modules (Package; programmers/managers) · **Physical** = deployment (Deployment diagram; system engineers) · **+1 Scenarios** = use cases that tie and validate all four." },
+    { "id": "s34p-3", "type": "mcq", "source": "Drill CH1-4 Q10",
+      "prompt": "Why are SCENARIOS the \"+1\" in the 4+1 view model?",
+      "options": [
+        "They cut across and VALIDATE the other four views against required behavior",
+        "They replace the logical view",
+        "They are optional decoration",
+        "They document only error cases"
+      ],
+      "answer": 0,
+      "explain": "Each view isolates one stakeholder concern; **scenarios (use cases) tie the four views together** and prove the architecture supports the required behavior — relevant to all stakeholders, especially customers." },
+    { "id": "s34p-4", "type": "multi", "source": "Drill CH1-4 Q11(a)",
+      "prompt": "Select THREE genuine architectural quality attributes (with their course definitions):",
+      "options": [
+        "Modifiability — complexity of changing the system for current/future needs",
+        "Performance — capacity to do useful work under time/resource constraints",
+        "Interoperability — ability to collaborate with other systems",
+        "Colorfulness — UI palette variety",
+        "Compilability — speed of the build"
+      ],
+      "answer": [0, 1, 2],
+      "explain": "The slide list: usability, **modifiability**, security, **performance**, reliability, availability, portability, testability, **interoperability** — each with a one-line definition you should be able to quote." },
+    { "id": "s34p-5", "type": "multi", "source": "Drill CH1-4 Q11(b)",
+      "prompt": "Select THREE documented activities/responsibilities of the software ARCHITECT:",
+      "options": [
+        "Identify stakeholders' concerns",
+        "Design major components and their interfaces",
+        "Evaluate and validate the architecture (long, iterative)",
+        "Write all the unit tests personally",
+        "Choose the office furniture"
+      ],
+      "answer": [0, 1, 2],
+      "explain": "Architect's activities: identify **stakeholder concerns**; select **architectural representations/views**; manage **influences of decisions**; design **major components + interfaces**; **evaluate/validate**; maintain **design synchronicity** (implementation reflects design)." },
+    { "id": "s34p-6", "type": "mcq", "source": "Drill CH1-4 Q12 — ride-sharing scenario",
+      "prompt": "Millions of concurrent requests · teams must deploy services independently · a loyalty-module crash must not stop ride requests. Which architecture, and which requirement maps to 'fault isolation'?",
+      "options": [
+        "Microservices — the loyalty-crash survival maps to fault isolation (separate service, core path keeps operating)",
+        "Monolith — crash survival via bigger servers",
+        "Layered — each layer is a team",
+        "Pipes and filters — crashes flow downstream"
+      ],
+      "answer": 0,
+      "explain": "**Microservices**: horizontal independent scaling (millions of requests), **deployment independence** (pricing released without touching matching/payment — the defining criterion), **fault isolation** (loyalty is a separate service; matching + payment keep running). Sketch: API Gateway → RideRequest/Matching/Pricing/Payment/Loyalty services, each owning its data store." },
+    { "id": "s34p-7", "type": "mcq", "source": "CH4 — style recognition reflex",
+      "prompt": "Data flows through a fixed series of independent transformation steps, each consuming the previous step's output (e.g., compiler stages). Which style?",
+      "options": ["Pipes and filters", "Blackboard", "Event-driven", "Client-server"],
+      "answer": 0,
+      "explain": "**Pipes and filters** = fixed sequential transformations, each filter independent, connected by pipes. Contrast with blackboard (opportunistic, shared data) and event-driven (publish/subscribe on events)." }
+  ]
+}

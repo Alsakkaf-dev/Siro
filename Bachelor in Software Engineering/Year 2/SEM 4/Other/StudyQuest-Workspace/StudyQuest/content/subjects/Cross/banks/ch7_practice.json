@@ -1,0 +1,76 @@
+{
+  "bankId": "cross-ch7-practice",
+  "title": "Broken Code: components · router · Pinia",
+  "questions": [
+    { "id": "c7p-1", "type": "mcq", "source": "BrokenCode 3.6 — TodoItem.vue",
+      "prompt": "In a child SFC, how do you declare incoming props and outgoing events (script setup)?",
+      "options": [
+        "defineProps({ todo: { type: Object, required: true } }) · defineEmits(['toggle', 'remove'])",
+        "import { props, emits } from 'vue' then register them",
+        "this.$props and this.$emits in created()",
+        "export const props = [...]; export const emits = [...]"
+      ],
+      "answer": 0,
+      "explain": "`defineProps` / `defineEmits` are **compiler macros** (no import needed) in `<script setup>`. Template-side emit: `$emit('toggle', todo.id)` carries the id payload. `<style scoped>` confines the CSS to this component." },
+    { "id": "c7p-2", "type": "mcq", "source": "BrokenCode 3.7 — TodosView.vue",
+      "prompt": "The todos list form and rows need: no page reload on submit, stable row identity, child event → store action. Which set?",
+      "options": [
+        "@submit.prevent=\"submit\" · :key=\"t.id\" · @toggle=\"store.toggle\"",
+        "onsubmit=\"return false\" · :key=\"index\" · @toggle=\"toggle()\"",
+        "@submit=\"submit\" · key=\"{{t.id}}\" · v-on=\"store\"",
+        "@click.stop=\"submit\" · :id=\"t.id\" · :toggle=\"store.toggle\""
+      ],
+      "answer": 0,
+      "explain": "`.prevent` stops the reload. **`:key=\"t.id\"`** gives stable identity (never use index when list mutates). `@toggle=\"store.toggle\"` — the child's emitted id payload flows straight into the store action. Import via the `@` alias: `@/components/TodoItem.vue` (include `.vue`)." },
+    { "id": "c7p-3", "type": "order", "source": "BrokenCode 3.8 — router config",
+      "prompt": "Order the router/index.js lines:",
+      "items": [
+        "import { createRouter, createWebHistory } from 'vue-router'",
+        "const routes = [{ path: '/todos/:id', component: () => import('@/views/TodoDetailView.vue') }]",
+        "const router = createRouter({ history: createWebHistory(), routes })",
+        "export default router"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Both factories come from 'vue-router'. `:id` declares the dynamic param; the arrow returning `import()` = **lazy loading**. `history:` is the config key; main.js then does `import router from './router'` + `app.use(router)`." },
+    { "id": "c7p-4", "type": "mcq", "source": "BrokenCode 3.9 — route + store",
+      "prompt": "A detail component must read `:id` from `/todos/:id` and find the todo (store ids are numbers). Which is right?",
+      "options": [
+        "const route = useRoute(); const id = Number(route.params.id)",
+        "const router = useRouter(); const id = router.params.id",
+        "const id = this.$route.query.id",
+        "const id = import.meta.env.id"
+      ],
+      "answer": 0,
+      "explain": "**useRoute()** reads the CURRENT route (params); useRouter() navigates. URL params arrive as **strings** — `Number(id)` before `===` against numeric store ids. Guarded flip in the store: `if (t) t.done = !t.done`." },
+    { "id": "c7p-5", "type": "mcq", "source": "BrokenCode 3.10 — main.js + data load",
+      "prompt": "Wiring Pinia and loading data on appear: which pair is correct?",
+      "options": [
+        "app.use(createPinia()) before app.mount · onMounted(async () => { items.value = (await apiClient.get('/todos')).data })",
+        "app.use(Pinia) after mount · onCreated(() => fetch())",
+        "createPinia inside the component · onUpdated for the first load",
+        "No plugin needed · load data in <style>"
+      ],
+      "answer": 0,
+      "explain": "`createPinia()` — **call it**, the plugin instance is the return value; mount comes after every `app.use(...)`. `onMounted` runs after insertion; Axios puts the parsed body in **`res.data`**; clear the spinner in `finally` (`loading.value = false`) so it stops on success AND failure." },
+    { "id": "c7p-6", "type": "mcq", "source": "MCQ Bank Q26 — communication rule",
+      "prompt": "Component communication in Vue follows which direction rule?",
+      "options": [
+        "Props down (parent→child), events up (child→parent)",
+        "Props up, events down",
+        "Everything through localStorage",
+        "Children mutate parent data directly"
+      ],
+      "answer": 0,
+      "explain": "Mantra: **props down, events up**; shared state across distant components → Pinia store." },
+    { "id": "c7p-7", "type": "mcq", "source": "MCQ Bank Q28 — Pinia setup store",
+      "prompt": "In a Pinia setup-style store, which statement is TRUE?",
+      "options": [
+        "Only the names returned from the setup function become the store's public API",
+        "State must be a plain object literal",
+        "Actions must be declared with the actions: option",
+        "Pinia state survives a full page reload by default"
+      ],
+      "answer": 0,
+      "explain": "Setup-store rule: **only returned names are public**. State is refs; actions are plain functions; it does NOT survive reload (that needs a persistence plugin). `defineStore('todos', setupFn)` = id + setup function." }
+  ]
+}

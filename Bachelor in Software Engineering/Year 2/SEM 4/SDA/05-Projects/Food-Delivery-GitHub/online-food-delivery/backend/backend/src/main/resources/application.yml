@@ -1,0 +1,31 @@
+# Default profile -> PostgreSQL (docker-compose or managed Postgres).
+# Schema + seed are driven by schema.sql / data.sql (ddl-auto: none) so the
+# database mirrors the SDD ERDs (SDD 5.4) exactly.
+spring:
+  application:
+    name: ofd-backend
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/ofd}
+    username: ${DB_USER:ofd}
+    password: ${DB_PASSWORD:ofd}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql, classpath:schema-m3.sql
+      data-locations: classpath:data.sql, classpath:data-m3.sql
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    com.grouphub.ofd: debug

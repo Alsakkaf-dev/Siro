@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "xp": 0,
+  "missions": {
+    "nc-ch0-read1": {
+      "status": "active",
+      "secondsSpent": 35,
+      "pagesViewed": [],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "sda-ch12-read1": {
+      "status": "active",
+      "secondsSpent": 105,
+      "pagesViewed": [
+        1,
+        2
+      ],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "cross-ch1-read1": {
+      "status": "active",
+      "secondsSpent": 178,
+      "pagesViewed": [
+        1,
+        9,
+        11
+      ],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "psda-ch5a-read0": {
+      "status": "active",
+      "secondsSpent": 35,
+      "pagesViewed": [],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    },
+    "bi-ch13-read1": {
+      "status": "active",
+      "secondsSpent": 20,
+      "pagesViewed": [
+        10
+      ],
+      "bestScorePct": 0,
+      "stars": 0,
+      "attempts": []
+    }
+  },
+  "reading": {
+    "Cross/BOOT.md": {
+      "seconds": 15,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T07:09:12.834Z"
+    },
+    "Cross/Storage/Materials/CI-SCSM2223 Cross-Platform Application Development.pdf": {
+      "seconds": 15,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T07:09:19.022Z"
+    },
+    "NC/Learning space/01_Mastery/CH0_Prerequisite_Refresher.md": {
+      "seconds": 35,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:34:22.374Z"
+    },
+    "SDA/Storage/Materials/Slides/Chapter 1/chapter 1 - new/SPACE SDA (S1).pptx": {
+      "seconds": 105,
+      "pagesViewed": [
+        1,
+        2
+      ],
+      "lastAt": "2026-06-11T07:28:53.255Z"
+    },
+    "Cross/Storage/Materials/Slides/Chapter 1/01-Introduction.pdf": {
+      "seconds": 178,
+      "pagesViewed": [
+        1,
+        9,
+        11
+      ],
+      "lastAt": "2026-06-11T08:43:29.622Z"
+    },
+    "PSDA/Storage/Materials/Slides/0. Triolas Formula Card and Equations.pdf": {
+      "seconds": 35,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:35:06.663Z"
+    },
+    "BI/Learning space/01_Mastery/CH1-2_BI_Foundations_Mastery.md": {
+      "seconds": 35,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:37:48.434Z"
+    },
+    "BI/Learning space/01_Mastery/CH3_BI_FrontEnd_Mastery.md": {
+      "seconds": 1,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:37:50.409Z"
+    },
+    "BI/Learning space/01_Mastery/CH4.1_Data_Preprocessing_Mastery.md": {
+      "seconds": 1,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:37:50.433Z"
+    },
+    "BI/Learning space/01_Mastery/CH4.2_Alteryx_ETL_Mastery.md": {
+      "seconds": 2,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:37:53.423Z"
+    },
+    "BI/Learning space/01_Mastery/CH4.3_Alteryx_Investigation_Predictive_Mastery.md": {
+      "seconds": 2,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:37:53.626Z"
+    },
+    "BI/Learning space/01_Mastery/CH5_Tableau_DataViz_Mastery.md": {
+      "seconds": 9,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:03.481Z"
+    },
+    "BI/Learning space/02_Challenges/Challenge_Set1_Alteryx_ETL_SOLUTIONS.md": {
+      "seconds": 18,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:21.886Z"
+    },
+    "BI/Learning space/02_Challenges/Challenge_Set1_Alteryx_ETL.md": {
+      "seconds": 18,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:22.811Z"
+    },
+    "BI/Learning space/02_Challenges/Challenge_Set2_Alteryx_Predictive_SOLUTIONS.md": {
+      "seconds": 1,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:24.799Z"
+    },
+    "BI/Learning space/02_Challenges/Challenge_Set2_Alteryx_Predictive.md": {
+      "seconds": 1,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:25.213Z"
+    },
+    "BI/Learning space/02_Challenges/Challenge_Set3_Tableau_SOLUTIONS.md": {
+      "seconds": 18,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:38:43.836Z"
+    },
+    "BI/Learning space/03_Exam_Intelligence.md": {
+      "seconds": 19,
+      "pagesViewed": [],
+      "lastAt": "2026-06-11T08:39:03.669Z"
+    },
+    "BI/Storage/Materials/LECTURE NOTES/CH01P1_BusinessIntelligence_Intro.pdf": {
+      "seconds": 20,
+      "pagesViewed": [
+        10
+      ],
+      "lastAt": "2026-06-11T08:41:19.464Z"
+    }
+  },
+  "updatedAt": "2026-06-11T08:43:30.627Z"
+}

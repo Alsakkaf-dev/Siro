@@ -1,0 +1,109 @@
+{
+  "bankId": "nc-ch0-gate",
+  "title": "Base Camp Gate — prerequisites",
+  "questions": [
+    {
+      "id": "ch0-1",
+      "type": "order",
+      "source": "CH0 Refresher — 5-layer stack",
+      "prompt": "Arrange the **5-layer Internet (TCP/IP) stack** from TOP to BOTTOM:",
+      "items": ["Application", "Transport", "Network", "Link", "Physical"],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "**Application → Transport → Network → Link → Physical.**\nMnemonic: *All Trains Need Loud Pilots*. Each layer uses the service of the one below and serves the one above."
+    },
+    {
+      "id": "ch0-2",
+      "type": "mcq",
+      "source": "CH0 Refresher — encapsulation",
+      "prompt": "As data moves DOWN the stack at the sender, each layer:",
+      "options": [
+        "Adds its own header in front of what it received from above (encapsulation)",
+        "Removes a header from what it received",
+        "Compresses the payload",
+        "Encrypts the payload"
+      ],
+      "answer": 0,
+      "explain": "**Encapsulation — the Russian-doll rule:** message → segment (TCP/UDP header) → datagram (IP header) → frame (link header+trailer). The receiver peels them off in reverse."
+    },
+    {
+      "id": "ch0-3",
+      "type": "mcq",
+      "source": "CH0 Refresher — PDU names",
+      "prompt": "What is the **network-layer** PDU (protocol data unit) called?",
+      "options": ["Datagram (packet)", "Segment", "Frame", "Message"],
+      "answer": 0,
+      "explain": "Application = **message** · Transport = **segment** · Network = **datagram/packet** · Link = **frame**. Exam answers require the exact term per layer."
+    },
+    {
+      "id": "ch0-4",
+      "type": "mcq",
+      "source": "CH0 Refresher — addresses per layer",
+      "prompt": "Which addresses live at which layer?",
+      "options": [
+        "Port numbers = transport, IP addresses = network, MAC addresses = link",
+        "IP addresses = transport, MAC = network, ports = link",
+        "MAC = network, IP = link, ports = transport",
+        "Ports = application, IP = link, MAC = physical"
+      ],
+      "answer": 0,
+      "explain": "**Port (16-bit) → transport** (which process), **IP (32-bit) → network** (which host, end-to-end), **MAC (48-bit) → link** (which interface, this hop only). IP never changes in transit; MAC changes at every hop."
+    },
+    {
+      "id": "ch0-5",
+      "type": "multi",
+      "source": "CH0 Refresher — TCP vs UDP",
+      "prompt": "Select **ALL** properties of **TCP** (and not UDP):",
+      "options": [
+        "Connection-oriented (3-way handshake)",
+        "Reliable, in-order delivery",
+        "Congestion and flow control",
+        "Minimal 8-byte header",
+        "Connectionless, just send"
+      ],
+      "answer": [0, 1, 2],
+      "explain": "**TCP:** connection setup, reliability (ACK + retransmit), ordering, flow + congestion control — 20-byte header.\n**UDP:** connectionless, best-effort, no ordering, **8-byte header** — used by DNS, DHCP, streaming, VoIP."
+    },
+    {
+      "id": "ch0-6",
+      "type": "mcq",
+      "source": "CH0 Refresher — service words",
+      "prompt": "The Internet's network layer offers a ______ service model.",
+      "options": [
+        "best-effort (no guarantees on delivery, order, or timing)",
+        "guaranteed-delivery",
+        "constant-bit-rate circuit",
+        "reliable in-order"
+      ],
+      "answer": 0,
+      "explain": "IP is **best-effort**: datagrams can be lost, reordered, duplicated. Any reliability must come from the layer above (TCP) — a favourite 1-mark definition question."
+    },
+    {
+      "id": "ch0-7",
+      "type": "mcq",
+      "source": "CH0 Refresher — which protocol where",
+      "prompt": "A frame cannot cross a router because:",
+      "options": [
+        "MAC addresses only have meaning on the local LAN; routers strip the frame and re-frame on the next link",
+        "Routers operate only at the physical layer",
+        "Frames are too large for routers",
+        "IP addresses change at every hop"
+      ],
+      "answer": 0,
+      "explain": "A router is a **network-layer** device: it removes the link header, makes a forwarding decision on the **IP** datagram, then builds a NEW frame for the next link (new src/dst MAC). IP addresses stay constant end-to-end; MACs are per-hop."
+    },
+    {
+      "id": "ch0-8",
+      "type": "mcq",
+      "source": "CH0 Refresher — TCP vs UDP users",
+      "prompt": "Which application pairing is correct?",
+      "options": [
+        "HTTP → TCP, DNS lookup → UDP",
+        "HTTP → UDP, DNS → TCP",
+        "Both always use TCP",
+        "Both always use UDP"
+      ],
+      "answer": 0,
+      "explain": "**HTTP needs reliability → TCP.** **DNS favours speed for tiny queries → UDP** (falls back to TCP for big answers/zone transfers). DHCP also uses UDP — remember it for Ch4."
+    }
+  ]
+}

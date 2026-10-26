@@ -1,0 +1,71 @@
+{
+  "bankId": "cross-ch10-gate",
+  "title": "MySQL Gate",
+  "questions": [
+    { "id": "c10g-1", "type": "mcq", "source": "MCQ Bank Q36",
+      "prompt": "The biggest security reason to use `prepare()`/`execute()` with placeholders is:",
+      "options": [
+        "The user's data is sent as parameters and never becomes part of the SQL string — preventing SQL injection",
+        "Faster queries",
+        "Smaller database size",
+        "Automatic input trimming"
+      ],
+      "answer": 0,
+      "explain": "**Prepared statements separate code from data** — the injection string is never executed as SQL." },
+    { "id": "c10g-2", "type": "mcq", "source": "MCQ Bank Q37",
+      "prompt": "Which PDO option set is the course's standard?",
+      "options": [
+        "ERRMODE_EXCEPTION + FETCH_ASSOC + EMULATE_PREPARES=false",
+        "ERRMODE_SILENT + FETCH_NUM + EMULATE_PREPARES=true",
+        "ERRMODE_WARNING + FETCH_BOTH",
+        "No options needed"
+      ],
+      "answer": 0,
+      "explain": "The three sacred options: **ERRMODE_EXCEPTION, FETCH_ASSOC, EMULATE_PREPARES=false**." },
+    { "id": "c10g-3", "type": "mcq", "source": "MCQ Bank Q38",
+      "prompt": "After an INSERT and an UPDATE respectively, which calls report the new id and the number of changed rows?",
+      "options": [
+        "$pdo->lastInsertId() / $stmt->rowCount()",
+        "$stmt->insertId() / $pdo->rowCount()",
+        "$pdo->newId() / $stmt->affected()",
+        "$stmt->fetchColumn() / $pdo->count()"
+      ],
+      "answer": 0,
+      "explain": "**lastInsertId() lives on the PDO connection; rowCount() on the statement.** (mysql2/Node equivalent: r.insertId / r.affectedRows.)" },
+    { "id": "c10g-4", "type": "mcq", "source": "BrokenCode 5.1 — charset trap",
+      "prompt": "Why does the course mandate `utf8mb4` instead of MySQL's `utf8`?",
+      "options": [
+        "MySQL's utf8 is broken 3-byte encoding — utf8mb4 is real 4-byte Unicode (emoji, all scripts)",
+        "utf8mb4 is faster",
+        "utf8 is case-sensitive",
+        "utf8mb4 compresses better"
+      ],
+      "answer": 0,
+      "explain": "MySQL's legacy `utf8` stores max **3 bytes** per character — it can't hold emoji/astral-plane chars. **utf8mb4** is the real thing; use it for every table + the DSN charset." },
+    { "id": "c10g-5", "type": "mcq", "source": "BrokenCode 5.4 — transactions",
+      "prompt": "A transfer debits one account and credits another. The guarantee transactions give is:",
+      "options": [
+        "All-or-nothing: commit() makes both permanent; any exception → rollBack() undoes both",
+        "Speed: both updates run in parallel",
+        "Ordering: the debit always wins",
+        "Isolation from SQL injection"
+      ],
+      "answer": 0,
+      "explain": "**Atomicity** — beginTransaction → updates → commit, with rollBack in the catch. Requires the InnoDB engine (transactional/ACID), which is why every course table uses it." },
+    { "id": "c10g-6", "type": "text", "source": "BrokenCode 5.3",
+      "prompt": "With real prepared statements (EMULATE_PREPARES=false), reusing a named placeholder twice raises SQLSTATE ______ (5 chars).",
+      "accept": ["hy093"],
+      "normalize": "trim-lower",
+      "explain": "**HY093** — invalid parameter number. Fix: unique names per occurrence (`:q_title`, `:q_author`)." },
+    { "id": "c10g-7", "type": "mcq", "source": "Ch10 slides — engine choice",
+      "prompt": "Which engine + why does every course table use it?",
+      "options": [
+        "InnoDB — transactional ACID engine (transactions, row locks, foreign keys)",
+        "MyISAM — faster reads",
+        "MEMORY — everything in RAM",
+        "CSV — easy export"
+      ],
+      "answer": 0,
+      "explain": "**ENGINE=InnoDB** — ACID transactions (beginTransaction/commit/rollBack literally don't work on MyISAM), row-level locking, FK constraints." }
+  ]
+}

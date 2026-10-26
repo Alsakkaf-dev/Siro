@@ -1,0 +1,122 @@
+{
+  "bankId": "nc-ch5-gate",
+  "title": "Link Layer Gate",
+  "questions": [
+    {
+      "id": "g5-1",
+      "type": "text",
+      "source": "Gate — CRC variant",
+      "prompt": "Receiver gets **100000001** with G = **1101**. Compute the remainder (3 bits).",
+      "accept": ["011"],
+      "normalize": "trim-lower",
+      "explain": "XOR-divide 100000001 by 1101 → remainder **011 ≠ 000 → error detected; frame rejected** (1819 real exam answer)."
+    },
+    {
+      "id": "g5-2",
+      "type": "mcq",
+      "source": "Gate — ARP scenario (Tier-1 archetype)",
+      "prompt": "Host X (10.0.1.5/24) sends to host Y (10.0.2.9/24) through router R. Which statement is TRUE?",
+      "options": [
+        "X ARPs for R's near-side interface; the frame's dst MAC is R's, while dst IP stays Y's",
+        "X ARPs for Y directly across the router",
+        "The dst IP is rewritten to R's IP at X",
+        "R forwards the original frame unchanged to Y"
+      ],
+      "answer": 0,
+      "explain": "Cross-subnet rule: frame → **default gateway's MAC**; the datagram keeps **dst IP = Y**. R strips the frame, looks up Y, ARPs on the far LAN, and builds a NEW frame. IP constant end-to-end, MAC per-hop."
+    },
+    {
+      "id": "g5-3",
+      "type": "mcq",
+      "source": "Gate — switch vs router",
+      "prompt": "Switch vs router — which row is correct?",
+      "options": [
+        "Switch: link-layer, learns MAC table by flooding/learning, plug-and-play · Router: network-layer, forwards on IP using routing algorithms",
+        "Switch: network-layer · Router: link-layer",
+        "Both forward on IP addresses",
+        "Switch uses routing algorithms; router self-learns"
+      ],
+      "answer": 0,
+      "explain": "**Switch** = link layer: self-learning MAC table (flood when unknown, selective forward when known), zero config.\n**Router** = network layer: forwarding tables computed by **routing algorithms** (Dijkstra/Bellman-Ford), needs IP config. Both store-and-forward."
+    },
+    {
+      "id": "g5-4",
+      "type": "mcq",
+      "source": "Gate — switch learning sequence",
+      "prompt": "Empty switch table; A–F on ports 1–6. Events: C→A (flood), A→C, **F→A**. On which port(s) is F's frame to A forwarded?",
+      "options": [
+        "Port 1 only — A was learned from its reply in the previous event",
+        "Flooded everywhere except 6 — A unknown",
+        "Port 3 — C is known",
+        "Dropped — F unknown"
+      ],
+      "answer": 0,
+      "explain": "After A→C the table holds (C,3) and **(A,1)**. So F→A is **selectively forwarded to port 1** (and the switch learns (F,6)). Table state after all 5 drill events: C3, A1, F6, D4."
+    },
+    {
+      "id": "g5-5",
+      "type": "mcq",
+      "source": "Gate — CSMA/CD backoff formula",
+      "prompt": "After the **5th collision** of a frame, an Ethernet NIC chooses its wait time as:",
+      "options": [
+        "K uniformly from {0, 1, …, 31}, waiting K × 512 bit times",
+        "K uniformly from {0, 1, …, 5}, waiting K seconds",
+        "Always 512 bit times",
+        "K from {0,1}, doubling the frame size"
+      ],
+      "answer": 0,
+      "explain": "Binary exponential backoff: after the **m-th** collision, K ∈ {0, 1, …, **2^m − 1**}; m=5 ⇒ {0…31}; wait = **K × 512 bit times**. More collisions ⇒ wider window ⇒ the load adapts itself."
+    },
+    {
+      "id": "g5-6",
+      "type": "mcq",
+      "source": "Gate — frame fields",
+      "prompt": "Ethernet provides which service to the network layer?",
+      "options": [
+        "Unreliable, connectionless delivery — no ACKs, no retransmission; errors caught by CRC are silently dropped",
+        "Reliable, connection-oriented delivery",
+        "Reliable broadcast with ACKs",
+        "Encrypted delivery"
+      ],
+      "answer": 0,
+      "explain": "Ethernet = **connectionless + unreliable**: receiving NIC runs the CRC, drops bad frames with no feedback. Recovery (if any) is TCP's job, layers above. A favourite 2-mark statement."
+    },
+    {
+      "id": "g5-7",
+      "type": "order",
+      "source": "Gate — ARP same-subnet steps (1819 Q8a)",
+      "prompt": "Order the ARP steps when PCA (empty table) sends to PCB on the **same LAN**:",
+      "items": [
+        "PCA compares PCB's IP with its subnet mask → same subnet",
+        "PCA broadcasts an ARP query (dst FF-FF-FF-FF-FF-FF) asking who has PCB's IP",
+        "PCB replies unicast with its MAC",
+        "PCA caches the mapping (TTL ≈ 20 min) and sends the frame to PCB's MAC"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Same-subnet ARP: check subnet → broadcast query → unicast reply from the owner only → cache + transmit. The query is **broadcast** (everyone receives), the reply is **unicast** (only the asker needs it)."
+    },
+    {
+      "id": "g5-8",
+      "type": "mcq",
+      "source": "Gate — MAC vs IP rationale",
+      "prompt": "Why do hosts need BOTH a MAC address and an IP address?",
+      "options": [
+        "IP = global, hierarchical, used end-to-end for routing; MAC = flat, portable, identifies the interface on the local link only",
+        "MAC is a backup if IP fails",
+        "IP is for wired, MAC for wireless",
+        "They are interchangeable identifiers"
+      ],
+      "answer": 0,
+      "explain": "**IP**: hierarchical (network+host), enables scalable routing, changes with location. **MAC**: flat 48-bit burned-in, stays with the NIC anywhere (like a person's name vs postal address). The link layer must deliver on the local segment without involving routing — that's ARP's bridge between the two."
+    },
+    {
+      "id": "g5-9",
+      "type": "text",
+      "source": "Gate — CRC reflex",
+      "prompt": "With G = 1101 (r = 3), the transmitted pattern for data 100100 is ⟨D,R⟩. Type the **complete transmitted bit pattern**.",
+      "accept": ["100100001"],
+      "normalize": "trim-lower",
+      "explain": "R = 001 (from the XOR division), so the wire carries D followed by R: **100100001**. The receiver divides the whole thing by G and accepts iff remainder = 000."
+    }
+  ]
+}

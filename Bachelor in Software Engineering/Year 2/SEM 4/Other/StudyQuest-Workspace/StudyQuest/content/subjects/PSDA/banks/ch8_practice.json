@@ -1,0 +1,54 @@
+{
+  "bankId": "psda-ch8-practice",
+  "title": "ANOVA drills",
+  "questions": [
+    { "id": "p8-1", "type": "mcq", "source": "Drill CH8 P1 — df pairs",
+      "prompt": "One-way ANOVA: k = 3 groups, n = 4 observations per group. The df pair (df₁, df₂) is:",
+      "options": ["(2, 9)", "(3, 12)", "(2, 12)", "(3, 9)"],
+      "answer": 0,
+      "explain": "df₁ = k−1 = **2** (numerator, between groups); df₂ = k(n−1) = 3×(4−1) = **9** (denominator, within groups). Drill P1's variants: k=3, n=5 → (2, 12) with F(0.05) = 3.885; k=4, n=6 → (3, 20) with F(0.05) = 3.098. Get the df pair right FIRST — the whole lookup depends on it." },
+    { "id": "p8-2", "type": "mcq", "source": "Drill CH8 P1(iv) — why right-tailed",
+      "prompt": "Why is ANOVA always right-tailed?",
+      "options": [
+        "If any mean differs, the BETWEEN-group variance inflates, pushing F upward — only large F is evidence against H₀",
+        "F cannot be below 1",
+        "Tables only print right tails",
+        "Tradition"
+      ],
+      "answer": 0,
+      "explain": "F = between-variance / within-variance. Mean deviations in ANY direction INCREASE the between-group variance — they can never decrease it. So evidence against H₀ only accumulates in the right tail." },
+    { "id": "p8-3", "type": "numeric", "source": "Drill CH8 P2 — machines",
+      "prompt": "Group means 12.5, 16.5, 10.5 (n = 4 each), s_x̄² = 9.333. Between-group estimate = n·s_x̄² = ?",
+      "answer": 37.333, "tolerance": 0.05,
+      "explain": "n·s_x̄² = 4 × 9.333 = **37.333**. Within = mean of group variances = 1.667. **F₀ = 37.333/1.667 = 22.400** vs F(0.05; 2, 9) = 4.256 → reject: machines differ (ANOVA only says 'not all equal')." },
+    { "id": "p8-4", "type": "numeric", "source": "Drill CH8 P3 — F below 1",
+      "prompt": "SSD brands: between = 22.733, within = 30.611. Compute F₀ (3 decimals).",
+      "answer": 0.743, "tolerance": 0.01,
+      "explain": "F₀ = 22.733/30.611 = **0.743** < F(0.05; 3, 16) = 3.239 → fail to reject. **F < 1 means the groups differ LESS than their internal noise predicts** — automatic fail-to-reject (critical values are always > 1)." },
+    { "id": "p8-5", "type": "numeric", "source": "Drill CH8 P4 — tutorial designs",
+      "prompt": "Designs: means 82.6, 71.8, 88.2 (n = 5 each); s_x̄² = 69.493; group variances 15.8, 8.2, 8.2. Compute F₀ (1 decimal).",
+      "answer": 32.4, "tolerance": 0.2,
+      "explain": "Between = 5×69.493 = **347.467**; within = (15.8+8.2+8.2)/3 = **10.733**; **F₀ = 32.373** vs F(0.01; 2, 12) = 6.927 → reject at 1%: designs differ significantly." },
+    { "id": "p8-6", "type": "multi", "source": "Drill CH8 P6(i) — assumptions",
+      "prompt": "Select the THREE assumptions of one-way ANOVA:",
+      "options": [
+        "Populations approximately normally distributed",
+        "Population variances are equal",
+        "Samples are random and independent",
+        "All sample means are equal",
+        "n must exceed 100"
+      ],
+      "answer": [0, 1, 2],
+      "explain": "**Normality + equal variances + independent random samples.** (Equal sample means is what the TEST checks, not an assumption!)" },
+    { "id": "p8-7", "type": "mcq", "source": "Drill CH8 P6(ii) — why not many t-tests",
+      "prompt": "Why use ANOVA instead of running all pairwise t-tests?",
+      "options": [
+        "Multiple t-tests inflate the family-wise Type I error (6 tests at α=0.05 ≈ 26% false-alarm chance); ANOVA tests all means at once at one α",
+        "t-tests are harder to compute",
+        "ANOVA finds WHICH mean differs",
+        "t-tests need bigger samples"
+      ],
+      "answer": 0,
+      "explain": "**Error inflation** is the reason. And the flip side (P6(iii)): a significant ANOVA only says **at least one mean differs** — identifying which needs post-hoc comparisons (not in this syllabus)." }
+  ]
+}

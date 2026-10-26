@@ -1,0 +1,76 @@
+{
+  "bankId": "cross-ch1-3-practice",
+  "title": "Broken Code: HTML · CSS · DOM",
+  "questions": [
+    { "id": "c13p-1", "type": "text", "source": "BrokenCode 1.1 — portfolio skeleton",
+      "prompt": "The first line missing from the broken portfolio page (the browser enters quirks mode without it). Type it exactly:",
+      "accept": ["<!doctype html>", "<!DOCTYPE html>"],
+      "normalize": "trim-lower",
+      "explain": "`<!DOCTYPE html>` — the HTML5 doctype must be the FIRST line; without it the browser enters **quirks mode**. Also commonly missing: `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">` for responsive scaling." },
+    { "id": "c13p-2", "type": "mcq", "source": "BrokenCode 1.2 — results table",
+      "prompt": "Where must `<caption>` sit in a table, and what does `colspan=\"2\"` do?",
+      "options": [
+        "First child of <table>, renders above it · merges a cell across two columns",
+        "Last child of <table> · spans two rows",
+        "Inside <thead> · duplicates the cell",
+        "Anywhere · makes the column sortable"
+      ],
+      "answer": 0,
+      "explain": "`<caption>` must be the **first child of `<table>`** (renders above). `colspan=\"2\"` merges the Total label across the first two columns. Don't forget `<tbody>` and `scope=\"row\"` for row headers." },
+    { "id": "c13p-3", "type": "text", "source": "BrokenCode 1.3 — rem math",
+      "prompt": "The lab sets html `font-size: 62.5%`. With browser default 16px, what is 1rem in pixels? (number only)",
+      "accept": ["10", "10px"],
+      "normalize": "trim-lower",
+      "explain": "62.5% of 16px = **10px**, so 1rem = 10px — easy mental math (1.6rem = 16px etc.)." },
+    { "id": "c13p-4", "type": "mcq", "source": "BrokenCode 1.4 — sticky nav",
+      "prompt": "The nav must stick to the viewport top while scrolling, with logo and links pushed to opposite ends. Which pair?",
+      "options": [
+        "position: sticky; top: 0 · justify-content: space-between",
+        "position: fixed; bottom: 0 · align-items: center",
+        "position: absolute · text-align: justify",
+        "float: top · margin: auto"
+      ],
+      "answer": 0,
+      "explain": "`position: sticky` + `top: 0` pins the nav while scrolling. The nav is a flex container; `justify-content: space-between` pushes logo and link list to opposite ends of the main axis." },
+    { "id": "c13p-5", "type": "mcq", "source": "BrokenCode 1.5 — render a note card",
+      "prompt": "The lab BANS innerHTML for building cards. Which trio is the approved pattern?",
+      "options": [
+        "document.createElement → textContent → appendChild",
+        "innerHTML += → eval → write",
+        "insertAdjacentHTML → outerHTML → innerText",
+        "createTextNode → document.write → cloneNode"
+      ],
+      "answer": 0,
+      "explain": "**createElement** (build), **textContent** (safe text — no HTML parsing, no XSS), **appendChild** (insert). `setAttribute('data-id', …)` stamps the id so event delegation can find the note later." },
+    { "id": "c13p-6", "type": "mcq", "source": "BrokenCode 1.6 — add & delete with BOM",
+      "prompt": "Before deleting a note, the lab requires a blocking OK/Cancel dialog, then removing ONE array element at the found index. Which calls?",
+      "options": [
+        "confirm(...) · findIndex(...) · splice(index, 1)",
+        "alert(...) · indexOf(...) · slice(index, 1)",
+        "prompt(...) · find(...) · pop()",
+        "confirm(...) · filter(...) · delete arr[index]"
+      ],
+      "answer": 0,
+      "explain": "`confirm` returns true (OK) / false (Cancel) — the gate before destructive action. `findIndex` gives the position (or −1). `splice(index, 1)` removes exactly one element (mutates). `slice` would COPY, not remove." },
+    { "id": "c13p-7", "type": "mcq", "source": "BrokenCode 1.7 — event delegation",
+      "prompt": "Event delegation in the tasks lab works by:",
+      "options": [
+        "ONE listener on the parent list; clicks bubble up; read data-action/data-id off the clicked element; guard if either is missing",
+        "One listener per button, re-attached on every render",
+        "A global window.onclick that scans the whole DOM",
+        "MutationObserver on each card"
+      ],
+      "answer": 0,
+      "explain": "One `addEventListener` on the parent — clicks **bubble** up. `getAttribute('data-action')` + `parseInt(idStr, 10)`, with the guard `if (!action || !idStr) return;` to ignore non-button clicks. This is exactly why listeners don't go inside renderNotes()." },
+    { "id": "c13p-8", "type": "mcq", "source": "BrokenCode 1.8 — BOM panel",
+      "prompt": "Which BOM members report viewport width and browser identification?",
+      "options": [
+        "window.innerWidth · navigator.userAgent",
+        "screen.colorDepth · document.title",
+        "window.outerHTML · navigator.clipboard",
+        "document.width · window.agent"
+      ],
+      "answer": 0,
+      "explain": "**window.innerWidth/innerHeight** = viewport px (re-read on `window.addEventListener('resize', …)`). **navigator.userAgent** = browser id string. Modern key check: `e.key === \"Enter\"` (replaces keyCode 13)." }
+  ]
+}

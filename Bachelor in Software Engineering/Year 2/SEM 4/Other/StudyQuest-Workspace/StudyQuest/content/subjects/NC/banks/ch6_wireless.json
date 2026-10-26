@@ -1,0 +1,174 @@
+{
+  "bankId": "nc-ch6-wireless",
+  "title": "Wireless & Mobile drills",
+  "questions": [
+    {
+      "id": "wl-1",
+      "type": "mcq",
+      "source": "Drill P1(a,b) — 2020/21 + 1819 real",
+      "prompt": "**Beacon frames**: who sends them, and what are the TWO most important pieces of information inside?",
+      "options": [
+        "The AP sends them periodically to all hosts in range; they carry the AP's SSID and MAC address",
+        "Hosts send them to discover APs; they carry the host's IP and MAC",
+        "The router sends them; they carry the subnet mask and gateway",
+        "The AP sends them only on request; they carry the WiFi password"
+      ],
+      "answer": 0,
+      "explain": "Beacons are sent **by the Access Point**, periodically, broadcast to all wireless hosts in range. Contents to quote: **the AP's name (SSID)** and **the AP's MAC address**."
+    },
+    {
+      "id": "wl-2",
+      "type": "mcq",
+      "source": "Drill P1(c) — scanning",
+      "prompt": "The TWO ways a wireless device can find/connect to an Access Point are:",
+      "options": [
+        "Passive scanning (listen for beacons) and active scanning (broadcast a Probe Request; APs answer)",
+        "DHCP scanning and ARP scanning",
+        "Polling and token passing",
+        "RTS scanning and CTS scanning"
+      ],
+      "answer": 0,
+      "explain": "**Passive**: host listens for beacon frames. **Active**: host broadcasts a **Probe Request**; APs reply with Probe Responses. Then the host selects an AP and associates."
+    },
+    {
+      "id": "wl-3",
+      "type": "order",
+      "source": "Drill P1(d) — 1819 real (4 steps to an IP)",
+      "prompt": "Order the FOUR steps from a host arriving in a WLAN until it can use an IP address:",
+      "items": [
+        "Scan channels / listen for beacons (or send Probe Request) → discover APs",
+        "Select an AP and send an Association Request",
+        "AP replies with an Association Response (host associated)",
+        "Run DHCP (discover-offer-request-ACK) to obtain an IP in the AP's subnet"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Scan → Association Request → Association Response → **DHCP**. The association gives link-layer connectivity; DHCP gives the network-layer address. Both halves are needed for the full 4 marks."
+    },
+    {
+      "id": "wl-4",
+      "type": "mcq",
+      "source": "Drill P2 — 2020/21 real (hidden terminal)",
+      "prompt": "A and C both transmit to B; A and C are out of each other's range. The **hidden terminal problem** means:",
+      "options": [
+        "A and C cannot hear each other, so they transmit simultaneously and collide AT B — and neither can detect it",
+        "B hides its MAC from A and C",
+        "A's signal is encrypted so C cannot read it",
+        "B refuses frames from two senders"
+      ],
+      "answer": 0,
+      "explain": "**Hidden terminal:** A↔B fine, C↔B fine, but A and C can't sense each other (range/obstacle) → simultaneous transmissions **interfere at B**, undetectable at the senders. **Fading** is the signal-strength twin: A and C are too attenuated at each other's location to sense one another, yet both still strong at B. Sketch: two overlapping circles around A and C, B in the overlap."
+    },
+    {
+      "id": "wl-5",
+      "type": "mcq",
+      "source": "Drill P2(b)",
+      "prompt": "Which MAC protocol suits this wireless network, and why not CSMA/CD?",
+      "options": [
+        "CSMA/CA — a wireless sender cannot detect collisions (own signal overwhelms reception; hidden terminals)",
+        "CSMA/CD — collision detection is faster",
+        "Token ring — guarantees fairness",
+        "Pure ALOHA — simplest"
+      ],
+      "answer": 0,
+      "explain": "**CSMA/CA (IEEE 802.11 MAC)**. CD is unsuitable: while transmitting, the sender's own signal drowns the weak received signal, and hidden terminals make some collisions physically undetectable at the sender — so 802.11 **avoids** collisions instead of detecting them."
+    },
+    {
+      "id": "wl-6",
+      "type": "order",
+      "source": "Drill P3 — CSMA/CA sender algorithm",
+      "prompt": "Order the **CSMA/CA sender** rules:",
+      "items": [
+        "Channel idle for DIFS → transmit the ENTIRE frame (no collision detection)",
+        "If busy → pick a random backoff; the timer counts down ONLY while idle (freezes when busy)",
+        "Transmit when the backoff timer reaches 0",
+        "If no ACK arrives → increase the backoff interval and repeat"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Sender: DIFS-idle → send; busy → backoff counting only during idle; timer 0 → send; **no ACK → loss assumed → bigger backoff, retry**.\nReceiver: frame OK → **ACK after SIFS** (ACKs exist precisely because of hidden terminals)."
+    },
+    {
+      "id": "wl-7",
+      "type": "mcq",
+      "source": "Drill P3 — RTS/CTS",
+      "prompt": "How does the **RTS/CTS** exchange prevent collisions of long data frames?",
+      "options": [
+        "The CTS from the AP is heard by ALL stations — only the named sender transmits; others defer; collisions can only hit the tiny RTS packets",
+        "RTS encrypts the channel until the data is sent",
+        "CTS doubles the transmission power of the sender",
+        "RTS reserves a separate frequency band"
+      ],
+      "answer": 0,
+      "explain": "Sender → short **Request-To-Send**; AP → **Clear-To-Send**, heard by everyone: the named station sends its long frame, all others stay silent. If two RTS collide, only tiny packets are lost (cheap). **Long data frames never collide** — the channel is reserved by small packets."
+    },
+    {
+      "id": "wl-8",
+      "type": "mcq",
+      "source": "Drill P4 — 802.11 three addresses",
+      "prompt": "H1 (wireless) sends to the Internet via AP and router R1. The 802.11 frame's addresses are:",
+      "options": [
+        "A1 = AP's MAC (receiver of this transmission), A2 = H1's MAC (transmitter), A3 = R1's MAC (wired-side anchor)",
+        "A1 = R1, A2 = AP, A3 = H1",
+        "A1 = H1, A2 = AP, A3 = R1",
+        "A1 = AP, A2 = R1, A3 = H1"
+      ],
+      "answer": 0,
+      "explain": "Rules: **A1 = receiver of this wireless transmission (AP)**, **A2 = transmitter (H1)**, **A3 = the off-cell node on the wired side (R1's interface)**. (A4 only in ad-hoc mode.)\n**Why three?** The AP is a link-layer relay between TWO links (wireless cell + wired LAN); Ethernet's two addresses describe only one link, so the frame must also carry the router's MAC for the AP to bridge correctly."
+    },
+    {
+      "id": "wl-9",
+      "type": "mcq",
+      "source": "Drill P5(a) — 1718/1819 real (mobile IP addresses)",
+      "prompt": "Mobile A: permanent address **128.119.40.186** (home), care-of address **79.129.13.2** (visited). Which is correct?",
+      "options": [
+        "Correspondents always use the permanent address; the HOME AGENT uses the care-of address to tunnel datagrams to A's location",
+        "Correspondents must learn the care-of address before sending anything",
+        "The permanent address changes every move; the COA is fixed",
+        "Both addresses are assigned by the visited network"
+      ],
+      "answer": 0,
+      "explain": "**Permanent address**: in the home network, never changes — what the **correspondent always uses**. **Care-of address**: temporary, in the visited network — **used by the home agent** to tunnel datagrams to A's current location."
+    },
+    {
+      "id": "wl-10",
+      "type": "order",
+      "source": "Drill P5(b) — indirect routing",
+      "prompt": "Order the **indirect routing** steps when correspondent B sends to mobile A (visiting a foreign network):",
+      "items": [
+        "B sends the datagram to A's PERMANENT address → routed to A's home network",
+        "The HOME AGENT intercepts, encapsulates it in a new datagram addressed to the CARE-OF address, and tunnels it",
+        "The FOREIGN AGENT decapsulates and delivers the original datagram to A",
+        "A replies DIRECTLY to B via ordinary IP routing"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explain": "Indirect routing = **triangle**: B → home network → (tunnel) → foreign agent → A; reply goes direct.\n**Triangle routing problem**: every packet detours via the home network — worst when B and A sit in the SAME visited network.\n**Direct routing fix**: B queries the home agent ONCE for the COA, then sends straight to the foreign agent. Costs: non-transparent to B, and if A moves again the first ('anchor') foreign agent must chain-forward."
+    },
+    {
+      "id": "wl-11",
+      "type": "mcq",
+      "source": "Drill P6(a) — 2020/21 + 1617 real (3G architecture, Tier-1!)",
+      "prompt": "In 3G, a user's **data** (Internet) traffic follows which chain after the radio leg (mobile → Node B → RNC)?",
+      "options": [
+        "RNC → SGSN → GGSN → public Internet (the GPRS core)",
+        "RNC → MSC → GMSC → public Internet",
+        "RNC → GGSN → MSC → Internet",
+        "Node B → MSC → SGSN → Internet"
+      ],
+      "answer": 0,
+      "explain": "3G runs **two parallel cores** behind the same radio access network (UTRAN = mobile → Node B → **RNC**):\n- **Voice:** RNC → **MSC → Gateway MSC** → public telephone network.\n- **Data:** RNC → **SGSN → GGSN** → public Internet (GPRS core).\nQuote the full component names for the marks: Serving GPRS Support Node, Gateway GPRS Support Node."
+    },
+    {
+      "id": "wl-12",
+      "type": "mcq",
+      "source": "Drill P6(b) — handoff",
+      "prompt": "A user on a call moves between base stations under the SAME MSC. This process and its two main triggers are:",
+      "options": [
+        "Handoff — (1) stronger signal from the new BSS, (2) load balancing to free a congested cell",
+        "Roaming — (1) billing change, (2) new SIM",
+        "Paging — (1) incoming call, (2) SMS",
+        "Tunneling — (1) encryption, (2) compression"
+      ],
+      "answer": 0,
+      "explain": "**Handoff** steps (common MSC): old BSS informs MSC → MSC sets up path to new BSS → new BSS allocates a radio channel → old BSS tells the mobile to switch → mobile + new BSS activate → **MSC reroutes the call** and releases the old resources. The call continues without interruption — that's the design goal."
+    }
+  ]
+}

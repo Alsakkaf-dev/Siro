@@ -1,0 +1,77 @@
+{
+  "bankId": "cross-ch6-practice",
+  "title": "Broken Code: Vue reactivity",
+  "questions": [
+    { "id": "c6p-1", "type": "order", "source": "BrokenCode 3.1 — CDN bootstrap",
+      "prompt": "Order the CDN-Vue bootstrap lines:",
+      "items": [
+        "const { createApp, ref } = Vue",
+        "createApp({ setup() { ... } })",
+        "const greeting = ref('Hello')",
+        "return { greeting }",
+        ".mount('#app')"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explain": "The CDN build exposes ONE global `Vue` → destructure → `createApp(options)` → inside `setup()` declare refs → **return what the template may use** (only returned names are visible) → `.mount('#app')` always last." },
+    { "id": "c6p-2", "type": "mcq", "source": "BrokenCode 3.2 — bindings",
+      "prompt": "Which binding set is correct for: conditional class `dark`, reactive image src, two-way text input, Enter-key handler?",
+      "options": [
+        ":class=\"{ dark: darkMode }\" · :src=\"avatar\" · v-model=\"name\" · @keyup.enter=\"addSkill\"",
+        "class=\"{{darkMode}}\" · src=\"{{avatar}}\" · v-bind=\"name\" · v-on:enter=\"addSkill\"",
+        ":class=\"dark\" · v-src=\"avatar\" · :model=\"name\" · @key.enter=\"addSkill\"",
+        "v-class=\"dark\" · {{src}} · v-input=\"name\" · onkeyup=\"addSkill\""
+      ],
+      "answer": 0,
+      "explain": "Object class binding `{ dark: darkMode }` toggles the class with the boolean. `:` = v-bind shorthand, `@` = v-on shorthand, `v-model` = two-way, `.enter` = key modifier. Mustaches `{{ }}` work only in text content, never in attributes." },
+    { "id": "c6p-3", "type": "mcq", "source": "BrokenCode 3.3 — list + empty state",
+      "prompt": "The skills list needs item AND index (the remove button uses the index). Correct v-for?",
+      "options": [
+        "v-for=\"(skill, i) in skills\"",
+        "v-for=\"skill, i of skills\"",
+        "v-for=\"i => skill in skills\"",
+        "v-each=\"skill in skills\""
+      ],
+      "answer": 0,
+      "explain": "`v-for=\"(item, index) in list\"`. The empty message renders with `v-if=\"skillCount === 0\"` + `v-else` on the list; `skillCount = computed(() => skills.value.length)` — cached derived value." },
+    { "id": "c6p-4", "type": "mcq", "source": "BrokenCode 3.4 — the #1 Vue trap",
+      "prompt": "Inside `addSkill()` (script code), how do you push into the `skills` ref and clear the `newSkill` ref?",
+      "options": [
+        "skills.value.push(newSkill.value); newSkill.value = ''",
+        "skills.push(newSkill); newSkill = ''",
+        "skills.value().push(newSkill()); newSkill.set('')",
+        "this.skills.push(this.newSkill); this.newSkill = null"
+      ],
+      "answer": 0,
+      "explain": "**Refs are read/written via `.value` in script** (auto-unwrapped only in templates). The array lives at `skills.value`; clear by assigning `newSkill.value = ''`. Also: functions must be RETURNED from setup() to be usable in the template." },
+    { "id": "c6p-5", "type": "mcq", "source": "BrokenCode 3.5 — watch + reactive vs ref",
+      "prompt": "Which statement about `watch` and `reactive` is correct?",
+      "options": [
+        "watch callback signature is (newVal, oldVal); reactive objects mutate via plain property access (no .value)",
+        "watch signature is (oldVal, newVal); reactive needs .value",
+        "watch only works on computed; reactive is for arrays only",
+        "watch fires before the change; reactive objects are immutable"
+      ],
+      "answer": 0,
+      "explain": "`watch(source, (newVal, oldVal) => …)` — NEW first. `reactive({...})` gives object reactivity without `.value` (`user.age++`); but a **ref holding an object** still goes through `.value` first (`user2.value.age`)." },
+    { "id": "c6p-6", "type": "mcq", "source": "MCQ Bank Q22 — v-if vs v-show",
+      "prompt": "v-if vs v-show — which is TRUE?",
+      "options": [
+        "v-if adds/removes the element from the DOM; v-show keeps it rendered and toggles CSS display",
+        "v-show removes the element from the DOM",
+        "v-if toggles display:none",
+        "They are aliases"
+      ],
+      "answer": 0,
+      "explain": "**v-if** = DOM add/remove (use for rare toggles); **v-show** = `display:none` toggle (cheap for frequent toggles)." },
+    { "id": "c6p-7", "type": "mcq", "source": "MCQ Bank Q23 — computed vs method",
+      "prompt": "A computed property differs from a method because a computed property:",
+      "options": [
+        "Is cached and re-evaluates only when its dependencies change",
+        "Cannot use reactive state",
+        "Runs on every DOM event",
+        "Must return a Promise"
+      ],
+      "answer": 0,
+      "explain": "**Computed = cached, dependency-tracked**; a method re-runs on every call. Use computed for derived state like counts and filters." }
+  ]
+}

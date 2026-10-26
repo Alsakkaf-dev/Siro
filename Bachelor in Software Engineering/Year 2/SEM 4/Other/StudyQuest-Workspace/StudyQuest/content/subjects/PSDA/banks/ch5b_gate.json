@@ -1,0 +1,58 @@
+{
+  "bankId": "psda-ch5b-gate",
+  "title": "Two-Sample Gate",
+  "questions": [
+    { "id": "g5b-1", "type": "numeric", "source": "Gate — two-proportion z fresh",
+      "prompt": "p̂₁ = 0.150, p̂₂ = 0.106, SE = 0.0212. Compute z₀ (2 decimals).",
+      "answer": 2.06, "tolerance": 0.03,
+      "explain": "z₀ = (0.150−0.106)/0.0212 = **2.062**. Against ±2.576 (α = 0.01 two-tailed): fail to reject; against ±1.96 (α = 0.05): reject. The α chosen changes the verdict — say so when asked." },
+    { "id": "g5b-2", "type": "mcq", "source": "Gate — F-test rules",
+      "prompt": "For the two-variance F-test, which set of rules is correct?",
+      "options": [
+        "Put the LARGER s² in the numerator · df = (n_top − 1, n_bottom − 1) · two-tailed uses the α/2 right-tail column",
+        "Smaller s² on top · df = (n₁, n₂) · use α directly",
+        "Either order · df = n₁+n₂−2 · z-table",
+        "Difference of variances · df = 2 · χ² table"
+      ],
+      "answer": 0,
+      "explain": "**Larger on top** keeps F ≥ 1 so one right-tail lookup suffices; df = (numerator n−1, denominator n−1); two-tailed → **α/2** column. Drill: F₀ = 3.408 vs F(0.025; 9, 11) = 3.59 → fail to reject (borderline)." },
+    { "id": "g5b-3", "type": "numeric", "source": "Gate — pooled t fresh",
+      "prompt": "x̄₁ = 42.3, x̄₂ = 37.8, s_p = 4.881, n₁ = 12, n₂ = 10. Compute t₀ = (x̄₁−x̄₂)/(s_p·√(1/n₁+1/n₂)) (2 decimals).",
+      "answer": 2.15, "tolerance": 0.05,
+      "explain": "t₀ = 4.5/(4.881×0.4282) = 4.5/2.090 = **2.153**, df = 20. vs t(0.05, 20) = 1.725 right-tailed → reject H₀: Hub A's mean is greater." },
+    { "id": "g5b-4", "type": "mcq", "source": "Gate — paired t hypotheses",
+      "prompt": "D = before − after, claim: \"the change REDUCED the times\". Hypotheses?",
+      "options": [
+        "H₀: μ_D = 0 vs H₁: μ_D > 0 (right-tailed — after smaller ⇒ differences positive)",
+        "H₀: μ_D = 0 vs H₁: μ_D < 0",
+        "H₀: μ_D > 0 vs H₁: μ_D = 0",
+        "H₀: μ₁ = μ₂ vs H₁: μ₁ ≠ μ₂ (independent)"
+      ],
+      "answer": 0,
+      "explain": "Reduced ⇒ after < before ⇒ **D = before−after > 0** ⇒ H₁: μ_D > 0. (If you define D = after−before, then H₁: μ_D < 0 — flip consistently and the conclusion is identical.)" },
+    { "id": "g5b-5", "type": "numeric", "source": "Gate — paired s_D",
+      "prompt": "ΣD = 3.9, ΣD² = 2.49, n = 8. Compute s_D = √[(ΣD² − (ΣD)²/n)/(n−1)] (3 decimals).",
+      "answer": 0.29, "tolerance": 0.005,
+      "explain": "s_D = √[(2.49 − 15.21/8)/7] = √[(2.49 − 1.901)/7] = √0.0841 = **0.290**. This computational formula (no individual deviations needed) is the fast exam route." },
+    { "id": "g5b-6", "type": "mcq", "source": "Gate — df bookkeeping",
+      "prompt": "Degrees of freedom: pooled t (n₁ = 12, n₂ = 10) · paired t (8 pairs) · F (n₁ = 10, n₂ = 12) are:",
+      "options": [
+        "20 · 7 · (9, 11)",
+        "22 · 8 · (10, 12)",
+        "21 · 7 · (11, 9)",
+        "20 · 8 · (9, 12)"
+      ],
+      "answer": 0,
+      "explain": "Pooled t: n₁+n₂−2 = **20**. Paired t: pairs − 1 = **7**. F: (n_numerator−1, n_denominator−1) = **(9, 11)** with the larger variance's sample on top." },
+    { "id": "g5b-7", "type": "mcq", "source": "Gate — conclusion writing",
+      "prompt": "t₀ = 4.754 > t(0.05, 7) = 1.895 in the paired test. The FULL-marks conclusion is:",
+      "options": [
+        "\"Reject H₀. At α = 0.05 there is sufficient evidence that the optimization reduced mean page load time.\"",
+        "\"Significant.\"",
+        "\"H₀ is true.\"",
+        "\"The p-value is 1.895.\""
+      ],
+      "answer": 0,
+      "explain": "Decision (**reject/fail to reject H₀**) + significance level + plain-English claim verdict in context. One-word answers leave conclusion marks on the table." }
+  ]
+}

@@ -1,0 +1,185 @@
+/* ============================================================
+   StudyQuest — Living World animation engine
+   GPU-only: every keyframe animates transform/opacity exclusively.
+   IMPORTANT: CSS transforms OVERRIDE the SVG transform attribute,
+   so every animated class lives on an INNER <g>, never on the
+   positioned (transform-attribute) group.
+   ============================================================ */
+
+/* ---------- Ocean ---------- */
+@keyframes waveSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-300px); }   /* = one sine period, seamless */
+}
+.anim-wave-a { animation: waveSlide 11s linear infinite; }
+.anim-wave-b { animation: waveSlide 17s linear infinite reverse; }
+.anim-wave-c { animation: waveSlide 23s linear infinite; }
+
+@keyframes causticShimmer {
+  0%, 100% { opacity: 0.05; }
+  50%      { opacity: 0.11; }
+}
+.anim-caustics { animation: causticShimmer 7s ease-in-out infinite; }
+
+@keyframes foamSwell {
+  0%, 100% { transform: scale(1);    opacity: 0.45; }
+  50%      { transform: scale(1.05); opacity: 0.8; }
+}
+.anim-foam {
+  animation: foamSwell 5s ease-in-out infinite;
+  transform-box: fill-box; transform-origin: center;
+}
+
+/* ---------- Sky traffic ---------- */
+@keyframes driftAcross {
+  from { transform: translateX(-320px); }
+  to   { transform: translateX(1820px); }
+}
+.anim-drift { animation: driftAcross 60s linear infinite; }
+
+@keyframes flapWings {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.45); }
+}
+.anim-flap {
+  animation: flapWings 0.5s ease-in-out infinite;
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes windGlide {
+  0%   { transform: translateX(0);     opacity: 0; }
+  15%  { opacity: 0.55; }
+  70%  { opacity: 0.35; }
+  100% { transform: translateX(260px); opacity: 0; }
+}
+.anim-wind { animation: windGlide 7s ease-in-out infinite; }
+
+/* ---------- Floating bodies ---------- */
+@keyframes islandFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.anim-float { animation: islandFloat 7s ease-in-out infinite; }
+
+@keyframes boatBob {
+  0%, 100% { transform: translateY(0)    rotate(-2deg); }
+  50%      { transform: translateY(-4px) rotate(2.5deg); }
+}
+.anim-boat-bob {
+  animation: boatBob 3.4s ease-in-out infinite;
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes boatSail {
+  from { transform: translateX(-140px); }
+  to   { transform: translateX(1700px); }
+}
+.anim-boat-sail { animation: boatSail 150s linear infinite; }
+
+/* ---------- Glass & beacons ---------- */
+@keyframes sheenSweep {
+  0%       { transform: translateX(-130%); }
+  18%      { transform: translateX(230%); }
+  100%     { transform: translateX(230%); }
+}
+.anim-sheen { animation: sheenSweep 6s ease-in-out infinite; }
+
+@keyframes beaconPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+.anim-beacon { animation: beaconPulse 1.1s ease-in-out infinite; }
+
+@keyframes pulseRing {
+  0%   { transform: scale(0.7); opacity: 0.85; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.anim-pulse-ring {
+  animation: pulseRing 1.8s ease-out infinite;
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes sunThrob {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%      { transform: scale(1.07); opacity: 1; }
+}
+.anim-sun {
+  animation: sunThrob 6s ease-in-out infinite;
+  transform-box: fill-box; transform-origin: center;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.9; }
+  50%      { opacity: 0.25; }
+}
+.anim-twinkle { animation: starTwinkle 2.6s ease-in-out infinite; }
+
+/* ---------- Day / night scene phases ---------- */
+.scene-tint { pointer-events: none; transition: fill 2s; fill: rgba(0, 0, 0, 0); }
+.phase-dawn  .scene-tint { fill: rgba(255, 170, 110, 0.14); }
+.phase-day   .scene-tint { fill: rgba(0, 0, 0, 0); }
+.phase-dusk  .scene-tint { fill: rgba(255, 110, 60, 0.17); }
+.phase-night .scene-tint { fill: rgba(8, 14, 52, 0.42); }
+
+.stars { opacity: 0; transition: opacity 2s; pointer-events: none; }
+.phase-night .stars { opacity: 1; }
+.sun-group  { opacity: 1; transition: opacity 2s; }
+.moon-group { opacity: 0; transition: opacity 2s; }
+.phase-night .sun-group  { opacity: 0; }
+.phase-night .moon-group { opacity: 1; }
+.phase-dusk .sun-group { opacity: 0.6; }
+
+/* ---------- The Scholar ---------- */
+@keyframes readBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2.5px); }
+}
+.anim-read-bob { animation: readBob 3s ease-in-out infinite; }
+
+/* ---------- Storms over inactive islands ---------- */
+@keyframes rainFall {
+  0%   { transform: translateY(0);    opacity: 0; }
+  12%  { opacity: 0.9; }
+  85%  { opacity: 0.7; }
+  100% { transform: translateY(96px); opacity: 0; }
+}
+.anim-rain { animation: rainFall 1.05s linear infinite; }
+
+/* lightning: invisible at rest, double-flicker strike every ~7s.
+   Base opacity 0 so reduced-motion (animation: none) keeps it hidden. */
+@keyframes lightningStrike {
+  0%, 87%, 100% { opacity: 0; }
+  88%           { opacity: 1; }
+  89.5%         { opacity: 0.12; }
+  91%           { opacity: 0.85; }
+  93%           { opacity: 0; }
+}
+.anim-lightning, .anim-storm-flash {
+  opacity: 0;
+  animation: lightningStrike 7.3s linear infinite;
+}
+
+/* the island under the storm: dark, washed out, hard to read — on purpose */
+.island-stormy { filter: brightness(0.52) saturate(0.45) contrast(0.92); transition: filter 1.2s; }
+.island-stormy:hover { filter: brightness(0.62) saturate(0.5); }
+/* the scene tint sits UNDER the islands now, so storms deepen themselves at night */
+.phase-night .island-stormy { filter: brightness(0.36) saturate(0.4) contrast(0.92); }
+.phase-night .island-stormy:hover { filter: brightness(0.46) saturate(0.45); }
+
+/* breathing light pool under the focus island */
+@keyframes focusBreath {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 1; }
+}
+.anim-focus-breath { animation: focusBreath 3.4s ease-in-out infinite; }
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .anim-wave-a, .anim-wave-b, .anim-wave-c, .anim-caustics, .anim-foam,
+  .anim-drift, .anim-flap, .anim-wind, .anim-float, .anim-boat-bob,
+  .anim-boat-sail, .anim-sheen, .anim-beacon, .anim-pulse-ring,
+  .anim-sun, .anim-twinkle, .anim-read-bob, .anim-rain,
+  .anim-lightning, .anim-storm-flash, .anim-focus-breath {
+    animation: none;
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "bankId": "sda-ch1-2-practice",
+  "title": "Foundations drills",
+  "questions": [
+    { "id": "s12p-1", "type": "mcq", "source": "Drill CH1-4 Q1",
+      "prompt": "Architecture vs detailed design — architecture's distinctive focus is:",
+      "options": [
+        "Non-functional / quality requirements (detailed design picks up the functional ones)",
+        "Functional requirements only",
+        "Code formatting standards",
+        "Database normalization"
+      ],
+      "answer": 0,
+      "explain": "From the Ch1 design-process slide: **architecture answers the quality/non-functional questions** (performance, modifiability, security…); detailed design realizes the functional requirements within that skeleton." },
+    { "id": "s12p-2", "type": "mcq", "source": "Drill CH1-4 Q2",
+      "prompt": "A module reads and MODIFIES another module's internal data directly. This is which (worst) coupling type?",
+      "options": ["Content coupling", "Common coupling", "Data coupling", "Stamp coupling"],
+      "answer": 0,
+      "explain": "**Content coupling** = relying on/modifying another module's INTERNALS — the most severe. **Common** = shared globals; **Data** = parameters only (the acceptable kind). Ranking worst→best: content > common > control > stamp > data." },
+    { "id": "s12p-3", "type": "mcq", "source": "Drill CH1-4 Q6",
+      "prompt": "Coupling vs cohesion — good design means:",
+      "options": [
+        "LOW coupling between modules + HIGH cohesion within each module",
+        "HIGH coupling + HIGH cohesion",
+        "LOW coupling + LOW cohesion",
+        "They are unrelated metrics"
+      ],
+      "answer": 0,
+      "explain": "Coupling measures interdependence BETWEEN modules; cohesion measures how related tasks WITHIN one module are. They reinforce each other: a module focused on one well-defined task (high cohesion) needs fewer hooks into other modules' internals (low coupling). High coupling + low cohesion = changes ripple system-wide. Fix: re-modularize, hide internals behind stable interfaces, communicate via parameters only." },
+    { "id": "s12p-4", "type": "multi", "source": "Drill CH1-4 Q5",
+      "prompt": "Select THREE of the documented challenges of software design (from the slides):",
+      "options": [
+        "Requirements volatility — requirements change mid-project",
+        "Fast-changing technology that must co-exist with old tech",
+        "Ill-defined development processes",
+        "Compilers are too slow",
+        "RAM is expensive"
+      ],
+      "answer": [0, 1, 2],
+      "explain": "The slide's five challenges: **Requirements (volatility)** — 'a bigger house with more windows by next week'; **Technology (fast-changing)**; **Processes (inconsistency)**; **Ethics** (professional practice under pressure); **Management of design influences** (competing stakeholder concerns)." },
+    { "id": "s12p-5", "type": "mcq", "source": "Drill CH1-4 Q7",
+      "prompt": "UML diagram categories — which row is correct?",
+      "options": [
+        "Structural = STATIC aspects (Class, Component) · Behavioral = DYNAMIC aspects (Use Case, Sequence)",
+        "Structural = DYNAMIC (Sequence) · Behavioral = STATIC (Class)",
+        "Both categories capture static structure",
+        "Behavioral diagrams are deprecated in UML 2"
+      ],
+      "answer": 0,
+      "explain": "**Structural** = static elements and interrelationships: Class, Component (also Object, Deployment, Package). **Behavioral** = dynamics over time: Use Case, Sequence (also Activity, State Machine, Communication)." },
+    { "id": "s12p-6", "type": "mcq", "source": "Drill CH1-4 Q4 + Q8",
+      "prompt": "In a use case diagram, `<<include>>` vs `<<extend>>`:",
+      "options": [
+        "include = MANDATORY (runs every time the base runs); extend = OPTIONAL (runs only when its condition applies, arrow points to the base)",
+        "include = optional; extend = mandatory",
+        "Both are forms of actor generalization",
+        "include duplicates the use case text"
+      ],
+      "answer": 0,
+      "explain": "**<<include>>**: the included use case MUST execute whenever the base executes (Transfer Funds → Verify OTP). **<<extend>>**: MAY extend under a condition (Convert Currency extends Transfer Funds for foreign currency); the arrow points FROM the extension TO the base. Actor generalization: Premium Customer inherits all Customer associations." },
+    { "id": "s12p-7", "type": "mcq", "source": "Drill CH1-4 Q9 — UML→C# translation",
+      "prompt": "Translating a UML class with `#amount`, an italic class name, and an `{abstract}` method `Process()` to C# gives:",
+      "options": [
+        "public abstract class Payment { protected double amount; public abstract void Process(); }",
+        "public sealed class Payment { private double amount; public virtual void Process() {} }",
+        "public interface Payment { public double amount; void Process(); }",
+        "public static class Payment { internal double amount; static void Process(); }"
+      ],
+      "answer": 0,
+      "explain": "UML → C# table: `#` = **protected**, `-` = private, `+` = public; italic/{abstract} = **abstract** class/method. Generalization = inheritance with base-constructor chaining (`: base(amount)`); a 1..* association becomes a collection field (`List<Payment> payments`)." }
+  ]
+}

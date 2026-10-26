@@ -1,0 +1,324 @@
+{
+  "subjectId": "PSDA",
+  "note": "Cities mirror the fixed exam template (Q1 CI+1-sample, Q2 two-sample, Q3 chi-square, Q4 Pearson, Q5 regression, Q6 ANOVA). Tutorials folder = leaked question bank. Formula card is a REFERENCE (country-level button), never a mission.",
+  "reference": {
+    "label": "📋 Formula Card",
+    "title": "Triola Formula Card — open anytime for lookup",
+    "path": "PSDA/Storage/Materials/Slides/0. Triolas Formula Card and Equations.pdf"
+  },
+  "cities": [
+    {
+      "id": "psda-ch5a",
+      "name": "Estimation & One-Sample Bay",
+      "desc": "Point estimates, confidence intervals, z/t/χ² one-sample tests (exam Q1)",
+      "unlock": {
+        "type": "always"
+      },
+      "missions": [
+        {
+          "id": "psda-ch5a-read1",
+          "type": "READ",
+          "title": "Ch5 Part 1 — Point Estimate slides",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 5/[2021] Chapter 5 (Part 1) Point Estimate.pdf",
+            "pages": [
+              1,
+              38
+            ]
+          },
+          "goal": {
+            "minSeconds": 4573
+          },
+          "xp": 80
+        },
+        {
+          "id": "psda-ch5a-read2",
+          "type": "READ",
+          "title": "Ch5 Part 2 — Hypothesis Testing (1 sample)",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 5/[2021] Chapter 5 (Part 2) Hypothesis Testing 1 Sample.pdf",
+            "pages": [
+              1,
+              67
+            ]
+          },
+          "goal": {
+            "minSeconds": 8040
+          },
+          "xp": 100
+        },
+        {
+          "id": "psda-ch5a-prac1",
+          "type": "PRACTICE",
+          "title": "CI + one-sample drills (calculator out!)",
+          "bank": "subjects/PSDA/banks/ch5a_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 160
+        },
+        {
+          "id": "psda-ch5a-gate",
+          "type": "GATE",
+          "title": "One-Sample Gate",
+          "bank": "subjects/PSDA/banks/ch5a_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "psda-ch5b",
+      "name": "Two-Sample Straits",
+      "desc": "Two proportions, F-test, pooled t, THE paired t-test (exam Q2, 20 marks)",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "psda-ch5a"
+      },
+      "missions": [
+        {
+          "id": "psda-ch5b-read1",
+          "type": "READ",
+          "title": "Ch5 Part 3 — Hypothesis Testing (2 samples)",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 5/[2021] Chapter 5 (Part 3) Hypothesis Testing 2 Samples.pdf",
+            "pages": [
+              1,
+              84
+            ]
+          },
+          "goal": {
+            "minSeconds": 10080
+          },
+          "xp": 110
+        },
+        {
+          "id": "psda-ch5b-prac1",
+          "type": "PRACTICE",
+          "title": "Two-sample drills (paired t = guaranteed marks)",
+          "bank": "subjects/PSDA/banks/ch5b_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 170
+        },
+        {
+          "id": "psda-ch5b-gate",
+          "type": "GATE",
+          "title": "Two-Sample Gate",
+          "bank": "subjects/PSDA/banks/ch5b_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "psda-ch6",
+      "name": "Chi-Square Canyon",
+      "desc": "Goodness-of-fit + independence tests (exam Q3, 20 marks)",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "psda-ch5b"
+      },
+      "missions": [
+        {
+          "id": "psda-ch6-read1",
+          "type": "READ",
+          "title": "Ch6 — Chi-Square & Contingency slides",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 6/[2021] Chapter 6 ChiSquare Test _ Contingency.pdf",
+            "pages": [
+              1,
+              69
+            ]
+          },
+          "goal": {
+            "minSeconds": 8280
+          },
+          "xp": 100
+        },
+        {
+          "id": "psda-ch6-prac1",
+          "type": "PRACTICE",
+          "title": "GOF + independence drills",
+          "bank": "subjects/PSDA/banks/ch6_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 160
+        },
+        {
+          "id": "psda-ch6-gate",
+          "type": "GATE",
+          "title": "Chi-Square Gate",
+          "bank": "subjects/PSDA/banks/ch6_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 280
+        }
+      ]
+    },
+    {
+      "id": "psda-ch7",
+      "name": "Regression River",
+      "desc": "Pearson r, Spearman, least-squares line, R² (exam Q4 + Q5, 30 marks)",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "psda-ch6"
+      },
+      "missions": [
+        {
+          "id": "psda-ch7-read1",
+          "type": "READ",
+          "title": "Ch7 Part 1 — Correlation slides",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 7/[2021] Chapter 7 (Part 1) Correlation.pdf",
+            "pages": [
+              1,
+              46
+            ]
+          },
+          "goal": {
+            "minSeconds": 5520
+          },
+          "xp": 80
+        },
+        {
+          "id": "psda-ch7-read2",
+          "type": "READ",
+          "title": "Ch7 Part 2 — Linear Regression slides",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 7/[2021] Chapter 7 (Part 2) Linear Regression Model.pdf",
+            "pages": [
+              1,
+              50
+            ]
+          },
+          "goal": {
+            "minSeconds": 6000
+          },
+          "xp": 90
+        },
+        {
+          "id": "psda-ch7-prac1",
+          "type": "PRACTICE",
+          "title": "Correlation + regression drills",
+          "bank": "subjects/PSDA/banks/ch7_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 170
+        },
+        {
+          "id": "psda-ch7-gate",
+          "type": "GATE",
+          "title": "Regression Gate",
+          "bank": "subjects/PSDA/banks/ch7_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "psda-ch8",
+      "name": "ANOVA Summit",
+      "desc": "One-way ANOVA — F ratio, df pairs, the 7-step recipe (exam Q6, 20 marks)",
+      "unlock": {
+        "type": "gatePassed",
+        "cityId": "psda-ch7"
+      },
+      "missions": [
+        {
+          "id": "psda-ch8-read1",
+          "type": "READ",
+          "title": "Ch8 — ANOVA slides",
+          "target": {
+            "kind": "pdf",
+            "path": "PSDA/Storage/Materials/Slides/Topic 8/[2021] Chapter 8 ANOVA.pdf",
+            "pages": [
+              1,
+              22
+            ]
+          },
+          "goal": {
+            "minSeconds": 2640
+          },
+          "xp": 70
+        },
+        {
+          "id": "psda-ch8-prac1",
+          "type": "PRACTICE",
+          "title": "ANOVA drills",
+          "bank": "subjects/PSDA/banks/ch8_practice.json",
+          "goal": {
+            "mode": "stopOnWrong",
+            "completeAll": true
+          },
+          "xp": 170
+        },
+        {
+          "id": "psda-ch8-gate",
+          "type": "GATE",
+          "title": "ANOVA Gate — FINAL",
+          "bank": "subjects/PSDA/banks/ch8_gate.json",
+          "goal": {
+            "passPct": 0.7,
+            "draw": 7,
+            "shuffle": true
+          },
+          "stars": {
+            "1": 0.7,
+            "2": 0.8,
+            "3": 0.9
+          },
+          "xp": 350
+        }
+      ]
+    }
+  ]
+}

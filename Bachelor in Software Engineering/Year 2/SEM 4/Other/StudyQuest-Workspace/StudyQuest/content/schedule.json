@@ -1,0 +1,37 @@
+{
+  "source": "Resource/Times Allowed for each subject.txt",
+  "validFrom": "2026-06-11",
+  "validTo": "2026-06-28",
+  "freeWeek": {
+    "from": "2026-06-29",
+    "to": "2026-07-05",
+    "note": "Free study week — windows below do not apply. Mocks only, organize your own times."
+  },
+  "windows": [
+    { "subject": "NC", "day": "Wed", "start": "07:00", "end": "10:00" },
+    { "subject": "NC", "day": "Thu", "start": "17:00", "end": "19:10" },
+    { "subject": "NC", "day": "Sat", "start": "14:00", "end": "16:10" },
+    { "subject": "NC", "day": "Sat", "start": "17:00", "end": "19:10" },
+
+    { "subject": "Cross", "day": "Mon", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Tue", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Wed", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Thu", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Sat", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Sun", "start": "21:00", "end": "22:00" },
+    { "subject": "Cross", "day": "Mon", "start": "11:00", "end": "12:00" },
+    { "subject": "Cross", "day": "Sun", "start": "07:00", "end": "10:00" },
+
+    { "subject": "SDA", "day": "Tue", "start": "11:00", "end": "13:00" },
+    { "subject": "SDA", "day": "Sat", "start": "10:00", "end": "13:00" },
+    { "subject": "SDA", "day": "Sun", "start": "10:00", "end": "13:00" },
+
+    { "subject": "PSDA", "day": "Wed", "start": "17:00", "end": "19:10" },
+    { "subject": "PSDA", "day": "Fri", "start": "07:00", "end": "11:00" },
+    { "subject": "PSDA", "day": "Sun", "start": "14:00", "end": "16:10" },
+    { "subject": "PSDA", "day": "Sun", "start": "17:00", "end": "19:10" },
+
+    { "subject": "BI", "day": "Tue", "start": "17:00", "end": "19:10" },
+    { "subject": "BI", "day": "Thu", "start": "07:00", "end": "13:00" }
+  ]
+}

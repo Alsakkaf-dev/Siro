@@ -1,0 +1,144 @@
+{
+  "bankId": "nc-ch4-gate",
+  "title": "Network Layer Gate",
+  "questions": [
+    {
+      "id": "g4-1",
+      "type": "text",
+      "source": "Gate — subnetting archetype (recycles in every paper)",
+      "prompt": "**10.130.73.95/27** — give the **network address** of this subnet.",
+      "accept": ["10.130.73.64"],
+      "normalize": "trim-lower",
+      "explain": "/27 ⇒ block size 32 in the last octet (256−224). Blocks: 0, 32, **64**, 96… 95 sits in the 64-block → network **10.130.73.64**, broadcast **.95**."
+    },
+    {
+      "id": "g4-2",
+      "type": "text",
+      "source": "Gate — 2020/21 final pattern",
+      "prompt": "**192.168.4.0/24** split into 4 equal subnets. Give the **broadcast address of Subnet 2** (the third subnet).",
+      "accept": ["192.168.4.191"],
+      "normalize": "trim-lower",
+      "explain": "4 subnets ⇒ /26, block 64. Subnet 2 = 192.168.4.**128** → usable .129–.190, **broadcast .191**."
+    },
+    {
+      "id": "g4-3",
+      "type": "mcq",
+      "source": "Gate — fragmentation table (Tier-1 archetype, appears in nearly every paper)",
+      "prompt": "A **4000-byte** datagram (20-byte header) must cross a link with **MTU 1500**. Which fragmentation table is correct? (offsets in 8-byte units)",
+      "options": [
+        "3 fragments: lengths 1500/1500/1040 · offsets 0/185/370 · flags 1/1/0",
+        "3 fragments: lengths 1500/1500/1000 · offsets 0/1500/3000 · flags 1/1/0",
+        "3 fragments: lengths 1480/1480/1020 · offsets 0/185/370 · flags 0/0/1",
+        "2 fragments: lengths 1500/2500 · offsets 0/185 · flags 1/0"
+      ],
+      "answer": 0,
+      "explain": "Data to carry = 4000−20 = **3980 bytes**; each fragment carries ≤ 1500−20 = **1480** data bytes.\n\n| Frag | Total len | Data | Offset (×8 bytes) | Flag (more?) |\n|---|---|---|---|---|\n| 1 | 1500 | 1480 | **0** | 1 |\n| 2 | 1500 | 1480 | 1480/8 = **185** | 1 |\n| 3 | 1020+20=**1040** | 1020 | 2960/8 = **370** | **0** |\n\nEvery fragment gets a full 20-byte IP header; offset counts DATA bytes in 8-byte units; last fragment's flag = 0."
+    },
+    {
+      "id": "g4-4",
+      "type": "order",
+      "source": "Gate — DHCP",
+      "prompt": "Put the **DHCP** message exchange in order (client obtaining an address):",
+      "items": ["DHCP Discover (client, broadcast)", "DHCP Offer (server)", "DHCP Request (client)", "DHCP ACK (server)"],
+      "answer": [0, 1, 2, 3],
+      "explain": "**D-O-R-A**: Discover → Offer → Request → ACK. Runs over **UDP** (ports 67/68); Discover and Request are broadcast because the client has no usable IP yet. DHCP can also hand out the mask, default gateway, and DNS server ('plug-and-play')."
+    },
+    {
+      "id": "g4-5",
+      "type": "mcq",
+      "source": "Gate — NAT",
+      "prompt": "Which field(s) does a NAT router rewrite for an **outgoing** datagram from a private host?",
+      "options": [
+        "Source IP and source port (to its WAN IP + a fresh port), recorded in the NAT table",
+        "Destination IP and destination port",
+        "Only the source IP; ports never change",
+        "Source MAC address only"
+      ],
+      "answer": 0,
+      "explain": "Outgoing: (src IP:port) → (**NAT WAN IP : new port**), one row per connection in the translation table. Replies arriving at that WAN port are mapped back to the private (IP:port). Destination fields are untouched."
+    },
+    {
+      "id": "g4-6",
+      "type": "mcq",
+      "source": "Gate — stealth marks: routing algorithms (3 of last 4 finals!)",
+      "prompt": "**Dijkstra's** algorithm, as used by OSPF, is best described as:",
+      "options": [
+        "A LINK-STATE algorithm: every router knows the full topology and computes least-cost paths from itself",
+        "A DISTANCE-VECTOR algorithm: routers only know their neighbours' estimates",
+        "A flooding algorithm with no cost metric",
+        "A spanning-tree algorithm for switches"
+      ],
+      "answer": 0,
+      "explain": "**Link state (Dijkstra/OSPF):** global knowledge — each router floods link costs, then computes shortest paths itself; after k iterations, k nodes have final least-cost paths.\n**Distance vector (Bellman-Ford/RIP):** iterative, distributed — each router only exchanges estimates with neighbours: Dx(y) = min over v { c(x,v) + Dv(y) }.\nNot on the weekly schedule — but appeared in 3 of the last 4 written finals (6–20 marks)."
+    },
+    {
+      "id": "g4-7",
+      "type": "mcq",
+      "source": "Gate — stealth marks: distance vector pathology",
+      "prompt": "The **count-to-infinity** problem affects which algorithm, and what is the classic mitigation?",
+      "options": [
+        "Distance vector — poisoned reverse (advertise infinite cost back through the path you use)",
+        "Link state — flooding suppression",
+        "Distance vector — increasing the hello interval",
+        "Link state — splitting the area into subnets"
+      ],
+      "answer": 0,
+      "explain": "When a link cost INCREASES, distance-vector routers can bounce wrong estimates between each other ('good news travels fast, **bad news travels slow**'). **Poisoned reverse**: if Z routes to X via Y, Z tells Y its distance to X is ∞ — breaking 2-node loops (not all larger loops)."
+    },
+    {
+      "id": "g4-8",
+      "type": "mcq",
+      "source": "Gate — IPv6",
+      "prompt": "Which row of IPv4→IPv6 changes is fully correct?",
+      "options": [
+        "128-bit addresses · fixed 40-byte header · NO router fragmentation · NO header checksum",
+        "64-bit addresses · variable header · routers fragment · keeps checksum",
+        "128-bit addresses · keeps options in base header · routers fragment · keeps checksum",
+        "96-bit addresses · 20-byte header · no fragmentation · adds checksum"
+      ],
+      "answer": 0,
+      "explain": "IPv6: **128-bit** addresses, streamlined **fixed 40-byte** header, **no fragmentation by routers** (sender gets ICMP 'packet too big'), **no checksum** (done at transport/link), flow label added. Transition: **tunneling** — IPv6 datagram carried as payload inside IPv4 between IPv6 islands."
+    },
+    {
+      "id": "g4-9",
+      "type": "mcq",
+      "source": "Gate — longest prefix match",
+      "prompt": "A forwarding table holds `200.23.16.0/20 → if0` and `200.23.24.0/21 → if1` and default → if2. Where does **200.23.26.77** go?",
+      "options": ["if1 — /21 is the longest matching prefix", "if0 — /20 matches first in the table", "if2 — no entry matches", "if0 and if1 — load balanced"],
+      "answer": 0,
+      "explain": "26 is inside 24–31 (the /21 block 200.23.24.0–200.23.31.255) AND inside 16–31 (the /20). Both match → **longest prefix (/21) wins → if1**. Write the method sentence: 'the entry with the longest address prefix that matches the destination address is selected.'"
+    },
+    {
+      "id": "g4-10",
+      "type": "text",
+      "source": "Gate — VLSM midterm pattern",
+      "prompt": "VLSM from **192.168.10.0/24**, largest first: HR 50 → /26, IT 30 → /27, Sales 20 → /27, Mgmt 10 → /28. What is the **network address of the Sales subnet**?",
+      "accept": ["192.168.10.96"],
+      "normalize": "trim-lower",
+      "explain": "Sequential largest-first allocation:\nHR /26 → .0 (ends .63) · IT /27 → .64 (ends .95) · **Sales /27 → .96** (ends .127) · Mgmt /28 → .128 (ends .143).\nEach subnet starts where the previous block ends, aligned to its own block size."
+    },
+    {
+      "id": "g4-11",
+      "type": "mcq",
+      "source": "Gate — router internals (header fields)",
+      "prompt": "Which IPv4 header field is **decremented by each router**, and what happens at 0?",
+      "options": [
+        "TTL — datagram is discarded and an ICMP time-exceeded is sent back",
+        "Checksum — datagram is re-verified",
+        "Fragment offset — datagram is reassembled",
+        "Identification — datagram is renumbered"
+      ],
+      "answer": 0,
+      "explain": "**TTL (time-to-live)** drops by 1 per hop → at 0 the router discards the datagram and returns **ICMP time exceeded** (this is how *traceroute* works). The checksum is recomputed each hop because TTL changed."
+    },
+    {
+      "id": "g4-12",
+      "type": "numeric",
+      "source": "Gate — subnet sizing",
+      "prompt": "A subnet must host **500** devices. How many **host bits** are required?",
+      "answer": 9,
+      "tolerance": 0,
+      "explain": "500 + 2 ≤ 2⁹ = 512 ⇒ **9 host bits** (prefix /23, 510 usable). 2⁸ = 256 is too small once network + broadcast are subtracted."
+    }
+  ]
+}

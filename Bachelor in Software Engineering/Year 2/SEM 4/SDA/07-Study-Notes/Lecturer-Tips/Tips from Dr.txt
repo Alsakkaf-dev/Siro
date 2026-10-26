@@ -1,0 +1,17 @@
+Final Exam Topics Checklist
+
+1. Creational Design Patterns (CDP)
+- Be able to justify why specific patterns are chosen over others. What unique design challenges do these patterns resolve?
+- Ability to sketch class diagrams that accurately reflect CDP structures.
+- Capability to translate these design patterns into clean, functional Java code based on their corresponding diagrams.
+
+2. Structural and Behavioral Design Patterns (SDP & BDP)
+- Be able to justify why specific patterns are chosen over others. What unique design challenges do these patterns resolve?
+- Ability to sketch class diagrams that accurately reflect SDP & BDP structures.
+- Capability to translate these design patterns into clean, functional Java code based on their corresponding diagrams.
+
+3. Software Design Management, Leadership, and Ethics
+- Master the Lab Exercise #4. Ensure you can apply these principles to any real-world design decision-making scenarios.
+
+4. Principles of Construction Design
+- Master the In-Class Exercises #1 and #2. Ensure you can apply these principles to any real-world design decision-making scenarios.

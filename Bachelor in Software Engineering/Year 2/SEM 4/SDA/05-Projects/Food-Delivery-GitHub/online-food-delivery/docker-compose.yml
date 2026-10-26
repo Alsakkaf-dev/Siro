@@ -1,0 +1,22 @@
+# Local Postgres for the Online Food Delivery System (Group Hub).
+# Usage:  docker compose up -d   ->  Postgres on localhost:5432
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ofd-postgres
+    environment:
+      POSTGRES_DB: ofd
+      POSTGRES_USER: ofd
+      POSTGRES_PASSWORD: ofd
+    ports:
+      - "5432:5432"
+    volumes:
+      - ofd_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ofd -d ofd"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ofd_pgdata:
