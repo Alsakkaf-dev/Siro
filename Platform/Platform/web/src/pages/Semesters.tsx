@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, EmptyState, IconButton, KebabMenu, Skeleton, Unknown } from '../ui/ui.js';
+import { Badge, BulkBar, Button, Card, EmptyState, IconButton, KebabMenu, Skeleton, Unknown, useSelection } from '../ui/ui.js';
 import { SemesterForm } from '../forms/lazy.js';
 import { Icon } from '../lib/icons.js';
 import { phaseOf, semesterStatus, todayMs, weekEndMs } from '../../../shared/semester.js';
@@ -13,6 +13,7 @@ import type { Semester, SemesterSummary } from '../../../shared/types.js';
 
 export default function Semesters() {
   const { semesters, reloadSemesters, toast, confirm, deleteWithUndo } = useApp();
+  const { sel, toggle: toggleSel, clear: clearSel } = useSelection();
   const nav = useNavigate();
   const [sp, setSp] = useSearchParams();
   const [form, setForm] = useState<{ edit?: Semester } | null>(() => (sp.get('new') ? {} : null));
@@ -24,7 +25,7 @@ export default function Semesters() {
   }, [sp, setSp]);
   const now = todayMs();
 
-  if (!semesters) return <div className="page"><PageHead title="مدير الفصول" icon="layers" /><div className="grid auto"><Skeleton h={220} r={20} /><Skeleton h={220} r={20} /></div></div>;
+  if (!semesters) return <div className="page"><PageHead title="الفصول" icon="layers" /><div className="grid auto"><Skeleton h={220} r={20} /><Skeleton h={220} r={20} /></div></div>;
 
   const nextSuggestion = (): Partial<Semester> => {
     const last = [...semesters].sort((a, b) => (a.sem_no ?? 0) - (b.sem_no ?? 0)).at(-1);
@@ -50,10 +51,20 @@ export default function Semesters() {
 
   return (
     <div className="page">
-      <PageHead title="مدير الفصول" icon="layers" crumbs={[{ label: 'الفصول' }]} sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<><Link to="/academic/import" className="btn"><Icon name="upload" size={16} /> استيراد فصل</Link><Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button></>} />
+      <PageHead title="الفصول" icon="layers" crumbs={[{ label: 'الفصول' }]} sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<><Link to="/academic/import" className="btn"><Icon name="upload" size={16} /> استيراد فصل</Link><Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button></>} />
       {sorted.length === 0 ? (
         <EmptyState icon="calendar" title="لا توجد فصول" text="أضف أول فصل لتبدأ." action={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
       ) : (
+        <>
+        <BulkBar count={sel.size} onClear={clearSel}>
+          <Button size="sm" variant="danger" icon="trash" onClick={async () => {
+            if (!(await confirm({ title: `حذف ${sel.size} فصل؟`, body: 'تُحذف مع موادها وتقييماتها وملاحظاتها ونتائجها. الاستعادة متاحة من سلة المحذوفات 30 يومًا.', danger: true, confirmLabel: 'حذف' }))) return;
+            const r = await api.bulkSemesters([...sel]);
+            clearSel();
+            await reloadSemesters();
+            toast(`حُذف ${r.count} فصل`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(() => reloadSemesters()) } });
+          }}>حذف المحدد</Button>
+        </BulkBar>
         <div className="grid auto stagger">
           {sorted.map((s, i) => {
             const st = semesterStatus(now, s);
@@ -63,7 +74,7 @@ export default function Semesters() {
               <Card key={s.id} hover className={s.is_active ? 'sem-card active' : 'sem-card'} style={{ '--i': i } as never}>
                 <div className="sc-top">
                   <div style={{ minWidth: 0 }}>
-                    <h2><bdi>{s.code}</bdi></h2>
+                    <h2><input type="checkbox" className="sel-box" aria-label={`تحديد ${s.code}`} checked={sel.has(s.id)} onChange={() => toggleSel(s.id)} /> <bdi>{s.code}</bdi></h2>
                     <p className="muted"><bdi>{s.name}</bdi></p>
                   </div>
                   <KebabMenu label={`خيارات ${s.code}`} items={[{ label: 'تعديل الفصل', icon: 'edit', onClick: () => setForm({ edit: s }) }, ...(s.is_active ? [] : [{ label: 'تعيين كفصل نشط', icon: 'star' as const, onClick: () => void activate(s) }]), { label: 'حذف الفصل', icon: 'trash', onClick: () => void del(s), danger: true }]} />
@@ -90,6 +101,7 @@ export default function Semesters() {
             );
           })}
         </div>
+        </>
       )}
       {form && (
         <SemesterForm

@@ -3,7 +3,9 @@ import { useApp } from '../core/app-context.js';
 import { api, ApiError, type BackupInfo, type DiffResult, type Info } from '../lib/api.js';
 import { DiffView } from '../ui/diff.js';
 import { PageHead } from '../ui/page.js';
-import { Button, Card, CardHead, EmptyState, Segmented, Skeleton } from '../ui/ui.js';
+import { Button, Card, CardHead, EmptyState, Field, Segmented, Skeleton } from '../ui/ui.js';
+import { Link } from 'react-router-dom';
+import { wos } from '../lib/wos.js';
 import { Icon } from '../lib/icons.js';
 import { AppearanceCard, NotifyCard } from '../core/Appearance.js';
 import { fmtNum } from '../lib/format.js';
@@ -101,9 +103,11 @@ export default function Settings() {
 
   return (
     <div className="page">
-      <PageHead title="الإعدادات والنسخ الاحتياطي" icon="sliders" />
+      <PageHead title="الإعدادات والبيانات" icon="sliders" sub="كل الإعدادات في مكان واحد: الملف الشخصي، المظهر، مصادر البيانات، النسخ الاحتياطي، الاستيراد والتصدير، وسلة المحذوفات." />
       <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
         <div className="stack">
+          <ProfileCard />
+          <SourcesCard />
           <AppearanceCard />
           <NotifyCard />
           <Card>
@@ -129,7 +133,7 @@ export default function Settings() {
         </div>
         <div className="stack">
           <Card>
-            <CardHead title="النسخ الاحتياطية" icon="database"><Button size="sm" icon="plus" onClick={() => void backupNow()}>نسخة الآن</Button></CardHead>
+            <CardHead title="النسخ الاحتياطية" icon="database"><span id="data" className="sr-only" /><Button size="sm" icon="plus" onClick={() => void backupNow()}>نسخة الآن</Button></CardHead>
             <p className="muted" style={{ marginBlockEnd: 'var(--s-3)' }}>تُؤخذ نسخة تلقائية يوميًا عند تشغيل المنصة (تُحفظ آخر 14).</p>
             {backups === null ? <Skeleton h={80} /> : backups.length === 0 ? <EmptyState icon="database" title="لا نسخ بعد" /> : (
               <ul className="plain">
@@ -155,5 +159,41 @@ export default function Settings() {
         </div>
       </div>
     </div>
+  );
+}
+
+/** الملف الشخصي: الاسم الذي يظهر في التحية (لا أسماء مثبتة في الكود — لإعطاء الموقع لصديق) */
+function ProfileCard() {
+  const { profileName, setProfileName, toast } = useApp();
+  const [v, setV] = useState(profileName ?? '');
+  useEffect(() => setV(profileName ?? ''), [profileName]);
+  return (
+    <Card id="profile">
+      <CardHead title="الملف الشخصي" icon="user" />
+      <form className="row" style={{ gap: 'var(--s-2)', alignItems: 'flex-end', flexWrap: 'wrap' }} onSubmit={(e) => { e.preventDefault(); void wos.setProfile(v).then((r) => { setProfileName(r.name); toast('حُفظ الاسم', { kind: 'ok' }); }); }}>
+        <Field label="الاسم في التحية" htmlFor="pf-name"><input id="pf-name" value={v} onChange={(e) => setV(e.target.value)} maxLength={40} placeholder="بدون اسم" /></Field>
+        <Button type="submit" variant="primary" disabled={v === (profileName ?? '')}>حفظ</Button>
+      </form>
+    </Card>
+  );
+}
+
+/** مصادر البيانات وإدارتها — روابط لكل إعداد كان مبعثرًا */
+function SourcesCard() {
+  const rows: { to: string; icon: Parameters<typeof Icon>[0]['name']; title: string; sub: string }[] = [
+    { to: '/library/settings', icon: 'library', title: 'مجلد المكتبة', sub: 'مكان ملفاتك على الجهاز + الفحص التلقائي' },
+    { to: '/life/settings', icon: 'heart', title: 'صادرات راشد', sub: 'مجلد بيانات الحياة (قراءة فقط) وحالة الملفات' },
+    { to: '/academic/import', icon: 'upload', title: 'حزم الفصول', sub: 'استيراد/تصدير فصل كامل (Drive أو مجلد)' },
+    { to: '/trash', icon: 'trash', title: 'سلة المحذوفات', sub: 'استعادة أي شيء حُذف خلال 30 يومًا' },
+    { to: '/activity', icon: 'clock', title: 'سجل النشاط', sub: 'كل تغيير ومن قام به (أنت أو أتمتة)' },
+    { to: '/spaces/automations', icon: 'zap', title: 'الأتمتة', sub: 'كل القواعد في مساحاتك' },
+  ];
+  return (
+    <Card id="sources">
+      <CardHead title="المصادر والإدارة" icon="database" />
+      <ul className="plain mini-list settings-links">
+        {rows.map((r) => <li key={r.to}><Link to={r.to}><Icon name={r.icon} size={16} /> <b>{r.title}</b></Link> <small className="muted">— {r.sub}</small></li>)}
+      </ul>
+    </Card>
   );
 }

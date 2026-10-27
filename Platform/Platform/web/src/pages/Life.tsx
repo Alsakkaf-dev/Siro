@@ -124,7 +124,7 @@ export default function Life() {
           { to: '/life/routine', label: 'الروتين', icon: 'timer', sub: 'جدول اليوم' },
           { to: '/life/body', label: 'الجسم', icon: 'target', sub: 'الوزن والهدف' },
           { to: '/life/alternatives', label: 'بدائل العادات', icon: 'zap', sub: 'ماذا أسوي بدل العادة؟' },
-          { to: '/life/commands', label: 'الأوامر', icon: 'mail', sub: 'مسودات لراشد' },
+          { to: '/life/commands', label: 'مسودات الأوامر', icon: 'mail', sub: 'مسودات لراشد' },
         ]}
       />
     </LifePage>

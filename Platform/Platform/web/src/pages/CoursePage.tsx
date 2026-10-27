@@ -66,14 +66,26 @@ export default function CoursePage() {
       toast((e as Error).message, { kind: 'error' });
     }
   };
+  // عملية واحدة على الخادم (معاملة + سجل نشاط) بدل طلب لكل عنصر
   const bulk = async (status: AssessmentStatus): Promise<void> => {
-    for (const id of sel) {
-      const a = items.find((x) => x.id === id);
-      if (a) await api.editAssessment(id, { status }).catch((e: Error) => toast(`${a.title}: ${e.message}`, { kind: 'error' }));
+    try {
+      const r = await api.bulkAssessments([...sel], 'status', status);
+      setSel(new Set());
+      await S.reload();
+      toast(`تم تحديث ${r.count} إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
     }
-    setSel(new Set());
-    await S.reload();
-    toast(`تم تحديث الحالة إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+  };
+  const bulkDelete = async (): Promise<void> => {
+    try {
+      const r = await api.bulkAssessments([...sel], 'delete');
+      setSel(new Set());
+      await S.reload();
+      toast(`حُذف ${r.count} تقييم — في سلة المحذوفات`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo!).then(() => S.reload()) } });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
   };
 
   const statusBadge = (a: Assessment) => {
@@ -179,6 +191,7 @@ export default function CoursePage() {
             <div className="bulkbar" role="toolbar" aria-label="إجراءات جماعية">
               <strong>{sel.size} محدد</strong>
               {STATUSES.map((s) => (<button key={s} className="btn sm" onClick={() => void bulk(s)}>تعيين: {STATUS_LABEL[s]}</button>))}
+              <button className="btn sm danger" onClick={() => void bulkDelete()}>حذف المحدد</button>
               <button className="btn sm ghost" onClick={() => setSel(new Set())}>إلغاء</button>
             </div>
           )}

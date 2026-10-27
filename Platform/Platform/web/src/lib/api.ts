@@ -170,6 +170,8 @@ export const api = {
   editNote: (id: string, b: unknown) => req<AcademicNote>('PATCH', `/api/notes/${id}`, b),
   delNote: (id: string) => req<Deleted>('DELETE', `/api/notes/${id}`),
   bulkAssessments: (ids: string[], op: 'status' | 'delete', status?: string) => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/assessments/bulk', { ids, op, status }),
+  bulkSemesters: (ids: string[]) => req<{ ok: boolean; count: number; undo: string }>('POST', '/api/semesters/bulk', { ids, op: 'delete' }),
+  bulkCourses: (ids: string[]) => req<{ ok: boolean; count: number; undo: string }>('POST', '/api/courses/bulk', { ids, op: 'delete' }),
   bulkNotes: (ids: string[], op: 'resolve' | 'unresolve' | 'delete') => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/notes/bulk', { ids, op }),
   undo: (token: string) => req<{ ok: boolean; label: string }>('POST', `/api/undo/${token}`),
   search: (q: string) => req<SearchHit[]>('GET', `/api/search?q=${encodeURIComponent(q)}`),

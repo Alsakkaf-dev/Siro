@@ -4,7 +4,7 @@ import { useApp } from '../core/app-context.js';
 import { ApiError, api, lib } from '../lib/api.js';
 import { useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
-import { Button, Card, EmptyState, Field, KebabMenu, Modal, Skeleton } from '../ui/ui.js';
+import { BulkBar, Button, Card, EmptyState, Field, KebabMenu, Modal, Skeleton, useSelection } from '../ui/ui.js';
 import { CourseBadge, KindTile, ProgressBar, TagChips, fmtWhen, itemPath, pctOf } from '../library/common.js';
 import type { LibItem } from '../../../shared/library.js';
 
@@ -68,6 +68,17 @@ export default function LibraryYoutube() {
   }, [toast]);
   useEffect(load, [load]);
 
+  const { sel, toggle, clear, setAll } = useSelection();
+  const bulkDel = async (): Promise<void> => {
+    try {
+      const r = await lib.bulkDelYoutube([...sel]);
+      clear();
+      load();
+      toast(`أُزيل ${r.count} فيديو`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(load) } });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
   const del = async (it: LibItem): Promise<void> => {
     // سياسة التأكيد: حذف عنصر واحد بلا سؤال، مع تراجع + سلة المحذوفات (30 يومًا)
     try {
@@ -87,11 +98,15 @@ export default function LibraryYoutube() {
       ) : items.length === 0 ? (
         <EmptyState icon="play" title="لا فيديوهات بعد" text="أضف رابط فيديو يوتيوب لمادة ما، وسجّل علامات وقت وملاحظات أثناء المشاهدة." action={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فيديو</Button>} />
       ) : (
+        <>
+        <BulkBar count={sel.size} onClear={clear} total={items.length} onAll={() => setAll(items.map((x) => x.id))}>
+          <Button size="sm" variant="danger" icon="trash" onClick={() => void bulkDel()}>إزالة المحدد</Button>
+        </BulkBar>
         <div className="grid cols-3 stagger">
           {items.map((it, i) => (
             <Card key={it.ref} hover style={{ '--i': i } as never}>
               <div className="row" style={{ justifyContent: 'space-between', flexWrap: 'nowrap' }}>
-                <KindTile kind="youtube" size={42} />
+                <span className="row" style={{ gap: 8 }}><input type="checkbox" className="sel-box" aria-label={`تحديد «${it.title}»`} checked={sel.has(it.id)} onChange={() => toggle(it.id)} /><KindTile kind="youtube" size={42} /></span>
                 <KebabMenu label={`خيارات ${it.title}`} items={[{ label: 'تعديل', icon: 'edit', onClick: () => setForm({ item: it }) }, { label: 'إزالة', icon: 'trash', danger: true, onClick: () => void del(it) }]} />
               </div>
               <h2 className="h3" style={{ marginBlock: 'var(--s-3) var(--s-2)' }}><Link to={itemPath(it)}><bdi>{it.title}</bdi></Link></h2>
@@ -101,6 +116,7 @@ export default function LibraryYoutube() {
             </Card>
           ))}
         </div>
+        </>
       )}
       {form && <YtForm {...(form.item ? { item: form.item } : {})} onClose={() => setForm(null)} onSaved={load} />}
     </div>

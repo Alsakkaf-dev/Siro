@@ -298,3 +298,13 @@ a.space-card:hover { text-decoration: none; transform: translateY(-2px); box-sha
 .vt-list { display: flex; gap: 4px; flex-wrap: wrap; }
 .map-x a, .mini-list a, .ag-main, .rel-list a { text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); text-underline-offset: 3px; }
 .ag-main { text-decoration: none; }
+.dt-sel { position: relative; z-index: 3; width: 18px; height: 18px; accent-color: var(--accent); }
+/* الكثافة المضغوطة: صفوف وبطاقات أقل ارتفاعًا (نفس الشكل) */
+[data-density='compact'] .card { padding: var(--s-4); }
+[data-density='compact'] .v-row, [data-density='compact'] .ag-row { min-height: 36px; padding-block: 2px; }
+[data-density='compact'] .v-table th, [data-density='compact'] .v-table td { padding-block: 3px; }
+[data-density='compact'] .page-head { margin-block-end: var(--s-4); }
+[data-density='compact'] .stack { gap: var(--s-3); }
+.line-link .kbd-hint, .nav-link .kbd-hint { color: var(--text-2); }
+.callout a, .muted a, p a { text-decoration: underline; text-underline-offset: 3px; }
+.sel-box, .dt-sel { width: 24px; height: 24px; }

@@ -3,7 +3,7 @@ import { useApp } from '../core/app-context.js';
 import { ApiError, api, sports, type ItemInput } from '../lib/api.js';
 import { useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, CardHead, DragHandle, EmptyState, Field, IconButton, Modal, Skeleton, useDragReorder } from '../ui/ui.js';
+import { Badge, BulkBar, Button, Card, CardHead, DragHandle, EmptyState, Field, IconButton, Modal, Skeleton, useDragReorder, useSelection } from '../ui/ui.js';
 import { useNow } from '../widgets/tiles.js';
 import { Term } from '../glossary/glossary.js';
 import { ContentBanner, SafetyBadge, SafetyDisclaimer, itemText, norm, toInput, useExercises, useMine } from '../sports/sportsKit.js';
@@ -25,6 +25,17 @@ export default function SportsMine() {
   const today = weekdayKL(now);
   const byId = useMemo(() => new Map(mine.workouts.map((w) => [w.id, w])), [mine.workouts]);
   const todayW = mine.week[today] ? byId.get(mine.week[today]!) : undefined;
+  const { sel, toggle: toggleSel, clear: clearSel } = useSelection();
+  const bulkDel = async (): Promise<void> => {
+    try {
+      const r = await sports.bulkDel([...sel]);
+      clearSel();
+      set(await sports.mine());
+      toast(`حُذف ${sel.size} تمرين`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(async () => set(await sports.mine())) } });
+    } catch (e) {
+      fail(e);
+    }
+  };
   const fail = (e: unknown): void => toast(e instanceof ApiError ? Object.values(e.fields)[0] ?? e.message : (e as Error).message, { kind: 'error' });
 
   const exById = useMemo(() => new Map((ex.data?.exercises ?? []).map((e) => [e.id, e] as const)), [ex.data]);
@@ -57,7 +68,7 @@ export default function SportsMine() {
     ids.splice(to, 0, m!);
     sports.order(ids).then(set).catch(fail);
   });
-  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." crumbs={[{ to: '/sports', label: 'الرياضة' }, { label: 'تمريني' }]} actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
+  const head = <PageHead title="تماريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." crumbs={[{ to: '/sports', label: 'الرياضة' }, { label: 'تماريني' }]} actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
   if (error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={error} action={<Button onClick={reload}>إعادة المحاولة</Button>} /></div>;
   if (!loaded) return <div className="page sports-page">{head}<Skeleton h={120} r={16} /></div>;
 
@@ -125,12 +136,15 @@ export default function SportsMine() {
           </div>
         ) : <p className="muted" style={{ margin: 0 }}>أنشئ تمرينًا أولًا لتعيّنه على الأيام.</p>}
       </Card>
+      <BulkBar count={sel.size} onClear={clearSel}>
+        <Button size="sm" variant="danger" icon="trash" onClick={() => void bulkDel()}>حذف المحدد</Button>
+      </BulkBar>
       {mine.workouts.length ? (
         <ul className="wo-list" aria-label="تماريني">
           {mine.workouts.map((w, i) => (
             <li key={w.id} className="wo-card" {...dnd.row(i)}>
               <div className="ed-row-head">
-                <h3><DragHandle handle={dnd.handle} />{w.name}</h3>
+                <h3><input type="checkbox" className="sel-box" aria-label={`تحديد «${w.name}»`} checked={sel.has(w.id)} onChange={() => toggleSel(w.id)} /> <DragHandle handle={dnd.handle} />{w.name}</h3>
                 <span className="row" style={{ gap: 2 }}>
                   <IconButton icon="up" label={`رفع «${w.name}»`} sm ghost disabled={i === 0} onClick={() => void move(i, -1)} />
                   <IconButton icon="down" label={`خفض «${w.name}»`} sm ghost disabled={i === mine.workouts.length - 1} onClick={() => void move(i, 1)} />

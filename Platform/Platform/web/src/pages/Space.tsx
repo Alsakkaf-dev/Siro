@@ -248,7 +248,7 @@ function FilterBuilder({ filters, onChange, type }: { filters: ViewFilter[]; onC
   const fields = [{ id: 'title', name: 'العنوان', kind: 'text' }, { id: 'status', name: 'الحالة', kind: 'status' }, { id: 'due', name: 'الموعد', kind: 'date' }, ...type.fields.filter((f) => f.kind !== 'relation')];
   return (
     <>
-      <Button size="sm" icon="filter" onClick={() => setOpen(true)} aria-label={`المرشحات (${filters.length})`}>مرشحات{filters.length ? ` (${filters.length})` : ''}</Button>
+      <Button size="sm" icon="filter" onClick={() => setOpen(true)}>مرشحات{filters.length ? ` (${filters.length})` : ''}</Button>
       {open && (
         <Modal title="المرشحات" onClose={() => setOpen(false)} footer={<><Button variant="ghost" onClick={() => onChange([])}>مسح الكل</Button><Button variant="primary" onClick={() => setOpen(false)}>تم</Button></>}>
           <div className="stack">

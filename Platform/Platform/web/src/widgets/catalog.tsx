@@ -165,7 +165,7 @@ export function DocTable<T extends { id: string }>({ rows, cols, selectable, sel
         <div key={r.id} className={cx('dt-row', selected?.has(r.id) && 'sel')} role="row" style={{ gridTemplateColumns: tpl }}>
           {selectable && (
             <span role="cell">
-              <input type="checkbox" aria-label="تحديد الصف" checked={selected?.has(r.id) ?? false} onChange={(e) => onSelect?.(r.id, e.target.checked)} />
+              <input type="checkbox" className="dt-sel" aria-label={rowLabel ? `تحديد: ${rowLabel(r).replace(/^فتح /, "")}` : "تحديد الصف"} checked={selected?.has(r.id) ?? false} onChange={(e) => onSelect?.(r.id, e.target.checked)} />
             </span>
           )}
           {cols.map((c) => (

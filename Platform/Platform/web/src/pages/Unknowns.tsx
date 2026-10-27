@@ -12,6 +12,16 @@ import type { AcademicNote } from '../../../shared/types.js';
 export default function Unknowns() {
   const S = useSem();
   const { toast, deleteWithUndo } = useApp();
+  /** عمليات جماعية على الملاحظات (حذف المحلولة) مع تراجع */
+  const bulkNotes = async (ids: string[], op: 'resolve' | 'delete'): Promise<void> => {
+    try {
+      const r = await api.bulkNotes(ids, op);
+      await S.reload();
+      toast(op === 'delete' ? `حُذفت ${r.count} ملاحظة` : `حُلّت ${r.count} ملاحظة`, { kind: 'ok', ...(r.undo ? { action: { label: 'تراجع', run: () => void api.undo(r.undo!).then(() => S.reload()) } } : {}) });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
   const base = `/academic/s/${S.sem.id}`;
   const [form, setForm] = useState<AcademicNote | 'new' | null>(null);
   const unkNotes = S.notes.filter((n) => n.tag === 'unk');
@@ -64,7 +74,12 @@ export default function Unknowns() {
         </Card>
         <div className="grid cols-2">
           <Card>
-            <CardHead title="أسئلة مفتوحة" icon="help"><Badge tone="warn">{unkNotes.filter((n) => !n.resolved).length}</Badge></CardHead>
+            <CardHead title="أسئلة مفتوحة" icon="help">
+              <Badge tone="warn">{unkNotes.filter((n) => !n.resolved).length}</Badge>
+              {unkNotes.some((n) => n.resolved) && (
+                <button type="button" className="btn sm ghost" onClick={() => void bulkNotes(unkNotes.filter((n) => n.resolved).map((n) => n.id), 'delete')}>حذف المحلولة ({unkNotes.filter((n) => n.resolved).length})</button>
+              )}
+            </CardHead>
             {unkNotes.length === 0 ? <p className="muted">لا شيء.</p> : <ul className="plain">{unkNotes.map(noteCard)}</ul>}
           </Card>
           <Card>

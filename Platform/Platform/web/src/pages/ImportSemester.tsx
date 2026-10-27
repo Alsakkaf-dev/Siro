@@ -125,8 +125,9 @@ export default function ImportSemester() {
 
   return (
     <div className="page">
-      <PageHead title="استيراد فصل" icon="upload" crumbs={[{ to: '/academic', label: 'الفصول' }, { label: 'استيراد فصل' }]} sub="استورد مجلد SEM-X كاملًا: الفصل، المواد، النتائج الرسمية، وكل ملفات المواد في المكتبة." />
+      <PageHead title="استيراد وتصدير الحزم" icon="upload" crumbs={[{ to: '/academic', label: 'الفصول' }, { label: 'استيراد وتصدير الحزم' }]} sub="استورد مجلد SEM-X كاملًا (الفصل، المواد، النتائج، الملفات)، أو صدّر فصلًا كحزمة لأرشفته ونشره على Drive." />
       <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
+        <ExportPackage />
         <Card>
           <CardHead title="مصدر الحزمة" icon="download" />
           <Segmented<Kind> label="المصدر" value={kind} onChange={(k) => { setKind(k); setPreview(null); setErr(null); }} options={options} />
@@ -186,5 +187,46 @@ export default function ImportSemester() {
         </div>
       </div>
     </div>
+  );
+}
+
+/** تصدير فصل كحزمة v1: ملف semester.json + أسماء المجلدات المقترحة (للأرشفة والنشر على Drive) */
+function ExportPackage() {
+  const { semesters, activeId } = useApp();
+  const [sid, setSid] = useState('');
+  const [folders, setFolders] = useState<{ pkg: string; folders: string[] } | null>(null);
+  useEffect(() => {
+    if (!sid && semesters?.length) setSid(activeId ?? semesters[0]!.id);
+  }, [semesters, activeId, sid]);
+  useEffect(() => {
+    if (!sid) return;
+    fetch(`/api/packages/export/${encodeURIComponent(sid)}?format=folders`).then((r) => r.json()).then(setFolders).catch(() => setFolders(null));
+  }, [sid]);
+  if (!semesters?.length) return null;
+  return (
+    <Card>
+      <CardHead title="تصدير فصل كحزمة (أرشفة / نشر)" icon="upload" info="نفس صيغة الاستيراد بالضبط (SEMESTER_PACKAGE_SPEC v1): ما تصدّره يمكن استيراده لاحقًا بلا فقد — المواد والتقييمات والملاحظات والنتائج الرسمية." />
+      <div className="row" style={{ gap: 'var(--s-3)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <Field label="الفصل" htmlFor="ex-sem">
+          <select id="ex-sem" value={sid} onChange={(e) => setSid(e.target.value)}>
+            {semesters.map((s) => <option key={s.id} value={s.id}>{s.code} — {s.name}</option>)}
+          </select>
+        </Field>
+        <a className="btn primary" href={`/api/packages/export/${encodeURIComponent(sid)}`} download><Icon name="download" size={17} /> تنزيل semester.json</a>
+      </div>
+      {folders && (
+        <details style={{ marginBlockStart: 'var(--s-3)' }}>
+          <summary>خطوات الأرشفة على Drive ({folders.pkg})</summary>
+          <ol className="small" style={{ paddingInlineStart: 20 }}>
+            <li>أنشئ مجلدًا باسم <code dir="ltr">{folders.pkg}</code> داخل <b>Siro Semesters</b>.</li>
+            <li>ضع فيه <code dir="ltr">semester.json</code> الذي نزّلته.</li>
+            <li>أنشئ هذه المجلدات ورتّب الملفات داخلها حسب التصنيفات (01-Course-Information … 99-Other):
+              <ul className="plain" dir="ltr" style={{ marginBlock: 6 }}>{folders.folders.map((f) => <li key={f}><code>{f}/</code></li>)}</ul>
+            </li>
+            <li>للتحقق: الصق رابط المجلد في «مصدر الحزمة» أدناه ← فحص. الفحص لا يغيّر شيئًا حتى تضغط «استيراد».</li>
+          </ol>
+        </details>
+      )}
+    </Card>
   );
 }

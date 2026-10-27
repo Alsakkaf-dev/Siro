@@ -41,7 +41,7 @@ export function searchMore(db: Db, rawQ: string): MoreHit[] {
   const ex = readContent(db, 'SPORTS_EXERCISES.json').data as ExercisesDoc | null;
   if (ex) add('sports', ex.exercises.filter((e) => match(e.arabic_name, e.english_name, e.main_muscle_ar, e.category_ar)).map((e) => ({ kind: 'sports', id: e.id, title: `${e.arabic_name} — ${e.english_name}`, subtitle: e.main_muscle_ar, to: `/sports?q=${encodeURIComponent(e.english_name)}` })));
   const ws = db.all<{ id: string; name: string }>('SELECT id, name FROM spt_workouts');
-  add('workout', ws.filter((w) => match(w.name)).map((w) => ({ kind: 'workout', id: w.id, title: w.name, subtitle: 'تمريني', to: '/sports/mine' })));
+  add('workout', ws.filter((w) => match(w.name)).map((w) => ({ kind: 'workout', id: w.id, title: w.name, subtitle: 'تماريني', to: '/sports/mine' })));
   const gl = readContent(db, 'GLOSSARY_AR.json').data as GlossaryDoc | null;
   if (gl) add('glossary', gl.entries.filter((e) => match(e.term_ar, e.term_en, e.definition_ar)).map((e) => ({ kind: 'glossary', id: e.id, title: e.term_ar, subtitle: e.definition_ar, to: `/life/glossary#${e.id}` })));
   return out;

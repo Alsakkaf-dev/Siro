@@ -57,6 +57,15 @@ export function createPackageRouter(ctx: Ctx): express.Router {
     res.json({ ok: true, backup: backup.name, ...result });
   }));
 
+  /** نشر/أرشفة: تصدير الفصل كحزمة (semester.json) — كان متاحًا كسكربت فقط */
+  r.get('/export/:semId', wrap((req, res) => {
+    const x = pkg.exportManifest(db(), str(req.params['semId']));
+    if (!x) throw new HttpError(404, 'الفصل غير موجود');
+    if (req.query['format'] === 'folders') return void res.json({ pkg: x.pkg, folders: x.folders });
+    res.setHeader('Content-Disposition', `attachment; filename="${x.pkg}.semester.json"`);
+    res.type('application/json').send(JSON.stringify(x.manifest, null, 2));
+  }));
+
   r.get('/results/:semId', wrap((req, res) => void res.json(pkg.resultsFor(db(), str(req.params['semId'])))));
 
   return r;

@@ -9,11 +9,11 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] 3. Phase B designs (§6–§9) + ADRs + traceability skeleton
 - [x] 4. Foundation: Work-OS core migration + adapters + API + tests
 - [x] 5. Shell & navigation rebuild (metro IA, breadcrumbs, Create +, palette verbs, mobile bar, redirects)
-- [ ] 6. Views engine + specialized views registered
-- [ ] 7. Universal CRUD (inline edit, bulk, undo, history, relations, side panel)
-- [ ] 8. Custom types/fields/templates (My Spaces) + automations
-- [ ] 9. Design-system pass + a11y + responsive + dark parity
-- [ ] 10. Re-audit (crawler, axe, CW, KLM before/after)
+- [x] 6. Views engine + specialized views registered
+- [x] 7. Universal CRUD (inline edit, bulk, undo, history, relations, side panel)
+- [x] 8. Custom types/fields/templates (My Spaces) + automations
+- [x] 9. Design-system pass + a11y + responsive + dark parity
+- [x] 10. Re-audit (crawler, axe, CW, KLM before/after)
 - [ ] 11. Deploy (deploy/platform → Vercel production) + online verification
 - [ ] 12. Final report (Arabic)
 
@@ -54,3 +54,12 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - D8: Done items visible by default in board/calendar/gallery/dashboard (an always-empty «Done» column misled users); hidden by default in list/table.
 - Bugs found by e2e and fixed: mobile search input had ~0px writable width (text typed reversed); modals rendered inside the page stacking context (mobile bottom bar covered Save) → Modal/Drawer now portal to body; automation form saved null for date fields; CSS class collisions (.tl/.kpi/.rel/.tpl-card/.week-grid) renamed.
 - a11y: quick crawl ALL CLEAN (axe 0 serious/critical, 0 overflow, 0 console) on 50 routes @1280/390 light; scenarios ALL PASSED (11) @1280 and @390.
+
+## Steps 6–10 result
+- View registry (`web/src/views/registry.ts`): 7 generic view kinds + 27 specialized views in 9 places (semester, library, finance, worship, routine, habits, sports, horizons, review); shell renders a view switcher on every page of a place.
+- Bulk + undo for every user-owned entity: semesters, courses (new endpoints), assessments, notes, YouTube, workouts, library meta (tag/done), space items. Package export from the UI (`/api/packages/export/:semId`, round-trip test with the v1 importer).
+- Settings hub: profile name, sources & management links, density (comfortable/compact).
+- Design-system pass: zero-specificity base style for unclassed controls (dark-mode parity), 24 px selection targets, contrast tokens (danger/warn/accent-text light), heatmap dark mid-tones, link underlines in text blocks, terminology unified (تماريني، مسودات الأوامر، الفصول).
+- Re-audit written (HCI_EVALUATION § RE-AUDIT, ISSUES statuses). T-01 re-measured honestly (0.9 s visible error; crawler artefact).
+- Tests: vitest 216/216 both drivers; smoke 39/39; scenarios 11/11 @1280 & @390.
+- D9: No Blob token on Vercel (checked env): online edits stay ephemeral until the owner creates a Blob store — reported, not worked around.

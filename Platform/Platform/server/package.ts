@@ -5,7 +5,8 @@ import { z } from 'zod';
 import type { Db } from './db.js';
 import { applyImport, diffImport, EXPORT_SCHEMA, parseImport, type DiffResult, type ParsedImport } from './exportImport.js';
 import { fileIdOf } from './library.js';
-import { checkPackage, semNoOfPackage, MANIFEST, PACKAGE_VERSION, type PackageEntry, type PackageReport } from '../shared/package.js';
+import { checkPackage, courseDirName, semNoOfPackage, GENERAL_DIR, MANIFEST, PACKAGE_VERSION, type PackageEntry, type PackageReport } from '../shared/package.js';
+import { getBundle } from './repo.js';
 import { extOf, kindOfExt } from '../shared/library.js';
 
 const resultSchema = z.object({
@@ -273,4 +274,28 @@ export function listImports(db: Db): { pkg: string; semester_id: string | null; 
 
 export function resultsFor(db: Db, semesterId: string): CourseResult[] {
   return db.all<CourseResult>('SELECT r.course_id, r.grade, r.points, r.credits, r.status FROM acad_results r JOIN acad_courses c ON c.id = r.course_id WHERE c.semester_id = ?', semesterId);
+}
+
+/** يصدّر فصلًا من الموقع كملف semester.json بصيغة الحزمة v1 (نفس ما يقرؤه الاستيراد — رحلة ذهاب وإياب بلا فقد)
+ *  + أسماء المجلدات المقترحة لكل مادة لترتيب الملفات قبل رفعها إلى Drive. */
+export function exportManifest(db: Db, semId: string): { manifest: Record<string, unknown>; folders: string[]; pkg: string } | null {
+  const b = getBundle(db, semId);
+  if (!b) return null;
+  const results = new Map(db.all<{ course_id: string; grade: string | null; points: number | null; credits: number | null; status: string | null }>('SELECT course_id, grade, points, credits, status FROM acad_results WHERE course_id IN (SELECT id FROM acad_courses WHERE semester_id = ?)', semId).map((r) => [r.course_id, r]));
+  const s = b.semester;
+  const pkg = `SEM-${s.sem_no ?? (/\d+/.exec(s.code)?.[0] ?? 'X')}`;
+  const strip = <T extends Record<string, unknown>>(o: T, keys: string[]): Record<string, unknown> => Object.fromEntries(Object.entries(o).filter(([k]) => !keys.includes(k)));
+  const manifest = {
+    package_version: PACKAGE_VERSION,
+    source: `package:${pkg}`,
+    semester: strip(s as unknown as Record<string, unknown>, ['source']),
+    courses: b.courses.map((c) => {
+      const r = results.get(c.id);
+      return { ...strip(c as unknown as Record<string, unknown>, ['semester_id', 'source']), ...(r ? { result: { grade: r.grade, points: r.points, credits: r.credits, status: r.status } } : {}) };
+    }),
+    assessments: b.assessments.map((a) => strip(a as unknown as Record<string, unknown>, ['source'])),
+    notes: b.notes.map((n) => strip(n as unknown as Record<string, unknown>, ['semester_id'])),
+  };
+  const folders = [GENERAL_DIR, ...b.courses.map((c) => courseDirName(c.code, c.section, c.name))];
+  return { manifest, folders, pkg };
 }

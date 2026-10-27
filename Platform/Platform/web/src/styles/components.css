@@ -50,7 +50,8 @@
 .badge.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 50%, transparent); color: var(--warn); }
 .badge.danger { background: var(--danger-soft); border-color: color-mix(in srgb, var(--danger) 50%, transparent); color: var(--danger); }
 .badge.accent { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 40%, transparent); color: var(--accent-text); }
-.badge.core { background: var(--core-soft); border-color: color-mix(in srgb, var(--core) 45%, transparent); color: var(--core); }
+.badge.core { background: var(--core-soft); border-color: color-mix(in srgb, var(--core) 45%, transparent); color: color-mix(in srgb, var(--core) 50%, #000); }
+[data-theme='dark'] .badge.core { color: var(--core); }
 .badge.dashed { background: transparent; border-style: dashed; }
 .trust { font-family: var(--font-ui); font-size: 10.5px; font-weight: 700; padding: 0 6px; border-radius: 6px; line-height: 17px; vertical-align: middle; border: 1px solid; white-space: nowrap; }
 .trust.t-proven { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); background: var(--ok-soft); }

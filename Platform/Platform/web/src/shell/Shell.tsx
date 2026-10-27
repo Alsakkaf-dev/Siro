@@ -5,6 +5,7 @@ import { useApp } from '../core/app-context.js';
 import { PLUGINS } from '../core/plugins.config.js';
 import type { NavItem, PluginCtx } from '../core/plugin.js';
 import { autoCrumbs, lineOf } from '../core/metro.js';
+import { placeOf } from '../views/registry.js';
 import { Modal, Skeleton, cx } from '../ui/ui.js';
 import { Palette } from './Palette.js';
 import { DeadlineBell } from '../notify/Bell.js';
@@ -198,6 +199,7 @@ export function Shell() {
               </span>
             ))}
           </nav>
+          <ViewSwitcher semId={currentSemesterId} />
           <Suspense fallback={<div className="page"><Skeleton h={40} w="35%" /><div style={{ height: 24 }} /><Skeleton h={280} r={20} /></div>}>
             <Outlet />
           </Suspense>
@@ -249,6 +251,27 @@ function NavEntry({ item }: { item: NavItem }) {
   );
 }
 
+/** مبدّل العروض: عروض نفس المكان (من سجل العروض) — مختلف عن التبويبات داخل البطاقات */
+function ViewSwitcher({ semId }: { semId: string | null }) {
+  const loc = useLocation();
+  const place = placeOf(loc.pathname);
+  if (!place) return null;
+  return (
+    <nav className="view-switch" aria-label={place.label}>
+      {place.views.map((v) => {
+        const to = v.route?.({ semId });
+        if (!to) return null;
+        const on = v.match?.(loc.pathname) ?? false;
+        return (
+          <Link key={v.id} to={to} aria-current={on ? 'page' : undefined} className="vs-item">
+            <Icon name={v.icon} size={15} /> <span>{v.label}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
+
 /** شريط سفلي للجوال: 5 أهداف كبيرة (Fitts) — الرئيسية، الدراسة، إنشاء، مساحاتي، المزيد */
 function BottomBar({ onMore }: { onMore: () => void }) {
   const loc = useLocation();
@@ -263,7 +286,7 @@ function BottomBar({ onMore }: { onMore: () => void }) {
       {item('/academic', 'academic', 'الدراسة', 'calendar')}
       <button type="button" className="bb-create" aria-label="إنشاء جديد" onClick={() => openCreate({ kind: 'menu' })}><Icon name="plus" size={22} /></button>
       {item('/spaces', 'spaces', 'مساحاتي', 'layers')}
-      <button type="button" onClick={onMore} aria-label="كل الخطوط والقائمة"><Icon name="menu" size={20} /><span>المزيد</span></button>
+      <button type="button" onClick={onMore}><Icon name="menu" size={20} /><span>المزيد<span className="sr-only"> — كل الخطوط والقائمة</span></span></button>
     </nav>
   );
 }

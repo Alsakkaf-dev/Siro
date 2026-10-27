@@ -291,3 +291,45 @@ describe(`Work-OS core (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => 
     expect((await call('POST', '/api/wos/views', { scope: 'evil', name: 'x', kind: 'list' })).status).toBe(400);
   });
 });
+
+describe('semester package export (round-trip with the v1 importer)', () => {
+  it('exported semester.json parses with the same importer and keeps results', async () => {
+    const { parseManifest } = await import('../server/package.js');
+    const sem = (await call('GET', '/api/semesters')).json.find((s: { code: string }) => s.code === 'SEM 5');
+    const c = (await call('GET', `/api/semesters/${sem.id}`)).json.courses[0];
+    srv.getDb().run("INSERT OR REPLACE INTO acad_results (course_id, grade, points, credits, status, source) VALUES (?, 'A-', 3.67, 3, null, 'test')", c.id);
+    const ex = await call('GET', `/api/packages/export/${sem.id}`);
+    expect(ex.status).toBe(200);
+    expect(ex.headers.get('content-disposition')).toContain('SEM-5.semester.json');
+    expect(ex.json.package_version).toBe(1);
+    const p = parseManifest(ex.json);
+    expect(p.ok).toBe(true);
+    if (p.ok) {
+      expect(p.value.data.courses.length).toBe(ex.json.courses.length);
+      expect(p.value.results.find((r) => r.course_id === c.id)?.grade).toBe('A-');
+    }
+    const f = await call('GET', `/api/packages/export/${sem.id}?format=folders`);
+    expect(f.json.folders[0]).toBe('00-General');
+    expect(f.json.folders.length).toBe(ex.json.courses.length + 1);
+  });
+});
+
+describe('bulk delete for courses and semesters with undo', () => {
+  it('deletes and restores courses and whole semesters', async () => {
+    const s = (await call('POST', '/api/semesters', { code: 'BULK-1', name: 'b', start_date: '2026-01-04' })).json.semester;
+    const s2 = (await call('POST', '/api/semesters', { code: 'BULK-2', name: 'b', start_date: '2026-01-04' })).json.semester;
+    const c1 = (await call('POST', `/api/semesters/${s.id}/courses`, { code: 'BLK1001', name: 'A', color: '#4CC9F0' })).json;
+    const c2 = (await call('POST', `/api/semesters/${s.id}/courses`, { code: 'BLK1002', name: 'B', color: '#4CC9F0' })).json;
+    const dc = await call('POST', '/api/courses/bulk', { ids: [c1.id, c2.id], op: 'delete' });
+    expect(dc.json.count).toBe(2);
+    expect((await call('GET', `/api/semesters/${s.id}`)).json.courses.length).toBe(0);
+    await call('POST', `/api/undo/${dc.json.undo}`);
+    expect((await call('GET', `/api/semesters/${s.id}`)).json.courses.length).toBe(2);
+    const ds = await call('POST', '/api/semesters/bulk', { ids: [s.id, s2.id], op: 'delete' });
+    expect(ds.json.count).toBe(2);
+    expect((await call('GET', `/api/semesters/${s.id}`)).status).toBe(404);
+    await call('POST', `/api/undo/${ds.json.undo}`);
+    expect((await call('GET', `/api/semesters/${s.id}`)).json.courses.length).toBe(2);
+    expect((await call('GET', `/api/semesters/${s2.id}`)).status).toBe(200);
+  });
+});

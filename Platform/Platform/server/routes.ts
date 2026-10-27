@@ -268,6 +268,45 @@ export function createApiRouter(ctx: Ctx): express.Router {
     }
     throw new ValidationError({ op: 'عملية غير معروفة' });
   }));
+  r.post('/semesters/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
+    if (b.op !== 'delete') throw new ValidationError({ op: 'عملية غير معروفة' });
+    const rows = idList(b.ids).map((id) => repo.getBundle(db(), id)).filter((x): x is NonNullable<typeof x> => !!x);
+    const ids = rows.map((x) => x.semester.id);
+    const ph = ids.map(() => '?').join(',') || "''";
+    const inC = `course_id IN (SELECT id FROM acad_courses WHERE semester_id IN (${ph}))`;
+    const active = rows.find((x) => x.is_active)?.semester.id ?? null;
+    const token = acadTrash(`${rows.length} فصل`, [
+      { table: 'acad_semesters', where: `id IN (${ph})`, params: ids },
+      { table: 'acad_courses', where: `semester_id IN (${ph})`, params: ids },
+      { table: 'acad_assessments', where: inC, params: ids },
+      { table: 'acad_notes', where: `semester_id IN (${ph})`, params: ids },
+      { table: 'acad_results', where: inC, params: ids },
+    ], active);
+    db().tx(() => rows.forEach((x) => {
+      repo.deleteSemester(db(), x.semester.id);
+      record(db(), ws, { ref: `acad:sem:${x.semester.id}`, action: 'delete', summary: `حُذف الفصل ${x.semester.code} (جماعي)` });
+    }));
+    res.json({ ok: true, count: rows.length, undo: token });
+  }));
+  r.post('/courses/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
+    if (b.op !== 'delete') throw new ValidationError({ op: 'عملية غير معروفة' });
+    const rows = idList(b.ids).map((id) => repo.getCourse(db(), id)).filter((c): c is NonNullable<typeof c> => !!c);
+    const ph = rows.map(() => '?').join(',') || "''";
+    const ids = rows.map((c) => c.id);
+    const token = acadTrash(`${rows.length} مادة`, [
+      { table: 'acad_courses', where: `id IN (${ph})`, params: ids },
+      { table: 'acad_assessments', where: `course_id IN (${ph})`, params: ids },
+      { table: 'acad_notes', where: `course_id IN (${ph})`, params: ids },
+      { table: 'acad_results', where: `course_id IN (${ph})`, params: ids },
+    ]);
+    db().tx(() => rows.forEach((c) => {
+      repo.deleteCourse(db(), c.id);
+      record(db(), ws, { ref: `acad:course:${c.id}`, action: 'delete', summary: `حُذفت المادة ${c.code} (جماعي)` });
+    }));
+    res.json({ ok: true, count: rows.length, undo: token });
+  }));
   r.post('/notes/bulk', wrap((req, res) => {
     const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
     const ids = idList(b.ids);

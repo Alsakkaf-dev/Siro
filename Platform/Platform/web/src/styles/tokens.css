@@ -42,7 +42,7 @@
   --ink: #14172B; --ink-text: #FFFFFF;
   --lime: #C6EE45;
   --ok: #12703F; --ok-soft: rgba(18, 112, 63, 0.11);
-  --warn: #7f5200; --warn-soft: rgba(238, 160, 20, 0.16);
+  --warn: #6E4700; --warn-soft: rgba(238, 160, 20, 0.16);
   --danger: #AD3323; --danger-soft: rgba(194, 59, 42, 0.10);
   --tile-orange: #FFE9D6; --tile-purple: #E8E2FF; --tile-blue: #DDEEFF; --tile-green: #DAF3E5; --tile-pink: #FCE2F0;
   --shadow-1: 0 1px 2px rgba(31, 38, 90, 0.04), 0 14px 34px -18px rgba(54, 52, 140, 0.20);

@@ -58,7 +58,7 @@ Academic: toast «تراجع» for 9 s ✓, then gone. YouTube/workout/bookmark:
 | Task | Operator sequence (baseline) | Clicks | Est. time |
 |---|---|---|---|
 | T1 due this week | M P BB (open dashboard) M + scan list & compute week M | 1 | 5.4 s |
-| T2 add assessment + effect | M PBB PBB PBB (dash→courses→course) PBB (add) M + 3 fields (≈ 3·(P BB) + 12K) PBB (save) M PBB (calculator) PBB (course) | 7 + form | 25.6 s |
+| T2 add assessment + effect | M + 3·PBB (dash→courses→course) + PBB (add) + M + form[3·PBB + 12K] + PBB (save) + M + PBB (calculator) + PBB (pick course) | 7 + form | 20.4 s |
 | T3 find slides & resume | M PBB (library) 3·(M PBB) facets PBB (open) | 5 | 11.6 s |
 | T4 today's 4 things | M PBB (life) M scan, PBB (sports) PBB (mine) M scan | 3 | 10.0 s |
 | T5 new semester + archive | M PBB PBB form(6 fields ≈ 6·(PBB)+30K) PBB … archive **impossible** | ∞ | — |
@@ -80,4 +80,62 @@ Academic: toast «تراجع» for 9 s ✓, then gone. YouTube/workout/bookmark:
 
 ---
 
-## RE-AUDIT (after) — see bottom of this file (filled in step 10)
+## RE-AUDIT (after the redesign)
+
+Evidence: full crawler (37 baseline + 13 new routes, incl. a space with items, an item panel and saved views) × 1280/768/390 × light/dark; functional scenarios `scripts/e2e/scenarios.mjs` (11 flows, UI-only) at 1280 and 390; unit/API/migration tests (226). Same KLM operators as the baseline.
+
+### A. KLM-GOMS before → after
+
+| Task | After (best path) | Clicks before → after | Time before → after |
+|---|---|---|---|
+| T1 due this week (all courses + spaces) | Home «المواعيد» shows overdue / today / 7 days: M | 1 → **0** | 5.4 s → **1.4 s** |
+| T2 add assessment + see effect | `n` (K) + M + PBB (تقييم) + PBB (course) + PBB (متابعة) + form + PBB (save) + PBB (toast «الحاسبة» opens that course) | 7 → **5** (+form) | 20.4 s → **17.2 s** (and no recall of where the calculator is) |
+| T3 resume last semester's slides | Home «تابع من حيث توقفت»: M + PBB (resumes at last page) · not-recent: course page «ملفات المادة» 1 click · palette 5.2 s (unchanged) | 5 → **1** | 11.6 s → **2.7 s** |
+| T4 today's prayers + habits + workout + money | Home «الحياة اليوم» + «تمرين اليوم»: M | 3 → **0** | 10.0 s → **1.4 s** |
+| T5 new semester → archive as package | `n` → فصل دراسي (form) … archive: الدراسة › استيراد وتصدير الحزم → «تنزيل semester.json» + listed folders | impossible → **2** | ∞ → **2.6 s** (+ upload outside the app) |
+| T6 create a custom tracker (reading list / job hunt) | `n` (K) + M + PBB (مساحة جديدة) + PBB (استخدم) + PBB (إنشاء) | impossible → **3** | ∞ → **5.5 s** |
+| T7 undo a delete after the toast expired | sidebar «سلة المحذوفات» PBB + M + PBB «استعادة» | lossy backup restore → **2** | lossy → **4.0 s**, nothing else lost |
+
+Every top task improved; none regressed.
+
+### B. Cognitive walkthroughs (after)
+
+| CW | Failure points before | After |
+|---|---|---|
+| CW-1 due this week | 2 | **0** — Home answers it at first glance; `/week` for detail; bell lists deadlines + inbox |
+| CW-2 add assessment + effect | 1 | **0** — global (+) with course picker; success toast offers «الحاسبة» pre-selected on that course |
+| CW-3 find & resume slides | 1 | **0** — course page shows «ملفات المادة»; file page shows «المادة»; Home «تابع» |
+| CW-4 one place for today | task failed | **0** — Home Today cards (agenda, workout, life today, reading, inbox, alerts) |
+| CW-5 start SEM-6 → archive | step failed | **0** — (+) فصل دراسي; package export card with folder list and steps |
+| CW-6 something new | impossible | **0** — مساحاتي › القوالب (7 built-ins + «مساحة فارغة»), fields/statuses/views/automations editable from the UI |
+| CW-7 undo a delete | fails 2/3 | **0** — every delete (12 entity kinds) → toast «تراجع» + 30-day trash |
+
+### C. Nielsen severity ≥ 3 — all resolved
+
+| Violation (before) | Resolution |
+|---|---|
+| H-01 Home is a launcher (N1, 4) | Home = Today/This-week central station; old hero/cards kept below |
+| T-01 missing file (N1, rated 3 at baseline) | re-measured: the viewer error appears after 0.9 s (the 15 s was crawler network-idle, re-rated S3); Home «تنبيهات» now names the cause and links to Library settings |
+| H-05/T-03 undo only 9 s, academic only (N3, 4) | persistent trash (wos_trash) for academic, library, sports, spaces, views, automations, relations; `/trash`; history revert for item edits |
+| H-07 breadcrumbs missing on 9 routes (N4, 3) | one shell breadcrumb «أنت هنا» on every page (line chip + stations) |
+| Semester cascade delete recovery (N5, 3) | snapshot restore incl. official results (regression test) + confirmation for bulk semester/course deletes |
+| H-03 today spread over pages (N6, 3) | Home Today cards |
+| H-06 no global create (N7, 3) | (+) button, `n`, palette verbs, contextual default in spaces |
+| N9 unrecoverable after toast (3) | trash + activity log |
+| H-04 no user-defined anything (4) | My Spaces: types, 17 field kinds, statuses+transitions, 7 view kinds, templates, automations |
+
+### D. WCAG 2.2 AA (axe, serious + critical)
+
+| | Baseline | After |
+|---|---|---|
+| Page-states with serious/critical | 101 / 222 | **0** (see `ISSUES.md` § C for the final crawl numbers) |
+| Rules hit | button-name, color-contrast, target-size, label-content-name-mismatch, aria-required-children, scrollable-region-focusable | none |
+
+Manual keyboard pass: skip link; `/` and `n` from anywhere; every overlay (modal, drawer, menus) traps focus, closes on Esc and restores focus; board drag has a select alternative; routine-map blocks have an equivalent per-day list; calendar day «+» buttons are reachable.
+
+### E. Laws & principles (after)
+- **Hick:** 7 lines; Life split into 5 groups of 2–3 stations (max decision set 3 instead of 17).
+- **Fitts:** mobile bottom bar (5 targets ≥ 48 px, Create in the thumb zone); checkboxes 24 px; routine map equivalent list.
+- **Wayfinding:** line chip + crumbs + metro sidebar + view switcher + `/map`; same placement on every page.
+- **Consistency:** one Create, one undo model, one status-pill, one view switcher, one terminology glossary (`NAVIGATION_SPEC.md §4`).
+- **Emotional design:** calm Today page; honest «≈» for approximate dates and «غير معروف» kept (no guessing).
