@@ -281,7 +281,7 @@ function describeHttp(status: number, body: string): string {
   } catch {
     /* نص خام */
   }
-  if (status === 401 || status === 403) return `المفتاح مرفوض (${status})`;
+  if (status === 401 || status === 403) return `المفتاح مرفوض (${status})${detail ? `: ${detail.slice(0, 200)}` : ''}`;
   if (status === 404 && /model/i.test(detail)) return `الموديل غير موجود: ${detail}`;
   if (status === 429) return 'تجاوزت حد الطلبات عند المزوّد — حاول بعد قليل';
   return `خطأ ${status}${detail ? `: ${detail.slice(0, 160)}` : ''}`;
