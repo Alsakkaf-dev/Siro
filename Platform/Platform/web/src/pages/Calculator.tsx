@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useSem } from '../core/sem-context.js';
 import { PageHead } from '../ui/page.js';
@@ -15,7 +16,8 @@ export default function Calculator() {
   const S = useSem();
   const { sem, courses } = S;
   const base = `/academic/s/${sem.id}`;
-  const [courseId, setCourseId] = useState(courses[0]?.id ?? '');
+  const [sp] = useSearchParams();
+  const [courseId, setCourseId] = useState(courses.find((c) => c.id === sp.get('course'))?.id ?? courses[0]?.id ?? '');
   const [assume, setAssume] = useState(70);
   const [ov, setOv] = useState<Record<string, Record<string, MarkOverride>>>({});
   const course = courses.find((c) => c.id === courseId) ?? courses[0];
@@ -98,9 +100,9 @@ export default function Calculator() {
               <input id="assume" type="range" min={0} max={100} step={5} value={assume} onChange={(e) => setAssume(Number(e.target.value))} aria-valuetext={`${assume}%`} />
             </div>
           )}
-          <div className="targets" role="table" aria-label="العلامة المطلوبة لكل هدف">
+          <div className="targets" role="list" aria-label="العلامة المطلوبة لكل هدف">
             {calc.rows.map((r) => (
-              <div key={r.target} className={`target ${r.state}`}>
+              <div key={r.target} role="listitem" className={`target ${r.state}`}>
                 <Ring value={r.state === 'impossible' ? 100 : r.state === 'sure' ? 0 : r.need} size={54} stroke={6} color={r.state === 'impossible' ? 'var(--danger)' : r.state === 'sure' ? 'var(--ok)' : 'var(--accent)'} label={r.target} sub={`هدف ${r.target}`} />
                 <div className="t-main">
                   <strong className="num">{stateText(r)}</strong>
@@ -140,7 +142,7 @@ export default function Calculator() {
 
       <Card style={{ marginBlockStart: 'var(--s-5)' }}>
         <CardHead title="نظرة على كل المواد" icon="layers" />
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="جدول المادة (قابل للتمرير)">
           <table className="t">
             <thead><tr><th>المادة</th><th>مكتسب</th><th>أقصى ممكن</th>{[50, 60, 70, 80].map((t) => (<th key={t}>هدف {t}</th>))}</tr></thead>
             <tbody>

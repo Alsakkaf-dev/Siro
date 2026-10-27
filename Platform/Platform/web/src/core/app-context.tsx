@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { api, type Deleted } from '../lib/api.js';
+import { wos, type Space } from '../lib/wos.js';
+import type { Crumb } from './metro.js';
 import type { SemesterSummary } from '../../../shared/types.js';
 import { Icon } from '../lib/icons.js';
 
@@ -21,7 +23,20 @@ interface Ctx {
   setShowShortcuts: (v: boolean) => void;
   unknownCount: number;
   setUnknownCount: (n: number) => void;
+  /** مساحاتي (للقائمة والإنشاء السريع) */
+  spaces: Space[] | null;
+  reloadSpaces: () => Promise<void>;
+  /** اسم المالك (إعداد profile.name) */
+  profileName: string | null;
+  setProfileName: (n: string | null) => void;
+  /** مسار التنقل الذي تعلنه الصفحة (يرسمه الإطار مرة واحدة) */
+  crumbs: Crumb[] | null;
+  setCrumbs: (c: Crumb[] | null) => void;
+  /** فتح قائمة الإنشاء أو نموذج إنشاء سريع من أي مكان */
+  createCmd: CreateCmd | null;
+  openCreate: (c: CreateCmd | null) => void;
 }
+export type CreateCmd = { kind: 'menu' } | { kind: 'quick-item'; spaceId?: string; due?: string } | { kind: 'quick-assessment'; courseId?: string } | { kind: 'quick-note' };
 
 const C = createContext<Ctx | null>(null);
 export function useApp(): Ctx {
@@ -46,6 +61,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [unknownCount, setUnknownCount] = useState(0);
   const [confirmState, setConfirmState] = useState<(ConfirmOpts & { resolve: (v: boolean) => void }) | null>(null);
   const seq = useRef(0);
+  const [spaces, setSpaces] = useState<Space[] | null>(null);
+  const [profileName, setProfileName] = useState<string | null>(null);
+  const [crumbs, setCrumbs] = useState<Crumb[] | null>(null);
+  const [createCmd, openCreate] = useState<CreateCmd | null>(null);
+  const reloadSpaces = useCallback(async () => {
+    try {
+      setSpaces(await wos.spaces());
+    } catch {
+      setSpaces([]);
+    }
+  }, []);
+  useEffect(() => {
+    // بعد أول رسم: لا تنافس طلبات الصفحة الأولى
+    const t = window.setTimeout(() => {
+      void reloadSpaces();
+      wos.profile().then((p) => setProfileName(p.name)).catch(() => undefined);
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, [reloadSpaces]);
 
   const reloadSemesters = useCallback(async () => {
     try {
@@ -100,6 +134,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 .then(async () => {
                   await after();
                   await reloadSemesters();
+                  void reloadSpaces();
                   toast(`تمت استعادة ${label}`, { kind: 'ok' });
                 })
                 .catch((e: Error) => toast(e.message, { kind: 'error' }));
@@ -111,14 +146,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         toast((e as Error).message, { kind: 'error' });
       }
     },
-    [toast, reloadSemesters],
+    [toast, reloadSemesters, reloadSpaces],
   );
 
   const activeId = useMemo(() => semesters?.find((s) => s.is_active)?.id ?? semesters?.[0]?.id ?? null, [semesters]);
 
   const value = useMemo<Ctx>(
-    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCount, setUnknownCount }),
-    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCount],
+    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCount, setUnknownCount, spaces, reloadSpaces, profileName, setProfileName, crumbs, setCrumbs, createCmd, openCreate }),
+    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCount, spaces, reloadSpaces, profileName, crumbs, createCmd],
   );
 
   return (

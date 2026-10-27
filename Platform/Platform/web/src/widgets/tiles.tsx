@@ -197,7 +197,7 @@ export function WeekTimetable({ courses, todayDow }: { courses: Course[]; todayD
   void DAY_AR;
   const H = 52;
   return (
-    <div className="tt-wrap"><div className="tt" style={{ '--rows': hours.length, '--h': `${H}px` } as CSSProperties}>
+    <div className="tt-wrap" tabIndex={0} role="region" aria-label="جدول المحاضرات الأسبوعي (قابل للتمرير)"><div className="tt" style={{ '--rows': hours.length, '--h': `${H}px` } as CSSProperties}>
       <div className="tt-corner" />
       {days.map((d) => (
         <div key={d} className={cx('tt-dh', d === todayDow && 'today')}>{dayName[d]}</div>

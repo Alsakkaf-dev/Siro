@@ -1,6 +1,7 @@
-import { useMemo, useState, type FormEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import { useApp } from '../core/app-context.js';
-import { ApiError, sports, type ItemInput } from '../lib/api.js';
+import { ApiError, api, sports, type ItemInput } from '../lib/api.js';
+import { useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, DragHandle, EmptyState, Field, IconButton, Modal, Skeleton, useDragReorder } from '../ui/ui.js';
 import { useNow } from '../widgets/tiles.js';
@@ -11,9 +12,16 @@ import { WEEKDAYS, WEEKDAY_AR, weekdayKL, type Exercise, type MyItem, type MyWee
 export default function SportsMine() {
   const { mine, loaded, error, set, reload } = useMine();
   const ex = useExercises();
-  const { toast, confirm } = useApp();
+  const { toast } = useApp();
   const now = useNow(60_000);
-  const [edit, setEdit] = useState<MyWorkout | 'new' | null>(null);
+  const [sp, setSp] = useSearchParams();
+  const [edit, setEdit] = useState<MyWorkout | 'new' | null>(() => (sp.get('new') ? 'new' : null));
+  useEffect(() => {
+    if (sp.get('new')) {
+      sp.delete('new');
+      setSp(sp, { replace: true });
+    }
+  }, [sp, setSp]);
   const today = weekdayKL(now);
   const byId = useMemo(() => new Map(mine.workouts.map((w) => [w.id, w])), [mine.workouts]);
   const todayW = mine.week[today] ? byId.get(mine.week[today]!) : undefined;
@@ -65,11 +73,10 @@ export default function SportsMine() {
     }
   };
   const del = async (w: MyWorkout): Promise<void> => {
-    if (!(await confirm({ title: `حذف «${w.name}»؟`, body: <p>يُحذف التمرين من موقعك ويُفرَّغ من أيام الأسبوع المعيّن لها. لا يمسّ ملفات راشد.</p>, confirmLabel: 'حذف', danger: true }))) return;
     try {
-      await sports.del(w.id);
+      const r = await sports.del(w.id);
       set(await sports.mine());
-      toast('حُذف التمرين', { kind: 'ok' });
+      toast(`حُذف «${w.name}» — أُفرغت أيامه`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(async () => set(await sports.mine())) } });
     } catch (e) {
       fail(e);
     }

@@ -7,6 +7,7 @@ import { cx } from '../ui/ui.js';
 import { daysLeftText, deadlineAlerts, notifiable, type DeadlineAlert } from '../../../shared/review.js';
 import { todayMs } from '../../../shared/semester.js';
 import type { SemesterBundle } from '../../../shared/types.js';
+import { wos } from '../lib/wos.js';
 import { getNotifyEnabled, markFired, notifyPermission, wasFired } from './prefs.js';
 
 /** جرس المواعيد: يعرض المواعيد خلال 7 أيام للفصل النشط (والفائتة المفتوحة)، ويُطلق إشعار المتصفح مرة واحدة فقط للتي لها تاريخ محدد (اليوم/غدًا) إن فعّله المستخدم. */
@@ -18,10 +19,17 @@ export function DeadlineBell() {
   const [tick, setTick] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
+  const [inbox, setInbox] = useState<{ id: string; title: string; to?: string | null }[]>([]);
   const load = useCallback(() => {
-    if (!activeId || document.hidden) return;
+    if (document.hidden) return;
+    wos.inbox().then((r) => setInbox(r.filter((x) => !x.read))).catch(() => undefined);
+    if (!activeId) return;
     api.bundle(activeId).then(setBundle).catch(() => undefined);
   }, [activeId]);
+  // الوارد (تنبيهات الأتمتة) — عند فتح الجرس وبعد التحميل
+  useEffect(() => {
+    if (open) wos.inbox().then((r) => setInbox(r.filter((x) => !x.read))).catch(() => undefined);
+  }, [open]);
 
   // صفحات الفصل تُعلن حزمتها (platform:bundle) فلا نطلبها ثانية؛ في غيرها نجلبها بعد التحميل بوقت كافٍ (لا تنافس أول رسم)
   const have = useRef(false);
@@ -95,7 +103,7 @@ export function DeadlineBell() {
   }, [open]);
   useEffect(() => setOpen(false), [loc.pathname]);
 
-  const urgent = alerts.filter((a) => a.kind !== 'week' && (a.overdue || (a.daysLeft ?? 9) <= 2)).length;
+  const urgent = alerts.filter((a) => a.kind !== 'week' && (a.overdue || (a.daysLeft ?? 9) <= 2)).length + inbox.length;
   const base = bundle ? `/academic/s/${bundle.semester.id}` : '/academic';
   const row = (a: DeadlineAlert): ReactElement => (
     <li key={a.id}>
@@ -108,7 +116,7 @@ export function DeadlineBell() {
 
   return (
     <div className="menu-wrap" ref={ref}>
-      <button className="icon-btn bell" aria-label={urgent ? `المواعيد القريبة (${urgent})` : 'المواعيد القريبة'} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+      <button className="icon-btn bell" aria-label={urgent ? `المواعيد والتنبيهات (${urgent})` : 'المواعيد والتنبيهات'} aria-haspopup="true" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         <Icon name="bell" size={18} />
         {urgent > 0 && <span className="bell-n" aria-hidden="true">{urgent}</span>}
       </button>
@@ -120,7 +128,15 @@ export function DeadlineBell() {
           ) : (
             <ul className="plain">{alerts.slice(0, 8).map(row)}</ul>
           )}
+          {inbox.length > 0 && (
+            <>
+              <div className="hit-group">الوارد ({inbox.length} جديد)</div>
+              <ul className="plain">{inbox.slice(0, 4).map((x) => <li key={x.id}><Link to={x.to ?? '/inbox'} className="bell-row"><i className="dot" style={{ background: 'var(--accent)' }} /><span><bdi>{x.title}</bdi></span></Link></li>)}</ul>
+            </>
+          )}
           <div className="sep" />
+          <Link to="/inbox">كل الوارد <Icon name="bell" size={14} /></Link>
+          <Link to="/week">هذا الأسبوع <Icon name="calendar" size={14} /></Link>
           <Link to={`${base}/timeline`}>الجدول الزمني <Icon name="left" size={14} /></Link>
           <Link to="/settings#appearance">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
         </div>

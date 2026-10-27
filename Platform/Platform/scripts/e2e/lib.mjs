@@ -28,7 +28,7 @@ export async function resolveRoutes(extra = []) {
   const j = async (u) => (await fetch(BASE + u)).json();
   const sems = await j('/api/semesters');
   const sem = sems.find((s) => s.is_active) ?? sems[0];
-  const out = ['/', '/academic', '/academic/import', '/library', '/library/folders', '/library/youtube', '/library/settings', '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/commands', '/life/settings', '/review', '/sports', '/sports/templates', '/sports/mine', '/settings', '/search?q=test'];
+  const out = ['/', '/academic', '/academic/import', '/library', '/library/folders', '/library/youtube', '/library/settings', '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/commands', '/life/settings', '/review', '/sports', '/sports/templates', '/sports/mine', '/settings', '/search?q=test', '/week', '/everything', '/inbox', '/map', '/trash', '/activity', '/spaces', '/spaces/templates', '/spaces/automations', '/review/progress'];
   if (sem) {
     const b = `/academic/s/${sem.id}`;
     out.push(b, `${b}/courses`, `${b}/timeline`, `${b}/calculator`, `${b}/weights`, `${b}/unknowns`, `${b}/print`);
@@ -41,6 +41,13 @@ export async function resolveRoutes(extra = []) {
     const yt = await j('/api/library/youtube');
     if (yt[0]) out.push(`/library/y/${yt[0].id}`);
   } catch { /* المكتبة غير متاحة */ }
+  try {
+    const sp = await j('/api/wos/spaces');
+    for (const s of sp.slice(0, 2)) out.push(`/spaces/${s.id}`);
+    const full = sp[0] ? await j(`/api/wos/spaces/${sp[0].id}`) : null;
+    if (full?.items?.[0]) out.push(`/spaces/${sp[0].id}?item=${full.items[0].id}`);
+    if (full?.views) for (const v of full.views.slice(1)) out.push(`/spaces/${sp[0].id}?view=${v.id}`);
+  } catch { /* لا مساحات */ }
   return [...out, ...extra];
 }
 

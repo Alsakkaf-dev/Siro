@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Shell } from './shell/Shell.js';
 import { SemesterLayout } from './core/sem-context.js';
@@ -41,6 +41,18 @@ const LibrarySettings = lazy(() => import('./pages/LibrarySettings.js'));
 const LibraryItem = lazy(() => import('./pages/LibraryItem.js'));
 const NotFound = lazy(() => import('./pages/NotFound.js'));
 const ImportSemester = lazy(() => import('./pages/ImportSemester.js'));
+const Week = lazy(() => import('./pages/Week.js'));
+const Everything = lazy(() => import('./pages/Everything.js'));
+const Inbox = lazy(() => import('./pages/Inbox.js'));
+const SiteMap = lazy(() => import('./pages/SiteMap.js'));
+const Trash = lazy(() => import('./pages/Trash.js'));
+const Activity = lazy(() => import('./pages/Activity.js'));
+const Spaces = lazy(() => import('./pages/Spaces.js'));
+const SpaceTemplates = lazy(() => import('./pages/Spaces.js').then((m) => ({ default: m.SpaceTemplates })));
+const AllAutomations = lazy(() => import('./pages/Spaces.js').then((m) => ({ default: m.AllAutomations })));
+const Space = lazy(() => import('./pages/Space.js'));
+const ReviewProgress = lazy(() => import('./pages/ReviewProgress.js'));
+const PublicShare = lazy(() => import('./pages/PublicShare.js'));
 
 function AcademicIndex() {
   return <Semesters />;
@@ -51,6 +63,7 @@ export function App() {
   void activeId;
   return (
     <Routes>
+      <Route path="p/:token" element={<Suspense fallback={null}><PublicShare /></Suspense>} />
       <Route element={<Shell />}>
         <Route index element={<Home />} />
         <Route path="academic" element={<AcademicIndex />} />
@@ -92,6 +105,23 @@ export function App() {
         <Route path="settings" element={<Settings />} />
         <Route path="search" element={<SearchPage />} />
         <Route path="home" element={<Navigate to="/" replace />} />
+        {/* الخطوط الجديدة (docs/design/IA_METRO_MAP.md) */}
+        <Route path="week" element={<Week />} />
+        <Route path="everything" element={<Everything />} />
+        <Route path="inbox" element={<Inbox />} />
+        <Route path="map" element={<SiteMap />} />
+        <Route path="trash" element={<Trash />} />
+        <Route path="activity" element={<Activity />} />
+        <Route path="spaces" element={<Spaces />} />
+        <Route path="spaces/templates" element={<SpaceTemplates />} />
+        <Route path="spaces/automations" element={<AllAutomations />} />
+        <Route path="spaces/:id" element={<Space />} />
+        <Route path="review/progress" element={<ReviewProgress />} />
+        {/* أسماء بديلة مريحة — الروابط القديمة تبقى كما هي (ADR-0006) */}
+        <Route path="today" element={<Navigate to="/" replace />} />
+        <Route path="study" element={<Navigate to="/academic" replace />} />
+        <Route path="settings/trash" element={<Navigate to="/trash" replace />} />
+        <Route path="spaces/new" element={<Navigate to="/spaces/templates" replace />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

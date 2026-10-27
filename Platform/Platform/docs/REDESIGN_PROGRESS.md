@@ -8,7 +8,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] 2. Phase A audit (§5) + competitive teardown (§4)
 - [x] 3. Phase B designs (§6–§9) + ADRs + traceability skeleton
 - [x] 4. Foundation: Work-OS core migration + adapters + API + tests
-- [ ] 5. Shell & navigation rebuild (metro IA, breadcrumbs, Create +, palette verbs, mobile bar, redirects)
+- [x] 5. Shell & navigation rebuild (metro IA, breadcrumbs, Create +, palette verbs, mobile bar, redirects)
 - [ ] 6. Views engine + specialized views registered
 - [ ] 7. Universal CRUD (inline edit, bulk, undo, history, relations, side panel)
 - [ ] 8. Custom types/fields/templates (My Spaces) + automations
@@ -43,3 +43,14 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - Migration 5 (13 wos_* tables, additive). shared/wos.ts (types, zod, field kinds, filters/sort), shared/formula.ts (safe parser), shared/templates.ts (7 built-ins), server/wos/{core,repo,automations,agenda,routes}.ts.
 - New API: /api/wos/* (spaces, type, items, bulk, views, automations, templates, refs, relations, links, history+revert, trash, inbox, agenda, everything, shares, profile), /api/public/:token, /api/assessments/bulk, /api/notes/bulk, /api/library/bulk, /api/library/youtube/bulk-delete, /api/sports/workouts/bulk-delete. DELETE for YouTube/bookmark/workout now return `undo`.
 - Tests: 210/210 on both drivers (+28: tests/wos.test.ts, tests/formula.test.ts, tests/migration.test.ts on a copy of the real DB).
+
+## Step 5–7 result (shell, views engine, universal CRUD — committed together)
+- Shell v2 generated from the line registry (`web/src/core/plugins.config.tsx` + `metro.ts`): 7 lines; sidebar = metro map (line rail + stations + «تقاطعات»); one breadcrumb «أنت هنا» for every page (pages publish crumbs via PageHead → shell); global Create (+) (`n`) with quick forms (item / assessment / note) + links; mobile bottom bar; palette with verbs («أنشئ …», backup now, scan library) + every station + spaces/items search; keyboard map extended (old keys unchanged).
+- New pages: Today (home rebuilt, old hero/cards/tiles kept below), /week, /everything, /inbox, /map, /trash, /activity, /spaces, /spaces/templates, /spaces/automations, /spaces/:id, /review/progress, /p/:token (public read-only). Aliases: /today, /study, /settings/trash, /spaces/new.
+- Views engine (`web/src/views/`): List, Board (drag + keyboard alternative), Table (inline edit, sort), Calendar, Timeline, Gallery, Dashboard; saved views with filters/sort/group; item side panel (fields, sub-items, relations, activity); space settings (fields incl. formula/rollup, statuses + transitions); automation editor (sentence UI); share/export/template/duplicate/archive/delete.
+- Interchanges: course page ↔ «ملفات المادة» + «مرتبط بـ»; library item ↔ «المادة» + «مرتبط بـ».
+- Confirmation policy applied: single deletes (video, workout, bookmark) no longer ask; undo toast + trash instead.
+- D7: Line switcher moved from topbar into the sidebar metro list (7 lines + global tools did not fit at 1280; topbar keeps only global tools).
+- D8: Done items visible by default in board/calendar/gallery/dashboard (an always-empty «Done» column misled users); hidden by default in list/table.
+- Bugs found by e2e and fixed: mobile search input had ~0px writable width (text typed reversed); modals rendered inside the page stacking context (mobile bottom bar covered Save) → Modal/Drawer now portal to body; automation form saved null for date fields; CSS class collisions (.tl/.kpi/.rel/.tpl-card/.week-grid) renamed.
+- a11y: quick crawl ALL CLEAN (axe 0 serious/critical, 0 overflow, 0 console) on 50 routes @1280/390 light; scenarios ALL PASSED (11) @1280 and @390.

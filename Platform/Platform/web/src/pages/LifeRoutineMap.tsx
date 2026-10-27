@@ -55,6 +55,14 @@ export default function LifeRoutineMap() {
                       {placed.map((p) => <Block key={p.b.id} b={p.b} lane={p.lane} h={h} sel={sel} related={related} onSel={setSel} />)}
                       {pts.map((p) => <span key={p.id} role="img" className="rm-pt" tabIndex={0} title={`${p.label_ar} ${p.time}${p.in_outlook === false ? ' (ليس في التقويم)' : ''}`} aria-label={`${p.label_ar} ${p.time}`} style={{ insetInlineStart: `${(p.time_min / 1440) * 100}%` }} />)}
                     </div>
+                    <details className="rm-list">
+                      <summary>قائمة كتل {day.name_ar} ({blocks.length})</summary>
+                      <ul className="plain">
+                        {[...blocks].sort((x, y) => x.start_min - y.start_min).map((b) => (
+                          <li key={b.id}><button type="button" className="chip" aria-pressed={sel === b.id} onClick={() => setSel(sel === b.id ? null : b.id)}><bdi className="num">{b.start}–{b.end}</bdi> {b.label_ar ?? b.name_original}{(b.overlaps_with ?? []).length ? ' ⚠' : ''}</button></li>
+                        ))}
+                      </ul>
+                    </details>
                   </div>
                 );
               })}
@@ -100,16 +108,15 @@ function Block({ b, lane, full, h, sel, related, onSel }: { b: RBlock; lane: num
   const w = Math.max(0.5, ((Math.min(b.end_min, 1440) - b.start_min) / 1440) * 100);
   const label = `${b.label_ar ?? b.name_original} ${b.start}–${b.end}${ov ? ' — يتداخل مع كتل أخرى' : ''}`;
   return (
-    <button
-      type="button"
+    // الكتل المرئية للفأرة فقط (قد تكون أصغر من 24px)؛ البديل المكافئ للوحة المفاتيح وقارئ الشاشة: «قائمة الكتل» تحت كل يوم (WCAG 2.5.8)
+    <div
+      aria-hidden="true"
       className={`rm-blk k-${b.type}${full ? ' bg' : ''}${ov ? ' ov' : ''}${sel === b.id ? ' sel' : ''}${sel && related.has(b.id) && sel !== b.id ? ' rel' : ''}${b.moves_with_prayer_time ? ' mv' : ''}`}
       style={{ insetInlineStart: `${(b.start_min / 1440) * 100}%`, inlineSize: `${w}%`, top: full ? 0 : 4 + lane * LANE_H, height: full ? h : LANE_H - 4 }}
       title={label}
-      aria-label={label}
-      aria-pressed={sel === b.id}
       onClick={() => onSel(sel === b.id ? null : b.id)}
     >
       {w > 7 && <span className="rm-t">{b.label_ar ?? b.name_original}</span>}
-    </button>
+    </div>
   );
 }

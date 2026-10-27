@@ -6,50 +6,27 @@ import { useApp } from '../core/app-context.js';
 import { Skeleton, cx, useDebounced } from '../ui/ui.js';
 import { normalizeText } from '../../../shared/text.js';
 import type { MoreHit, SearchHit } from '../../../shared/types.js';
+import { PLUGINS } from '../core/plugins.config.js';
+import { stationsOf } from '../core/metro.js';
+import { usePluginCtx } from './Shell.js';
+import { lib } from '../lib/api.js';
 
 interface Cmd { id: string; title: string; sub?: string; icon: IconName; keys?: string; to?: string; run?: () => void; top?: boolean }
 interface Row { key: string; group: string; title: string; sub?: string; color?: string; icon?: IconName; to?: string; run?: () => void }
 
-const TOP = new Set(['/', '/academic', '/library', '/life', '/life/finance', '/sports', '/review', '/settings']);
-const PAGES: { to: string; title: string; icon: IconName; kw: string }[] = [
-  { to: '/', title: 'الرئيسية', icon: 'home', kw: 'home dashboard' },
-  { to: '/academic', title: 'الفصول الدراسية', icon: 'calendar', kw: 'academic semesters' },
-  { to: '/academic/import', title: 'استيراد فصل', icon: 'upload', kw: 'import semester package drive حزمة استيراد' },
-  { to: '/library', title: 'المكتبة', icon: 'book', kw: 'library pdf files' },
-  { to: '/library/youtube', title: 'مكتبة YouTube', icon: 'play', kw: 'youtube videos' },
-  { to: '/life', title: 'الحياة — اللوحة', icon: 'heart', kw: 'life dashboard' },
-  { to: '/life/finance', title: 'المالية', icon: 'chart', kw: 'finance money spending مصروف فلوس' },
-  { to: '/life/prayers', title: 'الصلاة والقضاء', icon: 'moon', kw: 'prayers qada' },
-  { to: '/life/habits', title: 'العادات', icon: 'check', kw: 'habits vape sugar تدخين سكر' },
-  { to: '/life/routine', title: 'الروتين اليومي', icon: 'clock', kw: 'routine schedule' },
-  { to: '/life/body', title: 'الجسم والوزن', icon: 'target', kw: 'body weight وزن' },
-  { to: '/life/alternatives', title: 'بدائل العادات', icon: 'zap', kw: 'alternatives' },
-  { to: '/life/ledger', title: 'السجل المالي الكامل', icon: 'database', kw: 'ledger سجل مصروفات' },
-  { to: '/life/insights', title: 'مؤشرات المال', icon: 'chart', kw: 'insights مؤشرات متوسط الصرف' },
-  { to: '/life/routine-map', title: 'خريطة الروتين الأسبوعي', icon: 'timer', kw: 'routine map كتل' },
-  { to: '/life/qada-plan', title: 'خطة القضاء', icon: 'clock', kw: 'qada plan قضاء سيناريو' },
-  { to: '/life/glossary', title: 'المصطلحات', icon: 'book', kw: 'glossary terms قاموس' },
-  { to: '/sports', title: 'الرياضة — التمارين', icon: 'dumbbell', kw: 'sports exercises muscles عضلات' },
-  { to: '/sports/templates', title: 'قوالب التمارين', icon: 'dumbbell', kw: 'templates plans' },
-  { to: '/sports/mine', title: 'تماريني', icon: 'dumbbell', kw: 'my workouts' },
-  { to: '/review', title: 'مراجعة الأسبوع', icon: 'sparkle', kw: 'weekly review المراجعة الأسبوعية' },
-  { to: '/settings', title: 'الإعدادات والنسخ الاحتياطي', icon: 'sliders', kw: 'settings backup' },
+/** صفحات لا تظهر كمحطات في الخطوط (عامة) */
+const GLOBAL_PAGES: { to: string; title: string; icon: IconName; kw: string }[] = [
+  { to: '/settings', title: 'الإعدادات والبيانات', icon: 'sliders', kw: 'settings backup نسخ احتياطي تصدير استيراد مظهر' },
+  { to: '/trash', title: 'سلة المحذوفات', icon: 'trash', kw: 'trash restore استعادة محذوف تراجع' },
+  { to: '/settings#profile', title: 'الملف الشخصي (الاسم)', icon: 'user', kw: 'profile name اسم' },
 ];
+const TOP = new Set(['/', '/week', '/academic', '/library', '/life', '/spaces', '/review', '/settings']);
 
-/** صفحات الفصل الحالي (تُبنى من الفصل النشط). */
-const SEM_PAGES: { path: string; title: string; icon: IconName; kw: string }[] = [
-  { path: '', title: 'لوحة الفصل', icon: 'grid', kw: 'semester dashboard الفصل' },
-  { path: '/courses', title: 'المواد', icon: 'book', kw: 'courses subjects مواد' },
-  { path: '/timeline', title: 'الجدول الزمني', icon: 'clock', kw: 'timeline weeks أسابيع' },
-  { path: '/calculator', title: 'حاسبة الدرجات', icon: 'calc', kw: 'calculator grades درجات' },
-  { path: '/weights', title: 'خريطة الأوزان', icon: 'pie', kw: 'weights أوزان' },
-  { path: '/unknowns', title: 'غير المعروف', icon: 'help', kw: 'unknowns مجهول' },
-];
-
-const GROUPS: [MoreHit['kind'], string][] = [['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
+const GROUPS: [MoreHit['kind'], string][] = [['space', 'مساحاتي'], ['item', 'عناصر المساحات'], ['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
 
 export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputElement | null> }) {
-  const { theme, setTheme, setShowShortcuts, activeId } = useApp();
+  const { theme, setTheme, setShowShortcuts, openCreate, toast } = useApp();
+  const pctx = usePluginCtx();
   const [q, setQ] = useState('');
   const dq = useDebounced(q.trim(), 160);
   const [hits, setHits] = useState<SearchHit[] | null>(null);
@@ -87,22 +64,41 @@ export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputEleme
     return () => document.removeEventListener('mousedown', d);
   }, []);
 
-  const cmds: Cmd[] = useMemo(
-    () => [
-      ...PAGES.map((p): Cmd => ({ id: p.to, title: p.title, icon: p.icon, to: p.to, sub: p.kw, top: TOP.has(p.to) })),
-      ...(activeId ? SEM_PAGES.map((p): Cmd => ({ id: `sem${p.path}`, title: p.title, icon: p.icon, to: `/academic/s/${activeId}${p.path}`, sub: p.kw })) : []),
+  const cmds: Cmd[] = useMemo(() => {
+    const out: Cmd[] = [];
+    // أفعال «أنشئ …» من كل الخطوط (نفس قائمة +)
+    for (const p of PLUGINS) {
+      for (const a of p.create ?? []) {
+        const to = a.to?.(pctx) ?? undefined;
+        if (a.to && !to) continue;
+        out.push({ id: `new-${p.id}-${a.id}`, title: `أنشئ ${a.label}`, sub: `create new add جديد إضافة ${p.name.ar}`, icon: 'plus', ...(a.command ? { run: () => openCreate(a.command === 'quick-item' ? { kind: 'quick-item' } : { kind: a.command! }) } : { to }) });
+      }
+    }
+    // محطات كل الخطوط (مصدر واحد: سجل الخطوط)
+    const seen = new Set<string>();
+    for (const p of PLUGINS) {
+      for (const st of stationsOf(p, pctx)) {
+        if (st.interchange || seen.has(st.to)) continue;
+        seen.add(st.to);
+        out.push({ id: st.to, title: st.label === p.name.ar || st.to === p.basePath ? st.label : `${st.label} — ${p.name.ar}`, icon: st.icon, to: st.to, sub: `${st.kw ?? ''} ${p.name.en} ${p.name.ar}`, top: TOP.has(st.to) });
+      }
+    }
+    for (const g of GLOBAL_PAGES) out.push({ id: g.to, title: g.title, icon: g.icon, to: g.to, sub: g.kw, top: TOP.has(g.to) });
+    out.push(
       { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', sub: 'theme dark light مظهر', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
+      { id: 'backup', title: 'خذ نسخة احتياطية الآن', icon: 'download', sub: 'backup now نسخة احتياطية', run: () => void api.backupNow().then((b) => toast(`تم إنشاء النسخة ${b.name}`, { kind: 'ok' })).catch((e: Error) => toast(e.message, { kind: 'error' })) },
+      { id: 'scan', title: 'افحص مجلد المكتبة الآن', icon: 'refresh', sub: 'scan library فحص', run: () => void lib.scan().then(() => toast('بدأ فحص المكتبة', { kind: 'ok' })).catch((e: Error) => toast(e.message, { kind: 'error' })) },
       { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', to: '/settings#appearance', sub: 'notifications accent لون تنبيه' },
       { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', run: () => setShowShortcuts(true), sub: 'shortcuts' },
-    ],
-    [theme, setTheme, setShowShortcuts, activeId],
-  );
+    );
+    return out;
+  }, [theme, setTheme, setShowShortcuts, pctx, openCreate, toast]);
 
   const nq = normalizeText(q);
   const rows: Row[] = useMemo(() => {
     const out: Row[] = [];
-    const cm = (nq ? cmds.filter((c) => normalizeText(`${c.title} ${c.sub ?? ''}`).includes(nq)) : cmds.filter((c) => c.top)).slice(0, nq ? 5 : 8);
-    cm.forEach((c) => out.push({ key: `c-${c.id}`, group: nq ? 'صفحات وأوامر' : 'اذهب إلى', title: c.title, icon: c.icon, ...(c.to ? { to: c.to } : {}), ...(c.run ? { run: c.run } : {}) }));
+    const cm = (nq ? cmds.filter((c) => { const h = normalizeText(`${c.title} ${c.sub ?? ''}`); return nq.split(/\s+/).every((t) => h.includes(t)); }).sort((a, b) => Number(!!b.run || b.id.startsWith('new-')) - Number(!!a.run || a.id.startsWith('new-'))) : cmds.filter((c) => c.top)).slice(0, nq ? 8 : 8);
+    cm.forEach((c) => out.push({ key: `c-${c.id}`, group: nq ? (c.id.startsWith('new-') || c.run ? 'افعل' : 'اذهب إلى') : 'اذهب إلى', title: c.title, icon: c.icon, ...(c.to ? { to: c.to } : {}), ...(c.run ? { run: c.run } : {}) }));
     const academic = (hits ?? []).slice(0, 12);
     const urlOf = (h: SearchHit): string => `/academic/s/${h.semester_id}/courses/${h.course_id}${h.type === 'assessment' ? `#a-${h.id}` : ''}`;
     academic.filter((h) => h.type === 'course').forEach((h) => out.push({ key: `a-${h.id}`, group: 'المواد', title: h.title, sub: h.subtitle, color: h.color, to: urlOf(h) }));

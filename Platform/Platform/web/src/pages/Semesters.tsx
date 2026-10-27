@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
@@ -14,7 +14,14 @@ import type { Semester, SemesterSummary } from '../../../shared/types.js';
 export default function Semesters() {
   const { semesters, reloadSemesters, toast, confirm, deleteWithUndo } = useApp();
   const nav = useNavigate();
-  const [form, setForm] = useState<{ edit?: Semester } | null>(null);
+  const [sp, setSp] = useSearchParams();
+  const [form, setForm] = useState<{ edit?: Semester } | null>(() => (sp.get('new') ? {} : null));
+  useEffect(() => {
+    if (sp.get('new')) {
+      sp.delete('new');
+      setSp(sp, { replace: true });
+    }
+  }, [sp, setSp]);
   const now = todayMs();
 
   if (!semesters) return <div className="page"><PageHead title="مدير الفصول" icon="layers" /><div className="grid auto"><Skeleton h={220} r={20} /><Skeleton h={220} r={20} /></div></div>;

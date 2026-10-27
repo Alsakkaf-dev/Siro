@@ -14,7 +14,7 @@ export class ApiError extends Error {
 // طلبات GET المتطابقة والمتزامنة تُدمج في طلب واحد؛ أي تعديل (POST/PATCH/DELETE) يفرّغ القائمة كي لا نُرجع بيانات قديمة.
 const inflight = new Map<string, Promise<unknown>>();
 
-function req<T>(method: string, url: string, body?: unknown): Promise<T> {
+export function req<T>(method: string, url: string, body?: unknown): Promise<T> {
   if (method !== 'GET') {
     inflight.clear();
     return doReq<T>(method, url, body);
@@ -112,11 +112,13 @@ export const lib = {
   bookmarks: (ref: string) => req<LibBookmark[]>('GET', `/api/library/bookmarks/${encodeURIComponent(ref)}`),
   addBookmark: (ref: string, pos: number, label?: string) => req<LibBookmark>('POST', `/api/library/bookmarks/${encodeURIComponent(ref)}`, { pos, label }),
   editBookmark: (id: string, label: string) => req<{ ok: boolean }>('PATCH', `/api/library/bookmark/${encodeURIComponent(id)}`, { label }),
-  delBookmark: (id: string) => req<{ ok: boolean }>('DELETE', `/api/library/bookmark/${encodeURIComponent(id)}`),
+  delBookmark: (id: string) => req<Deleted>('DELETE', `/api/library/bookmark/${encodeURIComponent(id)}`),
   youtube: () => req<LibItem[]>('GET', '/api/library/youtube'),
   addYoutube: (b: { url: string; title?: string; course?: string }) => req<LibItem>('POST', '/api/library/youtube', b),
   editYoutube: (id: string, b: { title?: string; course?: string }) => req<LibItem>('PATCH', `/api/library/youtube/${encodeURIComponent(id)}`, b),
-  delYoutube: (id: string) => req<{ ok: boolean }>('DELETE', `/api/library/youtube/${encodeURIComponent(id)}`),
+  delYoutube: (id: string) => req<Deleted>('DELETE', `/api/library/youtube/${encodeURIComponent(id)}`),
+  bulkDelYoutube: (ids: string[]) => req<Deleted & { count: number }>('POST', '/api/library/youtube/bulk-delete', { ids }),
+  bulk: (refs: string[], op: 'tag' | 'untag' | 'done' | 'undone', tag?: string) => req<{ ok: boolean; count: number }>('POST', '/api/library/bulk', { refs, op, tag }),
   text: (id: string) => req<{ name: string; text: string; truncated: boolean; size: number }>('GET', `/api/library/files/${encodeURIComponent(id)}/text`),
   docx: (id: string) => req<{ html: string; messages: string[] }>('GET', `/api/library/files/${encodeURIComponent(id)}/docx`),
   rawUrl: (id: string, download = false) => `/api/library/files/${encodeURIComponent(id)}/raw${download ? '?download=1' : ''}`,
@@ -142,7 +144,8 @@ export const sports = {
   create: (b: { name: string; note?: string; items?: ItemInput[] }) => req<MyWorkout>('POST', '/api/sports/workouts', b),
   edit: (id: string, b: { name?: string; note?: string }) => req<MyWorkout>('PATCH', `/api/sports/workouts/${id}`, b),
   setItems: (id: string, items: ItemInput[]) => req<MyWorkout>('PUT', `/api/sports/workouts/${id}/items`, { items }),
-  del: (id: string) => req<{ ok: boolean }>('DELETE', `/api/sports/workouts/${id}`),
+  del: (id: string) => req<Deleted>('DELETE', `/api/sports/workouts/${id}`),
+  bulkDel: (ids: string[]) => req<Deleted>('POST', '/api/sports/workouts/bulk-delete', { ids }),
   order: (ids: string[]) => req<MyWeek>('PUT', '/api/sports/order', { ids }),
   week: (day: Weekday, workout_id: string | null) => req<MyWeek>('PUT', '/api/sports/week', { day, workout_id }),
   settings: (b: { template?: string | null; location?: 'home' | 'gym' | null }) => req<MyWeek>('PUT', '/api/sports/settings', b),
@@ -166,6 +169,8 @@ export const api = {
   addNote: (semId: string, b: unknown) => req<AcademicNote>('POST', `/api/semesters/${semId}/notes`, b),
   editNote: (id: string, b: unknown) => req<AcademicNote>('PATCH', `/api/notes/${id}`, b),
   delNote: (id: string) => req<Deleted>('DELETE', `/api/notes/${id}`),
+  bulkAssessments: (ids: string[], op: 'status' | 'delete', status?: string) => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/assessments/bulk', { ids, op, status }),
+  bulkNotes: (ids: string[], op: 'resolve' | 'unresolve' | 'delete') => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/notes/bulk', { ids, op }),
   undo: (token: string) => req<{ ok: boolean; label: string }>('POST', `/api/undo/${token}`),
   search: (q: string) => req<SearchHit[]>('GET', `/api/search?q=${encodeURIComponent(q)}`),
   searchMore: (q: string) => req<MoreHit[]>('GET', `/api/search/more?q=${encodeURIComponent(q)}`),

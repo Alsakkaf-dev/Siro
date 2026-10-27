@@ -23,7 +23,7 @@ export default function PrintSummary() {
           <section key={c.id} className="print-course">
             <h2><bdi>{c.code}</bdi> — <bdi>{c.name}</bdi> <small>({c.credits ?? 'ساعات غير معروفة'}{c.credits !== null ? ' ساعات' : ''})</small></h2>
             <p className="muted">{c.lecturer ? <bdi>{c.lecturer}</bdi> : 'المحاضر غير معروف'}{c.schedule ? ' · ' : ''}{c.schedule ? <bdi>{prettySchedule(c.schedule)}</bdi> : ''}</p>
-            <div className="table-wrap"><table className="t">
+            <div className="table-wrap" tabIndex={0} role="region" aria-label="جدول قابل للتمرير"><table className="t">
               <thead><tr><th>التقييم</th><th>النوع</th><th>الوزن</th><th>الموعد</th><th>الحالة</th></tr></thead>
               <tbody>
                 {items.map((a) => (<tr key={a.id}><td><bdi>{a.title}</bdi>{a.count > 1 ? ` ×${a.count}` : ''}</td><td>{KIND_LABEL[a.kind]}</td><td className="n">{fmtNum(a.weight)}%</td><td>{whenText(a, sem)}</td><td>{a.score !== null ? `${fmtNum(a.score)}/${fmtNum(a.max_score)}` : STATUS_LABEL[a.status]}</td></tr>))}

@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
-import { ApiError, lib } from '../lib/api.js';
+import { ApiError, api, lib } from '../lib/api.js';
+import { useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
 import { Button, Card, EmptyState, Field, KebabMenu, Modal, Skeleton } from '../ui/ui.js';
 import { CourseBadge, KindTile, ProgressBar, TagChips, fmtWhen, itemPath, pctOf } from '../library/common.js';
@@ -51,21 +52,28 @@ function YtForm({ item, onClose, onSaved }: { item?: LibItem; onClose: () => voi
 }
 
 export default function LibraryYoutube() {
-  const { toast, confirm } = useApp();
+  const { toast } = useApp();
   const [items, setItems] = useState<LibItem[] | null>(null);
-  const [form, setForm] = useState<{ item?: LibItem } | null>(null);
+  const [sp, setSp] = useSearchParams();
+  const [form, setForm] = useState<{ item?: LibItem } | null>(() => (sp.get('new') ? {} : null));
+  useEffect(() => {
+    if (sp.get('new')) {
+      setForm({});
+      sp.delete('new');
+      setSp(sp, { replace: true });
+    }
+  }, [sp, setSp]);
   const load = useCallback(() => {
     void lib.youtube().then(setItems).catch((e: Error) => toast(e.message, { kind: 'error' }));
   }, [toast]);
   useEffect(load, [load]);
 
   const del = async (it: LibItem): Promise<void> => {
-    const ok = await confirm({ title: 'إزالة الفيديو من المكتبة؟', body: <p>تُحذف ملاحظاتك وعلاماتك وتقدّم المشاهدة لهذا الفيديو من الموقع فقط. لا يتأثر الفيديو على يوتيوب.</p>, confirmLabel: 'إزالة', danger: true });
-    if (!ok) return;
+    // سياسة التأكيد: حذف عنصر واحد بلا سؤال، مع تراجع + سلة المحذوفات (30 يومًا)
     try {
-      await lib.delYoutube(it.id);
-      toast('أُزيل الفيديو');
+      const r = await lib.delYoutube(it.id);
       load();
+      toast(`أُزيل «${it.title}» (مع ملاحظاته وعلاماته)`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(load) } });
     } catch (e) {
       toast((e as Error).message, { kind: 'error' });
     }

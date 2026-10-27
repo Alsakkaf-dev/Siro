@@ -2,7 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useSem } from '../core/sem-context.js';
 import { useApp } from '../core/app-context.js';
-import { api } from '../lib/api.js';
+import { api, lib } from '../lib/api.js';
+import { Link } from 'react-router-dom';
+import { RelationsCard } from '../widgets/relations.js';
+import type { LibItem } from '../../../shared/library.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, IconButton, KebabMenu, Segmented, TrustTag, Unknown, cx } from '../ui/ui.js';
 import { AssessmentForm, CourseForm } from '../forms/lazy.js';
@@ -209,6 +212,11 @@ export default function CoursePage() {
         </Card>
       )}
 
+      <div className="grid cols-2 cols-1-1" style={{ marginBlockStart: 'var(--s-6)' }}>
+        <CourseFiles code={course.code} />
+        <RelationsCard refId={`acad:course:${course.id}`} />
+      </div>
+
       {edit && (
         <AssessmentForm
           {...(edit !== 'new' ? { initial: edit } : {})}
@@ -237,3 +245,21 @@ export default function CoursePage() {
   );
 }
 void cx; void _E;
+
+/** تقاطع الدراسة ⇄ المكتبة: ملفات هذه المادة (حسب رمز المادة المستنتج من مسار الملف) */
+function CourseFiles({ code }: { code: string }) {
+  const [r, setR] = useState<{ items: LibItem[]; total: number } | null>(null);
+  useEffect(() => {
+    lib.items({ course: code, sort: 'recent', limit: 8 }).then((x) => setR({ items: x.items, total: x.total })).catch(() => setR({ items: [], total: 0 }));
+  }, [code]);
+  return (
+    <Card>
+      <CardHead title="ملفات المادة" icon="library">{r && r.total > 0 && <Link to={`/library?course=${encodeURIComponent(code)}`}>الكل ({r.total})</Link>}</CardHead>
+      {!r ? <p className="muted small">…</p> : r.items.length ? (
+        <ul className="plain mini-list">
+          {r.items.map((i) => <li key={i.ref}><Link to={i.source === 'youtube' ? `/library/y/${i.id}` : `/library/f/${i.id}`}><Icon name={i.source === 'youtube' ? 'play' : 'file'} size={15} /> <bdi>{i.title}</bdi></Link>{i.progress > 0 && !i.done ? <small className="muted"> · تابع</small> : null}</li>)}
+        </ul>
+      ) : <p className="muted small" style={{ margin: 0 }}>لا ملفات في المكتبة لرمز <bdi>{code}</bdi> بعد.</p>}
+    </Card>
+  );
+}

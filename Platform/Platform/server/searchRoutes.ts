@@ -21,6 +21,12 @@ export function searchMore(db: Db, rawQ: string): MoreHit[] {
   const out: MoreHit[] = [];
   const add = (kind: MoreHit['kind'], arr: MoreHit[]): void => void out.push(...arr.slice(0, LIMIT));
 
+  // مساحاتي: المساحات والعناصر (كل الحقول النصية)
+  const spaces = db.all<{ id: string; name: string; description: string | null }>("SELECT id, name, description FROM wos_spaces WHERE archived = 0");
+  add('space', spaces.filter((x) => match(x.name, x.description)).map((x) => ({ kind: 'space', id: x.id, title: x.name, subtitle: 'مساحة', to: `/spaces/${x.id}` })));
+  const items = db.all<{ id: string; title: string; data: string; space_id: string; space: string }>('SELECT i.id, i.title, i.data, i.space_id, s.name AS space FROM wos_items i JOIN wos_spaces s ON s.id = i.space_id WHERE i.archived = 0 AND s.archived = 0 ORDER BY i.updated_at DESC');
+  add('item', items.filter((x) => match(x.title, x.data.replace(/"[a-z0-9_]+":/g, ' '))).map((x) => ({ kind: 'item', id: x.id, title: x.title, subtitle: x.space, to: `/spaces/${x.space_id}?item=${x.id}` })));
+
   const files = db.all<{ id: string; name: string; folder: string; kind: string; course_hint: string | null }>('SELECT id, name, folder, kind, course_hint FROM lib_files WHERE missing = 0');
   add('library', files.filter((f) => match(f.name, f.folder, f.course_hint)).map((f) => ({ kind: 'library', id: f.id, title: f.name, subtitle: f.folder || 'المكتبة', to: `/library/f/${f.id}` })));
   const yt = db.all<{ id: string; title: string; course_hint: string | null }>('SELECT id, title, course_hint FROM lib_youtube');
