@@ -25,7 +25,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] A5. Background daily brief (PC, free only)
 - [x] A6. Tests (+31), AI e2e (10 flows × 2 widths), full crawl ALL CLEAN, `npm run ai:eval`
 - [x] A7. Paid providers (Anthropic Opus/Sonnet/Haiku 5.5 + paid OpenAI-compatible) — last step, as requested
-- [ ] A8. Deploy + online verification
+- [x] A8. Deploy + online verification — deploy/platform efd8780 → Vercel production dpl_2jPCkHrCxDXJyMSv9djFnfqrdR9o READY; online: health schema 6, /api/ai/gate gated, /api/ai/status 503 until AI_ACCESS_KEY is set (by design)
 
 ## Baseline (2026-10-26)
 - Node 22.22.0. `tsc` server + web: clean.
