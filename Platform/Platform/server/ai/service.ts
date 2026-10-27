@@ -97,10 +97,14 @@ export async function modelFor(p: AiProvider, key?: string | null): Promise<stri
     const hit = cloudModels.get(p.base_url);
     let ids = hit && Date.now() - hit.at < 3_600_000 ? hit.ids : null;
     if (!ids) {
-      const r = await fetch(`${p.base_url.replace(/\/+$/, '')}/models`, { headers: key ? { authorization: `Bearer ${key}` } : {}, signal: AbortSignal.timeout(8000) });
+      // بوابة Vercel: ?include_availability يخبرنا بما يسمح به الحساب (الحساب المجاني لا يصل لكل الموديلات)
+      const gw = /ai-gateway\.vercel\.sh/i.test(p.base_url) && key;
+      const r = await fetch(`${p.base_url.replace(/\/+$/, '')}/models${gw ? '?include_availability' : ''}`, { headers: key ? { authorization: `Bearer ${key}` } : {}, signal: AbortSignal.timeout(8000) });
       if (!r.ok) throw new Error(`تعذّر جلب قائمة الموديلات (${r.status})`);
-      const j = (await r.json()) as { data?: { id?: string }[] };
-      ids = (j.data ?? []).map((m) => m.id ?? '').filter(Boolean);
+      const j = (await r.json()) as { data?: { id?: string; type?: string; model_eligibility?: { status?: string } }[] };
+      const rows = (j.data ?? []).filter((m) => !m.type || m.type === 'language');
+      const eligible = rows.filter((m) => m.model_eligibility?.status === 'eligible');
+      ids = (eligible.length ? eligible : rows.filter((m) => m.model_eligibility?.status !== 'ineligible')).map((m) => m.id ?? '').filter(Boolean);
       cloudModels.set(p.base_url, { at: Date.now(), ids });
     }
     const w = workingModel.get(p.base_url);

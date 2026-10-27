@@ -41,7 +41,7 @@ async function mock(): Promise<Mock> {
       }
       if (req.url === '/v1/models') {
         res.writeHead(200, { 'content-type': 'application/json' });
-        return void res.end(JSON.stringify({ data: [{ id: 'openai/gpt-6' }, { id: 'alibaba/qwen3.5-max' }, { id: 'alibaba/qwen-3-32b' }, { id: 'alibaba/qwen3-vl' }] }));
+        return void res.end(JSON.stringify({ data: [{ id: 'openai/gpt-6' }, { id: 'alibaba/qwen3.5-max' }, { id: 'alibaba/qwen-3-32b' }, { id: 'alibaba/qwen3-vl' }, { id: 'alibaba/qwen-embed', type: 'embedding' }, { id: 'alibaba/qwen9-blocked', model_eligibility: { status: 'ineligible' } }] }));
       }
       if (req.url === '/v1/chat/completions' && /max/.test(String(body?.model))) {
         res.writeHead(403, { 'content-type': 'application/json' });
