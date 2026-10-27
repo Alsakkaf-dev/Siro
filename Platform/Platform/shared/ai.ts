@@ -129,11 +129,18 @@ export function pickInstalled(models: { name: string; size_gb: number }[], memGb
 
 /** «auto» عند مزوّد سحابي (Vercel AI Gateway / OpenRouter): أحدث Qwen نصي يدعم المحادثة؛ وإلا أول موديل */
 export function pickCloudModel(ids: string[]): string | null {
+  return rankCloudModels(ids)[0] ?? null;
+}
+
+/** ترتيب المرشحين: كل Qwen النصية (الأحدث فالأقوى)، ثم الموديلات الخفيفة الأخرى — لتجربتها بالترتيب حين يرفض الحساب المجاني موديلًا */
+export function rankCloudModels(ids: string[]): string[] {
   const text = ids.filter((id) => !/(embed|vl|vision|image|coder|tts|audio|omni|wan|video|rerank|guard)/i.test(id));
   const gen = (id: string): number => Number(/qwen-?(\d+(?:\.\d+)?)/i.exec(id)?.[1] ?? (/qwen/i.test(id) ? 1 : 0));
   const tierOf = (id: string): number => (/max/i.test(id) ? 3 : /plus/i.test(id) ? 2 : 1) + (paramsOf(id) ?? 0) / 1000;
   const qwen = text.filter((id) => /qwen/i.test(id)).sort((a, b) => gen(b) - gen(a) || tierOf(b) - tierOf(a));
-  return qwen[0] ?? text[0] ?? ids[0] ?? null;
+  const light = text.filter((id) => !/qwen/i.test(id) && /(flash|mini|lite|small|haiku|nano)/i.test(id));
+  const out = [...qwen, ...light, ...text.filter((id) => !qwen.includes(id) && !light.includes(id))];
+  return out.length ? out : ids;
 }
 
 /** الموديلات الصغيرة (≤ 4B) تأخذ مجموعة أدوات أصغر (توجيه) */

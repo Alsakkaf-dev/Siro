@@ -39,6 +39,14 @@ async function mock(): Promise<Mock> {
         }
         return void res.end(JSON.stringify({ message: { content: '' }, done: true, prompt_eval_count: 12, eval_count: 3 }) + '\n');
       }
+      if (req.url === '/v1/models') {
+        res.writeHead(200, { 'content-type': 'application/json' });
+        return void res.end(JSON.stringify({ data: [{ id: 'openai/gpt-6' }, { id: 'alibaba/qwen3.5-max' }, { id: 'alibaba/qwen-3-32b' }, { id: 'alibaba/qwen3-vl' }] }));
+      }
+      if (req.url === '/v1/chat/completions' && /max/.test(String(body?.model))) {
+        res.writeHead(403, { 'content-type': 'application/json' });
+        return void res.end(JSON.stringify({ error: { message: 'Free tier users do not have access to this model.', type: 'no_access' } }));
+      }
       if (req.url === '/v1/chat/completions') {
         res.writeHead(200, { 'content-type': 'text/event-stream' });
         const d = (o: unknown): boolean => res.write(`data: ${JSON.stringify(o)}\n\n`);
@@ -297,6 +305,25 @@ describe(`AI core (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
       const p = s.config.providers.find((x: { id: string }) => x.id === 'env');
       expect(p).toMatchObject({ env: true, has_key: true, usable: true, model: 'qwen/qwen3.5-9b' });
       expect((await call('PUT', '/api/ai/keys/env', { key: 'override-000000' })).status).toBe(409);
+    } finally {
+      delete process.env['AI_BASE_URL'];
+      delete process.env['AI_MODEL'];
+      delete process.env['AI_API_KEY'];
+    }
+  });
+
+  it('«auto» on a cloud gateway skips models the free tier refuses and remembers the one that works', async () => {
+    process.env['AI_BASE_URL'] = `http://127.0.0.1:${M.port}/v1`;
+    process.env['AI_MODEL'] = 'auto';
+    process.env['AI_API_KEY'] = 'env-key-0000000000';
+    try {
+      M.hits = [];
+      const ev = await chat({ messages: [{ role: 'user', content: 'x' }], provider: 'env' });
+      expect(ev.find((e) => e.type === 'provider')).toMatchObject({ id: 'env', model: 'alibaba/qwen-3-32b' });
+      expect(M.hits.filter((h) => h.path === '/v1/chat/completions').map((h) => h.body.model)).toEqual(['alibaba/qwen3.5-max', 'alibaba/qwen-3-32b']);
+      M.hits = [];
+      await chat({ messages: [{ role: 'user', content: 'y' }], provider: 'env' });
+      expect(M.hits.filter((h) => h.path === '/v1/chat/completions').map((h) => h.body.model)).toEqual(['alibaba/qwen-3-32b']); // يتذكر
     } finally {
       delete process.env['AI_BASE_URL'];
       delete process.env['AI_MODEL'];
