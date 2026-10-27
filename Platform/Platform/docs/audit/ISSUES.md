@@ -55,3 +55,8 @@ Status column is filled during the re-audit (§ RE-AUDIT in `HCI_EVALUATION.md`)
 - Crawl: 222 page-states, 105 with problems (axe serious/critical in 101, console/failed requests in 6, horizontal overflow 0).
 - axe serious/critical rules: button-name 74, color-contrast 17, target-size 6, label-content-name-mismatch 6, aria-required-children 6, scrollable-region-focusable 6.
 - Nielsen severity ≥ 3 violations: 9 (see HCI_EVALUATION §1).
+
+## D. Final crawl (re-audit, 2026-10-27)
+- 52 routes (37 baseline + 15 new incl. a space, an item panel and saved views) × 1280/768/390 × light/dark = **312 page-states — ALL CLEAN**: axe serious/critical 0, console errors 0, failed requests 0, horizontal overflow 0.
+- Average settle time @1280 light 1.16 s (baseline 1.43 s), max 1.58 s (baseline 15.3 s, see T-01).
+- Functional scenarios (UI only, `scripts/e2e/scenarios.mjs`): 11/11 at 1280 and 390.
