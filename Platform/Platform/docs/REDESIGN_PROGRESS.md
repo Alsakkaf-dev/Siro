@@ -14,8 +14,8 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] 8. Custom types/fields/templates (My Spaces) + automations
 - [x] 9. Design-system pass + a11y + responsive + dark parity
 - [x] 10. Re-audit (crawler, axe, CW, KLM before/after)
-- [ ] 11. Deploy (deploy/platform → Vercel production) + online verification
-- [ ] 12. Final report (Arabic)
+- [x] 11. Deploy (deploy/platform → Vercel production) + online verification
+- [x] 12. Final report (Arabic)
 
 ## Baseline (2026-10-26)
 - Node 22.22.0. `tsc` server + web: clean.
@@ -63,3 +63,8 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - Re-audit written (HCI_EVALUATION § RE-AUDIT, ISSUES statuses). T-01 re-measured honestly (0.9 s visible error; crawler artefact).
 - Tests: vitest 216/216 both drivers; smoke 39/39; scenarios 11/11 @1280 & @390.
 - D9: No Blob token on Vercel (checked env): online edits stay ephemeral until the owner creates a Blob store — reported, not worked around.
+
+## Step 11 — deploy
+- `deploy/platform` → d3a6bd8 (from 6ca34a8); Vercel production `dpl_7EvX5kXATKYSev2utVBhFHxHR3Yq` READY, aliased to https://siro-platform.vercel.app.
+- Verified online: `/api/health` schema 5; `/api/semesters` 5 semesters (cold-start package import still works); `/api/wos/templates` 7 templates; `/api/wos/agenda`; SPA route `/spaces/templates` serves the shell.
+- Persistence across redeploy: NOT verifiable — project has no `BLOB_READ_WRITE_TOKEN` (owner action; see final report).
