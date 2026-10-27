@@ -4,7 +4,7 @@ import { runTurn, textToolCalls, trimHistory, MAX_STEPS, type AgentEnv, type Too
 import type { Transport } from '../web/src/ai/client.js';
 import { TOOL_DEFS, routeTools, specOf, TOOL_BY_NAME } from '../shared/aiTools.js';
 import { TOOL_IMPLS } from '../web/src/ai/tools.js';
-import { isSmallModel, paramsOf, pickInstalled, recommendModel, stripThinking, type AiEvent, type AiMessage } from '../shared/ai.js';
+import { isSmallModel, paramsOf, pickCloudModel, pickInstalled, recommendModel, stripThinking, type AiEvent, type AiMessage } from '../shared/ai.js';
 import { buildRequest, parseOpenAI, toAnthropic } from '../shared/aiStream.js';
 import { dayTable } from '../web/src/ai/prompt.js';
 
@@ -188,6 +188,13 @@ describe('model selection + adapters', () => {
     expect(isSmallModel('qwen3.5:9b', 'local')).toBe(false);
     expect(isSmallModel('qwen3.5:2b', 'local')).toBe(true);
     expect(isSmallModel('claude-opus-5-5', 'paid')).toBe(false);
+  });
+
+  it('«auto» on a cloud gateway picks the newest text Qwen', () => {
+    expect(pickCloudModel(['openai/gpt-6', 'alibaba/qwen3-coder', 'alibaba/qwen-3-32b', 'alibaba/qwen3.5-plus', 'alibaba/qwen3-vl-instruct', 'alibaba/qwen3.5-max'])).toBe('alibaba/qwen3.5-max');
+    expect(pickCloudModel(['alibaba/qwen-3-14b', 'alibaba/qwen-3-235b'])).toBe('alibaba/qwen-3-235b');
+    expect(pickCloudModel(['openai/gpt-6', 'x/embed'])).toBe('openai/gpt-6');
+    expect(pickCloudModel([])).toBeNull();
   });
 
   it('strips Qwen thinking blocks', () => {

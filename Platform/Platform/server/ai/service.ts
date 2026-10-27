@@ -1,7 +1,7 @@
 /** خدمة الذكاء: الإعدادات (في core_settings — بلا مفاتيح)، السلسلة الاحتياطية، وسقف الاستهلاك. */
 import type { Db } from '../db.js';
 import { getSetting, setSetting } from '../repo.js';
-import { aiConfigSchema, DEFAULT_AI_CONFIG, providerSchema, type AiConfig, type AiEvent, type AiMessage, type AiProvider, type AiProviderView, type AiToolSpec } from '../../shared/ai.js';
+import { aiConfigSchema, DEFAULT_AI_CONFIG, pickCloudModel, providerSchema, type AiConfig, type AiEvent, type AiMessage, type AiProvider, type AiProviderView, type AiToolSpec } from '../../shared/ai.js';
 import { streamChat } from '../../shared/aiStream.js';
 import { probeOllama, resolveAuto } from './detect.js';
 import type { Secrets } from './secrets.js';
@@ -84,7 +84,23 @@ export function addUsage(db: Db, n: number): void {
   if (n > 0) setSetting(db, `ai.usage.${today()}`, String(usageToday(db) + n));
 }
 
-export async function modelFor(p: AiProvider): Promise<string> {
+const cloudModels = new Map<string, { at: number; ids: string[] }>();
+
+export async function modelFor(p: AiProvider, key?: string | null): Promise<string> {
+  if (p.kind === 'openai' && p.model === 'auto') {
+    const hit = cloudModels.get(p.base_url);
+    let ids = hit && Date.now() - hit.at < 3_600_000 ? hit.ids : null;
+    if (!ids) {
+      const r = await fetch(`${p.base_url.replace(/\/+$/, '')}/models`, { headers: key ? { authorization: `Bearer ${key}` } : {}, signal: AbortSignal.timeout(8000) });
+      if (!r.ok) throw new Error(`تعذّر جلب قائمة الموديلات (${r.status})`);
+      const j = (await r.json()) as { data?: { id?: string }[] };
+      ids = (j.data ?? []).map((m) => m.id ?? '').filter(Boolean);
+      cloudModels.set(p.base_url, { at: Date.now(), ids });
+    }
+    const m = pickCloudModel(ids);
+    if (!m) throw new Error('المزوّد لم يُرجع أي موديل');
+    return m;
+  }
   if (p.kind === 'ollama' && (p.model === 'auto' || !p.model)) {
     const probe = await probeOllama(p.base_url);
     if (!probe.reachable) throw new Error('Ollama غير شغّال على هذا الجهاز (ثبّته من ollama.com ثم شغّله)');
@@ -126,7 +142,7 @@ export async function* chatWithFallback(db: Db, secrets: Secrets, o: ChatOpts): 
     // مهلة حتى أول حدث (تحميل الموديل المحلي أول مرة قد يأخذ ثوانٍ)
     const timer = setTimeout(() => attempt.abort(), p.tier === 'local' ? 90_000 : 45_000);
     try {
-      const model = await modelFor(p);
+      const model = await modelFor(p, secrets.get(p.id));
       const stream = streamChat({ kind: p.kind, base_url: p.base_url, model, key: secrets.get(p.id), messages: o.messages, tools: o.tools, max_tokens: o.max_tokens, signal: attempt.signal });
       let announced = false;
       for await (const ev of stream) {

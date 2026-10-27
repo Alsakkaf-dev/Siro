@@ -137,6 +137,12 @@ export async function createOnlineHandler(): Promise<express.Express> {
   const outer = express();
   outer.disable('x-powered-by');
   // كل طلب يغيّر البيانات: نحفظ في Blob قبل إنهاء الاستجابة (الدالة قد تتجمّد بعد الرد)
+  // رمز OIDC الذي يحقنه Vercel في كل طلب ← مفتاح Vercel AI Gateway بلا أي مفتاح يدوي
+  outer.use((req, _res, next) => {
+    const t = req.headers['x-vercel-oidc-token'];
+    if (typeof t === 'string' && t) process.env['VERCEL_OIDC_TOKEN'] = t;
+    next();
+  });
   outer.use((req, res, next) => {
     // تدفق الذكاء لا يغيّر القاعدة (المحادثات تُحفظ بطلب منفصل)
     if (req.method === 'GET' || req.method === 'HEAD' || !req.path.startsWith('/api/') || /^\/api\/ai\/(chat|test\/)/.test(req.path)) return void next();

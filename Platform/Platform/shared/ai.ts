@@ -127,6 +127,15 @@ export function pickInstalled(models: { name: string; size_gb: number }[], memGb
   return other[0]?.name ?? cands[0]?.name ?? null;
 }
 
+/** «auto» عند مزوّد سحابي (Vercel AI Gateway / OpenRouter): أحدث Qwen نصي يدعم المحادثة؛ وإلا أول موديل */
+export function pickCloudModel(ids: string[]): string | null {
+  const text = ids.filter((id) => !/(embed|vl|vision|image|coder|tts|audio|omni|wan|video|rerank|guard)/i.test(id));
+  const gen = (id: string): number => Number(/qwen-?(\d+(?:\.\d+)?)/i.exec(id)?.[1] ?? (/qwen/i.test(id) ? 1 : 0));
+  const tierOf = (id: string): number => (/max/i.test(id) ? 3 : /plus/i.test(id) ? 2 : 1) + (paramsOf(id) ?? 0) / 1000;
+  const qwen = text.filter((id) => /qwen/i.test(id)).sort((a, b) => gen(b) - gen(a) || tierOf(b) - tierOf(a));
+  return qwen[0] ?? text[0] ?? ids[0] ?? null;
+}
+
 /** الموديلات الصغيرة (≤ 4B) تأخذ مجموعة أدوات أصغر (توجيه) */
 export function isSmallModel(model: string, tier: ProviderTier): boolean {
   if (tier !== 'local') return false;

@@ -10,7 +10,8 @@ const ALIASES: Record<string, string[]> = {
   anthropic: ['ANTHROPIC_API_KEY'],
   'cloud-free': ['AI_FREE_API_KEY', 'OPENROUTER_API_KEY', 'GROQ_API_KEY'],
   'paid-openai': ['OPENAI_API_KEY'],
-  env: ['AI_API_KEY'],
+  // Vercel AI Gateway: مفتاح صريح، أو رمز OIDC الذي يحقنه Vercel في كل طلب (بلا مفتاح من المالك)
+  env: ['AI_API_KEY', 'AI_GATEWAY_API_KEY', 'VERCEL_OIDC_TOKEN'],
 };
 
 export class Secrets {

@@ -68,7 +68,9 @@ export function createAiRouter(ctx: Ctx): express.Router {
     if (!online()) return next();
     const key = process.env['AI_ACCESS_KEY'];
     if (!key) return next(new HttpError(503, 'الذكاء غير مفعّل في النسخة الأونلاين: أضف AI_ACCESS_KEY في إعدادات Vercel'));
-    if (!safeEq(req.get('x-ai-key') ?? '', key)) return next(new HttpError(401, 'رمز دخول الذكاء غير صحيح'));
+    // GET يقبل الرمز في الرابط (?k=) — لفحص سريع من المتصفح؛ الكتابة والمحادثة بالرأس فقط
+    const given = req.get('x-ai-key') ?? (req.method === 'GET' && typeof req.query['k'] === 'string' ? req.query['k'] : '');
+    if (!safeEq(given, key)) return next(new HttpError(401, 'رمز دخول الذكاء غير صحيح'));
     next();
   });
 
@@ -126,6 +128,13 @@ export function createAiRouter(ctx: Ctx): express.Router {
     if (!rr.ok) throw new HttpError(502, `تعذّر جلب الموديلات (${rr.status})`);
     const j = (await rr.json()) as { data?: { id?: string }[] };
     res.json({ models: (j.data ?? []).map((m) => m.id ?? '').filter(Boolean).slice(0, 400) });
+  }));
+
+  /** فحص شامل من المتصفح: هل يرد الموديل الآن؟ (أول مزوّد جاهز في السلسلة) */
+  r.get('/check', wrap(async (_req, res) => {
+    const t0 = Date.now();
+    const out = await complete(db(), secrets, { messages: [{ role: 'user', content: 'أجب بكلمة واحدة: جاهز' }], max_tokens: 20, signal: new AbortController().signal });
+    res.json({ ok: !out.error, ms: Date.now() - t0, provider: out.provider, reply: out.text.slice(0, 80), error: out.error });
   }));
 
   /** فحص سريع لمزوّد واحد */

@@ -272,6 +272,11 @@ describe(`AI core (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
       process.env['AI_ACCESS_KEY'] = 'owner-pass-123';
       expect((await call('GET', '/api/ai/status')).status).toBe(401);
       expect((await call('POST', '/api/ai/chat', { messages: [{ role: 'user', content: 'x' }] }, { 'x-ai-key': 'wrong' })).status).toBe(401);
+      expect((await call('GET', '/api/ai/status?k=owner-pass-123')).status).toBe(200); // رابط فحص من المتصفح
+      expect((await call('POST', '/api/ai/chat?k=owner-pass-123', { messages: [{ role: 'user', content: 'x' }] })).status).toBe(401); // الكتابة بالرأس فقط
+      const chk = await call('GET', '/api/ai/check?k=owner-pass-123');
+      expect(chk.status).toBe(200);
+      expect(chk.json).toHaveProperty('ok');
       const ok = await call('GET', '/api/ai/status', undefined, { 'x-ai-key': 'owner-pass-123' });
       expect(ok.status).toBe(200);
       // الأونلاين: «Ollama على الجهاز» = جهاز Vercel — معطّل دائمًا
