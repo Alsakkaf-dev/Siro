@@ -67,5 +67,19 @@ All endpoints listed in `docs/audit/SYSTEM_MAP.md §3` keep path, method and res
 | Online mode (Vercel, Blob, auto-import) | unchanged (ADR-0008) | ✅ |
 | Rashed read-only sources | unchanged; annotate/link via relations | ✅ |
 
+## 3b. AI core (ADR-0009) — added, nothing removed
+| Capability | Where | Status |
+|---|---|---|
+| Assistant panel (Ctrl+J, topbar ✦), page-aware, streamed, threads saved | `web/src/ai/AiPanel.tsx`, `ai_threads` | ✅ |
+| Palette sentence → assistant (Ctrl+Enter) | `shell/Palette.tsx` | ✅ |
+| 32 tools across all lines, tiered read / write / danger, forbidden ones not exposed | `shared/aiTools.ts`, `web/src/ai/tools.ts` | ✅ |
+| Preview → confirm → undo per action, «undo the whole conversation» | `agent.ts`, `ai_runs` | ✅ |
+| History tagged «بواسطة المساعد» | `server/actor.ts`, Activity | ✅ |
+| Contextual entry points: smart capture, space builder, automation writer, summarise/quiz file, course analysis, life logging, daily brief | Create menu, CoursePage, LibraryItem, Spaces/Space, Automations, LifeCommands, Home | ✅ |
+| Background daily brief → Inbox (PC, free providers only) | `server/ai/background.ts` | ✅ |
+| Providers: Ollama (local, auto-detect best Qwen by RAM), Ollama from the browser, any OpenAI-compatible (free/paid), Anthropic (Opus/Sonnet/Haiku 5.5) — ordered fallback, daily cap | `server/ai/*`, `shared/aiStream.ts`, Settings › الذكاء | ✅ |
+| Online lock (`AI_ACCESS_KEY`), keys server-side only | `server/ai/routes.ts` | ✅ |
+| Model evaluation on 30 Arabic commands | `npm run ai:eval` | ✅ |
+
 ## 4. Data entities
-All tables of schema v4 are untouched by migration 5 (additive only). Before/after row counts on the real DB: `tests/migration.test.ts`.
+All tables of schema v4 are untouched by migration 5 (additive only). Migration 6 adds `ai_threads` + `ai_runs` only. Before/after row counts on the real DB: `tests/migration.test.ts`.

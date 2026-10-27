@@ -4,6 +4,7 @@ import type { Db } from '../db.js';
 import type { Ctx } from '../routes.js';
 import { HttpError } from '../routes.js';
 import { getSetting, newId, setSetting } from '../repo.js';
+import { currentActor } from '../actor.js';
 import { ValidationError, parseOrThrow } from '../validation.js';
 import {
   automationSchema, itemPatchSchema, itemSchema, relationSchema, spaceSchema, typeSchema, viewSchema, valueText,
@@ -220,7 +221,7 @@ export function createWosRouter(ctx: Ctx): express.Router {
     res.json({ item: fullItem(req, item, type), space, children, links: linksOf(db(), ws(req), `wos:${item.id}`), history: listHistory(db(), ws(req), { ref: `wos:${item.id}`, limit: 50 }) });
   }));
 
-  const applyPatch = (req: express.Request, id: string, body: unknown, actor = 'user'): WosItem => {
+  const applyPatch = (req: express.Request, id: string, body: unknown, actor = currentActor()): WosItem => {
     const { item, type } = itemOr404(req, id);
     const p = parseOrThrow(itemPatchSchema, body);
     const w = ws(req);

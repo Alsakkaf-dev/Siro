@@ -2,6 +2,7 @@
 import type express from 'express';
 import type { Db, SqlValue } from '../db.js';
 import { newId } from '../repo.js';
+import { currentActor } from '../actor.js';
 import { DEFAULT_WORKSPACE, RELATION_INVERSE, RELATION_LABEL, type HistoryEntry, type LinkView, type RefInfo, type RelationKind, type TrashEntry } from '../../shared/wos.js';
 
 /** نقطة ربط تعدد المستخدمين (ADR-0007): اليوم مساحة عمل واحدة. */
@@ -20,7 +21,7 @@ export function record(db: Db, ws: string, h: HistoryInput): string {
     id, ws, h.ref, h.action, h.summary.slice(0, 300),
     h.before === undefined ? null : JSON.stringify(h.before),
     h.after === undefined ? null : JSON.stringify(h.after),
-    h.actor ?? 'user', nowIso(),
+    h.actor ?? currentActor(), nowIso(),
   );
   return id;
 }

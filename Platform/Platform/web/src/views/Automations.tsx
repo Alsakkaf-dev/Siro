@@ -4,6 +4,7 @@ import { useApp } from '../core/app-context.js';
 import { wos, type Space } from '../lib/wos.js';
 import { Button, Field, IconButton, Switch } from '../ui/ui.js';
 import { ACTION_LABEL, TRIGGER_LABEL, describeAutomation, type Action, type ActionKind, type Automation, type Trigger, type TriggerKind } from '../../../shared/wos.js';
+import { AskAi } from '../ai/AskAi.js';
 
 export function AutomationList({ space, rules, onChanged }: { space: Space; rules: Automation[]; onChanged: () => void }) {
   const { toast } = useApp();
@@ -24,7 +25,7 @@ export function AutomationList({ space, rules, onChanged }: { space: Space; rule
           ))}
         </ul>
       ) : <p className="muted" style={{ margin: 0 }}>لا قواعد بعد. القاعدة تعمل تلقائيًا وتُسجَّل في سجل النشاط ويمكن التراجع عنها.</p>}
-      {adding ? <AutomationForm space={space} onDone={() => { setAdding(false); onChanged(); }} onCancel={() => setAdding(false)} /> : <Button icon="plus" onClick={() => setAdding(true)}>قاعدة جديدة</Button>}
+      {adding ? <AutomationForm space={space} onDone={() => { setAdding(false); onChanged(); }} onCancel={() => setAdding(false)} /> : <div className="row" style={{ gap: 8 }}><Button icon="plus" onClick={() => setAdding(true)}>قاعدة جديدة</Button><AskAi label="اكتبها بالعربي" prompt={`أضف أتمتة لمساحة «${space.name}»: عندما `} /></div>}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { ItemPanel } from '../views/ItemPanel.js';
 import { SpaceSettings } from '../views/SpaceSettings.js';
 import { AutomationList } from '../views/Automations.js';
 import { VIEW_KINDS, VIEW_KIND_LABEL, type FilterOp, type ViewConfig, type ViewFilter, type ViewKind } from '../../../shared/wos.js';
+import { AskAi } from '../ai/AskAi.js';
 
 const KIND_ICON: Record<ViewKind, 'list' | 'board' | 'table' | 'calendar' | 'timer' | 'image' | 'chart'> = { list: 'list', board: 'board', table: 'table', calendar: 'calendar', timeline: 'timer', gallery: 'image', dashboard: 'chart' };
 const OPS: { op: FilterOp; label: string }[] = [
@@ -130,6 +131,7 @@ export default function Space() {
           <>
             <Button icon="sliders" onClick={() => setModal('settings')}>الحقول والحالات</Button>
             <Button icon="zap" onClick={() => setModal('automations')}>الأتمتة {d.automations.length ? `(${d.automations.length})` : ''}</Button>
+            <AskAi label="اطلب بالذكاء" prompt={`في مساحة «${space.name}»: `} />
             <Button variant="primary" icon="plus" onClick={() => openCreate({ kind: 'quick-item', spaceId: space.id })}>{type.name} جديد</Button>
             <KebabMenu
               label="المزيد من إجراءات المساحة"

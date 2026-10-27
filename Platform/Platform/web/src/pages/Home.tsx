@@ -16,6 +16,7 @@ import { nowAndNext, PRAYER_AR, PRAYER_KEYS, type Finance, type Habits, type Pra
 import { WEEKDAY_AR, type MyWeek, type Weekday } from '../../../shared/sports.js';
 import type { LibItem } from '../../../shared/library.js';
 import type { InboxEntry } from '../../../shared/wos.js';
+import { AskAi } from '../ai/AskAi.js';
 
 const JS_DAY: Weekday[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 const hm = (min: number): string => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
@@ -58,7 +59,7 @@ export default function Home() {
         title={`${greet}${profileName ? `، ${profileName}` : ''}`}
         icon="home"
         sub={<>{fmtDateFull(now)}{act && ph?.week ? <> · <bdi>{act.code}</bdi> الأسبوع {ph.week}</> : null}</>}
-        actions={<><Button to="/week" icon="calendar">هذا الأسبوع</Button><Button to="/everything" icon="list">كل شيء</Button></>}
+        actions={<><AskAi label="موجز اليوم" prompt="أعطني موجز اليوم: المتأخر أولًا ثم ما عليّ اليوم وهذا الأسبوع حسب الأهمية والوزن." send /><Button to="/week" icon="calendar">هذا الأسبوع</Button><Button to="/everything" icon="list">كل شيء</Button></>}
       />
       <div className="stack" style={{ gap: 'var(--s-5)' }}>
         <QuickCapture />

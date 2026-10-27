@@ -17,6 +17,16 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - [x] 11. Deploy (deploy/platform → Vercel production) + online verification
 - [x] 12. Final report (Arabic)
 
+## Phase 2 — AI core (owner request 2026-10-27; plan: ADR-0009, docs/AI_CORE_AR.md)
+- [x] A1. Research: strongest free model → Qwen3.5 (2B/4B/9B by RAM) via Ollama; online = any OpenAI-compatible key, or the owner's own Ollama from the browser
+- [x] A2. Server gateway `/api/ai` (status/config/keys/models/test/chat SSE/threads/runs), 3 adapters, fallback chain, daily cap, online lock, actor=ai, migration 6
+- [x] A3. Agent loop + 32 tiered tools + small-model routing + preview/confirm/undo
+- [x] A4. Entry points: panel (Ctrl+J), palette, Create menu, Home, course, library file, spaces, automations, life; Settings › الذكاء
+- [x] A5. Background daily brief (PC, free only)
+- [x] A6. Tests (+31), AI e2e (10 flows × 2 widths), full crawl ALL CLEAN, `npm run ai:eval`
+- [x] A7. Paid providers (Anthropic Opus/Sonnet/Haiku 5.5 + paid OpenAI-compatible) — last step, as requested
+- [ ] A8. Deploy + online verification
+
 ## Baseline (2026-10-26)
 - Node 22.22.0. `tsc` server + web: clean.
 - Vitest: 13 files / 182 tests green on **both** drivers (`PLATFORM_DB_DRIVER=better-sqlite3` and `node:sqlite`).
@@ -29,6 +39,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - `git update-index --skip-worktree` is set on all tracked files under node_modules/ and dist/ so local builds can never be committed. Stage by explicit path.
 - Run the local server against a COPY of data/ (`PLATFORM_DATA_DIR`), never the tracked data/platform.db.
 - e2e: `BASE=http://127.0.0.1:4310 E2E_OUT=<dir> node scripts/e2e/crawl.mjs [--quick] [--clicks]`.
+- AI e2e: `node scripts/e2e/fake-qwen.mjs &` (mock Ollama on :11434) then `node scripts/e2e/ai.mjs --width=1280|390`. For a clean crawl set the scratch DB roots: library → `/home/user/Siro/Bachelor in Software Engineering`, life → `/home/user/Siro/Platform/exchange/rashed`.
 
 ## Decision log
 - D1 (owner, mid-session): **Keep the existing visual style.** The redesign improves quality, usability, efficiency, performance, maintainability, interaction (UX actions) and functionality, and refines the style — it does not replace the look. Tokens, fonts, card/pill language, accent system stay; new components reuse them.
@@ -37,6 +48,11 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - D3: Keep existing URLs canonical (no path renames) and add aliases for the new IA — zero broken deep links, least risk (§10 tie-break rule 1).
 - D4: Trash is now persistent (`wos_trash`, 30 days) and stores raw row snapshots restored with INSERT OR IGNORE. Fixes a latent bug: undoing a semester/course delete lost `acad_results` (official grades) and could overwrite later edits of the parent semester (old applyImport-merge path). `server/trash.ts` (in-memory) removed; `/api/undo/:token` API unchanged.
 - D5: Owner display name moved to setting `profile.name` (migration 5 seeds «محمد»); no hard-coded name in logic.
+- D7–D9: see sections below.
+- D10 (AI): agent loop in the browser, server = model gateway only (ADR-0009) — every AI action reuses the UI's own API → validation/history/trash/undo for free; same code PC + Vercel.
+- D11 (AI): honesty on «900×»: measured KLM shows up to ~8× on bulk/compose tasks and impossible→1-click on reading tasks; single-click edits are slower via AI, so AI is additive (no control removed). Documented in HCI_EVALUATION «AI CORE».
+- D12 (AI): no real model can be downloaded in this container (network policy blocks ollama.com / Hugging Face) → verified with mock providers (unit/API) and `scripts/e2e/fake-qwen.mjs` (browser). Real-model quality is measured on the owner's PC with `npm run ai:eval`.
+- D13 (AI): Playwright flags streamed POSTs with bodies > ~3 KB as ERR_ABORTED although the body is fully received (verified with curl + in-page byte count) — `scripts/e2e/ai.mjs` reports them separately as artifacts.
 - D6: Academic deletes keep relations (they show as «عنصر محذوف» until restored); space-item deletes snapshot + drop their relations.
 
 ## Step 4 result

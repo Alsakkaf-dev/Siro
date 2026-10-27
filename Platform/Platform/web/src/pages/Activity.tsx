@@ -31,7 +31,7 @@ export function ActivityList({ refFilter, limit = 100, compact }: { refFilter?: 
             <Badge tone={ACTION[h.action]?.tone}>{ACTION[h.action]?.label ?? h.action}</Badge>
             <div>
               <span><bdi>{h.summary}</bdi></span>
-              <small className="muted">{fmt(h.at)}{h.actor.startsWith('automation:') ? ' · بواسطة أتمتة' : ''}{!compact && h.to && h.title ? <> · <Link to={h.to}><bdi>{h.title}</bdi></Link></> : null}{h.reverted ? ' · تم التراجع' : ''}</small>
+              <small className="muted">{fmt(h.at)}{h.actor.startsWith('automation:') ? ' · بواسطة أتمتة' : h.actor === 'ai' ? ' · بواسطة المساعد' : ''}{!compact && h.to && h.title ? <> · <Link to={h.to}><bdi>{h.title}</bdi></Link></> : null}{h.reverted ? ' · تم التراجع' : ''}</small>
             </div>
             {h.revertible && <Button size="sm" variant="ghost" icon="undo" onClick={() => void wos.revert(h.id).then(() => { toast('تم التراجع عن التعديل', { kind: 'ok' }); load(); window.dispatchEvent(new CustomEvent('platform:items-changed')); }).catch((e: Error) => toast(e.message, { kind: 'error' }))}>تراجع</Button>}
           </li>

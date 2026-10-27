@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
@@ -13,12 +13,15 @@ import { semesterStatus, todayMs } from '../../../shared/semester.js';
 import { APP_NAME } from '../../../shared/constants.js';
 
 const CreateLayer = lazy(() => import('./Create.js'));
+// نواة الذكاء تُحمَّل عند أول فتح فقط — لا تزيد الحزمة الأولى
+const AiPanel = lazy(() => import('../ai/AiPanel.js'));
 
 const isLocal = typeof location !== 'undefined' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost');
 
 const SHORTCUTS: { keys: string; what: string }[] = [
   { keys: '/ أو Ctrl+K', what: 'البحث في كل شيء + أوامر سريعة («أنشئ…»، «اذهب إلى…»)' },
   { keys: 'n', what: 'إنشاء (+): تقييم، عنصر، مساحة، فيديو، تمرين…' },
+  { keys: 'Ctrl+J', what: 'المساعد الذكي: اطلب بجملة (يبحث، يضيف، يعدّل، يحسب، يلخّص)' },
   { keys: 'g ثم h', what: 'اليوم (الرئيسية)' },
   { keys: 'g ثم j', what: 'هذا الأسبوع' },
   { keys: 'g ثم e', what: 'كل شيء' },
@@ -59,7 +62,11 @@ export function usePluginCtx(): PluginCtx & { currentSemesterId: string | null }
 }
 
 export function Shell() {
-  const { semesters, theme, setTheme, showShortcuts, setShowShortcuts, crumbs, createCmd, openCreate, profileName } = useApp();
+  const { semesters, theme, setTheme, showShortcuts, setShowShortcuts, crumbs, createCmd, openCreate, profileName, aiCmd, openAi, dataRev } = useApp();
+  const [aiOpen, setAiOpen] = useState(false);
+  useEffect(() => {
+    if (aiCmd) setAiOpen(true);
+  }, [aiCmd]);
   const loc = useLocation();
   const nav = useNavigate();
   const [open, setOpen] = useState(false);
@@ -83,6 +90,14 @@ export function Shell() {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         searchRef.current?.focus();
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        setAiOpen((v) => {
+          if (!v) openAi();
+          return !v;
+        });
         return;
       }
       if (e.ctrlKey || e.metaKey || e.altKey || isTyping(e.target)) return;
@@ -117,7 +132,7 @@ export function Shell() {
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [nav, currentSemesterId, setShowShortcuts, openCreate]);
+  }, [nav, currentSemesterId, setShowShortcuts, openCreate, openAi]);
 
   const curSem = semesters?.find((s) => s.id === currentSemesterId);
   const trail = crumbs ?? autoCrumbs(loc.pathname, ctx);
@@ -126,7 +141,7 @@ export function Shell() {
   const trailShown = line && trail.length && trail[0]!.to === line.basePath && lineLabels.has(trail[0]!.label) ? trail.slice(1) : trail;
 
   return (
-    <div className="app" style={{ '--line': shown.color } as never}>
+    <div className={cx('app', aiOpen && 'ai-docked')} style={{ '--line': shown.color } as never}>
       <a href="#main" className="skip-link">تخطَّ إلى المحتوى</a>
       {open && <div className="backdrop" onClick={() => setOpen(false)} />}
       <aside className={cx('sidebar', open && 'open')} aria-label="القائمة الجانبية">
@@ -180,6 +195,7 @@ export function Shell() {
           <button className="btn primary create-btn" aria-label="إنشاء جديد (n)" title="إنشاء جديد (n)" aria-haspopup="dialog" onClick={() => openCreate({ kind: 'menu' })}>
             <Icon name="plus" size={18} /> <span className="lbl">إنشاء</span>
           </button>
+          <button className="icon-btn ai-launch" aria-label="المساعد الذكي (Ctrl+J)" title="المساعد الذكي (Ctrl+J)" aria-pressed={aiOpen} onClick={() => (aiOpen ? setAiOpen(false) : openAi())}><Icon name="sparkle" size={18} /></button>
           {curSem && semesters && <SemChip current={curSem.id} />}
           <DeadlineBell />
           <div className="theme-toggle" role="group" aria-label="المظهر">
@@ -201,11 +217,19 @@ export function Shell() {
           </nav>
           <ViewSwitcher semId={currentSemesterId} />
           <Suspense fallback={<div className="page"><Skeleton h={40} w="35%" /><div style={{ height: 24 }} /><Skeleton h={280} r={20} /></div>}>
-            <Outlet />
+            {/* بعد أن يعدّل المساعد بيانات: إعادة تحميل الصفحة الحالية لتظهر التغييرات فورًا */}
+            <Fragment key={dataRev}>
+              <Outlet />
+            </Fragment>
           </Suspense>
         </main>
       </div>
       <BottomBar onMore={() => setOpen(true)} />
+      {aiOpen && (
+        <Suspense fallback={null}>
+          <AiPanel onClose={() => { setAiOpen(false); openAi(null); }} />
+        </Suspense>
+      )}
       {createCmd && (
         <Suspense fallback={null}>
           <CreateLayer />

@@ -7,6 +7,7 @@ import { Button, Card, EmptyState, Field, Modal, Skeleton, Switch } from '../ui/
 import { Icon } from '../lib/icons.js';
 import { describeAutomation, FIELD_KIND_LABEL, VIEW_KIND_LABEL, type Automation } from '../../../shared/wos.js';
 import type { TemplateInfo } from '../../../shared/templates.js';
+import { AskAi } from '../ai/AskAi.js';
 
 /** مساحاتي: كل المساحات التي صنعتها — «الخيال الواسع» */
 export default function Spaces() {
@@ -24,7 +25,7 @@ export default function Spaces() {
         title="مساحاتي"
         icon="layers"
         sub="أي شيء لم يُصمَّم له الموقع: قائمة قراءة، طلبات توظيف، مشاريع، أهداف… كل مساحة لها حقولها وحالاتها وعروضها وقواعدها."
-        actions={<><Switch checked={showArch} onChange={setShowArch} label="المؤرشفة" /><Button to="/spaces/automations" icon="zap">الأتمتة</Button><Button to="/spaces/templates" variant="primary" icon="plus">مساحة جديدة</Button></>}
+        actions={<><Switch checked={showArch} onChange={setShowArch} label="المؤرشفة" /><Button to="/spaces/automations" icon="zap">الأتمتة</Button><AskAi label="صمّمها بالذكاء" prompt="أنشئ مساحة لتتبّع " /><Button to="/spaces/templates" variant="primary" icon="plus">مساحة جديدة</Button></>}
       />
       {!list ? <Skeleton h={160} r={20} /> : list.length ? (
         <div className="grid cols-3 space-grid">

@@ -375,6 +375,35 @@ CREATE TABLE wos_templates (
 );
 `,
   },
+  {
+    // نواة الذكاء (ADR-0009): محادثات محفوظة + سجل أفعال الذكاء مع طريقة التراجع عن كلٍّ منها. إضافة فقط.
+    id: 6,
+    name: 'ai_core',
+    sql: `
+CREATE TABLE ai_threads (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  title TEXT NOT NULL,
+  context_ref TEXT,
+  messages TEXT NOT NULL DEFAULT '[]',
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE INDEX ai_threads_updated ON ai_threads (workspace_id, updated_at);
+CREATE TABLE ai_runs (
+  id TEXT PRIMARY KEY,
+  workspace_id TEXT NOT NULL DEFAULT 'default',
+  thread_id TEXT NOT NULL,
+  tool TEXT NOT NULL,
+  args TEXT NOT NULL,
+  summary TEXT NOT NULL,
+  status TEXT NOT NULL,
+  undo TEXT,
+  at TEXT NOT NULL
+);
+CREATE INDEX ai_runs_thread ON ai_runs (thread_id, at);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

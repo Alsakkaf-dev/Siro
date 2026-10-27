@@ -260,12 +260,12 @@ export function Segmented<T extends string>({ value, options, onChange, label }:
   );
 }
 
-export function Switch({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
+export function Switch({ checked, onChange, label, hideLabel }: { checked: boolean; onChange: (v: boolean) => void; label: string; hideLabel?: boolean }) {
   return (
     <label className="switch">
       <input type="checkbox" role="switch" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <i aria-hidden="true" />
-      <span>{label}</span>
+      <span className={hideLabel ? 'sr-only' : undefined}>{label}</span>
     </label>
   );
 }

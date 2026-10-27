@@ -1,4 +1,4 @@
-/** ترحيل 5 على نسخة من القاعدة الحقيقية: لا فقدان بيانات (عدّ كل جدول قبل/بعد) + إضافات فقط. */
+/** ترحيل 5 + 6 على نسخة من القاعدة الحقيقية: لا فقدان بيانات (عدّ كل جدول قبل/بعد) + إضافات فقط. */
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -29,7 +29,7 @@ describe.skipIf(!fs.existsSync(REAL))(`migration on a copy of the real DB (${pro
     }
     expect(db.get<{ v: number }>('SELECT MAX(id) AS v FROM core_migrations')!.v).toBe(SCHEMA_VERSION);
     expect(SCHEMA_VERSION).toBeGreaterThan(ver0);
-    for (const t of ['wos_spaces', 'wos_items', 'wos_types', 'wos_views', 'wos_relations', 'wos_history', 'wos_trash', 'wos_automations', 'wos_inbox', 'wos_shares', 'wos_templates']) expect(tables()).toContain(t);
+    for (const t of ['wos_spaces', 'wos_items', 'wos_types', 'wos_views', 'wos_relations', 'wos_history', 'wos_trash', 'wos_automations', 'wos_inbox', 'wos_shares', 'wos_templates', 'ai_threads', 'ai_runs']) expect(tables()).toContain(t);
     expect(count('wos_workspaces')).toBe(1);
     // البيانات الحقيقية المهمة موجودة
     expect(count('acad_semesters')).toBeGreaterThan(0);

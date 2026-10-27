@@ -23,7 +23,7 @@ export default function CreateLayer() {
 }
 
 function CreateMenu({ onClose }: { onClose: () => void }) {
-  const { openCreate } = useApp();
+  const { openCreate, openAi } = useApp();
   const ctx = usePluginCtx();
   const nav = useNavigate();
   const loc = useLocation();
@@ -45,6 +45,16 @@ function CreateMenu({ onClose }: { onClose: () => void }) {
           <Icon name="plus" size={18} /> <span>عنصر جديد في «<bdi>{spaceName}</bdi>»</span>
         </button>
       )}
+      <div className="create-ai">
+        <button type="button" className="create-opt" onClick={() => { onClose(); openAi({ prompt: '' }); }}>
+          <Icon name="sparkle" size={18} />
+          <span>اطلب بجملة<small>«أضف كويز للشبكات الخميس 5%» — المساعد يُنشئ أي شيء</small></span>
+        </button>
+        <button type="button" className="create-opt" onClick={() => { onClose(); openAi({ prompt: 'استخرج التقييمات من النص التالي وأضفها لمادة «…» (لا تخمّن أي وزن أو تاريخ غير مذكور):\n\n' }); }}>
+          <Icon name="copy" size={18} />
+          <span>التقاط ذكي<small>الصق خطة مادة أو جدولًا ← تقييمات جاهزة دفعة واحدة</small></span>
+        </button>
+      </div>
       <div className="create-grid">
         {groups.map(({ p, items }, gi) => (
           <section key={p.id} className="create-group" style={{ '--lc': p.color } as never} aria-label={p.name.ar}>

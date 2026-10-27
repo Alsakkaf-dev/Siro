@@ -35,7 +35,14 @@ interface Ctx {
   /** فتح قائمة الإنشاء أو نموذج إنشاء سريع من أي مكان */
   createCmd: CreateCmd | null;
   openCreate: (c: CreateCmd | null) => void;
+  /** نواة الذكاء: افتح المساعد (اختياريًا بطلب جاهز يُرسل فورًا) */
+  aiCmd: AiCmd | null;
+  openAi: (c?: Omit<AiCmd, 'seq'> | null) => void;
+  /** يتغيّر بعد أن يعدّل الذكاء بيانات — الصفحة الحالية تُعاد تحميلها */
+  dataRev: number;
+  bumpData: () => void;
 }
+export interface AiCmd { seq: number; prompt?: string; send?: boolean; context?: string | null }
 export type CreateCmd = { kind: 'menu' } | { kind: 'quick-item'; spaceId?: string; due?: string } | { kind: 'quick-assessment'; courseId?: string } | { kind: 'quick-note' };
 
 const C = createContext<Ctx | null>(null);
@@ -65,6 +72,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [profileName, setProfileName] = useState<string | null>(null);
   const [crumbs, setCrumbs] = useState<Crumb[] | null>(null);
   const [createCmd, openCreate] = useState<CreateCmd | null>(null);
+  const [aiCmd, setAiCmd] = useState<AiCmd | null>(null);
+  const aiSeq = useRef(0);
+  const [dataRev, setDataRev] = useState(0);
+  const bumpData = useCallback(() => setDataRev((n) => n + 1), []);
+  const openAi = useCallback<Ctx['openAi']>((c) => setAiCmd(c === null ? null : { ...(c ?? {}), seq: ++aiSeq.current }), []);
   const reloadSpaces = useCallback(async () => {
     try {
       setSpaces(await wos.spaces());
@@ -152,8 +164,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const activeId = useMemo(() => semesters?.find((s) => s.is_active)?.id ?? semesters?.[0]?.id ?? null, [semesters]);
 
   const value = useMemo<Ctx>(
-    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCount, setUnknownCount, spaces, reloadSpaces, profileName, setProfileName, crumbs, setCrumbs, createCmd, openCreate }),
-    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCount, spaces, reloadSpaces, profileName, crumbs, createCmd],
+    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCount, setUnknownCount, spaces, reloadSpaces, profileName, setProfileName, crumbs, setCrumbs, createCmd, openCreate, aiCmd, openAi, dataRev, bumpData }),
+    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCount, spaces, reloadSpaces, profileName, crumbs, createCmd, aiCmd, openAi, dataRev, bumpData],
   );
 
   return (

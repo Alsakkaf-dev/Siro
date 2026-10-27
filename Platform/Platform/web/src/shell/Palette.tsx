@@ -25,7 +25,7 @@ const TOP = new Set(['/', '/week', '/academic', '/library', '/life', '/spaces', 
 const GROUPS: [MoreHit['kind'], string][] = [['space', 'مساحاتي'], ['item', 'عناصر المساحات'], ['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
 
 export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputElement | null> }) {
-  const { theme, setTheme, setShowShortcuts, openCreate, toast } = useApp();
+  const { theme, setTheme, setShowShortcuts, openCreate, toast, openAi } = useApp();
   const pctx = usePluginCtx();
   const [q, setQ] = useState('');
   const dq = useDebounced(q.trim(), 160);
@@ -104,8 +104,15 @@ export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputEleme
     academic.filter((h) => h.type === 'course').forEach((h) => out.push({ key: `a-${h.id}`, group: 'المواد', title: h.title, sub: h.subtitle, color: h.color, to: urlOf(h) }));
     academic.filter((h) => h.type === 'assessment').forEach((h) => out.push({ key: `a-${h.id}`, group: 'التقييمات', title: h.title, sub: h.subtitle, color: h.color, to: urlOf(h) }));
     for (const [k, label] of GROUPS) more.filter((m) => m.kind === k).forEach((m) => out.push({ key: `${k}-${m.id}`, group: label, title: m.title, sub: m.subtitle, to: m.to }));
+    // المساعد: جملة (3 كلمات فأكثر) = طلب ← أول صف؛ غير ذلك آخر صف
+    const text = q.trim();
+    if (text.length >= 2) {
+      const row: Row = { key: 'ai', group: 'المساعد', title: `اطلب من المساعد: «${text.length > 60 ? `${text.slice(0, 60)}…` : text}»`, sub: 'Ctrl+Enter', icon: 'sparkle', run: () => openAi({ prompt: text, send: true }) };
+      if (text.split(/\s+/).length >= 3) out.unshift(row);
+      else out.push(row);
+    }
     return out;
-  }, [cmds, nq, hits, more]);
+  }, [cmds, nq, hits, more, q, openAi]);
 
   const open = focus;
   const go = (r: Row | undefined): void => {
@@ -155,6 +162,9 @@ export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputEleme
           } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             setSel((s) => Math.max(0, s - 1));
+          } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && q.trim()) {
+            e.preventDefault();
+            go(rows.find((r) => r.key === 'ai'));
           } else if (e.key === 'Enter') {
             go(rows[sel]);
           }

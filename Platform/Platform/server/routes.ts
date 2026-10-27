@@ -18,6 +18,7 @@ import { createLifeRouter } from './lifeRoutes.js';
 import { createSportsRouter } from './sportsRoutes.js';
 import { createSearchRouter } from './searchRoutes.js';
 import { createPackageRouter } from './packageRoutes.js';
+import { createAiRouter } from './ai/routes.js';
 import path from 'node:path';
 
 export class HttpError extends Error {
@@ -77,6 +78,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
   r.use('/packages', createPackageRouter(ctx));
   r.use('/wos', createWosRouter(ctx));
   r.use('/public', createPublicRouter(ctx));
+  r.use('/ai', createAiRouter(ctx));
 
   /* ───── الفصول ───── */
   r.get('/semesters', wrap((_req, res) => void res.json(repo.listSemesters(db()))));

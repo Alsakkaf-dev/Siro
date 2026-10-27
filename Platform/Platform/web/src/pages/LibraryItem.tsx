@@ -11,6 +11,7 @@ import { Badge, Button, Card, CardHead, EmptyState, Skeleton, useDebounced } fro
 import { CourseBadge, ProgressBar, fmtDate, fmtSize, kindLabel, pctOf, typeLabel } from '../library/common.js';
 import { MediaPlayer, YoutubePlayer } from '../library/players.js';
 import { bareLibId, driveUrls, libRefOf, fmtTime, type LibBookmark, type LibItem } from '../../../shared/library.js';
+import { AskAi } from '../ai/AskAi.js';
 
 const PdfViewer = lazy(() => import('../library/PdfViewer.js'));
 
@@ -314,6 +315,8 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
         badge={it.done ? <Badge tone="ok">مكتمل</Badge> : undefined}
         actions={
           <>
+            {!isYt && !it.missing && <AskAi label="لخّص" prompt="لخّص هذا الملف في نقاط واضحة، ثم اذكر أهم 3 مفاهيم." send />}
+            {!isYt && !it.missing && <AskAi label="اختبرني" prompt="اسألني 5 أسئلة مراجعة من هذا الملف (واحدًا تلو الآخر، وصحّح إجابتي)." send />}
             <Button icon="check" onClick={() => void toggleDone()}>{it.done ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}</Button>
             {it.origin === 'drive' && it.remote_id && <a className="btn" href={driveUrls(it.remote_id).view} target="_blank" rel="noopener noreferrer"><Icon name="link" size={16} /> فتح في Drive</a>}
             {!isYt && !it.missing && <a className="btn" href={it.origin === 'drive' && it.remote_id ? driveUrls(it.remote_id).download : lib.rawUrl(it.id, true)} download><Icon name="download" size={16} /> تنزيل</a>}

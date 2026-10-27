@@ -35,8 +35,8 @@ const today = (): string => new Date(Date.now() - new Date().getTimezoneOffset()
 const plus = (n: number): string => new Date(Date.parse(today()) + n * 86_400_000).toISOString().slice(0, 10);
 
 describe(`Work-OS core (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
-  it('schema 5 + profile name setting', async () => {
-    expect((await call('GET', '/api/health')).json.schema).toBe(5);
+  it('schema 6 + profile name setting', async () => {
+    expect((await call('GET', '/api/health')).json.schema).toBe(6);
     expect((await call('GET', '/api/wos/profile')).json.name).toBe('محمد');
     expect((await call('PUT', '/api/wos/profile', { name: 'سارة' })).json.name).toBe('سارة');
     await call('PUT', '/api/wos/profile', { name: 'محمد' });

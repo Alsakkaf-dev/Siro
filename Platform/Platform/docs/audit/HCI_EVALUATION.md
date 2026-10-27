@@ -139,3 +139,33 @@ Manual keyboard pass: skip link; `/` and `n` from anywhere; every overlay (modal
 - **Wayfinding:** line chip + crumbs + metro sidebar + view switcher + `/map`; same placement on every page.
 - **Consistency:** one Create, one undo model, one status-pill, one view switcher, one terminology glossary (`NAVIGATION_SPEC.md §4`).
 - **Emotional design:** calm Today page; honest «≈» for approximate dates and «غير معروف» kept (no guessing).
+
+## AI CORE (ADR-0009) — KLM with the assistant
+
+Same operators (K 0.28 s, P 1.10 s, BB 0.20 s, M 1.35 s). **R** is model response time. It is measured per machine by `npm run ai:eval`, which reports the average. Ranges assumed below:
+
+- Qwen3.5-4B, CPU only: 2–6 s per step.
+- Qwen3.5-4B, GPU: under 1.5 s.
+- Cloud providers: 1–3 s.
+- The fake model used in CI: 0.1 s.
+
+Typing an Arabic sentence of n characters costs n·K.
+
+| Task | Without AI (best UI path) | With AI | Verdict |
+|---|---|---|---|
+| A1 add **one** assessment | 17.2 s (T2 after redesign) | Ctrl+J K + M + 38 chars + K + R + M (preview) + PBB = **15.2 s + R** | ≈ equal — the form is just as good for one item |
+| A2 enter a syllabus of **12** assessments | 12 × (PBB + 3·PBB + ~12K + PBB + M) + nav ≈ **125 s** | PBB «التقاط ذكي» + paste (2K) + K + R + M (review list) + PBB = **4.8 s + R** (R ≈ 10–20 s for 12 items on CPU) | **≈ 5–8× faster** |
+| A3 design a tracker (5 fields + 4 statuses) | template + settings modal: 5×(PBB + 8K + 2·PBB) + 4×(PBB + 8K) + 5.5 ≈ **50 s** | PBB «صمّمها بالذكاء» + 60 chars + K + R + M + PBB = **21 s + R** | **≈ 2× faster**, plus no need to know field kinds |
+| A4 "what do I need for 70% in every course" (6 courses) | 6 × (PBB pick + M) + nav ≈ **18.5 s** | PBB (suggestion chip) + R + M = **2.7 s + R** | **≈ 3–6× faster** |
+| A5 log 3 prayers + 1 expense | 4 × (type + 4 fields + submit + M) ≈ **48 s** | 60 chars + K + R + 4·PBB (policy «ask») = **24 s + R** · policy «auto» **19 s + R** | **≈ 2× faster** |
+| A6 summarise / quiz me on a 40-page PDF | not possible inside the app (manual reading) | PBB «لخّص» + R + M | impossible → **1 click** |
+| A7 daily brief | Home already 1.4 s | arrives in the Inbox each morning (background, free provider only) | 0 interaction |
+| A8 change one item's status | 4 PBB + M = **6.6 s** | 35 chars + K + R ≈ **10 s + R** | **slower** — direct UI stays the right tool |
+
+Conclusion: the assistant is **additive**. It wins on multi-entity, compositional and reading tasks: up to ~8× faster, and some tasks that were impossible become one click. It loses on single-click edits, so every existing control stays. A literal "900×" is not supported by any measurement. The real ceiling is the ratio between the number of form operations and one sentence plus R.
+
+Evidence for safety and UX:
+
+- `tests/ai.test.ts` (14) and `tests/ai-agent.test.ts` (17) cover: the tiers, that a refusal is reported to the model, the loop guard, the step cap, text-tool-call recovery, fallback, the cap, the online lock, actor tagging, and keys never echoed.
+- `scripts/e2e/ai.mjs` runs 10 UI-only flows at 1280 and 390, with axe clean on the panel.
+- The full crawler is ALL CLEAN after the change.

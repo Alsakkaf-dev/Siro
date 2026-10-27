@@ -138,7 +138,8 @@ export async function createOnlineHandler(): Promise<express.Express> {
   outer.disable('x-powered-by');
   // كل طلب يغيّر البيانات: نحفظ في Blob قبل إنهاء الاستجابة (الدالة قد تتجمّد بعد الرد)
   outer.use((req, res, next) => {
-    if (req.method === 'GET' || req.method === 'HEAD' || !req.path.startsWith('/api/')) return void next();
+    // تدفق الذكاء لا يغيّر القاعدة (المحادثات تُحفظ بطلب منفصل)
+    if (req.method === 'GET' || req.method === 'HEAD' || !req.path.startsWith('/api/') || /^\/api\/ai\/(chat|test\/)/.test(req.path)) return void next();
     const end = res.end.bind(res) as (...a: unknown[]) => express.Response;
     let ended = false;
     (res as { end: unknown }).end = (...args: unknown[]): express.Response => {

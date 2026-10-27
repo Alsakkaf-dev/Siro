@@ -17,6 +17,7 @@ import { dueSortMs, weightSum } from '../../../shared/semester.js';
 import type { Assessment, AssessmentStatus } from '../../../shared/types.js';
 import { daysFrom, fmtNum, prettySchedule, relDays, whenText } from '../lib/format.js';
 import { EmptyState as _E } from '../ui/ui.js';
+import { AskAi } from '../ai/AskAi.js';
 
 type View = 'list' | 'table' | 'board';
 const STATUSES: AssessmentStatus[] = ['unknown', 'pending', 'submitted', 'graded'];
@@ -140,6 +141,8 @@ export default function CoursePage() {
         crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: S.sem.code }, { to: `${base}/courses`, label: 'المواد' }, { label: course.code }]}
         actions={
           <>
+            <AskAi label="حلّل وضعي" prompt="حلّل وضعي في هذه المادة: ما حصلت عليه، ما تبقى، وكم أحتاج لأصل 70% و80%." send />
+            <AskAi label="التقاط ذكي" prompt={`استخرج التقييمات من النص التالي وأضفها لهذه المادة (${course.code}) — لا تخمّن أي وزن أو تاريخ غير مذكور:\n\n`} />
             <Button icon="edit" onClick={() => setEditCourse(true)}>تعديل المادة</Button>
             <Button icon="plus" variant="primary" onClick={() => setEdit('new')}>إضافة تقييم</Button>
           </>

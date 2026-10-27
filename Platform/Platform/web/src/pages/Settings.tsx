@@ -9,6 +9,7 @@ import { wos } from '../lib/wos.js';
 import { Icon } from '../lib/icons.js';
 import { AppearanceCard, NotifyCard } from '../core/Appearance.js';
 import { fmtNum } from '../lib/format.js';
+import { AiSettingsCard } from '../ai/AiSettings.js';
 
 const fmtSize = (n: number): string => (n > 1_048_576 ? `${fmtNum(n / 1_048_576)} MB` : `${fmtNum(n / 1024, 0)} KB`);
 export default function Settings() {
@@ -103,10 +104,11 @@ export default function Settings() {
 
   return (
     <div className="page">
-      <PageHead title="الإعدادات والبيانات" icon="sliders" sub="كل الإعدادات في مكان واحد: الملف الشخصي، المظهر، مصادر البيانات، النسخ الاحتياطي، الاستيراد والتصدير، وسلة المحذوفات." />
+      <PageHead title="الإعدادات والبيانات" icon="sliders" sub="كل الإعدادات في مكان واحد: الملف الشخصي، الذكاء، المظهر، مصادر البيانات، النسخ الاحتياطي، الاستيراد والتصدير، وسلة المحذوفات." />
       <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
         <div className="stack">
           <ProfileCard />
+          <AiSettingsCard />
           <SourcesCard />
           <AppearanceCard />
           <NotifyCard />

@@ -11,6 +11,17 @@ export class ApiError extends Error {
   }
 }
 
+// أثناء تنفيذ أداة من نواة الذكاء تُوسم الطلبات x-actor: ai ← السجل يعرض «الذكاء» كفاعل
+let aiDepth = 0;
+export async function asAi<T>(fn: () => Promise<T>): Promise<T> {
+  aiDepth++;
+  try {
+    return await fn();
+  } finally {
+    aiDepth--;
+  }
+}
+
 // طلبات GET المتطابقة والمتزامنة تُدمج في طلب واحد؛ أي تعديل (POST/PATCH/DELETE) يفرّغ القائمة كي لا نُرجع بيانات قديمة.
 const inflight = new Map<string, Promise<unknown>>();
 
@@ -44,9 +55,12 @@ async function fetchRaw(method: string, url: string, body?: unknown): Promise<Pr
       /* نعيد الطلب عاديًّا */
     }
   }
+  const headers: Record<string, string> = {};
+  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  if (aiDepth > 0) headers['x-actor'] = 'ai';
   const res = await fetch(url, {
     method,
-    headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
+    headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
   return { ok: res.ok, status: res.status, text: await res.text() };

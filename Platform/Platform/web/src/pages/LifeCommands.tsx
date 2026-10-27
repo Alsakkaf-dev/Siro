@@ -5,6 +5,7 @@ import { ApiError, life } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Field } from '../ui/ui.js';
 import { fmtAt, FreshBadge, Note, useLife, TblWrap } from '../life/lifeKit.js';
+import { AskAi } from '../ai/AskAi.js';
 import {
   COMMAND_LABEL, COMMAND_TYPES, EXPENSE_BOXES, HABIT_KEYS, LIFE_DATA_FILES, LIFE_FILE_LABEL, PAY_SOURCES, PRAYER_AR, PRAYER_KEYS, validatePayload, type CommandType, type Finance, type LifeCommand,
 } from '../../../shared/life.js';
@@ -103,7 +104,7 @@ export default function LifeCommands() {
 
   return (
     <div className="page life-page">
-      <PageHead title="مسودات الأوامر" icon="mail" crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'مسودات الأوامر' }]} sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
+      <PageHead title="مسودات الأوامر" icon="mail" crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'مسودات الأوامر' }]} sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." actions={<AskAi label="سجّل بجملة" prompt="سجّل: " />} badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
       <div className="stack life-stack">
         <div className="life-alert warn" role="note">
           <span aria-hidden="true">⚠</span>
