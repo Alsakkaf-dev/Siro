@@ -25,7 +25,7 @@ export default function Glossary() {
       requestAnimationFrame(() => el.scrollIntoView({ block: 'center' }));
     }
   }, [hash, g]);
-  const head = <PageHead title="قاموس المصطلحات" icon="book" sub="تعريفات قصيرة من راشد لمصطلحات الرياضة والمال والعادات ووسوم الثقة." crumbs={[{ label: 'المصطلحات' }]} />;
+  const head = <PageHead title="قاموس المصطلحات" icon="book" sub="تعريفات قصيرة من راشد لمصطلحات الرياضة والمال والعادات ووسوم الثقة." />;
   if (!g) return <div className="page">{head}<Skeleton h={120} r={16} /></div>;
   if (!g.doc) {
     return (

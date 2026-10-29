@@ -67,7 +67,7 @@ export default function Sports() {
     setSafeOnly(false);
   };
 
-  const head = <PageHead title="الرياضة" icon="dumbbell" sub="مكتبة التمارين من راشد — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." crumbs={[{ label: 'الرياضة' }]} actions={<><Button to="/sports/templates" icon="calendar">القوالب الأسبوعية</Button><Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button></>} />;
+  const head = <PageHead title="مكتبة التمارين" icon="dumbbell" sub="مكتبة التمارين من راشد — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." actions={<><Button to="/sports/templates" icon="calendar">القوالب الأسبوعية</Button><Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button></>} />;
   if (ex.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (ex.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={ex.error} action={<Button onClick={ex.reload}>إعادة المحاولة</Button>} /></div>;
   if (!ex.rootExists || !ex.data) {

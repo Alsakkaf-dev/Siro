@@ -105,7 +105,7 @@ export default function Dashboard() {
           }
         >
           <TickBar value={Math.round(elapsed * 100)} max={100} ticks={32} color="var(--lime)" />
-          <Link to={`${base}/timeline`} className="btn sm ink">الجدول الزمني</Link>
+          <Link to={`${base}/timeline`} className="btn sm ink">التقييمات والمواعيد</Link>
           <Link to={`${base}/calculator`} className="btn sm">حاسبة الدرجات</Link>
         </Hero>
 

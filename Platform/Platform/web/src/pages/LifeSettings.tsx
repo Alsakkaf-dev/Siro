@@ -40,7 +40,7 @@ export default function LifeSettings() {
   };
   return (
     <div className="page life-page">
-      <PageHead title="إعدادات الحياة" icon="sliders" crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'الإعدادات' }]} />
+      <PageHead title="إعدادات الحياة" icon="sliders" />
       <div className="stack life-stack" style={{ maxInlineSize: 900 }}>
         <Card>
           <CardHead title="مجلد صادرات راشد" icon="folder" />

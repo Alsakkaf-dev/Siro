@@ -71,6 +71,7 @@ const P: Record<string, string> = {
   slides: 'M3 4h18v12H3z M12 16v4 M8 20h8',
   refresh: 'M23 4v6h-6 M1 20v-6h6 M3.51 9a9 9 0 0 1 14.85-3.36L23 10 M1 14l4.64 4.36A9 9 0 0 0 20.49 15',
   music: 'M9 18V5l12-2v13 M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0z M21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+  utensils: 'M7 2v20 M4 2v6a3 3 0 0 0 6 0V2 M17 22V2c-2.5 0-4 2.5-4 6.5S14.5 13 17 13',
   archive: 'M21 8v13H3V8 M1 3h22v5H1z M10 12h4',
 };
 

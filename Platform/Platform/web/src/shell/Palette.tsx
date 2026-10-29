@@ -3,41 +3,31 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon, type IconName } from '../lib/icons.js';
 import { api } from '../lib/api.js';
 import { useApp } from '../core/app-context.js';
+import { flagEnabled } from '../core/flags.js';
+import { readRecent } from '../core/recent.js';
+import { AREAS, AREA_BY_ID, NEW_ACTIONS, PAGES, hrefFor, resolvePath, scoreText } from '../core/registry.js';
 import { Skeleton, cx, useDebounced } from '../ui/ui.js';
 import { normalizeText } from '../../../shared/text.js';
 import type { MoreHit, SearchHit } from '../../../shared/types.js';
 
-interface Cmd { id: string; title: string; sub?: string; icon: IconName; keys?: string; to?: string; run?: () => void; top?: boolean }
-interface Row { key: string; group: string; title: string; sub?: string; color?: string; icon?: IconName; to?: string; run?: () => void }
-
-const TOP = new Set(['/', '/academic', '/library', '/life', '/life/finance', '/sports', '/review', '/settings']);
-const PAGES: { to: string; title: string; icon: IconName; kw: string }[] = [
-  { to: '/', title: 'الرئيسية', icon: 'home', kw: 'home dashboard' },
-  { to: '/academic', title: 'الفصول الدراسية', icon: 'calendar', kw: 'academic semesters' },
-  { to: '/library', title: 'المكتبة', icon: 'book', kw: 'library pdf files' },
-  { to: '/library/youtube', title: 'مكتبة YouTube', icon: 'play', kw: 'youtube videos' },
-  { to: '/life', title: 'الحياة — اللوحة', icon: 'heart', kw: 'life dashboard' },
-  { to: '/life/finance', title: 'المالية', icon: 'chart', kw: 'finance money spending مصروف فلوس' },
-  { to: '/life/prayers', title: 'الصلاة والقضاء', icon: 'moon', kw: 'prayers qada' },
-  { to: '/life/habits', title: 'العادات', icon: 'check', kw: 'habits vape sugar تدخين سكر' },
-  { to: '/life/routine', title: 'الروتين اليومي', icon: 'clock', kw: 'routine schedule' },
-  { to: '/life/body', title: 'الجسم والوزن', icon: 'target', kw: 'body weight وزن' },
-  { to: '/life/alternatives', title: 'بدائل العادات', icon: 'zap', kw: 'alternatives' },
-  { to: '/life/ledger', title: 'السجل المالي الكامل', icon: 'database', kw: 'ledger سجل مصروفات' },
-  { to: '/life/insights', title: 'مؤشرات المال', icon: 'chart', kw: 'insights مؤشرات متوسط الصرف' },
-  { to: '/life/routine-map', title: 'خريطة الروتين الأسبوعي', icon: 'timer', kw: 'routine map كتل' },
-  { to: '/life/qada-plan', title: 'خطة القضاء', icon: 'clock', kw: 'qada plan قضاء سيناريو' },
-  { to: '/life/glossary', title: 'المصطلحات', icon: 'book', kw: 'glossary terms قاموس' },
-  { to: '/sports', title: 'الرياضة — التمارين', icon: 'dumbbell', kw: 'sports exercises muscles عضلات' },
-  { to: '/sports/templates', title: 'قوالب التمارين', icon: 'dumbbell', kw: 'templates plans' },
-  { to: '/sports/mine', title: 'تماريني', icon: 'dumbbell', kw: 'my workouts' },
-  { to: '/review', title: 'مراجعة الأسبوع', icon: 'sparkle', kw: 'weekly review المراجعة الأسبوعية' },
-  { to: '/settings', title: 'الإعدادات والنسخ الاحتياطي', icon: 'sliders', kw: 'settings backup' },
-];
+interface Row { key: string; group: string; title: string; sub?: string; color?: string; icon?: IconName; to?: string; run?: () => void; score: number }
 
 const GROUPS: [MoreHit['kind'], string][] = [['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
+// روابط الخادم القديمة تُصحَّح هنا مباشرة بدل المرور بالتحويل
+const fixTo = (to: string): string => to.replace(/^\/life\/glossary(?=[#?]|$)/, '/glossary');
 
-export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputElement | null> }) {
+/** ترتيب المجموعات بأعلى درجة فيها، والصفوف داخلها بالدرجة؛ Enter = أول صف معروض. */
+export function orderRows(rows: Row[]): Row[] {
+  const groups = new Map<string, Row[]>();
+  for (const r of rows) groups.set(r.group, [...(groups.get(r.group) ?? []), r]);
+  return [...groups.values()]
+    .map((g) => g.map((r, i) => ({ r, i })).sort((a, b) => b.r.score - a.r.score || a.i - b.i).map((x) => x.r))
+    .map((g, i) => ({ g, i, top: g[0]?.score ?? 0 }))
+    .sort((a, b) => b.top - a.top || a.i - b.i)
+    .flatMap((x) => x.g);
+}
+
+export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInputElement | null>; semId: string | null }) {
   const { theme, setTheme, setShowShortcuts } = useApp();
   const [q, setQ] = useState('');
   const dq = useDebounced(q.trim(), 160);
@@ -76,28 +66,48 @@ export function Palette({ inputRef }: { inputRef: React.RefObject<HTMLInputEleme
     return () => document.removeEventListener('mousedown', d);
   }, []);
 
-  const cmds: Cmd[] = useMemo(
-    () => [
-      ...PAGES.map((p): Cmd => ({ id: p.to, title: p.title, icon: p.icon, to: p.to, sub: p.kw, top: TOP.has(p.to) })),
-      { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', sub: 'theme dark light مظهر', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
-      { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', to: '/settings#appearance', sub: 'notifications accent لون تنبيه' },
-      { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', run: () => setShowShortcuts(true), sub: 'shortcuts' },
-    ],
-    [theme, setTheme, setShowShortcuts],
-  );
-
   const nq = normalizeText(q);
   const rows: Row[] = useMemo(() => {
     const out: Row[] = [];
-    const cm = (nq ? cmds.filter((c) => normalizeText(`${c.title} ${c.sub ?? ''}`).includes(nq)) : cmds.filter((c) => c.top)).slice(0, nq ? 5 : 8);
-    cm.forEach((c) => out.push({ key: `c-${c.id}`, group: nq ? 'صفحات وأوامر' : 'اذهب إلى', title: c.title, icon: c.icon, ...(c.to ? { to: c.to } : {}), ...(c.run ? { run: c.run } : {}) }));
+    if (!nq) {
+      readRecent().filter((r) => r.path !== loc.pathname + loc.search).forEach((r, i) => out.push({ key: `r-${r.path}`, group: 'زرتَه مؤخرًا', title: r.title, icon: 'clock', to: r.path, score: 90 - i }));
+      AREAS.filter((a) => !a.flag || flagEnabled(a.flag)).forEach((a, i) => out.push({ key: `ar-${a.id}`, group: 'الأقسام', title: a.label, icon: a.icon, to: hrefFor(a.entry, semId), sub: `g ${a.kbd}`, score: 50 - i }));
+      return orderRows(out);
+    }
+    const pages = PAGES.filter((p) => !p.flag || flagEnabled(p.flag))
+      .map((p) => {
+        const to = resolvePath(p, { semId });
+        const score = Math.max(scoreText(nq, normalizeText(p.label), normalizeText(p.keywords ?? '')), p.tabLabel ? scoreText(nq, normalizeText(p.tabLabel)) : 0);
+        return { p, to, score };
+      })
+      .filter((x) => x.to && x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4);
+    pages.forEach(({ p, to, score }) => out.push({ key: `p-${p.id}`, group: 'صفحات', title: p.label, sub: AREA_BY_ID.get(p.area)?.label, icon: p.icon, to: to!, score }));
+    for (const a of NEW_ACTIONS) {
+      const to = a.to(semId);
+      const score = Math.max(scoreText(nq, normalizeText(`إنشاء ${a.label}`)), scoreText(nq, normalizeText(a.label)) ? 30 : 0, scoreText(nq, '', 'new create جديد اضافه انشاء') ? 25 : 0);
+      if (to && score > 0) out.push({ key: `n-${a.id}`, group: 'إنشاء', title: `إنشاء: ${a.label}`, icon: 'plus', to, score });
+    }
+    const misc: { id: string; title: string; icon: IconName; kw: string; to?: string; run?: () => void }[] = [
+      { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', kw: 'theme dark light مظهر داكن فاتح', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
+      { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', kw: 'notifications accent لون تنبيه اشعارات', to: '/settings#appearance' },
+      { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', kw: 'shortcuts keyboard اختصارات', run: () => setShowShortcuts(true) },
+    ];
+    for (const c of misc) {
+      const score = scoreText(nq, normalizeText(c.title), normalizeText(c.kw));
+      if (score > 0) out.push({ key: `c-${c.id}`, group: 'أوامر', title: c.title, icon: c.icon, score, ...(c.to ? { to: c.to } : {}), ...(c.run ? { run: c.run } : {}) });
+    }
     const academic = (hits ?? []).slice(0, 12);
     const urlOf = (h: SearchHit): string => `/academic/s/${h.semester_id}/courses/${h.course_id}${h.type === 'assessment' ? `#a-${h.id}` : ''}`;
-    academic.filter((h) => h.type === 'course').forEach((h) => out.push({ key: `a-${h.id}`, group: 'المواد', title: h.title, sub: h.subtitle, color: h.color, to: urlOf(h) }));
-    academic.filter((h) => h.type === 'assessment').forEach((h) => out.push({ key: `a-${h.id}`, group: 'التقييمات', title: h.title, sub: h.subtitle, color: h.color, to: urlOf(h) }));
-    for (const [k, label] of GROUPS) more.filter((m) => m.kind === k).forEach((m) => out.push({ key: `${k}-${m.id}`, group: label, title: m.title, sub: m.subtitle, to: m.to }));
-    return out;
-  }, [cmds, nq, hits, more]);
+    for (const h of academic) {
+      const code = normalizeText(h.title.split(' — ')[0] ?? '');
+      const score = h.type === 'course' && code === nq ? 100 : 50;
+      out.push({ key: `a-${h.id}`, group: h.type === 'course' ? 'المواد' : 'التقييمات', title: h.title, sub: [h.subtitle, h.semester_code].filter(Boolean).join(' · '), color: h.color, to: urlOf(h), score });
+    }
+    for (const [k, label] of GROUPS) more.filter((m) => m.kind === k).forEach((m) => out.push({ key: `${k}-${m.id}`, group: label, title: m.title, sub: m.subtitle, to: fixTo(m.to), score: 45 }));
+    return orderRows(out);
+  }, [nq, hits, more, semId, theme, setTheme, setShowShortcuts, loc.pathname, loc.search]);
 
   const open = focus;
   const go = (r: Row | undefined): void => {

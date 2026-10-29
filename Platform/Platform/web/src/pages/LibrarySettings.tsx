@@ -39,7 +39,7 @@ export default function LibrarySettings() {
 
   return (
     <div className="page">
-      <PageHead title="إعدادات المكتبة" icon="sliders" crumbs={[{ to: '/library', label: 'المكتبة' }, { label: 'الإعدادات' }]} />
+      <PageHead title="إعدادات المكتبة" icon="sliders" />
       <div className="stack" style={{ gap: 'var(--s-5)', maxInlineSize: 760 }}>
         <Card>
           <CardHead title="مجلد المكتبة" icon="folder" />

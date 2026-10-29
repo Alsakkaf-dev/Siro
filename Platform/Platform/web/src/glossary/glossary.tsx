@@ -110,7 +110,7 @@ export function Term({ id, children, bare }: { id: string; children: ReactNode; 
             <strong>{e.term_ar}</strong>
             {e.term_en && <span className="term-en" lang="en" dir="ltr">{e.term_en}</span>}
             <span>{e.definition_ar}</span>
-            <Link to={`/life/glossary#${e.id}`} className="term-more" tabIndex={-1}>كل المصطلحات</Link>
+            <Link to={`/glossary#${e.id}`} className="term-more" tabIndex={-1}>كل المصطلحات</Link>
           </div>,
           document.body,
         )}

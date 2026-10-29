@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useSem } from '../core/sem-context.js';
+import { usePageTitle } from '../core/title.js';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
@@ -25,6 +26,7 @@ export default function CoursePage() {
   const loc = useLocation();
   const base = `/academic/s/${S.sem.id}`;
   const course = S.courseById.get(courseId);
+  usePageTitle(course ? `${course.code} — ${course.name}` : null);
   const [view, setView] = useState<View>('list');
   const [edit, setEdit] = useState<Assessment | 'new' | null>(null);
   const [editCourse, setEditCourse] = useState(false);

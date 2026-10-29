@@ -103,7 +103,7 @@ export default function LifeCommands() {
 
   return (
     <div className="page life-page">
-      <PageHead title="الأوامر" icon="mail" crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'الأوامر' }]} sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
+      <PageHead title="طلبات التسجيل" icon="mail" sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
       <div className="stack life-stack">
         <div className="life-alert warn" role="note">
           <span aria-hidden="true">⚠</span>

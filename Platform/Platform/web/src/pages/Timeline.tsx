@@ -73,7 +73,7 @@ export default function Timeline() {
 
   return (
     <div className="page">
-      <PageHead title="الجدول الزمني" icon="clock" crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: sem.code }, { label: 'الجدول الزمني' }]} sub="أين تتكدّس التقييمات؟ الأسابيع المزدحمة مُظلَّلة." />
+      <PageHead title="التقييمات والمواعيد" icon="clock" crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: sem.code }, { label: 'التقييمات والمواعيد' }]} sub="أين تتكدّس التقييمات؟ الأسابيع المزدحمة مُظلَّلة." />
 
       <div className="tl-controls">
         <div className="chips" role="group" aria-label="تصفية حسب المادة">

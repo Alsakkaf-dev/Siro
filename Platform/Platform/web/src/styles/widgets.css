@@ -377,3 +377,33 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 
 @media (max-width: 700px) { .caps { overflow-x: auto; padding-inline: 2px; scrollbar-width: thin; } .cap { flex: 0 0 26px; min-width: 26px; } }
 .dt-link-cell { position: absolute; inset: 0; pointer-events: none; } .dt-link-cell .dt-link { pointer-events: auto; }
+
+/* ───────── «اليوم» و HUB المطبخ (تخطيط فقط) ───────── */
+.today-grid { display: grid; gap: var(--s-4); grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.today-grid > .today-week { grid-column: 1 / -1; }
+@media (max-width: 900px) { .today-grid { grid-template-columns: minmax(0, 1fr); } }
+.today-list { display: grid; gap: 2px; }
+.today-row { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-1); border-radius: var(--r-md); color: var(--text); flex-wrap: wrap; }
+a.today-row:hover { background: var(--surface-2); text-decoration: none; }
+.today-row .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.today-row .tr-main { flex: 1 1 160px; min-width: 0; color: var(--text); }
+.today-row .tr-main small { display: block; color: var(--text-3); }
+.today-row.late .tr-main small { color: var(--danger); }
+.today-link { display: flex; align-items: center; gap: var(--s-2); margin-block-start: var(--s-3); }
+.qa { display: inline-flex; gap: var(--s-1); flex-wrap: wrap; }
+.week-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--s-2); }
+.ws-day { display: grid; align-content: start; gap: 4px; padding: var(--s-2); border: 1px solid var(--border); border-radius: var(--r-md); min-width: 0; }
+.ws-day.today { border-color: var(--accent); }
+.ws-day small { color: var(--text-3); }
+.ws-chip { font-size: var(--fs-xs); padding: 1px 6px; border-radius: var(--r-pill); border: 1px solid var(--c, var(--border-strong)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ws-meta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-xs); color: var(--text-2); min-width: 0; overflow: hidden; }
+@media (max-width: 760px) { .week-strip { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); } }
+.pick-course { justify-content: flex-start; gap: var(--s-2); }
+.pick-course .dot { width: 10px; height: 10px; border-radius: 50%; }
+.nf-actions { justify-items: center; gap: var(--s-3); }
+.kitchen-search { max-inline-size: 280px; }
+.ing-grid { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+.ing-card { display: flex; gap: var(--s-3); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-md); min-width: 0; }
+.ing-ico { font-size: 28px; line-height: 1; flex: none; }
+.ing-main { display: grid; gap: 2px; min-width: 0; }
+.ing-flag { color: var(--warn); font-size: var(--fs-xs); }

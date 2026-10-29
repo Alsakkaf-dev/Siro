@@ -145,7 +145,7 @@ export function StaleBanner({ status, names }: { status: LifeStatus | null; name
 /** هيكل صفحة الحياة: عنوان + تنبيه القِدم + حالة تحميل/مجلد مفقود، ثم المحتوى. */
 export function LifePage({ title, icon, sub, names, data, actions, crumbs, children }: { title: string; icon: IconName; sub?: ReactNode; names: LifeFile[]; data: LifeData; actions?: ReactNode; crumbs?: { to?: string; label: string }[]; children: ReactNode }) {
   const st = data.status;
-  const head = <PageHead title={title} icon={icon} sub={sub} actions={actions} crumbs={crumbs ?? [{ to: '/life', label: 'الحياة' }, { label: title }]} badge={st && st.files.length ? <FreshBadge f={{ state: worstOf(st.files.filter((f) => names.includes(f.name)).map((f) => f.state)), age_hours: Math.max(0, ...st.files.filter((f) => names.includes(f.name)).map((f) => f.age_hours ?? 0)) || null }} /> : undefined} />;
+  const head = <PageHead title={title} icon={icon} sub={sub} actions={actions} crumbs={crumbs} badge={st && st.files.length ? <FreshBadge f={{ state: worstOf(st.files.filter((f) => names.includes(f.name)).map((f) => f.state)), age_hours: Math.max(0, ...st.files.filter((f) => names.includes(f.name)).map((f) => f.age_hours ?? 0)) || null }} /> : undefined} />;
   if (data.loading) return <div className="page">{head}<div className="stack"><Skeleton h={90} r={16} /><Skeleton h={260} r={16} /></div></div>;
   if (data.error || !st) return <div className="page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={data.error ?? 'حاول مجددًا.'} action={<Button onClick={data.reload}>إعادة المحاولة</Button>} /></div>;
   if (!st.root_exists) {

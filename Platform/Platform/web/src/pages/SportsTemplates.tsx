@@ -39,7 +39,7 @@ export default function SportsTemplates() {
   const list = useMemo(() => (p?.templates ?? []).filter((t) => loc === 'all' || t.location === loc), [p, loc]);
   const cur: Template | undefined = list.find((t) => t.id === pickId) ?? list.find((t) => t.id === mine.template) ?? list[0];
   const today = weekdayKL(now);
-  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة من راشد — كلها افتراض حتى تختار أنت." crumbs={[{ to: '/sports', label: 'الرياضة' }, { label: 'القوالب' }]} actions={<Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button>} />;
+  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة من راشد — كلها افتراض حتى تختار أنت." actions={<Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button>} />;
 
   if (plans.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (plans.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={plans.error} action={<Button onClick={plans.reload}>إعادة المحاولة</Button>} /></div>;

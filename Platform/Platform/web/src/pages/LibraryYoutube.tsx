@@ -6,6 +6,7 @@ import { PageHead } from '../ui/page.js';
 import { Button, Card, EmptyState, Field, KebabMenu, Modal, Skeleton } from '../ui/ui.js';
 import { CourseBadge, KindTile, ProgressBar, TagChips, fmtWhen, itemPath, pctOf } from '../library/common.js';
 import type { LibItem } from '../../../shared/library.js';
+import { useNewParam } from '../core/useNewParam.js';
 
 function YtForm({ item, onClose, onSaved }: { item?: LibItem; onClose: () => void; onSaved: () => void }) {
   const { toast } = useApp();
@@ -54,6 +55,7 @@ export default function LibraryYoutube() {
   const { toast, confirm } = useApp();
   const [items, setItems] = useState<LibItem[] | null>(null);
   const [form, setForm] = useState<{ item?: LibItem } | null>(null);
+  useNewParam(() => setForm({}));
   const load = useCallback(() => {
     void lib.youtube().then(setItems).catch((e: Error) => toast(e.message, { kind: 'error' }));
   }, [toast]);
@@ -73,7 +75,7 @@ export default function LibraryYoutube() {
 
   return (
     <div className="page">
-      <PageHead title="فيديوهات YouTube" icon="play" crumbs={[{ to: '/library', label: 'المكتبة' }, { label: 'YouTube' }]} sub="روابط محفوظة محليًا مع ملاحظاتك وعلامات الوقت وتقدّم المشاهدة." actions={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فيديو</Button>} />
+      <PageHead title="فيديوهات YouTube" icon="play" sub="روابط محفوظة محليًا مع ملاحظاتك وعلامات الوقت وتقدّم المشاهدة." actions={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فيديو</Button>} />
       {!items ? (
         <Skeleton h={180} r={16} />
       ) : items.length === 0 ? (

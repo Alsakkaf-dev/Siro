@@ -15,7 +15,8 @@
     { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "المراجعة الأسبوعية", "url": "/review" },
+    { "name": "اليوم", "url": "/" },
+    { "name": "مراجعة الأسبوع", "url": "/review" },
     { "name": "المكتبة", "url": "/library" },
     { "name": "الحياة", "url": "/life" }
   ]

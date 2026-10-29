@@ -1,5 +1,5 @@
 {
-  "_": "مسارات اختبار المتصفح (scripts/browser-smoke.mjs). الرموز :sem :course :file :yt تُستبدل بمعرّفات حقيقية من الخادم المؤقت. يطابقها tests/registry.test.ts مع سجل التنقل.",
+  "_": "مسارات اختبار المتصفح (scripts/browser-smoke.mjs). الرموز :sem :course :file :yt تُستبدل بمعرّفات حقيقية من الخادم المؤقت. يطابقها tests/registry.test.ts مع سجل التنقل (والتحويلات القديمة /home و/life/glossary).",
   "routes": [
     "/",
     "/academic",
@@ -35,8 +35,24 @@
     "/sports",
     "/sports/templates",
     "/sports/mine",
+    "/kitchen",
     "/settings",
+    "/glossary",
     "/search?q=SCSE",
+    "/home",
     "/no-such-page"
-  ]
+  ],
+  "entries": [
+    "/",
+    "/academic/s/:sem",
+    "/library",
+    "/life",
+    "/sports/mine",
+    "/kitchen",
+    "/settings"
+  ],
+  "redirects": {
+    "/home": "/",
+    "/life/glossary": "/glossary"
+  }
 }

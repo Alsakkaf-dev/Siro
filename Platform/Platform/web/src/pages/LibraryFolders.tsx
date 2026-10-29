@@ -32,7 +32,7 @@ export default function LibraryFolders() {
 
   return (
     <div className="page">
-      <PageHead title="المجلدات" icon="folder" crumbs={[{ to: '/library', label: 'المكتبة' }, { label: 'المجلدات' }]} sub="تصفّح الهيكل الحقيقي لمجلد المكتبة (قراءة فقط)." actions={<Button to="/library" icon="list">كل الملفات</Button>} />
+      <PageHead title="المجلدات" icon="folder" sub="تصفّح الهيكل الحقيقي لمجلد المكتبة (قراءة فقط)." actions={<Button to="/library" icon="list">كل الملفات</Button>} />
       {status && <StatusBanner status={status} reload={reload} />}
       <nav className="lib-crumbs" aria-label="مسار المجلد">
         <Link to={to(-1)}><Icon name="folder" size={15} /> الجذر</Link>
