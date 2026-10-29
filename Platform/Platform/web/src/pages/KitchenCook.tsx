@@ -7,7 +7,7 @@ import { flagEnabled } from '../core/flags.js';
 import { KitchenChips, NutriGrid, StoreSelect, storeName, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { quickBuy, serveCook, type CardRowC } from '../kitchen/store.js';
 import { SimClient, type SimView } from '../kitchen/cook/simClient.js';
-import type { KitchenScene, Pick, Quality, StationName } from '../kitchen/cook/Scene3D.js';
+import type { KitchenScene, Pick, Quality, SceneAction, StationName } from '../kitchen/cook/Scene3D.js';
 import {
   INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, RECIPE_BY_SLUG, STORES, fmtKcal, fmtNum, fmtRM, indexPrices, mealCost, nutritionOf, per100g, qtyView, type MealType, type RecipeLine,
 } from '../../../shared/kitchen/index.js';
@@ -185,6 +185,28 @@ export default function KitchenCook() {
   }, []);
   const [vesselFocus, setVesselFocus] = useState<string | null>(null);
 
+  /* أفعال اليدين في العالم: وضع وعاء على موقد، تدوير مقبض اللهب (نفس عمليات المحاكاة التي تقدمها اللوحة) */
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  const onSceneAction = useCallback((a: SceneAction): void => {
+    if (a.type === 'place') void run({ type: 'place', vessel: a.vessel, burner: a.burner }, a.burner === 0 ? 'رُفع عن الموقد' : `وُضع على الموقد ${a.burner}`);
+    else if (a.type === 'knob') {
+      const cur = viewRef.current?.snap.burners[a.burner - 1] ?? 0;
+      const next = cur === 0 ? 3 : cur <= 3 ? 6 : cur <= 6 ? 9 : 0;
+      void run({ type: 'heat', burner: a.burner, level: next }, next === 0 ? `أُطفئ الموقد ${a.burner}` : `لهب الموقد ${a.burner}: ${next}`);
+    }
+  }, [run]);
+  const hoverLabel = useCallback((p: Pick): string => {
+    if (p.kind === 'ingredient') return INGREDIENT_BY_SLUG.get(p.id)?.name_ar ?? p.id;
+    if (p.kind === 'vessel' || p.kind === 'plate') return VESSEL_AR[p.id] ?? p.id;
+    if (p.kind === 'burner') return `الموقد ${p.id}`;
+    if (p.kind === 'knob') return `مقبض الموقد ${p.id} (انقر لتغيير اللهب)`;
+    if (p.kind === 'toaster') return 'المحمّصة';
+    if (p.kind === 'board') return 'لوح التقطيع';
+    const it = viewRef.current?.snap.items.find((x) => x.id === p.id);
+    return it ? (INGREDIENT_BY_SLUG.get(it.ingredient)?.name_ar ?? p.id) : p.id;
+  }, []);
+
   /* الوصفة الموجّهة */
   const specs = useMemo(() => (recipe ? parseSteps(recipe.steps_original) : []), [recipe]);
   const stepStates = useMemo(() => (view && specs.length ? detectSteps(specs, view.snap) : []), [specs, view]);
@@ -234,7 +256,7 @@ export default function KitchenCook() {
         <div className="kt-stage">
           {showStage ? (
             <Suspense fallback={<div className="kt-stage-load" role="status">جارٍ تحميل المطبخ ثلاثي الأبعاد…</div>}>
-              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
+              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} onAction={onSceneAction} hoverLabel={hoverLabel} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
             </Suspense>
           ) : (
             <div className="kt-stage-off" role="note">{webgl ? 'العرض ثلاثي الأبعاد مطفأ — لوحة الإجراءات تعمل بالكامل وتنتج البطاقة نفسها.' : 'WebGL غير متاح على هذا الجهاز — لوحة الإجراءات كاملة الوظائف وتنتج البطاقة نفسها (A11Y-10).'}</div>

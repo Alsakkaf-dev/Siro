@@ -7,11 +7,16 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { INGREDIENTS } from '../../../../shared/kitchen/index.js';
 import type { Item, Snapshot, Vessel } from '../../../../shared/kitchen/sim/index.js';
 import type { SimView } from './simClient.js';
+import { FirstPerson } from './world/FirstPerson.js';
+import { Hands, type Side } from './world/Hands.js';
+import { stepBody, type Aabb, type Body } from './world/collision.js';
 
 export type Quality = 'lite' | 'standard' | 'high';
 export type StationName = 'shelves' | 'equipment' | 'tools' | 'prep' | 'stove' | 'sink' | 'serve';
-export type Pick = { kind: 'ingredient'; id: string } | { kind: 'vessel'; id: string } | { kind: 'item'; id: string } | { kind: 'burner'; id: string } | { kind: 'toaster'; id: string } | { kind: 'plate'; id: string } | { kind: 'board'; id: string };
-export interface SceneOptions { canvas: HTMLCanvasElement; quality: Quality; reducedMotion: boolean; onPick: (p: Pick) => void; onQuality?: (q: Quality, why: string) => void }
+export type Pick = { kind: 'ingredient'; id: string } | { kind: 'vessel'; id: string } | { kind: 'item'; id: string } | { kind: 'burner'; id: string } | { kind: 'knob'; id: string } | { kind: 'toaster'; id: string } | { kind: 'plate'; id: string } | { kind: 'board'; id: string };
+/** أفعال تُنتجها اليدان في العالم وتُحوَّل في الصفحة إلى عمليات محاكاة */
+export type SceneAction = { type: 'place'; vessel: string; burner: 0 | 1 | 2 | 3 | 4 } | { type: 'knob'; burner: 1 | 2 | 3 | 4 } | { type: 'discard_vessel'; vessel: string };
+export interface SceneOptions { canvas: HTMLCanvasElement; quality: Quality; reducedMotion: boolean; onPick: (p: Pick) => void; onQuality?: (q: Quality, why: string) => void; onAction?: (a: SceneAction) => void; onHover?: (p: Pick | null) => void }
 
 const V3 = (x: number, y: number, z: number): THREE.Vector3 => new THREE.Vector3(x, y, z);
 export const STATIONS: Record<StationName, { cam: THREE.Vector3; look: THREE.Vector3; label: string }> = {
@@ -29,6 +34,14 @@ const REST: Record<string, THREE.Vector3> = {
 };
 const TOASTER_POS = V3(0.8, 0.95, 0.3);
 const BOARD_POS = V3(-0.35, 0.93, 0.3);
+/** مواضع المحاكاة في المشهد: الإجرائي افتراضيًا، ويعيد `loadWorld` ضبطها من عقد GLB (burner_k, equip_*, board_main) */
+export interface Layout { burner: Record<number, THREE.Vector3>; rest: Record<string, THREE.Vector3>; toaster: THREE.Vector3; board: THREE.Vector3 }
+const defaultLayout = (): Layout => ({
+  burner: Object.fromEntries(Object.entries(BURNER_POS).map(([k, v]) => [k, v.clone()])) as Record<number, THREE.Vector3>,
+  rest: Object.fromEntries(Object.entries(REST).map(([k, v]) => [k, v.clone()])),
+  toaster: TOASTER_POS.clone(),
+  board: V3(BOARD_POS.x, 0.94, BOARD_POS.z),
+});
 
 /* ───── مواد ونسيج إجرائي ───── */
 function canvasTex(w: number, h: number, draw: (c: CanvasRenderingContext2D) => void, repeat?: [number, number]): THREE.CanvasTexture {
@@ -167,6 +180,7 @@ interface ItemVis { mesh: THREE.InstancedMesh; sig: string; mat: THREE.MeshStand
 interface VesselVis { group: THREE.Group; liquid: THREE.Mesh; liquidMat: THREE.MeshStandardMaterial; lid: THREE.Object3D | null; target: THREE.Vector3; radius: number; height: number }
 
 export class KitchenScene {
+  readonly L: Layout = defaultLayout();
   readonly renderer: THREE.WebGLRenderer;
   readonly scene = new THREE.Scene();
   readonly camera = new THREE.PerspectiveCamera(52, 1, 0.05, 40);
@@ -195,7 +209,7 @@ export class KitchenScene {
   private lookNow = V3(0, 1.1, -1.5);
   private station: StationName = 'prep';
   private raf = 0;
-  private clock = new THREE.Clock();
+  private clock = new THREE.Timer();
   private frames = 0;
   private acc = 0;
   private lowStreak = 0;
@@ -298,12 +312,12 @@ export class KitchenScene {
     // طاولة التحضير (الجزيرة) واللوح
     B.box(1.9, 0.9, 0.85, mWoodDark, 0, 0.45, 0.3);
     B.box(2.0, 0.05, 0.95, mCounter, 0, 0.925, 0.3);
-    B.box(0.55, 0.035, 0.38, mWood, BOARD_POS.x, 0.96, BOARD_POS.z);
+    B.box(0.55, 0.035, 0.38, mWood, this.L.board.x, 0.96, this.L.board.z);
     // الموقد على اليمين
     B.box(0.85, 0.9, 2.5, mBlack, 2.25, 0.45, -0.2);
     B.box(0.9, 0.05, 2.55, mCounter, 2.25, 0.925, -0.2);
     for (const k of [1, 2, 3, 4]) {
-      const p = BURNER_POS[k]!;
+      const p = this.L.burner[k]!;
       B.add(new THREE.TorusGeometry(0.1, 0.012, 8, 28), mBlack, V3(p.x, 0.955, p.z), [Math.PI / 2, 0, 0]);
       B.cyl(0.05, 0.06, 0.025, mSteelDark, p.x, 0.945, p.z, 18);
       B.box(0.28, 0.012, 0.012, mSteelDark, p.x, 0.99, p.z);
@@ -335,7 +349,9 @@ export class KitchenScene {
     }
     // نافذة بإضاءة دافئة (لوحة مضيئة)
     B.box(1.4, 1.0, 0.04, mat(0xfff1c8, 1, 0, { emissive: 0xffe2a0, emissiveIntensity: 0.55 }), -1.0, 2.1, -2.24);
+    const room0 = this.root.children.length;
     B.build(this.root, shadows);
+    this.roomObjs = this.root.children.slice(room0);
 
     // الإضاءة
     this.root.add(new THREE.HemisphereLight(0xfff0dc, 0x4a3a2a, 0.75));
@@ -362,7 +378,9 @@ export class KitchenScene {
     serveSpot.target.position.set(-1.4, 0.9, 1.0);
     this.root.add(serveSpot, serveSpot.target);
 
+    const shelf0 = this.root.children.length;
     this.buildShelves();
+    this.roomObjs.push(...this.root.children.slice(shelf0));
     this.buildEquipment();
     this.buildBurners();
     this.buildSteam();
@@ -527,7 +545,7 @@ export class KitchenScene {
       hit.userData = { pick: { kind: 'vessel', id } satisfies Pick };
       g.add(hit);
       this.pickables.push(hit);
-      g.position.copy(REST[id] ?? V3(0, 1, 0));
+      g.position.copy(this.L.rest[id] ?? V3(0, 1, 0));
       this.root.add(g);
       return { group: g, liquid, liquidMat, lid, target: g.position.clone(), radius: r, height: h };
     };
@@ -557,11 +575,11 @@ export class KitchenScene {
     th.userData = { pick: { kind: 'toaster', id: 'toaster' } satisfies Pick };
     tg.add(th);
     this.pickables.push(th);
-    tg.position.copy(TOASTER_POS);
+    tg.position.copy(this.L.toaster);
     this.root.add(tg);
     // لوح التقطيع كمنطقة اختيار
     const bh = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.12, 0.42), new THREE.MeshBasicMaterial({ visible: false }));
-    bh.position.set(BOARD_POS.x, 1.0, BOARD_POS.z);
+    bh.position.set(this.L.board.x, this.L.board.y + 0.06, this.L.board.z);
     bh.name = 'board_main';
     bh.userData = { pick: { kind: 'board', id: 'board' } satisfies Pick };
     this.root.add(bh);
@@ -597,15 +615,16 @@ export class KitchenScene {
       tip.rotation.x = Math.PI / 2;
       tip.position.y = 0.06;
       g.add(tip);
-      g.position.copy(BURNER_POS[k]!);
+      g.position.copy(this.L.burner[k]!);
       g.position.y = 0.96;
       g.visible = false;
       this.root.add(g);
       this.flames.push(g);
       this.flameMats.push(m);
       const hit = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.08, 12), new THREE.MeshBasicMaterial({ visible: false }));
-      hit.position.copy(BURNER_POS[k]!);
+      hit.position.copy(this.L.burner[k]!);
       hit.userData = { pick: { kind: 'burner', id: String(k) } satisfies Pick };
+      this.burnerHits.push(hit);
       this.root.add(hit);
       this.pickables.push(hit);
     }
@@ -668,8 +687,9 @@ export class KitchenScene {
     for (const v of snap.vessels) {
       const vis = this.vessels.get(v.id);
       if (!vis) continue;
-      vis.target.copy(v.burner > 0 ? BURNER_POS[v.burner]!.clone().setY(0.96) : (REST[v.id] ?? vis.target));
-      if (v.id === 'plate_1' || v.id === 'bowl') vis.target.copy(REST[v.id]!);
+      if (this.held.has(v.id) || this.falling.has(v.id)) continue;
+      vis.target.copy(v.burner > 0 ? this.L.burner[v.burner]!.clone().setY(this.L.burner[v.burner]!.y + 0.015) : (this.L.rest[v.id] ?? vis.target));
+      if (v.id === 'plate_1' || v.id === 'bowl') vis.target.copy(this.L.rest[v.id]!);
       if (vis.lid) vis.lid.visible = v.lid;
       const liquidG = v.waterG + v.milkG + v.oilG;
       vis.liquid.visible = liquidG > 3;
@@ -739,8 +759,8 @@ export class KitchenScene {
     this.items.delete(id);
   }
   private slotPos(loc: string, idx: number): THREE.Vector3 {
-    if (loc === 'board') return V3(BOARD_POS.x - 0.18 + (idx % 4) * 0.12, 0.99, BOARD_POS.z + (Math.floor(idx / 4) - 0.5) * 0.14);
-    if (loc === 'toaster') return V3(TOASTER_POS.x, 0.24, TOASTER_POS.z);
+    if (loc === 'board') return V3(this.L.board.x - 0.18 + (idx % 4) * 0.12, this.L.board.y + 0.05, this.L.board.z + (Math.floor(idx / 4) - 0.5) * 0.14);
+    if (loc === 'toaster') return V3(this.L.toaster.x, this.L.toaster.y + 0.14, this.L.toaster.z);
     const v = this.vessels.get(loc);
     return v ? v.group.position.clone().add(V3(0, 0.03, 0)) : V3(0, -5, 0);
   }
@@ -779,6 +799,11 @@ export class KitchenScene {
   goStation(name: StationName, instant = false): void {
     const st = STATIONS[name];
     this.station = name;
+    if (this.fp) {
+      const cs = this.contractStations.get(name);
+      if (cs) this.fp.teleport(cs.eye, cs.look);
+      return;
+    }
     this.camFrom = { p: this.camera.position.clone(), l: this.lookNow.clone() };
     this.camTo = { p: st.cam.clone(), l: st.look.clone() };
     this.camT = instant || this.o.reducedMotion ? 1 : 0;
@@ -799,10 +824,12 @@ export class KitchenScene {
   private bind(): void {
     const el = this.o.canvas;
     el.addEventListener('pointerdown', (e) => {
+      if (this.fp) return;
       this.drag = { x: e.clientX, y: e.clientY, moved: false };
       el.setPointerCapture?.(e.pointerId);
     });
     el.addEventListener('pointermove', (e) => {
+      if (this.fp) return;
       if (this.drag) {
         const dx = e.clientX - this.drag.x;
         const dy = e.clientY - this.drag.y;
@@ -816,6 +843,7 @@ export class KitchenScene {
       }
     });
     el.addEventListener('pointerup', (e) => {
+      if (this.fp) return;
       const moved = this.drag?.moved;
       this.drag = null;
       if (moved) return;
@@ -851,20 +879,24 @@ export class KitchenScene {
   private loop = (): void => {
     if (this.disposed) return;
     this.raf = requestAnimationFrame(this.loop);
+    this.clock.update();
     const dt = Math.min(0.1, this.clock.getDelta());
-    const t = this.clock.elapsedTime;
+    const t = this.clock.getElapsed();
+    if (this.fp) this.stepWorld(dt);
     // انتقال الكاميرا (≤ 600ms) مع مدار محدود
-    if (this.camT < 1) {
+    else if (this.camT < 1) {
       this.camT = Math.min(1, this.camT + dt / this.camDur);
       const e = this.camT * this.camT * (3 - 2 * this.camT);
       this.camera.position.lerpVectors(this.camFrom.p, this.camTo.p, e);
       this.lookNow.lerpVectors(this.camFrom.l, this.camTo.l, e);
     }
-    const off = this.lookNow.clone().sub(this.camera.position);
-    off.applyAxisAngle(V3(0, 1, 0), this.yaw);
-    const look = this.camera.position.clone().add(off);
-    look.y += this.pitch * off.length();
-    this.camera.lookAt(look);
+    if (!this.fp) {
+      const off = this.lookNow.clone().sub(this.camera.position);
+      off.applyAxisAngle(V3(0, 1, 0), this.yaw);
+      const look = this.camera.position.clone().add(off);
+      look.y += this.pitch * off.length();
+      this.camera.lookAt(look);
+    }
     // حركة المعدات نحو أهدافها
     for (const v of this.vessels.values()) v.group.position.lerp(v.target, this.o.reducedMotion ? 1 : Math.min(1, dt * 8));
     // اللهب
@@ -916,6 +948,225 @@ export class KitchenScene {
     void dt;
   }
 
+
+  /* ───── العالم: جولة بالقدمين ويدان وفيزياء (الشخص الأول) ───── */
+  private roomObjs: THREE.Object3D[] = [];
+  private worldRoot: THREE.Object3D | null = null;
+  private fp: FirstPerson | null = null;
+  private hands: Hands | null = null;
+  private held = new Map<string, { side: Side }>();
+  private falling = new Map<string, Body>();
+  private colliders: Aabb[] = [];
+  private supports: Aabb[] = [];
+  private contractStations = new Map<string, { eye: THREE.Vector3; look: THREE.Vector3 }>();
+  private hoverKey = '';
+  private hoverT = 0;
+  worldReady = false;
+  /** مواقع الأوعية وأحجامها (للاختبار والتشخيص) */
+  vesselInfo(): Record<string, { x: number; y: number; z: number; size: number[] }> {
+    const out: Record<string, { x: number; y: number; z: number; size: number[] }> = {};
+    for (const [id, v] of this.vessels) {
+      const bb = new THREE.Box3().setFromObject(v.group); const sz = bb.getSize(new THREE.Vector3());
+      out[id] = { x: +v.group.position.x.toFixed(2), y: +v.group.position.y.toFixed(2), z: +v.group.position.z.toFixed(2), size: [sz.x, sz.y, sz.z].map((n) => +n.toFixed(2)) };
+    }
+    return out;
+  }
+  /** معلومات اللاعب للاختبار والواجهة */
+  playerInfo(): { x: number; z: number; yaw: number; crouch: boolean; locked: boolean } | null {
+    return this.fp ? { x: this.fp.pos.x, z: this.fp.pos.z, yaw: this.fp.yaw, crouch: this.fp.crouch, locked: this.fp.locked } : null;
+  }
+
+  /**
+   * يحمّل عالم المطبخ (GLB من بلندر) فيستبدل الغرفة الإجرائية، ويقرأ العقد: spawn_player وcam_station_* وburner_* وequip_* وboard_main وslot_ing_*،
+   * ويشغّل متحكم الشخص الأول واليدين. ما يفشل تحميله يبقى المشهد الإجرائي (يرمي لتلتقطه الواجهة).
+   */
+  async loadWorld(url: string): Promise<{ nodes: number; slots: number; gaps: string[] }> {
+    const { parseGlb } = await import('./world/glbLoad.js');
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`تعذّر تحميل العالم (${res.status})`);
+    const buf = await res.arrayBuffer();
+    if (new TextDecoder().decode(buf.slice(0, 4)) !== 'glTF') throw new Error('الملف ليس GLB');
+    const gltf = await parseGlb(buf);
+    if (this.disposed) return { nodes: 0, slots: 0, gaps: [] };
+    const W = gltf.scene;
+    W.updateMatrixWorld(true);
+    const byName = new Map<string, THREE.Object3D>();
+    W.traverse((o) => { if (o.name) byName.set(o.name, o); });
+    const wp = (o: THREE.Object3D): THREE.Vector3 => o.getWorldPosition(new THREE.Vector3());
+
+    // 1) إخفاء الغرفة الإجرائية وصناديق اختيار الرفوف القديمة
+    for (const o of this.roomObjs) o.visible = false;
+    this.pickables = this.pickables.filter((m) => (m.userData as { pick?: Pick }).pick?.kind !== 'ingredient');
+    // 2) مظهر الوعاء من GLB (equip_*, plate_1) فوق مجموعات المحاكاة؛ المواقع الجديدة من العقد
+    const gaps: string[] = [];
+    for (const id of ['pan', 'pot_small', 'pot_large', 'pressure_cooker', 'bowl', 'plate_1']) {
+      const node = byName.get(id === 'plate_1' ? 'plate_1' : `equip_${id}`);
+      const vis = this.vessels.get(id);
+      if (!node || !vis) { gaps.push(id === 'plate_1' ? 'plate_1' : `equip_${id}`); continue; }
+      const pos = wp(node);
+      this.L.rest[id] = pos.clone();
+      vis.group.children.forEach((c) => { if (c.userData['proc']) c.visible = false; });
+      const c = node.clone(true); c.position.set(0, 0, 0); // المقياس والدوران من العقدة نفسها (بلندر يضعهما على الكائن)
+      c.traverse((m) => { if ((m as THREE.Mesh).isMesh) { m.castShadow = this.quality !== 'lite'; m.receiveShadow = true; } });
+      vis.group.add(c);
+      vis.group.position.copy(pos); vis.target.copy(pos);
+      node.visible = false;
+    }
+    // 3) المواقد والمحمّصة واللوح من العقد
+    for (let k = 1; k <= 4; k++) {
+      const n = byName.get(`burner_${k}`);
+      if (!n) { gaps.push(`burner_${k}`); continue; }
+      const p = wp(n); this.L.burner[k] = p.clone();
+      const fl = this.flames[k - 1]; if (fl) fl.position.copy(p);
+      const hit = this.burnerHits[k - 1]; if (hit) hit.position.copy(p);
+      // مقبض اللهب على الواجهة الأمامية للطاولة (نقرة = تدوير مستوى اللهب)
+      const kb = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), new THREE.MeshBasicMaterial({ visible: false }));
+      kb.position.set(p.x - 0.36, p.y - 0.15, p.z); kb.userData = { pick: { kind: 'knob', id: String(k) } satisfies Pick };
+      this.root.add(kb); this.pickables.push(kb);
+    }
+    const tb = byName.get('equip_toaster'); const toasterG = this.root.getObjectByName('equip_toaster');
+    if (tb && toasterG && toasterG !== tb) { const p = wp(tb); this.L.toaster.copy(p); toasterG.position.copy(p); tb.visible = false; }
+    const bm = byName.get('board_main');
+    if (bm) { const bb = new THREE.Box3().setFromObject(bm); this.L.board.set((bb.min.x + bb.max.x) / 2, bb.max.y, (bb.min.z + bb.max.z) / 2); const bh = this.root.getObjectByName('board_main'); if (bh && bh !== bm) bh.position.set(this.L.board.x, this.L.board.y + 0.06, this.L.board.z); }
+    // 4) خانات المكوّنات: صناديق اختيار حول عقد slot_ing_*
+    let slots = 0;
+    for (const ing of INGREDIENTS) {
+      const n = byName.get(`slot_ing_${ing.slug}`);
+      if (!n) { gaps.push(`slot_ing_${ing.slug}`); continue; }
+      const bb = new THREE.Box3().setFromObject(n); bb.expandByScalar(0.05);
+      const sz = bb.getSize(new THREE.Vector3()); const c = bb.getCenter(new THREE.Vector3());
+      const hit = new THREE.Mesh(new THREE.BoxGeometry(sz.x, sz.y, sz.z), new THREE.MeshBasicMaterial({ visible: false }));
+      hit.position.copy(c); hit.userData = { pick: { kind: 'ingredient', id: ing.slug } satisfies Pick };
+      this.root.add(hit); this.pickables.push(hit); slots++;
+    }
+    // 5) الإضاءة الداخلية: مصابيح السقف (نقاط) بدل الشمس
+    this.sun.intensity = 0.25;
+    for (const [x, z] of [[-2.5, 1.3], [0, 1.3], [2.5, 1.3], [-2.5, -1.1], [0, -1.1], [2.5, -1.1]] as const) {
+      const l = new THREE.PointLight(0xfff0d8, 9, 9, 1.4); l.position.set(x, 2.85, z); this.root.add(l);
+    }
+    // 6) المصادمات: مصادمات صريحة COL_* + صناديق الأجسام الثابتة PRP_* (عدا المدمجة المتناثرة) + أسطح الدعم للفيزياء
+    const colliders: Aabb[] = [];
+    const supports: Aabb[] = [];
+    const add = (box: Aabb, support: boolean): void => { colliders.push(box); if (support && box.maxY < 1.2) supports.push(box); };
+    for (const [name, o] of byName) {
+      const ex = o.userData as { min?: number[]; max?: number[] };
+      if (/^COL_/.test(name) && ex.min && ex.max) { add({ minX: ex.min[0]!, maxX: ex.max[0]!, minY: ex.min[1]!, maxY: ex.max[1]!, minZ: ex.min[2]!, maxZ: ex.max[2]!, name }, true); continue; }
+      if (!/^PRP_/.test(name) || /_\d+$/.test(name) || /hood|tool_rail|wall_shelf|planters|herbs|faucet|extinguisher|boxes|crates|barrel|knobs|fruit|island_|knife|board|griddle|range_top|cumin|honey/.test(name)) continue;
+      const b = new THREE.Box3().setFromObject(o);
+      if (!isFinite(b.min.x)) continue;
+      add({ minX: b.min.x, maxX: b.max.x, minY: b.min.y, maxY: b.max.y, minZ: b.min.z, maxZ: b.max.z, name }, !/equipment_rack/.test(name));
+    }
+    this.colliders = colliders; this.supports = supports;
+    // 7) محطات الكاميرا من العقد (eye/look في extras بإحداثيات glTF)
+    for (const n of ['shelves', 'equipment', 'tools', 'prep', 'stove', 'sink', 'serve'] as const) {
+      const o = byName.get(`cam_station_${n}`);
+      const eye = (o?.userData as { eye?: number[]; look?: number[] } | undefined)?.eye; const look = (o?.userData as { look?: number[] } | undefined)?.look;
+      if (o && eye && look) this.contractStations.set(n, { eye: new THREE.Vector3(...(eye as [number, number, number])), look: new THREE.Vector3(...(look as [number, number, number])) });
+      else gaps.push(`cam_station_${n}`);
+    }
+    // 8) المتحكم واليدان
+    const sp = byName.get('spawn_player'); const spawn = sp ? wp(sp) : new THREE.Vector3(0, 0, 2.5);
+    this.worldRoot = W; this.root.add(W);
+    this.hands = new Hands(this.camera); this.scene.add(this.camera);
+    this.fp = new FirstPerson({ canvas: this.o.canvas, camera: this.camera, colliders, room: { minX: -3.95, maxX: 3.95, minZ: -3.15, maxZ: 3.15 }, spawn, yaw: 0, reducedMotion: this.o.reducedMotion, onClickAction: (b, d) => this.handAction(b, d) });
+    this.o.canvas.tabIndex = 0;
+    this.camera.fov = 70; this.camera.near = 0.03; this.camera.updateProjectionMatrix();
+    this.scene.fog = new THREE.Fog(0x2b2622, 14, 30);
+    this.worldReady = true;
+    W.traverse((m) => { if ((m as THREE.Mesh).isMesh) { m.receiveShadow = this.quality !== 'lite'; } });
+    return { nodes: byName.size, slots, gaps };
+  }
+  private burnerHits: THREE.Mesh[] = [];
+
+  /** الهدف تحت المؤشر (مركز الشاشة): أقرب عنصر قابل للاختيار ضمن الذراع */
+  private aim(reach = 2.6): { pick: Pick; point: THREE.Vector3; dist: number } | null {
+    this.ptr.set(0, 0);
+    this.ray.setFromCamera(this.ptr, this.camera);
+    this.ray.far = reach;
+    const hits = this.ray.intersectObjects(this.pickables, false);
+    this.ray.far = Infinity;
+    for (const h of hits) {
+      const pick = (h.object.userData as { pick?: Pick }).pick;
+      if (pick && (pick.kind === 'vessel' || pick.kind === 'plate') && this.held.has(pick.id)) continue; // لا نستهدف ما في اليد
+      if (pick) return { pick, point: h.point.clone(), dist: h.distance };
+    }
+    return null;
+  }
+  /** زر الفأرة الأيسر = اليد اليمنى، الأيمن = اليسرى */
+  private handAction(button: 0 | 2, down: boolean): void {
+    const hands = this.hands; if (!hands) return;
+    const side: Side = button === 0 ? 'R' : 'L';
+    const hand = hands.get(side);
+    if (down) {
+      const hit = this.aim();
+      if (!hit) { hand.setGrip(0.5); return; }
+      hand.setReach(hit.point, this.camera); hand.setGrip(1);
+      const p = hit.pick;
+      if (p.kind === 'vessel' || p.kind === 'plate') {
+        const v = this.view?.snap.vessels.find((x) => x.id === p.id);
+        if (v && v.burner > 0) this.o.onAction?.({ type: 'place', vessel: p.id, burner: 0 });
+        this.held.set(p.id, { side }); this.falling.delete(p.id); hand.holding = true;
+      } else if (p.kind === 'knob') this.o.onAction?.({ type: 'knob', burner: Number(p.id) as 1 | 2 | 3 | 4 });
+      else if (p.kind === 'burner') hand.setGrip(0.3);
+      else this.o.onPick(p);
+    } else {
+      for (const [id, h] of this.held) if (h.side === side) this.release(id);
+      hand.setReach(null, this.camera); hand.setGrip(0); hand.holding = false;
+    }
+  }
+  private release(id: string): void {
+    const vis = this.vessels.get(id);
+    const aimed = this.aim(1.7); // قبل إزالته من اليد كي لا يُستهدف هو نفسه
+    this.held.delete(id);
+    if (!vis) return;
+    const p = vis.group.position;
+    // مصوَّب على سطح موقد ← «ضع» عليه (كما في Cooking Simulator: تصوّب وتترك)
+    if (aimed?.pick.kind === 'burner' && id !== 'plate_1' && id !== 'bowl') {
+      const k = Number(aimed.pick.id) as 1 | 2 | 3 | 4; const b = this.L.burner[k]!;
+      this.o.onAction?.({ type: 'place', vessel: id, burner: k }); vis.target.copy(b); vis.group.position.copy(b); return;
+    }
+    // أو فوق موقد؟ (ضمن 16 سم أفقيًا)
+    for (let k = 1; k <= 4; k++) {
+      const b = this.L.burner[k]!;
+      if (id !== 'plate_1' && id !== 'bowl' && Math.hypot(p.x - b.x, p.z - b.z) < 0.17 && Math.abs(p.y - b.y) < 0.45) { this.o.onAction?.({ type: 'place', vessel: id, burner: k as 1 | 2 | 3 | 4 }); vis.target.copy(b); return; }
+    }
+    const v = this.view?.snap.vessels.find((x) => x.id === id);
+    const empty = !v || (v.items.length === 0 && v.waterG + v.milkG + v.oilG < 1);
+    const fwd = this.fp ? this.fp.forward() : new THREE.Vector3(0, 0, -1);
+    const throwIt = empty && !!this.fp && (this.hands?.get('R').holding === false);
+    this.falling.set(id, { x: p.x, y: p.y, z: p.z, vx: throwIt ? 0 : 0, vy: 0, vz: throwIt ? 0 : 0, r: vis.radius, asleep: false });
+    void fwd;
+  }
+  private stepWorld(dt: number): void {
+    if (!this.fp) return;
+    this.fp.update(dt);
+    this.hands?.update(dt);
+    const cam = this.camera.position;
+    // الوعاء المُمسَك يتبع اليد أمام الصدر
+    for (const [id, h] of this.held) {
+      const vis = this.vessels.get(id); if (!vis) continue;
+      const f = this.fp.forward(); const right = new THREE.Vector3(-f.z, 0, f.x);
+      const tip = new THREE.Vector3(cam.x + f.x * 0.62 + right.x * (h.side === 'R' ? 0.2 : -0.2), cam.y - 0.34 + Math.sin(this.fp.pitch) * 0.45, cam.z + f.z * 0.62 + right.z * (h.side === 'R' ? 0.2 : -0.2));
+      tip.y = Math.max(0.05, tip.y);
+      vis.group.position.lerp(tip, 1 - Math.exp(-dt * 20)); vis.target.copy(vis.group.position);
+    }
+    // الأجسام الساقطة (جاذبية، ارتداد، احتكاك)
+    for (const [id, b] of this.falling) {
+      const vis = this.vessels.get(id); if (!vis) { this.falling.delete(id); continue; }
+      stepBody(b, dt, this.supports, { minX: -3.9, maxX: 3.9, minZ: -3.1, maxZ: 3.1 });
+      vis.group.position.set(b.x, b.y, b.z); vis.target.copy(vis.group.position);
+      if (b.asleep) { this.L.rest[id] = new THREE.Vector3(b.x, b.y, b.z); this.falling.delete(id); }
+    }
+    // تلميح الهدف (10 مرات/ث) للواجهة
+    this.hoverT += dt;
+    if (this.hoverT > 0.1) {
+      this.hoverT = 0;
+      const a = this.aim();
+      const key = a ? `${a.pick.kind}:${a.pick.id}` : '';
+      if (key !== this.hoverKey) { this.hoverKey = key; this.o.onHover?.(a?.pick ?? null); }
+    }
+  }
+
   /** إحصاءات الرسم للميزانيات (PERF-20): draw calls والمثلثات من آخر إطار */
   stats(): { fps: number; triangles: number; calls: number; quality: Quality; geometries: number; textures: number; kit: 'procedural' | 'glb' } {
     const i = this.renderer.info;
@@ -927,18 +1178,12 @@ export class KitchenScene {
    * يرمي عند فشل التحميل (يلتقطه المستدعي ويبقى المشهد الإجرائي).
    */
   async loadKit(url: string): Promise<{ applied: string[]; gaps: string[]; unknown: string[] }> {
-    const [{ GLTFLoader }, { MeshoptDecoder }, { planKit }] = await Promise.all([
-      import('three/examples/jsm/loaders/GLTFLoader.js'),
-      import('three/examples/jsm/libs/meshopt_decoder.module.js'),
-      import('./kitApply.js'),
-    ]);
+    const [{ parseGlb }, { planKit }] = await Promise.all([import('./world/glbLoad.js'), import('./kitApply.js')]);
     const res = await fetch(url);
     if (!res.ok) throw new Error(`تعذّر تحميل الحزمة (${res.status})`);
     const buf = await res.arrayBuffer();
     if (new TextDecoder().decode(buf.slice(0, 4)) !== 'glTF') throw new Error('الملف ليس GLB');
-    const loader = new GLTFLoader();
-    loader.setMeshoptDecoder(MeshoptDecoder);
-    const gltf = await new Promise<{ scene: THREE.Group }>((ok, bad) => loader.parse(buf, '', ok, bad));
+    const gltf = await parseGlb(buf);
     if (this.disposed) return { applied: [], gaps: [], unknown: [] };
     const plan = planKit(gltf.scene, new Set(INGREDIENTS.map((i) => i.slug)));
     const applied: string[] = [];
@@ -1000,6 +1245,7 @@ export class KitchenScene {
 
   dispose(): void {
     this.disposed = true;
+    this.fp?.dispose();
     cancelAnimationFrame(this.raf);
     this.ro?.disconnect();
     this.root.traverse((o) => {

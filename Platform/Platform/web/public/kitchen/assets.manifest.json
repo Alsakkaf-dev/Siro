@@ -1,8 +1,20 @@
 {
   "_": "بيان أصول المطبخ (AC-12 / PERF-20). كل أصل بترخيص ومصدر؛ delivered=false يعني أن الملف لم يُسلَّم بعد ويبقى المشهد الإجرائي. يُحدَّث بـ node tools/assets/optimize.mjs.",
   "version": 1,
-  "budgets": { "sceneMaxBytes": 12582912, "ingredientModelMaxBytes": 307200, "ingredientTextureMaxPx": 1024, "environmentTextureMaxPx": 2048, "sceneMaxTriangles": 250000, "ingredientMaxTriangles": 5000, "maxDrawCalls": 150 },
-  "procedural": { "note": "المشهد الإجرائي (هندسة three.js + نسيج Canvas مولَّد وقت التشغيل) لا يحمّل أي ملف؛ لا ترخيص لطرف ثالث فيه.", "license": "OWNER-AUTHORED", "source": "web/src/kitchen/cook/Scene3D.ts" },
+  "budgets": {
+    "sceneMaxBytes": 12582912,
+    "ingredientModelMaxBytes": 307200,
+    "ingredientTextureMaxPx": 1024,
+    "environmentTextureMaxPx": 2048,
+    "sceneMaxTriangles": 250000,
+    "ingredientMaxTriangles": 5000,
+    "maxDrawCalls": 150
+  },
+  "procedural": {
+    "note": "المشهد الإجرائي (هندسة three.js + نسيج Canvas مولَّد وقت التشغيل) لا يحمّل أي ملف؛ لا ترخيص لطرف ثالث فيه.",
+    "license": "OWNER-AUTHORED",
+    "source": "web/src/kitchen/cook/Scene3D.ts"
+  },
   "assets": [
     {
       "id": "kitchen-kit",
@@ -17,7 +29,40 @@
       "source": "tools/kernelcad/kitchen-kit.kcad.ts",
       "author": "المالك (بمساعدة kernelCAD)",
       "attribution": null,
-      "nodes": ["equip_pan", "equip_pot_small", "equip_pot_large", "equip_pressure_cooker", "equip_bowl", "plate_1", "board_main"]
+      "nodes": [
+        "equip_pan",
+        "equip_pot_small",
+        "equip_pot_large",
+        "equip_pressure_cooker",
+        "equip_bowl",
+        "plate_1",
+        "board_main"
+      ]
+    },
+    {
+      "id": "kitchen-world",
+      "kind": "world",
+      "path": "/kitchen/models/kitchen-world.glb",
+      "file": "models/kitchen-world.glb",
+      "delivered": true,
+      "bytes": 1532816,
+      "sha256": "64a1c055b22e0a4f705b88d70530fb5cc89d82991d58c3c5b6b533c14d4990b1",
+      "license": "OWNER-GENERATED",
+      "licenseNote": "مولَّد بالكامل من سكربت Blender الخاص بالمشروع (tools/blender/kitchen_world) بلا أصول طرف ثالث؛ المواد إجرائية مخبوزة. لا ملفات KayKit/Kenney مضمّنة.",
+      "source": "tools/blender/kitchen_world/build.py",
+      "author": "المالك (بمساعدة Blender 5.2)",
+      "attribution": null,
+      "nodes": [
+        "slot_ing_*",
+        "equip_*",
+        "burner_1..4",
+        "cam_station_*",
+        "board_main",
+        "scale_main",
+        "plate_1",
+        "spawn_player",
+        "drop_*"
+      ]
     }
   ]
 }

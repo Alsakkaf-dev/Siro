@@ -6,7 +6,8 @@
 // الأدوات تُستدعى بـnpx ولا تُضاف إلى package.json (قيد المالك).
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,9 +38,11 @@ for (const a of manifest.assets) {
   }
   if (!args.has('--check') && !args.has('--skip-optimize')) {
     const tmp = f.replace(/\.glb$/, '.opt.glb');
-    if (!run('npx', ['--yes', '@gltf-transform/cli', 'optimize', f, tmp, '--compress', 'meshopt', '--texture-compress', 'webp', '--texture-size', String(B.environmentTextureMaxPx)])) { errors.push(`${a.id}: فشل gltf-transform optimize`); continue; }
-    if (!run('npx', ['--yes', 'gltf-validator', tmp])) { errors.push(`${a.id}: فشل gltf-validator`); continue; }
+    if (!run('npx', ['--yes', '@gltf-transform/cli', 'optimize', f, tmp, '--compress', 'meshopt', '--texture-compress', 'webp', '--texture-size', String(B.environmentTextureMaxPx), '--flatten', 'false', '--join', 'false', '--instance', 'false', '--palette', 'false', '--simplify', 'false', '--prune', 'false'])) { errors.push(`${a.id}: فشل gltf-transform optimize`); continue; }
+    const vdir = mkdtempSync(join(tmpdir(), 'gltfval-'));
+    if (!run('npm', ['install', '--prefix', vdir, '--no-audit', '--no-fund', '--silent', 'gltf-validator']) || !run('node', [join(root, 'tools', 'assets', 'validate-glb.mjs'), vdir, tmp])) { errors.push(`${a.id}: فشل gltf-validator`); continue; }
     writeFileSync(f, readFileSync(tmp));
+    unlinkSync(tmp);
   }
   const bytes = statSync(f).size;
   if (bytes > B.sceneMaxBytes) errors.push(`${a.id}: ${bytes} بايت > ميزانية المشهد ${B.sceneMaxBytes}`);
