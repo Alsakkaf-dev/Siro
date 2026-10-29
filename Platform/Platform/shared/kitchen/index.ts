@@ -12,6 +12,7 @@ export * from './fmt.js';
 export * from './shop.js';
 export * from './pricing.js';
 export * from './cards.js';
+export * from './outlook.js';
 export { INGREDIENTS, INGREDIENT_BY_SLUG, TINY } from './data/ingredients.js';
 export { NUTRITION_PER_100G } from './data/nutrition.js';
 export { STORES, DEFAULT_STORE } from './data/stores.js';
