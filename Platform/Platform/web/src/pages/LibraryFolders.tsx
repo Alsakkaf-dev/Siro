@@ -48,7 +48,7 @@ export default function LibraryFolders() {
       ) : !data ? (
         <Skeleton h={200} r={16} />
       ) : data.folders.length === 0 && data.files.length === 0 ? (
-        <EmptyState icon="folder" title="المجلد فارغ" text={p ? 'لا توجد ملفات هنا.' : 'لا ملفات بعد — اضبط مجلد المكتبة من الإعدادات ثم افحصه.'} action={p ? <Button to="/library/folders">العودة للجذر</Button> : <Button to="/library/settings" variant="primary">إعدادات المكتبة</Button>} />
+        <EmptyState icon="folder" title="المجلد فارغ" text={p ? 'لا توجد ملفات هنا.' : 'لا ملفات بعد — اضبط مجلد المكتبة من الإعدادات ثم افحصه.'} action={p ? <Button to="/library/folders">العودة للجذر</Button> : <Button to="/settings?tab=sources" variant="primary">إعدادات المكتبة</Button>} />
       ) : (
         <>
           {data.folders.length > 0 && (

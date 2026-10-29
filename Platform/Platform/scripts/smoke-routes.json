@@ -53,6 +53,9 @@
   ],
   "redirects": {
     "/home": "/",
-    "/life/glossary": "/glossary"
+    "/life/glossary": "/glossary",
+    "/academic/s/:sem/weights": "/academic/s/:sem/timeline?view=weights",
+    "/library/settings": "/settings?tab=sources",
+    "/life/settings": "/settings?tab=sources"
   }
 }

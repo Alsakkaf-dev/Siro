@@ -66,8 +66,7 @@ export const PAGES: readonly PageDef[] = [
   { id: 'dashboard', path: S, label: 'لوحة الفصل', area: 'study', icon: 'grid', kbd: 'd', keywords: 'dashboard semester لوحة', surface: 'sidebar', needsSemester: true, chunk: null },
   { id: 'courses', path: `${S}/courses`, label: 'المواد', area: 'study', icon: 'book', kbd: 'c', keywords: 'courses subjects مواد', surface: 'sidebar', needsSemester: true, chunk: 'Courses' },
   { id: 'course', path: `${S}/courses/:courseId`, label: 'المادة', area: 'study', parent: 'courses', icon: 'book', surface: 'hidden', needsSemester: true, chunk: 'CoursePage' },
-  { id: 'timeline', path: `${S}/timeline`, label: 'التقييمات والمواعيد', tabLabel: 'الجدول الزمني', area: 'study', icon: 'clock', kbd: 't', keywords: 'timeline assessments deadlines مواعيد تقييمات جدول زمني', surface: 'sidebar', tabGroup: 'assess', needsSemester: true, chunk: 'Timeline' },
-  { id: 'weights', path: `${S}/weights`, label: 'خريطة الأوزان', tabLabel: 'الأوزان', area: 'study', parent: 'timeline', icon: 'pie', kbd: 'w', keywords: 'weights أوزان', surface: 'tab', tabGroup: 'assess', needsSemester: true, chunk: 'Weights' },
+  { id: 'timeline', path: `${S}/timeline`, label: 'التقييمات والمواعيد', area: 'study', icon: 'clock', kbd: 't', keywords: 'timeline assessments deadlines weights gantt مواعيد تقييمات جدول زمني أوزان جانت قائمة', surface: 'sidebar', needsSemester: true, chunk: 'Timeline' },
   { id: 'calculator', path: `${S}/calculator`, label: 'حاسبة الدرجات', area: 'study', icon: 'calc', kbd: 'k', keywords: 'calculator grades gpa درجات', surface: 'sidebar', needsSemester: true, chunk: 'Calculator' },
   { id: 'unknowns', path: `${S}/unknowns`, label: 'غير المعروف', area: 'study', icon: 'help', kbd: 'u', keywords: 'unknowns missing ناقص', surface: 'sidebar', needsSemester: true, chunk: 'Unknowns' },
   { id: 'print', path: `${S}/print`, label: 'ملخص الفصل للطباعة', area: 'study', parent: 'dashboard', icon: 'print', keywords: 'print طباعة', surface: 'hidden', needsSemester: true, chunk: 'PrintSummary' },
@@ -76,7 +75,6 @@ export const PAGES: readonly PageDef[] = [
   { id: 'library', path: '/library', label: 'المكتبة', tabLabel: 'الكل', area: 'library', icon: 'library', keywords: 'library pdf files ملفات', surface: 'sidebar', tabGroup: 'library', chunk: 'Library' },
   { id: 'library-folders', path: '/library/folders', label: 'المجلدات', area: 'library', parent: 'library', icon: 'folder', keywords: 'folders مجلدات', surface: 'tab', tabGroup: 'library', chunk: 'LibraryFolders' },
   { id: 'library-youtube', path: '/library/youtube', label: 'YouTube', area: 'library', parent: 'library', icon: 'play', keywords: 'youtube videos فيديو', surface: 'tab', tabGroup: 'library', chunk: 'LibraryYoutube' },
-  { id: 'library-settings', path: '/library/settings', label: 'إعدادات المكتبة', area: 'library', parent: 'library', icon: 'sliders', keywords: 'library settings', surface: 'hidden', chunk: 'LibrarySettings' },
   { id: 'library-file', path: '/library/f/:id', label: 'ملف', area: 'library', parent: 'library', icon: 'file', surface: 'hidden', chunk: 'LibraryItem' },
   { id: 'library-video', path: '/library/y/:id', label: 'فيديو', area: 'library', parent: 'library-youtube', icon: 'video', surface: 'hidden', chunk: 'LibraryItem' },
   // الحياة
@@ -91,7 +89,6 @@ export const PAGES: readonly PageDef[] = [
   { id: 'life-routine', path: '/life/routine', label: 'الروتين', tabLabel: 'اليوم', area: 'life', icon: 'timer', keywords: 'routine schedule روتين', surface: 'sidebar', tabGroup: 'routine', chunk: 'LifeRoutine' },
   { id: 'life-routine-map', path: '/life/routine-map', label: 'خريطة الروتين الأسبوعي', tabLabel: 'الأسبوع', area: 'life', parent: 'life-routine', icon: 'calendar', keywords: 'routine map كتل الأسبوع', surface: 'tab', tabGroup: 'routine', chunk: 'LifeRoutineMap' },
   { id: 'life-commands', path: '/life/commands', label: 'طلبات التسجيل', area: 'life', icon: 'mail', keywords: 'commands drafts أوامر مسودات راشد تسجيل', surface: 'sidebar', chunk: 'LifeCommands' },
-  { id: 'life-settings', path: '/life/settings', label: 'إعدادات الحياة', area: 'life', parent: 'life', icon: 'sliders', keywords: 'life settings rashed folder', surface: 'hidden', chunk: 'LifeSettings' },
   // الجسم والرياضة
   { id: 'body', path: '/life/body', label: 'الجسم والوزن', area: 'body', icon: 'target', keywords: 'body weight وزن جسم', surface: 'sidebar', chunk: 'LifeBody' },
   { id: 'sports-mine', path: '/sports/mine', label: 'تمريني', area: 'body', icon: 'check', keywords: 'my workouts تماريني تمريني', surface: 'sidebar', tabGroup: 'sports', chunk: 'SportsMine' },
@@ -100,7 +97,7 @@ export const PAGES: readonly PageDef[] = [
   // المطبخ (مخفي حتى المرحلة 2)
   { id: 'kitchen', path: '/kitchen', label: 'المطبخ', area: 'kitchen', icon: 'utensils', keywords: 'kitchen cooking مطبخ طبخ مكونات وجبات', surface: 'sidebar', chunk: 'Kitchen', flag: 'kitchen.enabled' },
   // النظام
-  { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup نسخ احتياطي مظهر', surface: 'sidebar', chunk: 'Settings' },
+  { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup sources library life rashed folder نسخ احتياطي مظهر مصادر مجلد المكتبة راشد', surface: 'sidebar', chunk: 'Settings' },
   { id: 'glossary', path: '/glossary', label: 'قاموس المصطلحات', area: 'system', icon: 'book', keywords: 'glossary terms قاموس مصطلحات', surface: 'sidebar', chunk: 'Glossary' },
   { id: 'search', path: '/search', label: 'البحث', area: 'system', icon: 'search', keywords: 'search بحث', surface: 'sidebar', chunk: 'SearchPage' },
 ];
@@ -109,7 +106,15 @@ export const PAGES: readonly PageDef[] = [
 export const REDIRECTS: readonly { from: string; to: string }[] = [
   { from: '/home', to: '/' },
   { from: '/life/glossary', to: '/glossary' },
+  { from: '/library/settings', to: '/settings?tab=sources' },
+  { from: '/life/settings', to: '/settings?tab=sources' },
+  { from: '/academic/s/:semId/weights', to: '/academic/s/:semId/timeline?view=weights' },
 ];
+
+/** اختصارات g لعروض داخل صفحة (ليست صفحات مستقلة) */
+export const KBD_ALIASES: Readonly<Record<string, { page: string; search: string; label: string }>> = {
+  w: { page: 'timeline', search: '?view=weights', label: 'خريطة الأوزان' },
+};
 
 export const PAGE_BY_ID: ReadonlyMap<string, PageDef> = new Map(PAGES.map((p) => [p.id, p]));
 export const AREA_BY_ID: ReadonlyMap<AreaId, AreaDef> = new Map(AREAS.map((a) => [a.id, a]));
@@ -212,6 +217,11 @@ export function gTarget(code: string, ctx: { semId: string | null; enabled: (f: 
   }
   const ch = code === 'Comma' ? ',' : /^Key([A-Z])$/.exec(code)?.[1]?.toLowerCase();
   if (!ch) return null;
+  const alias = KBD_ALIASES[ch];
+  if (alias) {
+    const to = hrefFor(alias.page, ctx.semId);
+    return to === '/academic' ? to : to + alias.search;
+  }
   const p = PAGES.find((x) => x.kbd === ch);
   if (!p || (p.flag && !ctx.enabled(p.flag))) return null;
   return hrefFor(p.id, ctx.semId);

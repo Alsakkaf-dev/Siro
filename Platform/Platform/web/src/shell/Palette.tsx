@@ -91,7 +91,7 @@ export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInp
     }
     const misc: { id: string; title: string; icon: IconName; kw: string; to?: string; run?: () => void }[] = [
       { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', kw: 'theme dark light مظهر داكن فاتح', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
-      { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', kw: 'notifications accent لون تنبيه اشعارات', to: '/settings#appearance' },
+      { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', kw: 'notifications accent لون تنبيه اشعارات', to: '/settings#notify' },
       { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', kw: 'shortcuts keyboard اختصارات', run: () => setShowShortcuts(true) },
     ];
     for (const c of misc) {

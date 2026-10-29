@@ -54,6 +54,7 @@ export default function Today() {
         <Card className="today-quick">
           <CardHead title="إجراءات سريعة" icon="zap" />
           <div className="quick">
+            <Link to="/life/alternatives" className="btn sm"><Icon name="zap" size={15} /> اشتهاء الآن؟</Link>
             {NEW_ACTIONS.map((a) => {
               const to = a.to(activeId);
               return to ? <Link key={a.id} to={to} className="btn sm"><Icon name={a.icon} size={15} /> {a.label}</Link> : null;

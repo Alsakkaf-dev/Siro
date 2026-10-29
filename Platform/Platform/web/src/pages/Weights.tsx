@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSem } from '../core/sem-context.js';
-import { PageHead } from '../ui/page.js';
-import { Badge, Card, CardHead, EmptyState, TrustTag } from '../ui/ui.js';
+import { Badge, Button, Card, CardHead, EmptyState, TrustTag } from '../ui/ui.js';
 import { Donut, GroupedBars, LegendRows, Sankey } from '../widgets/charts.js';
 import { KIND_COLOR, KIND_LABEL, KINDS } from '../../../shared/constants.js';
 import { weightSum } from '../../../shared/semester.js';
 import { fmtNum } from '../lib/format.js';
 
-export default function Weights() {
+/** عرض «أوزان» داخل «التقييمات والمواعيد» (?view=weights). */
+export function WeightsBody() {
   const S = useSem();
   const { sem, courses } = S;
   const base = `/academic/s/${sem.id}`;
@@ -21,14 +21,13 @@ export default function Weights() {
   const kindTotals = KINDS.map((k) => ({ k, v: matrix.reduce((s, r) => s + (r.m.get(k) ?? 0), 0) })).filter((x) => x.v > 0);
   const grand = kindTotals.reduce((s, x) => s + x.v, 0);
 
-  if (courses.length === 0 || grand === 0) return <div className="page"><PageHead title="خريطة الأوزان" icon="pie" /><EmptyState icon="pie" title="لا أوزان لعرضها" text="أضف مواد وتقييمات لتظهر الخريطة." /></div>;
+  if (courses.length === 0 || grand === 0) return <EmptyState icon="pie" title="لا أوزان لعرضها" text="أضف مواد وتقييمات لتظهر الخريطة." action={<Button variant="primary" icon="plus" to={`${base}/courses?new=assessment`}>إضافة تقييم</Button>} />;
 
   const finalShare = matrix.map((r) => ({ label: r.c.code, ca: Math.round(((r.sum - (r.m.get('final') ?? 0)) ) * 10) / 10, fin: r.m.get('final') ?? 0 }));
   const maxCell = Math.max(1, ...matrix.flatMap((r) => [...r.m.values()]));
 
   return (
-    <div className="page">
-      <PageHead title="خريطة الأوزان" icon="pie" crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: sem.code }, { label: 'الأوزان' }]} sub="أين يذهب وزن درجاتك؟ من المواد إلى أنواع التقييم." />
+    <div>
       <div className="stack stagger" style={{ gap: 'var(--s-5)' }}>
         <Card>
           <CardHead title="تدفق الأوزان: المواد ← أنواع التقييم" icon="layers" info="سُمك الشريط = مجموع الوزن. مرّر الفأرة على مادة أو نوع لإبرازه."><TrustTag kind="calc" /></CardHead>

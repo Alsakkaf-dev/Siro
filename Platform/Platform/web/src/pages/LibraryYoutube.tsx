@@ -1,18 +1,25 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
-import { ApiError, lib } from '../lib/api.js';
+import { ApiError, api, lib } from '../lib/api.js';
+import { useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
 import { Button, Card, EmptyState, Field, KebabMenu, Modal, Skeleton } from '../ui/ui.js';
 import { CourseBadge, KindTile, ProgressBar, TagChips, fmtWhen, itemPath, pctOf } from '../library/common.js';
 import type { LibItem } from '../../../shared/library.js';
 import { useNewParam } from '../core/useNewParam.js';
 
-function YtForm({ item, onClose, onSaved }: { item?: LibItem; onClose: () => void; onSaved: () => void }) {
-  const { toast } = useApp();
+function YtForm({ item, onClose, onSaved, presetCourse }: { item?: LibItem; onClose: () => void; onSaved: () => void; presetCourse?: string }) {
+  const { toast, semesters } = useApp();
+  const [codes, setCodes] = useState<string[]>([]);
+  // رموز المواد من الفصل النشط (اختيار من قائمة بدل نص حر)، مع إبقاء الكتابة اليدوية ممكنة
+  useEffect(() => {
+    const act = semesters?.find((x) => x.is_active) ?? semesters?.[0];
+    if (act) void api.bundle(act.id).then((b) => setCodes(b.courses.map((c) => c.code))).catch(() => undefined);
+  }, [semesters]);
   const [url, setUrl] = useState(item ? `https://www.youtube.com/watch?v=${item.video_id}` : '');
   const [title, setTitle] = useState(item?.title ?? '');
-  const [course, setCourse] = useState(item?.course_code ?? '');
+  const [course, setCourse] = useState(item?.course_code ?? presetCourse ?? '');
   const [errs, setErrs] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const submit = async (e: FormEvent): Promise<void> => {
@@ -44,7 +51,8 @@ function YtForm({ item, onClose, onSaved }: { item?: LibItem; onClose: () => voi
           <input id="yt-title" className="input" value={title} onChange={(e) => setTitle(e.target.value)} aria-invalid={!!errs['title']} />
         </Field>
         <Field label="رمز المادة (اختياري)" hint="مثل SCSE3103 ليظهر الفيديو ضمن المادة." htmlFor="yt-course">
-          <input id="yt-course" className="input" style={{ direction: 'ltr', textAlign: 'start', maxInlineSize: 200 }} value={course} onChange={(e) => setCourse(e.target.value)} />
+          <input id="yt-course" className="input" list="yt-codes" style={{ direction: 'ltr', textAlign: 'start', maxInlineSize: 200 }} value={course} onChange={(e) => setCourse(e.target.value)} />
+          <datalist id="yt-codes">{codes.map((c) => <option key={c} value={c} />)}</datalist>
         </Field>
       </form>
     </Modal>
@@ -55,7 +63,12 @@ export default function LibraryYoutube() {
   const { toast, confirm } = useApp();
   const [items, setItems] = useState<LibItem[] | null>(null);
   const [form, setForm] = useState<{ item?: LibItem } | null>(null);
-  useNewParam(() => setForm({}));
+  const [sp] = useSearchParams();
+  const [preset, setPreset] = useState<string | undefined>(undefined);
+  useNewParam(() => {
+    setPreset(sp.get('course') ?? undefined);
+    setForm({});
+  });
   const load = useCallback(() => {
     void lib.youtube().then(setItems).catch((e: Error) => toast(e.message, { kind: 'error' }));
   }, [toast]);
@@ -96,7 +109,7 @@ export default function LibraryYoutube() {
           ))}
         </div>
       )}
-      {form && <YtForm {...(form.item ? { item: form.item } : {})} onClose={() => setForm(null)} onSaved={load} />}
+      {form && <YtForm {...(form.item ? { item: form.item } : {})} {...(preset && !form.item ? { presetCourse: preset } : {})} onClose={() => setForm(null)} onSaved={load} />}
     </div>
   );
 }

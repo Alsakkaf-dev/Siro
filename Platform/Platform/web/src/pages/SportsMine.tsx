@@ -51,7 +51,7 @@ export default function SportsMine() {
     ids.splice(to, 0, m!);
     sports.order(ids).then(set).catch(fail);
   });
-  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
+  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." actions={<Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button>} />;
   if (error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={error} action={<Button onClick={reload}>إعادة المحاولة</Button>} /></div>;
   if (!loaded) return <div className="page sports-page">{head}<Skeleton h={120} r={16} /></div>;
 

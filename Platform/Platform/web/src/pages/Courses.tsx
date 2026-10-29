@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useNewParam } from '../core/useNewParam.js';
+import { useUrlParam } from '../core/useUrlParam.js';
 import { useSem } from '../core/sem-context.js';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, EmptyState, Modal, Segmented, Unknown } from '../ui/ui.js';
+import { Badge, Button, Card, EmptyState, IconButton, Modal, Segmented, Unknown } from '../ui/ui.js';
 import { CourseCard, DocTable, Facet, FilterChips, type Col } from '../widgets/catalog.js';
 import { CourseForm, AssessmentForm } from '../forms/lazy.js';
 import { Icon } from '../lib/icons.js';
@@ -25,8 +26,8 @@ export default function Courses() {
   const nav = useNavigate();
   const base = `/academic/s/${S.sem.id}`;
   const [view, setView] = useState<View>(() => (localStorage.getItem('platform.coursesView') as View | null) ?? 'grid');
-  const [sort, setSort] = useState<Sort>('code');
-  const [q, setQ] = useState('');
+  const [sort, setSort] = useUrlParam<Sort>('sort', 'code', ['code', 'name', 'credits', 'load', 'next']);
+  const [q, setQ] = useUrlParam<string>('q', '');
   const [kinds, setKinds] = useState<Set<string>>(new Set());
   const [credits, setCredits] = useState<Set<string>>(new Set());
   const [flags, setFlags] = useState<Set<string>>(new Set());
@@ -132,6 +133,7 @@ export default function Courses() {
     { key: 'n', head: 'تقييمات', width: '90px', numeric: true, cell: (r) => r.items.length },
     { key: 'sum', head: 'الأوزان', width: '120px', cell: (r) => (r.items.length === 0 ? <span className="muted">—</span> : r.hasIssue ? <Badge tone="warn">{r.sum}%</Badge> : <Badge tone="ok">100%</Badge>) },
     { key: 'unk', head: 'غير معروف', width: '110px', cell: (r) => (r.hasUnknown ? <Unknown text={String(r.items.filter((a) => a.timing === 'unknown').length)} /> : <span className="muted">—</span>) },
+    { key: 'act', head: 'إجراءات', width: '150px', cell: (r) => (<span className="row" style={{ gap: 2, flexWrap: 'nowrap' }}><button type="button" className="btn sm ghost" onClick={() => setAddFor(r.c)}><Icon name="plus" size={14} /> تقييم</button><IconButton icon="edit" label={`تعديل ${r.c.code}`} sm ghost onClick={() => setForm({ course: r.c })} /><IconButton icon="trash" label={`حذف ${r.c.code}`} sm ghost tone="danger" onClick={() => void delCourse(r.c)} /></span>) },
   ];
 
   return (

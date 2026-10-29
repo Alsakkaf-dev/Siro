@@ -32,7 +32,7 @@ export default function Glossary() {
       <div className="page">
         {head}
         <ContentBanner status={g.status} label="قاموس المصطلحات" />
-        <EmptyState icon="book" title="القاموس غير متاح" text={!g.rootExists ? 'مجلد صادرات راشد غير موجود. اضبط المسار من إعدادات الحياة.' : 'ملف القاموس غير متاح أو تغيّر تنسيقه. تظهر المصطلحات في الصفحات كنص عادي دون شرح.'} action={<><Button to="/life/settings" icon="sliders">إعدادات الحياة</Button> <Button onClick={() => void loadGlossary(true)}>إعادة المحاولة</Button></>} />
+        <EmptyState icon="book" title="القاموس غير متاح" text={!g.rootExists ? 'مجلد صادرات راشد غير موجود. اضبط المسار من إعدادات الحياة.' : 'ملف القاموس غير متاح أو تغيّر تنسيقه. تظهر المصطلحات في الصفحات كنص عادي دون شرح.'} action={<><Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button> <Button onClick={() => void loadGlossary(true)}>إعادة المحاولة</Button></>} />
       </div>
     );
   }

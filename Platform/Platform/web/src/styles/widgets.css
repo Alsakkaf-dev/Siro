@@ -407,3 +407,11 @@ a.today-row:hover { background: var(--surface-2); text-decoration: none; }
 .ing-ico { font-size: 28px; line-height: 1; flex: none; }
 .ing-main { display: grid; gap: 2px; min-width: 0; }
 .ing-flag { color: var(--warn); font-size: var(--fs-xs); }
+.dl-act { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+.dl-act > .dl { flex: 1 1 260px; min-width: 0; }
+.countdown-link { display: block; color: inherit; }
+.countdown-link:hover { text-decoration: none; }
+.as-list td { vertical-align: middle; }
+.rv-toc { margin-block-end: var(--s-4); }
+.json-details summary { cursor: pointer; }
+.json-details[open] summary { margin-block-end: var(--s-3); }

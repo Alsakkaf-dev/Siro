@@ -8,7 +8,8 @@ import { LIFE_DOCS } from '../../../shared/life.js';
 
 const DOC_AR: Record<string, string> = { 'DATA_DICTIONARY_AR.md': 'قاموس البيانات', 'PROPOSALS.md': 'المقترحات', 'FINANCE_SPEC_AR.md': 'مواصفات المال', 'HABITS_SPEC_AR.md': 'مواصفات العادات', 'SPORTS_CONTENT_AR.md': 'محتوى الرياضة', 'REFRESH_PROTOCOL_AR.md': 'بروتوكول التحديث', 'SITE_IDEAS_AR.md': 'أفكار الموقع' };
 
-export default function LifeSettings() {
+/** embedded: داخل «الإعدادات ← المصادر» بلا رأس صفحة */
+export default function LifeSettings({ embedded }: { embedded?: boolean } = {}) {
   const { toast } = useApp();
   const d = useLife(['finance']);
   const [root, setRoot] = useState<string | null>(null);
@@ -16,7 +17,7 @@ export default function LifeSettings() {
   const [busy, setBusy] = useState(false);
   const [doc, setDoc] = useState<{ name: string; text: string | null } | null>(null);
   const st = d.status;
-  if (!st) return <div className="page"><PageHead title="إعدادات الحياة" icon="sliders" /><Skeleton h={220} r={16} /></div>;
+  if (!st) return embedded ? <Skeleton h={220} r={16} /> : <div className="page"><PageHead title="إعدادات الحياة" icon="sliders" /><Skeleton h={220} r={16} /></div>;
   const val = root ?? st.root;
   const save = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
@@ -39,8 +40,8 @@ export default function LifeSettings() {
     life.doc(name).then((r) => setDoc({ name, text: r.text })).catch((er: Error) => setDoc({ name, text: `تعذّر فتح الوثيقة: ${er.message}` }));
   };
   return (
-    <div className="page life-page">
-      <PageHead title="إعدادات الحياة" icon="sliders" />
+    <div className={embedded ? undefined : 'page life-page'}>
+      {!embedded && <PageHead title="إعدادات الحياة" icon="sliders" />}
       <div className="stack life-stack" style={{ maxInlineSize: 900 }}>
         <Card>
           <CardHead title="مجلد صادرات راشد" icon="folder" />

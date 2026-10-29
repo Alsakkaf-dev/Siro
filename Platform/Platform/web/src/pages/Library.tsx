@@ -25,7 +25,7 @@ export function StatusBanner({ status, reload }: { status: NonNullable<ReturnTyp
         <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere' }}>
           مجلد المكتبة غير موجود على هذا الجهاز: <bdi className="ltr-in" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>{status.root}</bdi>. لن يظهر أي ملف حتى تحدّد مجلدًا صحيحًا.
         </span>
-        <Button size="sm" to="/library/settings">تحديد المجلد</Button>
+        <Button size="sm" to="/settings?tab=sources">تحديد المجلد</Button>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function Library() {
   const { toast } = useApp();
   const [sp, setSp] = useSearchParams();
   const { status, reload } = useLibStatus();
-  const tab = (sp.get('tab') as Tab | null) ?? 'all';
+  const tab = ((sp.get('group') ?? sp.get('tab')) as Tab | null) ?? 'all';
   const f: Record<FilterKey, string> = { kind: sp.get('kind') ?? '', sem: sp.get('sem') ?? '', course: sp.get('course') ?? '', type: sp.get('type') ?? '', tag: sp.get('tag') ?? '' };
   const [q, setQ] = useState(sp.get('q') ?? '');
   const dq = useDebounced(q, 250);
@@ -106,7 +106,7 @@ export default function Library() {
   const chips = FILTERS.filter((k) => f[k]).map((k) => ({ key: k, label: `${FILTER_LABEL[k]}: ${data?.facets[k].find((o) => o.value === f[k])?.label ?? f[k]}` }));
   const clear = (): void => {
     setQ('');
-    setSp(new URLSearchParams(tab !== 'all' ? { tab } : {}), { replace: true });
+    setSp(new URLSearchParams(tab !== 'all' ? { group: tab } : {}), { replace: true });
   };
   const setFilter = (k: FilterKey) => (v: string): void => patch({ [k]: f[k] === v ? null : v });
   const onSort = (key: string): void => patch({ sort: key, dir: sort === key && dir !== 'asc' ? 'asc' : sort === key ? 'desc' : '' });
@@ -127,9 +127,7 @@ export default function Library() {
         actions={
           <>
             <Button icon="refresh" onClick={() => void startScan()} disabled={status?.scanning}>{status?.scanning ? 'جارٍ الفحص…' : 'فحص المجلد'}</Button>
-            <Button icon="play" to="/library/youtube">فيديوهات YouTube</Button>
-            <Button icon="folder" to="/library/folders">المجلدات</Button>
-            <Button icon="sliders" to="/library/settings">الإعدادات</Button>
+            <Button icon="sliders" to="/settings?tab=sources">إعدادات المصادر</Button>
           </>
         }
       />
@@ -163,7 +161,7 @@ export default function Library() {
       ) : (
         <>
           <div className="hub-tabs" style={{ marginBlockEnd: 'var(--s-4)' }}>
-            <Segmented<Tab> label="طريقة التصفح" value={tab} onChange={(v) => patch({ tab: v === 'all' ? null : v })} options={[{ value: 'all', label: 'كل الملفات', icon: 'list' }, { value: 'course', label: 'حسب المادة', icon: 'book' }, { value: 'sem', label: 'حسب الفصل', icon: 'layers' }, { value: 'type', label: 'حسب التصنيف', icon: 'tag' }]} />
+            <Segmented<Tab> label="التجميع" value={tab} onChange={(v) => patch({ tab: null, group: v === 'all' ? null : v })} options={[{ value: 'all', label: 'بلا تجميع', icon: 'list' }, { value: 'course', label: 'حسب المادة', icon: 'book' }, { value: 'sem', label: 'حسب الفصل', icon: 'layers' }, { value: 'type', label: 'حسب التصنيف', icon: 'tag' }]} />
           </div>
 
           {tab !== 'all' ? (
@@ -173,7 +171,7 @@ export default function Library() {
               ) : (
                 <div className="lib-group-grid stagger">
                   {groupCards(tab).map((g, i) => (
-                    <button key={g.value} className="lib-group" style={{ '--i': i } as CSSProperties} onClick={() => patch({ tab: null, [tab]: g.value })}>
+                    <button key={g.value} className="lib-group" style={{ '--i': i } as CSSProperties} onClick={() => patch({ tab: null, group: null, [tab]: g.value })}>
                       <strong><bdi>{tab === 'type' ? DOCTYPE_LABELS[g.value as keyof typeof DOCTYPE_LABELS] ?? g.label : g.label}</bdi></strong>
                       <span className="num">{g.count} عنصر</span>
                     </button>

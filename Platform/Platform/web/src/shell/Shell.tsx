@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate, useNavigationType } from 'react-route
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
 import { flagEnabled } from '../core/flags.js';
-import { AREAS, PAGES, gTarget, matchPage, sidebarOwner, titleFor } from '../core/registry.js';
+import { AREAS, KBD_ALIASES, PAGES, gTarget, matchPage, sidebarOwner, titleFor } from '../core/registry.js';
 import { TitleProvider } from '../core/title.js';
 import { pushRecent } from '../core/recent.js';
 import { Modal, Skeleton } from '../ui/ui.js';
@@ -36,6 +36,7 @@ function shortcutRows(): { keys: string; what: string }[] {
     { keys: '/ أو Ctrl+K', what: 'البحث والأوامر (الصفحات، المواد، المكتبة، الحياة، الرياضة)' },
     ...AREAS.filter((a) => !a.flag || flagEnabled(a.flag)).map((a) => ({ keys: `g ثم ${a.kbd}`, what: `قسم ${a.label}` })),
     ...PAGES.filter((p) => p.kbd && (!p.flag || flagEnabled(p.flag))).map((p) => ({ keys: `g ثم ${p.kbd}`, what: p.label })),
+    ...Object.entries(KBD_ALIASES).map(([k, a]) => ({ keys: `g ثم ${k}`, what: a.label })),
     { keys: 'c', what: 'إنشاء جديد (مادة، تقييم، فصل، فيديو، تسجيل، تمرين)' },
     { keys: 'Esc', what: 'إغلاق النافذة أو القائمة' },
     { keys: '? أو ؟', what: 'عرض هذه القائمة' },

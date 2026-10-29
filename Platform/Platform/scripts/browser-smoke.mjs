@@ -298,9 +298,9 @@ try {
         if (!is404 && info.navActive !== 1) note(lvl, where, `عناصر نشطة في الشريط: ${info.navActive}`);
         if (is404 && info.navActive > 1) note(lvl, where, `404 بعناصر نشطة: ${info.navActive}`);
         const target = isRedirect ? redirects[raw] : raw;
-        if (!is404 && !entries.has(target) && !info.crumbs) note(lvl, where, 'لا فتات خبز');
+        if (!is404 && !entries.has(target.split('?')[0]) && !info.crumbs) note(lvl, where, 'لا فتات خبز');
         if (info.bottomBar !== (vp.width <= 960)) note(lvl, where, `الشريط السفلي ${info.bottomBar ? 'ظاهر' : 'مخفي'}`);
-        if (isRedirect && info.path.split('?')[0] !== redirects[raw]) note('error', where, `التحويل وصل إلى ${info.path}`);
+        if (isRedirect && info.path.split('?')[0] !== fill(redirects[raw]).split('?')[0]) note('error', where, `التحويل وصل إلى ${info.path}`);
         if (info.indic) note('error', where, 'أرقام هندية-عربية في المحتوى (N-13)');
         if (SHOTS) await page.screenshot({ path: join(SHOTS, `${vp.name}-${raw.replace(/[^\w]+/g, '_') || 'root'}.png`) });
       } catch (e) {

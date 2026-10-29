@@ -183,7 +183,7 @@ export function fmtTime(sec: number): string {
 }
 
 /* ───── أنواع الواجهة والخادم ───── */
-export interface LibCourseRef { code: string; name: string; color: string; semester_id: string; semester_code: string }
+export interface LibCourseRef { code: string; name: string; color: string; semester_id: string; semester_code: string; /** معرّف المادة (إضافة غير كاسرة) ليفتح العنصر المادة نفسها */ id?: string }
 export interface LibItem {
   ref: string; // f:<id> | y:<id>
   source: 'file' | 'youtube';

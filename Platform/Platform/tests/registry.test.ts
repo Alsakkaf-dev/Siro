@@ -94,11 +94,12 @@ describe('سجل التنقل', () => {
       const url = resolvePath(p, fill)!;
       expect(filled.some((r) => matchPage(r)?.page.id === p.id), `${p.id} ${url}`).toBe(true);
     }
-    for (const r of REDIRECTS) expect(smoke, r.from).toContain(r.from);
+    for (const r of REDIRECTS) expect(smoke, r.from).toContain(r.from.replace(':semId', ':sem'));
     // مداخل الأقسام (بلا فتات) والتحويلات كما يعلنها الملف تطابق السجل
     const j = JSON.parse(read('scripts/smoke-routes.json')) as { entries: string[]; redirects: Record<string, string> };
     expect(j.entries.map((e) => matchPage(e.replace(':sem', 'sem5'))?.page.id).sort()).toEqual(AREAS.map((a) => a.entry).sort());
-    expect(j.redirects).toEqual(Object.fromEntries(REDIRECTS.map((r) => [r.from, r.to])));
+    const norm = (x: string): string => x.replace(/:sem\b/g, ':semId');
+    expect(Object.fromEntries(Object.entries(j.redirects).map(([k, v]) => [norm(k), norm(v)]))).toEqual(Object.fromEntries(REDIRECTS.map((r) => [r.from, r.to])));
   });
 
   it('التبويبات متسقة: نفس القسم، وفي كل مجموعة صفحة شريط واحدة على الأقل', () => {
@@ -119,7 +120,7 @@ describe('سجل التنقل', () => {
       expect(o.area, p.id).toBe(p.area);
     }
     expect(sidebarOwner(PAGE_BY_ID.get('course')!).id).toBe('courses');
-    expect(sidebarOwner(PAGE_BY_ID.get('weights')!).id).toBe('timeline');
+    expect(sidebarOwner(PAGE_BY_ID.get('library-folders')!).id).toBe('library');
     expect(sidebarOwner(PAGE_BY_ID.get('library-video')!).id).toBe('library');
     expect(sidebarOwner(PAGE_BY_ID.get('life-ledger')!).id).toBe('life-finance');
   });
@@ -129,7 +130,7 @@ describe('سجل التنقل', () => {
     for (const r of REDIRECTS) {
       expect(froms.has(r.to.split(/[?#]/)[0]!), r.to).toBe(false);
       expect(matchPage(r.to.split(/[?#]/)[0]!), r.to).not.toBeNull();
-      expect(matchPage(r.from), r.from).toBeNull();
+      expect(matchPage(r.from.replace(':semId', 'x')), r.from).toBeNull();
     }
   });
 
@@ -171,6 +172,8 @@ describe('سجل التنقل', () => {
     expect(gTarget('Digit7', off)).toBe('/settings');
     expect(gTarget('Digit5', off)).toBe('/sports/mine');
     expect(gTarget('KeyZ', off)).toBeNull();
+    expect(gTarget('KeyW', off)).toBe('/academic/s/sem5/timeline?view=weights');
+    expect(gTarget('KeyW', { ...off, semId: null })).toBe('/academic');
     expect(hrefFor('timeline', null)).toBe('/academic');
   });
 

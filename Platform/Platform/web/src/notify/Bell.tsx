@@ -78,7 +78,7 @@ export function DeadlineBell() {
           )}
           <div className="sep" />
           <Link to={`${base}/timeline`}>التقييمات والمواعيد <Icon name="left" size={14} /></Link>
-          <Link to="/settings#appearance">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
+          <Link to="/settings#notify">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
         </div>
       )}
     </div>

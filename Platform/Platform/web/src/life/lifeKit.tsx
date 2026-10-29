@@ -152,7 +152,7 @@ export function LifePage({ title, icon, sub, names, data, actions, crumbs, child
     return (
       <div className="page">
         {head}
-        <EmptyState icon="folder" title="مجلد صادرات راشد غير موجود" text={`لا يوجد مجلد عند: ${st.root}. اضبط المسار الصحيح من إعدادات الحياة. الموقع يقرأ فقط ولا ينشئ شيئًا هناك.`} action={<Button variant="primary" to="/life/settings" icon="sliders">إعدادات الحياة</Button>} />
+        <EmptyState icon="folder" title="مجلد صادرات راشد غير موجود" text={`لا يوجد مجلد عند: ${st.root}. اضبط المسار الصحيح من إعدادات الحياة. الموقع يقرأ فقط ولا ينشئ شيئًا هناك.`} action={<Button variant="primary" to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
       </div>
     );
   }
@@ -161,7 +161,7 @@ export function LifePage({ title, icon, sub, names, data, actions, crumbs, child
     <div className="page life-page">
       {head}
       <StaleBanner status={st} names={names} />
-      {have ? <div className="stack life-stack">{children}</div> : <EmptyState icon="database" title="لا توجد بيانات قابلة للعرض" text="الملفات المطلوبة لهذه الصفحة غير متاحة. راجع التنبيه أعلاه أو إعدادات الحياة." action={<Button to="/life/settings" icon="sliders">إعدادات الحياة</Button>} />}
+      {have ? <div className="stack life-stack">{children}</div> : <EmptyState icon="database" title="لا توجد بيانات قابلة للعرض" text="الملفات المطلوبة لهذه الصفحة غير متاحة. راجع التنبيه أعلاه أو إعدادات الحياة." action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />}
     </div>
   );
 }
