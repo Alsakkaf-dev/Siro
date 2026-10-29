@@ -59,6 +59,7 @@ export default function KitchenCook() {
   const sceneRef = useRef<KitchenScene | null>(null);
   const idN = useRef(0);
   const seenEv = useRef(0);
+  const slowSeen = useRef('');
   const seed = useRef(1);
   const stockRef = useRef<Record<string, number>>({});
 
@@ -109,7 +110,13 @@ export default function KitchenCook() {
       }
     }
     seenEv.current = ev.length;
-    if (view.slowed) push(`أُبطئ الزمن تلقائيًا: ${EVENT_AR[view.slowed.type] ?? view.slowed.type}`, 'warn', view.slowed.t);
+    if (view.slowed) {
+      const key = `${view.slowed.type}@${view.slowed.t}`;
+      if (slowSeen.current !== key) {
+        slowSeen.current = key;
+        push(`أُبطئ الزمن تلقائيًا: ${EVENT_AR[view.slowed.type] ?? view.slowed.type}`, 'warn', view.slowed.t);
+      }
+    }
   }, [view, push]);
 
   /* المشهد */
@@ -193,8 +200,8 @@ export default function KitchenCook() {
   const liveCost = useMemo(() => mealCost(liveLines, idx, { store: k.store }), [liveLines, idx, k.store]);
 
   const doServe = (): void => {
-    const sources = [...vessels.filter((v) => v.items.length || v.oilG > 0 || v.milkG > 0).map((v) => v.id).filter((id) => id !== 'plate_1'), ...items.filter((i) => i.loc === 'board' || i.loc === 'plate_1').map((i) => i.id)];
-    if (!sources.length && !items.some((i) => i.loc === 'plate_1')) return void toast('لا شيء لتقديمه بعد', { kind: 'error' });
+    const sources = [...vessels.filter((v) => v.items.length || v.oilG > 0 || v.milkG > 0).map((v) => v.id), ...items.filter((i) => i.loc === 'board' || i.loc === 'toaster').map((i) => i.id)];
+    if (!sources.length) return void toast('لا شيء لتقديمه بعد', { kind: 'error' });
     setServeSrc(new Set(sources));
     setServeOpen(true);
   };
@@ -335,7 +342,7 @@ function ActionPanel(p: {
           <div className="kt-qty-box" data-testid="pour-box">
             <b>صبّ {INGREDIENT_BY_SLUG.get(p.pourFor)?.name_ar} (غ)</b>
             <div className="row"><input className="input num kt-g-in" dir="ltr" aria-label="غرامات الصبّ" value={p.grams} onChange={(e) => p.setGrams(e.target.value)} />
-              <select className="select" aria-label="الوعاء" value={pourVessel} onChange={(e) => setPourVessel(e.target.value)}>{vessels.filter((v) => v.id !== 'plate_1').map((v) => <option key={v.id} value={v.id}>{VESSEL_AR[v.id]}</option>)}</select>
+              <select className="select" aria-label="الوعاء" value={pourVessel} onChange={(e) => setPourVessel(e.target.value)}>{vessels.map((v) => <option key={v.id} value={v.id}>{VESSEL_AR[v.id]}</option>)}</select>
               <Button variant="primary" onClick={() => void run({ type: 'pour', ingredient: p.pourFor!, grams: Number(p.grams), vessel: pourVessel }, `صُبّ ${p.grams} غ من ${INGREDIENT_BY_SLUG.get(p.pourFor!)?.name_ar} في ${VESSEL_AR[pourVessel]}`).then((ok) => ok && p.setPourFor(null))}>اصبب</Button><Button size="sm" onClick={() => p.setPourFor(null)}>إلغاء</Button></div>
           </div>
         )}
@@ -343,7 +350,7 @@ function ActionPanel(p: {
           <div className="kt-qty-box" data-testid="season-box">
             <b>{INGREDIENT_BY_SLUG.get(p.seasonFor)?.name_ar} (غ)</b>
             <div className="row"><input className="input num kt-g-in" dir="ltr" aria-label="غرامات التوابل" value={seasonG} onChange={(e) => setSeasonG(e.target.value)} />
-              <select className="select" aria-label="الهدف" value={seasonTarget} onChange={(e) => setSeasonTarget(e.target.value)}>{vessels.filter((v) => v.id !== 'plate_1').map((v) => <option key={v.id} value={v.id}>{VESSEL_AR[v.id]}</option>)}{items.map((i) => <option key={i.id} value={i.id}>{INGREDIENT_BY_SLUG.get(i.ingredient)?.name_ar} ({i.id})</option>)}</select>
+              <select className="select" aria-label="الهدف" value={seasonTarget} onChange={(e) => setSeasonTarget(e.target.value)}>{vessels.map((v) => <option key={v.id} value={v.id}>{VESSEL_AR[v.id]}</option>)}{items.map((i) => <option key={i.id} value={i.id}>{INGREDIENT_BY_SLUG.get(i.ingredient)?.name_ar} ({i.id})</option>)}</select>
               <Button variant="primary" onClick={() => void run({ type: 'season', ingredient: p.seasonFor!, grams: Number(seasonG), target: seasonTarget }, 'أُضيف').then((ok) => ok && p.setSeasonFor(null))}>أضف</Button><Button size="sm" onClick={() => p.setSeasonFor(null)}>إلغاء</Button></div>
           </div>
         )}
@@ -451,8 +458,8 @@ function ServeDialog({ sources, setSources, onClose, client, mode, seed, scene, 
   const [dupAsk, setDupAsk] = useState<{ slug: string; title_ar: string } | null>(null);
   const [confirmSandbox, setConfirmSandbox] = useState(false);
   const [busy, setBusy] = useState(false);
-  const vessels = view?.snap.vessels.filter((v) => v.id !== 'plate_1' && (v.items.length || v.oilG > 0 || v.milkG > 0)) ?? [];
-  const loose = view?.snap.items.filter((i) => i.loc === 'board' || i.loc === 'plate_1') ?? [];
+  const vessels = view?.snap.vessels.filter((v) => v.items.length || v.oilG > 0 || v.milkG > 0) ?? [];
+  const loose = view?.snap.items.filter((i) => i.loc === 'board' || i.loc === 'toaster') ?? [];
   const idx = useMemo(() => indexPrices(k.prices), [k.prices]);
   const card = useMemo(() => {
     if (!ops) return null;
@@ -485,6 +492,12 @@ function ServeDialog({ sources, setSources, onClose, client, mode, seed, scene, 
 
   const save = async (accept?: 'new' | 'variant'): Promise<void> => {
     if (!ops) return;
+    // اكتشاف التكرار محليًا قبل الإرسال (نفس قاعدة الخادم ≥90%) فلا طلب مرفوض ولا ضجيج في الشبكة؛ الخادم يفرضها أيضًا
+    if (!accept && good) {
+      const others = [...ORIGINAL_RECIPES.filter((x) => x.status === 'verified' || x.status === 'body_mismatch_title').map((x) => ({ slug: x.slug, title_ar: x.title_ar, lines: x.lines })), ...k.cards.map((c) => ({ slug: c.slug, title_ar: c.name_ar, lines: c.lines }))];
+      const dup = findDuplicate(good.lines, others);
+      if (dup) return void setDupAsk({ slug: dup.slug, title_ar: dup.title_ar });
+    }
     setBusy(true);
     setErr('');
     try {
@@ -509,7 +522,7 @@ function ServeDialog({ sources, setSources, onClose, client, mode, seed, scene, 
         <div className="stack">
           <p className="muted">اختر الأوعية والقطع التي تُقدَّم. ما لا تختاره يُسجَّل إهدارًا بتكلفته.</p>
           <ul className="plain stack kt-tight">
-            {vessels.map((v) => <li key={v.id}><label className="kt-check"><input type="checkbox" checked={sources.has(v.id)} onChange={() => { const n = new Set(sources); n.has(v.id) ? n.delete(v.id) : n.add(v.id); setSources(n); }} /> {VESSEL_AR[v.id]} ({v.items.length} قطعة)</label></li>)}
+            {vessels.map((v) => <li key={v.id}><label className="kt-check"><input type="checkbox" checked={sources.has(v.id)} onChange={() => { const n = new Set(sources); n.has(v.id) ? n.delete(v.id) : n.add(v.id); setSources(n); }} /> {VESSEL_AR[v.id]} ({v.items.length} قطعة{v.oilG > 0.3 ? ` + زيت ${fmtNum(Math.round(v.oilG * 10) / 10, 1)} غ` : ''})</label></li>)}
             {loose.map((i) => <li key={i.id}><label className="kt-check"><input type="checkbox" checked={sources.has(i.id)} onChange={() => { const n = new Set(sources); n.has(i.id) ? n.delete(i.id) : n.add(i.id); setSources(n); }} /> {INGREDIENT_BY_SLUG.get(i.ingredient)?.name_ar} {fmtNum(i.g0, 0)} غ ({LOC_AR(i.loc)})</label></li>)}
           </ul>
         </div>

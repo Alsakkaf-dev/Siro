@@ -16,6 +16,7 @@ const arg = (name) => {
 const STRICT = process.argv.includes('--strict');
 const SHOTS = arg('--shots');
 const ONLY = arg('--only');
+const SCN = arg('--scenario'); // يشغّل السيناريوهات المطابقة فقط (للتكرار السريع)
 const JSON_OUT = arg('--json');
 
 let pw;
@@ -61,6 +62,7 @@ const scenarioLog = [];
 /** سيناريوهات تفاعلية (عقود PLAN §6ب): اختصارات بمفاتيح عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، اليوم بلا مجلد راشد، 404، المطبخ. */
 async function scenarios(browser, { sem, course }) {
   const run = async (name, vp, fn) => {
+    if (SCN && !name.includes(SCN)) return;
     const ctx = await browser.newContext({ viewport: vp === 'mobile' ? { width: 390, height: 844 } : { width: 1280, height: 800 }, locale: 'ar' });
     const page = await ctx.newPage();
     const errs = [];
@@ -74,7 +76,9 @@ async function scenarios(browser, { sem, course }) {
       if (errs.length) throw new Error(errs.join(' | '));
       scenarioLog.push({ name, ok: true, msg: msg || '' });
     } catch (e) {
-      scenarioLog.push({ name, ok: false, msg: String(e.message ?? e).split('\n')[0] });
+      const at = /browser-smoke\.mjs:(\d+)/.exec(String(e.stack ?? ''))?.[1];
+      if (SHOTS) await page.screenshot({ path: join(SHOTS, `FAIL-${name.slice(0, 12).replace(/[^\w\u0600-\u06FF]+/g, '_')}.png`) }).catch(() => undefined);
+      scenarioLog.push({ name, ok: false, msg: String(e.message ?? e).split('\n')[0] + (at ? ` (السطر ${at})` : '') });
       note('error', `scenario: ${name}`, String(e.message ?? e).split('\n')[0]);
     } finally {
       await ctx.close();
@@ -459,6 +463,190 @@ async function scenarios(browser, { sem, course }) {
       if (ov > 1) throw new Error(`${u}: تمرير أفقي ${ov}px`);
     }
   });
+  /* ───── المرحلة 3: المطبخ K — VS-1 وAC-05/06/07 وA11Y-10 والجودات وتقليل الحركة ───── */
+  const clockSec = (page) => page.evaluate(() => { const [m, s] = (document.querySelector('.kt-time b')?.textContent ?? '0:0').trim().split(':').map(Number); return m * 60 + s; });
+  const waitClock = (page, sec, timeout = 90000) => page.waitForFunction((t) => { const [m, x] = (document.querySelector('.kt-time b')?.textContent ?? '0:0').trim().split(':').map(Number); return m * 60 + x >= t; }, sec, { timeout });
+  const takeUi = async (page, slug, grams) => {
+    await page.click(`.kt-ing-btn[data-ing="${slug}"]`);
+    await page.fill('[data-testid=qty-box] input[aria-label="الكمية بالغرام"]', String(grams));
+    await page.click('[data-testid=take-btn]');
+  };
+  const addToUi = async (page, item, vessel) => {
+    await page.click(`[data-item="${item}"]`);
+    await page.selectOption('[data-testid=ctx] select[aria-label="الوعاء الهدف"]', vessel);
+    await page.click('[data-testid=add-to]');
+  };
+  const setRange = (page, sel, v) => page.evaluate(([sel, v]) => {
+    const el = document.querySelector(sel);
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(el, String(v));
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }, [sel, v]);
+  const money = (t) => Number(String(t).replace(/[^\d.]/g, ''));
+  const hasWebgl = (page) => page.evaluate(() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') ?? c.getContext('webgl')); } catch { return false; } });
+
+  await run('VS-1: سعر ← شراء ← مخزن ← طبخ bk-03 يدويًا ×60 ← بطاقة 532±2 ← خانة ← قانون ← نص الوصف (AC-05/06/07)', 'desktop', async (page) => {
+    await page.context().grantPermissions(['clipboard-read', 'clipboard-write']).catch(() => undefined);
+    /* 1) السعر: تكلفة bk-03 في القاموس تتغير بتغيير سعر البيض */
+    const costOf = async () => {
+      await ready(page, '/kitchen/codex/bk-03');
+      await page.waitForSelector('[role=dialog] .kt-store-costs li.sel b', { timeout: 8000 });
+      return money(await page.locator('[role=dialog] .kt-store-costs li.sel b').first().textContent());
+    };
+    const costBefore = await costOf();
+    await ready(page, '/kitchen/prices');
+    await page.waitForSelector('[data-cell="egg|mydin"] button');
+    await page.click('[data-cell="egg|mydin"] button');
+    await page.fill('.kt-cell-in', '10.8');
+    await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.querySelector('[data-cell="egg|mydin"] [data-price]')?.textContent === '10.80', null, { timeout: 5000 });
+    const costAfter = await costOf();
+    if (!(costAfter > costBefore)) throw new Error(`التكلفة لم تتغير بتغيّر السعر: ${costBefore} → ${costAfter}`);
+    /* 2) الشراء والمخزن */
+    await kapi('PUT', '/wallet', { budget_rm: 1000, period: 'month', hard_limit: false });
+    const need = { egg: 114, toast: 80, cheese: 40, oil: 5 };
+    const stBefore = await kapi('GET', '/state');
+    const haveB = Object.fromEntries(stBefore.pantry.map((p) => [p.ingredient, p.grams]));
+    const buys = [['egg', 1, 'dozen'], ['toast', 1, 'loaf'], ['cheese', 1, 'pack'], ['oil', 1, 'bottle']].filter(([i]) => (haveB[i] ?? 0) < need[i]);
+    for (const [i, q, u] of buys) await kapi('PUT', `/cart/${i}`, { qty: q, unit: u, store: null });
+    if (buys.length && (await kapi('POST', '/checkout', { store: 'mydin' })).status !== 201) throw new Error('فشل الشراء');
+    await ready(page, '/kitchen/pantry');
+    const pantryTxt = await page.locator('#main').textContent();
+    if (!/بيض/.test(pantryTxt)) throw new Error('المخزن لا يعرض البيض');
+    const pre = Object.fromEntries((await kapi('GET', '/state')).pantry.map((p) => [p.ingredient, p.grams]));
+    /* 3) الطبخ يدويًا بتسريع ×60 في الوضع الموجّه */
+    await ready(page, '/kitchen/cook?recipe=bk-03&mode=guided');
+    const webgl = await hasWebgl(page);
+    await page.waitForSelector(webgl ? 'canvas.kt-canvas' : '.kt-stage-off', { timeout: 15000 });
+    await page.click('[role=group][aria-label="أقسام اللوحة"] >> text=الإجراءات').catch(() => page.click('button:has-text("الإجراءات")'));
+    await page.click('button.chip:has-text("×60")');
+    await takeUi(page, 'toast', 80); // i1
+    await page.click('[data-testid=ctx] button:has-text("حمّص")');
+    // خروج التوست يُبطئ الزمن تلقائيًا (KIT-23): ننتظره ثم نعيد التسريع
+    await page.waitForFunction(() => /خرج التوست/.test(document.querySelector('.kt-alerts')?.textContent ?? ''), null, { timeout: 30000 });
+    await page.click('button.chip:has-text("×60")');
+    await page.click('[data-testid="vessel-pot_small"] button:has-text("+500 غ ماء")');
+    await page.click('[data-testid="vessel-pot_small"] button:has-text("+500 غ ماء")');
+    await page.selectOption('[data-testid="vessel-pot_small"] select[aria-label="موقد القدر الصغير"]', '1');
+    await page.waitForSelector('[data-testid="vessel-pot_small"] input[type=range]');
+    await setRange(page, '[data-testid="vessel-pot_small"] input[type=range]', 10);
+    await page.waitForFunction(() => /100°م/.test(document.querySelector('[data-testid="vessel-pot_small"]')?.textContent ?? ''), null, { timeout: 60000 });
+    await takeUi(page, 'egg', 100); // i2
+    await addToUi(page, 'i2', 'pot_small');
+    const t0 = await clockSec(page);
+    await waitClock(page, t0 + 481);
+    await page.click('[data-item="i2"]');
+    await page.click('[data-testid=ctx] button:has-text("أخرج")');
+    await setRange(page, '[data-testid="vessel-pot_small"] input[type=range]', 0);
+    await page.selectOption('[data-testid="vessel-pot_small"] select[aria-label="موقد القدر الصغير"]', '0');
+    await page.click('[data-item="i2"]');
+    await page.click('[data-testid=ctx] button:has-text("قشّر")');
+    await page.selectOption('[data-testid=ctx] select[aria-label="شكل القطع"]', 'slices');
+    await page.click('[data-testid=ctx] button:text-is("قطّع")');
+    await takeUi(page, 'cheese', 40); // i3
+    await takeUi(page, 'oil', 5);
+    await page.selectOption('[data-testid=pour-box] select[aria-label="الوعاء"]', 'plate_1');
+    await page.click('[data-testid=pour-box] button:text-is("اصبب")');
+    await addToUi(page, 'i3', 'plate_1');
+    await addToUi(page, 'i2', 'plate_1');
+    await page.click('[role=group][aria-label="أقسام اللوحة"] >> text=الوصفة');
+    await page.waitForSelector('.kt-recipe-steps li', { timeout: 4000 });
+    const stepsDone = await page.locator('.kt-recipe-steps li[data-step-done="1"]').count();
+    if (stepsDone !== 4) throw new Error(`الوضع الموجّه: ${stepsDone}/4 خطوات مكتملة بعد تنفيذ الوصفة كلها`);
+    /* 4) قدّم ← مراجعة البطاقة ← حفظ كنسخة */
+    await page.click('[data-testid=serve-btn]');
+    await page.click('[data-testid=serve-confirm]');
+    await page.waitForSelector('#rv-name', { timeout: 8000 });
+    await shot(page, 'cook-review');
+    const reviewOvr = Number((await page.locator('.kt-review-side .badge').first().textContent()).replace(/\D/g, ''));
+    const reviewCost = money(await page.locator('.kt-review-side p:has-text("التكلفة")').first().textContent());
+    await page.click('[data-testid=save-card]');
+    const dup = await page.waitForSelector('[data-testid=dup-variant]', { timeout: 6000 }).catch(() => null);
+    if (dup) await dup.click();
+    await expectPath(page, /^\/kitchen\/codex\/my-[^/]+/, 'بعد الحفظ');
+    const cards = (await kapi('GET', '/cards')).cards;
+    const card = cards[0];
+    if (!card) throw new Error('لا بطاقة محفوظة');
+    const kcal = card.nutrition.kcal;
+    if (!(kcal >= 530 && kcal <= 534)) throw new Error(`AC-05: السعرات ${kcal} ليست 532±2`);
+    if (card.parent_slug !== 'bk-03') throw new Error(`الأصل: ${card.parent_slug}`);
+    if (card.flags.some((f) => ['unsafe_chicken', 'burnt', 'undercooked'].includes(f))) throw new Error(`وسوم غير متوقعة: ${card.flags}`);
+    if (Math.abs(card.cost_rm - costAfter) > 0.011) throw new Error(`تكلفة البطاقة ${card.cost_rm} ≠ تكلفة القاموس بعد تغيير السعر ${costAfter}`);
+    if (Math.abs(card.cost_rm - reviewCost) > 0.011 || card.stats.OVR !== reviewOvr) throw new Error(`AC-06: عرض المراجعة (${reviewOvr}، ${reviewCost}) ≠ المحفوظ (${card.stats.OVR}، ${card.cost_rm})`);
+    const post = Object.fromEntries((await kapi('GET', '/state')).pantry.map((p) => [p.ingredient, p.grams]));
+    const d = (i) => Math.round((pre[i] - post[i]) * 10) / 10;
+    if (Math.abs(d('egg') - 100 / 0.88) > 1 || d('toast') !== 80 || d('cheese') !== 40 || d('oil') !== 5) throw new Error(`خصم المخزن: ${JSON.stringify({ egg: d('egg'), toast: d('toast'), cheese: d('cheese'), oil: d('oil') })}`);
+    /* 5) خانة الجدول: من بطاقتي إلى الخطة */
+    await page.waitForSelector('[role=dialog] .kt-mycard', { timeout: 8000 });
+    await page.click('[role=dialog] .kt-mycard >> text=ضعها في الجدول');
+    await expectPath(page, /^\/kitchen\/plan\?card=my-[^&]+&slot=/, 'من البطاقة إلى الخطة');
+    await page.waitForSelector('[data-testid=law-status] .badge', { timeout: 8000 });
+    await page.selectOption('[data-testid="pick-غداء"]', 'ln-01');
+    await page.selectOption('[data-testid="pick-عشاء"]', 'dn-04');
+    await page.waitForSelector('[data-testid=law-reject]', { timeout: 6000 });
+    const rej = await page.locator('[data-testid=law-reject]').textContent();
+    const nSol = await page.locator('[data-testid=law-reject] li').count();
+    if (!/مجموع اليوم \d+ سعرة، أعلى من الحد الأعلى \d+ بمقدار \d+/.test(rej) || nSol !== 3) throw new Error(`رسالة الرفض: ${rej.slice(0, 120)} (${nSol} حلول)`);
+    if (!(await page.locator('[data-testid=save-plan]').isDisabled())) throw new Error('الحفظ ممكن رغم رفض القانون');
+    await shot(page, 'plan-reject');
+    await page.check('[data-testid=autofit]');
+    await page.waitForFunction(() => !document.querySelector('[data-testid=law-reject]') && !document.querySelector('[data-testid=save-plan]')?.disabled, null, { timeout: 6000 });
+    await page.click('[data-testid=save-plan]');
+    await page.waitForFunction(() => /حُفظ/.test(document.body.textContent ?? ''), null, { timeout: 6000 });
+    const day = (await kapi('GET', `/plan?from=${new Date().toISOString().slice(0, 10)}&days=1`)).days[0];
+    if (!day || day.status !== 'proposal' || day.slots.length !== 3) throw new Error(`اليوم المحفوظ: ${JSON.stringify(day)?.slice(0, 120)}`);
+    if (day.total_kcal < 1200 || day.total_kcal > 1500) throw new Error(`مجموع اليوم المحفوظ ${day.total_kcal}`);
+    /* 6) نص الوصف بالقالب 2.6 مع «انسخ» */
+    const body = await page.locator('[data-testid="body-غداء"]').textContent();
+    if (!/^.+\n1: .+/m.test(body) || !body.includes('القيمة الغذائية الإجمالية للوجبة:') || !/السعرات الحرارية: \d+ سعرة حرارية/.test(body) || /<[a-z]/i.test(body)) throw new Error(`نص الوصف: ${body.slice(0, 100)}`);
+    await page.click('[data-testid="copy-غداء"]');
+    const clip = await page.evaluate(() => navigator.clipboard.readText()).catch(() => null);
+    if (clip !== null && clip !== body) throw new Error('المنسوخ ≠ نص الوصف');
+    await shot(page, 'plan-accepted');
+    /* AC-07: لا طريق لحفظ يوم مخالف للقانون */
+    const bad = await kapi('PUT', '/plan/2031-01-01', { slots: { فطور: { card: 'bk-04' }, غداء: { card: 'ln-01' }, عشاء: { card: 'dn-04' } }, auto_fit: false });
+    const none = (await kapi('GET', '/plan?from=2031-01-01&days=1')).days;
+    if (bad.code !== 'law' || none.length) throw new Error(`AC-07: ${bad.code} / محفوظ: ${none.length}`);
+    return `WebGL ${webgl ? 'نعم' : 'لا'} · خطوات الوصفة المنجزة ${stepsDone}/4 · بطاقة ${kcal} سعرة OVR ${card.stats.OVR} تكلفة ${card.cost_rm} · اليوم ${Math.round(day.total_kcal)} سعرة`;
+  });
+  await run('A11Y-10: بلا WebGL تعمل لوحة الإجراءات وتنتج المراجعة نفسها (وضع التجربة)', 'desktop', async (page) => {
+    await page.addInitScript(() => { const o = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function (t, ...a) { return /webgl/i.test(String(t)) ? null : o.call(this, t, ...a); }; });
+    await ready(page, '/kitchen/cook?mode=sandbox');
+    await page.waitForSelector('.kt-stage-off', { timeout: 8000 });
+    if (!/WebGL غير متاح/.test(await page.locator('.kt-stage-off').textContent())) throw new Error('رسالة غياب WebGL');
+    if (!(await page.locator('.kt-alerts[aria-live=polite]').count())) throw new Error('لا منطقة تنبيهات حيّة');
+    await takeUi(page, 'egg', 100);
+    await addToUi(page, 'i1', 'plate_1');
+    await page.click('[data-testid=serve-btn]');
+    await page.click('[data-testid=serve-confirm]');
+    await page.waitForSelector('#rv-name', { timeout: 6000 });
+    const txt = await page.locator('.kt-review').textContent();
+    if (!/OVR/.test(txt) || !/بيض/.test(txt)) throw new Error('مراجعة البطاقة ناقصة');
+    await shot(page, 'cook-a11y');
+    return 'البطاقة تُبنى بلا مشهد ثلاثي الأبعاد';
+  });
+  await run('الجودات الثلاث + المحطات 1–7 + تقليل الحركة على المشهد', 'desktop', async (page) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await ready(page, '/kitchen/cook?mode=sandbox');
+    if (!(await hasWebgl(page))) return 'WebGL غير متاح في هذا المتصفح — تُخطّى';
+    await page.waitForSelector('canvas.kt-canvas', { timeout: 15000 });
+    if ((await page.getAttribute('canvas.kt-canvas', 'data-reduced')) !== '1') throw new Error('تقليل الحركة لم يصل للمشهد');
+    const shots = [];
+    for (const q of ['lite', 'standard', 'high']) {
+      await page.selectOption('select[aria-label="جودة الرسم"]', q);
+      await page.waitForFunction((q) => document.querySelector('canvas.kt-canvas')?.dataset.quality === q, q, { timeout: 4000 });
+      await page.waitForTimeout(700);
+    }
+    await page.selectOption('select[aria-label="جودة الرسم"]', 'standard');
+    for (const k of ['Digit1', 'Digit5']) {
+      await page.evaluate((code) => window.dispatchEvent(new KeyboardEvent('keydown', { code, bubbles: true })), k);
+      await page.waitForTimeout(600);
+      shots.push(await page.locator('canvas.kt-canvas').screenshot());
+    }
+    if (shots[0].equals(shots[1])) throw new Error('المشهد لم يتغير بين محطة الرفوف والطبخ');
+    await shot(page, 'cook-3d');
+    const fps = await page.locator('.kt-stations small').textContent().catch(() => '');
+    return `الجودات الثلاث تعمل؛ ${fps.trim() || 'fps غير ظاهر'} (SwiftShader بلا GPU: لا يمثل الجهاز الحقيقي)`;
+  });
   await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
     // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد
     const gone = join(tmp, 'rashed-gone');
@@ -493,7 +681,7 @@ try {
   const fill = (p) => Object.entries(ids).reduce((s, [k, v]) => s.replace(k, v), p);
 
   const routesFile = JSON.parse(readFileSync(join(root, 'scripts', 'smoke-routes.json'), 'utf8'));
-  const routes = routesFile.routes.filter((r) => !ONLY || r.includes(ONLY));
+  const routes = SCN ? [] : routesFile.routes.filter((r) => !ONLY || r.includes(ONLY));
   const entries = new Set(routesFile.entries ?? []);
   const redirects = routesFile.redirects ?? {};
 
@@ -560,7 +748,7 @@ try {
     }
     await ctx.close();
   }
-  if (!ONLY) await scenarios(browser, { sem, course, fill });
+  if (!ONLY || SCN) await scenarios(browser, { sem, course, fill });
 } catch (e) {
   note('error', 'harness', String(e?.stack ?? e).split('\n').slice(0, 3).join(' | '));
 } finally {

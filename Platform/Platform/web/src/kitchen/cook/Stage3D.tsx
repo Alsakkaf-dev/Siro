@@ -7,13 +7,14 @@ export default function Stage3D({ quality, onQuality, onPick, station, view, sto
   const ref = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<KitchenScene | null>(null);
   const cb = useRef({ onPick, onQuality, onReady, onFps });
+  const reducedMotion = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   cb.current = { onPick, onQuality, onReady, onFps };
   useEffect(() => {
     let dead = false;
     let timer: ReturnType<typeof setInterval> | null = null;
     void import('./Scene3D.js').then(({ KitchenScene: K }) => {
       if (dead || !ref.current) return;
-      const reduced = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reduced = reducedMotion;
       const s = new K({ canvas: ref.current, quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w) });
       sceneRef.current = s;
       cb.current.onReady(s);
@@ -45,5 +46,5 @@ export default function Stage3D({ quality, onQuality, onPick, station, view, sto
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
   }, []);
-  return <canvas ref={ref} className="kt-canvas" role="img" aria-label="مطبخ ثلاثي الأبعاد: اضغط على المكوّنات والأوعية للتفاعل، أو استعمل لوحة الإجراءات" tabIndex={-1} />;
+  return <canvas ref={ref} className="kt-canvas" data-quality={quality} data-reduced={reducedMotion ? '1' : '0'} role="img" aria-label="مطبخ ثلاثي الأبعاد: اضغط على المكوّنات والأوعية للتفاعل، أو استعمل لوحة الإجراءات" tabIndex={-1} />;
 }

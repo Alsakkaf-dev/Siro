@@ -116,7 +116,7 @@ export default function KitchenCodex() {
         <MyCards cards={k.cards} />
         <p className="muted">تظهر هنا الأطباق التي تصنعها في <Link to="/kitchen/cook">المطبخ ثلاثي الأبعاد</Link> وتحدّث القاموس فورًا. الوصفات الأصلية الـ12 لا تُعدَّل في مكانها: التعديل ينشئ نسخة جديدة موسومة (N-12).</p>
       </Section>
-      {slug && (open ? <CardSheet c={open} onClose={closeSheet} /> : <Modal title="بطاقة غير موجودة" onClose={closeSheet}><p>«{slug}» ليست بين بطاقات القاموس.</p><Link to="/kitchen/codex">العودة للقاموس</Link></Modal>)}
+      {slug && (open ? <CardSheet c={open} onClose={closeSheet} /> : k.cards.find((c) => c.slug === slug) ? <Modal title="بطاقة ابتكارية" onClose={closeSheet}><MyCards cards={k.cards.filter((c) => c.slug === slug)} /></Modal> : <Modal title="بطاقة غير موجودة" onClose={closeSheet}><p>«{slug}» ليست بين بطاقات القاموس.</p><Link to="/kitchen/codex">العودة للقاموس</Link></Modal>)}
     </div>
   );
 }
@@ -294,7 +294,7 @@ const RARITY_AR: Record<string, string> = { bronze: 'برونزي', silver: 'ف�
 function MyCards({ cards }: { cards: CardRowC[] }) {
   const act = useAct();
   const { confirm } = useApp();
-  const shown = cards.filter((c) => !c.hidden);
+  const shown = cards.length === 1 ? cards : cards.filter((c) => !c.hidden);
   if (shown.length === 0) return <EmptyState icon="utensils" title="لا ابتكارات بعد" text="اطبخ طبقًا في المطبخ ثم «قدّم» لتظهر بطاقته هنا." />;
   return (
     <ul className="plain kt-mycards" data-testid="my-cards">
