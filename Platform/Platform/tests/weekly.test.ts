@@ -218,10 +218,11 @@ describe('money', () => {
 });
 
 const REAL = process.env['RASHED_FIXTURE_DIR'] ?? '/workspace/rashed_fixture';
-describe.skipIf(!fs.existsSync(path.join(REAL, 'prayers.json')))('real Rashed files → weekly review (local copy only; skipped elsewhere)', () => {
+const HAVE_REAL = fs.existsSync(path.join(REAL, 'prayers.json'));
+describe.skipIf(!HAVE_REAL)('real Rashed files → weekly review (local copy only; skipped elsewhere)', () => {
   const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, n), 'utf8').replace(/^\ufeff/, '')) as T;
-  const input = { prayers: read<Prayers>('prayers.json'), habits: read<Habits>('habits.json'), body: read<Body>('body.json'), finance: read<Finance>('finance.json'), routine: read('routine.json'), summary: read('dashboard_summary.json') } as Parameters<typeof buildWeekly>[0];
-  const r = buildWeekly(input, at('2026-10-26T21:00:00+08:00'));
+  const input = (!HAVE_REAL ? {} : { prayers: read<Prayers>('prayers.json'), habits: read<Habits>('habits.json'), body: read<Body>('body.json'), finance: read<Finance>('finance.json'), routine: read('routine.json'), summary: read('dashboard_summary.json') }) as Parameters<typeof buildWeekly>[0];
+  const r = HAVE_REAL ? buildWeekly(input, at('2026-10-26T21:00:00+08:00')) : (null as never);
   it('invariants: qada total = sum of five, weekly done غير مسجل, no NaN anywhere, every null Val is tagged غير مسجل', () => {
     expect(r.prayer!.qada.sumMatches).toBe(true);
     expect(r.prayer!.qada.doneWeek.value).toBeNull();
