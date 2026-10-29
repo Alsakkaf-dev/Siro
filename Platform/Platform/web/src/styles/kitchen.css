@@ -130,3 +130,53 @@
 .kt-sheet-card { display: grid; place-items: center; } .kt-sheet-card .kt-pc-wrap { inline-size: min(100%, 420px); }
 .kt-sheet-card .kt-pc { aspect-ratio: auto; min-block-size: 640px; }
 .kt-compare { margin-block-end: var(--s-4); } .kt-compare .win { font-weight: 800; color: var(--ok); }
+
+/* الطبخ (K): تخطيط فقط — المشهد والجانب ولوحة التحكم */
+.kt-cook-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: var(--s-4); align-items: start; }
+@media (max-width: 960px) { .kt-cook-grid { grid-template-columns: minmax(0, 1fr); } }
+.kt-hud { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin-block-end: var(--s-3); }
+.kt-hud-sep { inline-size: 1px; block-size: 24px; background: var(--border); }
+.kt-inline { display: inline-flex; align-items: center; gap: var(--s-2); }
+.kt-check { display: inline-flex; align-items: center; gap: var(--s-2); }
+.kt-time, .kt-cost { white-space: nowrap; }
+.kt-stage { position: relative; display: grid; gap: var(--s-2); min-inline-size: 0; }
+.kt-canvas { display: block; inline-size: 100%; aspect-ratio: 16 / 10; min-block-size: 260px; border-radius: var(--r-md); border: 1px solid var(--border); touch-action: none; }
+.kt-stage-load, .kt-stage-off { display: grid; place-items: center; min-block-size: 200px; padding: var(--s-4); border: 1px dashed var(--border); border-radius: var(--r-md); text-align: center; }
+.kt-stations { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.kt-alerts { min-block-size: 1.4em; font-size: var(--fs-sm); }
+.kt-side { display: grid; gap: var(--s-3); min-inline-size: 0; }
+.kt-act { display: grid; gap: var(--s-3); }
+.kt-ing-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--s-1); max-block-size: 220px; overflow: auto; }
+.kt-ing-btn { display: flex; align-items: center; gap: 4px; padding: 4px 8px; min-block-size: 36px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--surface-2); color: inherit; font: inherit; cursor: pointer; text-align: start; }
+.kt-ing-btn[aria-pressed='true'] { border-color: var(--accent); }
+.kt-ing-btn.out { opacity: .55; }
+.kt-ing-btn:focus-visible, .kt-item-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.kt-qty-box { display: grid; gap: var(--s-2); margin-block-start: var(--s-3); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-sm); }
+.kt-g-in { inline-size: 90px; min-inline-size: 0; }
+.kt-items { display: grid; gap: var(--s-1); }
+.kt-item-btn { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; inline-size: 100%; padding: 6px 8px; border: 1px solid var(--border); border-radius: var(--r-sm); background: transparent; color: inherit; font: inherit; text-align: start; cursor: pointer; }
+.kt-item-btn.sel { border-color: var(--accent); }
+.kt-ctx { display: grid; gap: var(--s-2); margin-block-start: var(--s-3); }
+.kt-vessels { display: grid; gap: var(--s-2); }
+.kt-vessel { display: grid; gap: var(--s-2); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-sm); }
+.kt-vessel.focus { border-color: var(--accent); } .kt-vessel.hot { border-color: var(--warn); }
+.kt-recipe-steps { display: grid; gap: var(--s-2); } .kt-recipe-steps li.done { color: var(--text-2); }
+.kt-log { display: grid; gap: 4px; max-block-size: 360px; overflow: auto; } .kt-log li.warn { color: var(--warn); } .kt-log li.err { color: var(--danger); }
+.kt-review { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--s-4); }
+@media (max-width: 800px) { .kt-review { grid-template-columns: minmax(0, 1fr); } }
+.kt-review-main, .kt-review-side { display: grid; gap: var(--s-3); align-content: start; min-inline-size: 0; }
+.kt-photo { inline-size: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-md); }
+.kt-photo-cover { display: grid; place-items: center; gap: var(--s-2); aspect-ratio: 4 / 3; border: 1px solid var(--border); border-radius: var(--r-md); font-size: 3rem; text-align: center; }
+.kt-photo-cover b { font-size: var(--fs-md); }
+
+/* خطة اليوم */
+.kt-plan-date { align-items: center; gap: var(--s-2); }
+.kt-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); }
+@media (max-width: 900px) { .kt-plan-grid { grid-template-columns: minmax(0, 1fr); } }
+.kt-plan-slot .select { inline-size: 100%; }
+.kt-plan-kcal { margin: 0; }
+.kt-body-text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.8; }
+
+/* ابتكاراتي */
+.kt-mycards { display: grid; gap: var(--s-3); }
+.kt-mycard { display: grid; gap: var(--s-2); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-md); }

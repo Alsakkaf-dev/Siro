@@ -14,6 +14,8 @@ const KitchenPantry = lazy(() => import('./pages/KitchenPantry.js'));
 const KitchenWallet = lazy(() => import('./pages/KitchenWallet.js'));
 const KitchenPrices = lazy(() => import('./pages/KitchenPrices.js'));
 const KitchenCodex = lazy(() => import('./pages/KitchenCodex.js'));
+const KitchenCook = lazy(() => import('./pages/KitchenCook.js'));
+const KitchenPlan = lazy(() => import('./pages/KitchenPlan.js'));
 const Semesters = lazy(() => import('./pages/Semesters.js'));
 const Courses = lazy(() => import('./pages/Courses.js'));
 const CoursePage = lazy(() => import('./pages/CoursePage.js'));
@@ -92,6 +94,8 @@ export function App() {
         <Route path="kitchen/prices" element={<KitchenPrices />} />
         <Route path="kitchen/codex" element={<KitchenCodex />} />
         <Route path="kitchen/codex/:slug" element={<KitchenCodex />} />
+        <Route path="kitchen/cook" element={<KitchenCook />} />
+        <Route path="kitchen/plan" element={<KitchenPlan />} />
         <Route path="settings" element={<Settings />} />
         <Route path="glossary" element={<Glossary />} />
         <Route path="search" element={<SearchPage />} />

@@ -5,7 +5,7 @@ import { Badge, Button, Card, EmptyState, Modal, Segmented, Skeleton, cx } from 
 import { useApp } from '../core/app-context.js';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { KitchenChips, NutriGrid, Section, storeShort, useAct, useKitchen } from '../kitchen/kitchenKit.js';
-import { setCartLine } from '../kitchen/store.js';
+import { deleteCard, makeVariant, patchCard, setCartLine, type CardRowC } from '../kitchen/store.js';
 import {
   BADGE_LABEL, INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_CARDS, RARITY_LABEL, STORES, addToLine, cardFeasibility, cardOf, compareCards, fmtKcal, fmtNum, fmtRM, inventoryFrom, mealCost, nutritionOf, per100g, qtyForEdible, scaleLines,
   type CardStats, type CardView, type MealType, type Profile,
@@ -93,7 +93,7 @@ export default function KitchenCodex() {
         </div>
       </Card>
 
-      <p className="kt-progress" role="status"><b className="num">{fmtNum(ORIGINAL_CARDS(k.idx, k.store).length, 0)}/12</b> بطاقة أصلية · <b className="num">0</b> ابتكار · يظهر <b className="num">{fmtNum(list.length, 0)}</b> الآن</p>
+      <p className="kt-progress" role="status"><b className="num">{fmtNum(ORIGINAL_CARDS(k.idx, k.store).length, 0)}/12</b> بطاقة أصلية · <b className="num">{fmtNum(k.cards.filter((c) => !c.hidden).length, 0)}</b> ابتكار · يظهر <b className="num">{fmtNum(list.length, 0)}</b> الآن</p>
 
       {cmpCards.length === 2 && <Compare a={cmpCards[0]!} b={cmpCards[1]!} onClose={() => setCmp([])} />}
       {!k.ready ? <ul className="plain kt-cards"><li><Skeleton h={320} r={18} /></li><li><Skeleton h={320} r={18} /></li></ul> : list.length === 0 ? (
@@ -113,7 +113,8 @@ export default function KitchenCodex() {
         </>
       )}
       <Section title="ابتكاراتي">
-        <p className="muted">تظهر هنا الأطباق التي تصنعها في المطبخ ثلاثي الأبعاد وتحدّث القاموس فورًا — يصل في المرحلة 3. حالة الوصفات التي لا تُعدَّل في مكانها: تعديل بطاقة أصلية ينشئ نسخة جديدة موسومة (N-12).</p>
+        <MyCards cards={k.cards} />
+        <p className="muted">تظهر هنا الأطباق التي تصنعها في <Link to="/kitchen/cook">المطبخ ثلاثي الأبعاد</Link> وتحدّث القاموس فورًا. الوصفات الأصلية الـ12 لا تُعدَّل في مكانها: التعديل ينشئ نسخة جديدة موسومة (N-12).</p>
       </Section>
       {slug && (open ? <CardSheet c={open} onClose={closeSheet} /> : <Modal title="بطاقة غير موجودة" onClose={closeSheet}><p>«{slug}» ليست بين بطاقات القاموس.</p><Link to="/kitchen/codex">العودة للقاموس</Link></Modal>)}
     </div>
@@ -248,9 +249,10 @@ function CardBack({ c, onFlip }: { c: CardView; onFlip: () => void }) {
         </>
       )}
       <div className="row kt-back-act">
-        <Button variant="primary" icon="play" disabled title="المطبخ ثلاثي الأبعاد — المرحلة 3">اطبخها</Button>
+        <Button variant="primary" icon="play" disabled={!c.computable} to={`/kitchen/cook?recipe=${c.slug}&mode=guided`} data-testid="cook-it">اطبخها</Button>
         <Button icon="plus" disabled={!c.computable || k.offline} onClick={() => void addMissing()}>أضف المكونات الناقصة إلى السلة</Button>
-        <Button icon="calendar" disabled title="الجدول والوجبات — المرحلة 4">ضعها في الجدول</Button>
+        <Button icon="calendar" disabled={!c.computable} to={`/kitchen/plan?card=${c.slug}&slot=${encodeURIComponent(mealOf(c))}`} data-testid="to-plan">ضعها في الجدول</Button>
+        <Button icon="layers" disabled={!c.computable || k.offline} onClick={() => void act(() => makeVariant(c.slug, 0.5), 'أُنشئت نسخة مصغّرة ×0.5 في ابتكاراتي')} data-testid="make-variant">نسخة مصغّرة</Button>
         <Button icon="copy" onClick={copy}>انسخ الوصفة</Button>
       </div>
     </div>
@@ -284,5 +286,35 @@ function Compare({ a, b, onClose }: { a: CardView; b: CardView; onClose: () => v
         </table>
       </div>
     </Card>
+  );
+}
+
+const RARITY_AR: Record<string, string> = { bronze: 'برونزي', silver: 'فضي', gold: 'ذهبي', iconic: 'أيقوني' };
+/** «ابتكاراتي»: بطاقات المستخدم والنسخ من القاعدة (MC-02) — تظهر فور الحفظ عبر مخزن العميل */
+function MyCards({ cards }: { cards: CardRowC[] }) {
+  const act = useAct();
+  const { confirm } = useApp();
+  const shown = cards.filter((c) => !c.hidden);
+  if (shown.length === 0) return <EmptyState icon="utensils" title="لا ابتكارات بعد" text="اطبخ طبقًا في المطبخ ثم «قدّم» لتظهر بطاقته هنا." />;
+  return (
+    <ul className="plain kt-mycards" data-testid="my-cards">
+      {shown.map((c) => (
+        <li key={c.slug} className="kt-mycard" data-card={c.slug}>
+          <div className="row"><b>{c.name_ar}</b><Badge>{c.kind === 'variant' ? 'نسخة' : 'ابتكار'}</Badge>{c.rarity && <Badge tone="accent">{RARITY_AR[c.rarity] ?? c.rarity}</Badge>}{c.stats?.['OVR'] != null && <Badge>OVR {fmtNum(c.stats['OVR'] as number, 0)}</Badge>}{c.flags.map((f) => <Badge key={f} tone="warn">{f === 'unsafe_chicken' ? 'دجاج غير ناضج' : f === 'burnt' ? 'محترق' : f === 'undercooked' ? 'نصف ناضج' : f === 'has_waste' ? 'فيه إهدار' : f}</Badge>)}<span className="grow" />
+            <small className="muted num" dir="ltr">{fmtKcal(c.nutrition['kcal'] ?? 0)} kcal{c.cost_rm !== null ? ` · ${fmtRM(c.cost_rm)}` : ''}</small></div>
+          <small className="muted">{c.meal_types.join(' · ')}</small>
+          <details><summary>الخطوات والمقادير</summary>
+            <ol className="plain kt-steps">{c.steps_ar.map((s, i) => <li key={i}>{s}</li>)}</ol>
+            <small className="muted">{c.lines.map((l) => `${INGREDIENT_BY_SLUG.get(l.ingredient)?.name_ar ?? l.ingredient} ${l.amount_g ?? '—'} غ`).join('، ')}</small>
+          </details>
+          <div className="row">
+            <Button size="sm" icon="calendar" to={`/kitchen/plan?card=${c.slug}&slot=${encodeURIComponent(c.meal_types[0] ?? 'فطور')}`}>ضعها في الجدول</Button>
+            <Button size="sm" icon="layers" onClick={() => void act(() => makeVariant(c.slug, 0.5), 'أُنشئت نسخة مصغّرة')}>نسخة مصغّرة</Button>
+            <Button size="sm" onClick={() => void act(() => patchCard(c.slug, { hidden: true }), 'أُخفيت البطاقة')}>أخفِ</Button>
+            <Button size="sm" variant="danger" icon="trash" onClick={async () => { if (await confirm({ title: `حذف «${c.name_ar}»؟`, body: 'تُحذف البطاقة من ابتكاراتي ولا يتأثر المخزن.', confirmLabel: 'احذف' })) await act(() => deleteCard(c.slug), 'حُذفت البطاقة'); }}>احذف</Button>
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }

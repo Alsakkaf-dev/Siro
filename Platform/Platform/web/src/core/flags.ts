@@ -7,7 +7,7 @@ import type { FlagName } from './registry.js';
 const DEFAULTS: Record<FlagName, boolean> = {
   // المرحلة 2 مكتملة: قسم المطبخ ظاهر (A1/C/P/W/B1/A2)
   'kitchen.enabled': true,
-  'kitchen.3d': false,
+  'kitchen.3d': true,
   'kitchen.apis.extended': false,
   'calendar.outlook.read': false,
   'calendar.outlook.proposals': false,
@@ -29,7 +29,7 @@ export function flagEnabled(f: FlagName): boolean {
 
 export const FLAG_LABELS: Record<FlagName, string> = {
   'kitchen.enabled': 'قسم المطبخ',
-  'kitchen.3d': 'المطبخ ثلاثي الأبعاد (المرحلة 3)',
+  'kitchen.3d': 'المطبخ ثلاثي الأبعاد',
   'kitchen.apis.extended': 'واجهات المطبخ الخارجية (المرحلة 4)',
   'calendar.outlook.read': 'قراءة Outlook (المرحلة 4)',
   'calendar.outlook.proposals': 'اقتراحات Outlook (المرحلة 4)',

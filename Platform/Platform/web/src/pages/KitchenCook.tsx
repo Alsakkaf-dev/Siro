@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Field, Modal, Segmented, cx } from '../ui/ui.js';
 import { useApp } from '../core/app-context.js';
+import { flagEnabled } from '../core/flags.js';
 import { KitchenChips, NutriGrid, StoreSelect, storeName, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { quickBuy, serveCook, type CardRowC } from '../kitchen/store.js';
 import { SimClient, type SimView } from '../kitchen/cook/simClient.js';
@@ -49,7 +50,7 @@ export default function KitchenCook() {
   const [grams, setGrams] = useState('100');
   const [logLines, setLogLines] = useState<{ t: number; msg: string; tone: 'ok' | 'warn' | 'err' }[]>([]);
   const [serveOpen, setServeOpen] = useState(false);
-  const [use3d, setUse3d] = useState(true);
+  const [use3d, setUse3d] = useState(() => flagEnabled('kitchen.3d'));
   const [quality, setQuality] = useState<Quality>('standard');
   const [station, setStation] = useState<StationName>('prep');
   const [fps, setFps] = useState<number | null>(null);

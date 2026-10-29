@@ -346,7 +346,7 @@ export interface PlanSlotView { slot: string; card_slug: string; title_ar: strin
 export interface PlanDayRow { date: string; slots: PlanSlotView[]; total_kcal: number; status: string; updated_at: string }
 export type PlanSlotsIn = Partial<Record<'فطور' | 'غداء' | 'عشاء', { card: string; scale?: number }>>;
 export const fetchPlan = (from: string, days = 14): Promise<{ days: PlanDayRow[] }> => api('GET', `/plan?from=${from}&days=${days}`);
-export const previewPlan = (slots: PlanSlotsIn, auto_fit: boolean): Promise<{ ok: boolean; blocked: string[]; message: string | null; solutions: string[]; law: { status: string; total_kcal: number; ok: boolean; excess?: number; deficit?: number }; slots: PlanSlotView[]; total: Record<string, number>; autoFit: { k: number } | null; complete: boolean }> => api('POST', '/plan/preview', { slots, auto_fit });
+export const previewPlan = (slots: PlanSlotsIn, auto_fit: boolean): Promise<{ ok: boolean; blocked: string[]; message: string | null; solutions: string[]; law: { status: string; total_kcal: number; ok: boolean; excess?: number; deficit?: number; remaining?: { minNeeded: number; maxAllowed: number } }; slots: PlanSlotView[]; total: Record<string, number>; autoFit: { k: number } | null; complete: boolean }> => api('POST', '/plan/preview', { slots, auto_fit });
 export async function savePlan(date: string, slots: PlanSlotsIn, auto_fit: boolean): Promise<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }> {
   const r = await api<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }>('PUT', `/plan/${date}`, { slots, auto_fit });
   announce('plan');
