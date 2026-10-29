@@ -237,7 +237,7 @@ export const BOTS: Readonly<Record<string, (c: Cook) => Record<string, number>>>
     c.untilStirring('pan', () => c.it(chicken).doneAt !== null, 900, 30);
     c.level(1, 0);
     const chickenAt = c.it(chicken).doneAt === null ? 9999 : c.it(chicken).doneAt! - t0;
-    c.until(() => c.it(r).doneAt !== null, 1200);
+    c.until(() => c.it(r).doneAt !== null, 20 * 60);
     c.wait(30);
     c.do({ type: 'drain', vessel: 'pot_large' });
     c.level(2, 0);
@@ -319,11 +319,11 @@ export const BOTS: Readonly<Record<string, (c: Cook) => Record<string, number>>>
     c.add(rice, pot);
     c.season('cumin', 3, pot);
     c.fire(pot, 1, 10);
-    c.until(() => c.vs(pot).T >= 99.5, 1200);
+    c.until(() => c.vs(pot).T >= 99.5, 20 * 60);
     c.level(1, 2);
     const ids = [chicken, carrot, onion, tomato, potato, rice];
     const t0 = c.sim.t;
-    c.waitStirring(pot, 1500, 60);
+    c.waitStirring(pot, 25 * 60, 60);
     const per = Object.fromEntries(ids.map((i) => [c.it(i).ingredient, c.it(i).doneAt === null ? 99999 : c.it(i).doneAt! - t0]));
     const done = Math.max(...Object.values(per));
     const toast = c.toast(50);

@@ -301,6 +301,50 @@ CREATE TABLE kitchen_ingredient_requests (
 );
 `,
   },
+  {
+    id: 5,
+    name: 'kitchen cards + cook sessions + plan days',
+    sql: `
+CREATE TABLE kitchen_cards (
+  slug TEXT PRIMARY KEY,
+  kind TEXT NOT NULL,
+  parent_slug TEXT,
+  name_ar TEXT NOT NULL,
+  meal_types TEXT NOT NULL,
+  lines TEXT NOT NULL,
+  steps TEXT NOT NULL,
+  nutrition TEXT NOT NULL,
+  cost_rm REAL,
+  price_version INTEGER NOT NULL,
+  stats TEXT NOT NULL,
+  rarity TEXT NOT NULL,
+  origin TEXT NOT NULL,
+  flags TEXT NOT NULL,
+  image TEXT,
+  hidden INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE kitchen_cook_sessions (
+  id TEXT PRIMARY KEY,
+  mode TEXT NOT NULL,
+  seed INTEGER NOT NULL,
+  ops TEXT NOT NULL,
+  card_slug TEXT,
+  taken TEXT NOT NULL,
+  waste TEXT NOT NULL,
+  waste_cost_rm REAL,
+  created_at TEXT NOT NULL
+);
+CREATE TABLE kitchen_plan_days (
+  date TEXT PRIMARY KEY,
+  slots TEXT NOT NULL,
+  total_kcal REAL NOT NULL,
+  status TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

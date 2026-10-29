@@ -15,7 +15,7 @@ export const VESSEL = {
   pan: { massCp: 520, loss: 3.4, burn: true, label: 'مقلاة' },
   pot_small: { massCp: 420, loss: 2.6, burn: true, label: 'قدر صغير' },
   pot_large: { massCp: 900, loss: 4.2, burn: true, label: 'قدر طبخ كبير' },
-  pressure_cooker: { massCp: 1500, loss: 4.0, burn: true, label: 'قدر ضغط' },
+  pressure_cooker: { massCp: 1.5e3, loss: 4.0, burn: true, label: 'قدر ضغط' },
   bowl: { massCp: 300, loss: 1.5, burn: false, label: 'وعاء' },
   plate: { massCp: 250, loss: 1.5, burn: false, label: 'صحن' },
 } as const;

@@ -4,6 +4,7 @@ import type { Ctx } from './routes.js';
 import type { Db } from './db.js';
 import { newId } from './repo.js';
 import { parseOrThrow } from './validation.js';
+import { mountCook } from './kitchenCook.js';
 import {
   DEFAULT_STORE, INGREDIENT_BY_SLUG, SEED_PRICES, STORES, checkPriceChange, clampQty, searchIngredients, INGREDIENTS, tierRange, toGrams, unitsFor, qtyBounds,
   type Confidence, type PricePoint, type PriceSource, type SaleUnit,
@@ -13,23 +14,23 @@ import {
  * المطبخ (K-M3/K-M4): أسعار + تدقيق + سلة + شراء + مخزن + محفظة + طلبات مكوّنات. جداول kitchen_* فقط.
  * المالك واحد (مستخدم المنصة المحلي): الفرض هنا بحماية Host/Origin العامة + ترويسة X-Kitchen-Client على كل كتابة (تمنع نماذج CSRF البسيطة).
  */
-const wrap =
+export const wrap =
   (fn: (req: express.Request, res: express.Response) => void | Promise<void>) =>
   (req: express.Request, res: express.Response, next: express.NextFunction): void => {
     Promise.resolve().then(() => fn(req, res)).catch(next);
   };
 
-const round2 = (n: number): number => Math.round(n * 100) / 100;
-const nowIso = (): string => new Date().toISOString();
+export const round2 = (n: number): number => Math.round(n * 100) / 100;
+export const nowIso = (): string => new Date().toISOString();
 
 /** رد برمز آلي (يقرؤه العميل) بدل رسالة نصية فقط */
-class CodedError extends Error {
+export class CodedError extends Error {
   constructor(public status: number, public code: string, message: string, public extra: Record<string, unknown> = {}) {
     super(message);
   }
 }
 
-export interface KitchenEvent { type: 'prices' | 'cart' | 'pantry' | 'wallet' | 'requests'; version: number; by: string; at: string }
+export interface KitchenEvent { type: 'prices' | 'cart' | 'pantry' | 'wallet' | 'requests' | 'cards' | 'plan'; version: number; by: string; at: string }
 
 const SOURCES = ['estimate_tier', 'manual', 'receipt', 'pricecatcher'] as const;
 const CONF_OF: Record<PriceSource, Confidence> = { estimate_tier: 'low', manual: 'medium', receipt: 'high', pricecatcher: 'medium' };
@@ -37,8 +38,8 @@ const ingSlug = z.string().refine((s) => INGREDIENT_BY_SLUG.has(s), 'مكوّن 
 const storeSlug = z.string().refine((s) => STORES.some((x) => x.slug === s), 'سوق غير معروف');
 const reason = z.string().trim().max(200).optional();
 
-interface PriceRow { ingredient: string; store: string; price_rm: number; price_min: number; price_max: number; source: string; confidence: string; unverified: number; observed_at: string }
-const toPoint = (r: PriceRow): PricePoint => ({
+export interface PriceRow { ingredient: string; store: string; price_rm: number; price_min: number; price_max: number; source: string; confidence: string; unverified: number; observed_at: string }
+export const toPoint = (r: PriceRow): PricePoint => ({
   ingredient: r.ingredient, store: r.store, price_rm: r.price_rm, price_min: r.price_min, price_max: r.price_max,
   source: r.source as PriceSource, confidence: r.confidence as Confidence, observed_at: r.observed_at, ...(r.unverified ? { unverified: true } : {}),
 });
@@ -61,7 +62,7 @@ export function ensureKitchenSeed(db: Db): void {
   seeded.add(db);
 }
 
-const priceVersion = (db: Db): number => Number(db.get<{ value: string }>("SELECT value FROM kitchen_meta WHERE key = 'price_version'")?.value ?? 1);
+export const priceVersion = (db: Db): number => Number(db.get<{ value: string }>("SELECT value FROM kitchen_meta WHERE key = 'price_version'")?.value ?? 1);
 const bumpVersion = (db: Db): number => {
   const v = priceVersion(db) + 1;
   db.run("INSERT OR REPLACE INTO kitchen_meta (key, value) VALUES ('price_version', ?)", String(v));
@@ -97,7 +98,7 @@ function walletView(db: Db): Record<string, unknown> {
 
 /* ───── المخزن ───── */
 interface PantryRow { ingredient: string; grams: number; cost_rm: number; bought_at: string | null; min_g: number | null; note: string | null; updated_at: string }
-function pantryMove(db: Db, ingredient: string, delta: number, kind: string, reason: string | null, ref: string | null, at: string, addCost = 0): void {
+export function pantryMove(db: Db, ingredient: string, delta: number, kind: string, reason: string | null, ref: string | null, at: string, addCost = 0): void {
   const row = db.get<PantryRow>('SELECT * FROM kitchen_pantry WHERE ingredient = ?', ingredient);
   const cur = row?.grams ?? 0;
   const next = cur + delta;
@@ -443,6 +444,8 @@ export function createKitchenRouter(ctx: Ctx): express.Router {
     publish('requests', req);
     res.json({ ...(d.get('SELECT * FROM kitchen_ingredient_requests WHERE id = ?', String(req.params['id'])) as object), note_g04: 'الموافقة تسجّل القرار فقط؛ إضافة المكوّن فعليًا تغيير برمجي بموافقتك (G-04).' });
   }));
+
+  mountCook(r, { db, publish: (t, req) => publish(t, req) });
 
   // أخطاء مرمّزة بشكل يقرؤه العميل
   r.use((err: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
