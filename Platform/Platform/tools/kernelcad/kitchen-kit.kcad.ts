@@ -21,11 +21,15 @@ const bowl = vessel(130, 80, 4, 'plastic-glossy');
 const plate = vessel(140, 20, 3, 'plastic-glossy');
 const board = box(600, 420, 24).finish('paint-matte');
 
-kit.part('equip_pan', pan);
-kit.part('equip_pot_small', potSmall);
-kit.part('equip_pot_large', potLarge);
-kit.part('equip_pressure_cooker', pressure);
-kit.part('equip_bowl', bowl);
-kit.part('plate_1', plate);
-kit.part('board_main', board);
-return kit.model();
+const names = ['equip_pan', 'equip_pot_small', 'equip_pot_large', 'equip_pressure_cooker', 'equip_bowl', 'plate_1', 'board_main'];
+kit.part(names[0], pan);
+kit.part(names[1], potSmall);
+kit.part(names[2], potLarge);
+kit.part(names[3], pressure);
+kit.part(names[4], bowl);
+kit.part(names[5], plate);
+kit.part(names[6], board);
+// الأجزاء مستقلة ومتراكبة عند الأصل عمدًا: المحمِّل يضع كل وعاء عند موضعه بالاسم (عقد 3D-10)، فنتجاهل تداخلها في فحص الآلية
+const ignore: [string, string][] = [];
+for (let i = 0; i < names.length; i++) for (let j = i + 1; j < names.length; j++) ignore.push([names[i], names[j]]);
+return kit.solvedModel({}, { ignore });
