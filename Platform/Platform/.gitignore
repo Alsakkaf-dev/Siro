@@ -5,3 +5,8 @@ data/*.db-*
 backups/
 *.log
 .DS_Store
+vercel-static/
+.vercel/
+e2e-out/
+data/ai-secrets.json
+data/ai-secrets.json.tmp
