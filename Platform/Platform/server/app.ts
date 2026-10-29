@@ -88,7 +88,7 @@ export function createApp(ctx: Ctx): express.Express {
     next();
   });
 
-  app.use('/api', compression({ threshold: 512, filter: (req, res) => !/\/raw$/.test(req.path) && compression.filter(req, res) }), (_req, res, next) => {
+  app.use('/api', compression({ threshold: 512, filter: (req, res) => !/\/raw$/.test(req.path) && req.path !== '/kitchen/stream' && compression.filter(req, res) }), (_req, res, next) => {
     res.setHeader('Cache-Control', 'no-store');
     next();
   }, express.json({ limit: '5mb' }), createApiRouter(ctx));

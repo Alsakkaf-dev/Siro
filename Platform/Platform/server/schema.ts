@@ -195,6 +195,112 @@ CREATE TABLE life_alt_picks (
 );
 `,
   },
+  {
+    id: 4,
+    name: 'kitchen (prices, audit, cart, purchases, pantry, wallet, requests)',
+    sql: `
+CREATE TABLE kitchen_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+CREATE TABLE kitchen_prices (
+  ingredient TEXT NOT NULL,
+  store TEXT NOT NULL,
+  price_rm REAL NOT NULL CHECK (price_rm > 0),
+  price_min REAL NOT NULL,
+  price_max REAL NOT NULL,
+  source TEXT NOT NULL,
+  confidence TEXT NOT NULL,
+  unverified INTEGER NOT NULL DEFAULT 0,
+  observed_at TEXT NOT NULL,
+  version INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (ingredient, store)
+);
+CREATE TABLE kitchen_price_audit (
+  id TEXT PRIMARY KEY,
+  ingredient TEXT NOT NULL,
+  store TEXT NOT NULL,
+  old_price REAL,
+  new_price REAL NOT NULL,
+  old_source TEXT,
+  new_source TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  reason TEXT,
+  reverted_of TEXT,
+  price_version INTEGER NOT NULL,
+  at TEXT NOT NULL
+);
+CREATE INDEX kitchen_price_audit_at ON kitchen_price_audit(at);
+CREATE TABLE kitchen_cart (
+  ingredient TEXT PRIMARY KEY,
+  qty REAL NOT NULL CHECK (qty > 0),
+  unit TEXT NOT NULL,
+  store TEXT,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE kitchen_wallet (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  budget_rm REAL NOT NULL DEFAULT 0,
+  period TEXT NOT NULL DEFAULT 'week',
+  period_start TEXT,
+  hard_limit INTEGER NOT NULL DEFAULT 1,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE kitchen_wallet_tx (
+  id TEXT PRIMARY KEY,
+  kind TEXT NOT NULL,
+  amount_rm REAL NOT NULL,
+  ref TEXT,
+  note TEXT,
+  at TEXT NOT NULL
+);
+CREATE INDEX kitchen_wallet_tx_at ON kitchen_wallet_tx(at);
+CREATE TABLE kitchen_purchases (
+  id TEXT PRIMARY KEY,
+  store TEXT NOT NULL,
+  total_rm REAL NOT NULL,
+  price_version INTEGER NOT NULL,
+  at TEXT NOT NULL
+);
+CREATE TABLE kitchen_purchase_lines (
+  purchase_id TEXT NOT NULL REFERENCES kitchen_purchases(id) ON DELETE CASCADE,
+  ingredient TEXT NOT NULL,
+  qty REAL NOT NULL,
+  unit TEXT NOT NULL,
+  store TEXT NOT NULL,
+  grams REAL NOT NULL,
+  unit_price_rm REAL NOT NULL,
+  line_rm REAL NOT NULL,
+  source TEXT NOT NULL,
+  confidence TEXT NOT NULL
+);
+CREATE INDEX kitchen_purchase_lines_p ON kitchen_purchase_lines(purchase_id);
+CREATE TABLE kitchen_pantry (
+  ingredient TEXT PRIMARY KEY,
+  grams REAL NOT NULL DEFAULT 0 CHECK (grams >= 0),
+  cost_rm REAL NOT NULL DEFAULT 0,
+  bought_at TEXT,
+  min_g REAL,
+  note TEXT,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE kitchen_pantry_moves (
+  id TEXT PRIMARY KEY,
+  ingredient TEXT NOT NULL,
+  delta_g REAL NOT NULL,
+  kind TEXT NOT NULL,
+  reason TEXT,
+  ref TEXT,
+  at TEXT NOT NULL
+);
+CREATE INDEX kitchen_pantry_moves_at ON kitchen_pantry_moves(at);
+CREATE TABLE kitchen_ingredient_requests (
+  id TEXT PRIMARY KEY,
+  name_ar TEXT NOT NULL,
+  note TEXT,
+  status TEXT NOT NULL DEFAULT 'pending',
+  created_at TEXT NOT NULL,
+  decided_at TEXT
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

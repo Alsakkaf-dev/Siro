@@ -8,6 +8,12 @@ import Dashboard from './pages/Dashboard.js'; // الصفحة الأكثر زي�
 
 const Today = lazy(() => import('./pages/Today.js'));
 const Kitchen = lazy(() => import('./pages/Kitchen.js'));
+const KitchenStore = lazy(() => import('./pages/KitchenStore.js'));
+const KitchenCart = lazy(() => import('./pages/KitchenCart.js'));
+const KitchenPantry = lazy(() => import('./pages/KitchenPantry.js'));
+const KitchenWallet = lazy(() => import('./pages/KitchenWallet.js'));
+const KitchenPrices = lazy(() => import('./pages/KitchenPrices.js'));
+const KitchenCodex = lazy(() => import('./pages/KitchenCodex.js'));
 const Semesters = lazy(() => import('./pages/Semesters.js'));
 const Courses = lazy(() => import('./pages/Courses.js'));
 const CoursePage = lazy(() => import('./pages/CoursePage.js'));
@@ -78,6 +84,14 @@ export function App() {
         <Route path="sports/mine" element={<SportsMine />} />
         <Route path="life/commands" element={<LifeCommands />} />
         <Route path="kitchen" element={<Kitchen />} />
+        <Route path="kitchen/store" element={<KitchenStore />} />
+        <Route path="kitchen/store/:slug" element={<KitchenStore />} />
+        <Route path="kitchen/cart" element={<KitchenCart />} />
+        <Route path="kitchen/pantry" element={<KitchenPantry />} />
+        <Route path="kitchen/wallet" element={<KitchenWallet />} />
+        <Route path="kitchen/prices" element={<KitchenPrices />} />
+        <Route path="kitchen/codex" element={<KitchenCodex />} />
+        <Route path="kitchen/codex/:slug" element={<KitchenCodex />} />
         <Route path="settings" element={<Settings />} />
         <Route path="glossary" element={<Glossary />} />
         <Route path="search" element={<SearchPage />} />

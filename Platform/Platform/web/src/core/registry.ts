@@ -94,8 +94,16 @@ export const PAGES: readonly PageDef[] = [
   { id: 'sports-mine', path: '/sports/mine', label: 'تمريني', area: 'body', icon: 'check', keywords: 'my workouts تماريني تمريني', surface: 'sidebar', tabGroup: 'sports', chunk: 'SportsMine' },
   { id: 'sports', path: '/sports', label: 'مكتبة التمارين', tabLabel: 'المكتبة', area: 'body', icon: 'dumbbell', keywords: 'sports exercises muscles عضلات تمارين', surface: 'sidebar', tabGroup: 'sports', chunk: 'Sports' },
   { id: 'sports-templates', path: '/sports/templates', label: 'القوالب الأسبوعية', tabLabel: 'القوالب', area: 'body', icon: 'calendar', keywords: 'templates plans قوالب خطط', surface: 'sidebar', tabGroup: 'sports', chunk: 'SportsTemplates' },
-  // المطبخ (مخفي حتى المرحلة 2)
-  { id: 'kitchen', path: '/kitchen', label: 'المطبخ', area: 'kitchen', icon: 'utensils', keywords: 'kitchen cooking مطبخ طبخ مكونات وجبات', surface: 'sidebar', chunk: 'Kitchen', flag: 'kitchen.enabled' },
+  // المطبخ
+  { id: 'kitchen', path: '/kitchen', label: 'المطبخ', tabLabel: 'نظرة', area: 'kitchen', icon: 'utensils', keywords: 'kitchen cooking مطبخ طبخ مكونات وجبات', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'Kitchen', flag: 'kitchen.enabled' },
+  { id: 'kitchen-store', path: '/kitchen/store', label: 'المتجر', area: 'kitchen', icon: 'board', keywords: 'store shop market متجر تسوق مكونات أسعار بيض', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenStore', flag: 'kitchen.enabled' },
+  { id: 'kitchen-item', path: '/kitchen/store/:slug', label: 'منتج', area: 'kitchen', parent: 'kitchen-store', icon: 'board', surface: 'hidden', chunk: 'KitchenStore', flag: 'kitchen.enabled' },
+  { id: 'kitchen-cart', path: '/kitchen/cart', label: 'السلة', area: 'kitchen', icon: 'list', keywords: 'cart basket checkout سلة اشتريت مقارنة الأسواق', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenCart', flag: 'kitchen.enabled' },
+  { id: 'kitchen-pantry', path: '/kitchen/pantry', label: 'المخزن', area: 'kitchen', icon: 'archive', keywords: 'pantry stock مخزن مخزون', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenPantry', flag: 'kitchen.enabled' },
+  { id: 'kitchen-wallet', path: '/kitchen/wallet', label: 'المحفظة', area: 'kitchen', icon: 'database', keywords: 'wallet budget محفظة ميزانية رصيد', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenWallet', flag: 'kitchen.enabled' },
+  { id: 'kitchen-prices', path: '/kitchen/prices', label: 'تحديث الأسعار', tabLabel: 'الأسعار', area: 'kitchen', icon: 'tag', keywords: 'prices update audit أسعار تحديث تدقيق تراجع', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenPrices', flag: 'kitchen.enabled' },
+  { id: 'kitchen-codex', path: '/kitchen/codex', label: 'قاموس الوجبات', tabLabel: 'القاموس', area: 'kitchen', icon: 'book', keywords: 'codex cards recipes قاموس بطاقات وصفات وجبات', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenCodex', flag: 'kitchen.enabled' },
+  { id: 'kitchen-card', path: '/kitchen/codex/:slug', label: 'بطاقة وجبة', area: 'kitchen', parent: 'kitchen-codex', icon: 'book', surface: 'hidden', chunk: 'KitchenCodex', flag: 'kitchen.enabled' },
   // النظام
   { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup sources library life rashed folder نسخ احتياطي مظهر مصادر مجلد المكتبة راشد', surface: 'sidebar', chunk: 'Settings' },
   { id: 'glossary', path: '/glossary', label: 'قاموس المصطلحات', area: 'system', icon: 'book', keywords: 'glossary terms قاموس مصطلحات', surface: 'sidebar', chunk: 'Glossary' },

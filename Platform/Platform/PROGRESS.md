@@ -35,3 +35,9 @@
 - Fix: glossary term click no longer closes the popover that hover just opened (flaky e2e + real UX bug).
 
 ## STOP (urgent): build OK, vitest 163/163 both drivers, smoke 39/39, e2e_c4 ALL PASSED after last fix. Final e2e sweep and clean-install re-check NOT re-run after the last glossary click fix (all passed before it). Cycle 5 not done.
+
+
+## الخطة الموحدة — المرحلة 2 (2026-10-29) ✅
+- P4–P8 (التنقل) مكتملة: المادة محور (`?tab=`)، التقييمات بعروض `?view=list|weeks|gantt|weights`، «مُصحَّح» يتطلب درجة، المكتبة/الحياة/الرياضة بتبويبات، الإعدادات `?tab=general|data|sources`، حالة الفلاتر في الرابط (`useUrlParam`)، المراجعة بفهرس. توثيق: `docs/nav-restructure/NAVIGATION_AR.md`.
+- المطبخ K-M3/K-M4/K-M5: ترحيل `id: 4` (جداول `kitchen_*` فقط) + `server/kitchenRoutes.ts` (أسعار مبذورة من `SEED_PRICES` + تدقيق وتراجع، سلة، «اشتريت» ذرّي بـ`db.tx`، مخزن، محفظة، طلبات مكوّنات، SSE `/api/kitchen/stream`) + صفحات المتجر والسلة والمخزن والمحفظة والأسعار والقاموس.
+- اختبارات: vitest 256 ناجح (الأساس 221) منها 18 API للمطبخ بالسائقين (better-sqlite3 وnode:sqlite)، و17 للمحركات الجديدة؛ `browser-smoke --strict`: 48 مسارًا × 2 عرض + سيناريوهات J1/J2/J3/J8 وAC-01…04 بأزمنة مقيسة، 0 أخطاء.

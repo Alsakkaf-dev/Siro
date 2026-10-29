@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PageHead } from '../ui/page.js';
+import { KitchenChips, useKitchen } from '../kitchen/kitchenKit.js';
 import { Badge, Card, CardHead, cx } from '../ui/ui.js';
 import { StatTile } from '../widgets/tiles.js';
 import { flagEnabled } from '../core/flags.js';
@@ -12,6 +14,7 @@ const CATS: Category[] = ['خضروات', 'فواكه', 'لحوم ودواجن',
 
 /** HUB المطبخ (K-M1): بذرة المكوّنات الـ26 + الأسعار التقديرية + القانون. كل رقم من طبقة shared/kitchen. */
 export default function Kitchen() {
+  const k = useKitchen();
   const [q, setQ] = useState('');
   const [cat, setCat] = useState<Category | null>(null);
   const idx = useMemo(() => indexPrices(SEED_PRICES), []);
@@ -26,7 +29,7 @@ export default function Kitchen() {
 
   return (
     <div className="page kitchen">
-      <PageHead title={t('hub.title')} icon="utensils" sub={t('hub.sub')} />
+      <PageHead title={t('hub.title')} icon="utensils" sub={t('hub.sub')} actions={<KitchenChips />} />
       {!flagEnabled('kitchen.enabled') && <div className="callout" role="note" style={{ marginBlockEnd: 'var(--s-4)' }}>{t('hub.preview')}</div>}
       <div className="grid stats" style={{ marginBlockEnd: 'var(--s-5)' }}>
         <StatTile tone="green" icon="list" label={t('hub.tiles.ingredients')} value={fmtNum(INGREDIENTS.length, 0)} />
@@ -85,6 +88,14 @@ export default function Kitchen() {
         </Card>
         <Card>
           <CardHead title={t('hub.next')} icon="flag" />
+          <ul className="plain stack kt-tight kt-hub-links">
+            <li><Link to="/kitchen/store">المتجر</Link> <small className="muted">26 منتجًا بأسعار الأسواق الخمسة</small></li>
+            <li><Link to="/kitchen/cart">السلة</Link> <small className="muted"><span className="num">{fmtNum(k.cart.length, 0)}</span> صنفًا</small></li>
+            <li><Link to="/kitchen/pantry">المخزن</Link> <small className="muted"><span className="num">{fmtNum(k.pantry.filter((p) => p.grams > 0).length, 0)}</span> صنفًا</small></li>
+            <li><Link to="/kitchen/wallet">المحفظة</Link> <small className="muted">{k.wallet?.configured ? fmtRM(k.wallet.balance_rm) : 'غير مضبوطة'}</small></li>
+            <li><Link to="/kitchen/prices">تحديث الأسعار</Link> <small className="muted">مصفوفة وتدقيق وتراجع</small></li>
+            <li><Link to="/kitchen/codex">قاموس الوجبات</Link> <small className="muted"><span className="num">12</span> بطاقة أصلية</small></li>
+          </ul>
           <p className="muted">{t('hub.next.list')}</p>
         </Card>
       </div>

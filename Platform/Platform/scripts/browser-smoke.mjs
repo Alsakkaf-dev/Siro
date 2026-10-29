@@ -64,10 +64,13 @@ async function scenarios(browser, { sem, course }) {
     const ctx = await browser.newContext({ viewport: vp === 'mobile' ? { width: 390, height: 844 } : { width: 1280, height: 800 }, locale: 'ar' });
     const page = await ctx.newPage();
     const errs = [];
-    page.on('pageerror', (e) => errs.push(`pageerror: ${e.message}`));
-    page.on('console', (m) => m.type() === 'error' && errs.push(`console: ${m.text().slice(0, 160)}`));
+    const track = (p) => {
+      p.on('pageerror', (e) => errs.push(`pageerror: ${e.message}`));
+      p.on('console', (m) => m.type() === 'error' && errs.push(`console: ${m.text().slice(0, 160)}`));
+    };
+    track(page);
     try {
-      const msg = await fn(page);
+      const msg = await fn(page, { ctx, track });
       if (errs.length) throw new Error(errs.join(' | '));
       scenarioLog.push({ name, ok: true, msg: msg || '' });
     } catch (e) {
@@ -206,9 +209,255 @@ async function scenarios(browser, { sem, course }) {
     const kitchenInNav = await page.locator('aside nav >> text=المطبخ').count();
     return `القسم ظاهر في الشريط وأنت داخله: ${kitchenInNav ? 'نعم' : 'لا'}`;
   });
-  await run('المطبخ مخفي من التنقل خارج القسم (kitchen.enabled=false)', 'desktop', async (page) => {
+  await run('المطبخ ظاهر في الشريط من أي صفحة، وg ثم 6 يفتحه (kitchen.enabled=true)', 'desktop', async (page) => {
     await ready(page, '/');
-    if (await page.locator('aside nav >> text=المطبخ').count()) throw new Error('ظاهر في الشريط');
+    if (!(await page.locator('aside nav >> text=المطبخ').count())) throw new Error('غير ظاهر في الشريط');
+    await key(page, 'KeyG', 'ل');
+    await key(page, 'Digit6', '٦');
+    await expectPath(page, /^\/kitchen$/, 'g 6');
+    await page.waitForSelector('nav[aria-label="عروض الصفحة"] a', { timeout: 8000 });
+    const tabs = await page.locator('nav[aria-label="عروض الصفحة"] a').allTextContents();
+    if (tabs.length < 7) throw new Error(`تبويبات القسم: ${tabs.length}`);
+    return `تبويبات: ${tabs.map((t) => t.trim()).join('، ')}`;
+  });
+  /* ───── المطبخ: رحلات J1 وJ2 وJ3 وJ8 ومعايير AC-01…04 (المرحلة 2) ───── */
+  const kapi = async (method, url, body) => {
+    const r = await fetch(`${base}/api/kitchen${url}`, { method, headers: { 'Content-Type': 'application/json', 'X-Kitchen-Client': 'smoke' }, body: body === undefined ? undefined : JSON.stringify(body) });
+    const t = await r.text();
+    try { return { status: r.status, ...JSON.parse(t) }; } catch { return { status: r.status }; }
+  };
+  const kitchenTimings = {};
+  const shot = async (page, name) => { if (SHOTS) await page.screenshot({ path: join(SHOTS, `scenario-${name}.png`) }).catch(() => undefined); };
+  const waitSlug = (page, slug) => page.waitForFunction((s) => document.querySelector('.kt-prod')?.dataset.slug === s, slug, { timeout: 4000 });
+
+  await run('J1 المتجر: بحث «بيض/بَيض/egg/telur» بلا تشكيل، فلتر، لوحة المنتج برابط عميق، تغذية ومبلغ لحظيان (AC-01/AC-02)', 'desktop', async (page) => {
+    await ready(page, '/kitchen/store');
+    await page.waitForSelector('.kt-prod', { timeout: 8000 });
+    const n = await page.locator('.kt-prod').count();
+    if (n !== 26) throw new Error(`منتجات: ${n}`);
+    for (const q of ['بيض', 'بَيض', 'egg', 'telur']) {
+      await page.fill('input[aria-label="بحث في المتجر"]', q);
+      await waitSlug(page, 'egg').catch(() => { throw new Error(`أول نتيجة لـ«${q}» ليست البيض`); });
+    }
+    await page.fill('input[aria-label="بحث في المتجر"]', '');
+    await page.click('.chip:has-text("ألبان وبيض")');
+    await page.waitForFunction(() => document.querySelectorAll('.kt-prod').length === 4, null, { timeout: 4000 });
+    if (!/cat=/.test(await path(page))) throw new Error('الفئة ليست في الرابط');
+    await page.click('.kt-prod[data-slug=egg] a.kt-prod-main');
+    await page.waitForSelector('[role=dialog]', { timeout: 5000 });
+    await expectPath(page, /^\/kitchen\/store\/egg/, 'الرابط العميق');
+    const amt = async () => (await page.locator('[data-testid=amount] b').first().textContent()).trim();
+    if ((await amt()) !== 'RM 10.00') throw new Error(`مبلغ دستة بيض من Mydin: ${await amt()}`);
+    const kcal = (await page.locator('.kt-live .kt-nutri dd b').first().textContent()).trim();
+    if (kcal !== '986') throw new Error(`سعرات 12 بيضة: ${kcal} (المتوقع 986 = 636 غ صالحة × 155/100)`);
+    const ms = await page.evaluate(() => new Promise((res) => {
+      const el = document.querySelector('[data-testid=amount] b');
+      const before = el.textContent;
+      const t0 = performance.now();
+      const mo = new MutationObserver(() => { if (el.textContent !== before) { mo.disconnect(); res(performance.now() - t0); } });
+      mo.observe(el, { childList: true, subtree: true, characterData: true });
+      document.querySelector('button[aria-label="زِد"]').click();
+      setTimeout(() => { mo.disconnect(); res(-1); }, 2000);
+    }));
+    if (ms < 0 || ms > 100) throw new Error(`تحديث المبلغ عند تغيير الكمية: ${ms.toFixed(1)}ms (الحد 100)`);
+    if ((await amt()) !== 'RM 20.00') throw new Error(`مبلغ دستتين: ${await amt()}`);
+    kitchenTimings.qtyMs = Math.round(ms * 10) / 10;
+    await shot(page, 'j1-product-sheet');
+    await page.click('[role=dialog] button:has-text("أضف إلى السلة")');
+    await page.waitForFunction(() => document.querySelector('.kt-chip.cart .num')?.textContent === '1', null, { timeout: 4000 });
+    const st = await kapi('GET', '/state');
+    if (!st.cart?.some((l) => l.ingredient === 'egg' && l.qty === 2 && l.unit === 'dozen')) throw new Error('السلة في الخادم لا تحوي دستتَي البيض');
+    return `تحديث الكمية ${kitchenTimings.qtyMs}ms (≤100)`;
+  });
+
+  await run('J2 تحديث سعر الدجاج 8.95→9.40: نفس التبويب ≤300ms، تبويب آخر ≤1s، سياق آخر ≤3s، تدقيق وتراجع (AC-03)', 'desktop', async (page, { ctx, track }) => {
+    await kapi('DELETE', '/cart');
+    await kapi('PUT', '/cart/chicken', { qty: 0.5, unit: 'kg', store: null });
+    const observer = (price) => (p) => p.evaluate((pr) => {
+      window.__seen = null;
+      const check = () => { const el = document.querySelector('.kt-prod[data-slug="chicken"] .kt-price b'); if (el && el.textContent.includes(pr)) window.__seen ??= Date.now(); };
+      new MutationObserver(check).observe(document.body, { subtree: true, childList: true, characterData: true });
+      check();
+    }, price);
+    // أ: تبويب المتجر في نفس السياق (BroadcastChannel)، ج: سياق آخر تمامًا (SSE)
+    const tabA = await ctx.newPage(); track(tabA);
+    await ready(tabA, '/kitchen/store?q=%D8%AF%D8%AC%D8%A7%D8%AC');
+    await tabA.waitForSelector('.kt-prod[data-slug=chicken]');
+    const ctx2 = await browser.newContext({ viewport: { width: 1280, height: 800 }, locale: 'ar' });
+    const tabC = await ctx2.newPage(); track(tabC);
+    try {
+      await ready(tabC, '/kitchen/store?q=%D8%AF%D8%AC%D8%A7%D8%AC');
+      await tabC.waitForSelector('.kt-prod[data-slug=chicken]');
+      const before = (await tabA.locator('.kt-prod[data-slug=chicken] .kt-price b').textContent()).trim();
+      if (before !== 'RM 8.95') throw new Error(`السعر قبل التعديل: ${before}`);
+      await ready(page, '/kitchen/prices');
+      await page.waitForSelector('[data-cell="chicken|mydin"] button');
+      await tabA.waitForTimeout(600); // اتصال SSE/BC جاهز في التبويبين
+      await observer('9.40')(tabA); await observer('9.40')(tabC);
+      await page.evaluate(() => {
+        window.__same = null;
+        document.addEventListener('keydown', (e) => { if (e.key === 'Enter') window.__t0 = Date.now(); }, true);
+        const check = () => { const el = document.querySelector('[data-cell="chicken|mydin"] [data-price]'); if (el && el.textContent === '9.40' && document.querySelector('[data-testid=impact-cart]')) window.__same ??= Date.now(); };
+        new MutationObserver(check).observe(document.body, { subtree: true, childList: true, characterData: true });
+      });
+      await page.click('[data-cell="chicken|mydin"] button');
+      await page.fill('.kt-cell-in', '9.4');
+      await page.keyboard.press('Enter');
+      const t0 = await page.evaluate(() => window.__t0);
+      await page.waitForFunction(() => window.__same, null, { timeout: 4000 });
+      await tabA.waitForFunction(() => window.__seen, null, { timeout: 5000 });
+      await tabC.waitForFunction(() => window.__seen, null, { timeout: 8000 });
+      const same = (await page.evaluate(() => window.__same)) - t0;
+      const bc = (await tabA.evaluate(() => window.__seen)) - t0;
+      const sse = (await tabC.evaluate(() => window.__seen)) - t0;
+      Object.assign(kitchenTimings, { sameTabMs: same, otherTabMs: bc, otherContextMs: sse });
+      if (same > 300) throw new Error(`نفس التبويب ${same}ms > 300`);
+      if (bc > 1000) throw new Error(`تبويب آخر ${bc}ms > 1000`);
+      if (sse > 3000) throw new Error(`سياق آخر (SSE) ${sse}ms > 3000`);
+      await shot(page, 'j2-prices-impact');
+      const impact = (await page.locator('[data-testid=impact-cart]').textContent()).replace(/\s+/g, ' ');
+      if (!/RM\s*4\.48.*RM\s*4\.70/.test(impact)) throw new Error(`أثر السلة: ${impact}`);
+      // السلة وتكلفة البطاقات تنعكس أيضًا (AC-03)
+      await ready(tabA, '/kitchen/cart');
+      await tabA.waitForSelector('[data-testid=cart-total]');
+      const cartTotal = (await tabA.locator('[data-testid=cart-total] b').textContent()).trim();
+      if (cartTotal !== 'RM 4.70') throw new Error(`إجمالي السلة بعد التعديل: ${cartTotal}`);
+      // سجل التدقيق + التراجع
+      await ready(page, '/kitchen/prices?tab=audit');
+      await page.waitForSelector('.kt-audit tbody tr');
+      const row = (await page.locator('.kt-audit tbody tr').first().textContent()).replace(/\s+/g, ' ');
+      if (!/دجاج/.test(row) || !/8\.95/.test(row) || !/9\.40/.test(row)) throw new Error(`سطر التدقيق: ${row}`);
+      await page.click('.kt-audit tbody tr:first-child button:has-text("تراجع")');
+      await page.waitForFunction(() => /تم التراجع/.test(document.querySelector('.kt-audit')?.textContent ?? ''), null, { timeout: 4000 });
+      const st = await kapi('GET', '/prices');
+      const pt = st.prices.find((x) => x.ingredient === 'chicken' && x.store === 'mydin');
+      if (pt.price_rm !== 8.95 || pt.source !== 'estimate_tier') throw new Error(`بعد التراجع: ${pt.price_rm} ${pt.source}`);
+      await tabA.close();
+      return `نفس التبويب ${same}ms (≤300) · تبويب آخر ${bc}ms (≤1000) · سياق آخر SSE ${sse}ms (≤3000)`;
+    } finally {
+      await ctx2.close();
+    }
+  });
+
+  await run('J8 السلة: مجاميع ومقارنة الأسواق والوجبات الممكنة وأيام التغطية، وأضف الناقص يجعلها جاهزة', 'desktop', async (page) => {
+    await kapi('DELETE', '/cart');
+    await kapi('PUT', '/cart/egg', { qty: 1, unit: 'dozen', store: null });
+    await kapi('PUT', '/cart/toast', { qty: 1, unit: 'loaf', store: null });
+    await kapi('PUT', '/cart/oil', { qty: 1, unit: 'bottle', store: null });
+    await ready(page, '/kitchen/cart');
+    await page.waitForSelector('[data-testid=cart-total]');
+    const total = (await page.locator('[data-testid=cart-total] b').textContent()).trim();
+    if (total !== 'RM 24.40') throw new Error(`إجمالي (بيض 10 + توست 3.40 + زيت 11): ${total}`);
+    const stores = await page.locator('.kt-cmp-list li').count();
+    if (stores !== 5) throw new Error(`أسواق المقارنة: ${stores}`);
+    if (!(await page.locator('.kt-cmp-list li.best').count())) throw new Error('لا توصية بأرخص سوق');
+    const bk03 = page.locator('li[data-card="bk-03"]');
+    const txt = (await bk03.textContent()).replace(/\s+/g, ' ');
+    if (!/جبنة/.test(txt) || !/تكلفة الإكمال/.test(txt)) throw new Error(`بطاقة الناقص: ${txt}`);
+    await bk03.locator('button:has-text("أضف الناقص")').click();
+    await page.waitForFunction(() => [...document.querySelectorAll('.kt-meals .card')].some((c) => /جاهزة الآن/.test(c.textContent) && /توست بالبيض والجبنة/.test(c.textContent)), null, { timeout: 5000 });
+    await shot(page, 'j8-cart');
+    const cov = (await page.locator('[data-testid=coverage]').textContent()).replace(/\s+/g, ' ');
+    return `التغطية: ${cov.slice(0, 40)}`;
+  });
+
+  await run('المحفظة + «اشتريت» الذرّي: بلا ميزانية تُمنع، الحدّ الصارم يمنع، ثم الخصم والمخزن وتفريغ السلة معًا (AC-04)', 'desktop', async (page) => {
+    await ready(page, '/kitchen/cart');
+    await page.waitForSelector('[data-testid=cart-total]');
+    const total = (await page.locator('[data-testid=cart-total] b').textContent()).trim();
+    await page.click('button:has-text("اشتريت")');
+    await page.waitForSelector('[role=dialog]');
+    if (!(await page.locator('[role=dialog] a:has-text("اضبط الميزانية أولًا")').count())) throw new Error('لا طلب ضبط الميزانية');
+    await page.keyboard.press('Escape');
+    await kapi('PUT', '/wallet', { budget_rm: 5, period: 'week', hard_limit: true });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('[data-testid=cart-total]');
+    await page.click('button:has-text("اشتريت")');
+    if (!(await page.locator('[role=dialog] button:has-text("زِد الميزانية")').count())) throw new Error('الحدّ الصارم لم يمنع');
+    await page.keyboard.press('Escape');
+    // ضبط الميزانية من صفحة المحفظة فعليًا
+    await page.goto(base + '/kitchen/wallet', { waitUntil: 'domcontentloaded' });
+    await page.fill('#wl-b', '200');
+    await page.click('button:has-text("احفظ الميزانية")');
+    await page.waitForFunction(() => document.querySelector('[data-testid=wallet-balance] b')?.textContent === 'RM 200.00', null, { timeout: 5000 });
+    await shot(page, 'wallet');
+    await page.goto(base + '/kitchen/cart', { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('[data-testid=cart-total]');
+    await page.click('button:has-text("اشتريت")');
+    await page.click('[role=dialog] button:has-text("أكّد الشراء")');
+    await page.waitForSelector('[data-testid=purchase-done]', { timeout: 6000 });
+    await shot(page, 'cart-after-purchase');
+    const st = await kapi('GET', '/state');
+    const rm = Number(total.replace('RM ', ''));
+    const g = Object.fromEntries(st.pantry.map((p) => [p.ingredient, p.grams]));
+    if (st.cart.length !== 0) throw new Error('السلة لم تُفرَّغ');
+    if (Math.abs(st.wallet.balance_rm - (200 - rm)) > 0.011) throw new Error(`الرصيد ${st.wallet.balance_rm} ≠ ${200 - rm}`);
+    if (g.egg !== 720 || g.toast !== 400 || g.oil !== 1840 || g.cheese !== 200) throw new Error(`المخزن: ${JSON.stringify(g)}`);
+    return `خُصم ${total} وأُضيفت 4 أصناف بالغرام وفُرّغت السلة`;
+  });
+
+  await run('المخزن: الأصناف المشتراة بتكلفة الغرام الفعلية، حدّ أدنى وتنبيه نقص، وتعديل بسبب', 'desktop', async (page) => {
+    await ready(page, '/kitchen/pantry');
+    await page.waitForSelector('.kt-pantry-tbl tbody tr', { timeout: 6000 });
+    if ((await page.locator('.kt-pantry-tbl tbody tr').count()) !== 4) throw new Error('أصناف المخزن ≠ 4');
+    await page.fill('input[aria-label="حدّ أدنى لـبيض"]', '2000');
+    await page.keyboard.press('Enter');
+    await page.waitForSelector('[data-testid=low-stock]', { timeout: 5000 });
+    await page.click('tr[data-ing=egg] button:has-text("تعديل")');
+    await page.fill('#adj-d', '-60');
+    await page.fill('#adj-r', 'تلف بيضة');
+    await page.click('[role=dialog] button:has-text("احفظ")');
+    await page.waitForFunction(() => /660/.test(document.querySelector('tr[data-ing=egg]')?.textContent ?? ''), null, { timeout: 5000 });
+    await shot(page, 'pantry');
+  });
+
+  await run('J3 القاموس: 12 بطاقة بإحصاءات MC-10، قلب البطاقة، رابط عميق، عيب ln-02، فلاتر ومقارنة', 'desktop', async (page) => {
+    await ready(page, '/kitchen/codex');
+    await page.waitForSelector('.kt-pc', { timeout: 8000 });
+    const n = await page.locator('.kt-pc').count();
+    if (n !== 12) throw new Error(`بطاقات: ${n}`);
+    const secs = await page.locator('.kt-section-head h2').allTextContents();
+    if (!['فطور', 'غداء', 'عشاء'].every((m) => secs.some((s) => s.includes(m)))) throw new Error(`الأقسام: ${secs}`);
+    const ovr = (await page.locator('.kt-pc[data-card="ln-03"] .kt-ovr b').textContent()).trim();
+    if (ovr !== '91') throw new Error(`OVR ln-03: ${ovr}`);
+    if (!/ينقصها أوزان/.test(await page.locator('.kt-pc[data-card="ln-02"]').textContent())) throw new Error('شارة ln-02');
+    if (!/نص مطابق/.test(await page.locator('.kt-pc[data-card="ln-04"]').textContent())) throw new Error('شارة ln-04');
+    await page.focus('.kt-pc[data-card="bk-03"] .kt-pc-hit');
+    await page.keyboard.press('Enter'); // لوحة المفاتيح تقلب البطاقة
+    await page.waitForSelector('.kt-pc[data-card="bk-03"].flipped');
+    const back = (await page.locator('.kt-pc[data-card="bk-03"] .kt-back').textContent()).replace(/\s+/g, ' ');
+    if (!/1: اسلق 100 غرام من البيض ثماني دقائق/.test(back)) throw new Error('نص الخطوات ليس حرفيًا');
+    if (!/532/.test(back)) throw new Error('سعرات bk-03 ≠ 532');
+    await page.fill('input[aria-label="بحث في القاموس"]', 'دجاج');
+    await page.waitForFunction(() => document.querySelectorAll('.kt-pc').length === 6, null, { timeout: 4000 });
+    await page.fill('input[aria-label="بحث في القاموس"]', '');
+    await page.selectOption('select[aria-label="الفرز"]', 'ovr');
+    await page.waitForFunction(() => /sort=ovr/.test(location.search), null, { timeout: 3000 });
+    await page.check('.kt-pc-wrap:has([data-card="ln-03"]) input[type=checkbox]');
+    await page.check('.kt-pc-wrap:has([data-card="bk-03"]) input[type=checkbox]');
+    await page.waitForSelector('#compare', { timeout: 3000 });
+    await shot(page, 'j3-codex-compare');
+    await page.goto(base + '/kitchen/codex/dn-02', { waitUntil: 'domcontentloaded' });
+    await page.waitForSelector('[role=dialog] .kt-pc.flipped', { timeout: 6000 });
+    await page.waitForTimeout(700);
+    await shot(page, 'j3-card-back');
+    const trip = await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+    return `بطاقات 12، الرابط العميق يفتح الظهر${trip ? ' (تقليل الحركة مفعّل)' : ''}`;
+  });
+  await run('القاموس بتقليل الحركة: لا تحويلات ثلاثية الأبعاد على الوجه', 'desktop', async (page) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await ready(page, '/kitchen/codex');
+    await page.waitForSelector('.kt-pc');
+    const tr = await page.evaluate(() => getComputedStyle(document.querySelector('.kt-pc-face.front')).transitionDuration);
+    if (parseFloat(tr) > 0.001) throw new Error(`مدة الانتقال ${tr}`);
+  });
+  await run('المطبخ على الجوال: المتجر والقاموس والمصفوفة بلا تمرير أفقي', 'mobile', async (page) => {
+    for (const u of ['/kitchen/store', '/kitchen/codex', '/kitchen/cart', '/kitchen/wallet']) {
+      await ready(page, u);
+      await page.waitForTimeout(300);
+      const ov = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      if (ov > 1) throw new Error(`${u}: تمرير أفقي ${ov}px`);
+    }
   });
   await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
     // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد
