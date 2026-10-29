@@ -18,7 +18,17 @@ export default function Stage3D({ quality, onQuality, onPick, station, view, sto
       const s = new K({ canvas: ref.current, quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w) });
       sceneRef.current = s;
       cb.current.onReady(s);
-      timer = setInterval(() => cb.current.onFps(Math.round(s.fps)), 1000);
+      timer = setInterval(() => {
+        cb.current.onFps(Math.round(s.fps));
+        const st = s.stats();
+        const cv = ref.current;
+        if (cv) { cv.dataset['calls'] = String(st.calls); cv.dataset['tris'] = String(st.triangles); cv.dataset['kit'] = st.kit; }
+      }, 1000);
+      // حزمة GLB اختيارية: تُحمَّل فقط إن أعلنها البيان مسلَّمة؛ وإلا يبقى المشهد الإجرائي (D-09)
+      void fetch('/kitchen/assets.manifest.json').then((r) => (r.ok ? r.json() : null)).then((m: { assets?: { kind: string; path: string; delivered?: boolean }[] } | null) => {
+        const kit = m?.assets?.find((a) => a.kind === 'kit' && a.delivered === true);
+        if (kit && !dead) return s.loadKit(kit.path).then((r) => { if (ref.current) ref.current.dataset['kitApplied'] = r.applied.join(','); });
+      }).catch(() => undefined);
     });
     return () => {
       dead = true;

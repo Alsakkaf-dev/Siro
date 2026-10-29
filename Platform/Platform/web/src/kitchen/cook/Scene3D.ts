@@ -478,21 +478,25 @@ export class KitchenScene {
       const g = new THREE.Group();
       g.name = `equip_${id}`;
       const wall = new THREE.Mesh(new THREE.LatheGeometry([new THREE.Vector2(r * 0.96, 0), new THREE.Vector2(r, 0.01), new THREE.Vector2(r * 1.01, h * 0.5), new THREE.Vector2(r * 1.03, h), new THREE.Vector2(r * 0.99, h), new THREE.Vector2(r * 0.95, h * 0.5), new THREE.Vector2(r * 0.9, 0.012)], 36), bodyM);
+      wall.userData['proc'] = true;
       wall.castShadow = this.quality !== 'lite';
       wall.receiveShadow = true;
       g.add(wall);
       const floor = new THREE.Mesh(new THREE.CircleGeometry(r * 0.93, 32), bodyM);
       floor.rotation.x = -Math.PI / 2;
       floor.position.y = 0.012;
+      floor.userData['proc'] = true;
       g.add(floor);
       // مقبض
       const handle = new THREE.Mesh(new THREE.BoxGeometry(r * 1.25, 0.02, 0.03), handleM);
       handle.position.set(r * 1.5, h * 0.8, 0);
+      handle.userData['proc'] = true;
       g.add(handle);
       if (kind === 'pot_small' || kind === 'pot_large' || kind === 'pressure_cooker') {
         const h2 = handle.clone();
         h2.position.x = -r * 1.1;
         h2.scale.x = 0.4;
+        h2.userData['proc'] = true;
         g.add(h2);
       }
       let lid: THREE.Object3D | null = null;
@@ -912,9 +916,54 @@ export class KitchenScene {
     void dt;
   }
 
-  stats(): { fps: number; triangles: number; calls: number; quality: Quality; geometries: number; textures: number } {
+  /** إحصاءات الرسم للميزانيات (PERF-20): draw calls والمثلثات من آخر إطار */
+  stats(): { fps: number; triangles: number; calls: number; quality: Quality; geometries: number; textures: number; kit: 'procedural' | 'glb' } {
     const i = this.renderer.info;
-    return { fps: Math.round(this.fps), triangles: i.render.triangles, calls: i.render.calls, quality: this.quality, geometries: i.memory.geometries, textures: i.memory.textures };
+    return { fps: Math.round(this.fps), triangles: i.render.triangles, calls: i.render.calls, quality: this.quality, geometries: i.memory.geometries, textures: i.memory.textures, kit: this.kitApplied ? 'glb' : 'procedural' };
+  }
+  private kitApplied = false;
+  /**
+   * يحمّل حزمة GLB (3D-10) ويستبدل أشكال الأوعية والأدوات بالأسماء فقط؛ ما لا يوجد فيها يبقى إجرائيًا.
+   * يرمي عند فشل التحميل (يلتقطه المستدعي ويبقى المشهد الإجرائي).
+   */
+  async loadKit(url: string): Promise<{ applied: string[]; gaps: string[]; unknown: string[] }> {
+    const [{ GLTFLoader }, { MeshoptDecoder }, { planKit }] = await Promise.all([
+      import('three/examples/jsm/loaders/GLTFLoader.js'),
+      import('three/examples/jsm/libs/meshopt_decoder.module.js'),
+      import('./kitApply.js'),
+    ]);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`تعذّر تحميل الحزمة (${res.status})`);
+    const buf = await res.arrayBuffer();
+    if (new TextDecoder().decode(buf.slice(0, 4)) !== 'glTF') throw new Error('الملف ليس GLB');
+    const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
+    const gltf = await new Promise<{ scene: THREE.Group }>((ok, bad) => loader.parse(buf, '', ok, bad));
+    if (this.disposed) return { applied: [], gaps: [], unknown: [] };
+    const plan = planKit(gltf.scene, new Set(INGREDIENTS.map((i) => i.slug)));
+    const applied: string[] = [];
+    for (const [id, node] of plan.vessels) {
+      const vis = this.vessels.get(id);
+      if (!vis) continue;
+      vis.group.children.forEach((c) => { if (c.userData['proc']) c.visible = false; });
+      const c = node.clone(true);
+      c.position.set(0, 0, 0);
+      c.rotation.set(0, 0, 0);
+      c.scale.setScalar(plan.unit);
+      c.traverse((o) => { if ((o as THREE.Mesh).isMesh) { o.castShadow = this.quality !== 'lite'; o.receiveShadow = true; } });
+      c.userData['kit'] = true;
+      vis.group.add(c);
+      applied.push(id === 'plate_1' ? 'plate_1' : `equip_${id}`);
+    }
+    for (const [name, node] of plan.tools) {
+      const c = node.clone(true);
+      c.scale.multiplyScalar(plan.unit);
+      c.position.multiplyScalar(plan.unit);
+      this.root.add(c);
+      applied.push(`tool_${name}`);
+    }
+    this.kitApplied = applied.length > 0;
+    return { applied, gaps: plan.gaps, unknown: plan.unknown };
   }
 
   /** صورة البطاقة (3D-40): لقطة 3/4 علوية من طاولة التقديم، WebP ≤ 150KB؛ null إن تعذّر (غلاف مولّد) */

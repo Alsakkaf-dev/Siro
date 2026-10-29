@@ -643,9 +643,12 @@ async function scenarios(browser, { sem, course }) {
       shots.push(await page.locator('canvas.kt-canvas').screenshot());
     }
     if (shots[0].equals(shots[1])) throw new Error('المشهد لم يتغير بين محطة الرفوف والطبخ');
+    await page.waitForFunction(() => Number(document.querySelector('canvas.kt-canvas')?.dataset.calls) > 0, null, { timeout: 5000 });
+    const st = await page.evaluate(() => { const c = document.querySelector('canvas.kt-canvas'); return { calls: Number(c.dataset.calls), tris: Number(c.dataset.tris), kit: c.dataset.kit }; });
+    if (st.calls > 150 || st.tris > 250000) throw new Error(`PERF-20: draw calls ${st.calls} (≤150) · مثلثات ${st.tris} (≤250000)`);
     await shot(page, 'cook-3d');
     const fps = await page.locator('.kt-stations small').textContent().catch(() => '');
-    return `الجودات الثلاث تعمل؛ ${fps.trim() || 'fps غير ظاهر'} (SwiftShader بلا GPU: لا يمثل الجهاز الحقيقي)`;
+    return `الجودات الثلاث تعمل؛ PERF-20: draw calls ${st.calls} (≤150) · مثلثات ${st.tris} (≤250000) · الحزمة ${st.kit}؛ ${fps.trim() || 'fps غير ظاهر'} (SwiftShader بلا GPU: لا يمثل الجهاز الحقيقي)`;
   });
   await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
     // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد

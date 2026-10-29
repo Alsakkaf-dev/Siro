@@ -257,7 +257,7 @@ export default function KitchenCook() {
               <ol className="plain kt-recipe-steps">
                 {recipe.steps_original.map((s, i) => (
                   <li key={i} className={cx(stepStates[i]?.done && 'done')} data-step-done={stepStates[i]?.done ? '1' : '0'}>
-                    <span aria-hidden="true">{stepStates[i]?.done ? '✅' : '⬜'}</span> {s}
+                    <span aria-hidden="true">{stepStates[i]?.done ? '✅' : '⬜'}</span> {s.replace(/^\d+:\s*/, '')}
                     {!stepStates[i]?.done && stepStates[i] && stepStates[i]!.missing.length > 0 && <small className="muted"> — {stepStates[i]!.missing[0]}</small>}
                   </li>
                 ))}
