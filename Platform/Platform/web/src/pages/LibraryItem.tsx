@@ -1,6 +1,7 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
+import { usePageTitle } from '../core/title.js';
 import { lib } from '../lib/api.js';
 import { Icon } from '../lib/icons.js';
 import { PageHead } from '../ui/page.js';
@@ -213,6 +214,7 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
   const ref = libRefOf(source, bareId);
   const { toast } = useApp();
   const [it, setIt] = useState<LibItem | null>(null);
+  usePageTitle(it?.title ?? null);
   const [missing, setMissing] = useState(false);
   const [marks, setMarks] = useState<LibBookmark[]>([]);
   const [live, setLive] = useState(false);
@@ -326,7 +328,7 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
               <dt>مرات الفتح</dt><dd className="num">{it.opened_count}</dd>
             </dl>
             <p className="muted" style={{ fontSize: 'var(--fs-xs)', marginBottom: 0 }}>الفصل والمادة والتصنيف تقديرات من اسم المجلد.</p>
-            {it.course && <p style={{ marginBlock: 'var(--s-2) 0' }}><Link to={`/academic/s/${it.course.semester_id}/courses`}>فتح المادة في الدراسة ←</Link></p>}
+            {it.course && <p style={{ marginBlock: 'var(--s-2) 0' }}><Link to={`/academic/s/${it.course.semester_id}/courses${it.course.id ? `/${it.course.id}?tab=materials` : ""}`}>فتح المادة في الدراسة ←</Link></p>}
           </Card>
           <Card>
             <CardHead title="الوسوم" icon="tag" />

@@ -206,10 +206,10 @@ function loadMaps(db: Db): { meta: Map<string, MetaRow>; tags: Map<string, strin
   }
   // أحدث فصل يحتوي رمز المادة هو المرجع
   const courses = new Map<string, NonNullable<LibItem['course']>>();
-  for (const c of db.all<{ code: string; name: string; color: string; semester_id: string; scode: string }>(
-    'SELECT c.code, c.name, c.color, c.semester_id, s.code scode FROM acad_courses c JOIN acad_semesters s ON s.id = c.semester_id ORDER BY s.start_date ASC',
+  for (const c of db.all<{ id: string; code: string; name: string; color: string; semester_id: string; scode: string }>(
+    'SELECT c.id, c.code, c.name, c.color, c.semester_id, s.code scode FROM acad_courses c JOIN acad_semesters s ON s.id = c.semester_id ORDER BY s.start_date ASC',
   )) {
-    courses.set(c.code.toUpperCase(), { code: c.code, name: c.name, color: c.color, semester_id: c.semester_id, semester_code: c.scode });
+    courses.set(c.code.toUpperCase(), { code: c.code, name: c.name, color: c.color, semester_id: c.semester_id, semester_code: c.scode, id: c.id });
   }
   return { meta, tags, courses };
 }

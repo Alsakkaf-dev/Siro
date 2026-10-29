@@ -1,30 +1,43 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useUrlParam, useUrlSet } from '../core/useUrlParam.js';
+import { AssessmentQuickActions } from '../widgets/AssessmentQuickActions.js';
+import { Skeleton } from '../ui/ui.js';
 import { useSem } from '../core/sem-context.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Card, CardHead, EmptyState, Segmented, Switch, Unknown, cx } from '../ui/ui.js';
+import { Badge, Button, Card, CardHead, EmptyState, Segmented, Switch, Unknown, cx } from '../ui/ui.js';
 import { AreaLine, Scatter, type ScatterPt } from '../widgets/charts.js';
 import { DeadlineRow } from '../widgets/tiles.js';
 import { VirtualList } from '../widgets/catalog.js';
-import { KIND_COLOR, KIND_LABEL } from '../../../shared/constants.js';
-import { assessmentColumn, weekStartMs } from '../../../shared/semester.js';
+import { KIND_COLOR, KIND_LABEL, KINDS, STATUS_LABEL } from '../../../shared/constants.js';
+import { assessmentColumn, dueSortMs, parseISO, weekOf, weekStartMs } from '../../../shared/semester.js';
 import type { Assessment, Kind } from '../../../shared/types.js';
 import { fmtDateShort, fmtNum, weekRangeLabel, whenText } from '../lib/format.js';
 
-type View = 'heat' | 'gantt' | 'scatter' | 'area';
+const WeightsBody = lazy(() => import('./Weights.js').then((m) => ({ default: m.WeightsBody })));
 
+type View = 'list' | 'weeks' | 'gantt' | 'weights';
+type Mode = 'heat' | 'scatter' | 'area';
+const VIEWS = ['list', 'weeks', 'gantt', 'weights'] as const;
+const MODES = ['heat', 'scatter', 'area'] as const;
+
+/** «التقييمات والمواعيد»: بيانات واحدة بعروض في الرابط (?view=list|weeks|gantt|weights). */
 export default function Timeline() {
   const S = useSem();
   const { sem, courses, assessments, phase, loads } = S;
   const base = `/academic/s/${sem.id}`;
-  const [view, setView] = useState<View>('heat');
-  const [filter, setFilter] = useState<Set<string>>(new Set());
+  const [view, setView] = useUrlParam<View>('view', 'list', VIEWS);
+  const [mode, setMode] = useUrlParam<Mode>('mode', 'heat', MODES);
+  const [filter, setFilter] = useUrlSet('course');
   const [showUnknown, setShowUnknown] = useState(true);
-  const [onlyOpen, setOnlyOpen] = useState(false);
+  const [openP, setOpenP] = useUrlParam<'' | '1'>('open', '', ['', '1']);
+  const onlyOpen = openP === '1';
+  const setOnlyOpen = (v: boolean): void => setOpenP(v ? '1' : '');
   const [cell, setCell] = useState<{ courseId: string | null; col: number } | null>(null);
 
   const shownCourses = courses.filter((c) => filter.size === 0 || filter.has(c.id));
-  const items = useMemo(() => assessments.filter((a) => (filter.size === 0 || filter.has(a.course_id)) && (!onlyOpen || (a.status !== 'graded' && a.status !== 'submitted'))), [assessments, filter, onlyOpen]);
+  const filterKey = [...filter].join(',');
+  const items = useMemo(() => assessments.filter((a) => (filter.size === 0 || filter.has(a.course_id)) && (!onlyOpen || (a.status !== 'graded' && a.status !== 'submitted'))), [assessments, filterKey, onlyOpen]);
   const colOf = useMemo(() => new Map(items.map((a) => [a.id, assessmentColumn(a, sem)])), [items, sem]);
   const W = sem.weeks;
   const cols = Array.from({ length: W + 1 }, (_, i) => i + 1); // 1..W, W+1 = فترة الامتحانات
@@ -73,8 +86,16 @@ export default function Timeline() {
 
   return (
     <div className="page">
-      <PageHead title="الجدول الزمني" icon="clock" crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: sem.code }, { label: 'الجدول الزمني' }]} sub="أين تتكدّس التقييمات؟ الأسابيع المزدحمة مُظلَّلة." />
+      <PageHead title="التقييمات والمواعيد" icon="clock" crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: sem.code }, { label: 'التقييمات والمواعيد' }]} sub="أين تتكدّس التقييمات؟ الأسابيع المزدحمة مُظلَّلة." />
 
+      <div className="row" style={{ marginBlockEnd: 'var(--s-4)' }}>
+        <Segmented<View> label="العرض" value={view} onChange={setView} options={[{ value: 'list', label: 'قائمة', icon: 'list' }, { value: 'weeks', label: 'أسابيع', icon: 'grid' }, { value: 'gantt', label: 'جانت', icon: 'board' }, { value: 'weights', label: 'أوزان', icon: 'pie' }]} />
+      </div>
+      {view === 'weights' ? (
+        <Suspense fallback={<Skeleton h={320} r={20} />}><WeightsBody /></Suspense>
+      ) : view === 'list' ? (
+        <ListView items={items} filter={filter} toggle={toggle} clear={() => setFilter(new Set())} onlyOpen={onlyOpen} setOnlyOpen={setOnlyOpen} />
+      ) : (<>
       <div className="tl-controls">
         <div className="chips" role="group" aria-label="تصفية حسب المادة">
           {courses.map((c) => (
@@ -85,15 +106,15 @@ export default function Timeline() {
           {filter.size > 0 && <button className="btn sm ghost" onClick={() => setFilter(new Set())}>الكل</button>}
         </div>
         <div className="row">
-          <Switch checked={showUnknown} onChange={setShowUnknown} label="عمود «غير معروف»" />
+          {view === 'weeks' && mode === 'heat' && <Switch checked={showUnknown} onChange={setShowUnknown} label="عمود «غير معروف»" />}
           <Switch checked={onlyOpen} onChange={setOnlyOpen} label="غير المُنجَز فقط" />
-          <Segmented<View> label="طريقة العرض" value={view} onChange={setView} options={[{ value: 'heat', label: 'خريطة حرارية', icon: 'grid' }, { value: 'gantt', label: 'جانت', icon: 'board' }, { value: 'scatter', label: 'تشتت', icon: 'chart' }, { value: 'area', label: 'تراكمي', icon: 'zap' }]} />
+          {view === 'weeks' && <Segmented<Mode> label="طريقة عرض الأسابيع" value={mode} onChange={setMode} options={[{ value: 'heat', label: 'خريطة حرارية', icon: 'grid' }, { value: 'scatter', label: 'تشتت', icon: 'chart' }, { value: 'area', label: 'تراكمي', icon: 'zap' }]} />}
         </div>
       </div>
 
       {items.length === 0 ? (
-        <EmptyState icon="calendar" title="لا توجد تقييمات للعرض" text="غيّر المرشحات أو أضف تقييمات من صفحة المادة." />
-      ) : view === 'heat' ? (
+        <EmptyState icon="calendar" title="لا توجد تقييمات للعرض" text="غيّر المرشحات أو أضف تقييمًا." action={<div className="row" style={{ justifyContent: 'center' }}>{filter.size > 0 || onlyOpen ? <Button onClick={() => { setFilter(new Set()); setOnlyOpen(false); }}>مسح المرشحات</Button> : null}<Button variant="primary" icon="plus" to={`${base}/courses?new=assessment`}>إضافة تقييم</Button></div>} />
+      ) : view === 'weeks' && mode === 'heat' ? (
         <Card className="heat-card">
           <div className="heat-scroll">
             <div className="heat" style={{ '--cols': W + 1 + (showUnknown ? 1 : 0) } as never} role="group" aria-label="خريطة حرارية: المواد × الأسابيع">
@@ -184,7 +205,7 @@ export default function Timeline() {
           </div>
           {unknownItems.length > 0 && <p className="muted" style={{ marginBlockStart: 'var(--s-3)' }}>{unknownItems.length} بند بلا موعد لا يظهر هنا — <Link to={`${base}/unknowns`}>عرض غير المعروف</Link></p>}
         </Card>
-      ) : view === 'scatter' ? (
+      ) : mode === 'scatter' ? (
         <Card>
           <CardHead title="تشتت: الأسبوع × الوزن" icon="chart" info="دائرة = اختبار قصير/معمل، مربع = اختبار/نهائي، مثلث = مشروع/واجب. اللون = المادة." />
           <Scatter points={scatter} xMax={W + 1} yMax={Math.max(10, Math.ceil(Math.max(...scatter.map((p) => p.y), 10) / 10) * 10)} />
@@ -197,9 +218,102 @@ export default function Timeline() {
           <p className="muted" style={{ marginTop: 'var(--s-3)' }}>النسبة التراكمية من مجموع الأوزان المجدولة حتى كل أسبوع (بدون «غير معروف» والامتحانات).</p>
         </Card>
       )}
+      </>)}
       <p className="muted" style={{ marginBlockStart: 'var(--s-4)', fontSize: 'var(--fs-xs)' }}>بداية الأسبوع 1: {fmtDateShort(weekStartMs(sem, 1))}</p>
       <Badge>{items.length} بند</Badge>
     </div>
   );
 }
-void KIND_COLOR; void KIND_LABEL;
+
+type Group = 'week' | 'course' | 'status';
+const STATUSES = ['unknown', 'pending', 'submitted', 'graded'] as const;
+
+/** عرض القائمة: كل التقييمات زمنيًا، تجميع وفلاتر في الرابط، وإجراءات مباشرة. غير المؤرَّخ في «بلا موعد». */
+function ListView({ items, filter, toggle, clear, onlyOpen, setOnlyOpen }: { items: Assessment[]; filter: Set<string>; toggle: (id: string) => void; clear: () => void; onlyOpen: boolean; setOnlyOpen: (v: boolean) => void }) {
+  const S = useSem();
+  const { sem, courses } = S;
+  const base = `/academic/s/${sem.id}`;
+  const [group, setGroup] = useUrlParam<Group>('group', 'week', ['week', 'course', 'status']);
+  const [kinds, setKinds] = useUrlSet('kind');
+  const [statuses, setStatuses] = useUrlSet('status');
+  const [day, setDay] = useUrlParam<string>('day', '');
+  const dayMs = day ? parseISO(day) : Number.NaN;
+  const rows = items
+    .filter((a) => (kinds.size === 0 || kinds.has(a.kind)) && (statuses.size === 0 || statuses.has(a.status)))
+    .filter((a) => Number.isNaN(dayMs) || dueSortMs(a, sem) === dayMs || (a.timing === 'week' && a.week_no !== null && weekOf(dayMs, parseISO(sem.start_date)) >= (a.week_from ?? a.week_no) && weekOf(dayMs, parseISO(sem.start_date)) <= a.week_no))
+    .map((a) => ({ a, t: dueSortMs(a, sem) }))
+    .sort((x, y) => (x.t ?? Infinity) - (y.t ?? Infinity) || x.a.sort - y.a.sort);
+  const keyOf = (x: { a: Assessment; t: number | null }): string => {
+    if (group === 'course') return S.courseById.get(x.a.course_id)?.code ?? '—';
+    if (group === 'status') return STATUS_LABEL[x.a.status];
+    if (x.t === null) return 'بلا موعد';
+    if (x.a.timing === 'exam') return 'فترة الامتحانات';
+    const w = weekOf(x.t, parseISO(sem.start_date));
+    return w >= 1 && w <= sem.weeks ? `الأسبوع ${w} · ${weekRangeLabel(sem, w)}` : fmtDateShort(x.t);
+  };
+  const groups = new Map<string, typeof rows>();
+  for (const r of rows) groups.set(keyOf(r), [...(groups.get(keyOf(r)) ?? []), r]);
+  const tog = (set: Set<string>, setter: (s: Set<string>) => void, v: string): void => {
+    const n = new Set(set);
+    if (n.has(v)) n.delete(v);
+    else n.add(v);
+    setter(n);
+  };
+  const usedKinds = KINDS.filter((k) => items.some((a) => a.kind === k));
+  return (
+    <>
+      <div className="tl-controls">
+        <div className="chips" role="group" aria-label="تصفية حسب المادة">
+          {courses.map((c) => (
+            <button key={c.id} className="chip" aria-pressed={filter.has(c.id)} style={{ '--c': c.color } as never} onClick={() => toggle(c.id)}>
+              <i className="dot" style={{ background: c.color }} /> <bdi>{c.code}</bdi>
+            </button>
+          ))}
+          {filter.size > 0 && <button className="btn sm ghost" onClick={clear}>كل المواد</button>}
+        </div>
+        <div className="chips" role="group" aria-label="تصفية حسب النوع">
+          {usedKinds.map((k) => <button key={k} className="chip" aria-pressed={kinds.has(k)} onClick={() => tog(kinds, setKinds, k)}>{KIND_LABEL[k]}</button>)}
+        </div>
+        <div className="chips" role="group" aria-label="تصفية حسب الحالة">
+          {STATUSES.map((st) => <button key={st} className="chip" aria-pressed={statuses.has(st)} onClick={() => tog(statuses, setStatuses, st)}>{STATUS_LABEL[st]}</button>)}
+        </div>
+        <div className="row">
+          <Switch checked={onlyOpen} onChange={setOnlyOpen} label="غير المُنجَز فقط" />
+          <Segmented<Group> label="التجميع" value={group} onChange={setGroup} options={[{ value: 'week', label: 'حسب الأسبوع' }, { value: 'course', label: 'حسب المادة' }, { value: 'status', label: 'حسب الحالة' }]} />
+          {day && <button className="chip" aria-pressed="true" onClick={() => setDay('')}>يوم {fmtDateShort(dayMs)} ✕</button>}
+        </div>
+      </div>
+      {rows.length === 0 ? (
+        <EmptyState icon="list" title="لا تقييمات تطابق المرشحات" action={<div className="row" style={{ justifyContent: 'center' }}><Button onClick={() => { clear(); setKinds(new Set()); setStatuses(new Set()); setDay(''); setOnlyOpen(false); }}>مسح المرشحات</Button><Button variant="primary" icon="plus" to={`${base}/courses?new=assessment`}>إضافة تقييم</Button></div>} />
+      ) : (
+        <div className="stack" style={{ gap: 'var(--s-4)' }}>
+          {[...groups.entries()].map(([g, list]) => (
+            <Card key={g}>
+              <CardHead title={g} icon="calendar"><Badge>{list.length}</Badge></CardHead>
+              <div className="table-wrap">
+                <table className="t as-list">
+                  <thead><tr><th>التقييم</th><th>المادة</th><th>الموعد</th><th>الوزن</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                  <tbody>
+                    {list.map(({ a }) => {
+                      const c = S.courseById.get(a.course_id);
+                      return (
+                        <tr key={a.id}>
+                          <td><Link to={`${base}/courses/${a.course_id}#a-${a.id}`}><bdi>{a.title}</bdi></Link> <small className="muted">{KIND_LABEL[a.kind]}</small></td>
+                          <td><span className="row" style={{ gap: 6, flexWrap: 'nowrap' }}><i className="dot" style={{ background: c?.color }} /><bdi>{c?.code}</bdi></span></td>
+                          <td>{whenText(a, sem)}</td>
+                          <td className="n">{fmtNum(a.weight)}%</td>
+                          <td>{a.status === 'graded' && a.score !== null ? <Badge tone="ok">{fmtNum(a.score)}/{fmtNum(a.max_score)}</Badge> : <Badge tone={a.status === 'unknown' ? 'warn' : undefined}>{STATUS_LABEL[a.status]}</Badge>}</td>
+                          <td><AssessmentQuickActions a={a} onDone={() => void S.reload()} /></td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}

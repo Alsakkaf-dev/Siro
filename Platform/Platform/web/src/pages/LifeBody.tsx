@@ -8,7 +8,7 @@ export default function LifeBody() {
   const d = useLife(['body']);
   const b = d.get<Body>('body');
   return (
-    <LifePage title="الجسم" icon="target" names={['body']} data={d} sub="الوزن والقياسات كما صدّرها راشد — قراءة فقط.">
+    <LifePage title="الجسم والوزن" icon="target" names={['body']} data={d} sub="الوزن والقياسات كما صدّرها راشد — قراءة فقط.">
       {b && <Inner b={b} />}
     </LifePage>
   );

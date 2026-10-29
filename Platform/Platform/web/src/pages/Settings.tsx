@@ -5,6 +5,10 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Segmented, Skeleton } from '../ui/ui.js';
 import { Icon } from '../lib/icons.js';
 import { AppearanceCard, NotifyCard } from '../core/Appearance.js';
+import { useUrlParam } from '../core/useUrlParam.js';
+import { FlagsCard } from '../core/FlagsCard.js';
+import LibrarySettings from './LibrarySettings.js';
+import LifeSettings from './LifeSettings.js';
 import { fmtNum } from '../lib/format.js';
 
 const fmtSize = (n: number): string => (n > 1_048_576 ? `${fmtNum(n / 1_048_576)} MB` : `${fmtNum(n / 1024, 0)} KB`);
@@ -54,9 +58,10 @@ export default function Settings() {
     api.backups().then(setBackups).catch(() => setBackups([]));
   };
   useEffect(load, []);
+  const [tab, setTab] = useUrlParam<'general' | 'data' | 'sources'>('tab', 'general', ['general', 'data', 'sources']);
   useEffect(() => {
     if (location.hash) document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: 'start' });
-  }, []);
+  }, [tab]);
 
   const doExport = async (): Promise<void> => {
     const res = await fetch('/api/export');
@@ -130,11 +135,46 @@ export default function Settings() {
 
   return (
     <div className="page">
-      <PageHead title="الإعدادات والنسخ الاحتياطي" icon="sliders" />
-      <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
-        <div className="stack">
+      <PageHead title="الإعدادات" icon="sliders" sub="مدخل واحد لكل الإعدادات: المظهر والتنبيهات، البيانات والنسخ، ومصادر المكتبة والحياة." />
+      <nav className="tabs page-tabs" aria-label="أقسام الإعدادات" style={{ marginBlockEnd: 'var(--s-5)' }}>
+        {([['general', 'عام'], ['data', 'البيانات والنسخ'], ['sources', 'المصادر']] as const).map(([id, label]) => (
+          <button key={id} type="button" className="tab" aria-current={tab === id ? 'page' : undefined} onClick={() => setTab(id)}>{label}</button>
+        ))}
+      </nav>
+      {tab === 'general' ? (
+        <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
+          <div className="stack">
           <AppearanceCard />
           <NotifyCard />
+          </div>
+          <div className="stack">
+            <FlagsCard />
+          <Card>
+            <CardHead title="معلومات النظام" icon="info" />
+            {info ? (
+              <dl className="kv">
+                <dt>الإصدار</dt><dd className="num">{info.version}</dd>
+                <dt>المحرّك</dt><dd dir="ltr" className="num">{info.driver}</dd>
+                <dt>الخادم</dt><dd dir="ltr" className="num">{info.host}:{info.port}</dd>
+                <dt>ملف البيانات</dt><dd dir="ltr" style={{ overflowWrap: 'anywhere' }}>{info.db_file}</dd>
+                <dt>الحجم</dt><dd className="num">{fmtSize(info.db_size)}</dd>
+              </dl>
+            ) : <Skeleton h={90} />}
+            <div className="callout ok" style={{ marginBlockStart: 'var(--s-4)' }}><Icon name="shield" size={18} /><span>الخادم يعمل على <b dir="ltr">127.0.0.1</b> فقط — لا يمكن الوصول إليه من الشبكة، ولا يتصل بالإنترنت.</span></div>
+          </Card>
+          </div>
+        </div>
+      ) : tab === 'data' ? (
+        <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
+          <div className="stack">
+            <Card>
+              <CardHead title="ماذا يشمل كل خيار؟" icon="info" />
+              <ul className="plain stack" style={{ gap: 'var(--s-2)' }}>
+                <li><strong>التصدير/الاستيراد:</strong> الدراسة فقط (الفصول والمواد والتقييمات والملاحظات).</li>
+                <li><strong>النسخ الاحتياطية:</strong> قاعدة البيانات كاملة (الدراسة، بيانات المكتبة، تمريني، المطبخ: الأسعار والسلة والمخزن والمحفظة).</li>
+                <li><strong>في المتصفح فقط:</strong> ملاحظة المراجعة الأسبوعية، المظهر، «زرتَه مؤخرًا» — لا تدخل أيًا مما سبق.</li>
+              </ul>
+            </Card>
           <Card>
             <CardHead title="تصدير" icon="download" />
             <p className="muted" style={{ marginBlockEnd: 'var(--s-3)' }}>ملف JSON واحد فيه كل الفصول والمواد والتقييمات والملاحظات.</p>
@@ -155,8 +195,8 @@ export default function Settings() {
               </div>
             )}
           </Card>
-        </div>
-        <div className="stack">
+          </div>
+          <div className="stack">
           <Card>
             <CardHead title="النسخ الاحتياطية" icon="database"><Button size="sm" icon="plus" onClick={() => void backupNow()}>نسخة الآن</Button></CardHead>
             <p className="muted" style={{ marginBlockEnd: 'var(--s-3)' }}>تُؤخذ نسخة تلقائية يوميًا عند تشغيل المنصة (تُحفظ آخر 14).</p>
@@ -168,21 +208,14 @@ export default function Settings() {
               </ul>
             )}
           </Card>
-          <Card>
-            <CardHead title="معلومات النظام" icon="info" />
-            {info ? (
-              <dl className="kv">
-                <dt>الإصدار</dt><dd className="num">{info.version}</dd>
-                <dt>المحرّك</dt><dd dir="ltr" className="num">{info.driver}</dd>
-                <dt>الخادم</dt><dd dir="ltr" className="num">{info.host}:{info.port}</dd>
-                <dt>ملف البيانات</dt><dd dir="ltr" style={{ overflowWrap: 'anywhere' }}>{info.db_file}</dd>
-                <dt>الحجم</dt><dd className="num">{fmtSize(info.db_size)}</dd>
-              </dl>
-            ) : <Skeleton h={90} />}
-            <div className="callout ok" style={{ marginBlockStart: 'var(--s-4)' }}><Icon name="shield" size={18} /><span>الخادم يعمل على <b dir="ltr">127.0.0.1</b> فقط — لا يمكن الوصول إليه من الشبكة، ولا يتصل بالإنترنت.</span></div>
-          </Card>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="stack" style={{ gap: 'var(--s-6)' }}>
+          <section aria-label="مصدر المكتبة"><h2 className="h3" style={{ marginBlockEnd: 'var(--s-3)' }}>المكتبة</h2><LibrarySettings embedded /></section>
+          <section aria-label="مصدر الحياة"><h2 className="h3" style={{ marginBlockEnd: 'var(--s-3)' }}>الحياة (صادرات راشد)</h2><LifeSettings embedded /></section>
+        </div>
+      )}
     </div>
   );
 }

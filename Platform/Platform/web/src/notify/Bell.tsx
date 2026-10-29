@@ -1,67 +1,24 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactElement } from 'react';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon } from '../lib/icons.js';
-import { api } from '../lib/api.js';
-import { useApp } from '../core/app-context.js';
+import { useInbox } from '../core/inbox.js';
 import { cx } from '../ui/ui.js';
-import { daysLeftText, deadlineAlerts, notifiable, type DeadlineAlert } from '../../../shared/review.js';
-import { todayMs } from '../../../shared/semester.js';
-import type { SemesterBundle } from '../../../shared/types.js';
+import { daysLeftText, notifiable, type DeadlineAlert } from '../../../shared/review.js';
 import { getNotifyEnabled, markFired, notifyPermission, wasFired } from './prefs.js';
 
-/** جرس المواعيد: يعرض المواعيد خلال 7 أيام للفصل النشط (والفائتة المفتوحة)، ويُطلق إشعار المتصفح مرة واحدة فقط للتي لها تاريخ محدد (اليوم/غدًا) إن فعّله المستخدم. */
+/** جرس المواعيد (من الوارد core/inbox): يعرض المواعيد خلال 7 أيام للفصل النشط (والفائتة المفتوحة)، ويُطلق إشعار المتصفح مرة واحدة فقط للتي لها تاريخ محدد (اليوم/غدًا) إن فعّله المستخدم. */
 export function DeadlineBell() {
-  const { activeId } = useApp();
+  const { bundle, alerts, urgent } = useInbox();
   const loc = useLocation();
-  const [bundle, setBundle] = useState<SemesterBundle | null>(null);
   const [open, setOpen] = useState(false);
-  const [tick, setTick] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-
-  const load = useCallback(() => {
-    if (!activeId || document.hidden) return;
-    api.bundle(activeId).then(setBundle).catch(() => undefined);
-  }, [activeId]);
-
-  // صفحات الفصل تُعلن حزمتها (platform:bundle) فلا نطلبها ثانية؛ في غيرها نجلبها بعد التحميل بوقت كافٍ (لا تنافس أول رسم)
-  const have = useRef(false);
+  // تفعيل الإشعارات من الإعدادات يُطلق platform-notify فنعيد الفحص فورًا
+  const [pn, setPn] = useState(0);
   useEffect(() => {
-    have.current = false;
-    const on = (e: Event): void => {
-      const b = (e as CustomEvent<SemesterBundle>).detail;
-      if (b.semester.id === activeId) {
-        have.current = true;
-        setBundle(b);
-      }
-    };
-    window.addEventListener('platform:bundle', on);
-    const t = window.setTimeout(() => {
-      if (!have.current) load();
-    }, 3500);
-    return () => {
-      window.removeEventListener('platform:bundle', on);
-      window.clearTimeout(t);
-    };
-  }, [activeId, load]);
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setTick((x) => x + 1);
-      load();
-    }, 10 * 60_000);
-    const vis = (): void => {
-      if (!document.hidden) setTick((x) => x + 1);
-    };
-    const pn = (): void => setTick((x) => x + 1);
-    document.addEventListener('visibilitychange', vis);
-    window.addEventListener('platform-notify', pn);
-    return () => {
-      window.clearInterval(id);
-      document.removeEventListener('visibilitychange', vis);
-      window.removeEventListener('platform-notify', pn);
-    };
-  }, [load]);
-
-  const alerts = useMemo(() => (bundle ? deadlineAlerts(bundle.assessments, bundle.courses, bundle.semester, todayMs()) : []), [bundle, tick]);
+    const on = (): void => setPn((x) => x + 1);
+    window.addEventListener('platform-notify', on);
+    return () => window.removeEventListener('platform-notify', on);
+  }, []);
 
   useEffect(() => {
     if (!getNotifyEnabled() || notifyPermission() !== 'granted') return;
@@ -76,7 +33,7 @@ export function DeadlineBell() {
         /* بعض البيئات تمنع الإنشاء المباشر */
       }
     }
-  }, [alerts]);
+  }, [alerts, pn]);
 
   useEffect(() => {
     if (!open) return;
@@ -95,7 +52,6 @@ export function DeadlineBell() {
   }, [open]);
   useEffect(() => setOpen(false), [loc.pathname]);
 
-  const urgent = alerts.filter((a) => a.kind !== 'week' && (a.overdue || (a.daysLeft ?? 9) <= 2)).length;
   const base = bundle ? `/academic/s/${bundle.semester.id}` : '/academic';
   const row = (a: DeadlineAlert): ReactElement => (
     <li key={a.id}>
@@ -121,8 +77,8 @@ export function DeadlineBell() {
             <ul className="plain">{alerts.slice(0, 8).map(row)}</ul>
           )}
           <div className="sep" />
-          <Link to={`${base}/timeline`}>الجدول الزمني <Icon name="left" size={14} /></Link>
-          <Link to="/settings#appearance">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
+          <Link to={`${base}/timeline`}>التقييمات والمواعيد <Icon name="left" size={14} /></Link>
+          <Link to="/settings#notify">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
         </div>
       )}
     </div>

@@ -5,6 +5,7 @@ import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, EmptyState, IconButton, KebabMenu, Skeleton, Unknown } from '../ui/ui.js';
 import { SemesterForm } from '../forms/lazy.js';
+import { useNewParam } from '../core/useNewParam.js';
 import { Icon } from '../lib/icons.js';
 import { phaseOf, semesterStatus, todayMs, weekEndMs } from '../../../shared/semester.js';
 import { fmtISOFull, fmtDateShort } from '../lib/format.js';
@@ -16,6 +17,7 @@ export default function Semesters() {
   const nav = useNavigate();
   const [form, setForm] = useState<{ edit?: Semester } | null>(null);
   const now = todayMs();
+  useNewParam(() => setForm({}));
 
   if (!semesters) return <div className="page"><PageHead title="مدير الفصول" icon="layers" /><div className="grid auto"><Skeleton h={220} r={20} /><Skeleton h={220} r={20} /></div></div>;
 
@@ -43,7 +45,7 @@ export default function Semesters() {
 
   return (
     <div className="page">
-      <PageHead title="مدير الفصول" icon="layers" crumbs={[{ label: 'الفصول' }]} sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
+      <PageHead title="مدير الفصول" icon="layers" sub="كل فصولك في مكان واحد. أضف فصلًا جديدًا يدويًا وبدّل بينها." actions={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
       {sorted.length === 0 ? (
         <EmptyState icon="calendar" title="لا توجد فصول" text="أضف أول فصل لتبدأ." action={<Button variant="primary" icon="plus" onClick={() => setForm({})}>إضافة فصل</Button>} />
       ) : (
@@ -77,7 +79,7 @@ export default function Semesters() {
                 </div>
                 <div className="row" style={{ marginBlockStart: 'var(--s-4)' }}>
                   <Link to={`/academic/s/${s.id}`} className="btn primary">فتح الفصل <Icon name="left" size={16} /></Link>
-                  {!s.is_active && <Button onClick={() => void activate(s)}>تبديل إليه</Button>}
+                  {!s.is_active && <Button onClick={() => void activate(s)}>تعيين كنشط</Button>}
                 </div>
               </Card>
             );

@@ -13,6 +13,7 @@ const TYPE_HINT: Record<CommandType, string> = { log_expense: 'مصروف جدي
 const BOX_AR: Record<string, string> = { treasury: 'الخزينة', monthly: 'الشهري', daily: 'اليومية', unknown: 'غير معروف' };
 const PAY_AR: Record<string, string> = { rhb: 'RHB', tng: 'TNG', cash: 'نقدًا', unknown: 'غير معروف' };
 const HABIT_AR: Record<string, string> = { vape: 'تقليل الفيب', tea_sugar: 'سكر الشاي', water: 'الماء', sleep: 'النوم', food: 'الأكل', workout: 'التمرين' };
+const STATUS_AR: Record<string, string> = { pending: 'بانتظار راشد', done: 'منفّذ', rejected: 'مرفوض', failed: 'فشل', invalid: 'غير صالح' };
 const STATUS_TONE: Record<string, 'ok' | 'warn' | 'danger' | undefined> = { pending: 'warn', done: 'ok', rejected: 'danger', failed: 'danger', invalid: 'danger' };
 const todayKL = (): string => new Date(Date.now() + 8 * 3_600_000).toISOString().slice(0, 10);
 type Form = Record<string, string>;
@@ -103,7 +104,7 @@ export default function LifeCommands() {
 
   return (
     <div className="page life-page">
-      <PageHead title="الأوامر" icon="mail" crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'الأوامر' }]} sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
+      <PageHead title="طلبات التسجيل" icon="mail" sub="مسودات لراشد فقط. الموقع لا ينفّذ شيئًا." badge={d.status ? <FreshBadge f={{ state: d.status.worst, age_hours: null }} /> : undefined} />
       <div className="stack life-stack">
         <div className="life-alert warn" role="note">
           <span aria-hidden="true">⚠</span>
@@ -173,9 +174,11 @@ export default function LifeCommands() {
             </form>
           </Card>
           <Card>
-            <CardHead title="معاينة الملف" icon="file" />
-            <pre className="json-pre" tabIndex={0} aria-label="معاينة JSON">{previewJson}</pre>
-            <Note>هذا ما سيُكتب بالضبط. الرقم المعرّف والوقت يُولَّدان عند الحفظ.</Note>
+            <details className="json-details">
+              <summary><strong>معاينة الملف (JSON)</strong> <span className="muted">— للتحقق فقط</span></summary>
+              <pre className="json-pre" tabIndex={0} aria-label="معاينة JSON">{previewJson}</pre>
+              <Note>هذا ما سيُكتب بالضبط. الرقم المعرّف والوقت يُولَّدان عند الحفظ.</Note>
+            </details>
           </Card>
         </div>
         <Card>
@@ -195,7 +198,7 @@ export default function LifeCommands() {
                     <tr key={c.file}>
                       <td><bdi className="num">{c.id}</bdi></td>
                       <td>{COMMAND_LABEL[c.type] ?? c.type}</td>
-                      <td><Badge tone={STATUS_TONE[c.status]}>{c.status}</Badge></td>
+                      <td><Badge tone={STATUS_TONE[c.status]}>{STATUS_AR[c.status] ?? c.status}</Badge></td>
                       <td>{c.created_at ? fmtAt(c.created_at) : '—'}</td>
                       <td>{c.error ?? c.result_note_ar ?? ''}</td>
                     </tr>

@@ -49,6 +49,7 @@ export function CourseCard({ course, items, calc, sem, now, to, view, onEdit, on
         <span className="cc-cell num">{items.length} تقييم</span>
         <span className="cc-cell">{Math.abs(sum - 100) > 0.005 && items.length > 0 ? <Badge tone="warn">مجموع الأوزان {sum}%</Badge> : <Badge tone="ok">100%</Badge>}</span>
         {ring}
+        <button type="button" className="btn sm ghost" onClick={onAdd} aria-label={`إضافة تقييم إلى ${course.code}`}><Icon name="plus" size={14} /> تقييم</button>
         <KebabMenu items={menu} label={`خيارات ${course.code}`} />
       </article>
     );
@@ -66,7 +67,10 @@ export function CourseCard({ course, items, calc, sem, now, to, view, onEdit, on
             <Link to={to} className="cc-title"><bdi>{course.name}</bdi></Link>
             {course.name_ar && <div className="muted" style={{ fontSize: 'var(--fs-xs)' }}>{course.name_ar}</div>}
           </div>
-          <KebabMenu items={menu} label={`خيارات ${course.code}`} />
+          <span className="row" style={{ gap: 2, flexWrap: 'nowrap' }}>
+            <button type="button" className="btn sm ghost" onClick={onAdd} aria-label={`إضافة تقييم إلى ${course.code}`}><Icon name="plus" size={14} /> تقييم</button>
+            <KebabMenu items={menu} label={`خيارات ${course.code}`} />
+          </span>
         </div>
         <div className="cc-meta">
           <span>{lecturer ? <><Avatar text={initials(lecturer)} color={course.color} /> <bdi>{lecturer}</bdi></> : <><Icon name="user" size={14} /> <Unknown text="المحاضر غير معروف" /></>}</span>

@@ -5,7 +5,8 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, Field, Skeleton } from '../ui/ui.js';
 import { fmtWhen, useLibStatus } from '../library/common.js';
 
-export default function LibrarySettings() {
+/** embedded: داخل «الإعدادات ← المصادر» بلا رأس صفحة */
+export default function LibrarySettings({ embedded }: { embedded?: boolean } = {}) {
   const { toast } = useApp();
   const { status, reload } = useLibStatus();
   const [root, setRoot] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export default function LibrarySettings() {
   const [errs, setErrs] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
 
-  if (!status) return <div className="page"><PageHead title="إعدادات المكتبة" icon="sliders" /><Skeleton h={220} r={16} /></div>;
+  if (!status) return embedded ? <Skeleton h={220} r={16} /> : <div className="page"><PageHead title="إعدادات المكتبة" icon="sliders" /><Skeleton h={220} r={16} /></div>;
   const rootVal = root ?? status.root;
   const minsVal = mins ?? String(status.auto_minutes);
 
@@ -38,8 +39,8 @@ export default function LibrarySettings() {
   };
 
   return (
-    <div className="page">
-      <PageHead title="إعدادات المكتبة" icon="sliders" crumbs={[{ to: '/library', label: 'المكتبة' }, { label: 'الإعدادات' }]} />
+    <div className={embedded ? undefined : 'page'}>
+      {!embedded && <PageHead title="إعدادات المكتبة" icon="sliders" />}
       <div className="stack" style={{ gap: 'var(--s-5)', maxInlineSize: 760 }}>
         <Card>
           <CardHead title="مجلد المكتبة" icon="folder" />

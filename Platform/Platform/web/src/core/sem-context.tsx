@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { unknownTotal } from '../../../shared/review.js';
+import { Button } from '../ui/ui.js';
 import { api } from '../lib/api.js';
 import { useApp } from './app-context.js';
 import type { AcademicNote, Assessment, Course, Semester } from '../../../shared/types.js';
@@ -38,7 +40,7 @@ export function useSem(): SemData {
 
 export function SemesterLayout(): ReactNode {
   const { semId = '' } = useParams();
-  const { reloadSemesters, setUnknownCount } = useApp();
+  const { reloadSemesters, setUnknownCount, toast } = useApp();
   const [data, setData] = useState<Awaited<ReturnType<typeof api.bundle>> | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
@@ -94,19 +96,36 @@ export function SemesterLayout(): ReactNode {
   }, [data, reload]);
 
   useEffect(() => {
-    if (value) setUnknownCount(value.unknownAssessments.length + value.notes.filter((n) => n.tag === 'unk' && !n.resolved).length + value.courses.filter((c) => c.credits === null).length);
+    if (value) setUnknownCount(value.sem.id, unknownTotal(value));
   }, [value, setUnknownCount]);
+
+  const activate = async (): Promise<void> => {
+    if (!value) return;
+    try {
+      await api.activate(value.sem.id);
+      await reload(true);
+      toast(`${value.sem.code} هو الفصل النشط الآن`, { kind: 'ok' });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
 
   if (err) {
     return (
       <div className="page">
-        <EmptyState icon="warn" title="تعذّر فتح الفصل" text={err} />
+        <EmptyState icon="warn" title="تعذّر فتح الفصل" text={err} action={<div className="row" style={{ gap: 'var(--s-2)', justifyContent: 'center', flexWrap: 'wrap' }}><Button variant="primary" icon="refresh" onClick={() => void reload(false)}>إعادة المحاولة</Button><Button to="/academic" icon="layers">مدير الفصول</Button></div>} />
       </div>
     );
   }
   if (!value) return <PageSkeleton />;
   return (
     <C.Provider value={value}>
+      {!value.isActive && (
+        <div className="callout sem-inactive" role="status">
+          <span>تعرض فصلًا غير نشط: <bdi>{value.sem.code}</bdi>. «اليوم» والجرس يتبعان الفصل النشط.</span>
+          <Button size="sm" icon="check" onClick={() => void activate()}>تعيين كنشط</Button>
+        </div>
+      )}
       <Outlet />
     </C.Provider>
   );

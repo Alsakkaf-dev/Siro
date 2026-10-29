@@ -1,5 +1,6 @@
 import { useMemo, useState, type FormEvent, type ReactNode } from 'react';
 import { useApp } from '../core/app-context.js';
+import { useNewParam } from '../core/useNewParam.js';
 import { ApiError, sports, type ItemInput } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, DragHandle, EmptyState, Field, IconButton, Modal, Skeleton, useDragReorder } from '../ui/ui.js';
@@ -14,6 +15,7 @@ export default function SportsMine() {
   const { toast, confirm } = useApp();
   const now = useNow(60_000);
   const [edit, setEdit] = useState<MyWorkout | 'new' | null>(null);
+  useNewParam(() => setEdit('new'));
   const today = weekdayKL(now);
   const byId = useMemo(() => new Map(mine.workouts.map((w) => [w.id, w])), [mine.workouts]);
   const todayW = mine.week[today] ? byId.get(mine.week[today]!) : undefined;
@@ -49,7 +51,7 @@ export default function SportsMine() {
     ids.splice(to, 0, m!);
     sports.order(ids).then(set).catch(fail);
   });
-  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." crumbs={[{ to: '/sports', label: 'الرياضة' }, { label: 'تمريني' }]} actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
+  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." actions={<Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button>} />;
   if (error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={error} action={<Button onClick={reload}>إعادة المحاولة</Button>} /></div>;
   if (!loaded) return <div className="page sports-page">{head}<Skeleton h={120} r={16} /></div>;
 

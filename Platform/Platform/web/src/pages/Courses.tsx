@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useNewParam } from '../core/useNewParam.js';
+import { useUrlParam } from '../core/useUrlParam.js';
 import { useSem } from '../core/sem-context.js';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, EmptyState, Segmented, Unknown } from '../ui/ui.js';
+import { Badge, Button, Card, EmptyState, IconButton, Modal, Segmented, Unknown } from '../ui/ui.js';
 import { CourseCard, DocTable, Facet, FilterChips, type Col } from '../widgets/catalog.js';
 import { CourseForm, AssessmentForm } from '../forms/lazy.js';
 import { Icon } from '../lib/icons.js';
@@ -22,11 +24,10 @@ export default function Courses() {
   const S = useSem();
   const { toast, confirm, deleteWithUndo } = useApp();
   const nav = useNavigate();
-  const [sp, setSp] = useSearchParams();
   const base = `/academic/s/${S.sem.id}`;
   const [view, setView] = useState<View>(() => (localStorage.getItem('platform.coursesView') as View | null) ?? 'grid');
-  const [sort, setSort] = useState<Sort>('code');
-  const [q, setQ] = useState('');
+  const [sort, setSort] = useUrlParam<Sort>('sort', 'code', ['code', 'name', 'credits', 'load', 'next']);
+  const [q, setQ] = useUrlParam<string>('q', '');
   const [kinds, setKinds] = useState<Set<string>>(new Set());
   const [credits, setCredits] = useState<Set<string>>(new Set());
   const [flags, setFlags] = useState<Set<string>>(new Set());
@@ -34,13 +35,9 @@ export default function Courses() {
   const [addFor, setAddFor] = useState<Course | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  useEffect(() => {
-    if (sp.get('new')) {
-      setForm({});
-      sp.delete('new');
-      setSp(sp, { replace: true });
-    }
-  }, [sp, setSp]);
+  const [pickFor, setPickFor] = useState(false);
+  // ?new=1 مادة جديدة · ?new=assessment تقييم (اختر المادة أولًا)
+  useNewParam((v) => (v === 'assessment' ? (S.courses.length === 1 ? setAddFor(S.courses[0]!) : setPickFor(true)) : setForm({})));
   useEffect(() => localStorage.setItem('platform.coursesView', view), [view]);
 
   const toggle = (set: Set<string>, setter: (s: Set<string>) => void) => (v: string) => {
@@ -136,6 +133,7 @@ export default function Courses() {
     { key: 'n', head: 'تقييمات', width: '90px', numeric: true, cell: (r) => r.items.length },
     { key: 'sum', head: 'الأوزان', width: '120px', cell: (r) => (r.items.length === 0 ? <span className="muted">—</span> : r.hasIssue ? <Badge tone="warn">{r.sum}%</Badge> : <Badge tone="ok">100%</Badge>) },
     { key: 'unk', head: 'غير معروف', width: '110px', cell: (r) => (r.hasUnknown ? <Unknown text={String(r.items.filter((a) => a.timing === 'unknown').length)} /> : <span className="muted">—</span>) },
+    { key: 'act', head: 'إجراءات', width: '150px', cell: (r) => (<span className="row" style={{ gap: 2, flexWrap: 'nowrap' }}><button type="button" className="btn sm ghost" onClick={() => setAddFor(r.c)}><Icon name="plus" size={14} /> تقييم</button><IconButton icon="edit" label={`تعديل ${r.c.code}`} sm ghost onClick={() => setForm({ course: r.c })} /><IconButton icon="trash" label={`حذف ${r.c.code}`} sm ghost tone="danger" onClick={() => void delCourse(r.c)} /></span>) },
   ];
 
   return (
@@ -214,6 +212,21 @@ export default function Courses() {
             await S.reload();
           }}
         />
+      )}
+      {pickFor && (
+        <Modal title="تقييم جديد — اختر المادة" onClose={() => setPickFor(false)}>
+          {S.courses.length === 0 ? (
+            <EmptyState icon="book" title="لا توجد مواد" text="أضف مادة أولًا ثم أضف تقييماتها." action={<Button variant="primary" icon="plus" onClick={() => { setPickFor(false); setForm({}); }}>إضافة مادة</Button>} />
+          ) : (
+            <div className="stack" style={{ gap: 'var(--s-2)' }}>
+              {S.courses.map((c) => (
+                <button key={c.id} type="button" className="btn pick-course" onClick={() => { setPickFor(false); setAddFor(c); }}>
+                  <i className="dot" style={{ background: c.color }} /> <bdi>{c.code}</bdi> <span className="muted"><bdi>{c.name}</bdi></span>
+                </button>
+              ))}
+            </div>
+          )}
+        </Modal>
       )}
       {addFor && (
         <AssessmentForm

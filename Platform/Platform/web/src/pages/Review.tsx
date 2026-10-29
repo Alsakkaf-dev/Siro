@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useUrlParam } from '../core/useUrlParam.js';
 import { Link } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
 import { api, sports as sportsApi } from '../lib/api.js';
@@ -26,7 +27,10 @@ const FILES = ['prayers', 'habits', 'body', 'finance', 'routine', 'dashboard_sum
 export default function Review() {
   const { activeId } = useApp();
   const now = useNow(60_000);
-  const [offset, setOffset] = useState<0 | -1>(0);
+  // الأسبوع في الرابط (P7): ?week=last للأسبوع الماضي
+  const [weekP, setWeekP] = useUrlParam<'this' | 'last'>('week', 'this', ['this', 'last']);
+  const offset: 0 | -1 = weekP === 'last' ? -1 : 0;
+  const setOffset = (v: 0 | -1): void => setWeekP(v === -1 ? 'last' : 'this');
   const d = useLife([...FILES]);
   const labels = useFieldLabels();
   const plans = usePlans();
@@ -138,6 +142,36 @@ export default function Review() {
 
       {!d.loading && !d.error && (
         <>
+          <nav className="rv-toc chips" aria-label="محتويات المراجعة">
+            {[['rv-todo', 'المطلوب'], ['rv-study', 'الدراسة'], ['rv-prayer', 'الصلاة'], ['rv-habits', 'العادات'], ['rv-weight', 'الوزن'], ['rv-money', 'المال'], ['rv-routine', 'الروتين'], ['rv-missing', 'ما ينقص'], ['rv-note-card', 'ملاحظتي']].map(([id, label]) => (
+              <a key={id} href={`#${id}`} className="chip" onClick={(e) => { e.preventDefault(); document.getElementById(id!)?.scrollIntoView({ block: 'start' }); }}>{label}</a>
+            ))}
+          </nav>
+          <Card id="rv-todo" className="rv-sec">
+            <CardHead title="المطلوب فعله قبل الاستعراض" icon="check" />
+            <ul className="life-list">
+              {b && overdue.length > 0 ? <li><b>{overdue.length}</b> تقييم تجاوز موعده ولم يُسلَّم — <Link to={`/academic/s/${b.semester.id}/timeline?view=list&open=1`}>افتح القائمة</Link></li> : <li>لا تقييمات متأخرة.</li>}
+              {staleAny ? <li>بعض ملفات راشد قديمة — اطلب تحديثها: <Link to="/life/commands?type=refresh_exports">طلب تحديث</Link></li> : <li>ملفات راشد محدّثة.</li>}
+              {r.missing.length > 0 ? <li><b>{r.missing.length}</b> بندًا غير مسجل — <a href="#rv-missing" onClick={(e) => { e.preventDefault(); document.getElementById('rv-missing')?.scrollIntoView({ block: 'start' }); }}>اعرضها</a></li> : <li>لا نقص ظاهر.</li>}
+            </ul>
+          </Card>
+          <Card id="rv-note-card">
+            <CardHead title="ملاحظتي لهذا الأسبوع" icon="edit" info="تُحفظ في هذا المتصفح فقط (لا في ملفات راشد ولا في النسخ الاحتياطي)." />
+            <label className="sr-only" htmlFor="rv-note">ملاحظتي لهذا الأسبوع</label>
+            <textarea id="rv-note" className="textarea rv-note" rows={4} value={note} maxLength={2000} placeholder="ما الذي نجح؟ ما الذي تؤجّله؟ ما أهم شيء للأسبوع القادم؟" onChange={(e) => saveNote(e.target.value)} />
+          </Card>
+          <Section id="rv-study" title="الدراسة: التقييمات" icon="book" files={[]}>
+            {bundle === null ? <Skeleton h={80} /> : !b ? <p className="muted">لا فصل نشط. فعّل فصلًا من مدير الفصول.</p> : (
+              <div className="stack">
+                {overdue.length > 0 && <div className="rv-warn" role="note"><b>تجاوزت موعدها ولم تُسلَّم ({overdue.length}):</b> {overdue.map((o) => <span key={o.id} className="rv-chip"><bdi>{o.title}</bdi></span>)}</div>}
+                <p style={{ margin: 0 }}><b>هذا الأسبوع ({thisWk.length})</b></p>
+                {thisWk.length ? list(thisWk) : <p className="muted">لا تقييمات مُسجَّلة لهذا الأسبوع.</p>}
+                <p style={{ margin: 0 }}><b>الأسبوع القادم ({nextWk.length})</b></p>
+                {nextWk.length ? list(nextWk) : <p className="muted">لا تقييمات مُسجَّلة للأسبوع القادم.</p>}
+                <p className="muted rv-fine">«تقريبي» = حُدِّد الأسبوع الدراسي فقط دون يوم.</p>
+              </div>
+            )}
+          </Section>
           <Section id="rv-prayer" title="الصلاة" icon="moon" files={[fr('prayers')]}>
             {r.prayer ? <PrayerBody p={r.prayer} partial={w.partial} /> : <Unavail />}
           </Section>
@@ -160,17 +194,6 @@ export default function Review() {
                 <li>خطتك المحلية في «تماريني» (الموقع لا يسجّل الإنجاز): {WEEKDAYS.filter((k) => mine.week[k]).map((k) => `${WEEKDAY_AR[k]}: ${mine.workouts.find((x) => x.id === mine.week[k])?.name ?? ''}`).join(' · ')}</li>
               )}
             </ul>
-            <H3>الدراسة: التقييمات</H3>
-            {bundle === null ? <Skeleton h={80} /> : !b ? <p className="muted">لا فصل نشط. فعّل فصلًا من مدير الفصول.</p> : (
-              <div className="stack">
-                {overdue.length > 0 && <div className="rv-warn" role="note"><b>تجاوزت موعدها ولم تُسلَّم ({overdue.length}):</b> {overdue.map((o) => <span key={o.id} className="rv-chip"><bdi>{o.title}</bdi></span>)}</div>}
-                <p style={{ margin: 0 }}><b>هذا الأسبوع ({thisWk.length})</b></p>
-                {thisWk.length ? list(thisWk) : <p className="muted">لا تقييمات مُسجَّلة لهذا الأسبوع.</p>}
-                <p style={{ margin: 0 }}><b>الأسبوع القادم ({nextWk.length})</b></p>
-                {nextWk.length ? list(nextWk) : <p className="muted">لا تقييمات مُسجَّلة للأسبوع القادم.</p>}
-                <p className="muted rv-fine">«تقريبي» = حُدِّد الأسبوع الدراسي فقط دون يوم.</p>
-              </div>
-            )}
           </Section>
           <Card id="rv-missing" className="rv-sec">
             <CardHead title="ما ينقص" icon="help" info="كل ما هو «غير مسجل» مع اسم الحقل، لتعرف ماذا تعطي راشد. لا نملؤه ولا نحسب منه." />
@@ -186,11 +209,6 @@ export default function Review() {
               </div>
             )}
           </Card>
-          <Card>
-            <CardHead title="ملاحظتي لهذا الأسبوع" icon="edit" info="تُحفظ في هذا المتصفح فقط (لا في ملفات راشد ولا في النسخ الاحتياطي)." />
-            <label className="sr-only" htmlFor="rv-note">ملاحظتي لهذا الأسبوع</label>
-            <textarea id="rv-note" className="textarea rv-note" rows={4} value={note} maxLength={2000} placeholder="ما الذي نجح؟ ما الذي تؤجّله؟ ما أهم شيء للأسبوع القادم؟" onChange={(e) => saveNote(e.target.value)} />
-          </Card>
         </>
       )}
     </div>
@@ -198,5 +216,5 @@ export default function Review() {
 }
 
 function Unavail() {
-  return <p className="muted">هذا الملف غير متاح الآن (مجلد صادرات راشد مفقود أو الملف غير صالح). راجع <Link to="/life/settings">إعدادات الحياة</Link>.</p>;
+  return <p className="muted">هذا الملف غير متاح الآن (مجلد صادرات راشد مفقود أو الملف غير صالح). راجع <Link to="/settings?tab=sources">إعدادات الحياة</Link>.</p>;
 }

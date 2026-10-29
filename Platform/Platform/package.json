@@ -15,7 +15,8 @@
     "start": "node server",
     "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.web.json --noEmit",
     "test": "vitest run",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "browser-smoke": "node scripts/browser-smoke.mjs"
   },
   "dependencies": {
     "compression": "1.8.2",

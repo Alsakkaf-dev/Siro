@@ -32,7 +32,7 @@ export default function LibraryFolders() {
 
   return (
     <div className="page">
-      <PageHead title="المجلدات" icon="folder" crumbs={[{ to: '/library', label: 'المكتبة' }, { label: 'المجلدات' }]} sub="تصفّح الهيكل الحقيقي لمجلد المكتبة (قراءة فقط)." actions={<Button to="/library" icon="list">كل الملفات</Button>} />
+      <PageHead title="المجلدات" icon="folder" sub="تصفّح الهيكل الحقيقي لمجلد المكتبة (قراءة فقط)." actions={<Button to="/library" icon="list">كل الملفات</Button>} />
       {status && <StatusBanner status={status} reload={reload} />}
       <nav className="lib-crumbs" aria-label="مسار المجلد">
         <Link to={to(-1)}><Icon name="folder" size={15} /> الجذر</Link>
@@ -48,7 +48,7 @@ export default function LibraryFolders() {
       ) : !data ? (
         <Skeleton h={200} r={16} />
       ) : data.folders.length === 0 && data.files.length === 0 ? (
-        <EmptyState icon="folder" title="المجلد فارغ" text={p ? 'لا توجد ملفات هنا.' : 'لا ملفات بعد — اضبط مجلد المكتبة من الإعدادات ثم افحصه.'} action={p ? <Button to="/library/folders">العودة للجذر</Button> : <Button to="/library/settings" variant="primary">إعدادات المكتبة</Button>} />
+        <EmptyState icon="folder" title="المجلد فارغ" text={p ? 'لا توجد ملفات هنا.' : 'لا ملفات بعد — اضبط مجلد المكتبة من الإعدادات ثم افحصه.'} action={p ? <Button to="/library/folders">العودة للجذر</Button> : <Button to="/settings?tab=sources" variant="primary">إعدادات المكتبة</Button>} />
       ) : (
         <>
           {data.folders.length > 0 && (

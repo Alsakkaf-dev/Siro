@@ -1,0 +1,17 @@
+/** واجهة طبقة المطبخ النقية (domain): تُستورد من الواجهة والخادم والاختبارات. */
+export * from './types.js';
+export * from './law.js';
+export * from './units.js';
+export * from './nutrition.js';
+export * from './cost.js';
+export * from './scaler.js';
+export * from './feasibility.js';
+export * from './search.js';
+export * from './phrases.js';
+export * from './fmt.js';
+export { INGREDIENTS, INGREDIENT_BY_SLUG, TINY } from './data/ingredients.js';
+export { NUTRITION_PER_100G } from './data/nutrition.js';
+export { STORES, DEFAULT_STORE } from './data/stores.js';
+export { SEED_PRICES } from './data/prices.js';
+export { ORIGINAL_RECIPES, RECIPE_BY_SLUG } from './data/recipes.js';
+export { CYCLE, CYCLE_EPOCH, cycleDayOf } from './data/cycle.js';

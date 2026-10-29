@@ -19,8 +19,9 @@ interface Ctx {
   deleteWithUndo: (label: string, run: () => Promise<Deleted>, after: () => void | Promise<void>) => Promise<void>;
   showShortcuts: boolean;
   setShowShortcuts: (v: boolean) => void;
-  unknownCount: number;
-  setUnknownCount: (n: number) => void;
+  /** عدد «غير المعروف» لكل فصل (المفتاح معرّف الفصل) فلا تتقادم الشارة خارج صفحات الفصل */
+  unknownCounts: Record<string, number>;
+  setUnknownCount: (semId: string, n: number) => void;
 }
 
 const C = createContext<Ctx | null>(null);
@@ -43,7 +44,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   });
   const [showShortcuts, setShowShortcuts] = useState(false);
-  const [unknownCount, setUnknownCount] = useState(0);
+  const [unknownCounts, setUnknownCounts] = useState<Record<string, number>>({});
+  const setUnknownCount = useCallback((semId: string, n: number) => setUnknownCounts((m) => (m[semId] === n ? m : { ...m, [semId]: n })), []);
   const [confirmState, setConfirmState] = useState<(ConfirmOpts & { resolve: (v: boolean) => void }) | null>(null);
   const seq = useRef(0);
 
@@ -117,8 +119,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const activeId = useMemo(() => semesters?.find((s) => s.is_active)?.id ?? semesters?.[0]?.id ?? null, [semesters]);
 
   const value = useMemo<Ctx>(
-    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCount, setUnknownCount }),
-    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCount],
+    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCounts, setUnknownCount }),
+    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCounts, setUnknownCount],
   );
 
   return (

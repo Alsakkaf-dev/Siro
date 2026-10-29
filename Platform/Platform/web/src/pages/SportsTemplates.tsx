@@ -7,7 +7,7 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Skeleton } from '../ui/ui.js';
 import { useNow } from '../widgets/tiles.js';
 import { BodyMap, ConfBadge, ContentBanner, SafetyBadge, SafetyDisclaimer, sessionRegions, useExercises, useMine, usePlans } from '../sports/sportsKit.js';
-import { describeSE, fmtRange, KIND_AR, LOCATION_AR, WEEKDAY_AR, weekdayKL, type Exercise, type Session, type Template } from '../../../shared/sports.js';
+import { describeSE, fmtRange, KIND_AR, LOCATION_AR, WEEKDAY_AR, WEEKDAYS, weekdayKL, type Exercise, type Session, type Template, type Weekday } from '../../../shared/sports.js';
 import { Term } from '../glossary/glossary.js';
 
 const KIND_COLOR: Record<string, string> = { strength: 'var(--sports)', cardio: '#4CC9F0', mobility: '#A78BFA', rest: '#8A92B2' };
@@ -24,7 +24,7 @@ export default function SportsTemplates() {
   const plans = usePlans();
   const ex = useExercises();
   const { mine, set, loaded } = useMine();
-  const { toast } = useApp();
+  const { toast, confirm } = useApp();
   const now = useNow(60_000);
   const [loc, setLoc] = useState<'all' | 'home' | 'gym'>('all');
   const [pickId, setPickId] = useState<string | null>(null);
@@ -39,7 +39,7 @@ export default function SportsTemplates() {
   const list = useMemo(() => (p?.templates ?? []).filter((t) => loc === 'all' || t.location === loc), [p, loc]);
   const cur: Template | undefined = list.find((t) => t.id === pickId) ?? list.find((t) => t.id === mine.template) ?? list[0];
   const today = weekdayKL(now);
-  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة من راشد — كلها افتراض حتى تختار أنت." crumbs={[{ to: '/sports', label: 'الرياضة' }, { label: 'القوالب' }]} actions={<Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button>} />;
+  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة من راشد — كلها افتراض حتى تختار أنت." />;
 
   if (plans.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (plans.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={plans.error} action={<Button onClick={plans.reload}>إعادة المحاولة</Button>} /></div>;
@@ -48,7 +48,7 @@ export default function SportsTemplates() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={plans.status} label="قوالب التمرين" />
-        <EmptyState icon="calendar" title="قوالب التمرين غير متاحة" text={!plans.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف القوالب غير متاح أو تغيّر تنسيقه.'} action={<Button to="/life/settings" icon="sliders">إعدادات الحياة</Button>} />
+        <EmptyState icon="calendar" title="قوالب التمرين غير متاحة" text={!plans.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف القوالب غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
       </div>
     );
   }
@@ -63,6 +63,44 @@ export default function SportsTemplates() {
       toast(`اعتمدتَ «${t.name_ar}» في موقعك`, { kind: 'ok' });
     } catch (e) {
       toast(e instanceof ApiError ? e.message : (e as Error).message, { kind: 'error' });
+    } finally {
+      setBusy(false);
+    }
+  };
+  /** «ابدأ بهذا القالب»: ينشئ تمرينًا لكل جلسة (أو يعيد استعمال المنسوخ سابقًا بنفس الاسم)، ويعيّن أيام الأسبوع، ويعتمد القالب — بخطوة واحدة. */
+  const start = async (t: Template): Promise<void> => {
+    const ok = await confirm({ title: `ابدأ بقالب «${t.name_ar}»؟`, body: <p>تُنشأ تمارين الجلسات في «تمريني» وتُعيَّن على أيامها ({t.days.length} أيام). الأيام الأخرى لا تتغير. كله في موقعك فقط — ملفات راشد لا تُمس.</p>, confirmLabel: 'ابدأ' });
+    if (!ok) return;
+    setBusy(true);
+    try {
+      let cur = await sports.mine();
+      const idFor = new Map<string, string>();
+      for (const d of t.days) {
+        const sid = d.sessions[0];
+        const sObj = sid ? bySess.get(sid) : undefined;
+        if (!sObj || idFor.has(sObj.id)) continue;
+        const name = sObj.name_ar.slice(0, 80);
+        const existing = cur.workouts.find((w) => w.name === name);
+        if (existing) {
+          idFor.set(sObj.id, existing.id);
+          continue;
+        }
+        const items = (sObj.exercises ?? []).map((se) => {
+          const e = byEx.get(se.exercise_id);
+          return { exercise_id: se.exercise_id, en_name: e?.english_name ?? se.exercise_id, ar_name: e?.arabic_name ?? se.exercise_id, sets: se.sets?.min ?? null, reps_min: se.reps?.min ?? null, reps_max: se.reps?.max ?? null, duration_s: se.duration_seconds?.min ?? null, per_side: !!se.per_side };
+        });
+        const w = await sports.create({ name, note: `من قالب «${t.name_ar}» (افتراض). عدّل ما شئت.`, items });
+        idFor.set(sObj.id, w.id);
+      }
+      for (const d of t.days) {
+        const wid = d.sessions[0] ? idFor.get(d.sessions[0]) : undefined;
+        if (wid && (WEEKDAYS as readonly string[]).includes(d.weekday)) cur = await sports.week(d.weekday as Weekday, wid);
+      }
+      const loc2 = t.location === 'home' || t.location === 'gym' ? t.location : undefined;
+      set(await sports.settings({ template: t.id, ...(loc2 ? { location: loc2 } : {}) }));
+      toast(`بدأتَ «${t.name_ar}»: ${idFor.size} تمارين على ${t.days.length} أيام`, { kind: 'ok' });
+    } catch (e) {
+      toast(e instanceof ApiError ? Object.values(e.fields)[0] ?? e.message : (e as Error).message, { kind: 'error' });
     } finally {
       setBusy(false);
     }
@@ -121,6 +159,7 @@ export default function SportsTemplates() {
           <CardHead title={cur.name_ar} icon="calendar">
             <ConfBadge c={cur.confidence ?? p.confidence} />
             <Button size="sm" variant={mine.template === cur.id ? 'ghost' : 'primary'} icon="check" disabled={busy || mine.template === cur.id} onClick={() => void choose(cur)}>{mine.template === cur.id ? 'معتمد عندك' : 'اعتمد هذا القالب محليًا'}</Button>
+            <Button size="sm" variant="primary" icon="zap" disabled={busy} onClick={() => void start(cur)}>ابدأ بهذا القالب</Button>
           </CardHead>
           <p className="muted" style={{ marginBlockStart: 0 }}>الاعتماد هنا محلي في موقعك فقط؛ لا يغيّر ملفات راشد. إن أردت أن يسجّله راشد قله في المحادثة{cur.recommended_from_week ? ` — يوصى به من الأسبوع ${cur.recommended_from_week}` : ''}.</p>
           <ul className="week-grid" aria-label={`أيام ${cur.name_ar}`}>

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { PAGES } from '../core/registry.js';
 import { Badge, Card, CardHead, Unknown } from '../ui/ui.js';
 import { LegendRows } from '../widgets/charts.js';
 import { useNow } from '../widgets/tiles.js';
@@ -105,7 +106,7 @@ export default function Life() {
       )}
       <Card>
         <CardHead title="حداثة البيانات" icon="refresh">
-          <Link to="/life/settings">الإعدادات</Link>
+          <Link to="/settings?tab=sources">الإعدادات</Link>
         </CardHead>
         <div className="fresh-rows">
           {d.status?.files.map((f) => (
@@ -116,17 +117,7 @@ export default function Life() {
           ))}
         </div>
       </Card>
-      <PageLinks
-        items={[
-          { to: '/life/finance', label: 'المال', icon: 'database', sub: 'أرصدة وحركات وفئات' },
-          { to: '/life/prayers', label: 'الصلاة', icon: 'clock', sub: 'حضور وقضاء' },
-          { to: '/life/habits', label: 'العادات', icon: 'check', sub: 'خطط وعدادات' },
-          { to: '/life/routine', label: 'الروتين', icon: 'timer', sub: 'جدول اليوم' },
-          { to: '/life/body', label: 'الجسم', icon: 'target', sub: 'الوزن والهدف' },
-          { to: '/life/alternatives', label: 'بدائل العادات', icon: 'zap', sub: 'ماذا أسوي بدل العادة؟' },
-          { to: '/life/commands', label: 'الأوامر', icon: 'mail', sub: 'مسودات لراشد' },
-        ]}
-      />
+      <PageLinks items={PAGES.filter((p) => (p.area === 'life' && p.id !== 'life') || p.id === 'body').map((p) => ({ to: p.path, label: p.label, icon: p.icon }))} />
     </LifePage>
   );
 }
