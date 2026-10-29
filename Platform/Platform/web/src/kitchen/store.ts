@@ -11,6 +11,10 @@ export interface WalletTx { id: string; kind: string; amount_rm: number; ref: st
 export interface WalletView { configured: boolean; budget_rm: number; period: string; period_start: string | null; hard_limit: boolean; balance_rm: number; spent_rm: number; ratio: number | null; level: 'none' | 'ok' | 'warn' | 'full'; txs: WalletTx[] }
 export interface ReqRow { id: string; name_ar: string; note: string | null; status: 'pending' | 'approved' | 'rejected'; created_at: string; decided_at: string | null }
 export interface AuditRow { id: string; ingredient: string; store: string; old_price: number | null; new_price: number; old_source: string | null; new_source: string; kind: string; reason: string | null; reverted_of: string | null; price_version: number; at: string }
+export interface CardRowC {
+  slug: string; kind: string; parent_slug: string | null; name_ar: string; meal_types: string[]; lines: { ingredient: string; amount_g: number | null }[]; steps_ar: string[];
+  nutrition: Record<string, number>; cost_rm: number | null; price_version: number; stats: Record<string, number | null>; rarity: string; origin: Record<string, unknown>; flags: string[]; image: string | null; hidden: boolean; created_at: string; updated_at: string;
+}
 export interface PurchaseOut { id: string; store: string; total_rm: number; balance_after_rm: number; budget_raised_by: number; lines: { ingredient: string; qty: number; unit: string; store: string; grams: number; unit_price_rm: number; line_rm: number }[] }
 
 export interface KState {
@@ -23,6 +27,8 @@ export interface KState {
   pantry: PantryRow[];
   wallet: WalletView | null;
   requests: ReqRow[];
+  /** بطاقات «ابتكاراتي» والنسخ من القاعدة (MC-02) */
+  cards: CardRowC[];
   /** المتجر المختار (A1-10) */
   store: string;
   /** آخر تغيير سعر محلي لعرض «ماذا تغيّر» (B1-03) */
@@ -63,7 +69,7 @@ const lsSet = (k: string, v: string): void => {
   }
 };
 
-const seedState = (): KState => ({ ready: false, offline: false, version: 0, prices: [...SEED_PRICES], idx: indexPrices(SEED_PRICES), cart: [], pantry: [], wallet: null, requests: [], store: lsGet(LS_STORE) ?? DEFAULT_STORE, lastChange: null });
+const seedState = (): KState => ({ ready: false, offline: false, version: 0, prices: [...SEED_PRICES], idx: indexPrices(SEED_PRICES), cart: [], pantry: [], wallet: null, requests: [], cards: [], store: lsGet(LS_STORE) ?? DEFAULT_STORE, lastChange: null });
 let state: KState = seedState();
 const listeners = new Set<() => void>();
 const emit = (): void => listeners.forEach((l) => l());
@@ -105,6 +111,7 @@ export function load(): Promise<void> {
   loading = api<StateResp>('GET', '/state')
     .then((s) => {
       set({ ready: true, offline: false, version: s.version, prices: s.prices, cart: s.cart.map((l) => ({ ...l })), pantry: s.pantry, wallet: s.wallet, requests: s.requests });
+      void api<{ cards: CardRowC[] }>('GET', '/cards').then((r) => set({ cards: r.cards })).catch(() => undefined);
       lsSet(LS_CACHE, JSON.stringify({ v: s.version, prices: s.prices, cart: s.cart, pantry: s.pantry, wallet: s.wallet }));
     })
     .catch(() => {
@@ -308,4 +315,44 @@ export async function decideRequest(id: string, status: 'pending' | 'approved' |
   await api('PATCH', `/ingredient-requests/${id}`, { status });
   await load();
   announce('requests');
+}
+
+/* ───── الطبخ والبطاقات والخطة (المرحلة 3) ───── */
+export interface ServeBody { mode: 'real' | 'sandbox'; seed: number; ops: unknown[]; store: string; name_ar?: string; steps_ar?: string[]; meal_types?: string[]; confirm_sandbox?: boolean; accept_duplicate?: 'new' | 'variant'; image?: string }
+export async function serveCook(b: ServeBody): Promise<{ card: CardRowC; waste: Record<string, number>; waste_cost_rm: number | null; session: string }> {
+  const r = await api<{ card: CardRowC; waste: Record<string, number>; waste_cost_rm: number | null; session: string }>('POST', '/cook/serve', b);
+  await load();
+  announce('cards');
+  announce('pantry');
+  return r;
+}
+export async function patchCard(slug: string, body: { name_ar?: string; steps_ar?: string[]; meal_types?: string[]; hidden?: boolean }): Promise<void> {
+  await api('PATCH', `/cards/${slug}`, body);
+  await load();
+  announce('cards');
+}
+export async function deleteCard(slug: string): Promise<void> {
+  await api('DELETE', `/cards/${slug}`);
+  await load();
+  announce('cards');
+}
+export async function makeVariant(parent_slug: string, scale: number, name_ar?: string): Promise<CardRowC> {
+  const r = await api<{ card: CardRowC }>('POST', '/cards/variant', { parent_slug, scale, ...(name_ar ? { name_ar } : {}) });
+  await load();
+  announce('cards');
+  return r.card;
+}
+export interface PlanSlotView { slot: string; card_slug: string; title_ar: string; scale: number; lines: { ingredient: string; amount_g: number | null }[]; nutrition: Record<string, number>; steps: string[]; body_text: string; unmapped: string[] }
+export interface PlanDayRow { date: string; slots: PlanSlotView[]; total_kcal: number; status: string; updated_at: string }
+export type PlanSlotsIn = Partial<Record<'فطور' | 'غداء' | 'عشاء', { card: string; scale?: number }>>;
+export const fetchPlan = (from: string, days = 14): Promise<{ days: PlanDayRow[] }> => api('GET', `/plan?from=${from}&days=${days}`);
+export const previewPlan = (slots: PlanSlotsIn, auto_fit: boolean): Promise<{ ok: boolean; blocked: string[]; message: string | null; solutions: string[]; law: { status: string; total_kcal: number; ok: boolean; excess?: number; deficit?: number }; slots: PlanSlotView[]; total: Record<string, number>; autoFit: { k: number } | null; complete: boolean }> => api('POST', '/plan/preview', { slots, auto_fit });
+export async function savePlan(date: string, slots: PlanSlotsIn, auto_fit: boolean): Promise<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }> {
+  const r = await api<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }>('PUT', `/plan/${date}`, { slots, auto_fit });
+  announce('plan');
+  return r;
+}
+export async function deletePlanDay(date: string): Promise<void> {
+  await api('DELETE', `/plan/${date}`);
+  announce('plan');
 }

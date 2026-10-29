@@ -182,3 +182,63 @@ describe('الخطة: تقسيم الأوزان في الخطوات وقالب �
     expect(nameDish(cookToCard(doc.ops, idx, 'mydin').lines, an).name).toBe('توست بالبيض والجبنة');
   });
 });
+
+describe('الوضع الموجّه: كشف إنجاز الخطوات من حالة المحاكي (KIT-30)', () => {
+  it('كل خطوات الوصفات العشر تُكشف منجزة بعد أن يلعبها الطاهي الآلي بأوزانها', async () => {
+    const { parseSteps, detectSteps } = await import('../shared/kitchen/sim/guided.js');
+    for (const slug of Object.keys(BOTS)) {
+      const c = new Cook();
+      BOTS[slug]!(c);
+      const specs = parseSteps(RECIPE_BY_SLUG.get(slug)!.steps_original);
+      const st = detectSteps(specs, c.sim.snapshot());
+      st.forEach((s, i) => expect(s.done, `${slug} خطوة ${i + 1}: ${specs[i]!.text} → ${s.missing.join(' | ')}`).toBe(true));
+      expect(st.every((s) => s.accuracy >= 0.92), slug).toBe(true);
+    }
+  });
+  it('تُكشف الأخطاء: وزن خاطئ، وبيض غير ناضج، وعدم التقديم', async () => {
+    const { parseSteps, detectSteps } = await import('../shared/kitchen/sim/guided.js');
+    const specs = parseSteps(RECIPE_BY_SLUG.get('bk-03')!.steps_original);
+    const c = new Cook();
+    const egg = c.take('egg', 60);
+    c.pour('water', 700, 'pot_small');
+    c.fire('pot_small', 1, 10);
+    c.until(() => c.vs('pot_small').T >= 99.5, 600);
+    c.add(egg, 'pot_small');
+    c.wait(120);
+    const st = detectSteps(specs, c.sim.snapshot());
+    expect(st[0]!.done).toBe(false);
+    expect(st[0]!.missing.join(' ')).toContain('وزن بيض');
+    expect(st[0]!.missing.join(' ')).toContain('لم ينضج');
+    expect(st[3]!.done).toBe(false);
+    expect(st.every((s) => !s.done)).toBe(true);
+  });
+  it('SimHost: التسريع يتقدم أسرع بالمقدار نفسه، ويُبطَّأ تلقائيًا عند الاحتراق/الفوران، والتراجع حتمي قبل الحرارة فقط', async () => {
+    const { SimHost } = await import('../shared/kitchen/sim/host.js');
+    const h = new SimHost(1);
+    h.apply({ type: 'pour', ingredient: 'milk', grams: 300, vessel: 'pot_small' });
+    h.apply({ type: 'place', vessel: 'pot_small', burner: 1 });
+    h.apply({ type: 'heat', burner: 1, level: 8 });
+    h.setSpeed(60);
+    let slowedAt = -1;
+    for (let i = 0; i < 400 && h.speed === 60; i++) {
+      h.tick(50);
+      if (h.speed === 1) slowedAt = h.sim.t;
+    }
+    expect(h.speed).toBe(1);
+    expect(h.autoSlowed?.type).toBe('boil_over');
+    expect(slowedAt).toBeGreaterThan(60);
+    expect(h.canUndo()).toBe(false);
+    const g = new SimHost(2);
+    const id = g.apply({ type: 'take', id: 'i1', ingredient: 'egg', grams: 100 });
+    void id;
+    g.apply({ type: 'prep', item: 'i1', action: 'whisk' });
+    g.tick(100);
+    const snapBefore = JSON.stringify(g.snapshot().items.map((i) => i.whisked));
+    expect(snapBefore).toBe('[true]');
+    expect(g.undo()).toBe(true);
+    expect(g.snapshot().items[0]!.whisked).toBe(false);
+    expect(g.ops).toHaveLength(1);
+    const repl = new SimHost(2, g.ops);
+    expect(JSON.stringify(repl.snapshot().items)).toBe(JSON.stringify(g.snapshot().items.map((i) => i)));
+  });
+});
