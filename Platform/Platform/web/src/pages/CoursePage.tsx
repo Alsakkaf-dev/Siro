@@ -3,13 +3,13 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { CourseCalcPanel } from '../widgets/CourseCalcPanel.js';
 import { GradeDialog } from '../widgets/AssessmentQuickActions.js';
-import { lib } from '../lib/api.js';
 import { libraryItemPath, type LibItem } from '../../../shared/library.js';
 import type { AcademicNote, Course } from '../../../shared/types.js';
 import { useSem } from '../core/sem-context.js';
 import { usePageTitle } from '../core/title.js';
 import { useApp } from '../core/app-context.js';
-import { api } from '../lib/api.js';
+import { api, lib } from '../lib/api.js';
+import { RelationsCard } from '../widgets/relations.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, IconButton, KebabMenu, Segmented, TrustTag, Unknown, cx } from '../ui/ui.js';
 import { AssessmentForm, CourseForm, NoteForm } from '../forms/lazy.js';
@@ -21,6 +21,7 @@ import { dueSortMs, weightSum } from '../../../shared/semester.js';
 import type { Assessment, AssessmentStatus } from '../../../shared/types.js';
 import { daysFrom, fmtNum, prettySchedule, relDays, whenText } from '../lib/format.js';
 import { EmptyState as _E } from '../ui/ui.js';
+import { AskAi } from '../ai/AskAi.js';
 
 type View = 'list' | 'table' | 'board';
 type Tab = 'overview' | 'materials' | 'calc' | 'notes';
@@ -77,14 +78,26 @@ export default function CoursePage() {
       toast((e as Error).message, { kind: 'error' });
     }
   };
+  // عملية واحدة على الخادم (معاملة + سجل نشاط) بدل طلب لكل عنصر
   const bulk = async (status: AssessmentStatus): Promise<void> => {
-    for (const id of sel) {
-      const a = items.find((x) => x.id === id);
-      if (a) await api.editAssessment(id, { status }).catch((e: Error) => toast(`${a.title}: ${e.message}`, { kind: 'error' }));
+    try {
+      const r = await api.bulkAssessments([...sel], 'status', status);
+      setSel(new Set());
+      await S.reload();
+      toast(`تم تحديث ${r.count} إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
     }
-    setSel(new Set());
-    await S.reload();
-    toast(`تم تحديث الحالة إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+  };
+  const bulkDelete = async (): Promise<void> => {
+    try {
+      const r = await api.bulkAssessments([...sel], 'delete');
+      setSel(new Set());
+      await S.reload();
+      toast(`حُذف ${r.count} تقييم — في سلة المحذوفات`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo!).then(() => S.reload()) } });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
   };
 
   const statusBadge = (a: Assessment) => {
@@ -139,6 +152,8 @@ export default function CoursePage() {
         crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: S.sem.code }, { to: `${base}/courses`, label: 'المواد' }, { label: course.code }]}
         actions={
           <>
+            <AskAi label="حلّل وضعي" prompt="حلّل وضعي في هذه المادة: ما حصلت عليه، ما تبقى، وكم أحتاج لأصل 70% و80%." send />
+            <AskAi label="التقاط ذكي" prompt={`استخرج التقييمات من النص التالي وأضفها لهذه المادة (${course.code}) — لا تخمّن أي وزن أو تاريخ غير مذكور:\n\n`} />
             <Button icon="edit" onClick={() => setEditCourse(true)}>تعديل المادة</Button>
             <Button icon="plus" variant="primary" onClick={() => setEdit('new')}>إضافة تقييم</Button>
           </>
@@ -198,6 +213,7 @@ export default function CoursePage() {
             <div className="bulkbar" role="toolbar" aria-label="إجراءات جماعية">
               <strong>{sel.size} محدد</strong>
               {STATUSES.filter((s) => s !== 'graded').map((s) => (<button key={s} className="btn sm" onClick={() => void bulk(s)}>تعيين: {STATUS_LABEL[s]}</button>))}
+              <button className="btn sm danger" onClick={() => void bulkDelete()}>حذف المحدد</button>
               <button className="btn sm ghost" onClick={() => setSel(new Set())}>إلغاء</button>
             </div>
           )}
@@ -231,6 +247,9 @@ export default function CoursePage() {
         </Card>
       )}
 
+      <div style={{ marginBlockStart: 'var(--s-6)' }}>
+        <RelationsCard refId={`acad:course:${course.id}`} />
+      </div>
       </>)}
 
       {gradeFor && <GradeDialog a={gradeFor} onClose={() => setGradeFor(null)} onDone={() => void S.reload()} />}

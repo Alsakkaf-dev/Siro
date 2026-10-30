@@ -9,10 +9,11 @@ import { AREAS, AREA_BY_ID, NEW_ACTIONS, PAGES, hrefFor, resolvePath, scoreText 
 import { Skeleton, cx, useDebounced } from '../ui/ui.js';
 import { normalizeText } from '../../../shared/text.js';
 import type { MoreHit, SearchHit } from '../../../shared/types.js';
+import { lib } from '../lib/api.js';
 
 interface Row { key: string; group: string; title: string; sub?: string; color?: string; icon?: IconName; to?: string; run?: () => void; score: number }
 
-const GROUPS: [MoreHit['kind'], string][] = [['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
+const GROUPS: [MoreHit['kind'], string][] = [['space', 'مساحاتي'], ['item', 'عناصر المساحات'], ['library', 'المكتبة'], ['youtube', 'YouTube'], ['life', 'الحياة'], ['sports', 'تمارين'], ['workout', 'تماريني'], ['glossary', 'المصطلحات']];
 // روابط الخادم القديمة تُصحَّح هنا مباشرة بدل المرور بالتحويل
 const fixTo = (to: string): string => to.replace(/^\/life\/glossary(?=[#?]|$)/, '/glossary');
 
@@ -28,7 +29,7 @@ export function orderRows(rows: Row[]): Row[] {
 }
 
 export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInputElement | null>; semId: string | null }) {
-  const { theme, setTheme, setShowShortcuts } = useApp();
+  const { theme, setTheme, setShowShortcuts, openCreate, openAi, toast } = useApp();
   const [q, setQ] = useState('');
   const dq = useDebounced(q.trim(), 160);
   const [hits, setHits] = useState<SearchHit[] | null>(null);
@@ -92,6 +93,11 @@ export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInp
     const misc: { id: string; title: string; icon: IconName; kw: string; to?: string; run?: () => void }[] = [
       { id: 'theme', title: theme === 'dark' ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن', icon: theme === 'dark' ? 'sun' : 'moon', kw: 'theme dark light مظهر داكن فاتح', run: () => setTheme(theme === 'dark' ? 'light' : 'dark') },
       { id: 'notify', title: 'إعدادات الإشعارات والمظهر', icon: 'bell', kw: 'notifications accent لون تنبيه اشعارات', to: '/settings#notify' },
+      { id: 'new-item', title: 'أنشئ عنصرًا في مساحاتي', icon: 'plus', kw: 'new item space task مهمة عنصر جديد اضافه انشئ', run: () => openCreate({ kind: 'quick-item' }) },
+      { id: 'new-space', title: 'أنشئ مساحة جديدة', icon: 'layers', kw: 'new space template مساحة قالب جديد انشئ', to: '/spaces/templates' },
+      { id: 'profile', title: 'الملف الشخصي (الاسم)', icon: 'user', kw: 'profile name اسم', to: '/settings#profile' },
+      { id: 'backup', title: 'خذ نسخة احتياطية الآن', icon: 'download', kw: 'backup now نسخة احتياطية', run: () => void api.backupNow().then((b) => toast(`تم إنشاء النسخة ${b.name}`, { kind: 'ok' })).catch((e: Error) => toast(e.message, { kind: 'error' })) },
+      { id: 'scan', title: 'افحص مجلد المكتبة الآن', icon: 'refresh', kw: 'scan library فحص مكتبة', run: () => void lib.scan().then(() => toast('بدأ فحص المكتبة', { kind: 'ok' })).catch((e: Error) => toast(e.message, { kind: 'error' })) },
       { id: 'keys', title: 'اختصارات لوحة المفاتيح', icon: 'hash', kw: 'shortcuts keyboard اختصارات', run: () => setShowShortcuts(true) },
     ];
     for (const c of misc) {
@@ -106,8 +112,14 @@ export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInp
       out.push({ key: `a-${h.id}`, group: h.type === 'course' ? 'المواد' : 'التقييمات', title: h.title, sub: [h.subtitle, h.semester_code].filter(Boolean).join(' · '), color: h.color, to: urlOf(h), score });
     }
     for (const [k, label] of GROUPS) more.filter((m) => m.kind === k).forEach((m) => out.push({ key: `${k}-${m.id}`, group: label, title: m.title, sub: m.subtitle, to: fixTo(m.to), score: 45 }));
+    // المساعد: جملة (3 كلمات فأكثر) = طلب ← أول صف؛ غير ذلك آخر صف
+    const text = q.trim();
+    if (text.length >= 2) {
+      const long = text.split(/\s+/).length >= 3;
+      out.push({ key: 'ai', group: 'المساعد', title: `اطلب من المساعد: «${text.length > 60 ? `${text.slice(0, 60)}…` : text}»`, sub: 'Ctrl+Enter', icon: 'sparkle', run: () => openAi({ prompt: text, send: true }), score: long ? 101 : 0 });
+    }
     return orderRows(out);
-  }, [nq, hits, more, semId, theme, setTheme, setShowShortcuts, loc.pathname, loc.search]);
+  }, [nq, q, hits, more, semId, theme, setTheme, setShowShortcuts, openCreate, openAi, toast, loc.pathname, loc.search]);
 
   const open = focus;
   const go = (r: Row | undefined): void => {
@@ -157,6 +169,9 @@ export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInp
           } else if (e.key === 'ArrowUp') {
             e.preventDefault();
             setSel((s) => Math.max(0, s - 1));
+          } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey) && q.trim()) {
+            e.preventDefault();
+            go(rows.find((r) => r.key === 'ai'));
           } else if (e.key === 'Enter') {
             go(rows[sel]);
           }

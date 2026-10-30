@@ -1,0 +1,2928 @@
+{
+ "pkg": "SEM-3",
+ "source_root": "Bachelor in Software Engineering",
+ "files": 584,
+ "bytes": 1198179679,
+ "entries": [
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/02-Lectures/Collected-Slides/ALL SPM.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Collected-Slides/ALL SPM.pdf",
+   "size": 5415658
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/02-Lectures/Collected-Slides/CH-06-B-Practical.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Collected-Slides/CH-06-B-Practical.pdf",
+   "size": 943332
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/06-Exams/Revison-By-Mohammed-Alsakkaf.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/06-Exams/Revison-By-Mohammed-Alsakkaf.pdf",
+   "size": 274391
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/07-Study-Notes/Q1a_WBS_LRC_StudentPortal_STUDY_SHEET.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/07-Study-Notes/Q1a_WBS_LRC_StudentPortal_STUDY_SHEET.pdf",
+   "size": 7396
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/07-Study-Notes/Q1b_EVM_STUDY_SHEET.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/07-Study-Notes/Q1b_EVM_STUDY_SHEET.pdf",
+   "size": 5056
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/07-Study-Notes/Q1c_BigFive_Personality_STUDY_SHEET.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/07-Study-Notes/Q1c_BigFive_Personality_STUDY_SHEET.pdf",
+   "size": 4080
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/CI/CI SCSE2133 SPM -V2.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/01-Course-Information/CI/CI SCSE2133 SPM -V2.pdf",
+   "size": 140487
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/ Case Study Documentation/HDC HIP 2.0 Project Charter v1.4.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/ Case Study Documentation/HDC HIP 2.0 Project Charter v1.4.pdf",
+   "size": 1388561
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/ Case Study Documentation/HIP Completion Report v1.3 FINAL.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/ Case Study Documentation/HIP Completion Report v1.3 FINAL.pdf",
+   "size": 17819936
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/Project Assessments/Assessment 1/Answer/HIP_Assignment_Report_G10 (1).pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/Project Assessments/Assessment 1/Answer/HIP_Assignment_Report_G10 (1).pdf",
+   "size": 573935
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/Project Assessments/Assessment 1/Assignment_1_UserStories_Development_HDC_HIP.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/Project Assessments/Assessment 1/Assignment_1_UserStories_Development_HDC_HIP.pdf",
+   "size": 260552
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/Project Assessments/Assessment 2/A2_Product_Backlog (1).pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/Project Assessments/Assessment 2/A2_Product_Backlog (1).pdf",
+   "size": 192941
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Project & Case Study/Project Assessments/Assessment 3/A3_TimeBox.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/05-Projects/Project & Case Study/Project Assessments/Assessment 3/A3_TimeBox.pdf",
+   "size": 197317
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/FINAL/Topic 6/CH 06 (A) - Practical Application of Agile PM Principles.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/FINAL/Topic 6/CH 06 (A) - Practical Application of Agile PM Principles.pdf",
+   "size": 1786646
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/FINAL/Topic 6/CH 06 (A2) - Practical Application of Agile PM Principles - Case Study.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/FINAL/Topic 6/CH 06 (A2) - Practical Application of Agile PM Principles - Case Study.pdf",
+   "size": 1382451
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/FINAL/Topic 6/topic 7/CH 06 (B) - Practical Application of Agile PM Principles W9 W10 (1).pptx",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/FINAL/Topic 6/topic 7/CH 06 (B) - Practical Application of Agile PM Principles W9 W10 (1).pptx",
+   "size": 2893604
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/FINAL/Topic 8/CH 08 - Software Project Estimation.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/FINAL/Topic 8/CH 08 - Software Project Estimation.pdf",
+   "size": 1376524
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/FINAL/Topic 9/CH 09 - Enterpreneurial Mindset.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/FINAL/Topic 9/CH 09 - Enterpreneurial Mindset.pdf",
+   "size": 2494737
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 1_/CH 01 Introduction to Software Project Managemen_rotated.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 1_/CH 01 Introduction to Software Project Managemen_rotated.pdf",
+   "size": 7435638
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 2_/CH 02 -Additional Notes - User Stories.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 2_/CH 02 -Additional Notes - User Stories.pdf",
+   "size": 1133832
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 2_/CH 02 -Software Agile Project Management Principle v2.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 2_/CH 02 -Software Agile Project Management Principle v2.pdf",
+   "size": 1438177
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 3/CH 03 - Software Agile Project Management Composition.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 3/CH 03 - Software Agile Project Management Composition.pdf",
+   "size": 1054530
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 4/CH 04 - Dynamic Systems Development Method Practices V2.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 4/CH 04 - Dynamic Systems Development Method Practices V2.pdf",
+   "size": 1555733
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/ SPM SCSE2133-03/Slides/TEST/CH 5_/CH 05 - Software Agile Planning and Control.pdf",
+   "dest": "SCSE2133-03 Software Process and Project Management/02-Lectures/Slides/TEST/CH 5_/CH 05 - Software Agile Planning and Control.pdf",
+   "size": 3001707
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/00-Semester-Records/2025-2026-Sem-1-Attendance-Verification.pdf",
+   "dest": "00-General/Semester-Records/2025-2026-Sem-1-Attendance-Verification.pdf",
+   "size": 197651
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/00-Semester-Records/2025-2026-Sem-1-Course-Registration.pdf",
+   "dest": "00-General/Semester-Records/2025-2026-Sem-1-Course-Registration.pdf",
+   "size": 60053
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/00-Semester-Records/2025-2026-Sem-1-Exam-Results.pdf",
+   "dest": "00-General/Semester-Records/2025-2026-Sem-1-Exam-Results.pdf",
+   "size": 62729
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/00-Semester-Records/2025-2026-Sem-1-Examination-Result-Letter.pdf",
+   "dest": "00-General/Semester-Records/2025-2026-Sem-1-Examination-Result-Letter.pdf",
+   "size": 151500
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/00-Semester-Records/ULRS1022_FALSAFAH DAN ISU SEMASA terkini 29 Sep 2025.docx",
+   "dest": "00-General/Semester-Records/ULRS1022_FALSAFAH DAN ISU SEMASA terkini 29 Sep 2025.docx",
+   "size": 48538
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/01-Course-Information/SECJ2013 Data Structure and Algorithm.html",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/01-Course-Information/SECJ2013 Data Structure and Algorithm.html",
+   "size": 464
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/02-Lectures/DSA.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/DSA.pdf",
+   "size": 577138
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/02-Lectures/ff.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/ff.pdf",
+   "size": 1478674
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Linked-Lists-and-Stacks/Circular_Doubly_LL.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Linked-Lists-and-Stacks/Circular_Doubly_LL.cpp",
+   "size": 3150
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Linked-Lists-and-Stacks/Doubly_LL.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Linked-Lists-and-Stacks/Doubly_LL.cpp",
+   "size": 2833
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Linked-Lists-and-Stacks/Stack.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Linked-Lists-and-Stacks/Stack.cpp",
+   "size": 237
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Linked-Lists-and-Stacks/circular_LL.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Linked-Lists-and-Stacks/circular_LL.cpp",
+   "size": 2913
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Linked-Lists-and-Stacks/singly_LL.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Linked-Lists-and-Stacks/singly_LL.cpp",
+   "size": 2560
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Search-Techniques-Cpp/Binary.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Search-Techniques-Cpp/Binary.cpp",
+   "size": 514
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Search-Techniques-Cpp/Sequential.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Search-Techniques-Cpp/Sequential.cpp",
+   "size": 846
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Test-02-Final-Practice/Test2-2cl.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Test-02-Final-Practice/Test2-2cl.cpp",
+   "size": 4002
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Test-02-Final-Practice/Test2-2cl.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Test-02-Final-Practice/Test2-2cl.exe",
+   "size": 152644
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/03-Labs/Test-02-Final-Practice/tempCodeRunnerFile.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/Test-02-Final-Practice/tempCodeRunnerFile.cpp",
+   "size": 117
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Archive-Packages/inventory_management_system-master.zip",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Archive-Packages/inventory_management_system-master.zip",
+   "size": 46552165
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/CMakeLists.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/CMakeLists.txt",
+   "size": 133
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/README.md",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/README.md",
+   "size": 171
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeCache.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeCache.txt",
+   "size": 15492
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeCCompiler.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeCCompiler.cmake",
+   "size": 3230
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeCXXCompiler.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeCXXCompiler.cmake",
+   "size": 6581
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeDetermineCompilerABI_C.bin",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeDetermineCompilerABI_C.bin",
+   "size": 49664
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeDetermineCompilerABI_CXX.bin",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeDetermineCompilerABI_CXX.bin",
+   "size": 49664
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeRCCompiler.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeRCCompiler.cmake",
+   "size": 276
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeSystem.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CMakeSystem.cmake",
+   "size": 395
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.c",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.c",
+   "size": 29602
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.exe",
+   "size": 105472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdC/CMakeCCompilerId.obj",
+   "size": 1979
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+   "size": 30429
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.exe",
+   "size": 105472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/4.1.2/CompilerIdCXX/CMakeCXXCompilerId.obj",
+   "size": 2046
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml",
+   "size": 117870
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXX.dd",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXX.dd",
+   "size": 90
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXXDependInfo.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXXDependInfo.json",
+   "size": 991
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXXModules.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/CXXModules.json",
+   "size": 59
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/embed.manifest",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/embed.manifest",
+   "size": 406
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/intermediate.manifest",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/intermediate.manifest",
+   "size": 381
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/main.cpp.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/main.cpp.obj",
+   "size": 2050659
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/main.cpp.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/main.cpp.obj.ddi",
+   "size": 417
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/manifest.rc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/manifest.rc",
+   "size": 211
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/manifest.res",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/manifest.res",
+   "size": 472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/vc140.pdb",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/DSA_Assignment_2.dir/vc140.pdb",
+   "size": 798720
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/InstallScripts.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/InstallScripts.json",
+   "size": 156
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/foo.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/foo.h",
+   "size": 2
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/main.c",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/main.c",
+   "size": 33
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/main.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/ShowIncludes/main.obj",
+   "size": 670
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/TargetDirectories.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/TargetDirectories.txt",
+   "size": 309
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/clion-Debug-log.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/clion-Debug-log.txt",
+   "size": 1162
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/clion-environment.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/clion-environment.txt",
+   "size": 229
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/cmake.check_cache",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/cmake.check_cache",
+   "size": 86
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/rules.ninja",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/CMakeFiles/rules.ninja",
+   "size": 4202
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.exe",
+   "size": 1207296
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.ilk",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.ilk",
+   "size": 4445100
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.pdb",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/DSA_Assignment_2.pdb",
+   "size": 7041024
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/Inventory.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/Inventory.txt",
+   "size": 148
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/Testing/Temporary/LastTest.log",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/Testing/Temporary/LastTest.log",
+   "size": 176
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/build.ninja",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/build.ninja",
+   "size": 30041
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/cmake_install.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/cmake-build-debug/cmake_install.cmake",
+   "size": 2017
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/DSA-Assignment-02/main.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/DSA-Assignment-02/main.cpp",
+   "size": 18172
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/InputValidator.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/InputValidator.h",
+   "size": 1948
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/Inventory.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/Inventory.txt",
+   "size": 148
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/Item.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/Item.h",
+   "size": 837
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/List.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/List.h",
+   "size": 3093
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/PriorityQueue.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/PriorityQueue.h",
+   "size": 3181
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/TxtUtils.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/TxtUtils.h",
+   "size": 1828
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/User.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/User.h",
+   "size": 582
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/algorithm.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/algorithm.h",
+   "size": 440
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/main.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/main.cpp",
+   "size": 14680
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/main.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/main.exe",
+   "size": 661296
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/InventorySystem/run.bat",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/InventorySystem/run.bat",
+   "size": 99
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeCache.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeCache.txt",
+   "size": 15436
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeCCompiler.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeCCompiler.cmake",
+   "size": 3228
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeCXXCompiler.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeCXXCompiler.cmake",
+   "size": 6579
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeDetermineCompilerABI_C.bin",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeDetermineCompilerABI_C.bin",
+   "size": 49664
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeDetermineCompilerABI_CXX.bin",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CMakeDetermineCompilerABI_CXX.bin",
+   "size": 49664
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.c",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.c",
+   "size": 28653
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.exe",
+   "size": 105472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdC/CMakeCCompilerId.obj",
+   "size": 1975
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.cpp",
+   "size": 29505
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.exe",
+   "size": 105472
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/4.0.2/CompilerIdCXX/CMakeCXXCompilerId.obj",
+   "size": 2042
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/CMakeConfigureLog.yaml",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/CMakeConfigureLog.yaml",
+   "size": 11638
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/InstallScripts.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/InstallScripts.json",
+   "size": 153
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/ShowIncludes/main.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/ShowIncludes/main.obj",
+   "size": 666
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/TargetDirectories.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/TargetDirectories.txt",
+   "size": 311
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/clion-Debug-Visual Studio-log.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/clion-Debug-Visual Studio-log.txt",
+   "size": 433
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXX.dd",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXX.dd",
+   "size": 6744
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXXDependInfo.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXXDependInfo.json",
+   "size": 7381
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXXModules.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/CXXModules.json",
+   "size": 10085
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AdminController.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AdminController.ifc",
+   "size": 3940227
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AuthController.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.AuthController.ifc",
+   "size": 4053379
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.InventoryController.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/controller.InventoryController.ifc",
+   "size": 3921807
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/manifest.rc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/manifest.rc",
+   "size": 219
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.Stock.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.Stock.ifc",
+   "size": 3740968
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.User.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.User.ifc",
+   "size": 3740771
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.UserRole.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/model.UserRole.ifc",
+   "size": 1044
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.InventoryRepository.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.InventoryRepository.ifc",
+   "size": 6323569
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.UserRepository.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/repository.UserRepository.ifc",
+   "size": 3923940
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AdminService.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AdminService.ifc",
+   "size": 3940348
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AuthService.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.AuthService.ifc",
+   "size": 4053554
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.InventoryService.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/service.InventoryService.ifc",
+   "size": 3941985
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj",
+   "size": 64043
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj.ddi",
+   "size": 1054
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AdminController.cppm.obj.modmap",
+   "size": 872
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj",
+   "size": 71555
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj.ddi",
+   "size": 1051
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/AuthController.cppm.obj.modmap",
+   "size": 655
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj",
+   "size": 61626
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj.ddi",
+   "size": 1078
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/controller/InventoryController.cppm.obj.modmap",
+   "size": 775
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj",
+   "size": 50476
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj.ddi",
+   "size": 1663
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/main.cpp.obj.modmap",
+   "size": 1794
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj",
+   "size": 178670
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj.ddi",
+   "size": 777
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/Stock.cppm.obj.modmap",
+   "size": 83
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj",
+   "size": 173713
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj.ddi",
+   "size": 878
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/User.cppm.obj.modmap",
+   "size": 171
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj",
+   "size": 1096
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj.ddi",
+   "size": 792
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/model/UserRole.cppm.obj.modmap",
+   "size": 86
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj",
+   "size": 276590
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj.ddi",
+   "size": 1167
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/InventoryRepository.cppm.obj.modmap",
+   "size": 545
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj",
+   "size": 202404
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj.ddi",
+   "size": 1138
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/repository/UserRepository.cppm.obj.modmap",
+   "size": 445
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj",
+   "size": 152978
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj.ddi",
+   "size": 1137
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AdminService.cppm.obj.modmap",
+   "size": 765
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj",
+   "size": 112817
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj.ddi",
+   "size": 1116
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/AuthService.cppm.obj.modmap",
+   "size": 550
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj",
+   "size": 102592
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj.ddi",
+   "size": 1150
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/service/InventoryService.cppm.obj.modmap",
+   "size": 660
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj",
+   "size": 159268
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj.ddi",
+   "size": 910
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/Algorithm.cppm.obj.modmap",
+   "size": 172
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj",
+   "size": 266775
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj.ddi",
+   "size": 832
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/InputValidator.cppm.obj.modmap",
+   "size": 94
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj",
+   "size": 552785
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj.ddi",
+   "size": 1089
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/utility/TxtUtils.cppm.obj.modmap",
+   "size": 342
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj",
+   "size": 1636235
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj.ddi",
+   "size": 1197
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AdminView.cppm.obj.modmap",
+   "size": 1078
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj",
+   "size": 176130
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj.ddi",
+   "size": 1284
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/AuthView.cppm.obj.modmap",
+   "size": 1705
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj",
+   "size": 1642784
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj.ddi",
+   "size": 1221
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/InventoryView.cppm.obj.modmap",
+   "size": 989
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj",
+   "size": 1527371
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj.ddi",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj.ddi",
+   "size": 892
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj.modmap",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/src/view/MainView.cppm.obj.modmap",
+   "size": 1792
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.Algorithm.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.Algorithm.ifc",
+   "size": 3131746
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.InputValidator.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.InputValidator.ifc",
+   "size": 6516410
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.TxtParser.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/utility.TxtParser.ifc",
+   "size": 7596158
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/vc140.pdb",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/vc140.pdb",
+   "size": 970752
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AdminView.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AdminView.ifc",
+   "size": 6664579
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AuthView.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.AuthView.ifc",
+   "size": 6509005
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.InventoryView.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.InventoryView.ifc",
+   "size": 6669068
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.MainView.ifc",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/inventory_management_system.dir/view.MainView.ifc",
+   "size": 92698
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/rules.ninja",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/CMakeFiles/rules.ninja",
+   "size": 4255
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/Testing/Temporary/LastTest.log",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/Testing/Temporary/LastTest.log",
+   "size": 176
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/build.ninja",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/build.ninja",
+   "size": 47589
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/cmake_install.cmake",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/cmake_install.cmake",
+   "size": 2005
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.exe",
+   "size": 1286144
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.ilk",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.ilk",
+   "size": 6255608
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.pdb",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Main/cmake-build-debug-visual-studio/inventory_management_system.pdb",
+   "size": 7819264
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/CMakeLists.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/CMakeLists.txt",
+   "size": 1087
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/CMakeSettings.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/CMakeSettings.json",
+   "size": 391
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/README.md",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/README.md",
+   "size": 316
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/inventory-management-system.zip",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/inventory-management-system.zip",
+   "size": 30840530
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/AdminController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/AdminController.cppm",
+   "size": 1357
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/AuthController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/AuthController.cppm",
+   "size": 447
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/InventoryController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/controller/InventoryController.cppm",
+   "size": 1091
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/data/Inventory.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/data/Inventory.txt",
+   "size": 147
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/data/User.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/data/User.txt",
+   "size": 32
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/main.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/main.cpp",
+   "size": 1033
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/Stock.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/Stock.cppm",
+   "size": 737
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/User.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/User.cppm",
+   "size": 593
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/UserRole.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/model/UserRole.cppm",
+   "size": 76
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/repository/InventoryRepository.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/repository/InventoryRepository.cppm",
+   "size": 1687
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/repository/UserRepository.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/repository/UserRepository.cppm",
+   "size": 426
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/AdminService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/AdminService.cppm",
+   "size": 1805
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/AuthService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/AuthService.cppm",
+   "size": 672
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/InventoryService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/service/InventoryService.cppm",
+   "size": 1319
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/Algorithm.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/Algorithm.cppm",
+   "size": 696
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/InputValidator.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/InputValidator.cppm",
+   "size": 1459
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/TxtUtils.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/utility/TxtUtils.cppm",
+   "size": 2516
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/AdminView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/AdminView.cppm",
+   "size": 9088
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/AuthView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/AuthView.cppm",
+   "size": 1406
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/InventoryView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/InventoryView.cppm",
+   "size": 9972
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/MainView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Assignment 1 DSA/src/view/MainView.cppm",
+   "size": 1194
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Master-Copy/Source-Code.zip",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Master-Copy/Source-Code.zip",
+   "size": 3480721
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/CMakeLists.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/CMakeLists.txt",
+   "size": 1124
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/CMakeSettings.json",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/CMakeSettings.json",
+   "size": 405
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/README.md",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/README.md",
+   "size": 326
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/controller/AdminController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/controller/AdminController.cppm",
+   "size": 1414
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/controller/AuthController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/controller/AuthController.cppm",
+   "size": 469
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/controller/InventoryController.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/controller/InventoryController.cppm",
+   "size": 1138
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/data/Inventory.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/data/Inventory.txt",
+   "size": 156
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/data/User.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/data/User.txt",
+   "size": 33
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/model/Stock.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/model/Stock.cppm",
+   "size": 768
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/model/User.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/model/User.cppm",
+   "size": 620
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/model/UserRole.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/model/UserRole.cppm",
+   "size": 82
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/repository/InventoryRepository.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/repository/InventoryRepository.cppm",
+   "size": 889
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/repository/UserRepository.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/repository/UserRepository.cppm",
+   "size": 461
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/service/AdminService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/service/AdminService.cppm",
+   "size": 1749
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/service/AuthService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/service/AuthService.cppm",
+   "size": 698
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/service/InventoryService.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/service/InventoryService.cppm",
+   "size": 1375
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/utility/Algorithm.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/utility/Algorithm.cppm",
+   "size": 1136
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/utility/InputValidator.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/utility/InputValidator.cppm",
+   "size": 1512
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/utility/TxtUtils.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/utility/TxtUtils.cppm",
+   "size": 2661
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/view/AdminView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/view/AdminView.cppm",
+   "size": 9364
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/view/AuthView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/view/AuthView.cppm",
+   "size": 1465
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/view/InventoryView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/view/InventoryView.cppm",
+   "size": 10263
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/Inventory-Management/Saved-Copy/src/view/MainView.cppm",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/Inventory-Management/Saved-Copy/src/view/MainView.cppm",
+   "size": 1231
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/oEKlvJZL28aLvxq0-1764747371.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/oEKlvJZL28aLvxq0-1764747371.pdf",
+   "size": 6379228
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/05-Projects/project DSA.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/project DSA.pdf",
+   "size": 1622723
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Archive-Packages/DSA-Past-Exams-2025-12-30.zip",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Archive-Packages/DSA-Past-Exams-2025-12-30.zip",
+   "size": 2695942
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final-1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final-1.pdf",
+   "size": 566881
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final_1_6.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final_1_6.pdf",
+   "size": 635438
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final_3_12.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final_3_12.pdf",
+   "size": 531014
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final_4_10.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final_4_10.pdf",
+   "size": 994815
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final_5_14.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final_5_14.pdf",
+   "size": 1014299
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Final/Final_6_6.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Final/Final_6_6.pdf",
+   "size": 3727487
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Past-Finals/SCJ2013_Final_20152016 DSA.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Past-Finals/SCJ2013_Final_20152016 DSA.pdf",
+   "size": 409489
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Past-Finals/SCJ2013_Final_Skima_FullVersion_2017.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Past-Finals/SCJ2013_Final_Skima_FullVersion_2017.pdf",
+   "size": 325327
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Past-Finals/SCSJ2013 Final - 1617 2.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Past-Finals/SCSJ2013 Final - 1617 2.pdf",
+   "size": 385695
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Past-Finals/SCSJ2013 Final - 1718 1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Past-Finals/SCSJ2013 Final - 1718 1.pdf",
+   "size": 400277
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/06-Exams/Past-Finals/SCSJ2013 Final - 1718 2.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/Past-Finals/SCSJ2013 Final - 1718 2.pdf",
+   "size": 303500
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/07-Study-Notes/DSA-Lecture-Compilation-249-Pages.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/07-Study-Notes/DSA-Lecture-Compilation-249-Pages.pdf",
+   "size": 10686824
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/COURCE INFO/SCSE2103 Data Structure Algorithm signed (1).pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/01-Course-Information/COURCE INFO/SCSE2103 Data Structure Algorithm signed (1).pdf",
+   "size": 552066
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/FINAL EXAM/DSA-24251-FinalExam-Rev1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/FINAL EXAM/DSA-24251-FinalExam-Rev1.pdf",
+   "size": 266032
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/MyProgram.exe",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/MyProgram.exe",
+   "size": 181332
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/Student.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/Student.cpp",
+   "size": 2144
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/Student.h",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/Student.h",
+   "size": 564
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/main.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/main.cpp",
+   "size": 635
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/result.jpg",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/result.jpg",
+   "size": 120117
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/results.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/results.txt",
+   "size": 121
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Answer/students.txt",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Answer/students.txt",
+   "size": 25
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 1/Lab_Exercise_2_File_Handling_Student_Marks.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 1/Lab_Exercise_2_File_Handling_Student_Marks.pdf",
+   "size": 79765
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Answer/Circular Doubly LL.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Answer/Circular Doubly LL.docx",
+   "size": 15779
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Answer/Doubly LL.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Answer/Doubly LL.docx",
+   "size": 16200
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Answer/circular LL.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Answer/circular LL.docx",
+   "size": 16240
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Answer/singly LL .docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Answer/singly LL .docx",
+   "size": 15909
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Circular Doubly LL (1).docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Circular Doubly LL (1).docx",
+   "size": 15779
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/Doubly LL.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/Doubly LL.docx",
+   "size": 16200
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/SCSJ2013 Test 2 20202021 Q1 (Set 1).pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/SCSJ2013 Test 2 20202021 Q1 (Set 1).pdf",
+   "size": 783316
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/circular LL.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/circular LL.docx",
+   "size": 16240
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 2/singly LL .docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 2/singly LL .docx",
+   "size": 15909
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 3/Answer/Test2-1cs (2).cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 3/Answer/Test2-1cs (2).cpp",
+   "size": 5167
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 3/Answer/Test2-2cs.cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 3/Answer/Test2-2cs.cpp",
+   "size": 3438
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 3/DSA-24251-Test2-cscl.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 3/DSA-24251-Test2-cscl.pdf",
+   "size": 146165
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 3/Test2-1cs (1).cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 3/Test2-1cs (1).cpp",
+   "size": 3925
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/LAB-EXERCISE/Lab 3/Test2-2cl (1).cpp",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/03-Labs/LAB-EXERCISE/Lab 3/Test2-2cl (1).cpp",
+   "size": 3221
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/PAST YEAR TEST/DSA-24251-Test1-Rev1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/PAST YEAR TEST/DSA-24251-Test1-Rev1.pdf",
+   "size": 305864
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/PAST YEAR TEST/SECJ2013_Test1 Sem120222023 v3 SET A.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/06-Exams/PAST YEAR TEST/SECJ2013_Test1 Sem120222023 v3 SET A.pdf",
+   "size": 594770
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/PROJECT/Files/Mini Project DSA.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/PROJECT/Files/Mini Project DSA.pdf",
+   "size": 196088
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/PROJECT/Files/SOFTWARE DOCUMENT TEMPLATE. v2021_1.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/05-Projects/PROJECT/Files/SOFTWARE DOCUMENT TEMPLATE. v2021_1.docx",
+   "size": 201929
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 10_/Sample Tree/tree1.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 10_/Sample Tree/tree1.docx",
+   "size": 13695
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 10_/Sample Tree/tree2.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 10_/Sample Tree/tree2.docx",
+   "size": 13985
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 10_/mod10-BinarySearchTree.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 10_/mod10-BinarySearchTree.pdf",
+   "size": 942411
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 10_/mod10-Tree.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 10_/mod10-Tree.pdf",
+   "size": 998524
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 6_/DSA Chapter 6 - Searching- Part  2_plain slides.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 6_/DSA Chapter 6 - Searching- Part  2_plain slides.pdf",
+   "size": 1152407
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 6_/DSA Chapter 6 - Searching-Part 1_plain slides.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 6_/DSA Chapter 6 - Searching-Part 1_plain slides.pdf",
+   "size": 1186701
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 7/DSA-Chapter 7 - Linked List.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 7/DSA-Chapter 7 - Linked List.pdf",
+   "size": 2581881
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 8/DSA Chapter 8-STACK (1).pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 8/DSA Chapter 8-STACK (1).pdf",
+   "size": 1705049
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 9/DSA- Chapter 9 QUEUE Part 2_Plain Slides.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 9/DSA- Chapter 9 QUEUE Part 2_Plain Slides.pdf",
+   "size": 1158092
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 9/DSA-Chapter 9 QUEUE Part 1_Plain Slide.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 9/DSA-Chapter 9 QUEUE Part 1_Plain Slide.pdf",
+   "size": 1063743
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 9/codes/CIRCULAR QUEUE LINKED LIST.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 9/codes/CIRCULAR QUEUE LINKED LIST.docx",
+   "size": 14070
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/FINAL_/CH 9/codes/Circular Queue implementation in C.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/FINAL_/CH 9/codes/Circular Queue implementation in C.docx",
+   "size": 14458
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/LAB TEST/CH 7_/DSA-Chapter 7 - Linked List.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/LAB TEST/CH 7_/DSA-Chapter 7 - Linked List.pdf",
+   "size": 2581881
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/LAB TEST/CH 8_/DSA Chapter 8-STACK.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/LAB TEST/CH 8_/DSA Chapter 8-STACK.pdf",
+   "size": 1705049
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/LAB TEST/CH 8_/codes/CONVERT INFIX TO POSTFIX.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/LAB TEST/CH 8_/codes/CONVERT INFIX TO POSTFIX.docx",
+   "size": 13879
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/LAB TEST/CH 8_/codes/Stack Sample Code.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/LAB TEST/CH 8_/codes/Stack Sample Code.docx",
+   "size": 16768
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 1/Data Structure and Algorithm Chapter 1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 1/Data Structure and Algorithm Chapter 1.pdf",
+   "size": 2750665
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 2/Data Structure and Algorithm Chapter 2A.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 2/Data Structure and Algorithm Chapter 2A.pdf",
+   "size": 9730576
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 2/Data Structure and Algorithm Chapter 2B.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 2/Data Structure and Algorithm Chapter 2B.pdf",
+   "size": 6147631
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 2/Tutorial 1/Tutorial 1.docx",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 2/Tutorial 1/Tutorial 1.docx",
+   "size": 7818
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 2/Tutorial 1/tutorial 1.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 2/Tutorial 1/tutorial 1.pdf",
+   "size": 268966
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 3/topic 3 recursive.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 3/topic 3 recursive.pdf",
+   "size": 1897992
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 4/Data Structure and Algorithm Chapter 4.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 4/Data Structure and Algorithm Chapter 4.pdf",
+   "size": 1093040
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 5/DSA-chap5-advanced sort.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 5/DSA-chap5-advanced sort.pdf",
+   "size": 2295892
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/DSA SCSE2103-03/slides/TEST/CH 5/DSA-chap5-simple sort.pdf",
+   "dest": "SCSE2103-03 Data Structure and Algorithm/02-Lectures/slides/TEST/CH 5/DSA-chap5-simple sort.pdf",
+   "size": 3306814
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/01-Course-Information/SECV2113 Human Computer Interaction.html",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/01-Course-Information/SECV2113 Human Computer Interaction.html",
+   "size": 460
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/02-Lectures/03b Interface Types_merged.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/03b Interface Types_merged.pdf",
+   "size": 64166579
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/04-Assignments/Task-02-Login-Interface-Wireframes.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/04-Assignments/Task-02-Login-Interface-Wireframes.pdf",
+   "size": 1826419
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-HTML-Prototype/!DOCTYPE.html",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Digital-Twin-HTML-Prototype/!DOCTYPE.html",
+   "size": 6146
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-Interface-Sketches.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Digital-Twin-Interface-Sketches.pdf",
+   "size": 1330862
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-User-Scenarios-Draft.docx",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Digital-Twin-User-Scenarios-Draft.docx",
+   "size": 9387
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Digital-Twin-User-Scenarios.docx",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Digital-Twin-User-Scenarios.docx",
+   "size": 9387
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Project/P3/Answer/5881b844-e8a1-49be-8ee8-92583c79b082.jpg",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Answer/5881b844-e8a1-49be-8ee8-92583c79b082.jpg",
+   "size": 52667
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Project/P3/Answer/HCI-Fund SCSyy2113-01 (1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Answer/HCI-Fund SCSyy2113-01 (1).pdf",
+   "size": 57314429
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Project/P3/Answer/HCI-storryboardsd.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Answer/HCI-storryboardsd.pdf",
+   "size": 104277332
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Project/P3/Answer/current/Part-3.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Answer/current/Part-3.pdf",
+   "size": 452671
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Project Proposal HCI.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project Proposal HCI.pdf",
+   "size": 3124661
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 0 – 1.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 0 – 1.png",
+   "size": 86176
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 0– 2.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 0– 2.png",
+   "size": 114118
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 1.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 1.png",
+   "size": 123234
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 2.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 2.png",
+   "size": 110984
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 3.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 3.png",
+   "size": 172822
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 4.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 4.png",
+   "size": 140234
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/Screen 5.png",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Screen 5.png",
+   "size": 151172
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/05-Projects/TASK 2 MOHAMMED ALSAKKAF HCI.mp4",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/TASK 2 MOHAMMED ALSAKKAF HCI.mp4",
+   "size": 32516593
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/Archive-Packages/HCI-Past-Exams-2026-01-19.zip",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/Archive-Packages/HCI-Past-Exams-2026-01-19.zip",
+   "size": 30997819
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/HCI Final Exam - 1415.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/HCI Final Exam - 1415.pdf",
+   "size": 194202
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/HCI Final Exam - 1617.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/HCI Final Exam - 1617.pdf",
+   "size": 6744794
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/HCI Final Exam - 1718.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/HCI Final Exam - 1718.pdf",
+   "size": 27440750
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/HCI Final Exam 1718(2).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/HCI Final Exam 1718(2).pdf",
+   "size": 354378
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/HCI Final Exam Sample Question - 2017.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/HCI Final Exam Sample Question - 2017.pdf",
+   "size": 45601
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/06-Exams/ex-qs-disregard-total-marks.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/06-Exams/ex-qs-disregard-total-marks.pdf",
+   "size": 548624
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/07-Study-Notes/Final-Preparation/HCI FINAL Preparation.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/07-Study-Notes/Final-Preparation/HCI FINAL Preparation.pdf",
+   "size": 446541
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/07-Study-Notes/Final-Preparation/SCSM2113 FE brief (1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/07-Study-Notes/Final-Preparation/SCSM2113 FE brief (1).pdf",
+   "size": 1163859
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/07-Study-Notes/HCI-Exam-Preparation-Conversation.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/07-Study-Notes/HCI-Exam-Preparation-Conversation.pdf",
+   "size": 1064281
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/07-Study-Notes/HCI-Final-Revision-Compilation-130-Pages.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/07-Study-Notes/HCI-Final-Revision-Compilation-130-Pages.pdf",
+   "size": 2977712
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/07-Study-Notes/HCI-Final-Revision-Compilation-166-Pages.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/07-Study-Notes/HCI-Final-Revision-Compilation-166-Pages.pdf",
+   "size": 38107730
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/CI/SCSM2113-HCI Fundamentals signed.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/01-Course-Information/CI/SCSM2113-HCI Fundamentals signed.pdf",
+   "size": 391117
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P1/Answer/HCI-Fund SCSM2113-01.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P1/Answer/HCI-Fund SCSM2113-01.pdf",
+   "size": 40726999
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P1/Answer/Project Proposal HCI.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P1/Answer/Project Proposal HCI.pdf",
+   "size": 3124661
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P1/Template/HCI 20252026-1 Proposal.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P1/Template/HCI 20252026-1 Proposal.pdf",
+   "size": 310233
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P1/Template/Teams.docx",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P1/Template/Teams.docx",
+   "size": 17856
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P2/Answer/Project Proposal 2.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P2/Answer/Project Proposal 2.pdf",
+   "size": 3053981
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P2/Template/HCI 20252026-1 02 - Establishing Requirements.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P2/Template/HCI 20252026-1 02 - Establishing Requirements.pdf",
+   "size": 317263
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P3/Answer/Project Part 3 (1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Answer/Project Part 3 (1).pdf",
+   "size": 9545497
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P3/Template/HCI 20252026-1 03 - Conceptual  Physical Design.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/Template/HCI 20252026-1 03 - Conceptual  Physical Design.pdf",
+   "size": 293860
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Project/P3/example/HCI_Project 3 by Team Rocket (2).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/05-Projects/Project/P3/example/HCI_Project 3 by Team Rocket (2).pdf",
+   "size": 2118896
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 10/10 Data Analysis.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 10/10 Data Analysis.pdf",
+   "size": 2050946
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 7/07a Design part 1 - metaphors_IA.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 7/07a Design part 1 - metaphors_IA.pdf",
+   "size": 583068
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 7/07b Design part 2 -Visual Design Principles.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 7/07b Design part 2 -Visual Design Principles.pdf",
+   "size": 3174932
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 7/07c Design part 3 -  UI Elements.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 7/07c Design part 3 -  UI Elements.pdf",
+   "size": 921626
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 8/08 Prototyping Construction.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 8/08 Prototyping Construction.pdf",
+   "size": 3778941
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 9/09a Intro Evaluation.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 9/09a Intro Evaluation.pdf",
+   "size": 296262
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 9/09b How Tos.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 9/09b How Tos.pdf",
+   "size": 1114977
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/FINAL/TOPIC 9/09c Other evaluation types.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/FINAL/TOPIC 9/09c Other evaluation types.pdf",
+   "size": 1132349
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/ABOUT TEST/Mid Sem Exam - SCSM2113.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/ABOUT TEST/Mid Sem Exam - SCSM2113.pdf",
+   "size": 50911
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/TOPIC 6/06 More on Personas, Scenarios, Tasks.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/TOPIC 6/06 More on Personas, Scenarios, Tasks.pdf",
+   "size": 2354607
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 1/01 - Introduction to HCI (Part 1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 1/01 - Introduction to HCI (Part 1).pdf",
+   "size": 7909967
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 1/01 - Introduction to HCI (Part 2).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 1/01 - Introduction to HCI (Part 2).pdf",
+   "size": 3018200
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 2/02a Cognitive Aspects (1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 2/02a Cognitive Aspects (1).pdf",
+   "size": 2823032
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 2/02b Emotional Interaction (1).pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 2/02b Emotional Interaction (1).pdf",
+   "size": 6626042
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 3/03a Conceptualising interaction.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 3/03a Conceptualising interaction.pdf",
+   "size": 1534899
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 3/03b Interface Types.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 3/03b Interface Types.pdf",
+   "size": 8832160
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 3/03c Social Interaction.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 3/03c Social Interaction.pdf",
+   "size": 9102001
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 4/02 Interaction Design Process.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 4/02 Interaction Design Process.pdf",
+   "size": 1710960
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 5/05a Data Gathering.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 5/05a Data Gathering.pdf",
+   "size": 1366768
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/HCIF SCSM2113-01/Slides/TEST/Topic 5/05b Discovering Requirements.pdf",
+   "dest": "SCSM2113-01 Human Computer Interaction Fundamentals/02-Lectures/Slides/TEST/Topic 5/05b Discovering Requirements.pdf",
+   "size": 5918057
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/01-Course-Information/SECR2043-Operating Systems.html",
+   "dest": "SCSR2043-01 Operating Systems/01-Course-Information/SECR2043-Operating Systems.html",
+   "size": 442
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-05/Chapter 5 (Part 1) - detail.xlsx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Chapter-05/Chapter 5 (Part 1) - detail.xlsx",
+   "size": 63531
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-05/بلا عنوان.docx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Chapter-05/بلا عنوان.docx",
+   "size": 6662
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-07/Ch-7-Process-Cotion---Deadlocks.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Chapter-07/Ch-7-Process-Cotion---Deadlocks.pdf",
+   "size": 1978919
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-08/(Ch 8 Memory- Management Strategies).pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Chapter-08/(Ch 8 Memory- Management Strategies).pdf",
+   "size": 2452034
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Chapter-11/Slides.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Chapter-11/Slides.pdf",
+   "size": 2300661
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/Collected-Slides/11-File-System-Implementation.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/Collected-Slides/11-File-System-Implementation.pdf",
+   "size": 2185553
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/02-Lectures/OS.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/OS.pdf",
+   "size": 698882
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/03-Labs/WorkShop/OS-StudyGuide.pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/WorkShop/OS-StudyGuide.pdf",
+   "size": 938831
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/03-Labs/WorkShop/Tutorials/Management-Sem-1-2025-2026.pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/WorkShop/Tutorials/Management-Sem-1-2025-2026.pdf",
+   "size": 1349648
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/03-Labs/WorkShop/questions/Commands-Exercise---2025-v01-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/WorkShop/questions/Commands-Exercise---2025-v01-1.pdf",
+   "size": 951246
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/05-Projects/Algorithm-FIFO-LRU-2.pdf",
+   "dest": "SCSR2043-01 Operating Systems/05-Projects/Algorithm-FIFO-LRU-2.pdf",
+   "size": 373756
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Archive-Packages/OS-Scheduling-Notes-2025-11-23.zip",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Archive-Packages/OS-Scheduling-Notes-2025-11-23.zip",
+   "size": 4140217
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/22231 - Final - SECR2043.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/22231 - Final - SECR2043.pdf",
+   "size": 532625
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/22232 - Final - SECR2043.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/22232 - Final - SECR2043.pdf",
+   "size": 557320
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/23241 - Final - SECR2043(1).pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/23241 - Final - SECR2043(1).pdf",
+   "size": 586876
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/23242 - Final - SECR2043(1).pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/23242 - Final - SECR2043(1).pdf",
+   "size": 535590
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/35 Questions.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/35 Questions.pdf",
+   "size": 736531
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Answers.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Answers.pdf",
+   "size": 744740
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Final 2017-2018-2 Answer.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Final 2017-2018-2 Answer.pdf",
+   "size": 923466
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Final-Exam-links-2025-2024-2023.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Final-Exam-links-2025-2024-2023.docx",
+   "size": 6805
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/OS 1718-1 Final.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/OS 1718-1 Final.pdf",
+   "size": 370311
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/OS 1718-2 Final.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/OS 1718-2 Final.pdf",
+   "size": 204012
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Page-6.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Page-6.pdf",
+   "size": 220128
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Paper 1B.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Paper 1B.pdf",
+   "size": 503481
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Paper 2B.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Paper 2B.pdf",
+   "size": 552244
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Paper1_Teh Jing Ling.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Paper1_Teh Jing Ling.pdf",
+   "size": 663497
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Paper2_Teh Jing Ling.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Paper2_Teh Jing Ling.pdf",
+   "size": 704824
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Revision Final.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Revision Final.pdf",
+   "size": 835550
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/Revision Final_merged.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/Revision Final_merged.pdf",
+   "size": 5953934
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/20152016-02-version2.doc",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/20152016-02-version2.doc",
+   "size": 822272
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/2016-2017-01-SCSR2043-OS-FE-v7.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/2016-2017-01-SCSR2043-OS-FE-v7.docx",
+   "size": 293711
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/FinalExam1718-1.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/FinalExam1718-1.docx",
+   "size": 293903
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/OS Past Year 201314.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/OS Past Year 201314.pdf",
+   "size": 488725
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/OS Past Year 201415.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/OS Past Year 201415.pdf",
+   "size": 379674
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/OS final 2014.doc",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/OS final 2014.doc",
+   "size": 377344
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/OS final 2015.doc",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/OS final 2015.doc",
+   "size": 135680
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/Part B1 (Questions)-unlocked.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/Part B1 (Questions)-unlocked.pdf",
+   "size": 341725
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Final/old finals/Part B2 (Questions)-unlocked.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Final/old finals/Part B2 (Questions)-unlocked.pdf",
+   "size": 532567
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Mid Term/RevisionTest2SCSR2043.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Mid Term/RevisionTest2SCSR2043.docx",
+   "size": 355921
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/MIDTERM TEST_ Attempt review.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/MIDTERM TEST_ Attempt review.pdf",
+   "size": 957047
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/OS 20252024 Test1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/OS 20252024 Test1.pdf",
+   "size": 23702273
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Part-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Part-1.pdf",
+   "size": 831229
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Part-2.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Part-2.pdf",
+   "size": 2448464
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TAWFIK-OTHMAN-A20EC4004-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TAWFIK-OTHMAN-A20EC4004-1.pdf",
+   "size": 2481306
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/Page-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/Page-1.pdf",
+   "size": 156793
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/Page-2.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/Page-2.pdf",
+   "size": 103278
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/Page-3.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/Page-3.pdf",
+   "size": 164893
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/Page-4.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/Page-4.pdf",
+   "size": 101921
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/Page-5.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/Page-5.pdf",
+   "size": 164117
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/TEST 1 2021-2022/TAWFIK-OTHMAN-A20EC4004-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/TEST 1 2021-2022/TAWFIK-OTHMAN-A20EC4004-1.pdf",
+   "size": 2454889
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Test 1 20132014.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Test 1 20132014.pdf",
+   "size": 371361
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Test 1 py1.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Test 1 py1.docx",
+   "size": 6682
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Test 1 py1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Test 1 py1.pdf",
+   "size": 3065298
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/Test 1.pptx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/Test 1.pptx",
+   "size": 45991
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/ecb08a808410c2cf5b00e8c2add05ed4.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/ecb08a808410c2cf5b00e8c2add05ed4.pdf",
+   "size": 610627
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/test1_scsr2043_20132014_02.doc",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/test1_scsr2043_20132014_02.doc",
+   "size": 184320
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/test1_scsr2043_20132014_02.doc.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/test1_scsr2043_20132014_02.doc.docx",
+   "size": 57490
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/test1_scsr2043_20142015_02.doc",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/test1_scsr2043_20142015_02.doc",
+   "size": 313344
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test1/test1_scsr2043_20142015_02.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test1/test1_scsr2043_20142015_02.docx",
+   "size": 330833
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/2043-32014-02.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/2043-32014-02.docx",
+   "size": 45980
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/2043-42015-02.docx",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/2043-42015-02.docx",
+   "size": 62666
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/Formating Test 1 V3.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/Formating Test 1 V3.pdf",
+   "size": 304609
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/Page-10.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/Page-10.pdf",
+   "size": 350720
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/Page-11.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/Page-11.pdf",
+   "size": 210378
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/Page-9.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/Page-9.pdf",
+   "size": 201104
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/TEST 2 2021-2022/Mock Test 2_ Attempt review.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/TEST 2 2021-2022/Mock Test 2_ Attempt review.pdf",
+   "size": 613885
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/TEST 2 2021-2022/Page-1.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/TEST 2 2021-2022/Page-1.pdf",
+   "size": 151127
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/TEST 2 2021-2022/Page-2.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/TEST 2 2021-2022/Page-2.pdf",
+   "size": 216290
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/06-Exams/Test2/TEST 2 2021-2022/Page-3.pdf",
+   "dest": "SCSR2043-01 Operating Systems/06-Exams/Test2/TEST 2 2021-2022/Page-3.pdf",
+   "size": 245875
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/CPU-Scheduling-Revision-Questions.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/CPU-Scheduling-Revision-Questions.pdf",
+   "size": 253321
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/Chapter-05-06-Revision/Q1b-1c.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/Chapter-05-06-Revision/Q1b-1c.pdf",
+   "size": 170992
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/Chapter-05-06-Revision/Q2.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/Chapter-05-06-Revision/Q2.pdf",
+   "size": 301027
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 3.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 3.pdf",
+   "size": 106836
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 4.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 4.pdf",
+   "size": 220094
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 5.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/Chapter-05-06-Revision/Revision Chapter 5 and 6 - answer for question 5.pdf",
+   "size": 191540
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/07-Study-Notes/OS-Lecture-Compilation-397-Pages.pdf",
+   "dest": "SCSR2043-01 Operating Systems/07-Study-Notes/OS-Lecture-Compilation-397-Pages.pdf",
+   "size": 20669575
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/COURSE INFO/CI SCSR2043 Operating System for BSE v3.pdf",
+   "dest": "SCSR2043-01 Operating Systems/01-Course-Information/COURSE INFO/CI SCSR2043 Operating System for BSE v3.pdf",
+   "size": 431034
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/LINUX Tutorial_/Lab Tutorial 0 - Installation Linux (Sem 1 2025-2026).pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/LINUX Tutorial_/Lab Tutorial 0 - Installation Linux (Sem 1 2025-2026).pdf",
+   "size": 2157913
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/LINUX Tutorial_/Lab Tutorial 1 - Introducing Linux Commands (Sem 1 2025-2026).pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/LINUX Tutorial_/Lab Tutorial 1 - Introducing Linux Commands (Sem 1 2025-2026).pdf",
+   "size": 1776583
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/LINUX Tutorial_/Lab Tutorial 3 -Linux File System and Bash Scripting (Sem 1 2025-2026).pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/LINUX Tutorial_/Lab Tutorial 3 -Linux File System and Bash Scripting (Sem 1 2025-2026).pdf",
+   "size": 908382
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 1_/Question Lab Assessment 1 - Introducing Linux Commands (Sem 1 2025-2026).pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 1_/Question Lab Assessment 1 - Introducing Linux Commands (Sem 1 2025-2026).pdf",
+   "size": 185230
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 1_/answer_Lab_1_.docx",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 1_/answer_Lab_1_.docx",
+   "size": 794646
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 2/Question Lab Assessment 2 - Linux Process Monitoring and Management (Sem 1 2025-2026).docx",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 2/Question Lab Assessment 2 - Linux Process Monitoring and Management (Sem 1 2025-2026).docx",
+   "size": 29572
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 2/answer_Lab_2_.pdf",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 2/answer_Lab_2_.pdf",
+   "size": 1501934
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 3/OS Lab Assessment03 - File Management.docx",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 3/OS Lab Assessment03 - File Management.docx",
+   "size": 608596
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Labs/Lab 3/os-lab-assessment03-MOHAMMED MOHSEN MOHAMMED ALSAKKAF-A23CS4026.docx",
+   "dest": "SCSR2043-01 Operating Systems/03-Labs/Labs/Lab 3/os-lab-assessment03-MOHAMMED MOHSEN MOHAMMED ALSAKKAF-A23CS4026.docx",
+   "size": 608595
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/Project/Question/OS Project (Guideline & Formating) (1).docx",
+   "dest": "SCSR2043-01 Operating Systems/05-Projects/Project/Question/OS Project (Guideline & Formating) (1).docx",
+   "size": 163348
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 10/Ch 10 File System.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 10/Ch 10 File System.pdf",
+   "size": 3143069
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 11/C1_LectureNotes (Ch 11 File-System Implementation).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 11/C1_LectureNotes (Ch 11 File-System Implementation).pptx",
+   "size": 3360264
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 12/Ch 12 Mass-Storage Structure - PartA.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 12/Ch 12 Mass-Storage Structure - PartA.pdf",
+   "size": 4365931
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 12/Ch 12 Mass-Storage Structure - PartB.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 12/Ch 12 Mass-Storage Structure - PartB.pdf",
+   "size": 849234
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 7_/Ch 7 Process Coordination (Deadlocks).pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 7_/Ch 7 Process Coordination (Deadlocks).pdf",
+   "size": 2515643
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 8/Ch 8 Memory- Management Strategies.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 8/Ch 8 Memory- Management Strategies.pdf",
+   "size": 6376076
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/FINAL/CH 9/Ch 9 Virtual Memory.pdf",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/FINAL/CH 9/Ch 9 Virtual Memory.pdf",
+   "size": 4807329
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 1/C1_LectureNotes (Ch 1 Introduction).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 1/C1_LectureNotes (Ch 1 Introduction).pptx",
+   "size": 2418120
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 2/C1_LectureNotes (Ch 2 Operating System Structure).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 2/C1_LectureNotes (Ch 2 Operating System Structure).pptx",
+   "size": 4833989
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 3/C1_LectureNotes (Ch 3 Process Concept).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 3/C1_LectureNotes (Ch 3 Process Concept).pptx",
+   "size": 2859406
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 4_/C1_LectureNotes (Ch 4 Threads).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 4_/C1_LectureNotes (Ch 4 Threads).pptx",
+   "size": 2507076
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 5_/C1_LectureNotes (Ch 5 Process Scheduling STD).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 5_/C1_LectureNotes (Ch 5 Process Scheduling STD).pptx",
+   "size": 4132385
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 5_/بلا عنوان.docx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 5_/بلا عنوان.docx",
+   "size": 6662
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/OS SCSR2043-01/slides_/TEST/CH 6_/C1_LectureNotes (Ch 6 Synchronization).pptx",
+   "dest": "SCSR2043-01 Operating Systems/02-Lectures/slides_/TEST/CH 6_/C1_LectureNotes (Ch 6 Synchronization).pptx",
+   "size": 2928002
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/01-Course-Information/SECJ2253 Requirements Engineering & Software Modelling.html",
+   "dest": "SCSE2123-02 Software Requirements Engineering/01-Course-Information/SECJ2253 Requirements Engineering & Software Modelling.html",
+   "size": 508
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Chapter-01/SECJ2253 Requirements Engineering & Software Modelling.html",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Chapter-01/SECJ2253 Requirements Engineering & Software Modelling.html",
+   "size": 508
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Package-2026-01-01.zip",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Package-2026-01-01.zip",
+   "size": 7751416
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Topic-07-Documentation/MUC01.jpg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Topic-07-Documentation/MUC01.jpg",
+   "size": 46181
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Topic-07-Documentation/SC001.jpg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Topic-07-Documentation/SC001.jpg",
+   "size": 69699
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Topic-07-Documentation/UC001.jpg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Topic-07-Documentation/UC001.jpg",
+   "size": 60473
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Topic-07-Documentation/UC003.jpg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Topic-07-Documentation/UC003.jpg",
+   "size": 83454
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/02-Lectures/Topic-07-Documentation/UC016.jpg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Topic-07-Documentation/UC016.jpg",
+   "size": 68337
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Guidelines/UTM Template Video.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Guidelines/UTM Template Video.pdf",
+   "size": 7180535
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Report-Drafts/SCSE2123-02 SRE (Group 9) (2).docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Report-Drafts/SCSE2123-02 SRE (Group 9) (2).docx",
+   "size": 1846675
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Report-Drafts/SOFTWARE REQUIREMENT ENGINEERING.docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Report-Drafts/SOFTWARE REQUIREMENT ENGINEERING.docx",
+   "size": 616939
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/PDF/Part I_MohammedAlsakkaf_Scenario.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/PDF/Part I_MohammedAlsakkaf_Scenario.pdf",
+   "size": 103208
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/PDF/SRS Revision Analysis Template.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/PDF/SRS Revision Analysis Template.pdf",
+   "size": 153855
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 1.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 1.png",
+   "size": 269922
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 10.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 10.png",
+   "size": 47682
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 11.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 11.png",
+   "size": 59412
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 12.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 12.png",
+   "size": 69429
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 13.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 13.png",
+   "size": 58883
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 14.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 14.png",
+   "size": 53927
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 16.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 16.png",
+   "size": 55883
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 17.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 17.png",
+   "size": 65319
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 18.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 18.png",
+   "size": 67120
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 19.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 19.png",
+   "size": 60008
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 2.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 2.png",
+   "size": 159446
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 20.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 20.png",
+   "size": 51836
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 21.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 21.png",
+   "size": 55172
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 22.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 22.png",
+   "size": 61784
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 23.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 23.png",
+   "size": 166993
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 24.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 24.png",
+   "size": 61658
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 25.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 25.png",
+   "size": 68829
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 26.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 26.png",
+   "size": 65206
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 27.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 27.png",
+   "size": 65326
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 28.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 28.png",
+   "size": 58922
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 3.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 3.png",
+   "size": 40841
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 5.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 5.png",
+   "size": 45794
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 9.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/UI-Screens/iPhone 16 Pro - 9.png",
+   "size": 52758
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/Word/SRS Revision Analysis Template.docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/Word/SRS Revision Analysis Template.docx",
+   "size": 140459
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Submission-Documents/Word/_Part I_MohammedAlsakkaf_Scenario.docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Submission-Documents/Word/_Part I_MohammedAlsakkaf_Scenario.docx",
+   "size": 8607
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/05-Projects/Templates/SCSE2123 SWRE P1 URD Template v4 (2).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Templates/SCSE2123 SWRE P1 URD Template v4 (2).pdf",
+   "size": 949399
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/06-Exams/Collected-Materials/20242025-02.SECJ2253 RESM Test (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/06-Exams/Collected-Materials/20242025-02.SECJ2253 RESM Test (1).pdf",
+   "size": 1047688
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/06-Exams/Collected-Materials/RESM-Test-Sem-2-20222023-finale.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/06-Exams/Collected-Materials/RESM-Test-Sem-2-20222023-finale.pdf",
+   "size": 828447
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/06-Exams/Collected-Materials/SCSJ2253 Mid Term Sem220152016.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/06-Exams/Collected-Materials/SCSJ2253 Mid Term Sem220152016.pdf",
+   "size": 347496
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/06-Exams/Collected-Materials/SCSJ2253 Mid Term Sem220162017.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/06-Exams/Collected-Materials/SCSJ2253 Mid Term Sem220162017.pdf",
+   "size": 606717
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/06-Exams/Collected-Materials/SECJ2253 RESM Final Sem 2 20232024.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/06-Exams/Collected-Materials/SECJ2253 RESM Final Sem 2 20232024.pdf",
+   "size": 753948
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Activity/Activity 1/SOFTWARE REQUIREMENT ENGINEERING.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Activity/Activity 1/SOFTWARE REQUIREMENT ENGINEERING.pdf",
+   "size": 193194
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Activity/Activity 2/Activity 2.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Activity/Activity 2/Activity 2.png",
+   "size": 167451
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Activity/Activity 3/activity 3.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Activity/Activity 3/activity 3.png",
+   "size": 408592
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Activity/Activity 4/activity 4.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Activity/Activity 4/activity 4.png",
+   "size": 780905
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Problem solving_/Problem 1/answer.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Problem solving_/Problem 1/answer.pdf",
+   "size": 161559
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Problem solving_/Problem 1/photos of questions.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Problem solving_/Problem 1/photos of questions.png",
+   "size": 597490
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Activities/Problem solving_/Problem 2_/Problem 2 photos.png",
+   "dest": "SCSE2123-02 Software Requirements Engineering/09-Tutorials/Activities/Problem solving_/Problem 2_/Problem 2 photos.png",
+   "size": 707298
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/CI/CI SCSE2123 Software Requirements Engineering.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/01-Course-Information/CI/CI SCSE2123 Software Requirements Engineering.pdf",
+   "size": 325876
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Overall Project_/2025_2026-01.SCSE1213 SWRE Project Guideline (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Overall Project_/2025_2026-01.SCSE1213 SWRE Project Guideline (1).pdf",
+   "size": 182460
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Overall Project_/Etiqa-UTM FC Case Study Description (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Overall Project_/Etiqa-UTM FC Case Study Description (1).pdf",
+   "size": 150485
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.30.51 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.30.51 PM.jpeg",
+   "size": 185900
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.31.16 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.31.16 PM.jpeg",
+   "size": 228792
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.31.44 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.31.44 PM.jpeg",
+   "size": 272072
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.32.03 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/ANSWER 1/Grade P1/WhatsApp Image 2025-12-23 at 12.32.03 PM.jpeg",
+   "size": 70484
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/ANSWER 1/URD Etiqa eMoney Payout.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/ANSWER 1/URD Etiqa eMoney Payout.pdf",
+   "size": 1834081
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Rubric/ P1 URD Rubric.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/Rubric/ P1 URD Rubric.pdf",
+   "size": 70746
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Rubric/Leadership Rubric.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/Rubric/Leadership Rubric.pdf",
+   "size": 19710
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Template/Project 1 (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/Template/Project 1 (1).pdf",
+   "size": 697610
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Template/SCSE2123 SWRE P1 URD Template v4 (1).docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/Template/SCSE2123 SWRE P1 URD Template v4 (1).docx",
+   "size": 1413480
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 1/Template/UTM Template Video.pptx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 1/Template/UTM Template Video.pptx",
+   "size": 10934363
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.08 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.08 PM.jpeg",
+   "size": 231154
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.23 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.23 PM.jpeg",
+   "size": 290930
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.39 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.39 PM.jpeg",
+   "size": 259285
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.55 PM.jpeg",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/ANSWER 2/Grade P2/WhatsApp Image 2025-12-23 at 12.34.55 PM.jpeg",
+   "size": 50180
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/ANSWER 2/SCSE2123-02 SRE (Group 9).pdf.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/ANSWER 2/SCSE2123-02 SRE (Group 9).pdf.pdf",
+   "size": 4550197
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Rubric/ P2 Model Rubric.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/Rubric/ P2 Model Rubric.pdf",
+   "size": 79280
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Rubric/Leadership Rubric.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/Rubric/Leadership Rubric.pdf",
+   "size": 19710
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Template/Project 2 instruction.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/Template/Project 2 instruction.pdf",
+   "size": 342652
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 2/Template/SCSE2123 SWRE P2 Requirements Model Template v4.0 (1) (1).docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 2/Template/SCSE2123 SWRE P2 Requirements Model Template v4.0 (1) (1).docx",
+   "size": 9930245
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/Rubric/Leadership Rubric (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/Rubric/Leadership Rubric (1).pdf",
+   "size": 19710
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/Rubric/SCSE2123 P3 Enhanced SRS.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/Rubric/SCSE2123 P3 Enhanced SRS.pdf",
+   "size": 73102
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/Template/P3 Enhanced SRS Template v5.0 (Use Case Specification).docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/Template/P3 Enhanced SRS Template v5.0 (Use Case Specification).docx",
+   "size": 8913763
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/Template/P3 Enhanced SRS Template v5.0 (User Story).docx",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/Template/P3 Enhanced SRS Template v5.0 (User Story).docx",
+   "size": 9703524
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/Template/Project 3 instruction.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/Template/Project 3 instruction.pdf",
+   "size": 351098
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Project 3/ِAnswer/SCSE2123-02 SRE (Group 9) P3 (Use Case Specification) (11).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Project 3/ِAnswer/SCSE2123-02 SRE (Group 9) P3 (Use Case Specification) (11).pdf",
+   "size": 5758310
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Projects/Video/MOHAMMED MOHSEN MOHAMMED ALSAKKAF UC007.mp4",
+   "dest": "SCSE2123-02 Software Requirements Engineering/05-Projects/Projects/Video/MOHAMMED MOHSEN MOHAMMED ALSAKKAF UC007.mp4",
+   "size": 75403742
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 6/How to Generate Activity Diagram from User Story_.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 6/How to Generate Activity Diagram from User Story_.pdf",
+   "size": 396869
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 6/Topic 6.1.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 6/Topic 6.1.pdf",
+   "size": 2530471
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 6/Topic 6.2.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 6/Topic 6.2.pdf",
+   "size": 3711713
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 7/Natural Language Error Slides (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 7/Natural Language Error Slides (1).pdf",
+   "size": 1259827
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 7/Phrase Template  Glossary.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 7/Phrase Template  Glossary.pdf",
+   "size": 1064575
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 7/Topic 7 Text-Based Requirement Documentation (PartI).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 7/Topic 7 Text-Based Requirement Documentation (PartI).pdf",
+   "size": 483529
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 7/Topic 7 Text-Based Requirement Documentation (PartII).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 7/Topic 7 Text-Based Requirement Documentation (PartII).pdf",
+   "size": 3376131
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 7/Use Case Specification Slides.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 7/Use Case Specification Slides.pdf",
+   "size": 2848317
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/Example of Review Report.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/Example of Review Report.pdf",
+   "size": 33162
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/Further Explanation of Type of Defects.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/Further Explanation of Type of Defects.pdf",
+   "size": 31599
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/Requirements Validation In-Class Activity.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/Requirements Validation In-Class Activity.pdf",
+   "size": 40424
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/Review Report Template.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/Review Report Template.pdf",
+   "size": 50586
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/Use Case Review Checklist.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/Use Case Review Checklist.pdf",
+   "size": 76361
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/OTHER/User Story Checklist.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/OTHER/User Story Checklist.pdf",
+   "size": 30509
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/Topic 8 Practices for Requirements Management Part I.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/Topic 8 Practices for Requirements Management Part I.pdf",
+   "size": 5372835
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/FINAL/Topic 8/Topic 8 Requirements Negotiation and Validation.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/FINAL/Topic 8/Topic 8 Requirements Negotiation and Validation.pdf",
+   "size": 6062308
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 1/Quality Requirements.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 1/Quality Requirements.pdf",
+   "size": 97801
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 1/Topic 1 Introduction and Overview.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 1/Topic 1 Introduction and Overview.pdf",
+   "size": 2603204
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 2/More Explanations on Grey Zones (1).pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 2/More Explanations on Grey Zones (1).pdf",
+   "size": 29947
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 2/Topic 2 Requirements Engineering Principles.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 2/Topic 2 Requirements Engineering Principles.pdf",
+   "size": 3769435
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 3/part 1.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 3/part 1.pdf",
+   "size": 4044467
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 3/part 2.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 3/part 2.pdf",
+   "size": 5170624
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 2/SEM 3/SRE SCSE2123-02/Slides/TEST/Topic 4&5/Topic 5 Work Products in RE and Requirements Modeling.pdf",
+   "dest": "SCSE2123-02 Software Requirements Engineering/02-Lectures/Slides/TEST/Topic 4&5/Topic 5 Work Products in RE and Requirements Modeling.pdf",
+   "size": 8556067
+  }
+ ]
+}

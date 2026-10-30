@@ -53,12 +53,13 @@ describe('سجل التنقل', () => {
       if (p.parent) expect(PAGE_BY_ID.has(p.parent), `${p.id} → ${p.parent}`).toBe(true);
     }
     for (const a of AREAS) expect(PAGE_BY_ID.get(a.entry)?.area).toBe(a.id);
-    expect(AREAS.map((a) => a.kbd)).toEqual(['1', '2', '3', '4', '5', '6', '7']);
+    expect(AREAS.map((a) => a.kbd)).toEqual(['1', '2', '3', '4', '5', '6', '7', '8']);
     expect(new Set(PAGES.filter((p) => p.kbd).map((p) => p.kbd)).size).toBe(PAGES.filter((p) => p.kbd).length);
   });
 
   it('كل مسار في App.tsx مسجّل ولا مسار زائد', () => {
-    const routes = appRoutes(read('web/src/App.tsx')).filter((r) => r !== '/*');
+    // /p/:token = رابط مشاركة عام للقراءة فقط، خارج الصدفة عمدًا (لا قائمة ولا سجل)
+    const routes = appRoutes(read('web/src/App.tsx')).filter((r) => r !== '/*' && r !== '/p/:token');
     // التحويلات تُولَّد من REDIRECTS بالخريطة (لا تُكتب يدويًا)
     expect(read('web/src/App.tsx')).toContain('REDIRECTS.map');
     const registered = PAGES.map((p) => p.path).sort();
@@ -89,7 +90,7 @@ describe('سجل التنقل', () => {
   it('smoke-routes.json يغطي كل صفحة مسجلة وكل تحويل', () => {
     const smoke = (JSON.parse(read('scripts/smoke-routes.json')) as { routes: string[] }).routes.map((r) => r.split('?')[0]!);
     const fill: Record<string, string> = { semId: 'sem5', courseId: 'c1', id: 'x1' };
-    const filled = smoke.map((r) => r.replace(':sem', 'sem5').replace(':course', 'c1').replace(':file', 'x1').replace(':yt', 'x1'));
+    const filled = smoke.map((r) => r.replace(':sem', 'sem5').replace(':course', 'c1').replace(':file', 'x1').replace(':yt', 'x1').replace(':space', 'x1'));
     for (const p of PAGES) {
       const url = resolvePath(p, fill)!;
       expect(filled.some((r) => matchPage(r)?.page.id === p.id), `${p.id} ${url}`).toBe(true);
@@ -169,7 +170,8 @@ describe('سجل التنقل', () => {
     expect(gTarget('Comma', off)).toBe('/settings');
     expect(gTarget('Digit6', off)).toBeNull();
     expect(gTarget('Digit6', { ...off, enabled: () => true })).toBe('/kitchen');
-    expect(gTarget('Digit7', off)).toBe('/settings');
+    expect(gTarget('Digit7', off)).toBe('/spaces');
+    expect(gTarget('Digit8', off)).toBe('/settings');
     expect(gTarget('Digit5', off)).toBe('/sports/mine');
     expect(gTarget('KeyZ', off)).toBeNull();
     expect(gTarget('KeyW', off)).toBe('/academic/s/sem5/timeline?view=weights');

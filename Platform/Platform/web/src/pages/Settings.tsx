@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useApp } from '../core/app-context.js';
-import { api, ApiError, type BackupInfo, type DiffResult, type EntityDiff, type Info } from '../lib/api.js';
+import { api, ApiError, type BackupInfo, type DiffResult, type Info } from '../lib/api.js';
+import { DiffView } from '../ui/diff.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, CardHead, EmptyState, Segmented, Skeleton } from '../ui/ui.js';
+import { Button, Card, CardHead, EmptyState, Field, Segmented, Skeleton } from '../ui/ui.js';
+import { Link } from 'react-router-dom';
+import { wos } from '../lib/wos.js';
 import { Icon } from '../lib/icons.js';
 import { AppearanceCard, NotifyCard } from '../core/Appearance.js';
 import { useUrlParam } from '../core/useUrlParam.js';
@@ -10,38 +13,9 @@ import { FlagsCard } from '../core/FlagsCard.js';
 import LibrarySettings from './LibrarySettings.js';
 import LifeSettings from './LifeSettings.js';
 import { fmtNum } from '../lib/format.js';
+import { AiSettingsCard } from '../ai/AiSettings.js';
 
 const fmtSize = (n: number): string => (n > 1_048_576 ? `${fmtNum(n / 1_048_576)} MB` : `${fmtNum(n / 1024, 0)} KB`);
-const ENT: Record<string, string> = { semesters: 'الفصول', courses: 'المواد', assessments: 'التقييمات', notes: 'الملاحظات' };
-
-function DiffView({ diff }: { diff: DiffResult }) {
-  const keys = ['semesters', 'courses', 'assessments', 'notes'] as const;
-  return (
-    <div className="diff" aria-label="معاينة الفروقات">
-      <div className="row" style={{ marginBlockEnd: 'var(--s-3)' }}>
-        <Badge tone="ok">+{diff.totals.added} جديد</Badge>
-        <Badge tone="warn">~{diff.totals.changed} معدّل</Badge>
-        <Badge tone="danger">−{diff.totals.removed} غير موجود في الملف</Badge>
-        <Badge>{diff.totals.unchanged} بلا تغيير</Badge>
-      </div>
-      {keys.map((k) => {
-        const d: EntityDiff = diff[k];
-        if (!d.added.length && !d.changed.length && !d.removed.length) return null;
-        return (
-          <details key={k} open={d.added.length + d.changed.length + d.removed.length < 12}>
-            <summary><strong>{ENT[k]}</strong> — +{d.added.length} · ~{d.changed.length} · −{d.removed.length}</summary>
-            <ul className="plain diff-list">
-              {d.added.map((x) => (<li key={x.id} className="add">+ <bdi>{x.label}</bdi></li>))}
-              {d.changed.map((x) => (<li key={x.id} className="chg">~ <bdi>{x.label}</bdi> <small className="muted">({x.fields.map((f) => f.field).join('، ')})</small></li>))}
-              {d.removed.map((x) => (<li key={x.id} className="rem">− <bdi>{x.label}</bdi></li>))}
-            </ul>
-          </details>
-        );
-      })}
-    </div>
-  );
-}
-
 export default function Settings() {
   const { toast, confirm, reloadSemesters } = useApp();
   const [info, setInfo] = useState<Info | null>(null);
@@ -144,6 +118,8 @@ export default function Settings() {
       {tab === 'general' ? (
         <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
           <div className="stack">
+          <ProfileCard />
+          <AiSettingsCard />
           <AppearanceCard />
           <NotifyCard />
           </div>
@@ -167,6 +143,7 @@ export default function Settings() {
       ) : tab === 'data' ? (
         <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
           <div className="stack">
+            <SourcesCard />
             <Card>
               <CardHead title="ماذا يشمل كل خيار؟" icon="info" />
               <ul className="plain stack" style={{ gap: 'var(--s-2)' }}>
@@ -198,7 +175,7 @@ export default function Settings() {
           </div>
           <div className="stack">
           <Card>
-            <CardHead title="النسخ الاحتياطية" icon="database"><Button size="sm" icon="plus" onClick={() => void backupNow()}>نسخة الآن</Button></CardHead>
+            <CardHead title="النسخ الاحتياطية" icon="database"><span id="data" className="sr-only" /><Button size="sm" icon="plus" onClick={() => void backupNow()}>نسخة الآن</Button></CardHead>
             <p className="muted" style={{ marginBlockEnd: 'var(--s-3)' }}>تُؤخذ نسخة تلقائية يوميًا عند تشغيل المنصة (تُحفظ آخر 14).</p>
             {backups === null ? <Skeleton h={80} /> : backups.length === 0 ? <EmptyState icon="database" title="لا نسخ بعد" /> : (
               <ul className="plain">
@@ -217,5 +194,40 @@ export default function Settings() {
         </div>
       )}
     </div>
+  );
+}
+
+/** الملف الشخصي: الاسم الذي يظهر في التحية (لا أسماء مثبتة في الكود — لإعطاء الموقع لصديق) */
+function ProfileCard() {
+  const { profileName, setProfileName, toast } = useApp();
+  const [v, setV] = useState(profileName ?? '');
+  useEffect(() => setV(profileName ?? ''), [profileName]);
+  return (
+    <Card id="profile">
+      <CardHead title="الملف الشخصي" icon="user" />
+      <form className="row" style={{ gap: 'var(--s-2)', alignItems: 'flex-end', flexWrap: 'wrap' }} onSubmit={(e) => { e.preventDefault(); void wos.setProfile(v).then((r) => { setProfileName(r.name); toast('حُفظ الاسم', { kind: 'ok' }); }); }}>
+        <Field label="الاسم في التحية" htmlFor="pf-name"><input id="pf-name" value={v} onChange={(e) => setV(e.target.value)} maxLength={40} placeholder="بدون اسم" /></Field>
+        <Button type="submit" variant="primary" disabled={v === (profileName ?? '')}>حفظ</Button>
+      </form>
+    </Card>
+  );
+}
+
+/** مصادر البيانات وإدارتها — روابط لكل إعداد كان مبعثرًا */
+function SourcesCard() {
+  const rows: { to: string; icon: Parameters<typeof Icon>[0]['name']; title: string; sub: string }[] = [
+    { to: '/settings?tab=sources', icon: 'library', title: 'مصادر المكتبة والحياة', sub: 'مجلد المكتبة وصادرات راشد (قراءة فقط)' },
+    { to: '/academic/import', icon: 'upload', title: 'حزم الفصول', sub: 'استيراد/تصدير فصل كامل (Drive أو مجلد)' },
+    { to: '/trash', icon: 'trash', title: 'سلة المحذوفات', sub: 'استعادة أي شيء حُذف خلال 30 يومًا' },
+    { to: '/activity', icon: 'clock', title: 'سجل النشاط', sub: 'كل تغيير ومن قام به (أنت أو أتمتة)' },
+    { to: '/spaces/automations', icon: 'zap', title: 'الأتمتة', sub: 'كل القواعد في مساحاتك' },
+  ];
+  return (
+    <Card id="sources">
+      <CardHead title="المصادر والإدارة" icon="database" />
+      <ul className="plain mini-list settings-links">
+        {rows.map((r) => <li key={r.to}><Link to={r.to}><Icon name={r.icon} size={16} /> <b>{r.title}</b></Link> <small className="muted">— {r.sub}</small></li>)}
+      </ul>
+    </Card>
   );
 }

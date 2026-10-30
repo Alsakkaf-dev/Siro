@@ -966,7 +966,8 @@ try {
   const items = await api('/api/library/items?limit=50');
   const file = (items.items.find((i) => /\.pdf$/i.test(i.title)) ?? items.items[0]).id;
   const yt = (await post('/api/library/youtube', { url: 'https://youtu.be/dQw4w9WgXcQ', title: 'smoke video' })).id;
-  const ids = { ':sem': sem, ':course': course, ':file': file, ':yt': yt };
+  const space = (await api('/api/wos/spaces'))[0]?.id ?? (await post('/api/wos/spaces', { template_id: 'tasks' })).id;
+  const ids = { ':sem': sem, ':course': course, ':file': file, ':yt': yt, ':space': space };
   const fill = (p) => Object.entries(ids).reduce((s, [k, v]) => s.replace(k, v), p);
 
   const routesFile = JSON.parse(readFileSync(join(root, 'scripts', 'smoke-routes.json'), 'utf8'));

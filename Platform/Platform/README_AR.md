@@ -47,6 +47,22 @@
 - **الإثراء الاختياري** (USDA/Open Food Facts عبر بوابة الخادم، معطّل افتراضيًا وUNVERIFIED): `docs/kitchen/API_CATALOG.md` و`API_KEYS_NEEDED.md`. بطاقة «وجبات اليوم + حالة القانون» في «اليوم».
 - التوثيق: `docs/USER_GUIDE_AR.md` (دليل الاستخدام) · `docs/kitchen/TRACEABILITY.md` (مصفوفة التتبع) · `docs/PHASE4_CLOSURE_AR.md` (تقرير الإغلاق بالأدلة).
 
+## النسخة على الإنترنت (جديد)
+
+- الرابط: **https://siro-platform-alsakkaf-devs-projects.vercel.app** — نفس الموقع، يعمل من أي متصفح أو جوال.
+- **عام:** أي شخص لديه الرابط يرى ويعدّل. (يمكن إضافة كلمة مرور لاحقًا.)
+- **الحفظ الدائم:** القاعدة تُحفظ في Vercel Blob بعد كل تعديل، مع نسخة يومية. يحتاج متجر Blob مرتبطًا بالمشروع (`BLOB_READ_WRITE_TOKEN`). بدونه يعمل الموقع لكن التعديلات تضيع عند إعادة تشغيل الخادم.
+- **الملفات:** كل ملفات الفصول تُفتح من Google Drive (مجلد **Siro Semesters**) داخل الموقع.
+- **الفرق عن نسخة الجهاز:** لا يوجد «مجلد على الجهاز» ولا فحص مجلد المكتبة؛ بيانات راشد نسخة ثابتة من آخر نشر.
+- **النشر:** `bash Platform/Platform/scripts/deploy-branch.sh --push` يبني فرع `deploy/platform` (ثوانٍ)، وVercel ينشره.
+
+## حزم الفصول وGoogle Drive (جديد)
+
+- كل فصل منتهٍ = مجلد **SEM-X** في Drive داخل **Siro Semesters**، بصيغة ثابتة: `semester.json` + مجلد لكل مادة (`CODE-SECTION Name`) + تصنيفات `01-Course-Information` … `08-Recordings`، `09-Tutorials`، `10-References`، `99-Other`. التفاصيل: `docs/SEMESTER_PACKAGE_SPEC.md`.
+- **SEM-1 حتى SEM-5 مرفوعة الآن** (2,858 ملفًا) مع نتائجك الرسمية من كشوف الجامعة، وقوائمها في `Siro Semesters/_index`.
+- **الاستيراد:** الفصول ← «استيراد فصل» ← رابط ملف `SEM-X.listing.json` من `_index` (أو رفع الملف، أو مجلد على الجهاز في نسخة الجهاز) ← فحص ← استيراد. الأخطاء تمنع الاستيراد، وتُحفظ نسخة احتياطية قبل التطبيق.
+- **نهاية كل فصل:** المحوّل `node scripts/package-semester.mjs SEM-N` يجهّز الخطة والتقرير من مجلد الفصل، ثم تُرفع الحزمة إلى Drive وتُستورد.
+
 ## المكتبة (جديد)
 
 - افتح **المكتبة** من الشريط العلوي. المجلد الافتراضي: `C:\Users\GIGIABYTE\Desktop\Storage\The_Boots\Bachelor in Software Engineering` ويمكن تغييره من **إعدادات المكتبة**.

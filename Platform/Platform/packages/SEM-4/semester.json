@@ -1,0 +1,117 @@
+{
+  "package_version": 1,
+  "source": "package:SEM-4",
+  "semester": {
+    "id": "sem4",
+    "code": "SEM 4",
+    "name": "Semester II 2025/2026",
+    "year_no": 2,
+    "sem_no": 4,
+    "start_date": "2026-03-09",
+    "weeks": 16,
+    "break_weeks": [],
+    "exam_start": null,
+    "exam_end": null,
+    "note": "تاريخ البداية 9 Mar 2026 [افتراض] — من مصدر غير رسمي، لم يُعثر على التقويم الرسمي؛ صحّحه إن عرفت التاريخ. عدد الأسابيع 16 [افتراض]. GPA 2.22 · CGPA 2.55 (كشف النتائج)."
+  },
+  "courses": [
+    {
+      "id": "sem4-scse2233",
+      "code": "SCSE2233",
+      "name": "Software Design and Architecture",
+      "section": "03",
+      "credits": 3,
+      "color": "#4CC9F0",
+      "sort": 1,
+      "note": null,
+      "result": {
+        "grade": "D",
+        "points": 1,
+        "credits": 3,
+        "status": "UM — إعادة المادة (حسب كشف النتائج)"
+      }
+    },
+    {
+      "id": "sem4-scse2243",
+      "code": "SCSE2243",
+      "name": "Application Development Project I",
+      "section": "01",
+      "credits": 3,
+      "color": "#F72585",
+      "sort": 2,
+      "note": null,
+      "result": {
+        "grade": "A",
+        "points": 4,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem4-scsm2223",
+      "code": "SCSM2223",
+      "name": "Cross-Platform Application Development",
+      "section": "02",
+      "credits": 3,
+      "color": "#7209B7",
+      "sort": 3,
+      "note": null,
+      "result": {
+        "grade": "B",
+        "points": 3,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem4-scsp3213",
+      "code": "SCSP3213",
+      "name": "Business Intelligence",
+      "section": "02",
+      "credits": 3,
+      "color": "#3A86FF",
+      "sort": 4,
+      "note": null,
+      "result": {
+        "grade": "D",
+        "points": 1,
+        "credits": 3,
+        "status": "UM — إعادة المادة (حسب كشف النتائج)"
+      }
+    },
+    {
+      "id": "sem4-scsr2213",
+      "code": "SCSR2213",
+      "name": "Network Communications",
+      "section": "01",
+      "credits": 3,
+      "color": "#FB8500",
+      "sort": 5,
+      "note": "إعادة (UK) — المحاولة الأولى في SEM 2.",
+      "result": {
+        "grade": "B-",
+        "points": 2.67,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem4-scst1223",
+      "code": "SCST1223",
+      "name": "Probability and Statistical Data Analysis",
+      "section": "01",
+      "credits": 3,
+      "color": "#06D6A0",
+      "sort": 6,
+      "note": "إعادة (UK) — المحاولة الأولى في SEM 2.",
+      "result": {
+        "grade": "C-",
+        "points": 1.67,
+        "credits": 3,
+        "status": null
+      }
+    }
+  ],
+  "assessments": [],
+  "notes": []
+}

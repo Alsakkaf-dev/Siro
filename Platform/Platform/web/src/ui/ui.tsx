@@ -134,7 +134,8 @@ export function Modal({ title, onClose, children, footer, wide }: { title: React
       prev?.focus?.();
     };
   }, [onClose]);
-  return (
+  // عبر portal إلى body: لا يحبسه سياق تكديس الصفحة (كان الشريط السفلي في الجوال يغطي أزرار الحفظ)
+  return createPortal(
     <div className="modal-wrap">
       <div className="modal-backdrop" onClick={onClose} />
       <div className={cx('modal', wide && 'wide')} role="dialog" aria-modal="true" aria-labelledby={id} ref={ref}>
@@ -145,6 +146,89 @@ export function Modal({ title, onClose, children, footer, wide }: { title: React
         <div className="modal-body">{children}</div>
         {footer && <div className="modal-foot">{footer}</div>}
       </div>
+    </div>,
+    document.body,
+  );
+}
+
+/** لوحة جانبية (تفاصيل عنصر — نمط ClickUp/Jira): تحبس التركيز، Esc يغلق، ويعود التركيز لمكانه. */
+export function Drawer({ title, onClose, children, actions }: { title: ReactNode; onClose: () => void; children: ReactNode; actions?: ReactNode }) {
+  const id = useId();
+  const ref = useRef<HTMLDivElement>(null);
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    ref.current?.focus();
+    const key = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape' && !document.querySelector('.modal-wrap')) {
+        e.stopPropagation();
+        closeRef.current();
+      }
+      if (e.key === 'Tab' && ref.current && !document.querySelector('.modal-wrap')) {
+        const f = [...ref.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea, [tabindex]:not([tabindex="-1"])')];
+        if (!f.length) return;
+        const a = f[0]!;
+        const z = f[f.length - 1]!;
+        if (e.shiftKey && (document.activeElement === a || document.activeElement === ref.current)) {
+          e.preventDefault();
+          z.focus();
+        } else if (!e.shiftKey && document.activeElement === z) {
+          e.preventDefault();
+          a.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', key);
+    return () => {
+      document.removeEventListener('keydown', key);
+      prev?.focus?.();
+    };
+  }, []);
+  return createPortal(
+    <div className="drawer-wrap">
+      <div className="modal-backdrop" onClick={() => closeRef.current()} />
+      <aside className="drawer" role="dialog" aria-modal="true" aria-labelledby={id} ref={ref} tabIndex={-1}>
+        <div className="drawer-head">
+          <h2 id={id}>{title}</h2>
+          <div className="row" style={{ gap: 4 }}>
+            {actions}
+            <IconButton icon="x" label="إغلاق اللوحة" onClick={() => closeRef.current()} sm />
+          </div>
+        </div>
+        <div className="drawer-body">{children}</div>
+      </aside>
+    </div>,
+    document.body,
+  );
+}
+
+/** تحديد متعدد (Set) مع مسح بـ Esc */
+export function useSelection(): { sel: Set<string>; toggle: (id: string) => void; clear: () => void; setAll: (ids: string[]) => void } {
+  const [sel, setSel] = useState<Set<string>>(() => new Set());
+  const toggle = useCallback((id: string) => setSel((s) => { const n = new Set(s); if (n.has(id)) n.delete(id); else n.add(id); return n; }), []);
+  const clear = useCallback(() => setSel(new Set()), []);
+  const setAll = useCallback((ids: string[]) => setSel(new Set(ids)), []);
+  useEffect(() => {
+    if (!sel.size) return;
+    const k = (e: KeyboardEvent): void => {
+      if (e.key === 'Escape' && !document.querySelector('.modal-wrap, .drawer-wrap')) clear();
+    };
+    document.addEventListener('keydown', k);
+    return () => document.removeEventListener('keydown', k);
+  }, [sel.size, clear]);
+  return { sel, toggle, clear, setAll };
+}
+
+/** شريط الإجراءات الجماعية — يظهر عند تحديد عنصر أو أكثر */
+export function BulkBar({ count, onClear, children, total, onAll }: { count: number; onClear: () => void; children: ReactNode; total?: number; onAll?: () => void }) {
+  if (!count) return null;
+  return (
+    <div className="bulk-bar" role="toolbar" aria-label={`إجراءات على ${count} محدد`}>
+      <b className="num">{count}</b> <span>محدد</span>
+      {onAll && total !== undefined && count < total && <button type="button" className="link-btn" onClick={onAll}>تحديد الكل ({total})</button>}
+      <span className="bulk-actions">{children}</span>
+      <IconButton icon="x" label="إلغاء التحديد (Esc)" onClick={onClear} sm ghost />
     </div>
   );
 }
@@ -176,12 +260,12 @@ export function Segmented<T extends string>({ value, options, onChange, label }:
   );
 }
 
-export function Switch({ checked, onChange, label }: { checked: boolean; onChange: (v: boolean) => void; label: string }) {
+export function Switch({ checked, onChange, label, hideLabel }: { checked: boolean; onChange: (v: boolean) => void; label: string; hideLabel?: boolean }) {
   return (
     <label className="switch">
       <input type="checkbox" role="switch" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <i aria-hidden="true" />
-      <span>{label}</span>
+      <span className={hideLabel ? 'sr-only' : undefined}>{label}</span>
     </label>
   );
 }

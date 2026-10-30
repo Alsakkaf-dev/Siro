@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { api, type Deleted } from '../lib/api.js';
+import { wos, type Space } from '../lib/wos.js';
 import type { SemesterSummary } from '../../../shared/types.js';
 import { Icon } from '../lib/icons.js';
 
@@ -22,7 +23,24 @@ interface Ctx {
   /** عدد «غير المعروف» لكل فصل (المفتاح معرّف الفصل) فلا تتقادم الشارة خارج صفحات الفصل */
   unknownCounts: Record<string, number>;
   setUnknownCount: (semId: string, n: number) => void;
+  /** مساحاتي (للقائمة والإنشاء السريع) */
+  spaces: Space[] | null;
+  reloadSpaces: () => Promise<void>;
+  /** اسم المالك (إعداد profile.name) */
+  profileName: string | null;
+  setProfileName: (n: string | null) => void;
+  /** فتح قائمة الإنشاء أو نموذج إنشاء سريع من أي مكان */
+  createCmd: CreateCmd | null;
+  openCreate: (c: CreateCmd | null) => void;
+  /** نواة الذكاء: افتح المساعد (اختياريًا بطلب جاهز يُرسل فورًا) */
+  aiCmd: AiCmd | null;
+  openAi: (c?: Omit<AiCmd, 'seq'> | null) => void;
+  /** يتغيّر بعد أن يعدّل الذكاء بيانات — الصفحة الحالية تُعاد تحميلها */
+  dataRev: number;
+  bumpData: () => void;
 }
+export interface AiCmd { seq: number; prompt?: string; send?: boolean; context?: string | null }
+export type CreateCmd = { kind: 'menu' } | { kind: 'quick-item'; spaceId?: string; due?: string } | { kind: 'quick-assessment'; courseId?: string } | { kind: 'quick-note' };
 
 const C = createContext<Ctx | null>(null);
 export function useApp(): Ctx {
@@ -48,6 +66,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setUnknownCount = useCallback((semId: string, n: number) => setUnknownCounts((m) => (m[semId] === n ? m : { ...m, [semId]: n })), []);
   const [confirmState, setConfirmState] = useState<(ConfirmOpts & { resolve: (v: boolean) => void }) | null>(null);
   const seq = useRef(0);
+  const [spaces, setSpaces] = useState<Space[] | null>(null);
+  const [profileName, setProfileName] = useState<string | null>(null);
+  const [createCmd, openCreate] = useState<CreateCmd | null>(null);
+  const [aiCmd, setAiCmd] = useState<AiCmd | null>(null);
+  const aiSeq = useRef(0);
+  const [dataRev, setDataRev] = useState(0);
+  const bumpData = useCallback(() => setDataRev((n) => n + 1), []);
+  const openAi = useCallback<Ctx['openAi']>((c) => setAiCmd(c === null ? null : { ...(c ?? {}), seq: ++aiSeq.current }), []);
+  const reloadSpaces = useCallback(async () => {
+    try {
+      setSpaces(await wos.spaces());
+    } catch {
+      setSpaces([]);
+    }
+  }, []);
+  useEffect(() => {
+    // بعد أول رسم: لا تنافس طلبات الصفحة الأولى
+    const t = window.setTimeout(() => {
+      void reloadSpaces();
+      wos.profile().then((p) => setProfileName(p.name)).catch(() => undefined);
+    }, 300);
+    return () => window.clearTimeout(t);
+  }, [reloadSpaces]);
 
   const reloadSemesters = useCallback(async () => {
     try {
@@ -102,6 +143,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 .then(async () => {
                   await after();
                   await reloadSemesters();
+                  void reloadSpaces();
                   toast(`تمت استعادة ${label}`, { kind: 'ok' });
                 })
                 .catch((e: Error) => toast(e.message, { kind: 'error' }));
@@ -113,14 +155,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         toast((e as Error).message, { kind: 'error' });
       }
     },
-    [toast, reloadSemesters],
+    [toast, reloadSemesters, reloadSpaces],
   );
 
   const activeId = useMemo(() => semesters?.find((s) => s.is_active)?.id ?? semesters?.[0]?.id ?? null, [semesters]);
 
   const value = useMemo<Ctx>(
-    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCounts, setUnknownCount }),
-    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCounts, setUnknownCount],
+    () => ({ semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, setShowShortcuts, unknownCounts, setUnknownCount, spaces, reloadSpaces, profileName, setProfileName, createCmd, openCreate, aiCmd, openAi, dataRev, bumpData }),
+    [semesters, reloadSemesters, activeId, toast, confirm, theme, themePref, setTheme, deleteWithUndo, showShortcuts, unknownCounts, setUnknownCount, spaces, reloadSpaces, profileName, createCmd, aiCmd, openAi, dataRev, bumpData],
   );
 
   return (

@@ -6,7 +6,7 @@ import { useSem } from '../core/sem-context.js';
 import { useApp } from '../core/app-context.js';
 import { api } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
-import { Badge, Button, Card, EmptyState, IconButton, Modal, Segmented, Unknown } from '../ui/ui.js';
+import { Badge, BulkBar, Button, Card, EmptyState, IconButton, Modal, Segmented, Unknown, useSelection } from '../ui/ui.js';
 import { CourseCard, DocTable, Facet, FilterChips, type Col } from '../widgets/catalog.js';
 import { CourseForm, AssessmentForm } from '../forms/lazy.js';
 import { Icon } from '../lib/icons.js';
@@ -23,6 +23,7 @@ type Sort = 'code' | 'name' | 'credits' | 'load' | 'next';
 export default function Courses() {
   const S = useSem();
   const { toast, confirm, deleteWithUndo } = useApp();
+  const { sel, toggle: toggleSel, clear: clearSel } = useSelection();
   const nav = useNavigate();
   const base = `/academic/s/${S.sem.id}`;
   const [view, setView] = useState<View>(() => (localStorage.getItem('platform.coursesView') as View | null) ?? 'grid');
@@ -181,7 +182,18 @@ export default function Courses() {
           ) : filtered.length === 0 ? (
             <EmptyState icon="filter" title="لا مادة تطابق المرشحات" action={<Button onClick={clear}>مسح المرشحات</Button>} />
           ) : view === 'table' ? (
-            <DocTable rows={filtered.map((x) => ({ ...x, id: x.c.id }))} cols={cols} />
+            <>
+              <BulkBar count={sel.size} onClear={clearSel}>
+                <Button size="sm" variant="danger" icon="trash" onClick={async () => {
+                  if (!(await confirm({ title: `حذف ${sel.size} مادة؟`, body: 'تُحذف مع تقييماتها وملاحظاتها ونتائجها. يمكن الاستعادة من سلة المحذوفات 30 يومًا.', danger: true, confirmLabel: 'حذف' }))) return;
+                  const r = await api.bulkCourses([...sel]);
+                  clearSel();
+                  await S.reload();
+                  toast(`حُذفت ${r.count} مادة`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(() => S.reload()) } });
+                }}>حذف المحدد</Button>
+              </BulkBar>
+              <DocTable rows={filtered.map((x) => ({ ...x, id: x.c.id }))} cols={cols} selectable selected={sel} onSelect={(id) => toggleSel(id)} />
+            </>
           ) : (
             <div className={view === 'grid' ? 'grid cat-grid stagger' : 'stack stagger'} style={view === 'list' ? { gap: 'var(--s-3)' } : undefined}>
               {filtered.map((x, i) => (

@@ -4,11 +4,12 @@ import { Icon } from '../lib/icons.js';
 import { useInbox } from '../core/inbox.js';
 import { cx } from '../ui/ui.js';
 import { daysLeftText, notifiable, type DeadlineAlert } from '../../../shared/review.js';
+import { wos } from '../lib/wos.js';
 import { getNotifyEnabled, markFired, notifyPermission, wasFired } from './prefs.js';
 
 /** جرس المواعيد (من الوارد core/inbox): يعرض المواعيد خلال 7 أيام للفصل النشط (والفائتة المفتوحة)، ويُطلق إشعار المتصفح مرة واحدة فقط للتي لها تاريخ محدد (اليوم/غدًا) إن فعّله المستخدم. */
 export function DeadlineBell() {
-  const { bundle, alerts, urgent } = useInbox();
+  const { bundle, alerts, urgent: deadlineUrgent } = useInbox();
   const loc = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -19,6 +20,21 @@ export function DeadlineBell() {
     window.addEventListener('platform-notify', on);
     return () => window.removeEventListener('platform-notify', on);
   }, []);
+
+  // وارد نظام العمل (تنبيهات الأتمتة): بعد أول رسم وعند فتح الجرس
+  const [wosInbox, setWosInbox] = useState<{ id: string; title: string; to?: string | null }[]>([]);
+  const loadWos = (): void => {
+    if (document.hidden) return;
+    wos.inbox().then((r) => setWosInbox(r.filter((x) => !x.read))).catch(() => undefined);
+  };
+  useEffect(() => {
+    const t = window.setTimeout(loadWos, 1500);
+    return () => window.clearTimeout(t);
+  }, []);
+  useEffect(() => {
+    if (open) loadWos();
+  }, [open]);
+  const urgent = deadlineUrgent + wosInbox.length;
 
   useEffect(() => {
     if (!getNotifyEnabled() || notifyPermission() !== 'granted') return;
@@ -70,6 +86,16 @@ export function DeadlineBell() {
       </button>
       {open && (
         <div className="menu bell-pop" role="region" aria-label="المواعيد القريبة">
+          {wosInbox.length > 0 && (
+            <>
+              <div className="hit-group">الوارد</div>
+              <ul className="plain">
+                {wosInbox.slice(0, 5).map((x) => (
+                  <li key={x.id}><Link to={x.to ?? '/inbox'} className="bell-row"><i className="dot" /><span><bdi>{x.title}</bdi></span></Link></li>
+                ))}
+              </ul>
+            </>
+          )}
           <div className="hit-group">خلال 7 أيام</div>
           {alerts.length === 0 ? (
             <p className="muted" style={{ padding: 'var(--s-3)', margin: 0 }}>{bundle ? 'لا مواعيد محددة قريبة. التقييمات بلا تاريخ لا تظهر هنا حتى تُحدَّد.' : 'جارٍ التحميل…'}</p>
@@ -77,6 +103,8 @@ export function DeadlineBell() {
             <ul className="plain">{alerts.slice(0, 8).map(row)}</ul>
           )}
           <div className="sep" />
+          <Link to="/inbox">كل الوارد <Icon name="bell" size={14} /></Link>
+          <Link to="/week">هذا الأسبوع <Icon name="calendar" size={14} /></Link>
           <Link to={`${base}/timeline`}>التقييمات والمواعيد <Icon name="left" size={14} /></Link>
           <Link to="/settings#notify">إعدادات الإشعارات <Icon name="bell" size={14} /></Link>
         </div>

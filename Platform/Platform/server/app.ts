@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import type { AppConfig } from './config.js';
 import { createApiRouter, type Ctx } from './routes.js';
+import { runAs } from './actor.js';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
@@ -91,10 +92,13 @@ export function createApp(ctx: Ctx): express.Express {
     next();
   });
 
-  app.use('/api', compression({ threshold: 512, filter: (req, res) => !/\/raw$/.test(req.path) && req.path !== '/kitchen/stream' && compression.filter(req, res) }), (_req, res, next) => {
+  app.use('/api', compression({ threshold: 512, filter: (req, res) => !/\/raw$/.test(req.path) && req.path !== '/kitchen/stream' && !/^\/ai\/chat$/.test(req.path) && compression.filter(req, res) }), (_req, res, next) => {
     res.setHeader('Cache-Control', 'no-store');
     next();
-  }, express.json({ limit: '5mb' }), createApiRouter(ctx));
+  }, express.json({ limit: '5mb' }), (req, _res, next) => {
+    // بعد قراءة الجسم (أحداث التدفق لا تحمل السياق): أفعال نواة الذكاء تُوسم في السجل (actor = ai)
+    runAs(req.get('x-actor') === 'ai' ? 'ai' : 'user', next);
+  }, createApiRouter(ctx));
 
 
   function sendWithEncoding(req: express.Request, res: express.Response, abs: string, cache: string): void {

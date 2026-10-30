@@ -358,7 +358,8 @@ describe(`life API (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
     });
   });
 });
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? '/workspace/rashed_fixture';
+const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
+const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
 describe.skipIf(!fs.existsSync(path.join(REAL, 'exports_meta.json')))('real Rashed exports (local copy only; skipped elsewhere)', () => {
   it('every data file passes the shape check and is consistent with exports_meta', async () => {
     await call('PUT', '/api/life/settings', { root: REAL });

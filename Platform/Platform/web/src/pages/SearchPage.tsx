@@ -5,7 +5,7 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Card, CardHead, EmptyState, Skeleton } from '../ui/ui.js';
 import type { MoreHit, SearchHit } from '../../../shared/types.js';
 
-const MORE_LABEL: Record<MoreHit['kind'], string> = { library: 'المكتبة', youtube: 'YouTube', life: 'الحياة', sports: 'تمارين', workout: 'تماريني', glossary: 'المصطلحات' };
+const MORE_LABEL: Record<MoreHit['kind'], string> = { space: 'مساحاتي', item: 'عناصر المساحات', library: 'المكتبة', youtube: 'YouTube', life: 'الحياة', sports: 'تمارين', workout: 'تماريني', glossary: 'المصطلحات' };
 
 export default function SearchPage() {
   const [sp] = useSearchParams();

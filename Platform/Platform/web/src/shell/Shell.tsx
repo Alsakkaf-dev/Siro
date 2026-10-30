@@ -1,5 +1,5 @@
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Outlet, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
+import { Fragment, Suspense, lazy, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
 import { flagEnabled } from '../core/flags.js';
@@ -11,6 +11,10 @@ import { Palette } from './Palette.js';
 import { BottomBar, Sidebar } from './Sidebar.js';
 import { NewMenu, SemChip } from './TopMenus.js';
 import { DeadlineBell } from '../notify/Bell.js';
+
+const CreateLayer = lazy(() => import('./Create.js'));
+// نواة الذكاء تُحمَّل عند أول فتح فقط — لا تزيد الحزمة الأولى
+const AiPanel = lazy(() => import('../ai/AiPanel.js'));
 
 function isTyping(t: EventTarget | null): boolean {
   const el = t as HTMLElement | null;
@@ -37,14 +41,19 @@ function shortcutRows(): { keys: string; what: string }[] {
     ...AREAS.filter((a) => !a.flag || flagEnabled(a.flag)).map((a) => ({ keys: `g ثم ${a.kbd}`, what: `قسم ${a.label}` })),
     ...PAGES.filter((p) => p.kbd && (!p.flag || flagEnabled(p.flag))).map((p) => ({ keys: `g ثم ${p.kbd}`, what: p.label })),
     ...Object.entries(KBD_ALIASES).map(([k, a]) => ({ keys: `g ثم ${k}`, what: a.label })),
-    { keys: 'c', what: 'إنشاء جديد (مادة، تقييم، فصل، فيديو، تسجيل، تمرين)' },
+    { keys: 'c', what: 'إنشاء جديد (مادة، تقييم، فصل، فيديو، تسجيل، تمرين، عنصر في مساحاتي)' },
+    { keys: 'Ctrl+J', what: 'المساعد الذكي: اطلب بجملة (يبحث، يضيف، يعدّل، يحسب، يلخّص)' },
     { keys: 'Esc', what: 'إغلاق النافذة أو القائمة' },
     { keys: '? أو ؟', what: 'عرض هذه القائمة' },
   ];
 }
 
 export function Shell() {
-  const { semesters, activeId, theme, setTheme, showShortcuts, setShowShortcuts } = useApp();
+  const { semesters, activeId, theme, setTheme, showShortcuts, setShowShortcuts, createCmd, profileName, aiCmd, openAi, dataRev } = useApp();
+  const [aiOpen, setAiOpen] = useState(false);
+  useEffect(() => {
+    if (aiCmd) setAiOpen(true);
+  }, [aiCmd]);
   const loc = useLocation();
   const nav = useNavigate();
   const navType = useNavigationType();
@@ -132,6 +141,14 @@ export function Shell() {
         searchRef.current?.focus();
         return;
       }
+      if ((e.ctrlKey || e.metaKey) && e.code === 'KeyJ') {
+        e.preventDefault();
+        setAiOpen((v) => {
+          if (!v) openAi();
+          return !v;
+        });
+        return;
+      }
       if (e.key === 'Escape' && open) {
         setOpen(false);
         return;
@@ -167,7 +184,7 @@ export function Shell() {
       document.removeEventListener('keydown', onKey);
       window.clearTimeout(timer);
     };
-  }, [nav, semId, setShowShortcuts, open]);
+  }, [nav, semId, setShowShortcuts, open, openAi]);
 
   const setTitle = useCallback((t: string | null) => setTitleOv(t), []);
   const skip = (e: React.MouseEvent): void => {
@@ -176,7 +193,7 @@ export function Shell() {
   };
 
   return (
-    <div className="app">
+    <div className={aiOpen ? 'app ai-docked' : 'app'}>
       <a href="#main" className="skip-link" onClick={skip}>تخطَّ إلى المحتوى</a>
       {open && <div className="backdrop" onClick={() => setOpen(false)} />}
       <Sidebar open={open} inert={mobile && !open} semId={semId} activeArea={activeArea} owner={owner} onShortcuts={() => setShowShortcuts(true)} />
@@ -188,23 +205,37 @@ export function Shell() {
           <div className="spacer" />
           <NewMenu open={newOpen} setOpen={setNewOpen} semId={semId} />
           {activeArea === 'study' && curSem && <SemChip current={curSem.id} />}
+          <button className="icon-btn ai-launch" aria-label="المساعد الذكي (Ctrl+J)" title="المساعد الذكي (Ctrl+J)" aria-pressed={aiOpen} onClick={() => (aiOpen ? setAiOpen(false) : openAi())}><Icon name="sparkle" size={18} /></button>
           <DeadlineBell />
           <div className="theme-toggle" role="group" aria-label="المظهر">
             <button aria-pressed={theme === 'light'} aria-label="فاتح" onClick={() => setTheme('light')}><Icon name="sun" size={17} /></button>
             <button aria-pressed={theme === 'dark'} aria-label="داكن" onClick={() => setTheme('dark')}><Icon name="moon" size={17} /></button>
           </div>
           <button className="icon-btn hide-sm" aria-label="اختصارات لوحة المفاتيح" title="اختصارات (؟)" onClick={() => setShowShortcuts(true)}><Icon name="hash" size={18} /></button>
-          <span className="avatar" aria-hidden="true">م</span>
+          <Link to="/settings#profile" className="avatar" aria-label="الملف الشخصي والإعدادات">{(profileName ?? 'م').trim().slice(0, 1) || 'م'}</Link>
         </header>
         <main id="main" className="content" tabIndex={-1} ref={mainRef}>
           <TitleProvider set={setTitle}>
             <Suspense fallback={<div className="page"><Skeleton h={40} w="35%" /><div style={{ height: 24 }} /><Skeleton h={280} r={20} /></div>}>
-              <Outlet />
+              {/* بعد أن يعدّل المساعد بيانات: إعادة تحميل الصفحة الحالية لتظهر التغييرات فورًا */}
+              <Fragment key={dataRev}>
+                <Outlet />
+              </Fragment>
             </Suspense>
           </TitleProvider>
         </main>
       </div>
       <BottomBar semId={semId} activeArea={activeArea} onMore={() => setOpen(true)} moreOpen={open} />
+      {aiOpen && (
+        <Suspense fallback={null}>
+          <AiPanel onClose={() => { setAiOpen(false); openAi(null); }} />
+        </Suspense>
+      )}
+      {createCmd && (
+        <Suspense fallback={null}>
+          <CreateLayer />
+        </Suspense>
+      )}
       {gWait && <div className="g-wait" role="status" aria-live="polite" dir="ltr">g …</div>}
       {showShortcuts && (
         <Modal title="اختصارات لوحة المفاتيح" onClose={() => setShowShortcuts(false)}>

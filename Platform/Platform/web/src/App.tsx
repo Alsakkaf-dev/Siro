@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Shell } from './shell/Shell.js';
 import { SemesterLayout } from './core/sem-context.js';
@@ -50,14 +50,29 @@ const LibraryFolders = lazy(() => import('./pages/LibraryFolders.js'));
 const LibraryYoutube = lazy(() => import('./pages/LibraryYoutube.js'));
 const LibraryItem = lazy(() => import('./pages/LibraryItem.js'));
 const NotFound = lazy(() => import('./pages/NotFound.js'));
+const ImportSemester = lazy(() => import('./pages/ImportSemester.js'));
+const Week = lazy(() => import('./pages/Week.js'));
+const Everything = lazy(() => import('./pages/Everything.js'));
+const Inbox = lazy(() => import('./pages/Inbox.js'));
+const SiteMap = lazy(() => import('./pages/SiteMap.js'));
+const Trash = lazy(() => import('./pages/Trash.js'));
+const Activity = lazy(() => import('./pages/Activity.js'));
+const Spaces = lazy(() => import('./pages/Spaces.js'));
+const SpaceTemplates = lazy(() => import('./pages/Spaces.js').then((m) => ({ default: m.SpaceTemplates })));
+const AllAutomations = lazy(() => import('./pages/Spaces.js').then((m) => ({ default: m.AllAutomations })));
+const Space = lazy(() => import('./pages/Space.js'));
+const ReviewProgress = lazy(() => import('./pages/ReviewProgress.js'));
+const PublicShare = lazy(() => import('./pages/PublicShare.js'));
 
 /** المسارات مطابقة لسجل التنقل (core/registry.ts) — يتحقق منها tests/registry.test.ts. */
 export function App() {
   return (
     <Routes>
+      <Route path="p/:token" element={<Suspense fallback={null}><PublicShare /></Suspense>} />
       <Route element={<Shell />}>
         <Route index element={<Today />} />
         <Route path="academic" element={<Semesters />} />
+        <Route path="academic/import" element={<ImportSemester />} />
         <Route path="academic/s/:semId" element={<SemesterLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="courses" element={<Courses />} />
@@ -108,6 +123,18 @@ export function App() {
         {REDIRECTS.map((r) => (
           <Route key={r.from} path={r.from.slice(1)} element={<RedirectKeep to={r.to} />} />
         ))}
+        {/* مساحاتي ونظام العمل (docs/design/IA_METRO_MAP.md) */}
+        <Route path="week" element={<Week />} />
+        <Route path="everything" element={<Everything />} />
+        <Route path="inbox" element={<Inbox />} />
+        <Route path="map" element={<SiteMap />} />
+        <Route path="trash" element={<Trash />} />
+        <Route path="activity" element={<Activity />} />
+        <Route path="spaces" element={<Spaces />} />
+        <Route path="spaces/templates" element={<SpaceTemplates />} />
+        <Route path="spaces/automations" element={<AllAutomations />} />
+        <Route path="spaces/:id" element={<Space />} />
+        <Route path="review/progress" element={<ReviewProgress />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

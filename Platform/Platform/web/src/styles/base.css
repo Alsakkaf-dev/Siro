@@ -36,3 +36,9 @@ bdi, .ltr { unicode-bidi: isolate; }
 body::before { content: ''; position: fixed; inset: 0; background: var(--page-glow); pointer-events: none; z-index: 0; }
 #root { position: relative; z-index: 1; }
 .skip-link:not(:focus) { opacity: 0; pointer-events: none; }
+
+/* عناصر الإدخال بلا صنف: نفس مظهر .input (تخصيص صفري عبر :where — أي صنف موجود يتغلب عليها) */
+:where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='hidden']), select, textarea) { min-height: 36px; padding: 6px 10px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--r-md); color: var(--text); transition: border-color var(--t-fast), box-shadow var(--t-fast); max-width: 100%; }
+:where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file']), select, textarea):focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none; }
+:where(select) option { background: var(--surface); color: var(--text); }
+:where(input[type='checkbox'], input[type='radio']) { accent-color: var(--accent); }

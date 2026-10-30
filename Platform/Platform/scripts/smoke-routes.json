@@ -3,6 +3,7 @@
   "routes": [
     "/",
     "/academic",
+    "/academic/import",
     "/academic/s/:sem",
     "/academic/s/:sem/courses",
     "/academic/s/:sem/courses/:course",
@@ -32,6 +33,10 @@
     "/life/commands",
     "/life/settings",
     "/review",
+    "/review/progress",
+    "/week",
+    "/everything",
+    "/inbox",
     "/calendar",
     "/calendar?view=month",
     "/calendar/meals",
@@ -54,9 +59,19 @@
     "/kitchen/cook",
     "/kitchen/cook?recipe=bk-03&mode=guided",
     "/kitchen/plan",
+    "/spaces",
+    "/spaces/templates",
+    "/spaces/automations",
+    "/spaces/:space",
+    "/activity",
+    "/trash",
+    "/map",
     "/settings",
     "/glossary",
     "/search?q=SCSE",
+    "/today",
+    "/study",
+    "/settings/trash",
     "/home",
     "/no-such-page"
   ],
@@ -67,6 +82,7 @@
     "/life",
     "/sports/mine",
     "/kitchen",
+    "/spaces",
     "/settings"
   ],
   "redirects": {
@@ -74,6 +90,9 @@
     "/life/glossary": "/glossary",
     "/academic/s/:sem/weights": "/academic/s/:sem/timeline?view=weights",
     "/library/settings": "/settings?tab=sources",
-    "/life/settings": "/settings?tab=sources"
+    "/life/settings": "/settings?tab=sources",
+    "/today": "/",
+    "/study": "/academic",
+    "/settings/trash": "/trash"
   }
 }

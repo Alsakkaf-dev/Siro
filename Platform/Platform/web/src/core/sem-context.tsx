@@ -62,6 +62,12 @@ export function SemesterLayout(): ReactNode {
     setData(null);
     void reload(false);
   }, [reload]);
+  // إنشاء سريع من أي مكان (قائمة +) يُعلِم الصفحة لتحدّث بياناتها
+  useEffect(() => {
+    const on = (): void => void reload(false);
+    window.addEventListener('platform:sem-changed', on);
+    return () => window.removeEventListener('platform:sem-changed', on);
+  }, [reload]);
 
   const value = useMemo<SemData | null>(() => {
     if (!data) return null;

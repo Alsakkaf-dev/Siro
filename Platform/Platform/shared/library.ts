@@ -1,7 +1,7 @@
 /** منطق المكتبة المشترك (خادم + واجهة): تصنيف الملفات، استنتاج الفصل/المادة/النوع من المسار، وقراءة روابط YouTube. */
 
 export type FileKind = 'pdf' | 'word' | 'slides' | 'sheet' | 'text' | 'code' | 'image' | 'video' | 'audio' | 'archive' | 'other';
-export type Preview = 'pdf' | 'docx' | 'image' | 'video' | 'audio' | 'text' | null;
+export type Preview = 'pdf' | 'docx' | 'image' | 'video' | 'audio' | 'text' | 'drive' | null;
 
 export const KIND_LABELS: Record<FileKind, string> = {
   pdf: 'PDF',
@@ -209,6 +209,9 @@ export interface LibItem {
   preview: Preview;
   missing: boolean;
   video_id?: string;
+  /** local = من مجلد المكتبة، drive = من حزمة فصل على Google Drive */
+  origin?: 'local' | 'drive' | 'pkgdir';
+  remote_id?: string | null;
 }
 export interface LibFacetCount { value: string; label: string; count: number }
 export interface LibListResult {
@@ -244,6 +247,13 @@ export function bareLibId(idOrRef: string): string {
 export function libRefOf(source: 'file' | 'youtube', idOrRef: string): string {
   return `${source === 'youtube' ? 'y' : 'f'}:${bareLibId(idOrRef)}`;
 }
+
+/** روابط Google Drive لملف حزمة */
+export const driveUrls = (id: string): { preview: string; view: string; download: string } => ({
+  preview: `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`,
+  view: `https://drive.google.com/file/d/${encodeURIComponent(id)}/view`,
+  download: `https://drive.google.com/uc?id=${encodeURIComponent(id)}&export=download`,
+});
 
 /** مسار صفحة العنصر في الواجهة */
 export function libraryItemPath(source: 'file' | 'youtube', idOrRef: string): string {

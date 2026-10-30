@@ -1,0 +1,117 @@
+{
+  "package_version": 1,
+  "source": "package:SEM-3",
+  "semester": {
+    "id": "sem3",
+    "code": "SEM 3",
+    "name": "Semester I 2025/2026",
+    "year_no": 2,
+    "sem_no": 3,
+    "start_date": "2025-10-06",
+    "weeks": 16,
+    "break_weeks": [],
+    "exam_start": null,
+    "exam_end": null,
+    "note": "تاريخ البداية من جدول عمل الفصل الأول 2025/2026 الرسمي (AMD UTM): المحاضرات من 6 Oct 2025. عدد الأسابيع 16 [افتراض]. GPA 3.00 · CGPA 2.48 (كشف النتائج)."
+  },
+  "courses": [
+    {
+      "id": "sem3-scse2103",
+      "code": "SCSE2103",
+      "name": "Data Structure and Algorithm",
+      "section": "03",
+      "credits": 3,
+      "color": "#4CC9F0",
+      "sort": 1,
+      "note": null,
+      "result": {
+        "grade": "B",
+        "points": 3,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem3-scse2123",
+      "code": "SCSE2123",
+      "name": "Software Requirements Engineering",
+      "section": "02",
+      "credits": 3,
+      "color": "#F72585",
+      "sort": 2,
+      "note": null,
+      "result": {
+        "grade": "C+",
+        "points": 2.33,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem3-scse2133",
+      "code": "SCSE2133",
+      "name": "Software Process and Project Management",
+      "section": "03",
+      "credits": 3,
+      "color": "#7209B7",
+      "sort": 3,
+      "note": null,
+      "result": {
+        "grade": "B-",
+        "points": 2.67,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem3-scsm2113",
+      "code": "SCSM2113",
+      "name": "Human Computer Interaction Fundamentals",
+      "section": "01",
+      "credits": 3,
+      "color": "#3A86FF",
+      "sort": 4,
+      "note": null,
+      "result": {
+        "grade": "B-",
+        "points": 2.67,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem3-scsr2043",
+      "code": "SCSR2043",
+      "name": "Operating Systems",
+      "section": "01",
+      "credits": 3,
+      "color": "#FB8500",
+      "sort": 5,
+      "note": null,
+      "result": {
+        "grade": "A-",
+        "points": 3.67,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem3-ulrf2622",
+      "code": "ULRF2622",
+      "name": "Football",
+      "section": "01",
+      "credits": 2,
+      "color": "#06D6A0",
+      "sort": 6,
+      "note": null,
+      "result": {
+        "grade": "A",
+        "points": 4,
+        "credits": 2,
+        "status": null
+      }
+    }
+  ],
+  "assessments": [],
+  "notes": []
+}

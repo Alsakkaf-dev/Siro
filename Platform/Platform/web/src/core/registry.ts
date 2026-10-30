@@ -5,7 +5,7 @@
  */
 import type { IconName } from '../lib/icons.js';
 
-export type AreaId = 'home' | 'study' | 'library' | 'life' | 'body' | 'kitchen' | 'system';
+export type AreaId = 'home' | 'study' | 'library' | 'life' | 'body' | 'kitchen' | 'work' | 'system';
 export type FlagName = 'kitchen.enabled' | 'kitchen.3d' | 'kitchen.apis.extended' | 'calendar.outlook.read' | 'calendar.outlook.proposals';
 
 export interface AreaDef {
@@ -54,7 +54,8 @@ export const AREAS: readonly AreaDef[] = [
   { id: 'life', label: 'الحياة', icon: 'heart', entry: 'life', kbd: '4', mobile: true },
   { id: 'body', label: 'الجسم والرياضة', icon: 'dumbbell', entry: 'sports-mine', kbd: '5', mobile: false },
   { id: 'kitchen', label: 'المطبخ', icon: 'utensils', entry: 'kitchen', kbd: '6', mobile: false, flag: 'kitchen.enabled' },
-  { id: 'system', label: 'النظام', icon: 'sliders', entry: 'settings', kbd: '7', mobile: false },
+  { id: 'work', label: 'مساحاتي', icon: 'layers', entry: 'spaces', kbd: '7', mobile: false },
+  { id: 'system', label: 'النظام', icon: 'sliders', entry: 'settings', kbd: '8', mobile: false },
 ];
 
 const S = '/academic/s/:semId';
@@ -65,6 +66,10 @@ export const PAGES: readonly PageDef[] = [
   { id: 'calendar', path: '/calendar', label: 'الجدول', tabLabel: 'الجدول', area: 'home', icon: 'calendar', kbd: 'j', keywords: 'calendar schedule outlook week agenda جدول تقويم أسبوع مواعيد محاضرات صلاة', surface: 'sidebar', tabGroup: 'calendar', chunk: 'Calendar' },
   { id: 'calendar-proposals', path: '/calendar/proposals', label: 'اقتراحات Outlook', tabLabel: 'الاقتراحات', area: 'home', parent: 'calendar', icon: 'mail', keywords: 'proposals outlook export rashed اقتراحات تصدير راشد تعديل تقويم', surface: 'tab', tabGroup: 'calendar', chunk: 'CalendarProposals' },
   { id: 'calendar-meals', path: '/calendar/meals', label: 'وجبات الجدول', tabLabel: 'الوجبات', area: 'home', parent: 'calendar', icon: 'utensils', keywords: 'meals plan cycle shopping log وجبات دورة تسوق سجل تغذوي فطور غداء عشاء', surface: 'tab', tabGroup: 'calendar', chunk: 'CalendarMeals' },
+  { id: 'week', path: '/week', label: 'هذا الأسبوع', area: 'home', icon: 'calendar', keywords: 'week agenda this week أسبوع مواعيد المهام القادمة', surface: 'sidebar', chunk: 'Week' },
+  { id: 'everything', path: '/everything', label: 'كل شيء', area: 'home', icon: 'list', kbd: 'e', keywords: 'everything all tasks كل المهام كل شيء', surface: 'sidebar', chunk: 'Everything' },
+  { id: 'inbox', path: '/inbox', label: 'الوارد', area: 'home', icon: 'bell', kbd: 'i', keywords: 'inbox notifications automation تنبيهات وارد أتمتة', surface: 'sidebar', chunk: 'Inbox' },
+  { id: 'review-progress', path: '/review/progress', label: 'تقدّم المراجعة', area: 'home', parent: 'review', icon: 'chart', keywords: 'review progress تقدم المراجعة', surface: 'hidden', chunk: 'ReviewProgress' },
   // الدراسة
   { id: 'dashboard', path: S, label: 'لوحة الفصل', area: 'study', icon: 'grid', kbd: 'd', keywords: 'dashboard semester لوحة', surface: 'sidebar', needsSemester: true, chunk: null },
   { id: 'courses', path: `${S}/courses`, label: 'المواد', area: 'study', icon: 'book', kbd: 'c', keywords: 'courses subjects مواد', surface: 'sidebar', needsSemester: true, chunk: 'Courses' },
@@ -74,6 +79,7 @@ export const PAGES: readonly PageDef[] = [
   { id: 'unknowns', path: `${S}/unknowns`, label: 'غير المعروف', area: 'study', icon: 'help', kbd: 'u', keywords: 'unknowns missing ناقص', surface: 'sidebar', needsSemester: true, chunk: 'Unknowns' },
   { id: 'print', path: `${S}/print`, label: 'ملخص الفصل للطباعة', area: 'study', parent: 'dashboard', icon: 'print', keywords: 'print طباعة', surface: 'hidden', needsSemester: true, chunk: 'PrintSummary' },
   { id: 'semesters', path: '/academic', label: 'مدير الفصول', area: 'study', icon: 'layers', kbd: 's', keywords: 'semesters مدير الفصول', surface: 'sidebar', chunk: 'Semesters' },
+  { id: 'academic-import', path: '/academic/import', label: 'استيراد فصل', area: 'study', parent: 'semesters', icon: 'upload', keywords: 'import package drive semester استيراد حزمة فصل درايف', surface: 'hidden', chunk: 'ImportSemester' },
   // المكتبة
   { id: 'library', path: '/library', label: 'المكتبة', tabLabel: 'الكل', area: 'library', icon: 'library', keywords: 'library pdf files ملفات', surface: 'sidebar', tabGroup: 'library', chunk: 'Library' },
   { id: 'library-folders', path: '/library/folders', label: 'المجلدات', area: 'library', parent: 'library', icon: 'folder', keywords: 'folders مجلدات', surface: 'tab', tabGroup: 'library', chunk: 'LibraryFolders' },
@@ -109,8 +115,16 @@ export const PAGES: readonly PageDef[] = [
   { id: 'kitchen-card', path: '/kitchen/codex/:slug', label: 'بطاقة وجبة', area: 'kitchen', parent: 'kitchen-codex', icon: 'book', surface: 'hidden', chunk: 'KitchenCodex', flag: 'kitchen.enabled' },
   { id: 'kitchen-cook', path: '/kitchen/cook', label: 'اطبخ', tabLabel: 'الطبخ', area: 'kitchen', icon: 'utensils', keywords: 'cook stove simulation طبخ محاكاة موقد مطبخ ثلاثي وصفة', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenCook', flag: 'kitchen.enabled' },
   { id: 'kitchen-plan', path: '/kitchen/plan', label: 'خطة اليوم', tabLabel: 'الخطة', area: 'kitchen', icon: 'calendar', keywords: 'plan meals day slots خطة وجبات يوم جدول فطور غداء عشاء', surface: 'sidebar', tabGroup: 'kitchen', chunk: 'KitchenPlan', flag: 'kitchen.enabled' },
+  // مساحاتي (نظام العمل: مساحات وأنواع وعروض وأتمتة)
+  { id: 'spaces', path: '/spaces', label: 'كل المساحات', tabLabel: 'المساحات', area: 'work', icon: 'layers', kbd: 'm', keywords: 'spaces workspace work-os مساحات مساحاتي مهام مشاريع', surface: 'sidebar', tabGroup: 'spaces', chunk: 'Spaces' },
+  { id: 'spaces-templates', path: '/spaces/templates', label: 'قوالب المساحات', tabLabel: 'القوالب', area: 'work', parent: 'spaces', icon: 'copy', keywords: 'templates قوالب جاهزة مساحة جديدة', surface: 'tab', tabGroup: 'spaces', chunk: 'Spaces' },
+  { id: 'spaces-automations', path: '/spaces/automations', label: 'الأتمتة', area: 'work', parent: 'spaces', icon: 'zap', keywords: 'automations rules قواعد أتمتة عندما ثم', surface: 'tab', tabGroup: 'spaces', chunk: 'Spaces' },
+  { id: 'space', path: '/spaces/:id', label: 'مساحة', area: 'work', parent: 'spaces', icon: 'layers', surface: 'hidden', chunk: 'Space' },
   // النظام
   { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup sources library life rashed folder نسخ احتياطي مظهر مصادر مجلد المكتبة راشد', surface: 'sidebar', chunk: 'Settings' },
+  { id: 'activity', path: '/activity', label: 'سجل النشاط', area: 'system', icon: 'clock', keywords: 'activity history log سجل تغييرات نشاط', surface: 'sidebar', chunk: 'Activity' },
+  { id: 'trash', path: '/trash', label: 'سلة المحذوفات', area: 'system', icon: 'trash', keywords: 'trash restore undo سلة محذوفات استعادة تراجع', surface: 'sidebar', chunk: 'Trash' },
+  { id: 'site-map', path: '/map', label: 'خريطة الموقع', area: 'system', icon: 'pin', keywords: 'map sitemap خريطة أين', surface: 'sidebar', chunk: 'SiteMap' },
   { id: 'glossary', path: '/glossary', label: 'قاموس المصطلحات', area: 'system', icon: 'book', keywords: 'glossary terms قاموس مصطلحات', surface: 'sidebar', chunk: 'Glossary' },
   { id: 'search', path: '/search', label: 'البحث', area: 'system', icon: 'search', keywords: 'search بحث', surface: 'sidebar', chunk: 'SearchPage' },
 ];
@@ -118,6 +132,9 @@ export const PAGES: readonly PageDef[] = [
 /** روابط قديمة تبقى تعمل (تحتفظ بـ search وhash). لا سلاسل. */
 export const REDIRECTS: readonly { from: string; to: string }[] = [
   { from: '/home', to: '/' },
+  { from: '/today', to: '/' },
+  { from: '/study', to: '/academic' },
+  { from: '/settings/trash', to: '/trash' },
   { from: '/life/glossary', to: '/glossary' },
   { from: '/library/settings', to: '/settings?tab=sources' },
   { from: '/life/settings', to: '/settings?tab=sources' },

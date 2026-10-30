@@ -94,7 +94,7 @@ export async function scanLibrary(db: Db, root: string): Promise<ScanResult> {
   let updated = 0;
   let missing = 0;
   db.tx(() => {
-    const existing = new Map(db.all<{ rel_path: string; size: number; mtime: number; missing: number }>('SELECT rel_path, size, mtime, missing FROM lib_files').map((r) => [r.rel_path, r]));
+    const existing = new Map(db.all<{ rel_path: string; size: number; mtime: number; missing: number }>("SELECT rel_path, size, mtime, missing FROM lib_files WHERE origin = 'local'").map((r) => [r.rel_path, r]));
     for (const f of found) {
       const prev = existing.get(f.rel);
       existing.delete(f.rel);
@@ -192,7 +192,7 @@ export function libraryStatus(db: Db): LibStatus {
 }
 
 /* ───── الاستعلام ───── */
-interface FileRow { id: string; rel_path: string; name: string; ext: string; kind: string; size: number; mtime: number; folder: string; sem_hint: string | null; course_hint: string | null; type_hint: string | null; missing: number }
+interface FileRow { id: string; rel_path: string; name: string; ext: string; kind: string; size: number; mtime: number; folder: string; sem_hint: string | null; course_hint: string | null; type_hint: string | null; missing: number; origin: 'local' | 'drive' | 'pkgdir'; remote_id: string | null; pkg: string | null }
 interface MetaRow { ref: string; note: string | null; progress: number; duration: number | null; done: number; opened_at: string | null; opened_count: number }
 interface YtRow { id: string; video_id: string; title: string; url: string; course_hint: string | null; added_at: string }
 
@@ -241,8 +241,10 @@ function fileItem(r: FileRow, m: ReturnType<typeof loadMaps>): LibItem {
     note: mt?.note ?? null,
     opened_at: mt?.opened_at ?? null,
     opened_count: mt?.opened_count ?? 0,
-    preview: previewOf(r.ext, kind),
+    preview: r.origin === 'drive' ? 'drive' : previewOf(r.ext, kind),
     missing: r.missing === 1,
+    origin: r.origin,
+    remote_id: r.remote_id,
   };
 }
 function ytItem(r: YtRow, m: ReturnType<typeof loadMaps>): LibItem {
