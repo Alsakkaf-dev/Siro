@@ -10,7 +10,7 @@ const DEFAULTS: Record<FlagName, boolean> = {
   'kitchen.3d': true,
   'kitchen.apis.extended': false,
   'calendar.outlook.read': false,
-  'calendar.outlook.proposals': false,
+  'calendar.outlook.proposals': true,
 };
 
 function overrides(): Partial<Record<FlagName, boolean>> {
@@ -30,9 +30,9 @@ export function flagEnabled(f: FlagName): boolean {
 export const FLAG_LABELS: Record<FlagName, string> = {
   'kitchen.enabled': 'قسم المطبخ',
   'kitchen.3d': 'المطبخ ثلاثي الأبعاد',
-  'kitchen.apis.extended': 'واجهات المطبخ الخارجية (المرحلة 4)',
-  'calendar.outlook.read': 'قراءة Outlook (المرحلة 4)',
-  'calendar.outlook.proposals': 'اقتراحات Outlook (المرحلة 4)',
+  'kitchen.apis.extended': 'واجهات المطبخ الخارجية (UNVERIFIED — بمفاتيح من الخادم فقط)',
+  'calendar.outlook.read': 'زر «زامن Outlook» (Graph — UNVERIFIED، يحتاج رمزًا على الخادم)',
+  'calendar.outlook.proposals': 'اقتراحات Outlook وتصديرها لراشد',
 };
 
 export function setFlag(f: FlagName, v: boolean): void {

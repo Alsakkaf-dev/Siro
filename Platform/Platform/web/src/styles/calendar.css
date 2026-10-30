@@ -97,3 +97,6 @@
 .cal-head-chip.ok { color: var(--ok); } .cal-head-chip.bad { color: var(--danger); } .cal-head-chip.part { color: var(--warn); }
 .cal-page .kt-plan-date { flex-wrap: wrap; }
 .cal-page .kt-plan-date .input[type='date'], .cal-page .kt-filter-row .input[type='date'] { inline-size: auto; min-inline-size: 150px; }
+.cal-diff { white-space: pre-wrap; max-block-size: 260px; overflow: auto; }
+.cal-diff .dl-del { background: var(--danger-soft); display: block; } .cal-diff .dl-add { background: var(--ok-soft); display: block; } .cal-diff .dl-same { display: block; color: var(--text-2); }
+.cal-page ins { text-decoration: none; background: var(--ok-soft); } .cal-page del { background: var(--danger-soft); }

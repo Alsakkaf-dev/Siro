@@ -5,6 +5,7 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, EmptyState, Field, Modal, Segmented, Skeleton } from '../ui/ui.js';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
+import { flagEnabled } from '../core/flags.js';
 import { useUrlParam, useUrlSet } from '../core/useUrlParam.js';
 import { addDays, dateOf, eventsOnDay, isDate, mealSlotOf, todayKL, weekStartOf, TERM_WINDOW, type CalEvent } from '../../../shared/calendar/index.js';
 import { LAW, fmtKcal, type Slot } from '../../../shared/kitchen/index.js';
@@ -124,7 +125,7 @@ export default function Calendar() {
           {data.last_sync && <small>آخر مزامنة: {sinceText(data.last_sync)}</small>}
           {(data.stale || offline) && <Badge tone="warn">قد تكون قديمة{offline ? ' — لا اتصال، لقطة محفوظة' : ''}</Badge>}
           {data.note && <small className="muted">{data.note}</small>}
-          {graph?.configured && <Button size="sm" icon="refresh" onClick={() => void doSync()}>زامن Outlook</Button>}
+          {graph?.configured && flagEnabled('calendar.outlook.read') && <Button size="sm" icon="refresh" onClick={() => void doSync()}>زامن Outlook</Button>}
           {data.source === 'import' && <Button size="sm" icon="trash" onClick={() => void doClear()}>احذف اللقطة</Button>}
         </div>
       )}

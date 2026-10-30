@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, Button } from '../ui/ui.js';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
+import { flagEnabled } from '../core/flags.js';
 import { NutriGrid, useKitchen } from '../kitchen/kitchenKit.js';
 import { KitchenApiError, deletePlanDay, fetchPlan, previewPlan, savePlan, type ManualIn, type PlanDayRow, type PlanSlotsIn, type PreviewOut } from '../kitchen/store.js';
 import { INGREDIENT_BY_SLUG, SLOTS, feasibleRange, fmtKcal, fmtNum, fmtRM, mealCost, type NutritionVector, type Slot } from '../../../shared/kitchen/index.js';
@@ -9,6 +10,8 @@ import { mealEventsOf, outlookDayLaw, type CalEvent } from '../../../shared/cale
 import { LawGauge, type GaugeState } from './LawGauge.js';
 import { MealPicker, usePickOptions } from './MealPicker.js';
 import { timeRange } from './fmt.js';
+import { fromPlan } from './api.js';
+import { Link } from 'react-router-dom';
 
 const SCALES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type CardPick = { kind: 'card'; card: string; scale: number };
@@ -92,6 +95,13 @@ export function DayMeals({ date, focus, events, onSaved }: { date: string; focus
     } finally {
       setBusy(false);
     }
+  };
+  const [prop, setProp] = useState<string[] | null>(null);
+  const doPropose = async (): Promise<void> => {
+    try {
+      const r = await fromPlan(date);
+      setProp([`أُنشئ ${r.created.length} اقتراحًا`, ...r.skipped.map((s) => `تُخطّي «${s.slot}»: ${s.reason}`), ...r.rejected.map((x) => `رُفض «${x.slot}»: ${x.errors.map((e) => `${e.code} ${e.msg}`).join(' | ')}`)]);
+    } catch (e) { toast(e instanceof Error ? e.message : 'تعذّر إنشاء الاقتراح', { kind: 'error' }); }
   };
   const doClear = async (): Promise<void> => {
     if (!(await confirm({ title: 'حذف اقتراح هذا اليوم؟', body: 'يُحذف الاقتراح من المنصة فقط.', confirmLabel: 'احذف' }))) return;
@@ -183,9 +193,11 @@ export function DayMeals({ date, focus, events, onSaved }: { date: string; focus
         <div className="row">
           <Button variant="primary" icon="save" disabled={!canSave || busy} onClick={() => void doSave()} data-testid="save-plan">احفظ اقتراح اليوم</Button>
           {saved && <Button icon="trash" onClick={() => void doClear()}>احذف الاقتراح</Button>}
+          {saved && saved.status === 'proposal' && flagEnabled('calendar.outlook.proposals') && <Button icon="mail" onClick={() => void doPropose()} data-testid="propose-outlook">اقترح تحديث Outlook</Button>}
           {saved && <Badge tone="ok">محفوظ: {fmtKcal(saved.total_kcal)} سعرة</Badge>}
         </div>
         <small className="muted">لا زر «تجاوز» ولا إعداد يعطّل القانون. يُحفظ داخل المنصة فقط؛ التصدير إلى Outlook بقرار منفصل.</small>
+        {prop && <div className="callout" role="status" data-testid="propose-result"><ul className="plain kt-tight">{prop.map((x, i) => <li key={i}>{x}</li>)}</ul><Link to="/calendar/proposals">افتح الاقتراحات</Link> — لم يُكتب شيء في Outlook.</div>}
         {odl && odl.meals.length > 0 && (
           <p className={`callout ${odl.violation ? 'warn' : ''}`} role="note" data-testid="outlook-day">
             في Outlook لهذا اليوم: {odl.meals.map((m) => `${m.slot} ${m.kcal === null ? 'سعراته غير معروفة' : `${fmtKcal(m.kcal)} سعرة`}`).join(' · ')}.

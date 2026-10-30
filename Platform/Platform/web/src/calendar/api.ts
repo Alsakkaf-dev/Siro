@@ -90,3 +90,17 @@ export const importSnapshot = (b: { format: 'ics' | 'json'; text: string; calend
 export const clearImport = (): Promise<{ ok: true }> => call('DELETE', '/import');
 export const syncGraph = (from: string, to: string): Promise<{ synced: number; errors: { calendar: string; error: string }[] }> => call('POST', '/sync', { from, to });
 export { call as calendarCall };
+
+/* ───── الاقتراحات (K-M11) ───── */
+import type { EventFields, LintIssue, LintResult, PropKind } from '../../../shared/calendar/index.js';
+export interface ProposalView {
+  id: string; kind: PropKind; calendar: string; event_id: string | null; series: string | null; date: string;
+  before: EventFields | null; after: EventFields | null; reason: string; exceptions: { date: string; note: string }[]; explicit: boolean; lint: LintResult;
+  status: 'pending' | 'approved' | 'applied' | 'rejected'; batch: string | null; created_at: string; updated_at: string; decided_at: string | null; exported_at: string | null;
+}
+export const fetchProposals = (): Promise<{ proposals: ProposalView[]; counts: Record<string, number> }> => call('GET', '/proposals');
+export const fromPlan = (date: string, times: Record<string, { start: string; end: string }> = {}): Promise<{ date: string; created: { slot: string; id: string; kind: string }[]; rejected: { slot: string; errors: LintIssue[] }[]; skipped: { slot: string; reason: string }[]; note: string }> => call('POST', '/proposals/from-plan', { date, times });
+export const fixGrams = (from: string, to: string, dry_run: boolean): Promise<{ found: number; list: { event_id: string; title: string; date: string; changes: { from: string; to: string }[] }[]; created: string[]; rejected: { event_id: string; errors: LintIssue[] }[] }> => call('POST', '/proposals/fix-grams', { from, to, dry_run });
+export const setProposalStatus = (id: string, status: ProposalView['status']): Promise<{ proposal: ProposalView }> => call('PATCH', `/proposals/${id}`, { status });
+export const deleteProposal = (id: string): Promise<{ ok: true }> => call('DELETE', `/proposals/${id}`);
+export const exportProposals = (ids?: string[]): Promise<{ count: number; json: unknown; text: string; exported_at: string }> => call('POST', '/proposals/export', ids ? { ids } : {});

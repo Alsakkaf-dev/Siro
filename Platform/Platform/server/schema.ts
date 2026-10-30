@@ -389,6 +389,41 @@ CREATE TABLE calendar_sync (
 );
 `,
   },
+  {
+    id: 8,
+    name: 'calendar: proposals queue + audit (additive only)',
+    sql: `
+CREATE TABLE calendar_proposals (
+  id TEXT PRIMARY KEY,
+  kind TEXT NOT NULL,
+  calendar TEXT NOT NULL,
+  event_id TEXT,
+  series TEXT,
+  date TEXT NOT NULL,
+  before_json TEXT,
+  after_json TEXT,
+  reason TEXT NOT NULL,
+  exceptions TEXT NOT NULL,
+  explicit INTEGER NOT NULL DEFAULT 0,
+  lint TEXT NOT NULL,
+  status TEXT NOT NULL,
+  batch TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  decided_at TEXT,
+  exported_at TEXT
+);
+CREATE INDEX idx_calendar_proposals_status ON calendar_proposals (status, date);
+CREATE TABLE calendar_audit (
+  id TEXT PRIMARY KEY,
+  at TEXT NOT NULL,
+  actor TEXT NOT NULL,
+  action TEXT NOT NULL,
+  proposal_id TEXT,
+  detail TEXT NOT NULL
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

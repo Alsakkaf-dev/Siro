@@ -35,6 +35,7 @@
     "/calendar",
     "/calendar?view=month",
     "/calendar/meals",
+    "/calendar/proposals",
     "/calendar/meals?tab=cycle",
     "/calendar/meals?tab=shop",
     "/calendar/meals?tab=log",

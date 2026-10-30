@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.js'; // الصفحة الأكثر زي�
 const Today = lazy(() => import('./pages/Today.js'));
 const Calendar = lazy(() => import('./pages/Calendar.js'));
 const CalendarMeals = lazy(() => import('./pages/CalendarMeals.js'));
+const CalendarProposals = lazy(() => import('./pages/CalendarProposals.js'));
 const Kitchen = lazy(() => import('./pages/Kitchen.js'));
 const KitchenStore = lazy(() => import('./pages/KitchenStore.js'));
 const KitchenCart = lazy(() => import('./pages/KitchenCart.js'));
@@ -85,6 +86,7 @@ export function App() {
         <Route path="review" element={<Review />} />
         <Route path="calendar" element={<Calendar />} />
         <Route path="calendar/meals" element={<CalendarMeals />} />
+        <Route path="calendar/proposals" element={<CalendarProposals />} />
         <Route path="sports" element={<Sports />} />
         <Route path="sports/templates" element={<SportsTemplates />} />
         <Route path="sports/mine" element={<SportsMine />} />

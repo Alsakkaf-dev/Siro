@@ -850,6 +850,43 @@ async function scenarios(browser, { sem, course }) {
     await kapi('DELETE', '/cart');
     return 'دورة 30 يومًا ← رفض ×1.5 ← تطبيق ← تسوّق إلى السلة ← سجل 30 يومًا';
   });
+  await run('PROP-1: يوم الخطة ← اقتراحات بقالب حرفي وفرق ← اعتماد ← تصدير JSON ونص لراشد ← «مطبّق» بعد التصدير فقط، بلا كتابة في Outlook (AC-10)', 'desktop', async (page) => {
+    const vev = (uid, t, a, b, cal = 'روتين وصحة') => ['BEGIN:VEVENT', `UID:${uid}`, `SUMMARY:${t}`, `DTSTART;TZID=Asia/Kuala_Lumpur:${a}`, `DTEND;TZID=Asia/Kuala_Lumpur:${b}`, `X-SIRO-CALENDAR:${cal}`, 'END:VEVENT'].join('\r\n');
+    const ics = ['BEGIN:VCALENDAR', vev('p1', '😴 نوم', '20261116T000000', '20261116T060000'), vev('p2', 'فطور', '20261116T060000', '20261116T070000'), vev('p3', 'عمل', '20261116T070000', '20261116T120000'), vev('p4', 'غداء', '20261116T120000', '20261116T130000'), vev('p5', 'راحة', '20261116T130000', '20261116T230000'), vev('p6', '😴 جاري النوم', '20261116T230000', '20261117T000000'), 'END:VCALENDAR'].join('\r\n');
+    if ((await capi('POST', '/import', { format: 'ics', text: ics, from: '2026-11-16', to: '2026-11-16' })).status !== 201) throw new Error('الاستيراد');
+    const put = await kput('2026-11-16', { 'فطور': { card: 'cy-bk-03' }, 'غداء': { card: 'cy-ln-01' }, 'عشاء': { card: 'cy-dn-04' } });
+    if (put.total_kcal < 1200) throw new Error(`حفظ اليوم: ${JSON.stringify(put).slice(0, 100)}`);
+    await ready(page, '/calendar/proposals');
+    await page.fill('input[aria-label="يوم الخطة"]', '2026-11-16');
+    await page.click('[data-testid=gen-plan]');
+    await page.waitForFunction(() => /أُنشئ 2 اقتراحًا/.test(document.querySelector('[data-testid=gen-result]')?.textContent ?? ''), null, { timeout: 8000 });
+    if (!/لا حدث مقابل/.test(await page.locator('[data-testid=gen-result]').textContent())) throw new Error('عشاء بلا حدث لم يُتخطَّ بسببه');
+    await page.waitForSelector('[data-testid=proposal][data-status=pending]', { timeout: 5000 });
+    const diff = (await page.locator('[data-testid=diff]').first().textContent()) ?? '';
+    if (!/القيمة الغذائية الإجمالية للوجبة:/.test(diff) || !/السعرات الحرارية: \d+ سعرة حرارية/.test(diff)) throw new Error('الفرق لا يعرض القالب الحرفي');
+    if (/[٠-٩A-Za-z]/.test(diff)) throw new Error('حروف لاتينية/أرقام هندية في الوصف');
+    if (!(await page.locator('[data-testid=export-all]').isDisabled())) throw new Error('التصدير مفعّل بلا معتمد');
+    for (const n of [0, 1]) await page.locator('[data-testid=proposal][data-status=pending] button:has-text("اعتمد")').first().click().then(() => page.waitForTimeout(300));
+    await page.waitForFunction(() => document.querySelectorAll('[data-testid=proposal][data-status=approved]').length === 2, null, { timeout: 6000 });
+    if (!(await page.locator('[data-testid=mark-applied]').first().isDisabled())) throw new Error('«مطبّق» مفعّل قبل التصدير');
+    await page.click('[data-testid=export-all]');
+    await page.waitForSelector('[data-testid=export-text]', { timeout: 6000 });
+    const txt = (await page.locator('[data-testid=export-text]').textContent()) ?? '';
+    if (!/لم يُطبَّق شيء/.test(txt) || !/1\. تعديل/.test(txt) || !/2\. تعديل/.test(txt)) throw new Error('نص التصدير');
+    const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 6000 }), page.click('[data-testid=dl-json]')]);
+    const body = JSON.parse(readFileSync(await dl.path(), 'utf8'));
+    if (body.kind !== 'siro.calendar.proposals' || body.count !== 2 || body.writer !== 'rashed' || body.requires_separate_run !== true) throw new Error('JSON التصدير');
+    await page.waitForFunction(() => !document.querySelector('[data-testid=mark-applied]:disabled'), null, { timeout: 6000 });
+    await page.locator('[data-testid=mark-applied]').first().click();
+    await page.waitForFunction(() => document.querySelectorAll('[data-testid=proposal][data-status=applied]').length === 1, null, { timeout: 6000 });
+    await shot(page, 'proposals');
+    // لا كتابة في Outlook: اللقطة كما هي (7 أحداث… يوم 16)
+    const v = await capi('GET', '/view?from=2026-11-16&to=2026-11-16&source=import');
+    if (v.events.length !== 6 || v.events.some((e) => e.description)) throw new Error('تغيّرت أحداث Outlook!');
+    await capi('DELETE', '/import');
+    await kapi('DELETE', '/plan/2026-11-16');
+    return 'اقتراحان بالقالب الحرفي ← اعتماد ← تصدير JSON+نص ← مطبّق بعد التصدير؛ أحداث Outlook لم تتغير';
+  });
   await run('CAL-3: الجدول على الجوال بلا تمرير أفقي للصفحة', 'mobile', async (page) => {
     await ready(page, '/calendar?date=2026-10-26');
     await page.waitForSelector('[data-testid=cal18]', { timeout: 8000 });

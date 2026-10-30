@@ -6,3 +6,6 @@ export * from './ics.js';
 export * from './routine.js';
 export * from './graph.js';
 export * from './meals.js';
+export * from './lint.js';
+export * from './diff.js';
+export * from './export.js';

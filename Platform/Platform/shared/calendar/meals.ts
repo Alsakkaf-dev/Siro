@@ -64,3 +64,9 @@ export function outlookDayLaw(events: readonly CalEvent[], date: string): Outloo
   const violation = (law ? !law.ok : false) || known > LAW.MAX || ex.length > 0;
   return { date, meals, extra: ex, known_kcal: known, unknown, law, violation };
 }
+
+/** يقيّم يومًا من مجاميع خانات (LAW-02-5): سعرات فقط، بلا مغذيات */
+export function evaluateDayTotals(slots: readonly { slot: string; kcal: number }[]): LawResult {
+  const z = { protein_g: 0, carbs_g: 0, fat_g: 0, fiber_g: 0 };
+  return evaluateDay(Object.fromEntries(slots.filter((s) => s.slot).map((s) => [s.slot, { kcal: s.kcal, ...z }])), MEAL_SLOTS);
+}
