@@ -15,7 +15,7 @@ def fresh():
 
 def build_all(C):
     env.build_env(C)
-    for name in ('shelving', 'cooking', 'island', 'produce', 'props', 'contract'):
+    for name in ('shelving', 'cooking', 'island', 'tools', 'produce', 'props', 'contract'):
         try:
             mod = __import__(name)
         except ImportError:

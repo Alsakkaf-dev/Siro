@@ -69,11 +69,6 @@ def build(C):
     bm = bmesh.new(); bm_box(bm, (3.93, -0.7, 1.35), (0.03, 1.9, 0.03), 0)
     for yy in (-1.5, -1.1, -0.7, -0.3, 0.1): bm_cyl(bm, (3.9, yy, 1.35), 0.006, 0.12, 6, 0, None, Matrix.Rotation(math.pi/2, 3, 'X')) if False else None
     new_obj('PRP_tool_rail', bm, [dark], P)
-    bm = bmesh.new(); bm2 = bmesh.new()
-    for k, yy in enumerate((-1.45, -1.05, -0.65, -0.25)):  # مجارف خشبية
-        bm_box(bm, (3.9, yy, 1.05), (0.012, 0.03, 0.30), 0); bm_box(bm, (3.9, yy, 0.86), (0.012, 0.09, 0.12), 0)
-        for sl in range(3): bm_box(bm2, (3.9, yy+(sl-1)*0.025, 0.86), (0.014, 0.008, 0.10), 1)
-    new_obj('tool_spatula', bm, [mat('MAT_wood_tool', '#a86a3a', 0.6), black], P)
     # حوض + صنبور (ركن أيمن خلفي)
     bm = bmesh.new(); bm_box(bm, (3.4, 2.45, 0.43), (1.0, 0.8, 0.86), 1); bm_box(bm, (3.4, 2.45, 0.88), (1.04, 0.84, 0.04), 0)
     new_obj('PRP_sink_cabinet', bm, [st, cab], P)
@@ -103,6 +98,6 @@ def build(C):
     bm = bmesh.new(); bm_lathe(bm, (0, 0, 0), [(0.0, 0.0), (0.07, 0.0), (0.12, 0.06), (0.13, 0.085), (0.125, 0.085), (0.115, 0.06), (0.065, 0.006), (0.0, 0.006)], 32, 0)
     new_obj('equip_bowl', bm, [mat('MAT_ceramic_white', '#f2efe6', 0.2)], E, (0.35, 0.35, 0.93), smooth=True)
     bm = bmesh.new(); bm_lathe(bm, (0, 0, 0), [(0.0, 0.0), (0.09, 0.0), (0.14, 0.014), (0.145, 0.02), (0.13, 0.02), (0.09, 0.008), (0.0, 0.008)], 40, 0)
-    new_obj('plate_1', bm, [mat('MAT_ceramic_white', '#f2efe6', 0.2)], E, (-1.2, 0.3, 0.93), smooth=True)
+    new_obj('plate_1', bm, [mat('MAT_ceramic_white', '#f2efe6', 0.2)], E, (-0.65, 0.22, 0.93), smooth=True)
     bm = bmesh.new(); bm_box(bm, (0, 0, 0.09), (0.28, 0.16, 0.18), 0); bm_box(bm, (0, 0, 0.185), (0.2, 0.1, 0.01), 1); bm_box(bm, (0.15, 0, 0.14), (0.02, 0.05, 0.02), 1)
     new_obj('equip_toaster', bm, [steel('MAT_steel'), black], E, (0.8, 0.3, 0.93))

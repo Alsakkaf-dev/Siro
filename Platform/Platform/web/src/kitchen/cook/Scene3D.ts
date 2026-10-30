@@ -9,14 +9,16 @@ import type { Item, Snapshot, Vessel } from '../../../../shared/kitchen/sim/inde
 import type { SimView } from './simClient.js';
 import { FirstPerson } from './world/FirstPerson.js';
 import { Hands, type Side } from './world/Hands.js';
-import { stepBody, type Aabb, type Body } from './world/collision.js';
+import { type Aabb } from './world/collision.js';
+import { Game, TOOL_INFO, type ToolDef } from './world/Game.js';
+import type { GameHost, GameHud } from './world/types.js';
 
 export type Quality = 'lite' | 'standard' | 'high';
 export type StationName = 'shelves' | 'equipment' | 'tools' | 'prep' | 'stove' | 'sink' | 'serve';
-export type Pick = { kind: 'ingredient'; id: string } | { kind: 'vessel'; id: string } | { kind: 'item'; id: string } | { kind: 'burner'; id: string } | { kind: 'knob'; id: string } | { kind: 'toaster'; id: string } | { kind: 'plate'; id: string } | { kind: 'board'; id: string };
-/** أفعال تُنتجها اليدان في العالم وتُحوَّل في الصفحة إلى عمليات محاكاة */
-export type SceneAction = { type: 'place'; vessel: string; burner: 0 | 1 | 2 | 3 | 4 } | { type: 'knob'; burner: 1 | 2 | 3 | 4 } | { type: 'discard_vessel'; vessel: string };
-export interface SceneOptions { canvas: HTMLCanvasElement; quality: Quality; reducedMotion: boolean; onPick: (p: Pick) => void; onQuality?: (q: Quality, why: string) => void; onAction?: (a: SceneAction) => void; onHover?: (p: Pick | null) => void }
+export type Pick = { kind: 'ingredient'; id: string } | { kind: 'vessel'; id: string } | { kind: 'item'; id: string } | { kind: 'burner'; id: string } | { kind: 'knob'; id: string } | { kind: 'toaster'; id: string } | { kind: 'plate'; id: string } | { kind: 'board'; id: string } | { kind: 'tool'; id: string };
+/** واجهة الصفحة لعالم اللعبة: كل فعل داخل المشهد يصير عملية محاكاة عبر المضيف */
+export type { GameHost } from './world/types.js';
+export interface SceneOptions { canvas: HTMLCanvasElement; quality: Quality; reducedMotion: boolean; onPick: (p: Pick) => void; onQuality?: (q: Quality, why: string) => void; host?: GameHost; onHud?: (h: GameHud) => void; onHover?: (p: Pick | null) => void }
 
 const V3 = (x: number, y: number, z: number): THREE.Vector3 => new THREE.Vector3(x, y, z);
 export const STATIONS: Record<StationName, { cam: THREE.Vector3; look: THREE.Vector3; label: string }> = {
@@ -687,7 +689,7 @@ export class KitchenScene {
     for (const v of snap.vessels) {
       const vis = this.vessels.get(v.id);
       if (!vis) continue;
-      if (this.held.has(v.id) || this.falling.has(v.id)) continue;
+      if (this.game && (this.game.heldVessels.has(v.id) || this.game.isFalling(v.id))) continue;
       vis.target.copy(v.burner > 0 ? this.L.burner[v.burner]!.clone().setY(this.L.burner[v.burner]!.y + 0.015) : (this.L.rest[v.id] ?? vis.target));
       if (v.id === 'plate_1' || v.id === 'bowl') vis.target.copy(this.L.rest[v.id]!);
       if (vis.lid) vis.lid.visible = v.lid;
@@ -767,8 +769,10 @@ export class KitchenScene {
   private placeItem(it: Item, vis: ItemVis, countIn: Map<string, number>): void {
     const idx = countIn.get(it.loc) ?? 0;
     countIn.set(it.loc, idx + 1);
-    const base = this.slotPos(it.loc, idx);
-    const v = this.vessels.get(it.loc);
+    const heldPos = this.heldItems.get(it.id);
+    const spot = it.loc === 'board' ? this.itemSpots.get(it.id) : undefined;
+    const base = heldPos ?? spot ?? this.slotPos(it.loc, idx);
+    const v = heldPos || spot ? undefined : this.vessels.get(it.loc);
     const r = v ? v.radius * 0.7 : 0.05;
     const n = vis.mesh.count;
     const rr = rnd(it.id.split('').reduce((a, c) => a + c.charCodeAt(0), 7));
@@ -801,7 +805,7 @@ export class KitchenScene {
     this.station = name;
     if (this.fp) {
       const cs = this.contractStations.get(name);
-      if (cs) this.fp.teleport(cs.eye, cs.look);
+      if (cs) this.fp.teleport(cs.eye, cs.look, name === 'shelves' ? 1.45 : 0.95);
       return;
     }
     this.camFrom = { p: this.camera.position.clone(), l: this.lookNow.clone() };
@@ -954,8 +958,11 @@ export class KitchenScene {
   private worldRoot: THREE.Object3D | null = null;
   private fp: FirstPerson | null = null;
   private hands: Hands | null = null;
-  private held = new Map<string, { side: Side }>();
-  private falling = new Map<string, Body>();
+  game: Game | null = null;
+  itemSpots = new Map<string, THREE.Vector3>();
+  heldItems = new Map<string, THREE.Vector3>();
+  private tools = new Map<string, ToolDef>();
+  private places: { bin: THREE.Vector3 | null; sink: THREE.Vector3 | null } = { bin: null, sink: null };
   private colliders: Aabb[] = [];
   private supports: Aabb[] = [];
   private contractStations = new Map<string, { eye: THREE.Vector3; look: THREE.Vector3 }>();
@@ -971,6 +978,20 @@ export class KitchenScene {
     }
     if (o.fov !== undefined) { this.camera.fov = o.fov; this.camera.updateProjectionMatrix(); }
   }
+  /** واجهة اختبارات E2E فقط (تُفعَّل بـ?e2e): تحريك اللاعب وتوجيه النظر وقراءة مواضع العقد */
+  e2e = {
+    stand: (x: number, z: number): void => this.fp?.setPos(x, z),
+    look: (x: number, y: number, z: number): void => this.fp?.lookAtPoint(x, y, z),
+    tool: (id: string): number[] | null => { const t = this.tools.get(id); return t ? t.node.position.toArray().map((n) => +n.toFixed(3)) : null; },
+    item: (id: string): number[] | null => { const v = this.itemSpots.get(id) ?? this.heldItems.get(id); return v ? v.toArray().map((n) => +n.toFixed(3)) : null; },
+    node: (n: string): number[] | null => { const o = this.worldRoot?.getObjectByName(n); return o ? o.getWorldPosition(new THREE.Vector3()).toArray().map((x) => +x.toFixed(3)) : null; },
+    holds: (): string => JSON.stringify(this.game?.hold ?? {}),
+    aim: (reach = 1.9): string => { const a = this.aim(reach, () => false); return JSON.stringify(a ? { pick: a.pick, d: +a.dist.toFixed(2) } : null); },
+    swipe: (px: number): void => this.fp?.addMotion(px, 0),
+    snap: (): string => JSON.stringify((this.view?.snap.items ?? []).map((i) => ({ id: i.id, ing: i.ingredient, g: i.g0, loc: i.loc, cut: i.cut?.shape ?? null, peeled: i.peeled, washed: i.washed }))),
+    vessels: (): string => JSON.stringify((this.view?.snap.vessels ?? []).map((v) => ({ id: v.id, burner: v.burner, items: v.items, oil: v.oilG, water: v.waterG, milk: v.milkG, T: Math.round(v.T) }))),
+    burners: (): number[] => this.view?.snap.burners ?? [],
+  };
   lockPointer(): void { this.fp?.lock(); }
   unlockPointer(): void { this.fp?.unlock(); }
   /** مواقع الأوعية وأحجامها (للاختبار والتشخيص) */
@@ -1061,6 +1082,7 @@ export class KitchenScene {
     const add = (box: Aabb, support: boolean): void => { colliders.push(box); if (support && box.maxY < 1.2) supports.push(box); };
     for (const [name, o] of byName) {
       const ex = o.userData as { min?: number[]; max?: number[] };
+      if (/^SUP_/.test(name) && ex.min && ex.max) { supports.push({ minX: ex.min[0]!, maxX: ex.max[0]!, minY: ex.min[1]!, maxY: ex.max[1]!, minZ: ex.min[2]!, maxZ: ex.max[2]!, name }); continue; }
       if (/^COL_/.test(name) && ex.min && ex.max) { add({ minX: ex.min[0]!, maxX: ex.max[0]!, minY: ex.min[1]!, maxY: ex.max[1]!, minZ: ex.min[2]!, maxZ: ex.max[2]!, name }, true); continue; }
       if (!/^PRP_/.test(name) || /_\d+$/.test(name) || /hood|tool_rail|wall_shelf|planters|herbs|faucet|extinguisher|boxes|crates|barrel|knobs|fruit|island_|knife|board|griddle|range_top|cumin|honey/.test(name)) continue;
       const b = new THREE.Box3().setFromObject(o);
@@ -1078,96 +1100,75 @@ export class KitchenScene {
     // 8) المتحكم واليدان
     const sp = byName.get('spawn_player'); const spawn = sp ? wp(sp) : new THREE.Vector3(0, 0, 2.5);
     this.worldRoot = W; this.root.add(W);
+    // الأدوات اليدوية tool_* ومواضع الإفلات
+    this.tools.clear();
+    for (const [id, info] of Object.entries(TOOL_INFO)) {
+      const node = byName.get(`tool_${id}`);
+      if (!node) { gaps.push(`tool_${id}`); continue; }
+      const bb = new THREE.Box3().setFromObject(node); const sz = bb.getSize(new THREE.Vector3()).addScalar(0.06); const c = node.worldToLocal(bb.getCenter(new THREE.Vector3()));
+      const hit = new THREE.Mesh(new THREE.BoxGeometry(sz.x, sz.y, sz.z), new THREE.MeshBasicMaterial({ visible: false }));
+      hit.position.copy(c); hit.userData = { pick: { kind: 'tool', id } satisfies Pick };
+      node.add(hit); this.pickables.push(hit);
+      node.traverse((m) => { if ((m as THREE.Mesh).isMesh) { m.castShadow = this.quality !== 'lite'; } });
+      this.tools.set(id, { id, node, label: info.label, mode: info.mode, home: node.position.clone(), homeQuat: node.quaternion.clone(), body: null, flat: true, base: info.base, roll: info.roll, pitch: info.pitch, tilt: 0 });
+    }
+    const dp = (n: string): THREE.Vector3 | null => { const o = byName.get(n); return o ? wp(o) : null; };
+    this.places = { bin: dp('drop_trash'), sink: dp('drop_sink') };
     this.hands = new Hands(this.camera); this.scene.add(this.camera);
-    this.fp = new FirstPerson({ canvas: this.o.canvas, camera: this.camera, colliders, room: { minX: -3.95, maxX: 3.95, minZ: -3.15, maxZ: 3.15 }, spawn, yaw: 0, reducedMotion: this.o.reducedMotion, onClickAction: (b, d) => this.handAction(b, d) });
+    this.fp = new FirstPerson({ canvas: this.o.canvas, camera: this.camera, colliders, room: { minX: -3.95, maxX: 3.95, minZ: -3.15, maxZ: 3.15 }, spawn, yaw: 0, reducedMotion: this.o.reducedMotion, onClickAction: (b, d, ts) => this.game?.button(b, d, ts), onKey: (c, sh) => this.game?.key(c, sh), onWheel: (d) => this.game?.wheel(d) });
+    if (this.o.host) {
+      this.game = new Game({
+        camera: this.camera, fp: this.fp, hands: this.hands, host: this.o.host, view: () => this.view,
+        raycast: (reach, skip) => { const a = this.aim(reach, skip ?? (() => false)); return a ? { pick: a.pick, point: a.point, distance: a.dist } : null; },
+        vessels: () => this.vessels, burner: (k) => this.L.burner[k], toaster: () => this.L.toaster,
+        setRest: (id, p) => { this.L.rest[id] = p.clone(); },
+        itemSpots: this.itemSpots, heldItems: this.heldItems, refreshItem: (id) => this.refreshItem(id),
+        supports: () => this.supports, colliders: () => this.colliders, room: { minX: -3.9, maxX: 3.9, minZ: -3.1, maxZ: 3.1 },
+        tools: this.tools, places: this.places, burners: () => this.view?.snap.burners ?? [0, 0, 0, 0], disposed: () => this.disposed,
+      }, (h) => this.o.onHud?.(h));
+    }
     this.o.canvas.tabIndex = 0;
     this.camera.fov = 70; this.camera.near = 0.03; this.camera.updateProjectionMatrix();
     this.scene.fog = new THREE.Fog(0x2b2622, 14, 30);
+    // بيئة إضاءة غير مباشرة بسيطة: بدونها يظهر الستانلس (معدن 100%) أسود تمامًا
+    try {
+      const { RoomEnvironment } = await import('three/examples/jsm/environments/RoomEnvironment.js');
+      const pm = new THREE.PMREMGenerator(this.renderer);
+      this.scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+      this.scene.environmentIntensity = 0.5;
+      pm.dispose();
+    } catch { /* اختياري */ }
     this.worldReady = true;
     W.traverse((m) => { if ((m as THREE.Mesh).isMesh) { m.receiveShadow = this.quality !== 'lite'; } });
     return { nodes: byName.size, slots, gaps };
   }
   private burnerHits: THREE.Mesh[] = [];
 
-  /** الهدف تحت المؤشر (مركز الشاشة): أقرب عنصر قابل للاختيار ضمن الذراع */
-  private aim(reach = 2.6): { pick: Pick; point: THREE.Vector3; dist: number } | null {
+  /** الهدف تحت المؤشر (مركز الشاشة): أقرب عنصر قابل للاختيار ضمن الذراع؛ skip يتجاوز بعض الأهداف (ما في اليد مثلًا) */
+  private aim(reach = 2.6, skip?: (p: Pick) => boolean): { pick: Pick; point: THREE.Vector3; dist: number } | null {
     this.ptr.set(0, 0);
     this.ray.setFromCamera(this.ptr, this.camera);
     this.ray.far = reach;
     const hits = this.ray.intersectObjects(this.pickables, false);
     this.ray.far = Infinity;
+    const sk = skip ?? ((p: Pick) => !!this.game?.isHeldPick(p));
     for (const h of hits) {
       const pick = (h.object.userData as { pick?: Pick }).pick;
-      if (pick && (pick.kind === 'vessel' || pick.kind === 'plate') && this.held.has(pick.id)) continue; // لا نستهدف ما في اليد
-      if (pick) return { pick, point: h.point.clone(), dist: h.distance };
+      if (pick && !sk(pick)) return { pick, point: h.point.clone(), dist: h.distance };
     }
     return null;
   }
-  /** زر الفأرة الأيسر = اليد اليمنى، الأيمن = اليسرى */
-  private handAction(button: 0 | 2, down: boolean): void {
-    const hands = this.hands; if (!hands) return;
-    const side: Side = button === 0 ? 'R' : 'L';
-    const hand = hands.get(side);
-    if (down) {
-      const hit = this.aim();
-      if (!hit) { hand.setGrip(0.5); return; }
-      hand.setReach(hit.point, this.camera); hand.setGrip(1);
-      const p = hit.pick;
-      if (p.kind === 'vessel' || p.kind === 'plate') {
-        const v = this.view?.snap.vessels.find((x) => x.id === p.id);
-        if (v && v.burner > 0) this.o.onAction?.({ type: 'place', vessel: p.id, burner: 0 });
-        this.held.set(p.id, { side }); this.falling.delete(p.id); hand.holding = true;
-      } else if (p.kind === 'knob') this.o.onAction?.({ type: 'knob', burner: Number(p.id) as 1 | 2 | 3 | 4 });
-      else if (p.kind === 'burner') hand.setGrip(0.3);
-      else this.o.onPick(p);
-    } else {
-      for (const [id, h] of this.held) if (h.side === side) this.release(id);
-      hand.setReach(null, this.camera); hand.setGrip(0); hand.holding = false;
-    }
-  }
-  private release(id: string): void {
-    const vis = this.vessels.get(id);
-    const aimed = this.aim(1.7); // قبل إزالته من اليد كي لا يُستهدف هو نفسه
-    this.held.delete(id);
-    if (!vis) return;
-    const p = vis.group.position;
-    // مصوَّب على سطح موقد ← «ضع» عليه (كما في Cooking Simulator: تصوّب وتترك)
-    if (aimed?.pick.kind === 'burner' && id !== 'plate_1' && id !== 'bowl') {
-      const k = Number(aimed.pick.id) as 1 | 2 | 3 | 4; const b = this.L.burner[k]!;
-      this.o.onAction?.({ type: 'place', vessel: id, burner: k }); vis.target.copy(b); vis.group.position.copy(b); return;
-    }
-    // أو فوق موقد؟ (ضمن 16 سم أفقيًا)
-    for (let k = 1; k <= 4; k++) {
-      const b = this.L.burner[k]!;
-      if (id !== 'plate_1' && id !== 'bowl' && Math.hypot(p.x - b.x, p.z - b.z) < 0.17 && Math.abs(p.y - b.y) < 0.45) { this.o.onAction?.({ type: 'place', vessel: id, burner: k as 1 | 2 | 3 | 4 }); vis.target.copy(b); return; }
-    }
-    const v = this.view?.snap.vessels.find((x) => x.id === id);
-    const empty = !v || (v.items.length === 0 && v.waterG + v.milkG + v.oilG < 1);
-    const fwd = this.fp ? this.fp.forward() : new THREE.Vector3(0, 0, -1);
-    const throwIt = empty && !!this.fp && (this.hands?.get('R').holding === false);
-    this.falling.set(id, { x: p.x, y: p.y, z: p.z, vx: throwIt ? 0 : 0, vy: 0, vz: throwIt ? 0 : 0, r: vis.radius, asleep: false });
-    void fwd;
+
+  /** يعيد رسم عنصر واحد من آخر لقطة (يُستدعى كل إطار لما في اليد) */
+  refreshItem(id: string): void {
+    const it = this.view?.snap.items.find((x) => x.id === id); const vis = this.items.get(id);
+    if (it && vis) this.placeItem(it, vis, new Map());
   }
   private stepWorld(dt: number): void {
     if (!this.fp) return;
     this.fp.update(dt);
     this.hands?.update(dt);
-    const cam = this.camera.position;
-    // الوعاء المُمسَك يتبع اليد أمام الصدر
-    for (const [id, h] of this.held) {
-      const vis = this.vessels.get(id); if (!vis) continue;
-      const f = this.fp.forward(); const right = new THREE.Vector3(-f.z, 0, f.x);
-      const tip = new THREE.Vector3(cam.x + f.x * 0.62 + right.x * (h.side === 'R' ? 0.2 : -0.2), cam.y - 0.34 + Math.sin(this.fp.pitch) * 0.45, cam.z + f.z * 0.62 + right.z * (h.side === 'R' ? 0.2 : -0.2));
-      tip.y = Math.max(0.05, tip.y);
-      vis.group.position.lerp(tip, 1 - Math.exp(-dt * 20)); vis.target.copy(vis.group.position);
-    }
-    // الأجسام الساقطة (جاذبية، ارتداد، احتكاك)
-    for (const [id, b] of this.falling) {
-      const vis = this.vessels.get(id); if (!vis) { this.falling.delete(id); continue; }
-      stepBody(b, dt, this.supports, { minX: -3.9, maxX: 3.9, minZ: -3.1, maxZ: 3.1 });
-      vis.group.position.set(b.x, b.y, b.z); vis.target.copy(vis.group.position);
-      if (b.asleep) { this.L.rest[id] = new THREE.Vector3(b.x, b.y, b.z); this.falling.delete(id); }
-    }
+    this.game?.step(dt);
     // تلميح الهدف (10 مرات/ث) للواجهة
     this.hoverT += dt;
     if (this.hoverT > 0.1) {

@@ -7,7 +7,8 @@ import { flagEnabled } from '../core/flags.js';
 import { KitchenChips, NutriGrid, StoreSelect, storeName, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { quickBuy, serveCook, type CardRowC } from '../kitchen/store.js';
 import { SimClient, type SimView } from '../kitchen/cook/simClient.js';
-import type { KitchenScene, Pick, Quality, SceneAction, StationName } from '../kitchen/cook/Scene3D.js';
+import type { GameHost, KitchenScene, Pick, Quality, StationName } from '../kitchen/cook/Scene3D.js';
+import { defaultGrams } from '../kitchen/cook/world/qty.js';
 import {
   INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, RECIPE_BY_SLUG, STORES, fmtKcal, fmtNum, fmtRM, indexPrices, mealCost, nutritionOf, per100g, qtyView, type MealType, type RecipeLine,
 } from '../../../shared/kitchen/index.js';
@@ -22,6 +23,7 @@ type Assist = keyof typeof ASSIST_AR;
 const STATION_KEYS: StationName[] = ['shelves', 'equipment', 'tools', 'prep', 'stove', 'sink', 'serve'];
 const STATION_AR: Record<StationName, string> = { shelves: 'الرفوف', equipment: 'المعدات', tools: 'الأدوات', prep: 'التحضير', stove: 'الطبخ', sink: 'الغسيل', serve: 'التقديم' };
 const VESSEL_AR: Record<string, string> = { pan: 'المقلاة', pot_small: 'القدر الصغير', pot_large: 'القدر الكبير', pressure_cooker: 'قدر الضغط', bowl: 'وعاء الخلط', plate_1: 'صحن التقديم' };
+const TOOL_AR: Record<string, string> = { knife: 'السكين', peeler: 'المقشرة', grater: 'المبشرة', masher: 'الهراسة', whisk: 'الخفّاقة', spoon: 'الملعقة الخشبية', spatula: 'المجرفة', bottle_oil: 'زجاجة الزيت', carton_milk: 'علبة الحليب', shaker_salt: 'مملحة الملح', shaker_cumin: 'علبة الكمون', shaker_sugar: 'علبة السكر' };
 const LOC_AR = (loc: string): string => (loc === 'board' ? 'لوح التقطيع' : loc === 'toaster' ? 'المحمّصة' : (VESSEL_AR[loc] ?? loc));
 const SHAPES: { v: 'slices' | 'cubes' | 'diced' | 'sticks' | 'minced'; l: string; sizes: ('small' | 'medium' | 'large' | null)[] }[] = [
   { v: 'slices', l: 'شرائح', sizes: [null] }, { v: 'cubes', l: 'مكعبات', sizes: ['small', 'medium', 'large'] }, { v: 'diced', l: 'مكعبات صغيرة', sizes: [null] }, { v: 'sticks', l: 'أعواد', sizes: ['medium'] }, { v: 'minced', l: 'فرم', sizes: [null] },
@@ -48,7 +50,9 @@ export default function KitchenCook() {
   const [selIng, setSelIng] = useState<string | null>(null);
   const [selItem, setSelItem] = useState<string | null>(null);
   const [grams, setGrams] = useState('100');
-  const [logLines, setLogLines] = useState<{ t: number; msg: string; tone: 'ok' | 'warn' | 'err' }[]>([]);
+  const [logLines, setLogLines] = useState<{ t: number; msg: string; tone: 'ok' | 'warn' | 'err'; id: number; at: number }[]>([]);
+  const logId = useRef(0);
+  const [qty, setQtyState] = useState<Record<string, number>>(() => { try { return JSON.parse(localStorage.getItem('siro.kitchen.qty') ?? '{}') as Record<string, number>; } catch { return {}; } });
   const [serveOpen, setServeOpen] = useState(false);
   const [use3d, setUse3d] = useState(() => flagEnabled('kitchen.3d'));
   const [quality, setQuality] = useState<Quality>('standard');
@@ -64,7 +68,7 @@ export default function KitchenCook() {
   const stockRef = useRef<Record<string, number>>({});
 
   const push = useCallback((msg: string, tone: 'ok' | 'warn' | 'err' = 'ok', t = 0): void => {
-    setLogLines((l) => [...l.slice(-80), { t, msg, tone }]);
+    setLogLines((l) => [...l.slice(-80), { t, msg, tone, id: ++logId.current, at: Date.now() }]);
     setLiveMsg(msg);
   }, []);
 
@@ -185,19 +189,40 @@ export default function KitchenCook() {
   }, []);
   const [vesselFocus, setVesselFocus] = useState<string | null>(null);
 
-  /* أفعال اليدين في العالم: وضع وعاء على موقد، تدوير مقبض اللهب (نفس عمليات المحاكاة التي تقدمها اللوحة) */
+  /* واجهة عالم اللعبة: كل فعل في العالم عملية محاكاة؛ الكميات تُحفظ لكل مكوّن في المتصفح */
   const viewRef = useRef(view);
   viewRef.current = view;
-  const onSceneAction = useCallback((a: SceneAction): void => {
-    if (a.type === 'place') void run({ type: 'place', vessel: a.vessel, burner: a.burner }, a.burner === 0 ? 'رُفع عن الموقد' : `وُضع على الموقد ${a.burner}`);
-    else if (a.type === 'knob') {
-      const cur = viewRef.current?.snap.burners[a.burner - 1] ?? 0;
-      const next = cur === 0 ? 3 : cur <= 3 ? 6 : cur <= 6 ? 9 : 0;
-      void run({ type: 'heat', burner: a.burner, level: next }, next === 0 ? `أُطفئ الموقد ${a.burner}` : `لهب الموقد ${a.burner}: ${next}`);
-    }
-  }, [run]);
+  const qtyRef = useRef(qty);
+  qtyRef.current = qty;
+  const setQty = useCallback((slug: string, g: number): void => {
+    setQtyState((q) => { const n = { ...q, [slug]: g }; try { localStorage.setItem('siro.kitchen.qty', JSON.stringify(n)); } catch { /* اختياري */ } return n; });
+  }, []);
+  const game = useRef<GameHost | null>(null);
+  game.current = {
+    take: async (slug, g) => {
+      const ing = INGREDIENT_BY_SLUG.get(slug);
+      if (!ing || !(g > 0) || g > 5000) { push('كمية غير صالحة', 'err'); return null; }
+      const need = g / (ing.edible_yield || 1);
+      if (mode !== 'sandbox' && need > (stockRef.current[slug] ?? 0) + 1e-6) {
+        push(`ينقصك ${fmtNum(Math.ceil(need - (stockRef.current[slug] ?? 0)), 0)} غ من ${ing.name_ar} — اشترِ من المتجر أو جرّب الوضع التجريبي`, 'warn');
+        return null;
+      }
+      const id = `i${++idN.current}`;
+      return (await run({ type: 'take', id, ingredient: slug, grams: g }, `أخذت ${fmtNum(g, 0)} غ من ${ing.name_ar}`)) ? id : null;
+    },
+    op: (op, okMsg) => run(op, okMsg),
+    quantity: (slug) => qtyRef.current[slug] ?? defaultGrams(slug),
+    askQuantity: () => undefined, // تضعه Stage3D (قائمة داخل اللعبة)
+    say: (m, tone) => push(m, tone ?? 'ok'),
+    serve: () => doServe(),
+  };
+  const gameHost = useMemo<GameHost>(() => ({
+    take: (s, g) => game.current!.take(s, g), op: (o, m) => game.current!.op(o, m), quantity: (s) => game.current!.quantity(s),
+    askQuantity: (s) => game.current!.askQuantity(s), say: (m, t) => game.current!.say(m, t), serve: () => game.current!.serve(),
+  }), []);
   const hoverLabel = useCallback((p: Pick): string => {
-    if (p.kind === 'ingredient') return INGREDIENT_BY_SLUG.get(p.id)?.name_ar ?? p.id;
+    if (p.kind === 'ingredient') return `${INGREDIENT_BY_SLUG.get(p.id)?.name_ar ?? p.id} — ${fmtNum(qtyRef.current[p.id] ?? defaultGrams(p.id), 0)} غ (أيمن: الكمية)`;
+    if (p.kind === 'tool') return TOOL_AR[p.id] ?? p.id;
     if (p.kind === 'vessel' || p.kind === 'plate') return VESSEL_AR[p.id] ?? p.id;
     if (p.kind === 'burner') return `الموقد ${p.id}`;
     if (p.kind === 'knob') return `مقبض الموقد ${p.id} (انقر لتغيير اللهب)`;
@@ -256,7 +281,7 @@ export default function KitchenCook() {
         <div className="kt-stage">
           {showStage ? (
             <Suspense fallback={<div className="kt-stage-load" role="status">جارٍ تحميل المطبخ ثلاثي الأبعاد…</div>}>
-              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} onAction={onSceneAction} hoverLabel={hoverLabel} hud={{ time: fmtClock(view?.snap.t ?? 0), cost: liveCost.missing.length ? 'تكلفة الطبق —' : `تكلفة الطبق ${fmtRM(liveCost.total_rm)}` }} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
+              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} host={gameHost} ingName={(sl) => INGREDIENT_BY_SLUG.get(sl)?.name_ar ?? sl} qty={(sl) => qty[sl] ?? defaultGrams(sl)} onQty={setQty} hoverLabel={hoverLabel} hud={{ time: fmtClock(view?.snap.t ?? 0), cost: liveCost.missing.length ? 'تكلفة الطبق —' : `تكلفة الطبق ${fmtRM(liveCost.total_rm)}`, log: logLines.slice(-6) }} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
             </Suspense>
           ) : (
             <div className="kt-stage-off" role="note">{webgl ? 'العرض ثلاثي الأبعاد مطفأ — لوحة الإجراءات تعمل بالكامل وتنتج البطاقة نفسها.' : 'WebGL غير متاح على هذا الجهاز — لوحة الإجراءات كاملة الوظائف وتنتج البطاقة نفسها (A11Y-10).'}</div>

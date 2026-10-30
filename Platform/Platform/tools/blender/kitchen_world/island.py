@@ -26,7 +26,7 @@ def build(C):
     butcher_board(C, 'PRP_board_2', 0.15, -0.35, 0.91, 0.55, 0.38, rz=0.12)
     # ميزان رقمي
     bm = bmesh.new(); bm_box(bm, (0, 0, 0.015), (0.2, 0.16, 0.03), 0); bm_box(bm, (0, -0.05, 0.032), (0.07, 0.03, 0.004), 1)
-    new_obj('scale_main', bm, [mat('MAT_scale_body', '#202428', 0.4, 0.5), mat('MAT_scale_display', '#6fe0a0', 0.2, 0.0, '#3cff9a', 2.0)], E, (0.7, -0.15, 0.91))
+    new_obj('scale_main', bm, [mat('MAT_scale_body', '#202428', 0.4, 0.5), mat('MAT_scale_display', '#6fe0a0', 0.2, 0.0, '#3cff9a', 2.0)], E, (0.2, 0.1, 0.91))
     # قالب سكاكين ومقابض (مرجع 9)
     bm = bmesh.new(); knife = mat('MAT_knife_blade', '#cfd3d8', 0.2, 1.0); hndl = mat('MAT_knife_handle', '#2a1c14', 0.5); blockm = mat('MAT_knife_block', '#5a3a22', 0.6)
     for k in range(5): bm_box(bm, (0, -0.07+k*0.035, 0.07), (0.13, 0.03, 0.14), 0) if False else None
@@ -37,14 +37,13 @@ def build(C):
     bm = bmesh.new()
     for k, (x, y, rz) in enumerate(((-0.8, -0.55, 0.3), (-0.2, -0.3, -0.5))):
         bm_box(bm, (x, y, 0.925), (0.20, 0.03, 0.006), 0, rz); bm_box(bm, (x+0.13*math.cos(rz), y+0.13*math.sin(rz), 0.93), (0.11, 0.022, 0.018), 1, rz)
-    new_obj('tool_knife', bm, [knife, hndl], E)
     # جرار توابل وزجاجات على الجزيرة
-    for k, slug in enumerate(['cumin', 'salt', 'oil', 'honey']):
+    for k, slug in enumerate(['honey']):
         bm, mats = items.build_ingredient_mesh(slug, 1, (0.01, 0.01), seed=40+k)
-        new_obj(f'PRP_island_{slug}', bm, mats, P, (-1.5+k*0.12, 0.2, 0.91), smooth=True)
+        new_obj(f'PRP_island_{slug}', bm, mats, P, (-1.05, 0.38, 0.91), smooth=True)
     # وعاء فاكهة (مرجع 3): طماطم وليمون وفلفل
     bm = bmesh.new(); bm_lathe(bm, (0, 0, 0), [(0.0, 0.0), (0.09, 0.0), (0.18, 0.05), (0.22, 0.11), (0.215, 0.11), (0.17, 0.056), (0.085, 0.006), (0.0, 0.006)], 36, 0)
-    new_obj('PRP_fruit_bowl', bm, [mat('MAT_ceramic_white', '#f2efe6', 0.2)], P, (0.6, 0.05, 0.91), smooth=True)
+    new_obj('PRP_fruit_bowl', bm, [mat('MAT_ceramic_white', '#f2efe6', 0.2)], P, (0.78, -0.2, 0.91), smooth=True)
     bm, mats = items.build_ingredient_mesh('tomato', 7, (0.2, 0.2), seed=60)
     for v in bm.verts: v.co.z += 0.03
-    new_obj('PRP_fruit_tomatoes', bm, mats, P, (0.6, 0.05, 0.91), smooth=True)
+    new_obj('PRP_fruit_tomatoes', bm, mats, P, (0.78, -0.2, 0.91), smooth=True)

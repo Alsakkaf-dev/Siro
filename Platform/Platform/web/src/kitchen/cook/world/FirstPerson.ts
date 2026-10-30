@@ -5,7 +5,7 @@
 import * as THREE from 'three';
 import { resolveCircle, type Aabb, type Bounds2 } from './collision.js';
 
-export interface FpOptions { canvas: HTMLCanvasElement; camera: THREE.PerspectiveCamera; colliders: Aabb[]; room: Bounds2; spawn: THREE.Vector3; yaw?: number; reducedMotion: boolean; onClickAction: (button: 0 | 2, down: boolean) => void }
+export interface FpOptions { canvas: HTMLCanvasElement; camera: THREE.PerspectiveCamera; colliders: Aabb[]; room: Bounds2; spawn: THREE.Vector3; yaw?: number; reducedMotion: boolean; onClickAction: (button: 0 | 2, down: boolean, ts: number) => void; onKey?: (code: string, shift: boolean) => void; onWheel?: (dir: number) => void }
 
 const WALK = 1.7, RUN = 3.4, RADIUS = 0.28, EYE = 1.65, EYE_CROUCH = 1.15, STAND = 0.95;
 
@@ -30,6 +30,11 @@ export class FirstPerson {
   invertY = false;
   /** معلّق (قائمة/كمية مفتوحة): لا مشي ولا نظر ولا أفعال */
   paused = false;
+  private motion = { dx: 0, dy: 0 };
+  /** حركة الفأرة الخام منذ آخر استدعاء (لضربات الأدوات) */
+  /** حقن حركة (اختبارات) */
+  addMotion(dx: number, dy: number): void { this.motion.dx += dx; this.motion.dy += dy; }
+  takeMotion(): { dx: number; dy: number } { const m = this.motion; this.motion = { dx: 0, dy: 0 }; return m; }
 
   constructor(private o: FpOptions) {
     this.pos = o.spawn.clone();
@@ -47,25 +52,26 @@ export class FirstPerson {
         if (e.code.startsWith('Arrow') && document.activeElement === el) e.preventDefault();
       }
       if (e.code === 'KeyC') this.crouch = !this.crouch;
+      else if (!this.paused && /^(KeyE|KeyR|KeyX|KeyF)$/.test(e.code)) o.onKey?.(e.code, e.shiftKey);
     });
     on(window, 'keyup', (e: KeyboardEvent) => void this.keys.delete(e.code));
     on(window, 'blur', () => this.keys.clear());
     on(document, 'pointerlockchange', () => { this.locked = document.pointerLockElement === el; });
     on(document, 'pointerlockerror', () => { this.lockUnavailable = true; });
     on(el, 'contextmenu', (e: Event) => e.preventDefault());
+    on(el, 'wheel', (e: WheelEvent) => { if (this.paused) return; e.preventDefault(); o.onWheel?.(Math.sign(e.deltaY)); }, { passive: false });
     on(el, 'pointerdown', (e: PointerEvent) => {
       el.focus?.({ preventScroll: true });
       if (!this.locked && !this.lockUnavailable && typeof el.requestPointerLock === 'function') {
-        // أول نقرة تقفل المؤشر (لا تُحسب فعلًا) — إن فشل القفل نعمل بالسحب والنقر المباشر
+        // النقرة تقفل المؤشر وتُنفَّذ كفعل في الوقت نفسه (لا نبتلع النقرة الأولى)
         try { const r = el.requestPointerLock() as unknown as Promise<void> | undefined; r?.catch?.(() => { this.lockUnavailable = true; }); } catch { this.lockUnavailable = true; }
-        if (!this.lockUnavailable) return;
       }
       if (this.paused) return;
-      if (e.button === 0 || e.button === 2) o.onClickAction(e.button as 0 | 2, true);
+      if (e.button === 0 || e.button === 2) o.onClickAction(e.button as 0 | 2, true, e.timeStamp);
       if (!this.locked) { this.drag = { x: e.clientX, y: e.clientY, id: e.pointerId }; el.setPointerCapture?.(e.pointerId); }
     });
     on(el, 'pointerup', (e: PointerEvent) => {
-      if (!this.paused && (e.button === 0 || e.button === 2)) o.onClickAction(e.button as 0 | 2, false);
+      if (!this.paused && (e.button === 0 || e.button === 2)) o.onClickAction(e.button as 0 | 2, false, e.timeStamp);
       this.drag = null;
     });
     on(el, 'pointermove', (e: PointerEvent) => {
@@ -76,22 +82,31 @@ export class FirstPerson {
 
   private look(dx: number, dy: number): void {
     if (this.paused) return;
+    this.motion.dx += Math.abs(dx); this.motion.dy += Math.abs(dy);
     this.yaw -= dx * 0.0022 * this.sens;
     this.pitch = Math.max(-1.25, Math.min(1.25, this.pitch - dy * 0.002 * this.sens * (this.invertY ? -1 : 1)));
   }
   /** اتجاه الأمام على XZ (الأمام = −Z عند yaw=0) */
   forward(): THREE.Vector3 { return new THREE.Vector3(-Math.sin(this.yaw), 0, -Math.cos(this.yaw)); }
   /** يقف على بعد 0.95 م من هدف المحطة (قبالته) بعيون المشي، مع دفعه خارج أي مصادم */
-  teleport(eye: THREE.Vector3, look: THREE.Vector3): void {
+  teleport(eye: THREE.Vector3, look: THREE.Vector3, stand = STAND): void {
     const dx = look.x - eye.x, dz = look.z - eye.z;
     const L = Math.hypot(dx, dz) || 1;
     const ux = dx / L, uz = dz / L;
-    const r = resolveCircle(look.x - ux * STAND, look.z - uz * STAND, RADIUS, this.o.colliders, 0.1, EYE - 0.1, this.o.room);
+    const r = resolveCircle(look.x - ux * stand, look.z - uz * stand, RADIUS, this.o.colliders, 0.1, EYE - 0.1, this.o.room);
     this.pos.set(r.x, 0, r.z);
     const dist = Math.max(0.5, Math.hypot(look.x - r.x, look.z - r.z));
     this.yaw = Math.atan2(-ux, -uz);
     this.pitch = Math.max(-1.0, Math.min(1.0, Math.atan2(look.y - EYE, dist)));
   }
+  /** يوجّه النظر إلى نقطة عالمية (للاختبارات والمحطات) */
+  lookAtPoint(x: number, y: number, z: number): void {
+    const dx = x - this.pos.x, dz = z - this.pos.z, dy = y - this.eye;
+    this.yaw = Math.atan2(-dx, -dz);
+    this.pitch = Math.max(-1.25, Math.min(1.25, Math.atan2(dy, Math.hypot(dx, dz))));
+  }
+  /** يضع اللاعب (للاختبارات) */
+  setPos(x: number, z: number): void { this.pos.set(x, 0, z); }
   get eyeHeight(): number { return this.eye; }
 
   /** يقفل المؤشر (يحتاج إيماءة مستخدم) */

@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { KitchenScene, Pick, Quality, SceneAction, StationName } from './Scene3D.js';
+import type { GameHost, KitchenScene, Pick, Quality, StationName } from './Scene3D.js';
+import { EMPTY_HUD, type GameHud } from './world/types.js';
+import { PRESET_GRAMS, unitGrams } from './world/qty.js';
 import type { SimView } from './simClient.js';
 
 /** حاوية لوحة الرسم: three.js يُحمَّل هنا فقط (PERF-02) فلا يدفع ثمنه أحد خارج /kitchen/cook */
@@ -15,13 +17,17 @@ const loadSettings = (): GameSettings => {
   } catch { return DEFAULTS; }
 };
 
-export interface StageHud { time: string; cost: string }
+export interface StageHud { time: string; cost: string; log: { id: number; msg: string; tone: 'ok' | 'warn' | 'err'; at: number }[] }
 
-export default function Stage3D({ quality, onQuality, onPick, onAction, hoverLabel, station, view, stock, onReady, onFps, hud }: { quality: Quality; onQuality: (q: Quality, why: string) => void; onPick: (p: Pick) => void; onAction: (a: SceneAction) => void; hoverLabel: (p: Pick) => string; station: StationName; view: SimView | null; stock: Record<string, number>; onReady: (s: KitchenScene) => void; onFps: (n: number) => void; hud: StageHud }) {
+export default function Stage3D({ quality, onQuality, onPick, host, ingName, qty, onQty, hoverLabel, station, view, stock, onReady, onFps, hud }: { quality: Quality; onQuality: (q: Quality, why: string) => void; onPick: (p: Pick) => void; host: GameHost; ingName: (slug: string) => string; qty: (slug: string) => number; onQty: (slug: string, grams: number) => void; hoverLabel: (p: Pick) => string; station: StationName; view: SimView | null; stock: Record<string, number>; onReady: (s: KitchenScene) => void; onFps: (n: number) => void; hud: StageHud }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<KitchenScene | null>(null);
-  const cb = useRef({ onPick, onQuality, onReady, onFps, onAction, hoverLabel });
+  const cb = useRef({ onPick, onQuality, onReady, onFps, host, hoverLabel });
+  const [qtyFor, setQtyFor] = useState<string | null>(null);
+  const [gameHud, setGameHud] = useState<GameHud>(EMPTY_HUD);
+  const [now, setNow] = useState(() => Date.now());
+  const menuOpen = useRef(false);
   const [hover, setHover] = useState<string>('');
   const [world, setWorld] = useState<'loading' | 'on' | 'off'>('loading');
   const [game, setGame] = useState(false);
@@ -29,16 +35,34 @@ export default function Stage3D({ quality, onQuality, onPick, onAction, hoverLab
   const [help, setHelp] = useState(false);
   const [settings, setSettings] = useState<GameSettings>(loadSettings);
   const reducedMotion = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  cb.current = { onPick, onQuality, onReady, onFps, onAction, hoverLabel };
+  cb.current = { onPick, onQuality, onReady, onFps, host, hoverLabel };
 
+  const openQty = useCallback((slug: string): void => {
+    menuOpen.current = true; setQtyFor(slug);
+    sceneRef.current?.setGame({ paused: true }); sceneRef.current?.unlockPointer();
+  }, []);
+  const closeQty = useCallback((): void => {
+    setQtyFor(null);
+    window.setTimeout(() => { menuOpen.current = false; }, 300);
+    sceneRef.current?.setGame({ paused: false }); sceneRef.current?.lockPointer();
+  }, []);
+  const leaveFs = useCallback((): void => {
+    setPaused(true); sceneRef.current?.setGame({ paused: true }); sceneRef.current?.unlockPointer();
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+  }, []);
+  useEffect(() => {
+    const t = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(t);
+  }, []);
   useEffect(() => {
     let dead = false;
     let timer: ReturnType<typeof setInterval> | null = null;
     void import('./Scene3D.js').then(({ KitchenScene: K }) => {
       if (dead || !ref.current) return;
       const reduced = reducedMotion;
-      const s = new K({ canvas: ref.current, quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w), onAction: (a) => cb.current.onAction(a), onHover: (p) => setHover(p ? cb.current.hoverLabel(p) : '') });
+      const s = new K({ canvas: ref.current, quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w), host: { take: (sl, g) => cb.current.host.take(sl, g), op: (o, m) => cb.current.host.op(o, m), quantity: (sl) => cb.current.host.quantity(sl), say: (m, t) => cb.current.host.say(m, t), askQuantity: (sl) => openQty(sl), serve: () => { leaveFs(); cb.current.host.serve(); } }, onHud: (h) => setGameHud(h), onHover: (p) => setHover(p ? cb.current.hoverLabel(p) : '') });
       sceneRef.current = s;
+      if (new URLSearchParams(location.search).has('e2e')) (window as unknown as { __kitchenScene?: unknown }).__kitchenScene = s;
       cb.current.onReady(s);
       timer = setInterval(() => {
         cb.current.onFps(Math.round(s.fps));
@@ -113,17 +137,20 @@ export default function Stage3D({ quality, onQuality, onPick, onAction, hoverLab
   }, []);
   useEffect(() => {
     if (!game) return;
-    const onLock = (): void => { if (!document.pointerLockElement && !paused) pause(); };
-    const onFs = (): void => { if (!document.fullscreenElement && !paused) pause(); };
+    const onLock = (): void => { if (!document.pointerLockElement && !paused && !menuOpen.current) pause(); };
+    const onFs = (): void => {
+      if (document.fullscreenElement) { if (!paused && !menuOpen.current) sceneRef.current?.lockPointer(); } // الدخول لملء الشاشة يُسقط القفل فنعيده
+      else if (!paused && !menuOpen.current) pause();
+    };
     const onKey = (e: KeyboardEvent): void => {
-      if (e.code === 'Escape') { if (!paused) pause(); }
+      if (e.code === 'Escape') { if (qtyFor) closeQty(); else if (!paused) pause(); }
       else if (e.code === 'F1') { e.preventDefault(); setHelp((h) => !h); if (!paused) pause(); }
     };
     document.addEventListener('pointerlockchange', onLock);
     document.addEventListener('fullscreenchange', onFs);
     window.addEventListener('keydown', onKey);
     return () => { document.removeEventListener('pointerlockchange', onLock); document.removeEventListener('fullscreenchange', onFs); window.removeEventListener('keydown', onKey); };
-  }, [game, paused, pause]);
+  }, [game, paused, pause, qtyFor, closeQty]);
   const update = (patch: Partial<GameSettings>): void => {
     const next = { ...settings, ...patch };
     setSettings(next);
@@ -145,11 +172,16 @@ export default function Stage3D({ quality, onQuality, onPick, onAction, hoverLab
           <span className="kt-cross" aria-hidden="true" />
           {hover && <span className="kt-hover" role="status">{hover}</span>}
           <div className="kt-hud-top" aria-label="حالة الطبخ"><span dir="ltr">⏱ {hud.time}</span><span>{hud.cost}</span></div>
+          <div className="kt-hands" aria-label="ما في اليدين"><span>{gameHud.left ? `يسار: ${gameHud.left}` : ''}</span><span>{gameHud.right ? `يمين: ${gameHud.right}` : ''}</span></div>
+          {gameHud.hint && <p className="kt-hint">{gameHud.hint}{gameHud.cut ? ` — الأسلوب: ${gameHud.cut}` : ''}</p>}
+          {gameHud.progress !== null && gameHud.progress > 0 && <progress className="kt-prog" max={1} value={gameHud.progress} aria-label="تقدّم الفعل" />}
+          <ul className="kt-toasts" aria-live="polite">{hud.log.filter((l) => now - l.at < 6500).slice(-4).map((l) => <li key={l.id} data-tone={l.tone}>{l.msg}</li>)}</ul>
           <p className="kt-help" aria-label="التحكم">
             <kbd>W A S D</kbd> مشي · <kbd>Shift</kbd> جري · <kbd>C</kbd> انحناء · زر أيسر: إمساك/ضغط · زر أيمن: كمية/استعمال · <kbd>1–7</kbd> محطات · <kbd>F1</kbd> دليل · <kbd>Esc</kbd> قائمة
           </p>
         </>
       )}
+      {world === 'on' && game && qtyFor && <QtyMenu slug={qtyFor} name={ingName(qtyFor)} grams={qty(qtyFor)} onOk={(g) => { onQty(qtyFor, g); closeQty(); }} onCancel={closeQty} />}
       {world === 'on' && game && paused && (
         <div className="kt-pause" role="dialog" aria-label="قائمة اللعبة" data-testid="pause-menu">
           <div className="kt-pause-card">
@@ -173,6 +205,25 @@ export default function Stage3D({ quality, onQuality, onPick, onAction, hoverLab
   );
 }
 
+/** قائمة الكمية داخل اللعبة (الزر الأيمن على الرف): قائمة منسدلة أو إدخال رقم مباشر */
+function QtyMenu({ slug, name, grams, onOk, onCancel }: { slug: string; name: string; grams: number; onOk: (g: number) => void; onCancel: () => void }) {
+  const [v, setV] = useState(String(grams));
+  const unit = unitGrams(slug);
+  const opts = [...new Set([...(unit ? [1, 2, 3, 4, 5, 6].map((n) => n * unit) : []), ...PRESET_GRAMS, grams])].sort((a, b) => a - b);
+  const g = Number(v);
+  const ok = Number.isFinite(g) && g > 0 && g <= 5000;
+  return (
+    <div className="kt-pause" role="dialog" aria-label={`كمية ${name}`} data-testid="qty-menu">
+      <form className="kt-pause-card" onSubmit={(e) => { e.preventDefault(); if (ok) onOk(g); }}>
+        <h3>كمية {name}</h3>
+        <label>من القائمة <select value={opts.includes(g) ? String(g) : ''} onChange={(e) => e.target.value && setV(e.target.value)} aria-label="الكمية من القائمة"><option value="">—</option>{opts.map((o) => <option key={o} value={o}>{unit && o % unit === 0 && o / unit <= 6 ? `${o / unit} ${o / unit === 1 ? 'حبة' : 'حبات'} (${o} غ)` : `${o} غ`}</option>)}</select></label>
+        <label>أو أدخل رقمًا <input autoFocus type="number" min={1} max={5000} step={1} inputMode="numeric" value={v} onChange={(e) => setV(e.target.value)} aria-label="الكمية بالغرام" /> <b>غ</b></label>
+        <div className="kt-pause-actions"><button type="submit" className="btn primary" disabled={!ok}>اعتمد</button><button type="button" className="btn" onClick={onCancel}>إلغاء</button></div>
+      </form>
+    </div>
+  );
+}
+
 /** دليل التحكم داخل اللعبة (ملخّص؛ يتوسع مع كل أداة تُضاف) */
 function GameGuide() {
   return (
@@ -180,7 +231,9 @@ function GameGuide() {
       <dt>الحركة</dt><dd><kbd>W A S D</kbd> مشي · <kbd>Shift</kbd> جري · <kbd>C</kbd> انحناء · الفأرة للنظر · <kbd>1–7</kbd> الانتقال إلى محطة</dd>
       <dt>اليدان</dt><dd>الزر الأيسر = اليد اليمنى، الأيمن = اليسرى. اضغط مطوّلًا لتمسك، وأفلت فوق الهدف لتضع.</dd>
       <dt>الموقد</dt><dd>صوّب على سطح الموقد وأفلت القدر لتضعه، وانقر المقبض الأزرق لإشعال اللهب وتغييره.</dd>
-      <dt>المكوّنات</dt><dd>صوّب على الرف: اضغط مطوّلًا لتأخذ الكمية المضبوطة، والزر الأيمن يفتح قائمة الكمية.</dd>
+      <dt>المكوّنات</dt><dd>صوّب على الرف: اضغط مطوّلًا لتأخذ الكمية المضبوطة (نقرة سريعة تبقيها في يدك لتفلتها بنقرة ثانية)، والزر الأيمن على الرف يفتح قائمة الكمية.</dd>
+      <dt>الإفلات</dt><dd>فوق قدر = إضافة · فوق اللوح أو الطاولة = وضع · المحمّصة للتوست · السلة = رمي · الحوض = غسل · الأرض = يتلف.</dd>
+      <dt>أدوات وأوعية</dt><dd><kbd>E</kbd> غطاء القدر · <kbd>R</kbd> إطلاق ضغط (مع Shift طبيعي) · <kbd>X</kbd> تصفية الماء · <kbd>F</kbd> تقديم الطبق.</dd>
       <dt>القائمة</dt><dd><kbd>Esc</kbd> يوقف اللعبة ويفتح الإعدادات.</dd>
     </dl>
   );
