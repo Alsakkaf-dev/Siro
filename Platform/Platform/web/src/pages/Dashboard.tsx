@@ -101,7 +101,7 @@ export default function Dashboard() {
           text={phase.kind === 'week' && phase.week ? `من ${fmtDateShort(weekStartMs(sem, phase.week))} إلى ${fmtDateShort(weekEndMs(sem, phase.week))} — تقدّم الفصل ${Math.round(elapsed * 100)}%` : `${fmtISOFull(sem.start_date)} · ${sem.weeks} أسبوعًا`}
           aside={
             next && nextDue !== null ? (
-              <Link to={`${base}/courses/${next.course_id}#a-${next.id}`} className="countdown-link" aria-label={`الموعد القادم: ${next.title}`}><Countdown target={nextDue + DAY_MS - 60_000} label={`حتى: ${next.title}`} color="var(--lime)" /></Link>
+              <Link to={`${base}/courses/${next.course_id}#a-${next.id}`} className="countdown-link"><span className="sr-only">الموعد القادم: {next.title}. </span><Countdown target={nextDue + DAY_MS - 60_000} label={`حتى: ${next.title}`} color="var(--lime)" /></Link>
             ) : (
               <div className="countdown"><small>لا موعد قادم معروف</small></div>
             )

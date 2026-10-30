@@ -1,4 +1,6 @@
 // وجبات الجدول (النقي): الملاءمة المرنة AC-08، نطاق الجدوى CAL-35، التسوّق CAL-37، قراءة Outlook LAW-07/08، بطاقات الدورة، بصمة CAL-50.
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   CYCLE, CYCLE_CARDS, LAW, ORIGINAL_RECIPES, cardHash, cycleCardsFor, cycleDayOf, feasibleRange, nutritionOf, planDay, scaleDayFlexible, scaleLines, shoppingList, type PlanCard, type RecipeLine, type Slot,
@@ -156,5 +158,23 @@ describe('قراءة وجبات Outlook (LAW-02/07/08)', () => {
     const extra = outlookDayLaw([ev('b', 'فطور', '2026-10-26T07:00', desc(400)), ev('b2', 'فطور', '2026-10-26T10:00', desc(100))], '2026-10-26');
     expect(extra.extra).toHaveLength(1);
     expect(extra.violation).toBe(true);
+  });
+});
+
+describe('N-01/N-02/AC-11 على سطوح المرحلة 4', () => {
+  it('كل مكوّنات بطاقات الدورة وقوائم التسوّق ضمن الـ26 المقفلة', () => {
+    const slugs = new Set(CYCLE_CARDS.flatMap((c) => c.lines.map((l) => l.ingredient)));
+    for (const s of slugs) expect(INGREDIENT_BY_SLUG.has(s), s).toBe(true);
+    expect(INGREDIENT_BY_SLUG.size).toBe(26);
+    const sl = shoppingList(CYCLE_CARDS.map((c) => ({ slots: [{ lines: c.lines }] })), {});
+    for (const l of sl.lines) expect(INGREDIENT_BY_SLUG.has(l.ingredient)).toBe(true);
+  });
+  it('لا نص تخسيس/حمية/TDEE/وزن جسم في شيفرة الجدول والمطبخ والخادم (N-02)', () => {
+    const root = path.join(__dirname, '..');
+    const files = ['web/src/calendar', 'web/src/pages', 'web/src/kitchen', 'web/src/widgets', 'shared/calendar', 'shared/kitchen', 'server']
+      .flatMap((d) => fs.readdirSync(path.join(root, d), { recursive: true, withFileTypes: false }).map((f) => path.join(root, d, String(f))))
+      .filter((f) => /\.(tsx?|json)$/.test(f) && fs.statSync(f).isFile() && /(Calendar|Kitchen|calendar|kitchen|enrich|MealsToday|cyclecards|dayrange|shopping)/.test(f));
+    expect(files.length).toBeGreaterThan(15);
+    for (const f of files) expect(fs.readFileSync(f, 'utf8'), path.relative(root, f)).not.toMatch(/تخسيس|(?<![\u0600-\u06FF])حمية|(?<![\u0600-\u06FF])دايت(?![\u0600-\u06FF])|TDEE|وزن الجسم|أوزان جسم|خسارة وزن|نقص الوزن|BMR/);
   });
 });

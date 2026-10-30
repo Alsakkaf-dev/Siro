@@ -68,7 +68,8 @@ async function scenarios(browser, { sem, course }) {
     const errs = [];
     const track = (p) => {
       p.on('pageerror', (e) => errs.push(`pageerror: ${e.message}`));
-      p.on('console', (m) => m.type() === 'error' && errs.push(`console: ${m.text().slice(0, 160)}`));
+      // انقطاع الشبكة المتعمَّد في سيناريو «بلا اتصال» ليس خطأ
+      p.on('console', (m) => m.type() === 'error' && !/ERR_INTERNET_DISCONNECTED/.test(m.text()) && errs.push(`console: ${m.text().slice(0, 160)}`));
     };
     track(page);
     try {
@@ -717,7 +718,7 @@ async function scenarios(browser, { sem, course }) {
     if (n < 1) throw new Error(`أحداث الأسبوع: ${n}`);
     const triple = ((await page.locator('[data-testid=cal18-triple]').textContent()) ?? '').trim();
     if (!/^\d+ \/ \d+ \/ \d+$/.test(triple)) throw new Error(`ثلاثية التحقق: ${triple}`);
-    await page.locator('[data-testid=cal-event]').first().click();
+    await page.locator('[data-testid=cal-event]:not(.is-free)').first().click();
     await page.waitForSelector('[role=dialog]', { timeout: 4000 });
     await page.keyboard.press('Escape');
     await page.waitForSelector('[role=dialog]', { state: 'detached', timeout: 4000 });
@@ -886,6 +887,43 @@ async function scenarios(browser, { sem, course }) {
     await capi('DELETE', '/import');
     await kapi('DELETE', '/plan/2026-11-16');
     return 'اقتراحان بالقالب الحرفي ← اعتماد ← تصدير JSON+نص ← مطبّق بعد التصدير؛ أحداث Outlook لم تتغير';
+  });
+  await run('اليوم: بطاقة «وجبات اليوم + حالة القانون» تظهر بيوم محفوظ وتختفي إن أُغلق المطبخ', 'desktop', async (page) => {
+    const t = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
+    await kapi('DELETE', `/plan/${t}`); // VS-1 يحفظ يوم اليوم؛ نبدأ بلا خطة
+    await ready(page, '/');
+    await page.waitForSelector('text=يحتاج انتباهك', { timeout: 8000 });
+    if (!(await page.locator('.today-meals').count())) throw new Error('البطاقة غائبة (لا خطة اليوم)');
+    if (!/لا وجبات مخطّطة اليوم/.test((await page.locator('.today-meals').textContent()) ?? '')) throw new Error('حالة بلا خطة');
+    const put = await kput(t, { 'فطور': { card: 'cy-bk-03' }, 'غداء': { card: 'cy-ln-01' }, 'عشاء': { card: 'cy-dn-04' } });
+    if (!put.total_kcal) throw new Error('حفظ اليوم');
+    await ready(page, '/');
+    await page.waitForSelector('[data-testid=today-meals]', { timeout: 8000 });
+    const law = (await page.locator('[data-testid=today-law]').textContent()) ?? '';
+    if (!/داخل الحدود/.test(law) || !/136\d/.test(law)) throw new Error(`حالة القانون: ${law}`);
+    await shot(page, 'today-meals');
+    await kapi('DELETE', `/plan/${t}`);
+    const ctx = page.context();
+    const p2 = await ctx.newPage();
+    await p2.addInitScript(() => localStorage.setItem('platform.flags', JSON.stringify({ 'kitchen.enabled': false })));
+    await p2.goto(base + '/', { waitUntil: 'domcontentloaded' });
+    await p2.waitForSelector('text=يحتاج انتباهك', { timeout: 8000 });
+    await p2.waitForTimeout(500);
+    if (await p2.locator('.today-meals').count()) throw new Error('البطاقة ظاهرة والمطبخ مغلق');
+    await p2.close();
+    return 'بلا خطة: دعوة للتخطيط؛ بخطة: 136x داخل الحدود؛ المطبخ مغلق: تختفي';
+  });
+  await run('CAL-4: بلا اتصال يعرض الجدول آخر لقطة موسومة «قد تكون قديمة» (CAL-24/AC-15)', 'desktop', async (page) => {
+    await ready(page, '/calendar?date=2026-10-26');
+    await page.waitForSelector('[data-testid=cal-event]', { timeout: 8000 });
+    const before = await page.locator('[data-testid=cal-event]').count();
+    await page.context().setOffline(true);
+    await page.click('button:has-text("تحديث")');
+    await page.waitForFunction(() => /لا اتصال، لقطة محفوظة/.test(document.querySelector('[data-testid=cal-source]')?.textContent ?? ''), null, { timeout: 8000 });
+    const after = await page.locator('[data-testid=cal-event]').count();
+    if (after !== before || !before) throw new Error(`اللقطة المحلية ناقصة: ${before} ← ${after}`);
+    await page.context().setOffline(false);
+    return `بلا اتصال: ${after} حدثًا من اللقطة بوسم «قد تكون قديمة»`;
   });
   await run('CAL-3: الجدول على الجوال بلا تمرير أفقي للصفحة', 'mobile', async (page) => {
     await ready(page, '/calendar?date=2026-10-26');

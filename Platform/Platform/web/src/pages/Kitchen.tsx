@@ -6,6 +6,7 @@ import { Badge, Card, CardHead, cx } from '../ui/ui.js';
 import { StatTile } from '../widgets/tiles.js';
 import { flagEnabled } from '../core/flags.js';
 import { t } from '../kitchen/i18n/ar.js';
+import { Enrichment } from '../kitchen/Enrichment.js';
 import {
   CYCLE, INGREDIENTS, LAW, ORIGINAL_RECIPES, SEED_PRICES, STORES, fmtKcal, fmtNum, fmtRM, indexPrices, nutritionOf, per100g, pickPrice, searchIngredients, unitAbbr, withinLaw, type Category,
 } from '../../../shared/kitchen/index.js';
@@ -99,6 +100,7 @@ export default function Kitchen() {
           <p className="muted">{t('hub.next.list')}</p>
         </Card>
       </div>
+      {flagEnabled('kitchen.apis.extended') && <Enrichment />}
     </div>
   );
 }

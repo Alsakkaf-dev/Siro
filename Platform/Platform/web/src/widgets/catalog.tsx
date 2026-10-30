@@ -56,8 +56,8 @@ export function CourseCard({ course, items, calc, sem, now, to, view, onEdit, on
   }
   return (
     <article className="cc" style={css(course.color)}>
-      <Link to={to} className="cc-cover" aria-label={`افتح ${course.name}`}>
-        <span className="cc-code"><bdi>{course.code}</bdi></span>
+      <Link to={to} className="cc-cover">
+        <span className="sr-only">افتح {course.name}: </span><span className="cc-code"><bdi>{course.code}</bdi></span>
         <span className="cc-credit">{course.credits === null ? <Unknown text="الساعات؟" /> : <span className="pill-dark num">{course.credits} ساعات</span>}</span>
         <span className="cc-pattern" aria-hidden="true" />
       </Link>

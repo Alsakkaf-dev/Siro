@@ -24,7 +24,7 @@
 .cal-col.today { background: var(--accent-soft); }
 .cal-line { position: absolute; inset-inline: 0; block-size: 1px; background: var(--border); opacity: .7; }
 .cal-now { position: absolute; inset-inline: 0; block-size: 2px; background: var(--danger); z-index: 4; }
-.cal-ev { position: absolute; z-index: 2; box-sizing: border-box; display: flex; flex-direction: column; gap: 0; padding: 1px 4px; text-align: start; overflow: hidden; border: 1px solid color-mix(in srgb, var(--c) 55%, transparent); border-inline-start: 3px solid var(--c); border-radius: 5px; background: color-mix(in srgb, var(--c) 22%, var(--surface)); color: var(--text); font: 600 11px/1.2 var(--font-ui); cursor: pointer; }
+.cal-ev { min-block-size: 24px; position: absolute; z-index: 2; box-sizing: border-box; display: flex; flex-direction: column; gap: 0; padding: 1px 4px; text-align: start; overflow: hidden; border: 1px solid color-mix(in srgb, var(--c) 55%, transparent); border-inline-start: 3px solid var(--c); border-radius: 5px; background: color-mix(in srgb, var(--c) 22%, var(--surface)); color: var(--text); font: 600 11px/1.2 var(--font-ui); cursor: pointer; }
 .cal-ev:hover { z-index: 3; box-shadow: var(--shadow-1); }
 .cal-ev:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; z-index: 6; }
 .cal-ev-t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

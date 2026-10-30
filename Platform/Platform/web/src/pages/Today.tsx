@@ -8,6 +8,7 @@ import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, Skeleton, cx } from '../ui/ui.js';
 import { useNow } from '../widgets/tiles.js';
 import { AssessmentQuickActions } from '../widgets/AssessmentQuickActions.js';
+import { MealsToday } from '../widgets/MealsToday.js';
 import { Icon } from '../lib/icons.js';
 import { lib, life, sports, type LifeBundle } from '../lib/api.js';
 import { fmtDateFull, fmtDateShort, fmtWeekday, hhmm, parseSlots } from '../lib/format.js';
@@ -50,6 +51,7 @@ export default function Today() {
         <NowNext courses={inbox.bundle?.courses ?? null} routine={routine} nowMs={nowMs} />
         {inbox.bundle && <WeekStrip inbox={inbox} week={week} />}
         {mine !== 'x' && <Workout mine={week} loading={mine === null} />}
+        <MealsToday />
         <Continue items={recentLib} />
         <Card className="today-quick">
           <CardHead title="إجراءات سريعة" icon="zap" />

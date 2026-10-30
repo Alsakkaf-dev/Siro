@@ -3,9 +3,10 @@ import { Icon } from '../lib/icons.js';
 import { Badge } from '../ui/ui.js';
 import { addDays, dayStartMin, eventsOnDay, hm, kindOf, layoutDay, todayKL, wallMin, type Cal18, type CalEvent } from '../../../shared/calendar/index.js';
 import { fmtNum } from '../../../shared/kitchen/index.js';
-import { dayName, dayNum, durText, fmtDay, timeRange } from './fmt.js';
+import { dayName, dayNum, durText, fmtDay, monthName, timeRange } from './fmt.js';
 
-export const HOUR_H = 44;
+/** 72px/ساعة ⇒ أقصر حدث مسموح (20 دقيقة) = 24px: حدّ هدف اللمس WCAG 2.2 AA */
+export const HOUR_H = 72;
 
 /** لون التقويم (CAL-21): من رموز التصميم الموجودة فقط */
 const CAL_CLASS: Record<string, string> = { 'دراسة': 'c-study', 'صلاة': 'c-prayer', 'روتين وصحة': 'c-routine', 'وقت فراغ': 'c-free', 'مال وفواتير': 'c-money', 'عام': 'c-general' };
@@ -22,12 +23,12 @@ export function EventBlock({ ev, top, height, col, cols, onPick, extra }: { ev: 
       className={`cal-ev ${calClass(ev.calendar)} k-${kind}${ev.show_as === 'free' ? ' is-free' : ''}${mins < 20 ? ' is-short' : ''}${extra ? ` ${extra}` : ''}`}
       style={{ insetBlockStart: `${(top / 1440) * 100}%`, blockSize: `${(height / 1440) * 100}%`, insetInlineStart: `${(col / cols) * 100}%`, inlineSize: `${100 / cols}%` }}
       onClick={() => onPick(ev)}
-      aria-label={`${ev.title}، ${timeRange(ev.start, ev.end)}، ${ev.calendar}`}
       title={`${ev.title} · ${timeRange(ev.start, ev.end)} · ${ev.calendar}`}
       data-testid="cal-event"
     >
       <span className="cal-ev-t">{ev.title}</span>
       {height >= 40 && <span className="cal-ev-s num" dir="ltr">{timeRange(ev.start, ev.end)}</span>}
+      <span className="sr-only">، {timeRange(ev.start, ev.end)}، {ev.calendar}</span>
     </button>
   );
 }
@@ -56,7 +57,7 @@ export function TimeGrid({ days, events, onPick, overlay, onDayClick, headExtra 
         <div className="cal-head cal-corner" />
         {days.map((d) => (
           <div key={d} className={`cal-head${d === today ? ' today' : ''}`}>
-            {onDayClick ? <button type="button" className="cal-head-b" onClick={() => onDayClick(d)} aria-label={`افتح ${fmtDay(d)}`}><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></button> : <><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></>}
+            {onDayClick ? <button type="button" className="cal-head-b" onClick={() => onDayClick(d)} title={`افتح ${fmtDay(d)}`}><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></button> : <><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></>}
             {headExtra?.(d)}
           </div>
         ))}
@@ -81,14 +82,14 @@ export function MonthGrid({ month, from, to, events, onDay }: { month: string; f
   for (let d = from; d <= to; d = addDays(d, 1)) days.push(d);
   const today = todayKL();
   return (
-    <div className="cal-month" role="grid" aria-label="الشهر">
-      {days.slice(0, 7).map((d) => <div key={d} className="cal-mh" role="columnheader">{dayName(d)}</div>)}
+    <div className="cal-month" role="group" aria-label="الشهر">
+      {days.slice(0, 7).map((d) => <div key={d} className="cal-mh" aria-hidden="true">{dayName(d)}</div>)}
       {days.map((d) => {
         const evs = eventsOnDay(events, d).filter((e) => e.show_as !== 'free' && kindOf(e) !== 'sleep');
         const mine = d.slice(0, 7) === month.slice(0, 7);
         return (
-          <button key={d} type="button" role="gridcell" className={`cal-md${d === today ? ' today' : ''}${mine ? '' : ' out'}`} onClick={() => onDay(d)} aria-label={`${fmtDay(d)}: ${evs.length} حدثًا`}>
-            <b className="num">{fmtNum(dayNum(d))}</b>
+          <button key={d} type="button" className={`cal-md${d === today ? ' today' : ''}${mine ? '' : ' out'}`} onClick={() => onDay(d)}>
+            <b className="num">{fmtNum(dayNum(d))}</b><span className="sr-only"> {dayName(d)} {monthName(d)}: {fmtNum(evs.length)} حدثًا</span>
             <span className="cal-md-n">{evs.slice(0, 3).map((e) => <span key={e.id} className={`cal-chip ${calClass(e.calendar)}`}>{e.title}</span>)}</span>
             {evs.length > 3 && <small className="muted">+<span className="num">{fmtNum(evs.length - 3)}</span></small>}
           </button>

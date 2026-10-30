@@ -55,7 +55,7 @@ export function WeightsBody() {
 
         <Card>
           <CardHead title="المصفوفة: المادة × النوع" icon="table" />
-          <div className="table-wrap">
+          <div className="table-wrap" tabIndex={0} role="region" aria-label="جدول الأوزان">
             <table className="t wm">
               <thead><tr><th>المادة</th>{kindTotals.map((x) => (<th key={x.k}>{KIND_LABEL[x.k]}</th>))}<th>المجموع</th></tr></thead>
               <tbody>

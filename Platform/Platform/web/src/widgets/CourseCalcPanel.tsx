@@ -89,7 +89,7 @@ export function CourseCalcPanel({ course }: { course: Course }) {
               <input id="assume" type="range" min={0} max={100} step={5} value={assume} onChange={(e) => setAssume(Number(e.target.value))} aria-valuetext={`${assume}%`} />
             </div>
           )}
-          <div className="targets" role="table" aria-label="العلامة المطلوبة لكل هدف">
+          <div className="targets" role="group" aria-label="العلامة المطلوبة لكل هدف">
             {calc.rows.map((r) => (
               <div key={r.target} className={`target ${r.state}`}>
                 <Ring value={r.state === 'impossible' ? 100 : r.state === 'sure' ? 0 : r.need} size={54} stroke={6} color={r.state === 'impossible' ? 'var(--danger)' : r.state === 'sure' ? 'var(--ok)' : 'var(--accent)'} label={r.target} sub={`هدف ${r.target}`} />

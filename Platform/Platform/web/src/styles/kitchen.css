@@ -206,3 +206,5 @@
 /* ابتكاراتي */
 .kt-mycards { display: grid; gap: var(--s-3); }
 .kt-mycard { display: grid; gap: var(--s-2); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-md); }
+/* وصول: روابط داخل النص تُميَّز بغير اللون (WCAG 1.4.1) — تخطيط/زخرفة نص فقط */
+.kitchen p a:not(.btn), .kitchen li > a:not(.btn):not(.kt-prod-main), .kitchen small a { text-decoration: underline; }

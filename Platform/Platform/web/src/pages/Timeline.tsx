@@ -290,7 +290,7 @@ function ListView({ items, filter, toggle, clear, onlyOpen, setOnlyOpen }: { ite
           {[...groups.entries()].map(([g, list]) => (
             <Card key={g}>
               <CardHead title={g} icon="calendar"><Badge>{list.length}</Badge></CardHead>
-              <div className="table-wrap">
+              <div className="table-wrap" tabIndex={0} role="region" aria-label="جدول التقييمات">
                 <table className="t as-list">
                   <thead><tr><th>التقييم</th><th>المادة</th><th>الموعد</th><th>الوزن</th><th>الحالة</th><th>إجراءات</th></tr></thead>
                   <tbody>

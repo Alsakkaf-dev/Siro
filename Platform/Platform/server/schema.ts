@@ -424,6 +424,25 @@ CREATE TABLE calendar_audit (
 );
 `,
   },
+  {
+    id: 9,
+    name: 'enrichment BFF: api_cache + api_usage (additive only)',
+    sql: `
+CREATE TABLE api_cache (
+  key TEXT PRIMARY KEY,
+  service TEXT NOT NULL,
+  body TEXT NOT NULL,
+  fetched_at TEXT NOT NULL,
+  expires_at TEXT NOT NULL
+);
+CREATE TABLE api_usage (
+  day TEXT NOT NULL,
+  service TEXT NOT NULL,
+  n INTEGER NOT NULL,
+  PRIMARY KEY (day, service)
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

@@ -29,7 +29,7 @@ export default function Calculator() {
       <CourseCalcPanel key={course.id} course={course} />
       <Card style={{ marginBlockStart: 'var(--s-5)' }}>
         <CardHead title="نظرة على كل المواد" icon="layers" />
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="جدول الحاسبة">
           <table className="t">
             <thead><tr><th>المادة</th><th>مكتسب</th><th>أقصى ممكن</th>{[50, 60, 70, 80].map((t) => (<th key={t}>هدف {t}</th>))}</tr></thead>
             <tbody>

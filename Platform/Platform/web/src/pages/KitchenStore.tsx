@@ -107,7 +107,7 @@ export default function KitchenStore() {
             const inCart = k.cart.find((l) => l.ingredient === i.slug);
             return (
               <li key={i.slug} className="kt-prod" data-slug={i.slug}>
-                <Link to={`/kitchen/store/${i.slug}${loc.search}`} className="kt-prod-main" aria-label={`تفاصيل ${i.name_ar}`}>
+                <Link to={`/kitchen/store/${i.slug}${loc.search}`} className="kt-prod-main">
                   <span className="kt-ico" aria-hidden="true">{i.icon}</span>
                   <strong>{i.name_ar}</strong>
                   <small className="muted" dir="ltr">{i.name_ms}</small>

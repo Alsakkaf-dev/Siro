@@ -200,7 +200,7 @@ function LogTab() {
   const outlook = useMemo(() => { const out = []; for (let i = 0; i < Math.min(n, 62); i++) { const o = outlookDayLaw(events, addDays(from, i)); if (o.meals.length) out.push(o); } return out; }, [events, from, n]);
   return (
     <Card>
-      <CardHead title="السجل التغذوي" icon="chart" info="مجموع سعرات كل يوم محفوظ مع حالة القانون. أرقام فقط: بلا أحكام ولا أوزان جسم ولا تقدّم «حمية»." />
+      <CardHead title="السجل التغذوي" icon="chart" info="مجموع سعرات كل يوم محفوظ مع حالة القانون. أرقام فقط بلا أحكام ولا نصائح طبية." />
       <div className="row kt-filter-row">
         <label className="kt-inline">من <input className="input" type="date" dir="ltr" value={from} onChange={(e) => setFrom(e.target.value)} aria-label="من تاريخ" /></label>
         <label className="kt-inline">إلى <input className="input" type="date" dir="ltr" value={to} onChange={(e) => setTo(e.target.value)} aria-label="إلى تاريخ" /></label>
