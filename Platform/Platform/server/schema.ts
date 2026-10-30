@@ -345,6 +345,20 @@ CREATE TABLE kitchen_plan_days (
 );
 `,
   },
+  {
+    id: 6,
+    name: 'semester package imports (online deploy)',
+    sql: `
+CREATE TABLE IF NOT EXISTS pkg_imports (
+  pkg TEXT PRIMARY KEY,
+  semester_id TEXT,
+  origin TEXT NOT NULL,
+  location TEXT NOT NULL,
+  files INTEGER NOT NULL,
+  imported_at TEXT NOT NULL
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

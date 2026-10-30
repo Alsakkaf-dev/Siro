@@ -1,5 +1,9 @@
 /** منطق مواعيد التسليم والتقييمات (تنبيهات الجرس والمراجعة). دوال نقية بلا وصول لملفات أو شبكة. مراجعة الأسبوع نفسها في weekly.ts. */
 import { DAY_MS, dueSortMs, isOpen, parseISO, toISO, weekOf } from './semester.js';
+/** عدد «غير المعروف» في فصل: تقييمات بلا موعد/حالة + ملاحظات «غير معروف» مفتوحة + مواد بلا ساعات معتمدة. */
+export function unknownTotal(b) {
+    return b.assessments.filter((a) => a.timing === 'unknown' || a.status === 'unknown').length + b.notes.filter((n) => n.tag === 'unk' && !n.resolved).length + b.courses.filter((c) => c.credits === null).length;
+}
 /** مواعيد تحتاج انتباهًا: المحددة بتاريخ خلال horizon يومًا (أو فائتة لم تُسلَّم)، وتقييمات الأسبوع الحالي، والامتحانات القريبة. لا نخمّن تاريخًا لما ليس له تاريخ. */
 export function deadlineAlerts(assessments, courses, sem, todayUtc, horizonDays = 7) {
     const byId = new Map(courses.map((c) => [c.id, c]));

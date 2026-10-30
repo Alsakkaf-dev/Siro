@@ -32,8 +32,9 @@ export function buildCsp(scriptHashes: string[] = []): string {
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self'",
-  "frame-src https://www.youtube-nocookie.com",
+  // Ollama على حاسوب المستخدم (مزوّد «من المتصفح» — ADR-0009)
+  "connect-src 'self' http://localhost:11434 http://127.0.0.1:11434",
+  "frame-src https://www.youtube-nocookie.com https://drive.google.com",
   "worker-src 'self'",
   "media-src 'self'",
   "object-src 'none'",
@@ -68,15 +69,17 @@ export function createApp(ctx: Ctx): express.Express {
     return hashCache.hashes;
   };
   // تُحسب عند كل طلب لأن المنفذ قد يُحدَّد بعد الاستماع (المنفذ 0 في الاختبارات)
-  const allowedHosts = { has: (h: string): boolean => h === `127.0.0.1:${cfg.port}` || h === `localhost:${cfg.port}` };
-  const allowedOrigins = { has: (o: string): boolean => o === `http://127.0.0.1:${cfg.port}` || o === `http://localhost:${cfg.port}` };
+  // النسخة المنشورة (PLATFORM_ONLINE=1): أي Host، والـ Origin يجب أن يطابق نفس الـ Host (حماية CSRF)
+  const online = process.env['PLATFORM_ONLINE'] === '1';
+  const allowedHosts = { has: (h: string): boolean => online || h === `127.0.0.1:${cfg.port}` || h === `localhost:${cfg.port}` };
+  const allowedOrigins = { has: (o: string, h = ''): boolean => (online ? o === `https://${h}` : o === `http://127.0.0.1:${cfg.port}` || o === `http://localhost:${cfg.port}`) };
 
   // حماية من DNS-rebinding و CSRF: لا نقبل إلا Host / Origin المحلي
   app.use((req, res, next) => {
     const host = req.headers.host ?? '';
     if (!allowedHosts.has(host)) return void res.status(403).type('text/plain').send('Forbidden host');
     const origin = req.headers.origin;
-    if (req.method !== 'GET' && req.method !== 'HEAD' && origin !== undefined && !allowedOrigins.has(origin)) {
+    if (req.method !== 'GET' && req.method !== 'HEAD' && origin !== undefined && !allowedOrigins.has(origin, host)) {
       return void res.status(403).type('text/plain').send('Forbidden origin');
     }
     res.setHeader('Content-Security-Policy', buildCsp(inlineScriptHashes()));
@@ -108,6 +111,16 @@ export function createApp(ctx: Ctx): express.Express {
     } else if (compressible && /\bgzip\b/.test(ae) && fs.existsSync(abs + '.gz')) {
       file = abs + '.gz';
       res.setHeader('Content-Encoding', 'gzip');
+    }
+    // ملفات no-cache (index.html، sw.js…) صغيرة: تُرسل بـ ETag قوي من المحتوى (app etag=strong).
+    // ETag الافتراضي (الحجم + التاريخ) خطر على Vercel: كل الملفات بتاريخ ثابت، فقد تتطابق نشرتان
+    // ويُرجع المتصفح 304 لصفحة قديمة تشير لملفات لم تعد موجودة.
+    if (cache === 'no-cache') {
+      try {
+        return void res.send(fs.readFileSync(file));
+      } catch {
+        return void res.status(404).end();
+      }
     }
     res.sendFile(file, { dotfiles: 'deny', headers: {} }, (err) => {
       if (err && !res.headersSent) res.status(404).end();
