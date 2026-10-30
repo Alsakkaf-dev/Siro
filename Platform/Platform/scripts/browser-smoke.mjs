@@ -515,8 +515,10 @@ async function scenarios(browser, { sem, course }) {
     const pre = Object.fromEntries((await kapi('GET', '/state')).pantry.map((p) => [p.ingredient, p.grams]));
     /* 3) الطبخ يدويًا بتسريع ×60 في الوضع الموجّه */
     await ready(page, '/kitchen/cook?recipe=bk-03&mode=guided');
+    // اللوحة وحدها تُختبر هنا: العالم ثلاثي الأبعاد يُختبر في WORLD-1 (المصيّر البرمجي SwiftShader يجمّد الصفحة فيتأخر Playwright)
     const webgl = await hasWebgl(page);
     await page.waitForSelector(webgl ? 'canvas.kt-canvas' : '.kt-stage-off', { timeout: 15000 });
+    if (webgl) await page.uncheck('.kt-check input');
     await page.click('[role=group][aria-label="أقسام اللوحة"] >> text=الإجراءات').catch(() => page.click('button:has-text("الإجراءات")'));
     await page.click('button.chip:has-text("×60")');
     await takeUi(page, 'toast', 80); // i1
@@ -649,6 +651,54 @@ async function scenarios(browser, { sem, course }) {
     await shot(page, 'cook-3d');
     const fps = await page.locator('.kt-stations small').textContent().catch(() => '');
     return `الجودات الثلاث تعمل؛ PERF-20: draw calls ${st.calls} (≤150) · مثلثات ${st.tris} (≤250000) · الحزمة ${st.kit}؛ ${fps.trim() || 'fps غير ظاهر'} (SwiftShader بلا GPU: لا يمثل الجهاز الحقيقي)`;
+  });
+  await run('WORLD-1: عالم المطبخ بالشخص الأول — دخول، إمساك، قدر على موقد، مقبض اللهب، قطع بالسكين', 'desktop', async (page) => {
+    await page.addInitScript(() => { Element.prototype.requestFullscreen = () => Promise.reject(new Error('stub')); Element.prototype.requestPointerLock = () => { throw new Error('stub'); }; });
+    await ready(page, '/kitchen/cook?mode=sandbox&e2e=1');
+    if (!(await hasWebgl(page))) return 'WebGL غير متاح في هذا المتصفح — تُخطّى';
+    await page.waitForSelector('[data-testid=enter-kitchen]', { timeout: 60000 });
+    const S = (expr) => page.evaluate(`(() => { const s = window.__kitchenScene; return ${expr}; })()`);
+    const press = async (b = 0, ms = 100) => { await S(`s.e2e.press(${b}, ${ms})`); await page.waitForTimeout(450); };
+    const holds = () => S('s.e2e.holds()');
+    const wait = async (k) => { for (let i = 0; i < 24 && !(await holds()).includes(k); i++) await page.waitForTimeout(250); return holds(); };
+    const faceNode = async (name, dy, back, dir) => { const p = await S(`s.e2e.node('${name}')`); if (!p) throw new Error(`عقدة ${name} غير موجودة`); await S(`s.e2e.stand(${p[0] + dir[0] * back}, ${p[2] + dir[1] * back})`); await S(`s.e2e.look(${p[0]}, ${p[1] + dy}, ${p[2]})`); await page.waitForTimeout(450); return p; };
+    await page.evaluate(() => document.querySelector('[data-testid=enter-kitchen]').click());
+    await page.waitForFunction(() => document.querySelector('.kt-world')?.dataset.game === 'on', null, { timeout: 5000 });
+    // الحساسية تُحفظ وتُطبَّق من قائمة الإيقاف
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('[data-testid=pause-menu]', { timeout: 4000 });
+    await page.evaluate(() => { const i = document.querySelector('[aria-label="حساسية الفأرة"]'); Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, '1.8'); i.dispatchEvent(new Event('input', { bubbles: true })); });
+    if (!(await page.evaluate(() => localStorage.getItem('siro.kitchen.game'))).includes('1.8')) throw new Error('الحساسية لم تُحفظ');
+    await page.evaluate(() => document.querySelector('[data-testid=resume-game]').click());
+    // 1) قدر على الموقد
+    await faceNode('equip_pot_small', 0.05, 0.9, [0, -1]); await press(); if (!(await wait('vessel')).includes('pot_small')) throw new Error('لم يُمسك القدر');
+    const bp = await S("s.e2e.node('burner_2')");
+    await S(`s.e2e.stand(${bp[0] - 1.0}, ${bp[2]})`); await S(`s.e2e.look(${bp[0]}, ${bp[1]}, ${bp[2]})`); await page.waitForTimeout(450); await press();
+    if (JSON.parse(await S('s.e2e.vessels()')).find((v) => v.id === 'pot_small').burner !== 2) throw new Error('القدر لم يُوضع على الموقد 2');
+    // 2) بيضة إلى القدر
+    const sl = await S("s.e2e.slot('egg')"); await S(`s.e2e.stand(${sl[0]}, ${sl[2] + 0.95})`); await S(`s.e2e.look(${sl[0]}, ${sl[1]}, ${sl[2]})`); await page.waitForTimeout(450);
+    await press(); if (!(await wait('item')).includes('"item"')) throw new Error('لم يُمسك المكوّن');
+    await S(`s.e2e.stand(${bp[0] - 0.9}, ${bp[2]})`); await S(`s.e2e.look(${bp[0]}, ${bp[1] + 0.08}, ${bp[2]})`); await page.waitForTimeout(450); await press();
+    if (!JSON.parse(await S('s.e2e.vessels()')).find((v) => v.id === 'pot_small').items.length) throw new Error('البيضة لم تدخل القدر');
+    // 3) مقبض الموقد يشعل اللهب
+    await S(`s.e2e.look(${bp[0] - 0.36}, ${bp[1] - 0.15}, ${bp[2]})`); await page.waitForTimeout(450); await press();
+    if (!(await S('s.e2e.burners()'))[1]) throw new Error('المقبض لم يشعل اللهب');
+    // 4) سكين وقطع على اللوح
+    const sl2 = await S("s.e2e.slot('toast')"); await S(`s.e2e.stand(${sl2[0]}, ${sl2[2] + 0.95})`); await S(`s.e2e.look(${sl2[0]}, ${sl2[1]}, ${sl2[2]})`); await page.waitForTimeout(450);
+    await press(); await wait('item');
+    const bd = await S("s.e2e.node('board_main')"); await S(`s.e2e.stand(${bd[0]}, ${bd[2] + 0.75})`); await S(`s.e2e.look(${bd[0]}, ${bd[1]}, ${bd[2]})`); await page.waitForTimeout(450); await press();
+    await faceNode('tool_knife', 0, 0.7, [0, 1]); await press(); if (!(await wait('tool')).includes('knife')) throw new Error('لم يُمسك السكين');
+    await S(`s.e2e.stand(${bd[0]}, ${bd[2] + 0.75})`); await S(`s.e2e.look(${bd[0]}, ${bd[1]}, ${bd[2]})`); await page.waitForTimeout(450);
+    for (let i = 0; i < 12; i++) { await S('s.e2e.swipe(150)'); await page.waitForTimeout(90); }
+    await page.waitForTimeout(800);
+    const snap = JSON.parse(await S('s.e2e.snap()'));
+    if (!snap.some((i) => i.ing === 'toast' && i.cut)) throw new Error(`القطع بحركة الفأرة لم يعمل: ${JSON.stringify(snap)}`);
+    const photo = await S('s.capturePhoto()');
+    if (!photo || !photo.startsWith('data:image/webp') || photo.length < 4000) throw new Error('صورة البطاقة من العالم فارغة/مفقودة');
+    await shot(page, 'cook-world');
+    const st = await page.evaluate(() => { const c = document.querySelector('canvas.kt-canvas'); return { calls: Number(c.dataset.calls), nodes: c.dataset.worldNodes, gaps: c.dataset.worldGaps }; });
+    if (st.gaps) throw new Error(`عقد ناقصة في عالم GLB: ${st.gaps}`);
+    return `عالم GLB ${st.nodes} عقدة بلا نواقص؛ قدر→موقد، مكوّن→قدر، مقبض اللهب، قطع بالسكين تعمل؛ draw calls ${st.calls}`;
   });
   await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
     // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد

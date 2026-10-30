@@ -259,10 +259,21 @@ export class KitchenScene {
     this.resize();
   }
   private sun!: THREE.DirectionalLight;
+  /** مصابيح السقف في العالم: العدد يتبع الجودة (خفيفة 0، عادية 4، عالية 6) والضوء المحيط يعوّض */
+  private worldLights: THREE.PointLight[] = [];
+  private applyWorldLights(): void {
+    if (!this.worldLights.length) return;
+    const n = { lite: 0, standard: 4, high: 6 }[this.quality];
+    this.worldLights.forEach((l, i) => { l.visible = i < n; });
+    this.root.traverse((o) => { if ((o as THREE.HemisphereLight).isHemisphereLight) (o as THREE.HemisphereLight).intensity = this.quality === 'lite' ? 0.95 : 0.32; });
+    this.scene.environment = this.quality === 'lite' ? null : this.envMap;
+  }
+  private envMap: THREE.Texture | null = null;
   setQuality(q: Quality): void {
     if (q === this.quality) return;
     this.quality = q;
     this.applyQuality();
+    this.applyWorldLights();
     for (const m of [this.root]) m.traverse((o) => { if ((o as THREE.Mesh).isMesh) (o as THREE.Mesh).receiveShadow = q !== 'lite'; });
   }
 
@@ -1166,9 +1177,11 @@ export class KitchenScene {
     this.sun.intensity = 0.25;
     this.root.traverse((o) => { if ((o as THREE.HemisphereLight).isHemisphereLight) (o as THREE.HemisphereLight).intensity = 0.32; });
     this.renderer.toneMappingExposure = 0.95;
-    for (const [x, z] of [[-2.5, 1.3], [0, 1.3], [2.5, 1.3], [-2.5, -1.1], [0, -1.1], [2.5, -1.1]] as const) {
-      const l = new THREE.PointLight(0xfff0d8, 3.4, 9, 1.4); l.position.set(x, 2.85, z); this.root.add(l);
+    this.root.traverse((o) => { if ((o as THREE.PointLight).isPointLight) o.visible = false; }); // مصابيح المشهد الإجرائي القديم (شديدة) تُطفأ
+    for (const [x, z] of [[-2.5, 1.3], [2.5, -1.1], [0, 1.3], [-2.5, -1.1], [0, -1.1], [2.5, 1.3]] as const) {
+      const l = new THREE.PointLight(0xfff0d8, 3.4, 9, 1.4); l.position.set(x, 2.85, z); this.root.add(l); this.worldLights.push(l);
     }
+    this.applyWorldLights();
     // 6) المصادمات: مصادمات صريحة COL_* + صناديق الأجسام الثابتة PRP_* (عدا المدمجة المتناثرة) + أسطح الدعم للفيزياء
     const colliders: Aabb[] = [];
     const supports: Aabb[] = [];
@@ -1227,10 +1240,12 @@ export class KitchenScene {
     try {
       const { RoomEnvironment } = await import('three/examples/jsm/environments/RoomEnvironment.js');
       const pm = new THREE.PMREMGenerator(this.renderer);
-      this.scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+      this.envMap = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+      this.scene.environment = this.quality === 'lite' ? null : this.envMap;
       this.scene.environmentIntensity = 0.3;
       pm.dispose();
     } catch { /* اختياري */ }
+    this.mergeStatic(W);
     // تجميع الشيدرات مسبقًا (بما فيها الأوعية والأدوات) كي لا يحدث تجمّد عند أول إمساك
     try { await this.renderer.compileAsync(this.scene, this.camera); } catch { /* اختياري */ }
     this.worldReady = true;
@@ -1245,6 +1260,46 @@ export class KitchenScene {
     });
     return { nodes: byName.size, slots, gaps };
   }
+  /**
+   * دمج مجسمات العالم الثابتة بحسب المادة (PERF-20: draw calls ≤ 150). لا يدمج ما يتحرك أو يُختار (tool_/equip_/plate_1) ولا العقد المتعاقد عليها.
+   * الأصل المضغوط (meshopt) مكمّم بأعداد صحيحة منسّقة: نحوّل إلى Float32 قبل تطبيق مصفوفة العالم كي لا تُقصّ القيم.
+   */
+  private mergeStatic(W: THREE.Object3D): void {
+    W.updateMatrixWorld(true);
+    const dynamic = /^(tool_|equip_|plate_1|burner_|COL_|SUP_|cam_station_|spawn_|drop_)/;
+    const groups = new Map<string, { mat: THREE.Material; geos: THREE.BufferGeometry[]; meshes: THREE.Mesh[] }>();
+    W.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (!m.isMesh || Array.isArray(m.material)) return;
+      for (let n: THREE.Object3D | null = m; n; n = n.parent) if (dynamic.test(n.name)) return;
+      const g = m.geometry;
+      const sig = `${(m.material as THREE.Material).uuid}|${Object.keys(g.attributes).sort().join(',')}|${g.index ? 'i' : 'n'}`;
+      const grp = groups.get(sig) ?? { mat: m.material as THREE.Material, geos: [], meshes: [] };
+      const f = g.clone();
+      for (const [name, at] of Object.entries(f.attributes)) {
+        const src = at as THREE.BufferAttribute;
+        const arr = new Float32Array(src.count * src.itemSize);
+        for (let i = 0; i < src.count; i++) for (let k = 0; k < src.itemSize; k++) arr[i * src.itemSize + k] = k === 0 ? src.getX(i) : k === 1 ? src.getY(i) : k === 2 ? src.getZ(i) : src.getW(i);
+        f.setAttribute(name, new THREE.BufferAttribute(arr, src.itemSize));
+      }
+      f.applyMatrix4(m.matrixWorld);
+      grp.geos.push(f); grp.meshes.push(m); groups.set(sig, grp);
+    });
+    let merged = 0;
+    for (const grp of groups.values()) {
+      if (grp.geos.length < 2) { grp.geos.forEach((g) => g.dispose()); continue; }
+      const geo = mergeGeometries(grp.geos, false);
+      grp.geos.forEach((g) => g.dispose());
+      if (!geo) continue;
+      const mesh = new THREE.Mesh(geo, grp.mat);
+      mesh.castShadow = this.quality !== 'lite'; mesh.receiveShadow = true;
+      W.add(mesh);
+      for (const m of grp.meshes) m.parent?.remove(m);
+      merged += grp.meshes.length;
+    }
+    this.mergedStatic = merged;
+  }
+  mergedStatic = 0;
   private burnerHits: THREE.Mesh[] = [];
 
   /** الهدف تحت المؤشر (مركز الشاشة): أقرب عنصر قابل للاختيار ضمن الذراع؛ skip يتجاوز بعض الأهداف (ما في اليد مثلًا) */
@@ -1330,8 +1385,10 @@ export class KitchenScene {
   capturePhoto(): string | null {
     try {
       const keep = { p: this.camera.position.clone(), l: this.lookNow.clone(), yaw: this.yaw, pitch: this.pitch, t: this.camT };
-      this.camera.position.set(-1.0, 1.55, 1.75);
-      this.camera.lookAt(-1.4, 0.95, 1.0);
+      const plate = this.L.rest['plate_1'] ?? V3(-1.4, 0.93, 1.0);
+      const inWorld = !!this.fp;
+      if (inWorld) { this.hands?.setVisible(false); this.camera.position.set(plate.x + 0.42, plate.y + 0.5, plate.z + 0.55); this.camera.lookAt(plate.x, plate.y + 0.02, plate.z); }
+      else { this.camera.position.set(-1.0, 1.55, 1.75); this.camera.lookAt(-1.4, 0.95, 1.0); }
       this.camera.updateMatrixWorld();
       this.renderer.render(this.scene, this.camera);
       const src = this.renderer.domElement;
@@ -1347,6 +1404,7 @@ export class KitchenScene {
         q -= 0.12;
         url = out.toDataURL('image/webp', q);
       }
+      if (this.fp) { this.hands?.setVisible(true); this.fp.apply(); }
       this.camera.position.copy(keep.p);
       this.lookNow.copy(keep.l);
       this.yaw = keep.yaw;
