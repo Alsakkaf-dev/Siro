@@ -25,6 +25,11 @@ export class FirstPerson {
   private disposers: (() => void)[] = [];
   lastHit: string | null = null;
   moving = false;
+  /** حساسية الفأرة (1 = افتراضي) وعكس المحور الرأسي */
+  sens = 1;
+  invertY = false;
+  /** معلّق (قائمة/كمية مفتوحة): لا مشي ولا نظر ولا أفعال */
+  paused = false;
 
   constructor(private o: FpOptions) {
     this.pos = o.spawn.clone();
@@ -55,11 +60,12 @@ export class FirstPerson {
         try { const r = el.requestPointerLock() as unknown as Promise<void> | undefined; r?.catch?.(() => { this.lockUnavailable = true; }); } catch { this.lockUnavailable = true; }
         if (!this.lockUnavailable) return;
       }
+      if (this.paused) return;
       if (e.button === 0 || e.button === 2) o.onClickAction(e.button as 0 | 2, true);
       if (!this.locked) { this.drag = { x: e.clientX, y: e.clientY, id: e.pointerId }; el.setPointerCapture?.(e.pointerId); }
     });
     on(el, 'pointerup', (e: PointerEvent) => {
-      if (e.button === 0 || e.button === 2) o.onClickAction(e.button as 0 | 2, false);
+      if (!this.paused && (e.button === 0 || e.button === 2)) o.onClickAction(e.button as 0 | 2, false);
       this.drag = null;
     });
     on(el, 'pointermove', (e: PointerEvent) => {
@@ -69,8 +75,9 @@ export class FirstPerson {
   }
 
   private look(dx: number, dy: number): void {
-    this.yaw -= dx * 0.0022;
-    this.pitch = Math.max(-1.25, Math.min(1.25, this.pitch - dy * 0.002));
+    if (this.paused) return;
+    this.yaw -= dx * 0.0022 * this.sens;
+    this.pitch = Math.max(-1.25, Math.min(1.25, this.pitch - dy * 0.002 * this.sens * (this.invertY ? -1 : 1)));
   }
   /** اتجاه الأمام على XZ (الأمام = −Z عند yaw=0) */
   forward(): THREE.Vector3 { return new THREE.Vector3(-Math.sin(this.yaw), 0, -Math.cos(this.yaw)); }
@@ -87,7 +94,15 @@ export class FirstPerson {
   }
   get eyeHeight(): number { return this.eye; }
 
+  /** يقفل المؤشر (يحتاج إيماءة مستخدم) */
+  lock(): void {
+    const el = this.o.canvas;
+    el.focus?.({ preventScroll: true });
+    try { const r = el.requestPointerLock?.() as unknown as Promise<void> | undefined; r?.catch?.(() => { this.lockUnavailable = true; }); } catch { this.lockUnavailable = true; }
+  }
+  unlock(): void { if (document.pointerLockElement === this.o.canvas) document.exitPointerLock?.(); }
   update(dt: number): void {
+    if (this.paused) { this.moving = false; this.apply(); return; }
     const k = this.keys;
     const turn = (k.has('ArrowLeft') ? 1 : 0) - (k.has('ArrowRight') ? 1 : 0);
     if (turn) this.yaw += turn * 1.8 * dt;

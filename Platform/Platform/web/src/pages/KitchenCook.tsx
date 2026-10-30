@@ -256,7 +256,7 @@ export default function KitchenCook() {
         <div className="kt-stage">
           {showStage ? (
             <Suspense fallback={<div className="kt-stage-load" role="status">جارٍ تحميل المطبخ ثلاثي الأبعاد…</div>}>
-              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} onAction={onSceneAction} hoverLabel={hoverLabel} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
+              <Mini3D quality={quality} onQuality={(q, why) => { setQuality(q); push(why, 'warn'); }} onPick={onPick} onAction={onSceneAction} hoverLabel={hoverLabel} hud={{ time: fmtClock(view?.snap.t ?? 0), cost: liveCost.missing.length ? 'تكلفة الطبق —' : `تكلفة الطبق ${fmtRM(liveCost.total_rm)}` }} station={station} view={view} stock={stock} onReady={(s) => { sceneRef.current = s; if (view) s.update(view, stockRef.current); }} onFps={setFps} />
             </Suspense>
           ) : (
             <div className="kt-stage-off" role="note">{webgl ? 'العرض ثلاثي الأبعاد مطفأ — لوحة الإجراءات تعمل بالكامل وتنتج البطاقة نفسها.' : 'WebGL غير متاح على هذا الجهاز — لوحة الإجراءات كاملة الوظائف وتنتج البطاقة نفسها (A11Y-10).'}</div>

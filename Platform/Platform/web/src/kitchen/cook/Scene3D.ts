@@ -962,6 +962,17 @@ export class KitchenScene {
   private hoverKey = '';
   private hoverT = 0;
   worldReady = false;
+  /** إعدادات اللعب: الحساسية وزاوية الرؤية وعكس المحور؛ التعليق يوقف المشي والنظر والأيدي (قائمة مفتوحة) */
+  setGame(o: { sens?: number; fov?: number; invertY?: boolean; paused?: boolean }): void {
+    if (this.fp) {
+      if (o.sens !== undefined) this.fp.sens = o.sens;
+      if (o.invertY !== undefined) this.fp.invertY = o.invertY;
+      if (o.paused !== undefined) this.fp.paused = o.paused;
+    }
+    if (o.fov !== undefined) { this.camera.fov = o.fov; this.camera.updateProjectionMatrix(); }
+  }
+  lockPointer(): void { this.fp?.lock(); }
+  unlockPointer(): void { this.fp?.unlock(); }
   /** مواقع الأوعية وأحجامها (للاختبار والتشخيص) */
   vesselInfo(): Record<string, { x: number; y: number; z: number; size: number[] }> {
     const out: Record<string, { x: number; y: number; z: number; size: number[] }> = {};
