@@ -23,6 +23,18 @@ type Assist = keyof typeof ASSIST_AR;
 const STATION_KEYS: StationName[] = ['shelves', 'equipment', 'tools', 'prep', 'stove', 'sink', 'serve'];
 const STATION_AR: Record<StationName, string> = { shelves: 'الرفوف', equipment: 'المعدات', tools: 'الأدوات', prep: 'التحضير', stove: 'الطبخ', sink: 'الغسيل', serve: 'التقديم' };
 const VESSEL_AR: Record<string, string> = { pan: 'المقلاة', pot_small: 'القدر الصغير', pot_large: 'القدر الكبير', pressure_cooker: 'قدر الضغط', bowl: 'وعاء الخلط', plate_1: 'صحن التقديم' };
+let webglCache: boolean | null = null;
+/** كشف WebGL مرة واحدة لكل صفحة (فتح سياق جديد في كل رسم كان يُسقط سياق المشهد الحقيقي) */
+function webglProbe(): boolean {
+  if (webglCache !== null) return webglCache;
+  try {
+    const c = document.createElement('canvas');
+    const gl = (c.getContext('webgl2') ?? c.getContext('webgl')) as WebGLRenderingContext | null;
+    webglCache = !!gl;
+    gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  } catch { webglCache = false; }
+  return webglCache;
+}
 const TOOL_AR: Record<string, string> = { knife: 'السكين', peeler: 'المقشرة', grater: 'المبشرة', masher: 'الهراسة', whisk: 'الخفّاقة', spoon: 'الملعقة الخشبية', spatula: 'المجرفة', bottle_oil: 'زجاجة الزيت', carton_milk: 'علبة الحليب', shaker_salt: 'مملحة الملح', shaker_cumin: 'علبة الكمون', shaker_sugar: 'علبة السكر' };
 const LOC_AR = (loc: string): string => (loc === 'board' ? 'لوح التقطيع' : loc === 'toaster' ? 'المحمّصة' : (VESSEL_AR[loc] ?? loc));
 const SHAPES: { v: 'slices' | 'cubes' | 'diced' | 'sticks' | 'minced'; l: string; sizes: ('small' | 'medium' | 'large' | null)[] }[] = [
@@ -254,7 +266,7 @@ export default function KitchenCook() {
   };
   const [serveSrc, setServeSrc] = useState<Set<string>>(new Set());
 
-  const webgl = typeof document !== 'undefined' && (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') ?? c.getContext('webgl')); } catch { return false; } })();
+  const webgl = useMemo(() => webglProbe(), []); // مرة واحدة: كل فحص يفتح سياق WebGL ويُفقد سياق المشهد عند تجاوز الحد
   const showStage = use3d && webgl;
 
   return (

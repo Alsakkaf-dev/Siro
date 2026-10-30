@@ -76,6 +76,8 @@ export default function Stage3D({ quality, onQuality, onPick, host, ingName, qty
       }, 1000);
       // العالم (بلندر): مطبخ يُمشى فيه بالشخص الأول؛ يفشل ← يبقى المشهد الإجرائي القديم. وإلا حزمة GLB اختيارية (D-09)
       void fetch('/kitchen/assets.manifest.json').then((r) => (r.ok ? r.json() : null)).then((m: { assets?: { kind: string; path: string; delivered?: boolean }[] } | null) => {
+        const fd = m?.assets?.find((a) => a.kind === 'food' && a.delivered === true);
+        if (fd && !dead) void s.loadFood(fd.path).catch(() => undefined); // مجسمات الطعام اختيارية: وإلا بقيت المجسمات الإجرائية
         const wd = m?.assets?.find((a) => a.kind === 'world' && a.delivered === true);
         if (wd && !dead) {
           return s.loadWorld(wd.path).then((r) => { if (ref.current) { ref.current.dataset['worldNodes'] = String(r.nodes); ref.current.dataset['worldGaps'] = r.gaps.join(','); } s.setGame(loadSettings()); setWorld('on'); })

@@ -45,8 +45,8 @@
       "path": "/kitchen/models/kitchen-world.glb",
       "file": "models/kitchen-world.glb",
       "delivered": true,
-      "bytes": 1807072,
-      "sha256": "54726c39c182ec8c954114830396235bfe927f7919f53673b6d2057dec725f13",
+      "bytes": 1754424,
+      "sha256": "32a299c631433aeb57ee4b71fe13257ba9c72cd3e81075bc6275bf0e1b14a10f",
       "license": "OWNER-GENERATED",
       "licenseNote": "مولَّد بالكامل من سكربت Blender الخاص بالمشروع (tools/blender/kitchen_world) بلا أصول طرف ثالث؛ المواد إجرائية مخبوزة. لا ملفات KayKit/Kenney مضمّنة.",
       "source": "tools/blender/kitchen_world/build.py",
@@ -62,6 +62,25 @@
         "plate_1",
         "spawn_player",
         "drop_*"
+      ]
+    },
+    {
+      "id": "kitchen-food",
+      "kind": "food",
+      "path": "/kitchen/models/kitchen-food.glb",
+      "file": "models/kitchen-food.glb",
+      "delivered": true,
+      "bytes": 359048,
+      "sha256": "6b27709b0480b3f7398081a65ac77b016560937230538ed2338e91ad001e652e",
+      "license": "OWNER-GENERATED",
+      "licenseNote": "مولَّد بالكامل من سكربت Blender الخاص بالمشروع (tools/blender/kitchen_world/food.py) بلا أصول طرف ثالث؛ ألوان رؤوس فقط بلا نسيج.",
+      "source": "tools/blender/kitchen_world/food.py",
+      "author": "المالك (بمساعدة Blender 5.2)",
+      "attribution": null,
+      "nodes": [
+        "food_<slug>",
+        "food_<slug>_peeled",
+        "cut_<shape>_<slug>"
       ]
     }
   ]

@@ -172,13 +172,15 @@ function geoFor(shape: Look['shape'], s: number): THREE.BufferGeometry {
   return g;
 }
 const C_BROWN = new THREE.Color(0x8a5524);
+const C_BROWN_MUL = new THREE.Color(0.62, 0.42, 0.24);
+const C_BURN_MUL = new THREE.Color(0.14, 0.12, 0.11);
 const C_BURN = new THREE.Color(0x15100e);
 const tmpC = new THREE.Color();
 const tmpM = new THREE.Matrix4();
 const tmpQ = new THREE.Quaternion();
 const tmpE = new THREE.Euler();
 
-interface ItemVis { mesh: THREE.InstancedMesh; sig: string; mat: THREE.MeshStandardMaterial }
+interface ItemVis { mesh: THREE.InstancedMesh; sig: string; mat: THREE.MeshStandardMaterial; /** نصف ارتفاع القطعة (م) وحجمها النسبي عند استعمال مجسمات الطعام من بلندر */ kit?: { half: number; scale: number; flat: boolean } }
 interface VesselVis { group: THREE.Group; liquid: THREE.Mesh; liquidMat: THREE.MeshStandardMaterial; lid: THREE.Object3D | null; target: THREE.Vector3; radius: number; height: number }
 
 export class KitchenScene {
@@ -717,7 +719,7 @@ export class KitchenScene {
     for (const it of snap.items) {
       alive.add(it.id);
       let vis = this.items.get(it.id);
-      const sig = `${it.ingredient}|${it.cut ? it.cut.shape + (it.cut.size ?? '') : 'whole'}|${Math.round(it.g0 / 10)}`;
+      const sig = `${it.ingredient}|${it.cut ? it.cut.shape + (it.cut.size ?? '') : 'whole'}|${Math.round(it.g0 / 10)}${this.food ? `|${it.peeled ? 'p' : ''}` : ''}`;
       if (!vis || vis.sig !== sig) {
         if (vis) this.disposeItem(it.id);
         vis = this.makeItem(it, sig);
@@ -736,7 +738,66 @@ export class KitchenScene {
     const f = { slices: 9, cubes: 14, diced: 18, sticks: 10, minced: 30, grated: 26, mashed: 12 }[it.cut.shape] ?? 10;
     return Math.min(40, Math.max(whole * 3, Math.round(f * Math.min(2, Math.max(0.5, it.g0 / L.unitG)))));
   }
+  /** مجسمات الطعام من بلندر: اسم → هندسة مركزية بألوان رؤوس + نصف الارتفاع */
+  food: Map<string, { geo: THREE.BufferGeometry; half: number }> | null = null;
+  async loadFood(url: string): Promise<number> {
+    const { parseGlb } = await import('./world/glbLoad.js');
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`تعذّر تحميل مجسمات الطعام (${res.status})`);
+    const buf = await res.arrayBuffer();
+    const gltf = await parseGlb(buf);
+    const map = new Map<string, { geo: THREE.BufferGeometry; half: number }>();
+    gltf.scene.updateMatrixWorld(true);
+    gltf.scene.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (!m.isMesh) return;
+      const geo = m.geometry.clone();
+      geo.applyMatrix4(m.matrixWorld); // ضغط meshopt/التكميم يحمل المقياس في العقدة؛ ننقله إلى الرؤوس (وإزاحة الشبكة تُلغى بالتوسيط)
+      geo.computeBoundingBox();
+      const c = geo.boundingBox!.getCenter(new THREE.Vector3());
+      geo.translate(-c.x, -c.y, -c.z);
+      geo.computeBoundingBox();
+      // اسم الكائن: العقدة الأم هي food_*/cut_* (الغرف المتعددة المواد تُنتج أبناء بأسماء مشتقة)
+      let name = m.name; for (let n: THREE.Object3D | null = m; n; n = n.parent) if (/^(food|cut)_/.test(n.name)) { name = n.name; break; }
+      map.set(name, { geo, half: geo.boundingBox!.getSize(new THREE.Vector3()).y / 2 });
+    });
+    if (this.disposed) return 0;
+    this.food = map;
+    // إعادة بناء العناصر الحالية بمجسماتها الجديدة
+    for (const id of [...this.items.keys()]) this.disposeItem(id);
+    if (this.view) this.syncItems(this.view.snap);
+    return map.size;
+  }
+  private kitCount(it: Item, shape: string | null): { n: number; scale: number } {
+    const unit = LOOK[it.ingredient]?.unitG ?? 100; const W = Math.max(0.2, it.g0 / unit);
+    const cl = (v: number, a: number, b: number): number => Math.max(a, Math.min(b, Math.round(v)));
+    if (!shape) {
+      if (['oats', 'rice'].includes(it.ingredient)) return { n: cl(it.g0 / 1.6, 18, 90), scale: 1 };
+      if (['honey', 'yogurt', 'tomato_paste'].includes(it.ingredient)) return { n: 1, scale: Math.max(0.6, Math.min(2.6, Math.cbrt(W))) };
+      return { n: cl(W, 1, 7), scale: 1 };
+    }
+    const f = { slices: [8, 3, 60], cubes: [10, 4, 60], diced: [28, 8, 100], sticks: [6, 3, 40], minced: [60, 20, 140], grated: [50, 20, 140], mashed: [3, 3, 14] }[shape] ?? [10, 4, 60];
+    return { n: cl(W * f[0]!, f[1]!, f[2]!), scale: shape === 'mashed' ? Math.max(0.9, Math.min(1.8, Math.cbrt(W))) : 1 };
+  }
+  private makeKitItem(it: Item, sig: string): ItemVis | null {
+    if (!this.food) return null;
+    const shape = it.cut && !['oats', 'rice', 'honey', 'yogurt', 'tomato_paste'].includes(it.ingredient) ? it.cut.shape : null;
+    const key = shape ? `cut_${shape}_${it.ingredient}` : it.peeled && this.food.has(`food_${it.ingredient}_peeled`) ? `food_${it.ingredient}_peeled` : `food_${it.ingredient}`;
+    const g = this.food.get(key) ?? this.food.get(`food_${it.ingredient}`);
+    if (!g) return null;
+    const { n, scale } = this.kitCount(it, shape);
+    const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.6, metalness: 0 });
+    const mesh = new THREE.InstancedMesh(g.geo, m, n);
+    mesh.castShadow = this.quality !== 'lite';
+    mesh.frustumCulled = false;
+    mesh.userData = { pick: { kind: 'item', id: it.id } satisfies Pick };
+    this.root.add(mesh);
+    this.pickables.push(mesh);
+    return { mesh, sig, mat: m, kit: { half: g.half, scale, flat: !!shape && shape !== 'sticks' && shape !== 'minced' && shape !== 'grated' } };
+  }
   private makeItem(it: Item, sig: string): ItemVis {
+    const kitVis = this.makeKitItem(it, sig);
+    if (kitVis) return kitVis;
     const L = LOOK[it.ingredient]!;
     const n = this.pieceCount(it);
     const shrink = it.cut ? { slices: 0.9, cubes: 0.55, diced: 0.42, sticks: 0.7, minced: 0.28, grated: 0.3, mashed: 0.5 }[it.cut.shape] ?? 0.6 : 1;
@@ -776,6 +837,7 @@ export class KitchenScene {
     const r = v ? v.radius * 0.7 : 0.05;
     const n = vis.mesh.count;
     const rr = rnd(it.id.split('').reduce((a, c) => a + c.charCodeAt(0), 7));
+    if (vis.kit) { this.placeKit(it, vis, base, v ? v.radius * 0.72 : it.loc === 'board' || spot ? 0.11 : 0.07, rr, !!v); return; }
     const L = LOOK[it.ingredient]!;
     for (let i = 0; i < n; i++) {
       const a = rr() * Math.PI * 2;
@@ -789,8 +851,35 @@ export class KitchenScene {
     }
     vis.mesh.instanceMatrix.needsUpdate = true;
   }
+  /** توزيع حلزوني منتظم (لا تداخل) مع طبقات؛ الشرائح مسطّحة والباقي بميل خفيف */
+  private placeKit(it: Item, vis: ItemVis, base: THREE.Vector3, rad: number, rr: () => number, inVessel: boolean): void {
+    const k = vis.kit!; const n = vis.mesh.count; const wet = inVessel && !!(this.vessels.get(it.loc)?.liquid.visible);
+    const perLayer = Math.max(6, Math.round(Math.PI * rad * rad / (Math.max(0.012, k.half * 2.2) ** 2) * 0.55));
+    for (let i = 0; i < n; i++) {
+      const layer = Math.floor(i / perLayer); const j = i % perLayer; const m = Math.min(perLayer, n - layer * perLayer);
+      const a = j * 2.399963 + layer * 0.9; const d = n === 1 ? 0 : rad * Math.sqrt((j + 0.5) / m) * (n < 6 ? 0.6 : 1);
+      tmpE.set(k.flat ? 0 : (rr() - 0.5) * 0.5, rr() * 6.283, k.flat ? 0 : (rr() - 0.5) * 0.5);
+      tmpQ.setFromEuler(tmpE);
+      const sc = k.scale * (it.moisture < 1 ? 0.9 + 0.1 * it.moisture : 1) * (0.92 + rr() * 0.16);
+      const y = base.y + k.half * sc + layer * k.half * 1.6 + (inVessel ? 0.012 : 0) + (wet ? 0.02 : 0);
+      tmpM.compose(V3(base.x + Math.cos(a) * d, y, base.z + Math.sin(a) * d), tmpQ, V3(sc, sc, sc));
+      vis.mesh.setMatrixAt(i, tmpM);
+    }
+    vis.mesh.instanceMatrix.needsUpdate = true;
+  }
   private tintItem(it: Item, vis: ItemVis): void {
     const L = LOOK[it.ingredient]!;
+    if (vis.kit) {
+      // لون الحالة يضرب ألوان الرؤوس: نضج ← نسبة اللون الناضج إلى الخام، تحمير ← بنّي، حرق ← فحمي
+      const c0 = new THREE.Color(L.color), c1 = new THREE.Color(L.done);
+      const ratio = (a: number, b: number): number => Math.max(0.35, Math.min(1.12, a / Math.max(0.05, b)));
+      tmpC.setRGB(1, 1, 1).lerp(new THREE.Color(ratio(c1.r, c0.r), ratio(c1.g, c0.g), ratio(c1.b, c0.b)), Math.min(1, it.doneness));
+      tmpC.lerp(C_BROWN_MUL, Math.min(1, it.browning) * 0.8).lerp(C_BURN_MUL, Math.min(1, it.burn * 1.4));
+      vis.mat.color.copy(tmpC);
+      vis.mat.emissive.setRGB(0, 0, 0);
+      if (it.loc === 'toaster') vis.mat.emissive.setRGB(0.25, 0.05, 0);
+      return;
+    }
     tmpC.set(L.color).lerp(new THREE.Color(L.done), Math.min(1, it.doneness));
     if (it.ingredient === 'egg' && it.peeled) tmpC.set(0xfaf6ea);
     tmpC.lerp(C_BROWN, Math.min(1, it.browning) * 0.85).lerp(C_BURN, Math.min(1, it.burn * 1.4));
@@ -984,6 +1073,7 @@ export class KitchenScene {
     look: (x: number, y: number, z: number): void => this.fp?.lookAtPoint(x, y, z),
     tool: (id: string): number[] | null => { const t = this.tools.get(id); return t ? t.node.position.toArray().map((n) => +n.toFixed(3)) : null; },
     item: (id: string): number[] | null => { const v = this.itemSpots.get(id) ?? this.heldItems.get(id); return v ? v.toArray().map((n) => +n.toFixed(3)) : null; },
+    slot: (slug: string): number[] | null => { const o = this.pickables.find((m) => { const k = (m.userData as { pick?: Pick }).pick; return k?.kind === 'ingredient' && k.id === slug; }); return o ? o.getWorldPosition(new THREE.Vector3()).toArray().map((x) => +x.toFixed(3)) : null; },
     node: (n: string): number[] | null => { const o = this.worldRoot?.getObjectByName(n); return o ? o.getWorldPosition(new THREE.Vector3()).toArray().map((x) => +x.toFixed(3)) : null; },
     holds: (): string => JSON.stringify(this.game?.hold ?? {}),
     aim: (reach = 1.9): string => { const a = this.aim(reach, () => false); return JSON.stringify(a ? { pick: a.pick, d: +a.dist.toFixed(2) } : null); },
@@ -1074,8 +1164,10 @@ export class KitchenScene {
     }
     // 5) الإضاءة الداخلية: مصابيح السقف (نقاط) بدل الشمس
     this.sun.intensity = 0.25;
+    this.root.traverse((o) => { if ((o as THREE.HemisphereLight).isHemisphereLight) (o as THREE.HemisphereLight).intensity = 0.32; });
+    this.renderer.toneMappingExposure = 0.95;
     for (const [x, z] of [[-2.5, 1.3], [0, 1.3], [2.5, 1.3], [-2.5, -1.1], [0, -1.1], [2.5, -1.1]] as const) {
-      const l = new THREE.PointLight(0xfff0d8, 9, 9, 1.4); l.position.set(x, 2.85, z); this.root.add(l);
+      const l = new THREE.PointLight(0xfff0d8, 3.4, 9, 1.4); l.position.set(x, 2.85, z); this.root.add(l);
     }
     // 6) المصادمات: مصادمات صريحة COL_* + صناديق الأجسام الثابتة PRP_* (عدا المدمجة المتناثرة) + أسطح الدعم للفيزياء
     const colliders: Aabb[] = [];
@@ -1136,7 +1228,7 @@ export class KitchenScene {
       const { RoomEnvironment } = await import('three/examples/jsm/environments/RoomEnvironment.js');
       const pm = new THREE.PMREMGenerator(this.renderer);
       this.scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-      this.scene.environmentIntensity = 0.5;
+      this.scene.environmentIntensity = 0.3;
       pm.dispose();
     } catch { /* اختياري */ }
     // تجميع الشيدرات مسبقًا (بما فيها الأوعية والأدوات) كي لا يحدث تجمّد عند أول إمساك
