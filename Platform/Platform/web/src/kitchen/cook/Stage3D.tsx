@@ -60,7 +60,7 @@ export default function Stage3D({ quality, onQuality, onPick, host, ingName, qty
     void import('./Scene3D.js').then(({ KitchenScene: K }) => {
       if (dead || !ref.current) return;
       const reduced = reducedMotion;
-      const s = new K({ canvas: ref.current, quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w), host: { take: (sl, g) => cb.current.host.take(sl, g), op: (o, m) => cb.current.host.op(o, m), quantity: (sl) => cb.current.host.quantity(sl), say: (m, t) => cb.current.host.say(m, t), askQuantity: (sl) => openQty(sl), serve: () => { leaveFs(); cb.current.host.serve(); } }, onHud: (h) => setGameHud(h), onHover: (p) => setHover(p ? cb.current.hoverLabel(p) : '') });
+      const s = new K({ canvas: ref.current, quality: new URLSearchParams(location.search).has('e2e') ? 'lite' : quality, reducedMotion: reduced, onPick: (p) => cb.current.onPick(p), onQuality: (q, w) => cb.current.onQuality(q, w), host: { take: (sl, g) => cb.current.host.take(sl, g), op: (o, m) => cb.current.host.op(o, m), quantity: (sl) => cb.current.host.quantity(sl), say: (m, t) => cb.current.host.say(m, t), askQuantity: (sl) => openQty(sl), serve: () => { leaveFs(); cb.current.host.serve(); } }, onHud: (h) => setGameHud(h), onHover: (p) => setHover(p ? cb.current.hoverLabel(p) : '') });
       sceneRef.current = s;
       if (new URLSearchParams(location.search).has('e2e')) (window as unknown as { __kitchenScene?: unknown }).__kitchenScene = s;
       cb.current.onReady(s);

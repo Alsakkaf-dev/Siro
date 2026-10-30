@@ -1,4 +1,5 @@
 """خَبز المواد الإجرائية (لون الأساس) إلى صور حتى تنجو من تصدير glTF. لكل جسم نسخة مواده؛ unwrap تلقائي ثم Cycles bake COLOR."""
+import os
 from lib import *
 
 def _procedural(m):
@@ -25,6 +26,9 @@ def bake_all(res_small=512, res_big=1024, only=None):
         r = res_big if dims > 0.8 else res_small
         img = bpy.data.images.new(f'BAKE_{o.name}', r, r)
         pm = [m for m in o.data.materials if m and _procedural(m)]
+        metal = {}
+        for m in pm:  # خَبز اللون الأساس يعطي الأسود للمعدن الكامل: نصفّر المعدنية أثناء الخَبز ثم نعيدها
+            b0 = m.node_tree.nodes.get('Principled BSDF'); metal[m] = b0.inputs['Metallic'].default_value; b0.inputs['Metallic'].default_value = 0.0
         for m in pm:
             n = m.node_tree.nodes.new('ShaderNodeTexImage'); n.image = img; m.node_tree.nodes.active = n; n.name = 'BAKE_IMG'
         try:
@@ -33,8 +37,12 @@ def bake_all(res_small=512, res_big=1024, only=None):
             print('bake failed', o.name, e); continue
         for m in pm:
             nt = m.node_tree; b = nt.nodes.get('Principled BSDF'); tx = nt.nodes['BAKE_IMG']
+            b.inputs['Metallic'].default_value = metal.get(m, 0.0)
             nt.links.new(tx.outputs['Color'], b.inputs['Base Color'])
             if b.inputs['Normal'].is_linked:
                 for l in list(b.inputs['Normal'].links): nt.links.remove(l)
+        if os.environ.get('KW_BAKE_DIR'):
+            os.makedirs(os.environ['KW_BAKE_DIR'], exist_ok=True)
+            img.filepath_raw = os.path.join(os.environ['KW_BAKE_DIR'], f'{o.name}.png'); img.file_format = 'PNG'; img.save()
         img.pack(); done.append((o.name, r))
     return done

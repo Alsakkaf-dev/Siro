@@ -104,9 +104,10 @@ export class FirstPerson {
     const dx = x - this.pos.x, dz = z - this.pos.z, dy = y - this.eye;
     this.yaw = Math.atan2(-dx, -dz);
     this.pitch = Math.max(-1.25, Math.min(1.25, Math.atan2(dy, Math.hypot(dx, dz))));
+    this.apply();
   }
   /** يضع اللاعب (للاختبارات) */
-  setPos(x: number, z: number): void { this.pos.set(x, 0, z); }
+  setPos(x: number, z: number): void { this.pos.set(x, 0, z); this.apply(); }
   get eyeHeight(): number { return this.eye; }
 
   /** يقفل المؤشر (يحتاج إيماءة مستخدم) */
@@ -145,6 +146,7 @@ export class FirstPerson {
     this.o.camera.position.set(this.pos.x, this.eye + bobY, this.pos.z);
     this.o.camera.rotation.order = 'YXZ';
     this.o.camera.rotation.set(this.pitch, this.yaw, 0);
+    this.o.camera.updateMatrixWorld(); // التصويب يعتمد على الوضع الحالي حتى لو تأخر الرسم
   }
   dispose(): void {
     for (const d of this.disposers) d();

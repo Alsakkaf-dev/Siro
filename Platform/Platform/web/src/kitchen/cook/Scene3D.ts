@@ -987,6 +987,7 @@ export class KitchenScene {
     node: (n: string): number[] | null => { const o = this.worldRoot?.getObjectByName(n); return o ? o.getWorldPosition(new THREE.Vector3()).toArray().map((x) => +x.toFixed(3)) : null; },
     holds: (): string => JSON.stringify(this.game?.hold ?? {}),
     aim: (reach = 1.9): string => { const a = this.aim(reach, () => false); return JSON.stringify(a ? { pick: a.pick, d: +a.dist.toFixed(2) } : null); },
+    press: (btn: 0 | 2, ms = 100): Promise<void> => new Promise((ok) => { const t0 = performance.now(); this.game?.button(btn, true, t0); window.setTimeout(() => { this.game?.button(btn, false, t0 + ms); ok(); }, ms); }),
     swipe: (px: number): void => this.fp?.addMotion(px, 0),
     snap: (): string => JSON.stringify((this.view?.snap.items ?? []).map((i) => ({ id: i.id, ing: i.ingredient, g: i.g0, loc: i.loc, cut: i.cut?.shape ?? null, peeled: i.peeled, washed: i.washed }))),
     vessels: (): string => JSON.stringify((this.view?.snap.vessels ?? []).map((v) => ({ id: v.id, burner: v.burner, items: v.items, oil: v.oilG, water: v.waterG, milk: v.milkG, T: Math.round(v.T) }))),
@@ -1138,8 +1139,18 @@ export class KitchenScene {
       this.scene.environmentIntensity = 0.5;
       pm.dispose();
     } catch { /* اختياري */ }
+    // تجميع الشيدرات مسبقًا (بما فيها الأوعية والأدوات) كي لا يحدث تجمّد عند أول إمساك
+    try { await this.renderer.compileAsync(this.scene, this.camera); } catch { /* اختياري */ }
     this.worldReady = true;
     W.traverse((m) => { if ((m as THREE.Mesh).isMesh) { m.receiveShadow = this.quality !== 'lite'; } });
+    // الستانلس بمعدنية 100% يعكس غرفة معتمة فيظهر أسود: نخفّف المعدنية ونرفع الخشونة قليلًا (مظهر ستانلس مصقول مطفأ)
+    const seen = new Set<THREE.Material>();
+    W.traverse((m) => {
+      const mm = (m as THREE.Mesh).material as THREE.MeshStandardMaterial | undefined;
+      if (!(m as THREE.Mesh).isMesh || !mm || seen.has(mm) || !('metalness' in mm)) return;
+      seen.add(mm);
+      if (mm.metalness > 0.55) { mm.metalness = 0.55; mm.roughness = Math.max(mm.roughness, 0.38); }
+    });
     return { nodes: byName.size, slots, gaps };
   }
   private burnerHits: THREE.Mesh[] = [];

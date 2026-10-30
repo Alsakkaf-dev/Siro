@@ -72,7 +72,7 @@ export class Game {
   private pending: Record<Side, boolean> = { L: false, R: false };
   private falling = new Map<string, Body>();
   private using = false; // الزر الأيمن مضغوط لاستعمال ما في اليمنى
-  private useAcc = 0;
+  private useAt = 0;
   private progress: number | null = null;
   private strokeAcc = 0;
   private lastStirAt = 0;
@@ -121,7 +121,7 @@ export class Game {
         return this.c.host.askQuantity(ing.pick.id);
       }
       const usable = this.usableTool();
-      if (usable) { this.using = true; this.useAcc = 0; return; }
+      if (usable) { this.using = true; this.useAt = 0; return; }
       if (this.hold.R?.kind === 'item') { this.useItem(this.hold.R.id); return; }
       this.press('L', now);
     } else {
@@ -380,10 +380,10 @@ export class Game {
     if (!t) return;
     if (this.using && /^(pour|season)_/.test(t.mode)) {
       const tgt = this.useTarget();
-      this.useAcc += dt;
-      const step = t.mode.startsWith('pour') ? 0.5 : 0.35;
-      if (tgt && this.useAcc >= step) {
-        this.useAcc = 0;
+      const now = performance.now(); // وقت حقيقي: الإطارات البطيئة لا تُبطئ الصبّ
+      const step = t.mode.startsWith('pour') ? 500 : 350;
+      if (tgt && now - this.useAt >= step) {
+        this.useAt = now;
         if (t.mode === 'pour_oil' || t.mode === 'pour_milk') {
           if (tgt.vessel) void this.c.host.op({ type: 'pour', ingredient: t.mode === 'pour_oil' ? 'oil' : 'milk', grams: t.mode === 'pour_oil' ? 15 : 60, vessel: tgt.vessel });
           else this.c.host.say('اصبب في وعاء', 'warn');
