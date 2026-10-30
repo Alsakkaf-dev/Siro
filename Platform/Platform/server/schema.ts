@@ -359,6 +359,36 @@ CREATE TABLE IF NOT EXISTS pkg_imports (
 );
 `,
   },
+  {
+    id: 7,
+    name: 'calendar: events snapshot + sync meta (additive only)',
+    sql: `
+CREATE TABLE calendar_events (
+  source TEXT NOT NULL,
+  id TEXT NOT NULL,
+  calendar TEXT NOT NULL,
+  title TEXT NOT NULL,
+  start TEXT NOT NULL,
+  end TEXT NOT NULL,
+  show_as TEXT NOT NULL,
+  categories TEXT NOT NULL,
+  description TEXT NOT NULL,
+  series TEXT,
+  imported_at TEXT NOT NULL,
+  PRIMARY KEY (source, id)
+);
+CREATE INDEX idx_calendar_events_start ON calendar_events (start);
+CREATE INDEX idx_calendar_events_cal ON calendar_events (calendar);
+CREATE TABLE calendar_sync (
+  source TEXT PRIMARY KEY,
+  last_sync TEXT NOT NULL,
+  from_d TEXT,
+  to_d TEXT,
+  count INTEGER NOT NULL,
+  note TEXT
+);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

@@ -700,6 +700,77 @@ async function scenarios(browser, { sem, course }) {
     if (st.gaps) throw new Error(`عقد ناقصة في عالم GLB: ${st.gaps}`);
     return `عالم GLB ${st.nodes} عقدة بلا نواقص؛ قدر→موقد، مكوّن→قدر، مقبض اللهب، قطع بالسكين تعمل؛ draw calls ${st.calls}`;
   });
+  /* ───── الجدول CAL (K-M9) ───── */
+  const capi = async (method, url, body) => {
+    const r = await fetch(`${base}/api/calendar${url}`, { method, headers: { 'Content-Type': 'application/json', 'X-Kitchen-Client': 'smoke' }, body: body === undefined ? undefined : JSON.stringify(body) });
+    const t = await r.text();
+    try { return { status: r.status, ...JSON.parse(t) }; } catch { return { status: r.status }; }
+  };
+  await run('CAL-1: الجدول — عروض أسبوعي/يومي/شهري/قائمة، فلاتر وتنبيه التقويم المخفي، مصدر موسوم، CAL-18 بالثلاثية', 'desktop', async (page) => {
+    await ready(page, '/calendar?date=2026-10-26');
+    await page.waitForSelector('[data-testid=cal-source]', { timeout: 8000 });
+    const src = (await page.locator('[data-testid=cal-source]').textContent()) ?? '';
+    if (!/خريطة الروتين/.test(src) || !/ليست أحداث Outlook/.test(src)) throw new Error(`المصدر غير موسوم: ${src.slice(0, 80)}`);
+    const n = await page.locator('[data-testid=cal-event]').count();
+    if (n < 1) throw new Error(`أحداث الأسبوع: ${n}`);
+    const triple = ((await page.locator('[data-testid=cal18-triple]').textContent()) ?? '').trim();
+    if (!/^\d+ \/ \d+ \/ \d+$/.test(triple)) throw new Error(`ثلاثية التحقق: ${triple}`);
+    await page.locator('[data-testid=cal-event]').first().click();
+    await page.waitForSelector('[role=dialog]', { timeout: 4000 });
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('[role=dialog]', { state: 'detached', timeout: 4000 });
+    // فلتر: إخفاء تقويم فيه أحداث يظهر تنبيه CAL-17 وتبقى الثلاثية ثابتة (الفحص على كل التقاويم)
+    const chips = page.locator('.cal-fchip');
+    const cnt = await chips.count();
+    if (cnt < 1) throw new Error(`تقاويم: ${cnt}`);
+    await chips.first().click();
+    await page.waitForSelector('[data-testid=cal-hidden-warn]', { timeout: 4000 });
+    const triple2 = ((await page.locator('[data-testid=cal18-triple]').textContent()) ?? '').trim();
+    if (triple2 !== triple) throw new Error(`الثلاثية تغيّرت بالإخفاء: ${triple} → ${triple2}`);
+    if (!/hide=/.test(await path(page))) throw new Error('الفلتر ليس في الرابط');
+    await chips.first().click();
+    for (const [lbl, re] of [['يومي', /view=day/], ['شهري', /view=month/], ['قائمة', /view=list/], ['أسبوعي', /^((?!view=).)*$/]]) {
+      await page.click(`.seg button:has-text("${lbl}")`);
+      await expectPath(page, re, `عرض ${lbl}`);
+    }
+    // الشهري: ضغط يوم يفتح اليومي
+    await page.click('.seg button:has-text("شهري")');
+    await page.waitForSelector('.cal-md', { timeout: 4000 });
+    await page.locator('.cal-md:not(.out)').nth(3).click();
+    await expectPath(page, /view=day/, 'من الشهر إلى اليوم');
+    await shot(page, 'calendar-day');
+    return `أحداث الأسبوع ${n}، ثلاثية ${triple}`;
+  });
+  await run('CAL-2: استيراد لقطة ICS يغيّر المصدر ويعرض 0/0/0 ليوم مغطّى، والكتابة ترفض بلا ترويسة', 'desktop', async (page) => {
+    const ics = ['BEGIN:VCALENDAR', 'X-WR-CALNAME:روتين وصحة', 'BEGIN:VEVENT', 'UID:s1', 'SUMMARY:😴 نوم', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261111T000000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261111T060000', 'END:VEVENT',
+      'BEGIN:VEVENT', 'UID:s2', 'SUMMARY:🌅 صباح', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261111T060000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261111T200000', 'END:VEVENT',
+      'BEGIN:VEVENT', 'UID:s3', 'SUMMARY:😴 جاري النوم', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261111T200000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261112T000000', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const raw = await fetch(`${base}/api/calendar/import`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ format: 'ics', text: ics, from: '2026-11-11', to: '2026-11-11' }) });
+    if (raw.status !== 403) throw new Error(`الاستيراد بلا ترويسة: ${raw.status}`);
+    const r = await capi('POST', '/import', { format: 'ics', text: ics, from: '2026-11-11', to: '2026-11-11' });
+    if (r.status !== 201 || r.imported !== 3) throw new Error(`الاستيراد: ${JSON.stringify(r).slice(0, 120)}`);
+    await ready(page, '/calendar?view=day&date=2026-11-11');
+    await page.waitForSelector('[data-testid=cal-source]', { timeout: 8000 });
+    const src = (await page.locator('[data-testid=cal-source]').textContent()) ?? '';
+    if (!/لقطة مستوردة/.test(src)) throw new Error(`المصدر: ${src.slice(0, 60)}`);
+    const triple = ((await page.locator('[data-testid=cal18-triple]').textContent()) ?? '').trim();
+    if (triple !== '0 / 0 / 0') throw new Error(`CAL-18 ليوم مغطّى: ${triple}`);
+    if ((await page.locator('[data-testid=cal18]').getAttribute('data-ok')) !== '1') throw new Error('data-ok');
+    // ثغرة مزروعة: يوم ناقص يظهر فجوة
+    await capi('DELETE', '/import');
+    return 'استيراد ICS → المصدر «لقطة مستوردة» → 0 / 0 / 0';
+  });
+  await run('CAL-3: الجدول على الجوال بلا تمرير أفقي للصفحة', 'mobile', async (page) => {
+    await ready(page, '/calendar?date=2026-10-26');
+    await page.waitForSelector('[data-testid=cal18]', { timeout: 8000 });
+    for (const v of ['day', 'week', 'month', 'list']) {
+      await page.goto(`${base}/calendar?view=${v}&date=2026-10-26`, { waitUntil: 'domcontentloaded' });
+      await page.waitForSelector('[data-testid=cal18]', { timeout: 8000 });
+      const ov = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      if (ov > 1) throw new Error(`تمرير أفقي ${ov}px في ${v}`);
+    }
+    return 'يومي/أسبوعي/شهري/قائمة بلا تمرير أفقي';
+  });
   await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
     // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد
     const gone = join(tmp, 'rashed-gone');

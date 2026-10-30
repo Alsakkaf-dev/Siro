@@ -32,6 +32,8 @@
     "/life/commands",
     "/life/settings",
     "/review",
+    "/calendar",
+    "/calendar?view=month",
     "/sports",
     "/sports/templates",
     "/sports/mine",

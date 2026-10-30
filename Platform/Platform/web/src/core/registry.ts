@@ -62,6 +62,7 @@ export const PAGES: readonly PageDef[] = [
   // الرئيسية
   { id: 'today', path: '/', label: 'اليوم', area: 'home', icon: 'sparkle', kbd: 'h', keywords: 'today home اليوم الرئيسية', surface: 'sidebar', chunk: 'Today' },
   { id: 'review', path: '/review', label: 'مراجعة الأسبوع', area: 'home', icon: 'list', kbd: 'r', keywords: 'weekly review المراجعة الأسبوعية', surface: 'sidebar', chunk: 'Review' },
+  { id: 'calendar', path: '/calendar', label: 'الجدول', area: 'home', icon: 'calendar', kbd: 'j', keywords: 'calendar schedule outlook week agenda جدول تقويم أسبوع مواعيد محاضرات صلاة', surface: 'sidebar', chunk: 'Calendar' },
   // الدراسة
   { id: 'dashboard', path: S, label: 'لوحة الفصل', area: 'study', icon: 'grid', kbd: 'd', keywords: 'dashboard semester لوحة', surface: 'sidebar', needsSemester: true, chunk: null },
   { id: 'courses', path: `${S}/courses`, label: 'المواد', area: 'study', icon: 'book', kbd: 'c', keywords: 'courses subjects مواد', surface: 'sidebar', needsSemester: true, chunk: 'Courses' },

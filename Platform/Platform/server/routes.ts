@@ -17,6 +17,7 @@ import { createLifeRouter } from './lifeRoutes.js';
 import { createSportsRouter } from './sportsRoutes.js';
 import { createSearchRouter } from './searchRoutes.js';
 import { createKitchenRouter } from './kitchenRoutes.js';
+import { createCalendarRouter } from './calendarRoutes.js';
 import path from 'node:path';
 
 export class HttpError extends Error {
@@ -71,6 +72,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
   r.use('/sports', createSportsRouter(ctx));
   r.use('/search', createSearchRouter(ctx));
   r.use('/kitchen', createKitchenRouter(ctx));
+  r.use('/calendar', createCalendarRouter(ctx));
 
   /* ───── الفصول ───── */
   r.get('/semesters', wrap((_req, res) => void res.json(repo.listSemesters(db()))));

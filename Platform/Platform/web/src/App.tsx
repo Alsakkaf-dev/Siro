@@ -7,6 +7,7 @@ import { REDIRECTS } from './core/registry.js';
 import Dashboard from './pages/Dashboard.js'; // الصفحة الأكثر زيارة: ضمن الحزمة الرئيسية لتقليل جولات الشبكة
 
 const Today = lazy(() => import('./pages/Today.js'));
+const Calendar = lazy(() => import('./pages/Calendar.js'));
 const Kitchen = lazy(() => import('./pages/Kitchen.js'));
 const KitchenStore = lazy(() => import('./pages/KitchenStore.js'));
 const KitchenCart = lazy(() => import('./pages/KitchenCart.js'));
@@ -81,6 +82,7 @@ export function App() {
         <Route path="life/insights" element={<LifeInsights />} />
         <Route path="life/qada-plan" element={<LifeQadaPlan />} />
         <Route path="review" element={<Review />} />
+        <Route path="calendar" element={<Calendar />} />
         <Route path="sports" element={<Sports />} />
         <Route path="sports/templates" element={<SportsTemplates />} />
         <Route path="sports/mine" element={<SportsMine />} />
