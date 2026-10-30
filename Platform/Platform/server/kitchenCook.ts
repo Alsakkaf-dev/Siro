@@ -5,7 +5,7 @@ import { newId } from './repo.js';
 import { parseOrThrow } from './validation.js';
 import { CodedError, nowIso, pantryMove, priceVersion, toPoint, wrap, type KitchenEvent, type PriceRow } from './kitchenRoutes.js';
 import {
-  INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, SLOTS, STORES, DEFAULT_STORE, blockedReason, cardStats, indexPrices, mealCost, nutritionOf, planDay, rarityOf, scaleLines, scaleStepsText, type PlanCard, type RecipeLine, type Slot,
+  INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, SLOTS, STORES, DEFAULT_STORE, CYCLE_CARD_BY_SLUG, blockedReason, cardHash, cardStats, cycleCardsFor, cycleDayOf, indexPrices, mealCost, nutritionOf, planDay, rarityOf, scaleLines, scaleStepsText, type PlanCard, type PlanSlotIn, type RecipeLine, type Slot,
 } from '../shared/kitchen/index.js';
 import { SimError, cookToCard, findDuplicate, type Op } from '../shared/kitchen/sim/index.js';
 
@@ -46,9 +46,19 @@ const serveBody = z.object({
 });
 const patchBody = z.object({ name_ar: z.string().trim().min(1).max(80).optional(), steps_ar: z.array(z.string().trim().min(1).max(400)).max(40).optional(), meal_types: z.array(mealType).min(1).max(3).optional(), hidden: z.boolean().optional() });
 const variantBody = z.object({ parent_slug: z.string().max(60), scale: z.number().min(0.3).max(2), name_ar: z.string().trim().min(1).max(80).optional() });
+const manualMeal = z.object({ title_ar: z.string().trim().min(1).max(80), kcal: z.number().min(0).max(3000), protein_g: z.number().min(0).max(300).default(0), carbs_g: z.number().min(0).max(600).default(0), fat_g: z.number().min(0).max(300).default(0), fiber_g: z.number().min(0).max(100).default(0) });
+const slotIn = z.object({ card: z.string().max(60).optional(), scale: z.number().min(0.3).max(2).optional(), manual: manualMeal.optional() }).refine((v) => !!v.card !== !!v.manual, 'اختر بطاقة أو أدخل وجبة يدوية (لا الاثنين)');
 const planBody = z.object({
-  slots: z.object({ 'فطور': z.object({ card: z.string().max(60), scale: z.number().min(0.3).max(2).optional() }).optional(), 'غداء': z.object({ card: z.string().max(60), scale: z.number().min(0.3).max(2).optional() }).optional(), 'عشاء': z.object({ card: z.string().max(60), scale: z.number().min(0.3).max(2).optional() }).optional() }),
+  slots: z.object({ 'فطور': slotIn.optional(), 'غداء': slotIn.optional(), 'عشاء': slotIn.optional() }),
   auto_fit: z.boolean().default(false),
+});
+const cycleBody = z.object({
+  from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  scale: z.number().min(0.3).max(2).default(1),
+  auto_fit: z.boolean().default(false),
+  overwrite: z.boolean().default(false),
+  apply: z.boolean().default(false),
 });
 const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((d) => !Number.isNaN(Date.parse(`${d}T00:00:00Z`)), 'تاريخ غير صالح');
 
@@ -59,15 +69,49 @@ const parseCard = (r: CardRow) => ({
   flags: JSON.parse(r.flags) as string[], image: r.image, hidden: !!r.hidden, created_at: r.created_at, updated_at: r.updated_at,
 });
 
-/** بطاقة للخطة: أصلية (ثابتة) أو ابتكارية (من القاعدة) */
+/** بطاقة للخطة: أصلية (ثابتة) أو من «دورتي» (cy-…) أو ابتكارية (من القاعدة) */
 function planCardOf(db: Db, slug: string): (PlanCard & { meal_types: string[] }) | null {
   const o = ORIGINAL_RECIPES.find((r) => r.slug === slug);
-  if (o) return { slug: o.slug, title_ar: o.title_ar, lines: o.lines, steps: o.steps_original, flags: o.flags, status: o.status, meal_types: o.meal_types };
+  if (o) return { slug: o.slug, title_ar: o.title_ar, lines: o.lines, steps: o.steps_original, flags: o.flags, status: o.status, meal_types: o.meal_types, source: 'codex' };
+  const cy = CYCLE_CARD_BY_SLUG.get(slug);
+  if (cy) return { slug: cy.slug, title_ar: cy.title_ar, lines: cy.lines, steps: cy.steps, flags: cy.flags, meal_types: [cy.meal_slot], source: 'codex' };
   const row = db.get<CardRow>('SELECT * FROM kitchen_cards WHERE slug = ?', slug);
   if (!row) return null;
   const c = parseCard(row);
-  return { slug: c.slug, title_ar: c.name_ar, lines: c.lines, steps: c.steps_ar, flags: c.flags, meal_types: c.meal_types };
+  return { slug: c.slug, title_ar: c.name_ar, lines: c.lines, steps: c.steps_ar, flags: c.flags, meal_types: c.meal_types, source: 'creation' };
 }
+
+/** يحوّل مدخلات الخانات إلى مدخلات planDay؛ البطاقات الموسومة تُجمَع في blocked ولا تُرمى (للمعاينة) */
+function buildInputs(db: Db, slots: z.infer<typeof planBody>['slots']): { inputs: Partial<Record<Slot, PlanSlotIn>>; blocked: string[]; cards: Partial<Record<Slot, PlanCard>> } {
+  const inputs: Partial<Record<Slot, PlanSlotIn>> = {};
+  const cards: Partial<Record<Slot, PlanCard>> = {};
+  const blocked: string[] = [];
+  for (const slot of SLOTS) {
+    const s = slots[slot];
+    if (!s) continue;
+    if (s.manual) {
+      const m = s.manual;
+      inputs[slot] = { manual: { title_ar: m.title_ar, nutrition: { kcal: m.kcal, protein_g: m.protein_g, carbs_g: m.carbs_g, fat_g: m.fat_g, fiber_g: m.fiber_g } } };
+      continue;
+    }
+    const card = planCardOf(db, s.card!);
+    if (!card) throw new CodedError(404, 'card_not_found', `البطاقة «${s.card}» غير موجودة`);
+    const why = blockedReason(card);
+    if (why) blocked.push(why);
+    else {
+      inputs[slot] = { card, ...(s.scale ? { scale: s.scale } : {}) };
+      cards[slot] = card;
+    }
+  }
+  return { inputs, blocked, cards };
+}
+
+/** يختم لقطة الخانة (CAL-50): بصمة البطاقة وقت الحفظ + المصدر (CAL-52) كي يُعرف لاحقًا إن «تحدّثت البطاقة» */
+function stampSlots(slots: ReturnType<typeof planDay>['slots'], cards: Partial<Record<Slot, PlanCard>>): unknown[] {
+  const at = nowIso();
+  return slots.map((x) => ({ ...x, card_hash: cards[x.slot] ? cardHash(cards[x.slot]!.lines, cards[x.slot]!.steps) : null, saved_at: at }));
+}
+const todayKL = (): string => new Date(Date.now() + 8 * 3_600_000).toISOString().slice(0, 10);
 
 const priceIdx = (db: Db) => indexPrices(db.all<PriceRow>('SELECT * FROM kitchen_prices').map(toPoint));
 
@@ -143,6 +187,9 @@ export function mountCook(r: express.Router, deps: { db: () => Db; publish: (typ
     const d = db();
     const slug = String(req.params['slug']);
     if (ORIGINAL_RECIPES.some((x) => x.slug === slug)) throw new CodedError(403, 'original_locked', 'حذف البطاقة الأصلية ممنوع.');
+    // CAL-51: بطاقة مستعملة في أيام الجدول لا تُحذف حذفًا صلبًا؛ تُؤرشَف (إخفاء) ويُعرض الأيام المرتبطة
+    const used = d.all<{ date: string; slots: string }>('SELECT date, slots FROM kitchen_plan_days ORDER BY date').filter((x) => (JSON.parse(x.slots) as { card_slug: string }[]).some((sl) => sl.card_slug === slug)).map((x) => x.date);
+    if (used.length) throw new CodedError(409, 'used_in_plan', `البطاقة مستعملة في ${used.length} يومًا من الجدول: لا حذف صلب، أرشفها بدل ذلك.`, { days: used, hint: 'PATCH /cards/:slug {hidden:true}' });
     if (!d.run('DELETE FROM kitchen_cards WHERE slug = ?', slug).changes) throw new CodedError(404, 'not_found', 'بطاقة غير موجودة');
     deps.publish('cards', req);
     res.json({ ok: true });
@@ -173,32 +220,37 @@ export function mountCook(r: express.Router, deps: { db: () => Db; publish: (typ
 
   /* ───── الخطة (خانة الجدول الأساسية) ───── */
   r.get('/plan', wrap((req, res) => {
+    const d = db();
     const from = parseOrThrow(dateStr, String(req.query['from'] ?? new Date().toISOString().slice(0, 10)));
-    const days = Math.min(60, Math.max(1, Number(req.query['days']) || 14));
+    const days = Math.min(400, Math.max(1, Number(req.query['days']) || 14));
     const end = new Date(Date.parse(`${from}T00:00:00Z`) + (days - 1) * 86_400_000).toISOString().slice(0, 10);
-    const rows = db().all<{ date: string; slots: string; total_kcal: number; status: string; updated_at: string }>('SELECT * FROM kitchen_plan_days WHERE date >= ? AND date <= ? ORDER BY date', from, end);
-    res.json({ days: rows.map((x) => ({ ...x, slots: JSON.parse(x.slots) as unknown })) });
+    const rows = d.all<{ date: string; slots: string; total_kcal: number; status: string; updated_at: string }>('SELECT * FROM kitchen_plan_days WHERE date >= ? AND date <= ? ORDER BY date', from, end);
+    const today = todayKL();
+    res.json({
+      days: rows.map((x) => ({
+        ...x,
+        slots: (JSON.parse(x.slots) as { card_slug: string; card_hash?: string | null }[]).map((sl) => {
+          // CAL-50: الأيام المستقبلية تُعلَّم إن تغيّرت البطاقة بعد الحفظ، أو اختفت؛ الماضية لا تتغيّر
+          if (x.date < today || sl.card_slug === 'manual') return sl;
+          const c = planCardOf(d, sl.card_slug);
+          if (!c) return { ...sl, card_missing: true };
+          return sl.card_hash && sl.card_hash !== cardHash(c.lines, c.steps) ? { ...sl, card_updated: true } : sl;
+        }),
+      })),
+    });
   }));
 
   r.put('/plan/:date', wrap((req, res) => {
     const d = db();
     const date = parseOrThrow(dateStr, String(req.params['date']));
     const b = parseOrThrow(planBody, req.body);
-    const inputs: Partial<Record<Slot, { card: PlanCard; scale?: number }>> = {};
-    for (const slot of SLOTS) {
-      const s = b.slots[slot];
-      if (!s) continue;
-      const card = planCardOf(d, s.card);
-      if (!card) throw new CodedError(404, 'card_not_found', `البطاقة «${s.card}» غير موجودة`);
-      const why = blockedReason(card);
-      if (why) throw new CodedError(422, 'blocked', why);
-      inputs[slot] = { card, ...(s.scale ? { scale: s.scale } : {}) };
-    }
+    const { inputs, blocked, cards } = buildInputs(d, b.slots);
+    if (blocked.length) throw new CodedError(422, 'blocked', blocked[0]!);
     if (!Object.keys(inputs).length) throw new CodedError(400, 'empty', 'اختر بطاقة لخانة واحدة على الأقل');
     const plan = planDay(inputs, { autoFit: b.auto_fit });
     // القانون حاجز صارم (LAW-03): الجزئي فوق الحد الأعلى مرفوض، والمكتمل خارج المجال مرفوض
     if (!plan.ok) throw new CodedError(422, 'law', plan.message ?? 'خارج قانون السعرات', { total_kcal: Math.round(plan.law.total_kcal), status: plan.law.status, diff: Math.round(plan.law.excess ?? plan.law.deficit ?? 0), solutions: plan.solutions });
-    d.tx(() => savePlanDay(d, date, plan.slots, plan.law.total_kcal, plan.complete ? 'proposal' : 'partial'));
+    d.tx(() => savePlanDay(d, date, stampSlots(plan.slots, cards), plan.law.total_kcal, plan.complete ? 'proposal' : 'partial'));
     deps.publish('plan', req);
     res.json({ date, status: plan.complete ? 'proposal' : 'partial', total_kcal: plan.law.total_kcal, law: plan.law, slots: plan.slots, autoFit: plan.autoFit, note: 'اقتراح داخل المنصة فقط: لا يُكتب شيء في Outlook ولا في سجلات راشد (G-03).' });
   }));
@@ -207,19 +259,45 @@ export function mountCook(r: express.Router, deps: { db: () => Db; publish: (typ
   r.post('/plan/preview', wrap((req, res) => {
     const d = db();
     const b = parseOrThrow(planBody, req.body);
-    const inputs: Partial<Record<Slot, { card: PlanCard; scale?: number }>> = {};
-    const blocked: string[] = [];
-    for (const slot of SLOTS) {
-      const s = b.slots[slot];
-      if (!s) continue;
-      const card = planCardOf(d, s.card);
-      if (!card) throw new CodedError(404, 'card_not_found', `البطاقة «${s.card}» غير موجودة`);
-      const why = blockedReason(card);
-      if (why) blocked.push(why);
-      else inputs[slot] = { card, ...(s.scale ? { scale: s.scale } : {}) };
-    }
+    const { inputs, blocked } = buildInputs(d, b.slots);
     const plan = planDay(inputs, { autoFit: b.auto_fit });
-    res.json({ ok: plan.ok && !blocked.length, blocked, message: plan.message, solutions: plan.solutions, law: plan.law, slots: plan.slots, total: plan.total, autoFit: plan.autoFit, complete: plan.complete });
+    res.json({ ok: plan.ok && !blocked.length, blocked, message: plan.message, solutions: plan.solutions, law: plan.law, slots: plan.slots, total: plan.total, autoFit: plan.autoFit, autoFitReason: plan.autoFitReason, complete: plan.complete });
+  }));
+
+  /** تطبيق «دورتي» على مدى تاريخي (CAL-36، AC-09): معاينة بسطر لكل يوم؛ التطبيق كله أو لا شيء، أي يوم مخالف يرفض الدفعة */
+  r.post('/plan/cycle', wrap((req, res) => {
+    const d = db();
+    const b = parseOrThrow(cycleBody, req.body);
+    parseOrThrow(dateStr, b.from);
+    parseOrThrow(dateStr, b.to);
+    const n = Math.round((Date.parse(`${b.to}T00:00:00Z`) - Date.parse(`${b.from}T00:00:00Z`)) / 86_400_000) + 1;
+    if (n < 1) throw new CodedError(400, 'bad_range', 'نهاية المدى قبل بدايته');
+    if (n > 120) throw new CodedError(400, 'range_too_big', 'المدى أكبر من 120 يومًا');
+    const existing = new Set(d.all<{ date: string }>('SELECT date FROM kitchen_plan_days WHERE date >= ? AND date <= ?', b.from, b.to).map((x) => x.date));
+    const rows: { date: string; cycle_day: number; ok: boolean; status: string; total_kcal: number; message: string | null; existing: boolean; k: number | null; plan: ReturnType<typeof planDay> }[] = [];
+    for (let i = 0; i < n; i++) {
+      const date = new Date(Date.parse(`${b.from}T00:00:00Z`) + i * 86_400_000).toISOString().slice(0, 10);
+      const cc = cycleCardsFor(date);
+      const inputs: Partial<Record<Slot, PlanSlotIn>> = {};
+      for (const slot of SLOTS) inputs[slot] = { card: planCardOf(d, cc[slot].slug)!, ...(b.scale !== 1 ? { scale: b.scale } : {}) };
+      const p = planDay(inputs, { autoFit: b.auto_fit });
+      rows.push({ date, cycle_day: cycleDayOf(date), ok: p.ok, status: p.law.status, total_kcal: Math.round(p.law.total_kcal), message: p.message, existing: existing.has(date), k: p.autoFit?.k ?? (b.scale !== 1 ? b.scale : null), plan: p });
+    }
+    const out = rows.map(({ plan: _p, ...x }) => x);
+    const bad = rows.filter((x) => !x.ok);
+    if (!b.apply) return void res.json({ ok: bad.length === 0, days: n, violations: bad.length, conflicts: rows.filter((x) => x.existing).length, rows: out });
+    if (bad.length) throw new CodedError(422, 'cycle_violation', `رُفضت الدفعة كلها: ${bad.length} يومًا خارج قانون السعرات (أولها ${bad[0]!.date}: ${bad[0]!.message ?? ''}).`, { violations: bad.length, rows: out });
+    const clash = rows.filter((x) => x.existing).map((x) => x.date);
+    if (clash.length && !b.overwrite) throw new CodedError(409, 'conflict', `يوجد اقتراح محفوظ في ${clash.length} يومًا: فعّل الاستبدال أو غيّر المدى.`, { dates: clash.slice(0, 40) });
+    d.tx(() => {
+      for (const x of rows) {
+        const cc = cycleCardsFor(x.date);
+        const cards = Object.fromEntries(SLOTS.map((s) => [s, planCardOf(d, cc[s].slug)!])) as Partial<Record<Slot, PlanCard>>;
+        savePlanDay(d, x.date, stampSlots(x.plan.slots, cards), x.plan.law.total_kcal, 'proposal');
+      }
+    });
+    deps.publish('plan', req);
+    res.status(201).json({ ok: true, saved: rows.length, rows: out });
   }));
 
   r.delete('/plan/:date', wrap((req, res) => {

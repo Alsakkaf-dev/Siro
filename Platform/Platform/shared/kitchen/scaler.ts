@@ -72,3 +72,48 @@ export function scaleDay(meals: readonly ScaleMeal[], opts: ScaleOptions = {}): 
       : 'غير ممكن بتقريب الأوزان المتاح؛ جرّب استبدال بطاقة.';
   return { ok: false, k: best.k, meals: best.meals, total: best.total, law, reason, range: { min: lo, max: hi } };
 }
+
+export interface FlexScaledDay extends ScaledDay {
+  /** معامل كل وجبة (متطابق عند الحل بمعامل واحد) */
+  ks: number[];
+  uniform: boolean;
+}
+
+/**
+ * ملاءمة تلقائية بمعامل واحد أولًا، وإن استحال فبمعامل لكل وجبة (شبكة 0.05 داخل الحدود) باختيار أقرب مجموع إلى الهدف مع أقل تباين بين المعاملات.
+ * AC-08: تُرجع يومًا داخل المجال كلما كان ممكنًا رياضيًا بالبطاقات المختارة، وإلا «غير ممكن» مع السبب.
+ */
+export function scaleDayFlexible(meals: readonly ScaleMeal[], opts: ScaleOptions = {}): FlexScaledDay {
+  const uni = scaleDay(meals, opts);
+  if (uni.ok) return { ...uni, ks: meals.map(() => uni.k), uniform: true };
+  const target = opts.target ?? LAW_TARGET;
+  const minK = opts.minScale ?? 0.4;
+  const maxK = opts.maxScale ?? 1.5;
+  const grid: number[] = [];
+  for (let i = Math.round(minK * 20); i <= Math.round(maxK * 20); i++) grid.push(i / 20);
+  const kcal = meals.map((m) => grid.map((k) => nutritionOf(scaleLines(m.lines, k)).total.kcal));
+  let best: { ks: number[]; score: number } | null = null;
+  const pick = (i: number, ks: number[], total: number): void => {
+    if (i === meals.length) {
+      if (!withinLaw(total)) return;
+      const spread = Math.max(...ks) - Math.min(...ks);
+      const score = Math.abs(total - target) + spread * 200;
+      if (!best || score < best.score) best = { ks: [...ks], score };
+      return;
+    }
+    for (let j = 0; j < grid.length; j++) {
+      ks[i] = grid[j]!;
+      pick(i + 1, ks, total + kcal[i]![j]!);
+    }
+  };
+  if (meals.length && meals.length <= 4) pick(0, [], 0);
+  const found = best as { ks: number[]; score: number } | null;
+  if (!found) return { ...uni, ks: meals.map(() => uni.k), uniform: true };
+  const out = meals.map((m, i) => {
+    const lines = scaleLines(m.lines, found.ks[i]!);
+    return { slot: m.slot, lines, nutrition: nutritionOf(lines).total };
+  });
+  const total = sum(out.map((m) => m.nutrition));
+  const law = evaluateDay(Object.fromEntries(out.map((m) => [m.slot, m.nutrition])));
+  return { ok: law.ok && withinLaw(total.kcal), k: r2(found.ks.reduce((a, b) => a + b, 0) / found.ks.length), meals: out, total, law, range: uni.range, ks: found.ks, uniform: false };
+}

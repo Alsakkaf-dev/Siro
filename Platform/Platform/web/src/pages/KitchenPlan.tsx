@@ -6,7 +6,7 @@ import { useApp } from '../core/app-context.js';
 import { KitchenChips, NutriGrid, Section, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { deletePlanDay, fetchPlan, previewPlan, savePlan, type PlanDayRow, type PlanSlotsIn, type PlanSlotView } from '../kitchen/store.js';
 import { LAW, SLOTS, fmtKcal, fmtNum, type NutritionVector, type Slot } from '../../../shared/kitchen/index.js';
-import { ORIGINAL_CARDS } from '../../../shared/kitchen/index.js';
+import { CYCLE_CARDS, ORIGINAL_CARDS, nutritionOf } from '../../../shared/kitchen/index.js';
 
 const SCALES = [0.5, 0.75, 1, 1.25, 1.5] as const;
 type Pre = Awaited<ReturnType<typeof previewPlan>>;
@@ -36,7 +36,8 @@ export default function KitchenPlan() {
   const options = useMemo(() => {
     const orig = ORIGINAL_CARDS(k.idx, k.store).filter((c) => c.computable).map((c) => ({ slug: c.slug, title: c.title_ar, meals: c.meal_types as string[], kcal: c.nutrition?.kcal ?? null }));
     const mine = k.cards.filter((c) => !c.hidden && !c.flags.some((f) => ['unsafe_chicken', 'burnt', 'undercooked'].includes(f))).map((c) => ({ slug: c.slug, title: c.name_ar, meals: c.meal_types, kcal: c.nutrition['kcal'] ?? null }));
-    return [...orig, ...mine];
+    const cyc = CYCLE_CARDS.map((c) => ({ slug: c.slug, title: `${c.title_ar} (دورتي)`, meals: [c.meal_slot as string], kcal: nutritionOf(c.lines).total.kcal }));
+    return [...orig, ...cyc, ...mine];
   }, [k.idx, k.store, k.cards]);
 
   /* تحميل مسبق من القاموس: ?card=&slot= */
@@ -62,7 +63,7 @@ export default function KitchenPlan() {
     if (!savedDay || filledFor.current === date || Object.keys(picks).length) return;
     filledFor.current = date;
     const o: Picks = {};
-    for (const s of savedDay.slots) if (isSlot(s.slot)) o[s.slot] = { card: s.card_slug, scale: s.scale };
+    for (const s of savedDay.slots) if (isSlot(s.slot) && s.card_slug !== 'manual') o[s.slot] = { card: s.card_slug, scale: s.scale };
     setPicks(o);
   }, [savedDay, date]); // eslint-disable-line react-hooks/exhaustive-deps
 

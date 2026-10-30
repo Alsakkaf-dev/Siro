@@ -342,13 +342,25 @@ export async function makeVariant(parent_slug: string, scale: number, name_ar?: 
   announce('cards');
   return r.card;
 }
-export interface PlanSlotView { slot: string; card_slug: string; title_ar: string; scale: number; lines: { ingredient: string; amount_g: number | null }[]; nutrition: Record<string, number>; steps: string[]; body_text: string; unmapped: string[] }
+export interface PlanSlotView { slot: string; card_slug: string; title_ar: string; scale: number; lines: { ingredient: string; amount_g: number | null }[]; nutrition: Record<string, number>; steps: string[]; body_text: string; unmapped: string[]; source?: 'codex' | 'creation' | 'manual'; card_hash?: string | null; card_updated?: boolean; card_missing?: boolean }
 export interface PlanDayRow { date: string; slots: PlanSlotView[]; total_kcal: number; status: string; updated_at: string }
-export type PlanSlotsIn = Partial<Record<'فطور' | 'غداء' | 'عشاء', { card: string; scale?: number }>>;
+export interface ManualIn { title_ar: string; kcal: number; protein_g: number; carbs_g: number; fat_g: number; fiber_g: number }
+export type PlanSlotIn = { card: string; scale?: number } | { manual: ManualIn };
+export type PlanSlotsIn = Partial<Record<'فطور' | 'غداء' | 'عشاء', PlanSlotIn>>;
+export interface AutoFitInfo { k: number; ks: number[]; uniform: boolean }
+export interface PreviewOut { ok: boolean; blocked: string[]; message: string | null; solutions: string[]; law: { status: string; total_kcal: number; ok: boolean; excess?: number; deficit?: number; remaining?: { minNeeded: number; maxAllowed: number } }; slots: PlanSlotView[]; total: Record<string, number>; autoFit: AutoFitInfo | null; autoFitReason: string | null; complete: boolean }
 export const fetchPlan = (from: string, days = 14): Promise<{ days: PlanDayRow[] }> => api('GET', `/plan?from=${from}&days=${days}`);
-export const previewPlan = (slots: PlanSlotsIn, auto_fit: boolean): Promise<{ ok: boolean; blocked: string[]; message: string | null; solutions: string[]; law: { status: string; total_kcal: number; ok: boolean; excess?: number; deficit?: number; remaining?: { minNeeded: number; maxAllowed: number } }; slots: PlanSlotView[]; total: Record<string, number>; autoFit: { k: number } | null; complete: boolean }> => api('POST', '/plan/preview', { slots, auto_fit });
-export async function savePlan(date: string, slots: PlanSlotsIn, auto_fit: boolean): Promise<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }> {
-  const r = await api<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: { k: number } | null }>('PUT', `/plan/${date}`, { slots, auto_fit });
+export const previewPlan = (slots: PlanSlotsIn, auto_fit: boolean): Promise<PreviewOut> => api('POST', '/plan/preview', { slots, auto_fit });
+export async function savePlan(date: string, slots: PlanSlotsIn, auto_fit: boolean): Promise<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: AutoFitInfo | null }> {
+  const r = await api<{ status: string; total_kcal: number; slots: PlanSlotView[]; autoFit: AutoFitInfo | null }>('PUT', `/plan/${date}`, { slots, auto_fit });
+  announce('plan');
+  return r;
+}
+export interface CycleRow { date: string; cycle_day: number; ok: boolean; status: string; total_kcal: number; message: string | null; existing: boolean; k: number | null }
+export interface CycleOut { ok: boolean; days: number; violations: number; conflicts: number; rows: CycleRow[] }
+export const previewCycle = (b: { from: string; to: string; scale: number; auto_fit: boolean }): Promise<CycleOut> => api('POST', '/plan/cycle', { ...b, apply: false });
+export async function applyCycle(b: { from: string; to: string; scale: number; auto_fit: boolean; overwrite: boolean }): Promise<{ saved: number; rows: CycleRow[] }> {
+  const r = await api<{ saved: number; rows: CycleRow[] }>('POST', '/plan/cycle', { ...b, apply: true });
   announce('plan');
   return r;
 }

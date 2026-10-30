@@ -33,7 +33,7 @@ export function EventBlock({ ev, top, height, col, cols, onPick, extra }: { ev: 
 }
 
 /** شبكة زمنية: أعمدة أيام (واحد أو سبعة) وخط الزمن 00–24 */
-export function TimeGrid({ days, events, onPick, overlay, onDayClick }: { days: string[]; events: CalEvent[]; onPick: (e: CalEvent) => void; overlay?: (date: string) => React.ReactNode; onDayClick?: (d: string) => void }) {
+export function TimeGrid({ days, events, onPick, overlay, onDayClick, headExtra }: { days: string[]; events: CalEvent[]; onPick: (e: CalEvent) => void; overlay?: (date: string) => React.ReactNode; onDayClick?: (d: string) => void; headExtra?: (date: string) => React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const today = todayKL();
   useEffect(() => {
@@ -57,6 +57,7 @@ export function TimeGrid({ days, events, onPick, overlay, onDayClick }: { days: 
         {days.map((d) => (
           <div key={d} className={`cal-head${d === today ? ' today' : ''}`}>
             {onDayClick ? <button type="button" className="cal-head-b" onClick={() => onDayClick(d)} aria-label={`افتح ${fmtDay(d)}`}><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></button> : <><b>{dayName(d)}</b> <span className="num">{fmtNum(dayNum(d))}</span></>}
+            {headExtra?.(d)}
           </div>
         ))}
         <div className="cal-hours" aria-hidden="true">

@@ -169,10 +169,16 @@ describe('الخطة وقانون السعرات حاجز صارم (AC-07، J6/J
     }
     expect(inserts).toBe(1);
     expect(updates).toBe(0);
-    expect(calls).toBe(2); // التعريف + الاستدعاء الوحيد
+    expect(calls).toBe(3); // التعريف + مسار اليوم + مسار الدورة الدفعي (كلاهما بعد رفض القانون)
     const route = fs.readFileSync(path.join(__dirname, '..', 'server', 'kitchenCook.ts'), 'utf8');
     expect(route.indexOf('planDay(inputs')).toBeLessThan(route.indexOf('savePlanDay(d, date'));
     expect(route.slice(route.indexOf('planDay(inputs'), route.indexOf('savePlanDay(d, date'))).toContain('!plan.ok');
+    // الدفعة: كل الأيام تُقيَّم بـplanDay ويُرفض الكل عند أي مخالف قبل أي حفظ
+    const cyc = route.slice(route.indexOf("r.post('/plan/cycle'"));
+    expect(cyc.indexOf('planDay(inputs')).toBeGreaterThan(-1);
+    expect(cyc.indexOf('planDay(inputs')).toBeLessThan(cyc.indexOf('savePlanDay('));
+    expect(cyc.slice(cyc.indexOf('planDay(inputs'), cyc.indexOf('savePlanDay('))).toContain("throw new CodedError(422, 'cycle_violation'");
+    expect(cyc.slice(cyc.indexOf('planDay(inputs'), cyc.indexOf('savePlanDay('))).toContain('!x.ok');
   });
 });
 

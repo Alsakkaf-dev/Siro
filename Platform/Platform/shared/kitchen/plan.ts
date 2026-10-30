@@ -5,12 +5,15 @@
 import { LAW, LAW_TARGET, SLOTS, evaluateDay, type LawResult, type Slot } from './law.js';
 import { nutritionOf, sum, ZERO } from './nutrition.js';
 import { outlookBody, scaleStepsText } from './outlook.js';
-import { scaleDay, scaleLines } from './scaler.js';
+import { scaleDayFlexible, scaleLines } from './scaler.js';
 import type { NutritionVector, RecipeLine } from './types.js';
 
-export interface PlanCard { slug: string; title_ar: string; lines: readonly RecipeLine[]; steps: readonly string[]; flags: readonly string[]; status?: string }
-export interface PlanSlotIn { card: PlanCard; scale?: number }
-export interface PlanSlotOut { slot: Slot; card_slug: string; title_ar: string; scale: number; lines: RecipeLine[]; nutrition: NutritionVector; steps: string[]; body_text: string; unmapped: string[] }
+export type SlotSource = 'codex' | 'creation' | 'manual';
+export interface PlanCard { slug: string; title_ar: string; lines: readonly RecipeLine[]; steps: readonly string[]; flags: readonly string[]; status?: string; /** مصدر الخانة (CAL-52) */ source?: Exclude<SlotSource, 'manual'> }
+/** CAL-52 manual: وجبة بأرقام يدوية بلا وصفة (لا ملاءمة تلقائية لها) */
+export interface ManualMeal { title_ar: string; nutrition: NutritionVector }
+export interface PlanSlotIn { card?: PlanCard; scale?: number; manual?: ManualMeal }
+export interface PlanSlotOut { slot: Slot; card_slug: string; title_ar: string; scale: number; lines: RecipeLine[]; nutrition: NutritionVector; steps: string[]; body_text: string; unmapped: string[]; source: SlotSource }
 export interface PlanResult {
   ok: boolean;
   complete: boolean;
@@ -22,7 +25,9 @@ export interface PlanResult {
   /** ثلاثة حلول عند الرفض */
   solutions: string[];
   /** معامل الملاءمة التلقائية إن طُلبت ونجحت */
-  autoFit: { k: number } | null;
+  autoFit: { k: number; ks: number[]; uniform: boolean } | null;
+  /** سبب تعذّر الملاءمة التلقائية إن طُلبت (AC-08: «غير ممكن» صريحة) */
+  autoFitReason: string | null;
 }
 
 /** MC-05: بطاقات لا تُعيَّن في الجدول */
@@ -64,26 +69,37 @@ export function planDay(inputs: Partial<Record<Slot, PlanSlotIn>>, opts: { autoF
   const filled = SLOTS.filter((s) => inputs[s]);
   const complete = filled.length === SLOTS.length;
   let autoFit: PlanResult['autoFit'] = null;
+  let autoFitReason: string | null = null;
   const scaleOf: Partial<Record<Slot, number>> = {};
   for (const s of filled) scaleOf[s] = inputs[s]!.scale ?? 1;
-  if (opts.autoFit && complete) {
-    const d = scaleDay(filled.map((s) => ({ slot: s, lines: inputs[s]!.card.lines })));
-    if (d.ok) {
-      autoFit = { k: d.k };
-      for (const s of filled) scaleOf[s] = d.k;
+  if (opts.autoFit) {
+    if (!complete) autoFitReason = 'الملاءمة التلقائية تحتاج اليوم مكتملًا (الخانات الثلاث).';
+    else if (filled.some((s) => inputs[s]!.manual)) autoFitReason = 'غير ممكن: بين الوجبات وجبة يدوية بأرقام ثابتة لا تُقسَّم.';
+    else {
+      const d = scaleDayFlexible(filled.map((s) => ({ slot: s, lines: inputs[s]!.card!.lines })));
+      if (d.ok) {
+        autoFit = { k: d.k, ks: d.ks, uniform: d.uniform };
+        filled.forEach((s, i) => { scaleOf[s] = d.ks[i]!; });
+      } else autoFitReason = d.reason ?? 'غير ممكن بالبطاقات المختارة.';
     }
   }
   const slots: PlanSlotOut[] = filled.map((slot) => {
-    const { card } = inputs[slot]!;
+    const inp = inputs[slot]!;
+    if (inp.manual) {
+      const n = inp.manual.nutrition;
+      return { slot, card_slug: 'manual', title_ar: inp.manual.title_ar, scale: 1, lines: [], nutrition: n, steps: [], body_text: outlookBody(inp.manual.title_ar, [], n), unmapped: [], source: 'manual' };
+    }
+    const card = inp.card!;
     const k = scaleOf[slot]!;
     const lines = k === 1 ? card.lines.map((l) => ({ ...l })) : scaleLines(card.lines, k);
     const nutrition = nutritionOf(lines).total;
     const sc = k === 1 ? { steps: [...card.steps], unmapped: [] as string[] } : scaleStepsText(card.steps, card.lines, lines);
-    return { slot, card_slug: card.slug, title_ar: card.title_ar, scale: k, lines, nutrition, steps: sc.steps, body_text: outlookBody(card.title_ar, sc.steps, nutrition), unmapped: sc.unmapped };
+    return { slot, card_slug: card.slug, title_ar: card.title_ar, scale: k, lines, nutrition, steps: sc.steps, body_text: outlookBody(card.title_ar, sc.steps, nutrition), unmapped: sc.unmapped, source: card.source ?? 'codex' };
   });
   const law = evaluateDay(Object.fromEntries(slots.map((s) => [s.slot, s.nutrition])), SLOTS);
   const total = slots.length ? sum(slots.map((s) => s.nutrition)) : ZERO;
   const message = lawMessage(law);
-  return { ok: law.ok, complete, law, slots, total, message, solutions: law.ok ? [] : [...lawSolutions(law, slots), ...(opts.autoFit && !autoFit ? ['الملاءمة التلقائية غير ممكنة لهذه البطاقات: ' + (complete ? 'استبدل بطاقة' : 'أكمل الخانات')] : [])].slice(0, 3), autoFit };
+  const extra = opts.autoFit && !autoFit && autoFitReason ? [autoFitReason] : [];
+  return { ok: law.ok, complete, law, slots, total, message, solutions: law.ok ? [] : [...lawSolutions(law, slots), ...extra].slice(0, 3), autoFit, autoFitReason };
 }
 export { LAW_TARGET };

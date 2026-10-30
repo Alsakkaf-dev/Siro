@@ -6,7 +6,10 @@ import { Badge, Button, Card, EmptyState, Field, Modal, Segmented, Skeleton } fr
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
 import { useUrlParam, useUrlSet } from '../core/useUrlParam.js';
-import { addDays, eventsOnDay, isDate, todayKL, weekStartOf, TERM_WINDOW, type CalEvent } from '../../../shared/calendar/index.js';
+import { addDays, dateOf, eventsOnDay, isDate, mealSlotOf, todayKL, weekStartOf, TERM_WINDOW, type CalEvent } from '../../../shared/calendar/index.js';
+import { LAW, fmtKcal, type Slot } from '../../../shared/kitchen/index.js';
+import { fetchPlan, type PlanDayRow } from '../kitchen/store.js';
+import { DayMeals } from '../calendar/DayMeals.js';
 import { fmtNum } from '../../../shared/kitchen/index.js';
 import { CalendarApiError, clearImport, fetchSources, fetchView, importSnapshot, syncGraph, type SourceChoice, type SourceInfo, type ViewResp } from '../calendar/api.js';
 import { EventDetail, ListView, MonthGrid, TimeGrid, VerifyCard, calClass } from '../calendar/grid.js';
@@ -38,6 +41,8 @@ export default function Calendar() {
   const [busy, setBusy] = useState(false);
   const [pick, setPick] = useState<CalEvent | null>(null);
   const [imp, setImp] = useState(false);
+  const [meal, setMeal] = useState<{ date: string; slot: Slot } | null>(null);
+  const [planDays, setPlanDays] = useState<PlanDayRow[]>([]);
   const [sources, setSources] = useState<SourceInfo[]>([]);
   const seq = useRef(0);
 
@@ -52,6 +57,8 @@ export default function Calendar() {
   useEffect(load, [load]);
   useEffect(() => { void fetchSources().then((r) => setSources(r.sources)).catch(() => setSources([])); }, [data?.source]);
 
+  useEffect(() => { if (view === 'week' || view === 'day') void fetchPlan(range.from, view === 'day' ? 1 : 7).then((r) => setPlanDays(r.days)).catch(() => setPlanDays([])); }, [view, range.from, meal]);
+  const onPickEvent = (e: CalEvent): void => { const s = mealSlotOf(e); if (s) setMeal({ date: dateOf(e.start), slot: s }); else setPick(e); };
   const shown = useMemo(() => (data?.events ?? []).filter((e) => !hidden.has(e.calendar)), [data, hidden]);
   const hiddenWith = useMemo(() => (data?.calendars ?? []).filter((c) => hidden.has(c.name) && c.count > 0), [data, hidden]);
   const toggleCal = (n: string): void => { const s = new Set(hidden); if (s.has(n)) s.delete(n); else s.add(n); setHidden(s); };
@@ -139,15 +146,22 @@ export default function Calendar() {
       {data && data.source === 'none' && <EmptyState icon="calendar" title="لا مصدر للجدول بعد" text="مجلد راشد غير متاح ولا لقطة مستوردة. صدّر تقويم Outlook كملف ICS ثم استورده." action={<Button variant="primary" icon="upload" onClick={() => setImp(true)}>استيراد لقطة</Button>} />}
       {data && data.source !== 'none' && (
         <Card>
-          {view === 'week' || view === 'day' ? <TimeGrid days={days} events={shown} onPick={setPick} onDayClick={view === 'week' ? (d) => { setDate(d); setView('day'); } : undefined} /> : null}
+          {view === 'week' || view === 'day' ? <TimeGrid days={days} events={shown} onPick={onPickEvent} onDayClick={view === 'week' ? (d) => { setDate(d); setView('day'); } : undefined} headExtra={(d) => { const pd = planDays.find((x) => x.date === d); return pd ? <span className={`cal-head-chip ${pd.status === 'partial' ? 'part' : pd.total_kcal >= LAW.MIN && pd.total_kcal <= LAW.MAX ? 'ok' : 'bad'}`} title="مجموع وجبات اليوم المخطّطة"><Icon name="utensils" size={10} /> <span className="num">{fmtKcal(pd.total_kcal)}</span></span> : null; }} /> : null}
           {view === 'month' && <MonthGrid month={date} from={range.from} to={range.to} events={shown} onDay={(d) => { setDate(d); setView('day'); }} />}
-          {view === 'list' && <ListView days={days} events={shown} onPick={setPick} />}
+          {view === 'list' && <ListView days={days} events={shown} onPick={onPickEvent} />}
           {shown.length === 0 && <p className="muted">لا أحداث ظاهرة في هذا المدى{hidden.size ? ' (بعض التقاويم مخفية)' : ''}.</p>}
         </Card>
       )}
       {data && data.source !== 'none' && <VerifyCard v={data.verify} source={data.source} />}
+      {data && view === 'day' && (
+        <Card id="day-meals">
+          <div className="row"><h2 className="cal-title">وجبات اليوم</h2><span className="grow" /><Button size="sm" to={`/calendar/meals?date=${date}`}>صفحة الوجبات</Button></div>
+          <DayMeals date={date} events={data.events} />
+        </Card>
+      )}
       <p className="muted"><small>{eventsOnDay(shown, date).length > 0 && view === 'day' ? `${dayName(date)}: ${fmtNum(eventsOnDay(shown, date).length)} حدثًا.` : null}</small></p>
 
+      {meal && <Modal title={`وجبات ${fmtDay(meal.date)}`} wide onClose={() => setMeal(null)} footer={<Button onClick={() => setMeal(null)}>إغلاق</Button>}><DayMeals date={meal.date} focus={meal.slot} events={data?.events ?? []} /></Modal>}
       {pick && <Modal title={pick.title} onClose={() => setPick(null)} footer={<Button onClick={() => setPick(null)}>إغلاق</Button>}><EventDetail ev={pick} /></Modal>}
       {imp && <ImportModal onClose={() => setImp(false)} onImport={(b) => void doImport(b)} />}
     </div>

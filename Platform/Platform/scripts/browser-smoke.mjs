@@ -16,7 +16,7 @@ const arg = (name) => {
 const STRICT = process.argv.includes('--strict');
 const SHOTS = arg('--shots');
 const ONLY = arg('--only');
-const SCN = arg('--scenario'); // يشغّل السيناريوهات المطابقة فقط (للتكرار السريع)
+const SCN = arg('--scenario'); // يشغّل السيناريوهات المطابقة فقط (للتكرار السريع؛ عدة أنماط مفصولة بـ||)
 const JSON_OUT = arg('--json');
 
 let pw;
@@ -62,7 +62,7 @@ const scenarioLog = [];
 /** سيناريوهات تفاعلية (عقود PLAN §6ب): اختصارات بمفاتيح عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، اليوم بلا مجلد راشد، 404، المطبخ. */
 async function scenarios(browser, { sem, course }) {
   const run = async (name, vp, fn) => {
-    if (SCN && !name.includes(SCN)) return;
+    if (SCN && !SCN.split('||').some((x) => name.includes(x))) return;
     const ctx = await browser.newContext({ viewport: vp === 'mobile' ? { width: 390, height: 844 } : { width: 1280, height: 800 }, locale: 'ar' });
     const page = await ctx.newPage();
     const errs = [];
@@ -632,10 +632,12 @@ async function scenarios(browser, { sem, course }) {
     if (!(await hasWebgl(page))) return 'WebGL غير متاح في هذا المتصفح — تُخطّى';
     await page.waitForSelector('canvas.kt-canvas', { timeout: 15000 });
     if ((await page.getAttribute('canvas.kt-canvas', 'data-reduced')) !== '1') throw new Error('تقليل الحركة لم يصل للمشهد');
+    // سباق معروف: تغيير الجودة قبل أول رسم قد يضيع تحت SwiftShader؛ ننتظر أول إطار
+    await page.waitForFunction(() => Number(document.querySelector('canvas.kt-canvas')?.dataset.calls) > 0, null, { timeout: 30000 });
     const shots = [];
     for (const q of ['lite', 'standard', 'high']) {
       await page.selectOption('select[aria-label="جودة الرسم"]', q);
-      await page.waitForFunction((q) => document.querySelector('canvas.kt-canvas')?.dataset.quality === q, q, { timeout: 4000 });
+      await page.waitForFunction((q) => document.querySelector('canvas.kt-canvas')?.dataset.quality === q, q, { timeout: 15000 }).catch(async () => { throw new Error(`الجودة ${q} لم تُطبَّق (الحالية: ${await page.evaluate(() => document.querySelector('canvas.kt-canvas')?.dataset.quality)})`); });
       await page.waitForTimeout(700);
     }
     await page.selectOption('select[aria-label="جودة الرسم"]', 'standard');
@@ -759,6 +761,94 @@ async function scenarios(browser, { sem, course }) {
     // ثغرة مزروعة: يوم ناقص يظهر فجوة
     await capi('DELETE', '/import');
     return 'استيراد ICS → المصدر «لقطة مستوردة» → 0 / 0 / 0';
+  });
+  const kput = (date, slots, auto_fit = false) => kapi('PUT', `/plan/${date}`, { slots, auto_fit });
+  await run('J6/J7 من الجدول: حدث «غداء» ← بطاقة ← الملاءمة قبل/بعد ← الحفظ؛ يوم مخالف يُرفض بالمجموع والفرق وحلول بلا تجاوز (AC-07/08)', 'desktop', async (page) => {
+    // لقطة تغطي 2026-11-12 كاملة وفيها حدث «غداء» (فطور/عشاء لا حدث لهما ⇒ خانتان افتراضيتان)
+    const ics = ['BEGIN:VCALENDAR', 'X-WR-CALNAME:روتين وصحة', 'BEGIN:VEVENT', 'UID:m1', 'SUMMARY:نوم', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261112T000000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261112T120000', 'END:VEVENT',
+      'BEGIN:VEVENT', 'UID:m2', 'SUMMARY:🍽️ غداء', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261112T120000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261112T130000', 'END:VEVENT',
+      'BEGIN:VEVENT', 'UID:m3', 'SUMMARY:راحة', 'DTSTART;TZID=Asia/Kuala_Lumpur:20261112T130000', 'DTEND;TZID=Asia/Kuala_Lumpur:20261113T000000', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    if ((await capi('POST', '/import', { format: 'ics', text: ics, from: '2026-11-12', to: '2026-11-12' })).status !== 201) throw new Error('استيراد اللقطة');
+    await ready(page, '/calendar?view=day&date=2026-11-12');
+    await page.waitForSelector('[data-testid=cal-event]', { timeout: 8000 });
+    await page.locator('[data-testid=cal-event]:has-text("غداء")').click();
+    await page.waitForSelector('[role=dialog] [data-testid=day-meals]', { timeout: 8000 });
+    const dlg = page.locator('[role=dialog]');
+    // J6: اختيار بطاقة لثلاث خانات عبر المنتقي
+    for (const [slot, slug] of [['فطور', 'cy-bk-03'], ['غداء', 'cy-ln-01'], ['عشاء', 'cy-dn-04']]) {
+      await dlg.locator(`[data-testid=pick-btn-${slot}]`).click();
+      await page.waitForSelector('[data-testid=meal-picker]', { timeout: 5000 });
+      await page.locator(`[data-testid=meal-picker] [data-slug=${slug}]`).first().click();
+      await page.waitForSelector('[data-testid=meal-picker]', { state: 'detached', timeout: 5000 });
+    }
+    await page.waitForFunction(() => Math.abs(Number(document.querySelector('[role=dialog] [data-testid=law-total]')?.textContent?.trim()) - 1361) <= 3, null, { timeout: 8000 });
+    if ((await dlg.locator('[data-testid=law-gauge]').getAttribute('data-state')) !== 'VALID') throw new Error('حالة القانون');
+    // الملاءمة التلقائية: جدول قبل/بعد
+    await dlg.locator('[data-testid=autofit]').check();
+    await page.waitForSelector('[role=dialog] [data-testid=ba-table]', { timeout: 8000 });
+    const after = Number((await dlg.locator('[data-testid=law-total]').textContent()).trim());
+    if (Math.abs(after - 1300) > 50) throw new Error(`بعد الملاءمة: ${after}`);
+    await dlg.locator('[data-testid=autofit]').uncheck();
+    await dlg.locator('[data-testid=save-plan]').click();
+    await page.waitForFunction(() => /محفوظ: 136\d/.test(document.querySelector('[role=dialog]')?.textContent ?? ''), null, { timeout: 8000 });
+    await shot(page, 'meals-day');
+    // J7: يوم مكتمل 1501 أو 1199 يُرفض (واجهة وخادم) بلا مسار تجاوز
+    const man = (t, kcal) => ({ manual: { title_ar: t, kcal, protein_g: 10, carbs_g: 10, fat_g: 10, fiber_g: 1 } });
+    const hi = await kput('2026-11-20', { 'فطور': man('أ', 500), 'غداء': man('ب', 600), 'عشاء': man('ج', 401) });
+    const lo = await kput('2026-11-20', { 'فطور': man('أ', 400), 'غداء': man('ب', 400), 'عشاء': man('ج', 399) });
+    if (hi.code !== 'law' || hi.total_kcal !== 1501 || hi.diff !== 1 || !hi.solutions?.length) throw new Error(`1501: ${JSON.stringify(hi).slice(0, 140)}`);
+    if (lo.code !== 'law' || lo.total_kcal !== 1199) throw new Error(`1199: ${JSON.stringify(lo).slice(0, 140)}`);
+    await page.keyboard.press('Escape');
+    await ready(page, '/calendar/meals?date=2026-11-21');
+    await page.waitForSelector('[data-testid=day-meals]', { timeout: 8000 });
+    for (const [slot, slug] of [['فطور', 'cy-bk-03'], ['غداء', 'cy-ln-01'], ['عشاء', 'cy-dn-04']]) {
+      await page.locator(`[data-testid=pick-btn-${slot}]`).click();
+      await page.locator(`[data-testid=meal-picker] [data-slug=${slug}]`).first().click();
+    }
+    await page.locator('.dm-slot[data-slot=فطور] .chip:has-text("×1.5")').click();
+    await page.locator('.dm-slot[data-slot=غداء] .chip:has-text("×1.5")').click();
+    await page.waitForSelector('[data-testid=law-reject]', { timeout: 8000 });
+    if (!(await page.locator('[data-testid=law-reject] li').count())) throw new Error('لا حلول في رسالة الرفض');
+    if (!(await page.locator('[data-testid=save-plan]').isDisabled())) throw new Error('زر الحفظ مفعّل خارج المجال');
+    if (await page.locator('button, [role=button], label, input[type=checkbox]').filter({ hasText: /تجاوز|override|bypass/i }).count()) throw new Error('يوجد مسار «تجاوز»');
+    await capi('DELETE', '/import');
+    await kapi('DELETE', '/plan/2026-11-12');
+    return 'غداء ← منتقي ← ≈1361 داخل المجال ← ملاءمة نحو 1300 بجدول قبل/بعد ← حفظ؛ 1501/1199 مرفوضان ولا تجاوز';
+  });
+  await run('MEAL-2: الدورة 30 يومًا (30 سطرًا، رفض الدفعة، تطبيق)، قائمة التسوّق من الجدول مع السلة، والسجل التغذوي', 'desktop', async (page) => {
+    await ready(page, '/calendar/meals?tab=cycle');
+    await page.waitForSelector('[data-testid=cycle-table] tbody tr', { timeout: 8000 });
+    await page.fill('input[aria-label="من تاريخ"]', '2026-12-01');
+    await page.fill('input[aria-label="إلى تاريخ"]', '2026-12-30');
+    await page.waitForFunction(() => document.querySelectorAll('[data-testid=cycle-table] tbody tr').length === 30, null, { timeout: 8000 });
+    if (!/داخل المجال/.test(await page.locator('[data-testid=cycle-summary]').textContent())) throw new Error('الملخص');
+    await page.selectOption('select[aria-label="معامل الحصة"]', '1.5');
+    await page.waitForFunction(() => /مخالف/.test(document.querySelector('[data-testid=cycle-summary]')?.textContent ?? ''), null, { timeout: 8000 });
+    if (!(await page.locator('[data-testid=cycle-apply]').isDisabled())) throw new Error('التطبيق مفعّل رغم المخالفات');
+    await page.selectOption('select[aria-label="معامل الحصة"]', '1');
+    await page.waitForFunction(() => /داخل المجال/.test(document.querySelector('[data-testid=cycle-summary]')?.textContent ?? ''), null, { timeout: 8000 });
+    await page.locator('[data-testid=cycle-apply]').click();
+    await page.waitForFunction(async () => (await (await fetch('/api/kitchen/plan?from=2026-12-01&days=30')).json()).days.length === 30, null, { timeout: 8000 });
+    await shot(page, 'meals-cycle');
+    // التسوّق
+    await ready(page, '/calendar/meals?tab=shop');
+    await page.fill('input[aria-label="من تاريخ"]', '2026-12-01');
+    await page.fill('input[aria-label="إلى تاريخ"]', '2026-12-03');
+    await page.waitForSelector('[data-testid=shop-table] tbody tr', { timeout: 8000 });
+    const rows = await page.locator('[data-testid=shop-table] tbody tr').count();
+    if (rows < 8) throw new Error(`أسطر التسوّق: ${rows}`);
+    await page.waitForSelector('[data-testid=shop-cost]', { timeout: 4000 });
+    await page.locator('[data-testid=shop-to-cart]').click();
+    await page.waitForFunction(async () => (await (await fetch('/api/kitchen/state')).json()).cart.length >= 8, null, { timeout: 8000 });
+    // السجل
+    await ready(page, '/calendar/meals?tab=log');
+    await page.fill('input[aria-label="من تاريخ"]', '2026-12-01');
+    await page.fill('input[aria-label="إلى تاريخ"]', '2026-12-30');
+    await page.waitForFunction(() => document.querySelectorAll('[data-testid=log-bars] .log-row').length === 30, null, { timeout: 8000 });
+    await kapi('POST', '/plan/cycle', { from: '2026-12-01', to: '2026-12-30', apply: false });
+    for (let d = 1; d <= 30; d++) await kapi('DELETE', `/plan/2026-12-${String(d).padStart(2, '0')}`);
+    await kapi('DELETE', '/cart');
+    return 'دورة 30 يومًا ← رفض ×1.5 ← تطبيق ← تسوّق إلى السلة ← سجل 30 يومًا';
   });
   await run('CAL-3: الجدول على الجوال بلا تمرير أفقي للصفحة', 'mobile', async (page) => {
     await ready(page, '/calendar?date=2026-10-26');

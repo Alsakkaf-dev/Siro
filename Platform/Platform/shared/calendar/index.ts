@@ -5,3 +5,4 @@ export * from './layout.js';
 export * from './ics.js';
 export * from './routine.js';
 export * from './graph.js';
+export * from './meals.js';
