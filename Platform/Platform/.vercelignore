@@ -1,9 +1,10 @@
-# لا يُرفع إلى Vercel: يُعاد تثبيته/بناؤه هناك، أو بيانات شخصية محلية
-node_modules
-dist
-data
-backups
+# لا يُرفع إلى Vercel: يُعاد تثبيته/بناؤه هناك، أو بيانات شخصية محلية.
+# الشرطة المائلة في البداية تثبّت النمط على جذر المشروع (بدونها يطابق أي مجلد بالاسم نفسه على أي عمق، مثل shared/kitchen/data).
+/node_modules
+/dist
+/data
+/backups
+/e2e-out
+/.vercel
 *.log
 *.zip
-e2e-out
-.vercel
