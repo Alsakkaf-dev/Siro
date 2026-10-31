@@ -1,0 +1,9 @@
+# لا يُرفع إلى Vercel: يُعاد تثبيته/بناؤه هناك، أو بيانات شخصية محلية
+node_modules
+dist
+data
+backups
+*.log
+*.zip
+e2e-out
+.vercel
