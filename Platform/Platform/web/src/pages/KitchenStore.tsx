@@ -7,6 +7,7 @@ import { useApp } from '../core/app-context.js';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { KitchenChips, NutriGrid, PriceTag, StoreSelect, storeName, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { quickBuy, setCartLine } from '../kitchen/store.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
 import {
   INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, STORES, SOURCE_LABEL, amountRm, clampQty, countPhrase, filterCatalog, fmtKcal, fmtNum, fmtRM, isStale, packNotice, per100g, pickPrice, qtyBounds, qtyView, quickQty, recipeUsage, roundToStep, unitAbbr, unitsFor,
   type CatalogSort, type Category, type Ingredient, type SaleUnit,
@@ -108,7 +109,7 @@ export default function KitchenStore() {
             return (
               <li key={i.slug} className="kt-prod" data-slug={i.slug}>
                 <Link to={`/kitchen/store/${i.slug}${loc.search}`} className="kt-prod-main">
-                  <span className="kt-ico" aria-hidden="true">{i.icon}</span>
+                  <span className="kt-ico" aria-hidden="true"><IngIcon slug={i.slug} category={i.category} size={20} /></span>
                   <strong>{i.name_ar}</strong>
                   <small className="muted" dir="ltr">{i.name_ms}</small>
                   <small className="muted">{blurb(i)}</small>
@@ -188,7 +189,7 @@ function ProductSheet({ ing, onClose }: { ing: Ingredient; onClose: () => void }
   };
 
   return (
-    <Modal wide title={<span className="kt-sheet-title"><span aria-hidden="true">{ing.icon}</span> {ing.name_ar} <small className="muted" dir="ltr">{ing.name_ms}</small></span>} onClose={onClose}
+    <Modal wide title={<span className="kt-sheet-title"><span aria-hidden="true"><IngIcon slug={ing.slug} category={ing.category} size={20} /></span> {ing.name_ar} <small className="muted" dir="ltr">{ing.name_ms}</small></span>} onClose={onClose}
       footer={<>
         <Button onClick={onClose}>إغلاق</Button>
         <Button icon="check" onClick={() => void buyNow()} disabled={!point}>اشترِ الآن</Button>

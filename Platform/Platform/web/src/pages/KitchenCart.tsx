@@ -5,6 +5,7 @@ import { Badge, Button, Card, CardHead, EmptyState, IconButton, Modal } from '..
 import { useApp } from '../core/app-context.js';
 import { KitchenChips, NutriGrid, Section, StoreSelect, storeName, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { KitchenApiError, checkout, clearCart, removeCartLine, setCartLine, type PurchaseOut } from '../kitchen/store.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
 import {
   INGREDIENT_BY_SLUG, ORIGINAL_CARDS, toGrams, STORES, addToLine, cardFeasibility, cartTotals, clampQty, compareStores, coverageDays, fmtKcal, fmtNum, fmtRM, inventoryFrom, qtyBounds, qtyForEdible, unitAbbr, unitsFor,
   type CartLine, type SaleUnit,
@@ -108,7 +109,7 @@ export default function KitchenCart() {
                     const raw = k.cart.find((x) => x.ingredient === l.ingredient);
                     return (
                       <tr key={l.ingredient} data-ing={l.ingredient}>
-                        <th scope="row"><span aria-hidden="true">{ing.icon}</span> <Link to={`/kitchen/store/${l.ingredient}`}>{ing.name_ar}</Link></th>
+                        <th scope="row"><span aria-hidden="true"><IngIcon slug={ing.slug} category={ing.category} /></span> <Link to={`/kitchen/store/${l.ingredient}`}>{ing.name_ar}</Link></th>
                         <td>
                           <div className="row kt-stepper">
                             <IconButton icon="down" label={`أنقص ${ing.name_ar}`} sm onClick={() => setLine(l, l.qty - b.step < b.min - 1e-9 ? 0 : l.qty - b.step, l.unit, raw?.store ?? null)} />

@@ -5,6 +5,7 @@ import { useContent } from '../sports/sportsKit.js';
 import { TagBadge } from '../review/kit.js';
 import { tagFrom } from '../../../shared/weekly.js';
 import { overlapPairs, placeDay, type RBlock, type RoutineBlocksDoc } from '../../../shared/v8.js';
+import { Icon } from '../lib/icons.js';
 
 const hm = (m: number): string => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 const end = (m: number): string => (m >= 1440 ? '24:00' : hm(m));
@@ -59,7 +60,7 @@ export default function LifeRoutineMap() {
                       <summary>قائمة كتل {day.name_ar} ({blocks.length})</summary>
                       <ul className="plain">
                         {[...blocks].sort((x, y) => x.start_min - y.start_min).map((b) => (
-                          <li key={b.id}><button type="button" className="chip" aria-pressed={sel === b.id} onClick={() => setSel(sel === b.id ? null : b.id)}><bdi className="num">{b.start}–{b.end}</bdi> {b.label_ar ?? b.name_original}{(b.overlaps_with ?? []).length ? ' ⚠' : ''}</button></li>
+                          <li key={b.id}><button type="button" className="chip" aria-pressed={sel === b.id} onClick={() => setSel(sel === b.id ? null : b.id)}><bdi className="num">{b.start}–{b.end}</bdi> {b.label_ar ?? b.name_original}{(b.overlaps_with ?? []).length ? <Icon name="warn" size={12} /> : null}</button></li>
                         ))}
                       </ul>
                     </details>

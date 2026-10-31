@@ -5,6 +5,7 @@ import { Badge, Button, Card, CardHead, EmptyState, Field, Modal } from '../ui/u
 import { KitchenChips, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { adjustPantry, fetchPantryMoves, setPantryMin } from '../kitchen/store.js';
 import { INGREDIENT_BY_SLUG, INGREDIENTS, fmtNum, fmtRM } from '../../../shared/kitchen/index.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
 
 const KIND_AR: Record<string, string> = { purchase: 'شراء', consume: 'استهلاك من الطبخ', adjust: 'تعديل' };
 type Move = { id: string; ingredient: string; delta_g: number; kind: string; reason: string | null; ref: string | null; at: string };
@@ -45,7 +46,7 @@ export default function KitchenPantry() {
                   const isLow = p.min_g !== null && p.grams < p.min_g;
                   return (
                     <tr key={p.ingredient} data-ing={p.ingredient}>
-                      <th scope="row"><span aria-hidden="true">{ing.icon}</span> {ing.name_ar}</th>
+                      <th scope="row"><span aria-hidden="true"><IngIcon slug={ing.slug} category={ing.category} /></span> {ing.name_ar}</th>
                       <td className="num" dir="ltr"><b>{fmtNum(Math.round(p.grams * 10) / 10, 1)}</b> غ {isLow && <Badge tone="warn">نقص</Badge>}</td>
                       <td className="num" dir="ltr">{perG === null ? '—' : `${fmtRM(perG)} / غ`}{perG !== null && <small className="muted"> (RM {fmtNum(perG * 1000, 2)} / كغ)</small>}</td>
                       <td className="num" dir="ltr">{p.bought_at ? p.bought_at.slice(0, 10) : '—'}</td>

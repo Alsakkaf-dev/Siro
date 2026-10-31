@@ -106,7 +106,7 @@ export function SpaceSettings({ space, onClose, onSaved }: { space: Space; onClo
                 <div className="stack" style={{ gap: 4 }}>
                   <label className="small" htmlFor={`ff-${f.id}`}>المعادلة — استخدم أسماء الحقول بين أقواس: <code dir="ltr">{'{الحالي} / {المستهدف} * 100'}</code></label>
                   <input id={`ff-${f.id}`} dir="ltr" value={f.formula ?? ''} onChange={(e) => upd(i, { formula: e.target.value })} aria-invalid={!!(f.formula && checkFormula(f.formula))} />
-                  <small className={f.formula && checkFormula(f.formula) ? 'err-inline' : 'muted'}>{f.formula && checkFormula(f.formula) ? `⚠ ${checkFormula(f.formula)}` : `الدوال: ${FORMULA_FUNCTIONS.join('، ')}`}</small>
+                  <small className={f.formula && checkFormula(f.formula) ? 'err-inline' : 'muted'}>{f.formula && checkFormula(f.formula) ? checkFormula(f.formula) : `الدوال: ${FORMULA_FUNCTIONS.join('، ')}`}</small>
                 </div>
               )}
               {f.kind === 'rollup' && f.rollup && (

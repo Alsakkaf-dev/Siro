@@ -236,25 +236,23 @@ export function SafetyDisclaimer({ doc, className }: { doc: SafetySource | null 
   const weight = r?.weight_context_ar ?? doc?.weight_context_ar;
   if (!disclaimer && !injuries) return null;
   return (
-    <div className={`life-alert warn safety-disc ${className ?? ''}`} role="note">
-      <Icon name="shield" size={20} />
-      <div>
-        {disclaimer && <strong>{disclaimer}</strong>}
+    <details className={`safety-disc ${className ?? ''}`} role="note">
+      <summary>
+        <Icon name="shield" size={16} />
+        <span className="sd-text">{disclaimer ?? 'ملاحظات الأمان'}</span>
+        <Icon name="down" size={14} />
+      </summary>
+      <div className="sd-body">
         {injuries && (
-          <p style={{ margin: '6px 0 0' }}>
+          <p>
             الإصابات المسجلة: <Badge dashed>غير مسجلة</Badge>{' '}
             <small>(كتب راشد «{injuries}»؛ المقصود أنها غير مسجلة وليس أنها غير موجودة)</small>
           </p>
         )}
-        {(injNote || weight) && (
-          <details className="safety-more" style={{ marginBlockStart: 6 }}>
-            <summary>تفاصيل مراجعة الأمان</summary>
-            {injNote && <p style={{ margin: '0 0 6px' }}>{injNote}</p>}
-            {weight && <p style={{ margin: 0 }}>{weight}</p>}
-            {r?.basis_ar && <p className="muted" style={{ margin: '6px 0 0' }}>{r.basis_ar}</p>}
-          </details>
-        )}
+        {injNote && <p>{injNote}</p>}
+        {weight && <p>{weight}</p>}
+        {r?.basis_ar && <p className="muted">{r.basis_ar}</p>}
       </div>
-    </div>
+    </details>
   );
 }

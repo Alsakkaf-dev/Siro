@@ -54,7 +54,7 @@ export function FieldValueView({ f, v }: { f: FieldDef; v: FieldValue | undefine
     case 'checkbox':
       return v ? <Icon name="check" size={16} aria-label="نعم" /> : <span className="muted">لا</span>;
     case 'rating':
-      return <span className="stars" aria-label={`${v} من 5`}>{'★'.repeat(Number(v))}<span className="off">{'★'.repeat(5 - Number(v))}</span></span>;
+      return <span className="stars" aria-label={`${v} من 5`}>{Array.from({ length: Number(v) }, (_, i) => <Icon key={i} name="star" size={14} fill="currentColor" />)}<span className="off">{Array.from({ length: 5 - Number(v) }, (_, i) => <Icon key={i} name="star" size={14} fill="currentColor" />)}</span></span>;
     case 'progress':
       return <span className="prog" aria-label={`${v}%`}><i style={{ width: `${Number(v)}%` }} /><b className="num">{Number(v)}%</b></span>;
     case 'url':
@@ -63,7 +63,7 @@ export function FieldValueView({ f, v }: { f: FieldDef; v: FieldValue | undefine
       return <LibLink v={String(v)} />;
     case 'formula':
     case 'rollup':
-      return typeof v === 'string' && v.startsWith('#خطأ') ? <span className="fv-err" title={v}>⚠ خطأ</span> : <span className="num">{f.kind === 'rollup' && f.rollup?.agg === 'percent_done' ? `${v}%` : String(v)}</span>;
+      return typeof v === 'string' && v.startsWith('#خطأ') ? <span className="fv-err" title={v}><Icon name="warn" size={12} /> خطأ</span> : <span className="num">{f.kind === 'rollup' && f.rollup?.agg === 'percent_done' ? `${v}%` : String(v)}</span>;
     case 'longtext':
       return <span className="ellipsis">{String(v).slice(0, 80)}</span>;
     default:
@@ -121,7 +121,7 @@ export function FieldEditor({ f, v, onChange, id, label }: { f: FieldDef; v: Fie
       const n = Number(v ?? 0);
       return (
         <span id={id} className="star-input" role="radiogroup" aria-label={label ?? f.name}>
-          {[1, 2, 3, 4, 5].map((k) => <button key={k} type="button" role="radio" aria-checked={n === k} aria-label={`${k} من 5`} className={cx(k <= n && 'on')} onClick={() => onChange(n === k ? 0 : k)}>★</button>)}
+          {[1, 2, 3, 4, 5].map((k) => <button key={k} type="button" role="radio" aria-checked={n === k} aria-label={`${k} من 5`} className={cx(k <= n && 'on')} onClick={() => onChange(n === k ? 0 : k)}><Icon name="star" size={18} fill="currentColor" /></button>)}
         </span>
       );
     }

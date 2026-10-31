@@ -6,6 +6,8 @@ import { useApp } from '../core/app-context.js';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { KitchenChips, NutriGrid, Section, storeShort, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { deleteCard, makeVariant, patchCard, setCartLine, type CardRowC } from '../kitchen/store.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
+import { Icon } from '../lib/icons.js';
 import {
   BADGE_LABEL, INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_CARDS, RARITY_LABEL, STORES, addToLine, cardFeasibility, cardOf, compareCards, fmtKcal, fmtNum, fmtRM, inventoryFrom, mealCost, nutritionOf, per100g, qtyForEdible, scaleLines,
   type CardStats, type CardView, type MealType, type Profile,
@@ -143,9 +145,9 @@ function PlayerCard({ c, picked, onPick, startFlipped = false }: { c: CardView; 
           <div className="kt-pc-top">
             <span className="kt-ovr" aria-label={c.stats ? `التقييم الإجمالي ${c.stats.OVR}` : 'التقييم غير متاح'}><b className="num">{c.stats ? c.stats.OVR : '—'}</b><small>OVR</small></span>
             <span className="kt-pc-meal">{mealOf(c)}</span>
-            <span className="kt-pc-ico" aria-hidden="true">{c.mainIngredient ? INGREDIENT_BY_SLUG.get(c.mainIngredient)?.icon : '🍽️'}</span>
+            <span className="kt-pc-ico" aria-hidden="true">{c.mainIngredient ? <IngIcon slug={c.mainIngredient} category={INGREDIENT_BY_SLUG.get(c.mainIngredient)?.category} size={18} /> : <Icon name="utensils" size={18} />}</span>
           </div>
-          <div className="kt-pc-art" aria-hidden="true"><span>{c.mainIngredient ? INGREDIENT_BY_SLUG.get(c.mainIngredient)?.icon : '🍽️'}</span></div>
+          <div className="kt-pc-art" aria-hidden="true"><span>{c.mainIngredient ? <IngIcon slug={c.mainIngredient} category={INGREDIENT_BY_SLUG.get(c.mainIngredient)?.category} size={44} /> : <Icon name="utensils" size={44} />}</span></div>
           <h3 className="kt-pc-name">{c.title_ar}</h3>
           {c.stats ? (
             <dl className="kt-pc-stats">
@@ -225,7 +227,7 @@ function CardBack({ c, onFlip }: { c: CardView; onFlip: () => void }) {
           const pr = l.profile ?? g.profile;
           return (
             <li key={`${l.ingredient}-${i}`}>
-              <span aria-hidden="true">{g.icon}</span> <b>{g.name_ar}</b>
+              <span aria-hidden="true"><IngIcon slug={g.slug} category={g.category} /></span> <b>{g.name_ar}</b>
               <span className="num" dir="ltr">{l.amount_g === null ? 'بلا كمية' : `${fmtNum(l.amount_g, 0)} غ`}</span>
               <small className="muted">{PROFILE_AR[pr]}{l.amount_g && g.piece_edible_g ? ` · ≈ ${fmtNum(l.amount_g / g.piece_edible_g, 1)} حبة` : ''}{l.amount_g && g.slug === 'toast' ? ` · ≈ ${fmtNum(l.amount_g / 20, 1)} شريحة` : ''}</small>
             </li>

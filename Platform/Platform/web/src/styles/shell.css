@@ -65,7 +65,7 @@
 
 .content { min-width: 0; }
 .page { max-width: 1280px; margin-inline: auto; animation: page-in var(--t-slow) var(--ease-out) both; }
-.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; margin-block-end: var(--s-5); }
+.page-head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; margin-block-end: var(--s-5); }
 .page-head h1 { font-size: 1.375rem; font-weight: 700; display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
 .page-head > div { min-width: 0; }
 .page-head h1, .crumbs a { overflow-wrap: anywhere; min-width: 0; }

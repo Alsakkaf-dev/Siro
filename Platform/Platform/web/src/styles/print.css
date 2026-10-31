@@ -10,7 +10,7 @@
   .print-head h1 { font-size: 18pt; } .print-course h2 { font-size: 13pt; }
   table.t { min-width: 0; font-size: 10pt; width: 100%; border-collapse: collapse; }
   .t th, .t td { border: 1px solid #bbb; padding: 4pt 6pt; }
-  .table-wrap { border: 0; overflow: visible; }
+  .table-wrap, .life-tbl-wrap { border: 0; overflow: visible; max-block-size: none; }
   a { color: #000; text-decoration: none; }
   .print-foot { margin-block-start: 12pt; font-size: 9pt; color: #555; }
 }

@@ -81,6 +81,8 @@ import {
   LuX,
   LuYoutube,
   LuZap,
+  LuCircleCheck,
+  LuCircle,
 } from 'react-icons/lu';
 
 /** مجموعة Lucide عبر react-icons: أيقونات خطية موحّدة (سماكة وزوايا واحدة) بدل المسارات اليدوية. الاسم الدلالي ثابت والتنفيذ مركزي هنا. */
@@ -166,11 +168,13 @@ const MAP = {
   fileAudio: LuFileAudio,
   fileArchive: LuFileArchive,
   youtube: LuYoutube,
+  checkCircle: LuCircleCheck,
+  circle: LuCircle,
 } as const satisfies Record<string, ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>>;
 
 export type IconName = keyof typeof MAP;
 
 export function Icon({ name, size = 20, ...rest }: { name: IconName | string; size?: number } & Omit<SVGProps<SVGSVGElement>, 'name'>) {
   const C = (MAP as Record<string, ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>>)[name] ?? MAP.info;
-  return <C size={size} strokeWidth={1.75} aria-hidden="true" focusable="false" {...rest} />;
+  return <C size={size} strokeWidth={1.75} aria-hidden="true" focusable="false" data-ico={name} {...rest} />;
 }

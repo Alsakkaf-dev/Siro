@@ -13,6 +13,8 @@ import {
   INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_RECIPES, RECIPE_BY_SLUG, STORES, fmtKcal, fmtNum, fmtRM, indexPrices, mealCost, nutritionOf, per100g, qtyView, type MealType, type RecipeLine,
 } from '../../../shared/kitchen/index.js';
 import { SimError, cookToCard, detectSteps, findDuplicate, parseSteps, SPEEDS, type Item, type OpIn, type Speed } from '../../../shared/kitchen/sim/index.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
+import { Icon } from '../lib/icons.js';
 
 const Mini3D = lazy(() => import('../kitchen/cook/Stage3D.js'));
 
@@ -316,12 +318,12 @@ export default function KitchenCook() {
               <ol className="plain kt-recipe-steps">
                 {recipe.steps_original.map((s, i) => (
                   <li key={i} className={cx(stepStates[i]?.done && 'done')} data-step-done={stepStates[i]?.done ? '1' : '0'}>
-                    <span aria-hidden="true">{stepStates[i]?.done ? '✅' : '⬜'}</span> {s.replace(/^\d+:\s*/, '')}
+                    <span aria-hidden="true"><Icon name={stepStates[i]?.done ? 'checkCircle' : 'circle'} size={16} /></span> {s.replace(/^\d+:\s*/, '')}
                     {!stepStates[i]?.done && stepStates[i] && stepStates[i]!.missing.length > 0 && <small className="muted"> — {stepStates[i]!.missing[0]}</small>}
                   </li>
                 ))}
               </ol>
-              <div className="row">{recipe.lines.filter((l) => l.amount_g).map((l) => <button key={l.ingredient} type="button" className="chip" onClick={() => { setSelIng(l.ingredient); setGrams(String(l.amount_g)); }}>{INGREDIENT_BY_SLUG.get(l.ingredient)?.icon} {INGREDIENT_BY_SLUG.get(l.ingredient)?.name_ar} {l.amount_g} غ</button>)}</div>
+              <div className="row">{recipe.lines.filter((l) => l.amount_g).map((l) => <button key={l.ingredient} type="button" className="chip" onClick={() => { setSelIng(l.ingredient); setGrams(String(l.amount_g)); }}><IngIcon slug={l.ingredient} category={INGREDIENT_BY_SLUG.get(l.ingredient)?.category} size={14} /> {INGREDIENT_BY_SLUG.get(l.ingredient)?.name_ar} {l.amount_g} غ</button>)}</div>
             </Card>
           )}
           {tab === 'log' && (
@@ -378,7 +380,7 @@ function ActionPanel(p: {
             const have = p.stock[i.slug] ?? 0;
             return (
               <button key={i.slug} type="button" className={cx('kt-ing-btn', have <= 0 && 'out')} aria-pressed={p.selIng === i.slug} onClick={() => { p.setSelIng(i.slug); const r = p.recipe?.find((l) => l.ingredient === i.slug)?.amount_g; p.setGrams(String(r ?? (['oil', 'milk'].includes(i.slug) ? 10 : ['salt', 'cumin', 'sugar'].includes(i.slug) ? 2 : 100))); }} data-ing={i.slug} title={have <= 0 ? 'غير موجود في مخزني' : `في مخزني ${fmtNum(have, 0)} غ`}>
-                <span aria-hidden="true">{i.icon}</span> <span>{i.name_ar}</span>
+                <span aria-hidden="true"><IngIcon slug={i.slug} category={i.category} size={16} /></span> <span>{i.name_ar}</span>
                 <small className="muted">{p.mode === 'sandbox' ? '∞' : fmtNum(Math.round(have), 0)}</small>
               </button>
             );
@@ -421,7 +423,7 @@ function ActionPanel(p: {
           <ul className="plain kt-items" data-testid="item-list">
             {items.map((i) => (
               <li key={i.id}><button type="button" className={cx('kt-item-btn', sel?.id === i.id && 'sel')} aria-pressed={sel?.id === i.id} onClick={() => p.setSelItem(i.id)} data-item={i.id}>
-                {INGREDIENT_BY_SLUG.get(i.ingredient)?.icon} {INGREDIENT_BY_SLUG.get(i.ingredient)?.name_ar} <b className="num" dir="ltr">{fmtNum(i.g0, 0)} غ</b> · {LOC_AR(i.loc)}
+                <IngIcon slug={i.ingredient} category={INGREDIENT_BY_SLUG.get(i.ingredient)?.category} size={14} /> {INGREDIENT_BY_SLUG.get(i.ingredient)?.name_ar} <b className="num" dir="ltr">{fmtNum(i.g0, 0)} غ</b> · {LOC_AR(i.loc)}
                 {i.cut && <Badge>{SHAPES.find((s) => s.v === i.cut!.shape)?.l ?? (i.cut.shape === 'grated' ? 'مبشور' : i.cut.shape === 'mashed' ? 'مهروس' : i.cut.shape)}</Badge>}
                 {i.whisked && <Badge>مخفوق</Badge>}{i.peeled && <Badge>مقشّر</Badge>}{i.juiced && <Badge>معصور</Badge>}
                 <Badge tone={i.stage === 'done' ? 'ok' : i.stage === 'burnt' ? 'danger' : i.stage === 'undercooked' ? 'warn' : undefined}>{({ raw: 'نيء', undercooked: 'نصف ناضج', done: 'ناضج', overdone: 'زائد النضج', burnt: 'محترق' } as Record<string, string>)[i.stage]}</Badge>

@@ -13,6 +13,7 @@ import { KIND_COLOR, KIND_LABEL, KINDS, STATUS_LABEL } from '../../../shared/con
 import { assessmentColumn, dueSortMs, parseISO, weekOf, weekStartMs } from '../../../shared/semester.js';
 import type { Assessment, Kind } from '../../../shared/types.js';
 import { fmtDateShort, fmtNum, weekRangeLabel, whenText } from '../lib/format.js';
+import { Icon } from '../lib/icons.js';
 
 const WeightsBody = lazy(() => import('./Weights.js').then((m) => ({ default: m.WeightsBody })));
 
@@ -280,7 +281,7 @@ function ListView({ items, filter, toggle, clear, onlyOpen, setOnlyOpen }: { ite
         <div className="row">
           <Switch checked={onlyOpen} onChange={setOnlyOpen} label="غير المُنجَز فقط" />
           <Segmented<Group> label="التجميع" value={group} onChange={setGroup} options={[{ value: 'week', label: 'حسب الأسبوع' }, { value: 'course', label: 'حسب المادة' }, { value: 'status', label: 'حسب الحالة' }]} />
-          {day && <button className="chip" aria-pressed="true" onClick={() => setDay('')}>يوم {fmtDateShort(dayMs)} ✕</button>}
+          {day && <button className="chip" aria-pressed="true" onClick={() => setDay('')}>يوم {fmtDateShort(dayMs)} <Icon name="x" size={12} /></button>}
         </div>
       </div>
       {rows.length === 0 ? (

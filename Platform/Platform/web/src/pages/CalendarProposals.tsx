@@ -81,7 +81,7 @@ export default function CalendarProposals() {
                       <small className="muted">{p.calendar}</small>
                       <Badge {...(ST[p.status].tone ? { tone: ST[p.status].tone } : {})}>{ST[p.status].label}</Badge>
                       {p.exported_at && <Badge dashed>صُدِّر</Badge>}
-                      {p.lint.ok ? <Badge tone="ok"><Icon name="check" size={11} /> فحص القوانين ✓</Badge> : <Badge tone="danger">فحص القوانين ✗</Badge>}
+                      {p.lint.ok ? <Badge tone="ok"><Icon name="check" size={11} /> فحص القوانين</Badge> : <Badge tone="danger"><Icon name="x" size={11} /> فحص القوانين</Badge>}
                       <span className="grow" />
                       {p.status === 'pending' && <><Button size="sm" variant="primary" onClick={() => void act(() => setProposalStatus(p.id, 'approved'))}>اعتمد</Button><Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'rejected'))}>ارفض</Button></>}
                       {p.status === 'approved' && <><Button size="sm" onClick={() => void doExport([p.id])}>صدّر</Button><Button size="sm" variant="primary" disabled={!p.exported_at} title={p.exported_at ? '' : 'صدِّره لراشد أولًا'} onClick={() => void act(() => setProposalStatus(p.id, 'applied'), 'وُسم مطبّقًا')} data-testid="mark-applied">وسمه مطبّقًا</Button><Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'pending'))}>أرجع للمعلّق</Button></>}

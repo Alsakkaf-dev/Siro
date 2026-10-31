@@ -5,6 +5,8 @@ import { useApp } from '../core/app-context.js';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { KitchenChips, Section, storeName, storeShort, useAct, useKitchen } from '../kitchen/kitchenKit.js';
 import { bulkPercent, copyPrices, decideRequest, fetchAudit, requestIngredient, revertAudit, setPrice, type AuditRow, KitchenApiError } from '../kitchen/store.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
+import { Icon } from '../lib/icons.js';
 import {
   INGREDIENTS, INGREDIENT_BY_SLUG, ORIGINAL_CARDS, SOURCE_LABEL, STORES, cardOf, cartTotals, checkPriceChange, fmtNum, fmtRM, indexPrices, isStale, toGrams, unitAbbr,
   type Category, type PricePoint,
@@ -74,7 +76,7 @@ function Matrix() {
             <tbody>
               {rows.map((i) => (
                 <tr key={i.slug} data-ing={i.slug}>
-                  <th scope="row"><span aria-hidden="true">{i.icon}</span> {i.name_ar}</th>
+                  <th scope="row"><span aria-hidden="true"><IngIcon slug={i.slug} category={i.category} /></span> {i.name_ar}</th>
                   <td><small className="muted">{unitAbbr(i.sale_unit)} · <span className="num" dir="ltr">{fmtNum(toGrams(i, 1), 0)}</span> غ</small></td>
                   {STORES.map((s) => <Cell key={s.slug} point={byKey.get(`${i.slug}|${s.slug}`)} ingredient={i.slug} store={s.slug} onSave={save} />)}
                 </tr>
@@ -106,9 +108,11 @@ const Cell = memo(function Cell({ point, ingredient, store, onSave }: { point: P
         <input ref={ref} className="input kt-cell-in num" dir="ltr" inputMode="decimal" aria-label={`سعر ${INGREDIENT_BY_SLUG.get(ingredient)?.name_ar} في ${storeName(store)}`} value={val} onChange={(e) => setVal(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') void commit(); else if (e.key === 'Escape') setEdit(false); }} onBlur={() => setEdit(false)} />
       ) : (
-        <button type="button" className="kt-cell-btn" onClick={() => { setVal(point ? String(point.price_rm) : ''); setEdit(true); }} aria-label={`${INGREDIENT_BY_SLUG.get(ingredient)?.name_ar} في ${storeName(store)}: ${point ? fmtRM(point.price_rm) : 'لا سعر'} — تحرير`}>
+        <button type="button" className="kt-cell-btn" onClick={() => { setVal(point ? String(point.price_rm) : ''); setEdit(true); }}>
+          <span className="sr-only">{INGREDIENT_BY_SLUG.get(ingredient)?.name_ar} في {storeName(store)}: </span>
           <b className="num" dir="ltr" data-price>{point ? point.price_rm.toFixed(2) : '—'}</b>
-          {point && <small title={`آخر تحديث ${point.observed_at.slice(0, 10)}`}>{SOURCE_LABEL[point.source]}{point.unverified ? ' ⚠' : ''}{stale ? ' · قديم' : ''} · <span className="num" dir="ltr">{point.observed_at.slice(5, 10)}</span></small>}
+          {point && <small title={`آخر تحديث ${point.observed_at.slice(0, 10)}`}>{SOURCE_LABEL[point.source]}{point.unverified ? <Icon name="warn" size={11} /> : null}{stale ? ' · قديم' : ''} · <span className="num" dir="ltr">{point.observed_at.slice(5, 10)}</span></small>}
+          <span className="sr-only"> — تحرير</span>
         </button>
       )}
     </td>

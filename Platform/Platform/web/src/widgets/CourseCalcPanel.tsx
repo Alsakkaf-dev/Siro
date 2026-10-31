@@ -55,7 +55,7 @@ export function CourseCalcPanel({ course }: { course: Course }) {
   const whatIf = Object.keys(overrides).length > 0;
   const hasAssumedWeights = items.some((a) => a.weight_assumed);
   const lostPct = Math.round((calc.lost + 0) * 10) / 10;
-  const stateText = (r: TargetRow): string => (r.state === 'sure' ? 'مضمون ✓' : r.state === 'impossible' ? 'غير ممكن' : `${fmtNum(r.need)}%`);
+  const stateText = (r: TargetRow): string => (r.state === 'sure' ? 'مضمون' : r.state === 'impossible' ? 'غير ممكن' : `${fmtNum(r.need)}%`);
   const rowLabel = (r: TargetRow): string => (r.mode === 'final' ? 'من النهائي' : r.mode === 'rest' ? 'من المتبقي' : 'مكتمل');
   const setOvCourse = (_: unknown): void => setOv({});
 

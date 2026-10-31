@@ -178,9 +178,10 @@ export default function Sports() {
             <ul className="ex-grid">
               {result.map((e) => (
                 <li key={e.id} className="ex-card">
-                  <button type="button" className="ex-main" onClick={() => setOpen(e)} aria-label={`${e.arabic_name} — تفاصيل`}>
+                  <button type="button" className="ex-main" onClick={() => setOpen(e)}>
                     <span className="ex-ar">{e.arabic_name}</span>
                     <span className="ex-en" lang="en">{e.english_name}</span>
+                    <span className="sr-only"> — تفاصيل</span>
                   </button>
                   <div className="ex-meta">
                     <Badge>{e.main_muscle_ar}</Badge>

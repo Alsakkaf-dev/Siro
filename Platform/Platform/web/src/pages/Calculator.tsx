@@ -6,6 +6,7 @@ import { Button, Card, CardHead, EmptyState } from '../ui/ui.js';
 import { CourseCalcPanel } from '../widgets/CourseCalcPanel.js';
 import { isGraded } from '../../../shared/calc.js';
 import { fmtNum } from '../lib/format.js';
+import { Icon } from '../lib/icons.js';
 
 /** حاسبة الدرجات: المادة في الرابط (?course=<id>)، والحاسبة نفسها مكوّن مشترك مع صفحة المادة. */
 export default function Calculator() {
@@ -38,7 +39,7 @@ export default function Calculator() {
                   <td><span className="row" style={{ gap: 8, flexWrap: 'nowrap' }}><i className="dot" style={{ background: c.color }} /> <bdi>{c.code}</bdi></span></td>
                   <td className="n">{fmtNum(cc.earned)}</td>
                   <td className="n">{fmtNum(cc.maxPossible)}</td>
-                  {cc.rows.map((r) => (<td key={r.target} className="n"><span className={`tcell ${r.state}`}>{r.state === 'sure' ? '✓' : r.state === 'impossible' ? '✕' : `${fmtNum(r.need, 0)}%`}</span></td>))}
+                  {cc.rows.map((r) => (<td key={r.target} className="n"><span className={`tcell ${r.state}`}>{r.state === 'sure' ? <Icon name="check" size={14} /> : r.state === 'impossible' ? <Icon name="x" size={14} /> : `${fmtNum(r.need, 0)}%`}</span></td>))}
                 </tr>
               ))}
             </tbody>

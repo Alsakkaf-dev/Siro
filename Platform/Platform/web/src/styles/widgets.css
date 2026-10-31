@@ -42,29 +42,28 @@ ul.plain { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-
 .av-stack { display: inline-flex; } .av-stack .av + .av { margin-inline-start: -8px; }
 
 /* ───────── tiles ───────── */
-.tile { position: relative; display: grid; gap: 2px; align-content: start; padding: var(--s-4) var(--s-5); border-radius: var(--r-lg); border: 1px solid transparent; color: var(--text); text-decoration: none; overflow: hidden; transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base); min-height: 132px; }
+.tile { position: relative; display: grid; gap: 2px; align-content: start; padding: var(--s-3) var(--s-4); border-radius: var(--r-lg); border: 1px solid var(--border); color: var(--text); text-decoration: none; overflow: hidden; transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base); min-height: 132px; }
 a.tile:hover { box-shadow: var(--shadow-2); text-decoration: none; }
-.tile.tone-purple { background: var(--tile-purple); } .tile.tone-orange { background: var(--tile-orange); } .tile.tone-blue { background: var(--tile-blue); } .tile.tone-green { background: var(--tile-green); } .tile.tone-pink { background: var(--tile-pink); }
-.tile.tone-ink { background: var(--ink); color: var(--ink-text); } .tile.tone-lime { background: var(--lime); color: #14172B; }
-.tile-ico { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: rgba(255,255,255,0.65); color: #14172B; margin-block-end: var(--s-2); }
-[data-theme='dark'] .tile-ico { background: rgba(255,255,255,0.12); color: var(--text); }
+/* بلاطات محايدة: السطح أبيض، واللون في شريحة الأيقونة فقط */
+.tile.tone-purple { --tc: #7C5CFF; } .tile.tone-orange { --tc: #D98A12; } .tile.tone-blue { --tc: #2F86D6; } .tile.tone-green { --tc: #2FA866; } .tile.tone-pink { --tc: #D5478C; }
+.tile[class*='tone-']:not(.tone-ink):not(.tone-lime) { background: var(--surface); }
+.tile[class*='tone-']:not(.tone-ink):not(.tone-lime) .tile-ico { color: var(--tc); background: color-mix(in srgb, var(--tc) 12%, var(--surface)); border-color: color-mix(in srgb, var(--tc) 22%, var(--border)); }
+.tile.tone-ink { background: var(--ink); color: var(--ink-text); } .tile.tone-lime { background: var(--accent-soft); color: var(--text); }
+.tile-ico { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--surface); color: var(--text-2); border: 1px solid var(--border); margin-block-end: var(--s-1); }
 .tile-l { font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-sm); opacity: 0.85; }
-.tile-v { font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-2xl); line-height: 1.15; }
+.tile-v { font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-xl); line-height: 1.15; font-variant-numeric: tabular-nums; }
 .tile-s { font-size: var(--fs-xs); opacity: 0.8; }
 .tile-x { position: absolute; inset-inline-end: var(--s-4); top: var(--s-4); opacity: 0.9; }
 .tile-x svg { max-width: none; }
 .spark-l { stroke-dasharray: 1; animation: draw 900ms var(--ease-out) both; }
 
 /* hero */
-.hero { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: var(--s-6); flex-wrap: wrap; padding: var(--s-8) var(--s-8); border-radius: var(--r-xl); color: #fff; background: linear-gradient(120deg, #4A34E0 0%, #6B52F4 45%, #8F7BFF 100%); box-shadow: 0 30px 60px -30px rgba(91, 69, 240, 0.7); isolation: isolate; }
-.hero-bg { position: absolute; inset: 0; z-index: -1; background: radial-gradient(420px 220px at 12% 120%, rgba(198, 238, 69, 0.45), transparent 70%), radial-gradient(360px 260px at 92% -10%, rgba(76, 201, 240, 0.5), transparent 70%); }
-.hero-bg::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.18) 1.4px, transparent 1.6px); background-size: 22px 22px; mask-image: linear-gradient(120deg, transparent 20%, #000 80%); }
+.hero { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); flex-wrap: wrap; padding: var(--s-5) var(--s-6); border-radius: var(--r-lg); color: var(--text); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-1); }
+.hero-bg { display: none; }
 .hero-main { min-width: 0; max-width: 560px; }
-.hero-eb { display: inline-flex; gap: 6px; align-items: center; padding: 3px 12px; border-radius: var(--r-pill); background: rgba(255,255,255,0.18); font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-xs); margin-block-end: var(--s-3); }
-.hero h2 { font-size: var(--fs-2xl); font-weight: 700; color: #fff; }
-.hero p { margin-block-start: var(--s-2); opacity: 0.92; }
-.hero .btn { border-color: transparent; background: rgba(255,255,255,0.92); color: #1A1750; }
-.hero .btn.ink { background: #14172B; color: #fff; }
+.hero-eb { display: inline-flex; gap: 6px; align-items: center; padding: 0 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent-text); font-family: var(--font-ui); font-weight: 600; font-size: 11px; line-height: 18px; margin-block-end: var(--s-2); }
+.hero h2 { font-size: var(--fs-xl); font-weight: 700; color: var(--text); }
+.hero p { margin-block-start: var(--s-1); color: var(--text-2); }
 .hero .tickbar { margin-inline-end: var(--s-2); }
 .hero-aside { flex: none; }
 @media (max-width: 640px) { .hero { padding: var(--s-6) var(--s-5); } .hero h2 { font-size: var(--fs-xl); } }
@@ -73,7 +72,7 @@ a.tile:hover { box-shadow: var(--shadow-2); text-decoration: none; }
 .countdown small { opacity: 0.9; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cd-digits { display: flex; align-items: baseline; gap: 4px; font-family: var(--font-ui); justify-content: flex-start; }
 .cd-digits b { font-size: 1.9rem; font-weight: 700; line-height: 1; } .cd-digits i { font-style: normal; opacity: 0.75; font-size: var(--fs-sm); margin-inline-end: 6px; }
-.cd-digits .cd-s { color: var(--c, var(--lime)); }
+.cd-digits .cd-s { color: var(--c, var(--accent-text)); }
 
 /* deadlines */
 .dl-list { display: grid; gap: var(--s-2); }

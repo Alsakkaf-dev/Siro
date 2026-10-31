@@ -14,7 +14,8 @@
 .status-pill:focus-within { box-shadow: 0 0 0 3px var(--accent-soft); border-color: var(--accent); }
 .status-pill.ro { padding-inline: 10px; height: 26px; }
 .opt-pill { --c: var(--text-3); display: inline-flex; align-items: center; padding: 1px 8px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--c) 15%, var(--surface)); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); font-size: var(--fs-xs); font-weight: 600; white-space: nowrap; }
-.stars { color: #B45309; letter-spacing: 1px; }
+.stars { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; color: #B45309; }
+.stars .off { display: inline-flex; gap: 1px; }
 .stars .off { color: var(--border-strong); }
 .prog { position: relative; display: inline-flex; align-items: center; gap: 6px; min-width: 90px; }
 .prog > i { display: block; height: 6px; border-radius: 6px; background: var(--accent); min-width: 2px; flex: none; }
@@ -29,7 +30,7 @@
 .chip-set { display: flex; flex-wrap: wrap; gap: 6px; }
 .chip.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .star-input { display: inline-flex; gap: 2px; }
-.star-input button { width: 32px; height: 32px; border: 0; background: transparent; font-size: 20px; color: var(--border-strong); cursor: pointer; border-radius: 8px; }
+.star-input button { display: inline-grid; place-items: center; width: 32px; height: 32px; border: 0; background: transparent; font-size: 20px; color: var(--border-strong); cursor: pointer; border-radius: 8px; }
 .star-input button.on { color: #B45309; }
 .star-input button:hover { background: var(--surface-2); }
 

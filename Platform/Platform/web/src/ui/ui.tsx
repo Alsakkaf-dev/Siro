@@ -91,7 +91,7 @@ export function EmptyState({ icon = 'folder', title, text, action }: { icon?: Ic
   return (
     <div className="empty">
       <div className="em-ico">
-        <Icon name={icon} size={30} />
+        <Icon name={icon} size={24} />
       </div>
       <h2>{title}</h2>
       {text && <p style={{ maxWidth: 460 }}>{text}</p>}

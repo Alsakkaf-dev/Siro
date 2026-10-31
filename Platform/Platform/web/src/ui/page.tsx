@@ -5,6 +5,9 @@ import { useApp } from '../core/app-context.js';
 import { useBarFade } from '../core/hscroll.js';
 import { PAGE_BY_ID, crumbsFor, hrefFor, matchPage, resolvePath, subTabsFor } from '../core/registry.js';
 
+/** وصف أطول من هذا الحد يُعدّ شرحًا فيصير أيقونة ⓘ؛ الأقصر (تاريخ، عدّاد) يبقى ظاهرًا */
+const LONG_SUB = 56;
+
 /** رأس الصفحة: فتات الخبز افتراضيًا من السجل (ما لم تُمرَّر صراحة للصفحات الديناميكية)، وتبويبات tabGroup تلقائيًا. */
 export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: ReactNode; icon?: IconName; sub?: ReactNode; crumbs?: { to?: string; label: string }[]; actions?: ReactNode; badge?: ReactNode }) {
   const loc = useLocation();
@@ -34,9 +37,9 @@ export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: 
           {icon && <span className="h-ico"><Icon name={icon} size={22} /></span>}
           {title}
           {badge}
-          {typeof sub === 'string' && sub && <span className="h-info" tabIndex={0} role="note" aria-label={sub} data-tip={sub}><Icon name="info" size={16} /></span>}
+          {typeof sub === 'string' && sub.length > LONG_SUB && <span className="h-info" tabIndex={0} role="note" aria-label={sub} data-tip={sub}><Icon name="info" size={16} /></span>}
         </h1>
-        {sub && typeof sub !== 'string' && <p>{sub}</p>}
+        {sub && (typeof sub !== 'string' || sub.length <= LONG_SUB) && <p>{sub}</p>}
       </div>
       {actions && <div className="actions">{actions}</div>}
       {tabs.length > 1 && (

@@ -7,6 +7,7 @@ import { StatTile } from '../widgets/tiles.js';
 import { flagEnabled } from '../core/flags.js';
 import { t } from '../kitchen/i18n/ar.js';
 import { Enrichment } from '../kitchen/Enrichment.js';
+import { IngIcon } from '../kitchen/kitchenIcons.js';
 import {
   CYCLE, INGREDIENTS, LAW, ORIGINAL_RECIPES, SEED_PRICES, STORES, fmtKcal, fmtNum, fmtRM, indexPrices, nutritionOf, per100g, pickPrice, searchIngredients, unitAbbr, withinLaw, type Category,
 } from '../../../shared/kitchen/index.js';
@@ -56,7 +57,7 @@ export default function Kitchen() {
               const used = usage.get(i.slug) ?? 0;
               return (
                 <li key={i.slug} className="ing-card">
-                  <span className="ing-ico" aria-hidden="true">{i.icon}</span>
+                  <span className="ing-ico" aria-hidden="true"><IngIcon slug={i.slug} category={i.category} size={22} /></span>
                   <div className="ing-main">
                     <strong>{i.name_ar}</strong>
                     <small className="muted" dir="ltr">{i.name_ms}</small>

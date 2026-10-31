@@ -1,3 +1,4 @@
+import { AnimatedNumber } from '../ui/AnimatedNumber.js';
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, type IconName } from '../lib/icons.js';
@@ -25,7 +26,7 @@ export function StatTile({ tone = 'purple', icon, label, value, sub, extra, to }
     <>
       <span className="tile-ico"><Icon name={icon} size={20} /></span>
       <span className="tile-l">{label}</span>
-      <strong className="tile-v num">{value}</strong>
+      <strong className="tile-v num">{typeof value === 'number' && Number.isFinite(value) ? <AnimatedNumber value={value} decimals={Number.isInteger(value) ? 0 : 1} /> : value}</strong>
       {sub && <span className="tile-s">{sub}</span>}
       {extra && <span className="tile-x">{extra}</span>}
     </>

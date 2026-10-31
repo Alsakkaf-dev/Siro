@@ -1,0 +1,30 @@
+/* ───────── حركة وتفاعل (Atlassian/Primer/Carbon): transform وopacity فقط، وتحترم prefers-reduced-motion من base.css ───────── */
+
+/* أيقونات حيّة عند مرور المؤشر على العنصر الحاوي (data-ico يضعه Icon) */
+@keyframes ico-ring { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(14deg); } 40% { transform: rotate(-12deg); } 60% { transform: rotate(8deg); } 80% { transform: rotate(-4deg); } }
+@keyframes ico-twinkle { 0%, 100% { transform: scale(1) rotate(0); } 50% { transform: scale(1.2) rotate(14deg); } }
+@keyframes ico-spin-half { to { transform: rotate(180deg); } }
+@keyframes ico-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes ico-pulse { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.18); } }
+:is(a, button):hover > svg[data-ico='bell'] { animation: ico-ring 600ms var(--ease-standard); transform-origin: 50% 0; }
+:is(a, button):hover > svg[data-ico='sparkle'] { animation: ico-twinkle 500ms var(--ease-standard); }
+:is(a, button):hover > svg[data-ico='refresh'] { animation: ico-spin-half 400ms var(--ease-standard) forwards; }
+:is(a, button):hover > svg[data-ico='plus'] { transform: rotate(90deg); transition: transform var(--t-short) var(--ease-enter); }
+:is(a, button):hover > svg[data-ico='zap'], :is(a, button):hover > svg[data-ico='upload'] { animation: ico-nudge 400ms var(--ease-standard); }
+:is(a, button):hover > svg[data-ico='heart'], :is(a, button):hover > svg[data-ico='star'], :is(a, button):hover > svg[data-ico='check'] { animation: ico-pulse 400ms var(--ease-standard); }
+:is(a, button) > svg[data-ico='plus'] { transition: transform var(--t-short) var(--ease-enter); }
+.theme-toggle button:hover svg { animation: ico-spin-half 400ms var(--ease-standard); }
+
+/* إضاءة تتبع المؤشر: طبقة شعاعية خفيفة تتبع الفأرة على العناصر القابلة للضغط */
+:is(.card.hover, a.tile, a.space-card, .lib-group, .ex-card, .cc) { position: relative; isolation: isolate; }
+:is(.card.hover, a.tile, a.space-card, .lib-group, .ex-card, .cc)::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%); transition: opacity var(--t-short) var(--ease-standard); }
+@media (hover: hover) { :is(.card.hover, a.tile, a.space-card, .lib-group, .ex-card, .cc):hover::before { opacity: 1; } }
+
+/* دخول متدرّج للمحتوى مرة واحدة: .stagger > * */
+@keyframes rise-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.stagger > * { animation: rise-in var(--t-medium) var(--ease-enter) both; }
+.stagger > *:nth-child(2) { animation-delay: 40ms; } .stagger > *:nth-child(3) { animation-delay: 80ms; } .stagger > *:nth-child(4) { animation-delay: 120ms; }
+.stagger > *:nth-child(5) { animation-delay: 160ms; } .stagger > *:nth-child(6) { animation-delay: 200ms; } .stagger > *:nth-child(n+7) { animation-delay: 240ms; }
+
+/* إشعارات: دخول من الأسفل وخروج أسرع */
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }

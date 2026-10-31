@@ -46,7 +46,7 @@ export default function Today() {
   return (
     <div className="page">
       <PageHead title={`${greet}، محمد`} icon="sparkle" sub={fmtDateFull(todayMs())} actions={<Button to="/review" icon="list" size="sm">مراجعة الأسبوع</Button>} />
-      <div className="today-grid">
+      <div className="today-grid stagger">
         <Attention semesters={semesters} activeId={activeId} inbox={inbox} lifeB={lifeB} />
         <NowNext courses={inbox.bundle?.courses ?? null} routine={routine} nowMs={nowMs} />
         {inbox.bundle && <WeekStrip inbox={inbox} week={week} />}

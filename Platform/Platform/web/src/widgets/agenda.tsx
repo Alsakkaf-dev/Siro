@@ -33,14 +33,14 @@ export async function toggleDone(e: AgendaEntry, spaces: Space[] | null): Promis
   const id = e.ref.split(':').pop()!;
   if (e.kind === 'assessment') {
     await api.editAssessment(id, { status: e.done ? 'pending' : 'submitted' });
-    return e.done ? 'أُعيد إلى «قادم»' : 'تم التسليم ✓';
+    return e.done ? 'أُعيد إلى «قادم»' : 'تم التسليم';
   }
   if (e.kind === 'item') {
     const sp = spaces?.find((s) => s.id === e.space_id);
     const st = sp?.type.statuses.find((x) => x.category === (e.done ? 'todo' : 'done')) ?? sp?.type.statuses[0];
     if (!st) throw new Error('لا توجد حالة مناسبة في هذه المساحة');
     await wos.editItem(id, { status: st.id });
-    return e.done ? 'أُعيد فتحه' : 'منجز ✓';
+    return e.done ? 'أُعيد فتحه' : 'منجز';
   }
   throw new Error('غير قابل للتعليم');
 }

@@ -7,6 +7,7 @@ import { AREAS, KBD_ALIASES, PAGES, gTarget, matchPage, sidebarOwner, titleFor }
 import { TitleProvider } from '../core/title.js';
 import { pushRecent } from '../core/recent.js';
 import { installHScroll } from '../core/hscroll.js';
+import { installFx } from '../core/fx.js';
 import { Modal, Skeleton } from '../ui/ui.js';
 import { Palette } from './Palette.js';
 import { AreaBar, BottomBar, Sidebar } from './Sidebar.js';
@@ -53,6 +54,7 @@ export function Shell() {
   const { semesters, activeId, theme, setTheme, showShortcuts, setShowShortcuts, createCmd, profileName, aiCmd, openAi, dataRev } = useApp();
   const [aiOpen, setAiOpen] = useState(false);
   useEffect(installHScroll, []);
+  useEffect(installFx, []);
   useEffect(() => {
     if (aiCmd) setAiOpen(true);
   }, [aiCmd]);

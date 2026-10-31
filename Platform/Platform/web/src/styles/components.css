@@ -121,10 +121,11 @@
 /* ───────── Skeleton / Empty ───────── */
 .skel { position: relative; overflow: hidden; background: var(--skeleton-a); border-radius: var(--r-md); min-height: 16px; }
 .skel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--skeleton-b), transparent); animation: shimmer 1.4s var(--ease-in-out) infinite; }
-.empty { display: grid; justify-items: center; text-align: center; gap: var(--s-3); padding: var(--s-10) var(--s-5); color: var(--text-2); border: 1px dashed var(--border-strong); border-radius: var(--r-lg); background: color-mix(in srgb, var(--surface) 60%, transparent); }
-.empty .em-ico { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 20px; background: var(--accent-soft); color: var(--accent-text); animation: rise var(--t-slow) var(--ease-out) both; }
-.empty h2 { font-size: var(--fs-lg); color: var(--text); }
-.empty p { overflow-wrap: anywhere; }
+/* حالة فارغة هادئة: أيقونة خطية صغيرة بلا مربع ملوّن، حد متصل خفيف، نص مضغوط */
+.empty { display: grid; justify-items: center; text-align: center; gap: var(--s-2); padding: var(--s-8) var(--s-5); color: var(--text-2); border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
+.empty .em-ico { display: grid; place-items: center; color: var(--text-3); margin-block-end: var(--s-1); }
+.empty h2 { font-size: var(--fs-md); font-weight: 600; color: var(--text); }
+.empty p { overflow-wrap: anywhere; font-size: var(--fs-sm); color: var(--text-2); }
 
 /* ───────── Tables ───────── */
 .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); }
@@ -137,6 +138,20 @@ table.t { width: 100%; border-collapse: collapse; min-width: 640px; }
 .t td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .kv { display: grid; grid-template-columns: auto 1fr; gap: 8px var(--s-4); }
 .kv dt { color: var(--text-3); font-size: var(--fs-sm); } .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* ───────── جلد الجداول الموحّد: كل أصناف الجداول (.t .life-tbl .tbl .cy-table .table .v-table) بكثافة وسلوك واحد ───────── */
+.t, .life-tbl, .tbl, .cy-table, .table, .v-table { font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+.t th, .life-tbl th, .tbl th, .cy-table th, .table th, .v-table thead th { padding: 6px var(--s-3); font: 600 var(--fs-xs) / 1.4 var(--font-ui); color: var(--text-3); background: var(--surface-2); border-block-end: 1px solid var(--border-strong); white-space: nowrap; letter-spacing: 0; }
+.t td, .life-tbl td, .tbl td, .cy-table td, .table td { padding: 6px var(--s-3); border-block-end: 1px solid var(--border); vertical-align: middle; }
+.t tbody tr, .life-tbl tbody tr, .tbl tbody tr, .cy-table tbody tr { transition: background var(--t-micro) var(--ease-standard); }
+.t tbody tr:hover > *, .life-tbl tbody tr:hover > *, .tbl tbody tr:hover > *, .cy-table tbody tr:hover > * { background: var(--surface-2); }
+.t tbody tr:last-child > *, .life-tbl tbody tr:last-child > *, .tbl tbody tr:last-child > * { border-block-end: 0; }
+/* الشارات داخل الجداول: نقطة لون + نص بلا خلفية ولا حد (أقل ضوضاء في عشرات الصفوف) */
+:is(.t, .life-tbl, .tbl, .cy-table, .table, .v-table) .badge:not(.dashed) { padding: 0; background: transparent; gap: 6px; }
+:is(.t, .life-tbl, .tbl, .cy-table, .table, .v-table) .badge:not(.dashed)::before { content: ''; inline-size: 6px; block-size: 6px; border-radius: 50%; background: currentColor; flex: none; }
+/* غلاف الجدول بارتفاع محدود: الرأس يلتصق أثناء تمرير الصفوف الطويلة */
+.table-wrap, .life-tbl-wrap { max-block-size: min(72vh, 720px); overflow: auto; }
+.t th, .life-tbl th, .tbl th, .table th { position: sticky; inset-block-start: 0; z-index: 1; }
 
 /* ───────── Tabs ───────── */
 .tabs { display: flex; gap: var(--s-1); padding-block-end: 0; margin-block-end: var(--s-5); border-block-end: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }

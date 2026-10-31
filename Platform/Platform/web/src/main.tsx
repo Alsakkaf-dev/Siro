@@ -7,6 +7,7 @@ import './styles/base.css';
 import './styles/shell.css';
 import './styles/components.css';
 import './styles/widgets.css';
+import './styles/motion.css';
 import './styles/workos.css';
 import './styles/print.css';
 import { App } from './App.js';

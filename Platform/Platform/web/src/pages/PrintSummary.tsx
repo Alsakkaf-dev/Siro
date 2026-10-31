@@ -27,7 +27,7 @@ export default function PrintSummary() {
               <thead><tr><th>التقييم</th><th>النوع</th><th>الوزن</th><th>الموعد</th><th>الحالة</th></tr></thead>
               <tbody>
                 {items.map((a) => (<tr key={a.id}><td><bdi>{a.title}</bdi>{a.count > 1 ? ` ×${a.count}` : ''}</td><td>{KIND_LABEL[a.kind]}</td><td className="n">{fmtNum(a.weight)}%</td><td>{whenText(a, sem)}</td><td>{a.score !== null ? `${fmtNum(a.score)}/${fmtNum(a.max_score)}` : STATUS_LABEL[a.status]}</td></tr>))}
-                <tr><td colSpan={2}><b>المجموع</b></td><td className="n"><b>{fmtNum(weightSum(items))}%</b></td><td colSpan={2}>{Math.abs(weightSum(items) - 100) > 0.005 && items.length ? '⚠ ليس 100%' : ''}</td></tr>
+                <tr><td colSpan={2}><b>المجموع</b></td><td className="n"><b>{fmtNum(weightSum(items))}%</b></td><td colSpan={2}>{Math.abs(weightSum(items) - 100) > 0.005 && items.length ? 'ليس 100%' : ''}</td></tr>
               </tbody>
             </table></div>
           </section>

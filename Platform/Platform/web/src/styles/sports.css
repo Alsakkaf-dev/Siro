@@ -106,7 +106,15 @@
 /* الأمان */
 .safety-box { border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--s-3) var(--s-4); background: var(--surface-2); }
 .safety-box.bad { border-color: color-mix(in srgb, var(--danger) 45%, transparent); background: var(--danger-soft); }
-.safety-disc { margin-block-end: 0; }
+.safety-disc { margin-block-end: 0; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-2); }
+.safety-disc > summary { display: flex; align-items: center; gap: var(--s-2); padding: 6px var(--s-3); cursor: pointer; list-style: none; font-size: var(--fs-sm); color: var(--text-2); }
+.safety-disc > summary::-webkit-details-marker { display: none; }
+.safety-disc > summary > svg:first-child { color: var(--warn); flex: none; }
+.safety-disc > summary > svg:last-child { margin-inline-start: auto; flex: none; transition: transform var(--t-short) var(--ease-standard); }
+.safety-disc[open] > summary > svg:last-child { transform: rotate(180deg); }
+.safety-disc .sd-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.safety-disc[open] .sd-text { white-space: normal; }
+.safety-disc .sd-body { padding: 0 var(--s-3) var(--s-3); display: grid; gap: var(--s-2); font-size: var(--fs-sm); }
 .ses-safety { margin: 0; padding-inline-start: 1.1em; display: grid; gap: 4px; }
 .mine-warn { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-inline-start: 6px; }
 .safety-more > summary { cursor: pointer; font-size: var(--fs-sm); font-weight: 600; }
