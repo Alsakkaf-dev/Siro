@@ -47,7 +47,7 @@ export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: 
           {tabs.map((t) => {
             const to = resolvePath(t, { ...params, semId });
             return to ? (
-              <Link key={t.id} to={to} className="tab" aria-current={t.id === m?.page.id ? 'page' : undefined}>
+              <Link key={t.id} to={to} viewTransition className="tab" aria-current={t.id === m?.page.id ? 'page' : undefined}>
                 <Icon name={t.icon} size={15} /> {t.tabLabel ?? t.label}
               </Link>
             ) : null;

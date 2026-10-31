@@ -259,11 +259,12 @@ a.dl:hover { background: var(--surface-3); text-decoration: none; }
 
 .cc { position: relative; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-1); overflow: hidden; height: 100%; transition: transform var(--t-base) var(--ease-out), box-shadow var(--t-base), border-color var(--t-base); }
 .cc:hover { box-shadow: var(--shadow-2); border-color: color-mix(in srgb, var(--c) 40%, var(--border)); }
-.cc-cover { position: relative; display: flex; justify-content: space-between; align-items: flex-start; padding: var(--s-4); min-height: 86px; background: linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 55%, #14172B)); color: #fff; overflow: hidden; }
+/* غلاف بطاقة المادة: سطر رأس مدمج بشريط لون جانبي بدل لافتة متدرجة */
+.cc-cover { position: relative; display: flex; justify-content: space-between; align-items: center; padding: var(--s-3) var(--s-4); background: var(--surface-2); border-block-end: 1px solid var(--border); border-inline-start: 3px solid var(--c); color: var(--text); }
 .cc-cover:hover { text-decoration: none; }
-.cc-cover .cc-code { position: relative; z-index: 1; font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-lg); letter-spacing: 0.02em; text-shadow: 0 1px 8px rgba(0,0,0,0.25); }
+.cc-cover .cc-code { position: relative; z-index: 1; font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-md); letter-spacing: 0.02em; }
 .cc-credit { position: relative; z-index: 1; }
-.cc-pattern { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.28) 1.4px, transparent 1.6px); background-size: 18px 18px; mask-image: linear-gradient(200deg, #000, transparent 70%); }
+.cc-pattern { display: none; }
 .cc-body { padding: var(--s-4); display: grid; gap: var(--s-3); flex: 1; align-content: start; }
 .cc-titlerow { display: flex; justify-content: space-between; gap: var(--s-2); align-items: flex-start; }
 .cc-title { display: block; font-family: var(--font-ui); font-weight: 700; color: var(--text); line-height: 1.4; } .cc-title:hover { color: var(--c); text-decoration: none; }
