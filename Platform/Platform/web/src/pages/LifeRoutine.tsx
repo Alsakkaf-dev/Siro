@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Badge, Card, CardHead, Segmented } from '../ui/ui.js';
 import { useNow } from '../widgets/tiles.js';
 import { Conf, LifePage, Note, fmtDayFull, useLife } from '../life/lifeKit.js';
-import { blocksForDay, DAY_AR, DAY_CODES, nowAndNext, type Routine } from '../../../shared/life.js';
+import { blocksForDay, DAY_AR, DAY_CODES, nowAndNext, stripEmoji, type Routine } from '../../../shared/life.js';
 
 const KIND_COLOR: Record<string, string> = { sleep: '#8A92B2', prayer: '#4ADE80', lecture: '#4CC9F0', routine: '#F2A93B', meal: '#F472B6', study: '#A78BFA' };
 export const hm = (m: number): string => `${String(Math.floor((m % 1440) / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
@@ -84,7 +84,7 @@ function Body({ r }: { r: Routine }) {
           <CardHead title="روتينات محلية" icon="refresh" />
           <ul className="life-list">
             {(r.local_routines ?? []).map((x, i) => (
-              <li key={i}><b>{x.name}</b> — <bdi className="num">{x.time}</bdi>{typeof x.flex_min === 'number' && <small className="muted"> (±{x.flex_min} د)</small>} <Conf c={x.confidence} />{x.in_outlook === false && <Badge dashed>ليس في Outlook</Badge>}</li>
+              <li key={i}><b>{stripEmoji(x.name)}</b> — <bdi className="num">{x.time}</bdi>{typeof x.flex_min === 'number' && <small className="muted"> (±{x.flex_min} د)</small>} <Conf c={x.confidence} />{x.in_outlook === false && <Badge dashed>ليس في Outlook</Badge>}</li>
             ))}
           </ul>
         </Card>

@@ -40,7 +40,7 @@
 .wk-day { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface); padding: var(--s-2) var(--s-3); display: grid; gap: 6px; align-content: start; min-width: 0; }
 .wk-day.today { border-color: var(--sports); box-shadow: 0 0 0 1px var(--sports); }
 .wk-day h3 { margin: 0; font-size: var(--fs-sm); display: flex; justify-content: space-between; align-items: center; gap: 4px; }
-.sess-btn { font: inherit; font-size: var(--fs-sm); text-align: start; border: 1px solid var(--border); border-inline-start: 4px solid var(--c, var(--sports)); border-radius: 10px; background: var(--surface-2); color: var(--text); padding: 6px 8px; cursor: pointer; line-height: 1.5; }
+.sess-btn { font: inherit; font-size: var(--fs-sm); text-align: start; border: 1px solid var(--border);  border-radius: 10px; background: var(--surface-2); color: var(--text); padding: 6px 8px; cursor: pointer; line-height: 1.5; }
 .sess-btn:hover { border-color: var(--sports); } .sess-btn[aria-pressed='true'] { background: color-mix(in srgb, var(--sports) 16%, var(--surface)); }
 .sess-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .sess-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding-block-end: 8px; border-bottom: 1px dashed var(--border); } .sess-list li:last-child { border-bottom: 0; padding-block-end: 0; }
@@ -121,3 +121,13 @@
 .safety-more p { font-size: var(--fs-sm); }
 
 .ex-main { position: relative; }
+
+/* بطاقة التمرين: وسوم هادئة ومستوى بثلاث نقاط */
+.ex-meta { justify-content: space-between; flex-wrap: nowrap; }
+.ex-tags { display: inline-flex; align-items: center; gap: 6px; min-width: 0; color: var(--text-2); font-size: var(--fs-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-tags i { font-style: normal; color: var(--text-3); }
+.lvl { display: inline-flex; gap: 3px; flex: none; }
+.lvl i { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--border-strong); transition: background var(--t-short) var(--ease-standard); }
+.lvl i.on { background: var(--accent); }
+.ex-card { transition: transform var(--t-short) var(--ease-standard), border-color var(--t-short), box-shadow var(--t-short); }
+@media (hover: hover) { .ex-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); } }

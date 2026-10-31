@@ -10,7 +10,8 @@
 .life-note { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-size: var(--fs-sm); color: var(--text-2); line-height: 1.7; }
 .life-note svg { flex: none; margin-block-start: 5px; color: var(--text-2); } .life-note.warn svg { color: var(--warn); }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: var(--s-3); }
-.kpi { display: grid; gap: 2px; align-content: start; padding: var(--s-4); border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); border-inline-start: 4px solid var(--c, var(--life)); min-width: 0; }
+.kpi { display: grid; gap: 2px; align-content: start; padding: var(--s-4); border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); min-width: 0; position: relative; }
+.kpi::after { content: ''; position: absolute; inset-block-start: var(--s-4); inset-inline-end: var(--s-4); inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--c, var(--life)); opacity: .85; }
 .kpi-l { display: inline-flex; gap: 6px; align-items: center; font-size: var(--fs-sm); color: var(--text-2); font-family: var(--font-ui); font-weight: 600; }
 .kpi-v { font-size: var(--fs-xl, 1.6rem); font-weight: 700; line-height: 1.25; overflow-wrap: anywhere; }
 .kpi-s { font-size: var(--fs-xs); color: var(--text-2); }
@@ -54,9 +55,9 @@
 .tl { display: grid; gap: 8px; }
 .tl-item { display: grid; grid-template-columns: 92px 1fr; gap: var(--s-3); align-items: stretch; }
 .tl-time { font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--text-2); padding-block-start: 8px; text-align: end; }
-.tl-bar { padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); border-inline-start: 4px solid var(--c, var(--life)); display: grid; gap: 2px; }
+.tl-bar { padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); display: grid; gap: 2px; }
 .tl-item.now .tl-bar { background: color-mix(in srgb, var(--life) 14%, var(--surface)); box-shadow: 0 0 0 2px color-mix(in srgb, var(--life) 40%, transparent); }
-.tl-item.past .tl-bar { background: var(--surface-2); border-color: transparent; border-inline-start: 4px solid var(--c, var(--life)); }
+.tl-item.past .tl-bar { background: var(--surface-2); border-color: transparent; }
 .tl-bar small { color: var(--text-2); }
 .now-card { display: grid; gap: 4px; }
 .now-card .big { font-size: 1.35rem; font-weight: 700; }

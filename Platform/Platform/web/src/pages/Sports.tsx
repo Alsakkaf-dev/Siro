@@ -11,6 +11,16 @@ import { LEVEL_TONE, PSEUDO, REGIONS, REGION_AR, regionsOf, withRegions, type Ex
 
 const ALL_REGION_CHIPS = [...REGIONS.map((r) => ({ id: r.id, ar: r.ar })), ...PSEUDO.map((p) => ({ id: p.id, ar: p.ar }))];
 
+/** مستوى التمرين: ثلاث نقاط محايدة (لا ألوان إنذار على بطاقة عادية)، والنص للقارئ الشاشي والتلميح. */
+function LevelDots({ level }: { level: string }) {
+  const n = level === 'مبتدئ' ? 1 : level === 'متوسط' ? 2 : 3;
+  return (
+    <span className="lvl" role="img" aria-label={`المستوى: ${level}`} title={`المستوى: ${level}`}>
+      {[1, 2, 3].map((i) => <i key={i} className={i <= n ? 'on' : ''} />)}
+    </span>
+  );
+}
+
 export default function Sports() {
   const ex = useExercises();
   const plans = usePlans();
@@ -184,10 +194,8 @@ export default function Sports() {
                     <span className="sr-only"> — تفاصيل</span>
                   </button>
                   <div className="ex-meta">
-                    <Badge>{e.main_muscle_ar}</Badge>
-                    {e.equipment && <Badge dashed>{e.equipment}</Badge>}
-                    {e.level && <Badge tone={LEVEL_TONE[e.level]}>{e.level}</Badge>}
-                    <SafetyBadge e={e} compact />
+                    <span className="ex-tags"><bdi>{e.main_muscle_ar}</bdi>{e.equipment && <><i aria-hidden="true">·</i><bdi>{e.equipment}</bdi></>}</span>
+                    {e.level && <LevelDots level={e.level} />}
                   </div>
                 </li>
               ))}

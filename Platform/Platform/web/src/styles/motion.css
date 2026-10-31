@@ -42,3 +42,20 @@
 .page-skel .row3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s-3); }
 .page-skel .row2 { display: grid; grid-template-columns: 1.6fr 1fr; gap: var(--s-4); }
 @media (max-width: 900px) { .page-skel .row2 { grid-template-columns: 1fr; } }
+
+/* ───────── v2: تغذية راجعة موحّدة ───────── */
+/* حلقة تركيز موحّدة لكل عنصر تفاعلي مخصص */
+:is(a, button, [role='button'], [role='tab'], [role='menuitem'], summary, .card.hover, .tile):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* ضغط ملموس لكل زر وبطاقة قابلة للضغط */
+:is(.btn, .icon-btn, .chip, .switcher a):active { transform: scale(0.97); transition-duration: var(--t-micro); }
+/* اهتزاز حقل خاطئ */
+@keyframes shake-x { 0%, 100% { transform: none; } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+:is(input, select, textarea)[aria-invalid='true'] { border-color: var(--danger); animation: shake-x 200ms var(--ease-standard); }
+/* نبضة نجاح */
+@keyframes ok-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 40%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+.ok-pulse { animation: ok-pulse 500ms var(--ease-exit); }
+/* رسم علامة ✓ */
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.draw-check path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: draw 400ms var(--ease-enter) forwards; }
+/* دخول بطاقة عند التحميل لأول 8 عناصر فقط */
+.stagger > *:nth-child(n+9) { animation: none; }

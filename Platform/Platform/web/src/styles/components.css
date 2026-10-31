@@ -12,7 +12,7 @@
 @keyframes pulse-ring { 0% { transform: scale(0.9); opacity: 0.8; } 100% { transform: scale(1.8); opacity: 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.stagger > * { animation: rise var(--t-slow) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }
+/* .stagger معرّفة مرة واحدة في motion.css */
 
 /* ───────── Buttons ───────── */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); height: 32px; padding-inline: var(--s-3); border-radius: var(--r-md); border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text); font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-sm); white-space: nowrap; transition: transform var(--t-fast) var(--ease-out), background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast); }

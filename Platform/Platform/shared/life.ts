@@ -331,6 +331,10 @@ export const toMin = (s: string | undefined): number | null => {
   const m = /^(\d{1,2}):(\d{2})$/.exec(s ?? '');
   return m ? Number(m[1]) * 60 + Number(m[2]) : null;
 };
+/** يزيل الإيموجي من النص المعروض (قاعدة التصميم: أيقونات الواجهة وحدها، لا رموز ملوّنة داخل النصوص) دون المساس بالبيانات المخزّنة. */
+export function stripEmoji(t: string): string {
+  return t.replace(/[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\uFE0F\u200D]/gu, '').replace(/\s{2,}/g, ' ').trim();
+}
 export interface DayBlock { b: RoutineBlock; start: number; end: number }
 export function blocksForDay(r: Routine | null | undefined, day: string): DayBlock[] {
   if (!r) return [];
@@ -341,7 +345,7 @@ export function blocksForDay(r: Routine | null | undefined, day: string): DayBlo
     const s = toMin(b.start);
     const e = toMin(b.end);
     if (s === null || e === null) continue;
-    out.push({ b, start: s, end: e <= s ? e + 1440 : e });
+    out.push({ b: { ...b, name: stripEmoji(b.name) }, start: s, end: e <= s ? e + 1440 : e });
   }
   return out.sort((a, b) => a.start - b.start || a.end - b.end);
 }
