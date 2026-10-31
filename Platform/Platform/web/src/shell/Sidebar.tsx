@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
@@ -8,30 +8,30 @@ import { APP_NAME } from '../../../shared/constants.js';
 import { cx } from '../ui/ui.js';
 import { useBarFade } from '../core/hscroll.js';
 
-/** القائمة الجانبية: الأقسام الثمانية فقط، بلا انسدال. صفحات كل قسم في شريطه الأفقي (AreaBar) أعلى الصفحة. */
+/** القائمة الجانبية: شريط أيقونات مضغوط (56px) للأقسام الثمانية. لا يتوسّع عند المرور؛ العنصر الممرَّر عليه وحده يُظهر تلميحه.
+ *  في الجوال (≤960) يصير الدرج بأسماء كاملة. صفحات كل قسم في شريطه الأفقي (AreaBar). */
 export function Sidebar({ open, inert, semId, activeArea }: { open: boolean; inert: boolean; semId: string | null; activeArea: AreaId | null }) {
   // القسم المخفي بعلم يظهر فقط حين تكون فيه (رابط مباشر) كي لا تضيع
   const areas = AREAS.filter((a) => !a.flag || flagEnabled(a.flag) || a.id === activeArea);
+  const idx = areas.findIndex((a) => a.id === activeArea);
   return (
     <aside id="sidebar" className={cx('sidebar', open && 'open')} aria-label="القائمة الجانبية" inert={inert}>
-      <Link to="/" className="brand">
-        <span className="brand-mark"><Icon name="sparkle" size={20} /></span>
-        <span>{APP_NAME}</span>
+      <Link to="/" className="rail-item brand" aria-label={APP_NAME}>
+        <span className="brand-mark"><Icon name="sparkle" size={18} /></span>
+        <span className="rail-label">{APP_NAME}</span>
+        <span className="rail-tip" aria-hidden="true"><span>{APP_NAME}</span></span>
       </Link>
-      <nav aria-label="الأقسام">
+      <nav aria-label="الأقسام" className="rail-nav" style={{ '--i': idx } as CSSProperties}>
+        <i className="rail-ind" aria-hidden="true" data-on={idx >= 0 || undefined} />
         {areas.map((a) => (
-          <Link key={a.id} to={hrefFor(a.entry, semId)} className="nav-link nav-area" aria-current={a.id === activeArea ? 'page' : undefined}>
-            <Icon name={a.icon} size={18} />
-            <span>{a.label}</span>
-            <span className="kbd-hint" dir="ltr">g {a.kbd}</span>
+          <Link key={a.id} to={hrefFor(a.entry, semId)} className="rail-item" aria-current={a.id === activeArea ? 'page' : undefined}>
+            <Icon name={a.icon} size={19} />
+            <span className="rail-label">{a.label}</span>
+            <span className="kbd-hint" dir="ltr" aria-hidden="true">g {a.kbd}</span>
+            <span className="rail-tip" aria-hidden="true"><span>{a.label}</span><kbd dir="ltr">g {a.kbd}</kbd></span>
           </Link>
         ))}
       </nav>
-      <div className="side-card">
-        <h4><Icon name="lock" size={15} /> بياناتك عندك فقط</h4>
-        <p>كل شيء محفوظ على جهازك في ملف واحد. لا إنترنت ولا حسابات ولا تتبّع.</p>
-        <Link to="/settings" className="btn sm">النسخ الاحتياطي</Link>
-      </div>
     </aside>
   );
 }

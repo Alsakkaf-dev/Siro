@@ -9,12 +9,17 @@
   --font-ui: 'IBM Plex Sans Arabic', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
   --font-body: 'IBM Plex Sans Arabic', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
   --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, 'Liberation Mono', monospace;
-  /* motion */
+  /* أنصاف أقطار المؤسسات (Atlassian: 2/4/6/8) — تُستهلك تدريجيًا بدل سلّم 10/14/20/26 القديم */
+  --rad-1: 4px; --rad-2: 6px; --rad-3: 8px; --rad-4: 12px;
+  /* حركة (Primer: hover 100، تبديل حالة 200، دخول 300؛ منحنيات Carbon productive) */
+  --t-micro: 100ms; --t-short: 200ms; --t-medium: 300ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0.38, 0.9); --ease-enter: cubic-bezier(0, 0, 0.38, 0.9); --ease-exit: cubic-bezier(0.2, 0, 1, 0.9);
+  /* motion (القديم) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --t-fast: 140ms; --t-base: 220ms; --t-slow: 420ms;
   /* layout */
-  --topbar-h: 72px; --sidebar-w: 264px;
+  --topbar-h: 72px; --sidebar-w: 56px;
   /* platform accents */
   --core: #A78BFA; --acad: #4CC9F0; --library: #C9A227; --life: #4ADE80; --sports: #F97362; --spaces: #7C5CFF; --review: #F472B6;
   /* status categories (consistent across every view) */

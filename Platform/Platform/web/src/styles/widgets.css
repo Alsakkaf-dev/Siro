@@ -370,7 +370,6 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 .diff details { margin-block-end: var(--s-2); } .diff summary { cursor: pointer; padding: 6px 0; } .diff-list { padding-inline-start: var(--s-4); font-size: var(--fs-sm); } .diff-list .add { color: var(--ok); } .diff-list .chg { color: var(--warn); } .diff-list .rem { color: var(--danger); }
 
 /* fixes */
-.nav-sub .nav-link[aria-current='page'] { background: var(--accent-soft); color: var(--accent-text); box-shadow: none; }
 .switcher .soon { opacity: 1; color: var(--text-2); }
 .switcher a[aria-current='page'] .badge { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); color: #fff; }
 .tickbar { max-width: 100%; flex-wrap: nowrap; overflow: hidden; }
