@@ -15,7 +15,7 @@ export default function LifeFinance() {
   const d = useLife(['finance']);
   const f = d.get<Finance>('finance');
   return (
-    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف." actions={<Button icon="edit" to="/life/commands?type=log_expense">سجّل مصروف</Button>}>
+    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف." actions={<Button icon="edit" to="/life/log?type=log_expense">سجّل مصروف</Button>}>
       {f && <Body f={f} />}
     </LifePage>
   );
@@ -203,7 +203,7 @@ function Body({ f }: { f: Finance }) {
         </Card>
       </div>
       <p className="muted" style={{ fontSize: 'var(--fs-xs)' }}>
-        لتسجيل مصروف: <Link to="/life/commands?type=log_expense">أنشئ مسودة أمر</Link> — لا يُنفَّذ إلا بموافقتك الصريحة في المحادثة.
+        لتسجيل مصروف: <Link to="/life/log?type=log_expense">أنشئ مسودة أمر</Link> — لا يُنفَّذ إلا بموافقتك الصريحة في المحادثة.
       </p>
       <MissingInputsCards title={f.planning_inputs_title_ar} data={f.planning_inputs} />
     </>

@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { useApp } from '../core/app-context.js';
+import { life } from '../lib/api.js';
 import { Button, Card, CardHead, EmptyState, Unknown } from '../ui/ui.js';
 import { LegendRows, SegBar } from '../widgets/charts.js';
 import { Conf, Kpi, LifePage, LineChart, Note, fmtDay, fmtDayFull, useLife } from '../life/lifeKit.js';
@@ -13,9 +15,42 @@ export default function LifePrayers() {
   const d = useLife(['prayers']);
   const p = d.get<Prayers>('prayers');
   return (
-    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء." actions={<Button icon="edit" to="/life/commands?type=log_prayer">سجّل صلاة</Button>}>
+    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء." actions={<Button icon="edit" to="/life/log?type=log_prayer">سجّل صلاة</Button>}>
+      <QuickLog onDone={d.reload} />
       {p && <Body p={p} />}
     </LifePage>
+  );
+}
+
+/** تسجيل سريع لصلوات اليوم بنقرة؛ يُحفظ فورًا ويمكن التراجع من التنبيه. */
+function QuickLog({ onDone }: { onDone: () => void }) {
+  const { toast } = useApp();
+  const date = klToday(Date.now());
+  const go = async (prayer: string, status: 'in_time' | 'late' | 'missed'): Promise<void> => {
+    try {
+      const r = await life.log('log_prayer', { date, prayer, status, kind: 'fard' });
+      toast(`سُجّل: ${r.event.summary}`, { kind: 'ok', action: { label: 'تراجع', run: () => void life.undo(r.event.id).then(onDone) } });
+      onDone();
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
+  return (
+    <Card>
+      <CardHead title="سجّل صلوات اليوم" icon="clock" />
+      <div className="stack">
+        {PRAYER_KEYS.map((k) => (
+          <div key={k} className="row" style={{ justifyContent: 'space-between' }}>
+            <b>{PRAYER_AR[k]}</b>
+            <span className="row" style={{ gap: 6 }}>
+              <Button size="sm" variant="primary" onClick={() => void go(k, 'in_time')}>في وقتها</Button>
+              <Button size="sm" onClick={() => void go(k, 'late')}>متأخرة</Button>
+              <Button size="sm" onClick={() => void go(k, 'missed')}>فاتت</Button>
+            </span>
+          </div>
+        ))}
+      </div>
+    </Card>
   );
 }
 

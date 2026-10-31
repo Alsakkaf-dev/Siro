@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { UNIT_AR } from '../../../shared/plain.js';
-import { Card, CardHead, Unknown } from '../ui/ui.js';
+import { useApp } from '../core/app-context.js';
+import { life } from '../lib/api.js';
+import { Button, Card, CardHead, Unknown } from '../ui/ui.js';
 import { Ring } from '../widgets/charts.js';
 import { Conf, Kpi, LifePage, LineChart, MissingInputsCards, Note, fmtDayFull, num1, useLife, TblWrap } from '../life/lifeKit.js';
 import { weightProgress, type Body } from '../../../shared/life.js';
@@ -9,8 +12,37 @@ export default function LifeBody() {
   const b = d.get<Body>('body');
   return (
     <LifePage title="الجسم والوزن" icon="target" names={['body']} data={d} sub="الوزن والقياسات.">
+      <QuickWeight onDone={d.reload} />
       {b && <Inner b={b} />}
     </LifePage>
+  );
+}
+
+/** تسجيل وزن اليوم مباشرة. */
+function QuickWeight({ onDone }: { onDone: () => void }) {
+  const { toast } = useApp();
+  const [v, setV] = useState('');
+  const save = async (): Promise<void> => {
+    const n = Number(v);
+    try {
+      const r = await life.log('log_weight', { date: new Date(Date.now() + 8 * 3_600_000).toISOString().slice(0, 10), weight_kg: n });
+      toast(`سُجّل: ${r.event.summary}`, { kind: 'ok', action: { label: 'تراجع', run: () => void life.undo(r.event.id).then(onDone) } });
+      setV('');
+      onDone();
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
+  return (
+    <Card>
+      <CardHead title="سجّل وزن اليوم" icon="target" />
+      <form className="row" onSubmit={(e) => { e.preventDefault(); void save(); }}>
+        <label className="sr-only" htmlFor="qw">الوزن بالكيلوغرام</label>
+        <input id="qw" className="input" inputMode="decimal" placeholder="مثال: 83.5" value={v} onChange={(e) => setV(e.target.value)} style={{ maxInlineSize: 160 }} />
+        <span className="muted">كغ</span>
+        <Button variant="primary" type="submit" disabled={!v.trim()}>سجّل</Button>
+      </form>
+    </Card>
   );
 }
 

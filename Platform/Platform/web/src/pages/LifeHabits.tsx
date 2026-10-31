@@ -11,7 +11,7 @@ export default function LifeHabits() {
   const d = useLife(['habits']);
   const h = d.get<Habits>('habits');
   return (
-    <LifePage title="العادات" icon="check" names={['habits']} data={d} sub="الخطط والعدادات." actions={<><Button variant="primary" icon="zap" to="/life/alternatives">اشتهاء الآن؟</Button><Button icon="edit" to="/life/commands?type=habit_relapse">سجّل انتكاسة</Button></>}>
+    <LifePage title="العادات" icon="check" names={['habits']} data={d} sub="الخطط والعدادات." actions={<><Button variant="primary" icon="zap" to="/life/alternatives">اشتهاء الآن؟</Button><Button icon="edit" to="/life/log?type=habit_relapse">سجّل انتكاسة</Button></>}>
       {h && <Body h={h} />}
     </LifePage>
   );
