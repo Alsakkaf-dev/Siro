@@ -123,6 +123,16 @@ nav[aria-label='الأقسام'] { display: grid; gap: 2px; }
 .area-tab:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
 .area-tab[aria-current='page'] { background: var(--accent); color: var(--accent-ink); box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--accent) 80%, transparent); }
 .area-tab .badge { margin-inline-start: 2px; }
+.content:focus, .content:focus-visible { outline: none; }
+.hscroll { --fs: 0px; --fe: 0px; -webkit-mask-image: linear-gradient(to left, transparent 0, #000 var(--fs), #000 calc(100% - var(--fe)), transparent 100%); mask-image: linear-gradient(to left, transparent 0, #000 var(--fs), #000 calc(100% - var(--fe)), transparent 100%); }
+.hscroll[data-fade-start] { --fs: 28px; } .hscroll[data-fade-end] { --fe: 28px; }
+.hscroll.dragging { cursor: grabbing; user-select: none; } .hscroll.dragging * { pointer-events: none; }
+.area-bar, .tabs { overscroll-behavior-x: contain; }
+/* وصف الصفحة صار أيقونة معلومات بدل سطر دائم */
+.h-info { position: relative; display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: var(--text-3); cursor: help; transition: color var(--t-fast), background var(--t-fast); }
+.h-info:hover, .h-info:focus-visible { color: var(--accent-text); background: var(--accent-soft); }
+.h-info::after { content: attr(data-tip); position: absolute; inset-block-start: calc(100% + 8px); inset-inline-start: 0; z-index: 90; inline-size: max-content; max-inline-size: min(340px, 80vw); padding: 8px 12px; border-radius: var(--r-md); background: var(--text); color: var(--bg); font: 500 var(--fs-xs) / 1.6 var(--font-body); text-align: start; opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity var(--t-fast), transform var(--t-fast) var(--ease-out); }
+.h-info:hover::after, .h-info:focus-visible::after { opacity: 1; transform: none; }
 .page-head > .page-tabs { flex-basis: 100%; margin-block: var(--s-2) 0; }
 .tab[aria-current='page'] { color: var(--c, var(--accent)); }
 .tab[aria-current='page']::after { content: ''; position: absolute; inset-inline: var(--s-3); bottom: -1px; height: 2px; background: var(--c, var(--accent)); border-radius: 2px; }

@@ -6,7 +6,7 @@ import { Icon, type IconName } from '../lib/icons.js';
 import { Badge } from '../ui/ui.js';
 import { DOCTYPE_LABELS, KIND_LABELS, libraryItemPath, type LibItem, type LibStatus } from '../../../shared/library.js';
 
-export const KIND_ICON: Record<string, IconName> = { pdf: 'file', word: 'file', slides: 'slides', sheet: 'table', text: 'file', code: 'hash', image: 'image', video: 'video', audio: 'music', archive: 'archive', other: 'file', youtube: 'play' };
+export const KIND_ICON: Record<string, IconName> = { pdf: 'fileText', word: 'fileDoc', slides: 'slides', sheet: 'fileSheet', text: 'fileText', code: 'fileCode', image: 'fileImage', video: 'fileVideo', audio: 'fileAudio', archive: 'fileArchive', other: 'file', youtube: 'youtube' };
 export const KIND_TINT: Record<string, string> = { pdf: '#F97362', word: '#4CC9F0', slides: '#F2A93B', sheet: '#4ADE80', text: '#8A92B2', code: '#A78BFA', image: '#F472B6', video: '#5B45F0', audio: '#2DD4BF', archive: '#B08968', other: '#8A92B2', youtube: '#FF4D4D' };
 
 export const kindLabel = (k: string): string => (k === 'youtube' ? 'YouTube' : KIND_LABELS[k as keyof typeof KIND_LABELS] ?? k);

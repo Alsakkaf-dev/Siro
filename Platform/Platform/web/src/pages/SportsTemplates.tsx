@@ -126,7 +126,6 @@ export default function SportsTemplates() {
     <div className="page sports-page">
       {head}
       <ContentBanner status={plans.status} label="قوالب التمرين" />
-      <p className="life-note warn"><span>{p.note_ar ?? 'كل محتوى القوالب افتراض.'} {p.selection_note_ar}</span></p>
       <SafetyDisclaimer doc={p.disclaimer_ar ? p : ex.data} />
       <div className="row" style={{ gap: 'var(--s-3)', flexWrap: 'wrap' }}>
         <div className="seg" role="group" aria-label="المكان">
@@ -161,7 +160,7 @@ export default function SportsTemplates() {
             <Button size="sm" variant={mine.template === cur.id ? 'ghost' : 'primary'} icon="check" disabled={busy || mine.template === cur.id} onClick={() => void choose(cur)}>{mine.template === cur.id ? 'معتمد عندك' : 'اعتمد هذا القالب محليًا'}</Button>
             <Button size="sm" variant="primary" icon="zap" disabled={busy} onClick={() => void start(cur)}>ابدأ بهذا القالب</Button>
           </CardHead>
-          <p className="muted" style={{ marginBlockStart: 0 }}>الاعتماد هنا محلي في موقعك فقط؛ لا يغيّر ملفات راشد. إن أردت أن يسجّله راشد قله في المحادثة{cur.recommended_from_week ? ` — يوصى به من الأسبوع ${cur.recommended_from_week}` : ''}.</p>
+          {cur.recommended_from_week ? <p className="muted" style={{ marginBlockStart: 0 }}>يوصى به من الأسبوع {cur.recommended_from_week}</p> : null}
           <ul className="week-grid" aria-label={`أيام ${cur.name_ar}`}>
             {(p.weekday_order ?? cur.days.map((d) => d.weekday)).map((wd) => {
               const d = cur.days.find((x) => x.weekday === wd);

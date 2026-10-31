@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
@@ -5,6 +6,7 @@ import { flagEnabled } from '../core/flags.js';
 import { AREAS, AREA_BY_ID, hrefFor, sidebarPages, type AreaId, type PageDef } from '../core/registry.js';
 import { APP_NAME } from '../../../shared/constants.js';
 import { cx } from '../ui/ui.js';
+import { useBarFade } from '../core/hscroll.js';
 
 /** القائمة الجانبية: الأقسام الثمانية فقط، بلا انسدال. صفحات كل قسم في شريطه الأفقي (AreaBar) أعلى الصفحة. */
 export function Sidebar({ open, inert, semId, activeArea }: { open: boolean; inert: boolean; semId: string | null; activeArea: AreaId | null }) {
@@ -37,13 +39,15 @@ export function Sidebar({ open, inert, semId, activeArea }: { open: boolean; ine
 /** شريط القسم الأفقي: كل صفحات القسم النشط في مكان واحد أعلى المحتوى (يحل محل القوائم المنسدلة والتبويبات المكررة). */
 export function AreaBar({ semId, activeArea, owner, onShortcuts }: { semId: string | null; activeArea: AreaId | null; owner: PageDef | null; onShortcuts: () => void }) {
   const { unknownCounts } = useApp();
+  const ref = useRef<HTMLElement>(null);
+  useBarFade(ref, `${activeArea}:${owner?.id ?? ''}:${semId ?? ''}`);
   if (!activeArea) return null;
   const items = sidebarPages(activeArea).filter((p) => (!p.flag || flagEnabled(p.flag) || p.id === owner?.id) && (!p.needsSemester || semId));
   const system = activeArea === 'system';
   if (items.length + (system ? 1 : 0) < 2) return null;
   const area = AREA_BY_ID.get(activeArea)!;
   return (
-    <nav className="area-bar" aria-label={`صفحات ${area.label}`}>
+    <nav ref={ref} className="area-bar hscroll" aria-label={`صفحات ${area.label}`}>
       {items.map((p) => {
         const badge = p.id === 'unknowns' && semId ? unknownCounts[semId] : undefined;
         return (

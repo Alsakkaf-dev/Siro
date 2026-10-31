@@ -1,4 +1,4 @@
-"""إعادة توليد web/src/fonts/*.woff2 (مجموعات جزئية من خطوط OFL: Cairo و IBM Plex Sans Arabic).
+"""إعادة توليد web/src/fonts/*.woff2 (مجموعات جزئية من خطوط OFL: IBM Plex Sans Arabic؛ Cairo أُزيل — 500 و700 مأخوذان كاملين من @fontsource).
 يُشغَّل يدويًا عند الحاجة فقط (يتطلب: pip install fonttools brotli @ وملفات المصدر من حزم @fontsource عبر npm pack). الناتج مُلتزَم في المستودع فلا يحتاج الجهاز لبايثون."""
 import glob, os, sys
 from fontTools import subset

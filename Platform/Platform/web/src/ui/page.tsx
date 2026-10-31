@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import { useRef, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon, type IconName } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
+import { useBarFade } from '../core/hscroll.js';
 import { PAGE_BY_ID, crumbsFor, hrefFor, matchPage, resolvePath, subTabsFor } from '../core/registry.js';
 
 /** رأس الصفحة: فتات الخبز افتراضيًا من السجل (ما لم تُمرَّر صراحة للصفحات الديناميكية)، وتبويبات tabGroup تلقائيًا. */
@@ -14,6 +15,8 @@ export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: 
   const auto = m ? crumbsFor(m.page) : [];
   const list = crumbs ?? (auto.length > 1 ? auto.map((c, i) => ({ label: c.label, ...(i < auto.length - 1 ? { to: c.areaEntry ? hrefFor(c.id, semId) : (resolvePath(PAGE_BY_ID.get(c.id)!, { ...params, semId }) ?? hrefFor(c.id, semId)) } : {}) })) : undefined);
   const tabs = m ? subTabsFor(m.page) : [];
+  const tabsRef = useRef<HTMLElement>(null);
+  useBarFade(tabsRef, `${m?.page.id ?? ''}:${tabs.length}`);
   return (
     <header className="page-head">
       <div>
@@ -31,12 +34,13 @@ export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: 
           {icon && <span className="h-ico"><Icon name={icon} size={22} /></span>}
           {title}
           {badge}
+          {typeof sub === 'string' && sub && <span className="h-info" tabIndex={0} role="note" aria-label={sub} data-tip={sub}><Icon name="info" size={16} /></span>}
         </h1>
-        {sub && <p>{sub}</p>}
+        {sub && typeof sub !== 'string' && <p>{sub}</p>}
       </div>
       {actions && <div className="actions">{actions}</div>}
       {tabs.length > 1 && (
-        <nav className="tabs page-tabs" aria-label="عروض الصفحة">
+        <nav ref={tabsRef} className="tabs page-tabs hscroll" aria-label="عروض الصفحة">
           {tabs.map((t) => {
             const to = resolvePath(t, { ...params, semId });
             return to ? (
