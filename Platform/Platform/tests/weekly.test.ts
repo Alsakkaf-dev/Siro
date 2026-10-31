@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { buildWeekly, habitsWeek, klToday, moneyWeek, prayerWeek, reviewWindow, tagFrom, weakest, weightWeek, type Missing } from '../shared/weekly.js';
 import type { Body, Finance, Habits, Prayers } from '../shared/life.js';
 
@@ -194,7 +194,7 @@ describe('money', () => {
   it('balance change = last point in window − last point before it; none before → غير مسجل', () => {
     const f = moneyWeek(finance, null, reviewWindow(MON), [])!;
     expect(f.changes.find((c) => c.key === 'monthly')).toMatchObject({ delta: -42, from: 100, to: 58, tag: 'محسوب' });
-    const early = moneyWeek({ ...finance, balance_history: [finance.balance_history![1]] }, null, reviewWindow(MON), [])!;
+    const early = moneyWeek({ ...finance, balance_history: [(finance.balance_history as unknown[])[1]] }, null, reviewWindow(MON), [])!;
     expect(early.changes.every((c) => c.delta === null)).toBe(true);
   });
   it('window older than the oldest listed transaction → reported غير مسجل (not 0)', () => {
@@ -217,11 +217,16 @@ describe('money', () => {
   });
 });
 
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? '/workspace/rashed_fixture';
+const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
+const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
 describe.skipIf(!fs.existsSync(path.join(REAL, 'prayers.json')))('real Rashed files → weekly review (local copy only; skipped elsewhere)', () => {
   const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, n), 'utf8').replace(/^\ufeff/, '')) as T;
-  const input = { prayers: read<Prayers>('prayers.json'), habits: read<Habits>('habits.json'), body: read<Body>('body.json'), finance: read<Finance>('finance.json'), routine: read('routine.json'), summary: read('dashboard_summary.json') } as Parameters<typeof buildWeekly>[0];
-  const r = buildWeekly(input, at('2026-10-26T21:00:00+08:00'));
+  let input: Parameters<typeof buildWeekly>[0];
+  let r: ReturnType<typeof buildWeekly>;
+  beforeAll(() => {
+    input = { prayers: read<Prayers>('prayers.json'), habits: read<Habits>('habits.json'), body: read<Body>('body.json'), finance: read<Finance>('finance.json'), routine: read('routine.json'), summary: read('dashboard_summary.json') } as Parameters<typeof buildWeekly>[0];
+    r = buildWeekly(input, at('2026-10-26T21:00:00+08:00'));
+  });
   it('invariants: qada total = sum of five, weekly done غير مسجل, no NaN anywhere, every null Val is tagged غير مسجل', () => {
     expect(r.prayer!.qada.sumMatches).toBe(true);
     expect(r.prayer!.qada.doneWeek.value).toBeNull();

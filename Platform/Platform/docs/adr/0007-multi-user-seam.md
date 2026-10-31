@@ -1,0 +1,3 @@
+# ADR-0007 — Multi-user readiness without accounts
+**Decision.** All new tables carry `workspace_id` (default `'default'`). `server/wos/auth.ts#workspaceOf(req)` is the only place that decides the workspace — today constant; tomorrow resolved from a session. Owner display name moves to setting `profile.name`. Public share links are read-only tokens. No login UI is shipped.
+**Future plan.** Add `core_users`, `core_sessions`, membership table `(user_id, workspace_id, role)`; `workspaceOf` reads the session; legacy acad_/lib_/spt_ tables get `workspace_id` via a migration defaulting to `'default'`.

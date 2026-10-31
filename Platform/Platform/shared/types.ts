@@ -100,4 +100,4 @@ export interface SearchHit {
 }
 
 /** نتيجة البحث الموحّد خارج الفصول (المكتبة، الحياة، الرياضة، المصطلحات). */
-export interface MoreHit { kind: 'library' | 'youtube' | 'life' | 'sports' | 'workout' | 'glossary'; id: string; title: string; subtitle: string; to: string }
+export interface MoreHit { kind: 'library' | 'youtube' | 'life' | 'sports' | 'workout' | 'glossary' | 'space' | 'item'; id: string; title: string; subtitle: string; to: string }

@@ -23,6 +23,15 @@ export function AppearanceCard() {
   const { theme, themePref, setTheme } = useApp();
   const [accent, setAccent] = useState(() => document.documentElement.getAttribute('data-accent') ?? 'indigo');
   const [motion, setMotion] = useState<'auto' | 'off'>(() => (ls('platform.motion') === 'off' ? 'off' : 'auto'));
+  const [density, setDensity] = useState<'comfortable' | 'compact'>(() => (ls('platform.density') === 'compact' ? 'compact' : 'comfortable'));
+  useEffect(() => {
+    const el = document.documentElement;
+    if (density === 'compact') el.setAttribute('data-density', 'compact');
+    else el.removeAttribute('data-density');
+    try {
+      localStorage.setItem('platform.density', density);
+    } catch { /* تجاهل */ }
+  }, [density]);
   useEffect(() => {
     const el = document.documentElement;
     if (accent === 'indigo') el.removeAttribute('data-accent');
@@ -53,6 +62,7 @@ export function AppearanceCard() {
           </div>
         </div>
         <Segmented label="الحركة" value={motion} onChange={setMotion} options={[{ value: 'auto', label: 'حركات الواجهة' }, { value: 'off', label: 'بدون حركة' }]} />
+        <Segmented label="الكثافة" value={density} onChange={setDensity} options={[{ value: 'comfortable', label: 'مريحة' }, { value: 'compact', label: 'مضغوطة (قوائم وجداول أكثف)' }]} />
         <p className="muted" style={{ margin: 0, fontSize: 'var(--fs-sm)' }}>يُحفظ على هذا الجهاز فقط. «بدون حركة» تُطبَّق تلقائيًا أيضًا إن كان نظامك يطلب تقليل الحركة.</p>
       </div>
     </Card>
@@ -77,7 +87,7 @@ export function NotifyCard() {
     }
   };
   return (
-    <Card>
+    <Card id="notify">
       <CardHead title="تنبيهات المواعيد" icon="bell" />
       <div className="stack">
         <p className="muted" style={{ margin: 0 }}>الجرس في الأعلى يعرض مواعيد الفصل النشط خلال 7 أيام دائمًا. إشعار المتصفح اختياري: يُعرض مرة واحدة لكل تقييم له تاريخ محدد، يوم الموعد وقبله بيوم. التقييمات المحددة بأسبوع فقط (موعد تقريبي) لا تُنبَّه ولا يُخمَّن لها تاريخ.</p>

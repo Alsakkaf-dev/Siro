@@ -35,3 +35,19 @@
 - Fix: glossary term click no longer closes the popover that hover just opened (flaky e2e + real UX bug).
 
 ## STOP (urgent): build OK, vitest 163/163 both drivers, smoke 39/39, e2e_c4 ALL PASSED after last fix. Final e2e sweep and clean-install re-check NOT re-run after the last glossary click fix (all passed before it). Cycle 5 not done.
+
+
+## الخطة الموحدة — المرحلة 2 (2026-10-29) ✅
+- P4–P8 (التنقل) مكتملة: المادة محور (`?tab=`)، التقييمات بعروض `?view=list|weeks|gantt|weights`، «مُصحَّح» يتطلب درجة، المكتبة/الحياة/الرياضة بتبويبات، الإعدادات `?tab=general|data|sources`، حالة الفلاتر في الرابط (`useUrlParam`)، المراجعة بفهرس. توثيق: `docs/nav-restructure/NAVIGATION_AR.md`.
+- المطبخ K-M3/K-M4/K-M5: ترحيل `id: 4` (جداول `kitchen_*` فقط) + `server/kitchenRoutes.ts` (أسعار مبذورة من `SEED_PRICES` + تدقيق وتراجع، سلة، «اشتريت» ذرّي بـ`db.tx`، مخزن، محفظة، طلبات مكوّنات، SSE `/api/kitchen/stream`) + صفحات المتجر والسلة والمخزن والمحفظة والأسعار والقاموس.
+- اختبارات: vitest 256 ناجح (الأساس 221) منها 18 API للمطبخ بالسائقين (better-sqlite3 وnode:sqlite)، و17 للمحركات الجديدة؛ `browser-smoke --strict`: 48 مسارًا × 2 عرض + سيناريوهات J1/J2/J3/J8 وAC-01…04 بأزمنة مقيسة، 0 أخطاء.
+
+## الخطة الموحدة — المرحلة 3 (2026-10-29) ✅
+- K-M7 المحاكاة العميقة (Worker حتمي، معايرة SIM-50، سجلات ذهبية) + K-M6 المطبخ والبطاقات والخطة (`server/kitchenCook.ts`، ترحيل `id: 5`) + صفحات `/kitchen/cook` و`/kitchen/plan` + تفعيل القاموس (ابتكاراتي/اطبخها/الجدول/نسخة مصغّرة).
+- K-M8: عقد GLB وتحميل اختياري مع احتياط إجرائي، بيان الأصول وCREDITS وأدوات بلندر/التحسين، حزمة kernelCAD (مصدر فقط).
+- اختبارات: vitest 322 (+66 عن المرحلة 2)، `browser-smoke --strict` 51 مسارًا × 2 عرض + 28 سيناريو (VS-1 وAC-05/06/07 وA11Y-10 والجودات الثلاث) بلا أخطاء، smoke 39/39. تفاصيل الأرقام في `docs/UNIFIED_PLAN_AR.md` («سجل المرحلة 3»).
+
+
+## الخطة الموحدة — المرحلة 4 (2026-10-30) ✅
+- الجدول `/calendar` (قراءة فقط، CAL-18)، وجبات الجدول `/calendar/meals` (قانون حيّ، ملاءمة، دورة، تسوّق، سجل)، اقتراحات Outlook `/calendar/proposals` (تصدير لراشد، لا كتابة)، بوابة إثراء اختيارية (UNVERIFIED)، بطاقة «وجبات اليوم» في «اليوم». ترحيلات `id: 7/8/9` (calendar_* وapi_* فقط).
+- اختبارات: vitest 419 (+90 عن الأساس 329)، `browser-smoke --strict` 58 مسارًا × 2 عرض + 39 سيناريو بلا أخطاء، axe حاسمة 0. التفاصيل والأدلة: `docs/PHASE4_CLOSURE_AR.md` و`docs/kitchen/TRACEABILITY.md`.

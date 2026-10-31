@@ -212,8 +212,8 @@ export function AssessmentForm({ initial, sem, onSave, onClose }: { initial?: As
 }
 
 /* ───────── Note ───────── */
-export function NoteForm({ initial, courses, onSave, onClose }: { initial?: AcademicNote; courses: Course[]; onSave: (d: Record<string, unknown>) => Promise<void>; onClose: () => void }) {
-  const [f, setF] = useState({ course_id: str(initial?.course_id), tag: initial?.tag ?? 'unk', text: str(initial?.text), detail: str(initial?.detail), resolved: initial?.resolved ?? false });
+export function NoteForm({ initial, courses, onSave, onClose, defaultCourseId }: { initial?: AcademicNote; courses: Course[]; onSave: (d: Record<string, unknown>) => Promise<void>; onClose: () => void; defaultCourseId?: string }) {
+  const [f, setF] = useState({ course_id: str(initial?.course_id ?? defaultCourseId), tag: initial?.tag ?? 'unk', text: str(initial?.text), detail: str(initial?.detail), resolved: initial?.resolved ?? false });
   const { errors, saving, submit } = useFormShell<Record<string, unknown>>(onSave, onClose);
   const build = (): Record<string, unknown> => parseOr(noteSchema, f) as Record<string, unknown>;
   return (

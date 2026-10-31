@@ -76,7 +76,7 @@ function PdfPage({ doc, n, scale, size, root, onSize }: { doc: PDFDocumentProxy;
   }, [visible, doc, n, scale, onSize]);
 
   return (
-    <div ref={box} className="pdf-page" data-page={n} style={{ inlineSize: size.w * scale, blockSize: size.h * scale }} aria-label={`صفحة ${n}`}>
+    <div ref={box} className="pdf-page" data-page={n} style={{ inlineSize: size.w * scale, blockSize: size.h * scale }} role="group" aria-label={`صفحة ${n}`}>
       <canvas ref={canvas} />
       <div ref={text} className="pdf-text" />
     </div>

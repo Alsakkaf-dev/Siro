@@ -1,0 +1,293 @@
+{
+ "pkg": "SEM-5",
+ "source_root": "Bachelor in Software Engineering",
+ "files": 57,
+ "bytes": 167637595,
+ "entries": [
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/CC SCSE3103-05/01-Course-Information/CI_SCSE3103 COGNITIVE COMPUTING.pdf",
+   "dest": "SCSE3103-05 Cognitive Computing/01-Course-Information/CI_SCSE3103 COGNITIVE COMPUTING.pdf",
+   "size": 448076
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/CC SCSE3103-05/01-Course-Information/Screenshots/Screenshot 2026-10-23 192445.png",
+   "dest": "SCSE3103-05 Cognitive Computing/01-Course-Information/Screenshots/Screenshot 2026-10-23 192445.png",
+   "size": 77729
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/CC SCSE3103-05/02-Lectures/Chapter_1_Computers_and_Intelligence.pdf",
+   "dest": "SCSE3103-05 Cognitive Computing/02-Lectures/Chapter_1_Computers_and_Intelligence.pdf",
+   "size": 645192
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/CC SCSE3103-05/07-Study-Notes/SCSE3103-STUDY-GUIDE.md",
+   "dest": "SCSE3103-05 Cognitive Computing/07-Study-Notes/SCSE3103-STUDY-GUIDE.md",
+   "size": 21335
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/CC SCSE3103-05/07-Study-Notes/SUMMARY.md",
+   "dest": "SCSE3103-05 Cognitive Computing/07-Study-Notes/SUMMARY.md",
+   "size": 2197
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/Mohammed_SCSEH_Plan.pdf",
+   "dest": "00-General/Mohammed_SCSEH_Plan.pdf",
+   "size": 354171
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/PSC/01 Briefing Slides 2026-27/TAKLIMAT-PSC2-20262027-SEM1.pdf",
+   "dest": "00-General/PSC/01 Briefing Slides 2026-27/TAKLIMAT-PSC2-20262027-SEM1.pdf",
+   "size": 3404843
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/PSC/02 E-Learning Manual/Edwiser Infographic for Learner.pdf",
+   "dest": "00-General/PSC/02 E-Learning Manual/Edwiser Infographic for Learner.pdf",
+   "size": 14694246
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/PSC/02 E-Learning Manual/Elearning e-Briefing Handbook (Jan 2024).pdf",
+   "dest": "00-General/PSC/02 E-Learning Manual/Elearning e-Briefing Handbook (Jan 2024).pdf",
+   "size": 25058524
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/PSC/02 E-Learning Manual/eLearning Manual Guideline - For Students 2024 (AUGUST 2024).pdf",
+   "dest": "00-General/PSC/02 E-Learning Manual/eLearning Manual Guideline - For Students 2024 (AUGUST 2024).pdf",
+   "size": 45745595
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/PSC/PSC-SUMMARY.md",
+   "dest": "00-General/PSC/PSC-SUMMARY.md",
+   "size": 991
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SEM5-STATUS.md",
+   "dest": "00-General/SEM5-STATUS.md",
+   "size": 7034
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SEM5_Command_Center.html",
+   "dest": "00-General/SEM5_Command_Center.html",
+   "size": 223583
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/01-Course-Information/Screenshots/Screenshot 2026-10-23 194601.png",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/01-Course-Information/Screenshots/Screenshot 2026-10-23 194601.png",
+   "size": 91491
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/01-Course-Information/Syllabus202627.pdf",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/01-Course-Information/Syllabus202627.pdf",
+   "size": 524882
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/04-Assignments/Group Assignment 1.pdf",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/04-Assignments/Group Assignment 1.pdf",
+   "size": 172974
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/04-Assignments/INDIVIDUAL ASSIGNMENT.pdf",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/04-Assignments/INDIVIDUAL ASSIGNMENT.pdf",
+   "size": 234271
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/04-Assignments/Instrumentation_Measurement_Group present.pdf",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/04-Assignments/Instrumentation_Measurement_Group present.pdf",
+   "size": 122965
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/05-Projects/Instrumentation_Measurement_Group present.pdf",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/05-Projects/Instrumentation_Measurement_Group present.pdf",
+   "size": 122965
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/07-Study-Notes/SKEX2123-STUDY-GUIDE.md",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/07-Study-Notes/SKEX2123-STUDY-GUIDE.md",
+   "size": 22897
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/07-Study-Notes/SUMMARY.md",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/07-Study-Notes/SUMMARY.md",
+   "size": 2786
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/08-Recordings/Chapter 1a.mp4",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/08-Recordings/Chapter 1a.mp4",
+   "size": 15252923
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/SKEX2123 - Instrumentation & Measurement/08-Recordings/Chapter 2a.mp4",
+   "dest": "SKEX2123-02 Measurement & Instrumentation/08-Recordings/Chapter 2a.mp4",
+   "size": 36780303
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/01-Course-Information/SCSE 3203 UTM CI 2026 - ESDVBE signed.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/01-Course-Information/SCSE 3203 UTM CI 2026 - ESDVBE signed.pdf",
+   "size": 404774
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/01-Course-Information/Screenshots/Screenshot 2026-10-23 194357.png",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/01-Course-Information/Screenshots/Screenshot 2026-10-23 194357.png",
+   "size": 89648
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/01-Course-Information/Screenshots/Screenshot 2026-10-23 194404.png",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/01-Course-Information/Screenshots/Screenshot 2026-10-23 194404.png",
+   "size": 85455
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/01-Course-Information/Screenshots/Screenshot 2026-10-23 194412.png",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/01-Course-Information/Screenshots/Screenshot 2026-10-23 194412.png",
+   "size": 79707
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/02-Lectures/Week02_Java Web Environment.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/02-Lectures/Week02_Java Web Environment.pdf",
+   "size": 687776
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/02-Lectures/Week_1_Current Trends and Ethics.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/02-Lectures/Week_1_Current Trends and Ethics.pdf",
+   "size": 3019726
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/03-Labs/Week2_Guided Lab.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/03-Labs/Week2_Guided Lab.pdf",
+   "size": 604445
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/05-Projects/Case_Study_Etiqa_Digital_Payout_eMoney.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/05-Projects/Case_Study_Etiqa_Digital_Payout_eMoney.pdf",
+   "size": 150485
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/05-Projects/Etiqa-UTM FC Case Study Description.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/05-Projects/Etiqa-UTM FC Case Study Description.pdf",
+   "size": 150485
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/05-Projects/Project Briefing Semester 1 20262027-Etiqa.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/05-Projects/Project Briefing Semester 1 20262027-Etiqa.pdf",
+   "size": 268907
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/05-Projects/Project_Brief_Etiqa_eMoney_WebApp.pdf",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/05-Projects/Project_Brief_Etiqa_eMoney_WebApp.pdf",
+   "size": 268907
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/07-Study-Notes/SCSE3203-STUDY-GUIDE.md",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/07-Study-Notes/SCSE3203-STUDY-GUIDE.md",
+   "size": 29958
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/ST SCSE3203-03/07-Study-Notes/SUMMARY.md",
+   "dest": "SCSE3203-03 Special Topics (Java Web)/07-Study-Notes/SUMMARY.md",
+   "size": 2780
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/01-Course-Information/Screenshots/Screenshot 2026-10-23 192644.png",
+   "dest": "SCSE3143-05 Ubiquitous Computing/01-Course-Information/Screenshots/Screenshot 2026-10-23 192644.png",
+   "size": 71102
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/01-Course-Information/[SCSE3143] UTM CI 2026 - ESDVBE - CI_Template (1).pdf",
+   "dest": "SCSE3143-05 Ubiquitous Computing/01-Course-Information/[SCSE3143] UTM CI 2026 - ESDVBE - CI_Template (1).pdf",
+   "size": 148993
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/02-Lectures/Week01 Intro, Concepts and Application UbiComp.pptx.pdf",
+   "dest": "SCSE3143-05 Ubiquitous Computing/02-Lectures/Week01 Intro, Concepts and Application UbiComp.pptx.pdf",
+   "size": 4721641
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/02-Lectures/Week02 Foundations  Architectures of the IoT.pdf",
+   "dest": "SCSE3143-05 Ubiquitous Computing/02-Lectures/Week02 Foundations  Architectures of the IoT.pdf",
+   "size": 1466660
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/07-Study-Notes/SCSE3143-STUDY-GUIDE.md",
+   "dest": "SCSE3143-05 Ubiquitous Computing/07-Study-Notes/SCSE3143-STUDY-GUIDE.md",
+   "size": 19137
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UC SCSE3143-05/07-Study-Notes/SUMMARY.md",
+   "dest": "SCSE3143-05 Ubiquitous Computing/07-Study-Notes/SUMMARY.md",
+   "size": 2366
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLB2122-37/01-Course-Information/COURSE BRIEFING-UHLB2122 2026-2027-1.pdf",
+   "dest": "UHLB2122-37 Professional Communication Skills 1 (PCS 1)/01-Course-Information/COURSE BRIEFING-UHLB2122 2026-2027-1.pdf",
+   "size": 6187261
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLB2122-37/01-Course-Information/COURSE INFORMATION UHLB2122 PCS1 SEM1 20262027-2.pdf",
+   "dest": "UHLB2122-37 Professional Communication Skills 1 (PCS 1)/01-Course-Information/COURSE INFORMATION UHLB2122 PCS1 SEM1 20262027-2.pdf",
+   "size": 369754
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLB2122-37/01-Course-Information/Screenshots/Screenshot 2026-10-23 194737.png",
+   "dest": "UHLB2122-37 Professional Communication Skills 1 (PCS 1)/01-Course-Information/Screenshots/Screenshot 2026-10-23 194737.png",
+   "size": 89123
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLB2122-37/02-Lectures/Main_Ideas_Supporting_Ideas_Thesis_Statements.pdf",
+   "dest": "UHLB2122-37 Professional Communication Skills 1 (PCS 1)/02-Lectures/Main_Ideas_Supporting_Ideas_Thesis_Statements.pdf",
+   "size": 161253
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLB2122-37/04-Assignments/BULLYING 500 WORDS.docx",
+   "dest": "UHLB2122-37 Professional Communication Skills 1 (PCS 1)/04-Assignments/BULLYING 500 WORDS.docx",
+   "size": 15243
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195111.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195111.png",
+   "size": 97997
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195124.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195124.png",
+   "size": 64731
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195141.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195141.png",
+   "size": 485592
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195149.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195149.png",
+   "size": 38385
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195210.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195210.png",
+   "size": 216607
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195302.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195302.png",
+   "size": 227386
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195312.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195312.png",
+   "size": 316877
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195335.png",
+   "dest": "UHLF1112-07 French/01-Course-Information/Screenshots/Screenshot 2026-10-23 195335.png",
+   "size": 257380
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/02-Lectures/W1 - Introduction.pdf",
+   "dest": "UHLF1112-07 French/02-Lectures/W1 - Introduction.pdf",
+   "size": 804130
+  },
+  {
+   "src": "Bachelor in Software Engineering/Year 3/SEM 5/UHLF1112-07 - French/02-Lectures/W2 - Greetings.pdf",
+   "dest": "UHLF1112-07 French/02-Lectures/W2 - Greetings.pdf",
+   "size": 2020951
+  }
+ ]
+}

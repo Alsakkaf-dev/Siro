@@ -15,7 +15,7 @@ export default function LifeFinance() {
   const d = useLife(['finance']);
   const f = d.get<Finance>('finance');
   return (
-    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف كما صدّرها راشد — قراءة فقط.">
+    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف كما صدّرها راشد — قراءة فقط." actions={<Button icon="edit" to="/life/commands?type=log_expense">سجّل مصروف</Button>}>
       {f && <Body f={f} />}
     </LifePage>
   );

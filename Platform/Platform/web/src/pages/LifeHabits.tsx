@@ -1,4 +1,4 @@
-import { Badge, Card, CardHead, Unknown } from '../ui/ui.js';
+import { Badge, Button, Card, CardHead, Unknown } from '../ui/ui.js';
 import { AreaLine } from '../widgets/charts.js';
 import { Conf, LifePage, MissingInputsCards, Note, fmtDay, fmtDayFull, useLife } from '../life/lifeKit.js';
 import { DAY_AR, type Habit, type Habits } from '../../../shared/life.js';
@@ -11,7 +11,7 @@ export default function LifeHabits() {
   const d = useLife(['habits']);
   const h = d.get<Habits>('habits');
   return (
-    <LifePage title="العادات" icon="check" names={['habits']} data={d} sub="الخطط والعدادات كما صدّرها راشد — قراءة فقط.">
+    <LifePage title="العادات" icon="check" names={['habits']} data={d} sub="الخطط والعدادات كما صدّرها راشد — قراءة فقط." actions={<><Button variant="primary" icon="zap" to="/life/alternatives">اشتهاء الآن؟</Button><Button icon="edit" to="/life/commands?type=habit_relapse">سجّل انتكاسة</Button></>}>
       {h && <Body h={h} />}
     </LifePage>
   );

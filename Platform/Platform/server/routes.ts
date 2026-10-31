@@ -7,7 +7,8 @@ import { SCHEMA_VERSION } from './schema.js';
 import { assessmentSchema, courseSchema, noteSchema, normalizeAssessment, parseOrThrow, semesterSchema, ValidationError } from './validation.js';
 import { createBackup, listBackups, resolveBackup } from './backup.js';
 import { applyImport, buildExport, diffImport, parseImport } from './exportImport.js';
-import { Trash } from './trash.js';
+import { createWosRouter, createPublicRouter } from './wos/routes.js';
+import { record, snapshot, trashPut, trashRestore, workspaceOf, type SnapSpec } from './wos/core.js';
 import { KIND_ALIASES, KIND_LABEL, STATUS_LABEL, TIMING_LABEL } from '../shared/constants.js';
 import { normalizeText } from '../shared/text.js';
 import type { SearchHit } from '../shared/types.js';
@@ -16,6 +17,11 @@ import { createLibraryRouter } from './libraryRoutes.js';
 import { createLifeRouter } from './lifeRoutes.js';
 import { createSportsRouter } from './sportsRoutes.js';
 import { createSearchRouter } from './searchRoutes.js';
+import { createKitchenRouter } from './kitchenRoutes.js';
+import { createCalendarRouter } from './calendarRoutes.js';
+import { createEnrichRouter } from './enrich.js';
+import { createPackageRouter } from './packageRoutes.js';
+import { createAiRouter } from './ai/routes.js';
 import path from 'node:path';
 
 export class HttpError extends Error {
@@ -59,7 +65,10 @@ function uniqueGuard<T>(fn: () => T): T {
 export function createApiRouter(ctx: Ctx): express.Router {
   const r = express.Router();
   const db = (): Db => ctx.getDb();
-  const trash = new Trash();
+  const ws = workspaceOf();
+  const IN_COURSES_OF_SEM = 'course_id IN (SELECT id FROM acad_courses WHERE semester_id = ?)';
+  /** لقطة صفوف أكاديمية للسلة الدائمة (تشمل النتائج الرسمية — كانت تضيع عند التراجع سابقًا) */
+  const acadTrash = (label: string, specs: SnapSpec[], makeActive?: string | null): string => trashPut(db(), ws, { kind: 'academic', label, sets: snapshot(db(), specs), makeActive: makeActive ?? null });
 
   r.get('/health', (_req, res) => {
     res.json({ ok: true, name: 'platform', version: ctx.cfg.version, schema: SCHEMA_VERSION, driver: db().driver, time: new Date().toISOString() });
@@ -69,6 +78,13 @@ export function createApiRouter(ctx: Ctx): express.Router {
   r.use('/life', createLifeRouter(ctx));
   r.use('/sports', createSportsRouter(ctx));
   r.use('/search', createSearchRouter(ctx));
+  r.use('/kitchen', createKitchenRouter(ctx));
+  r.use('/calendar', createCalendarRouter(ctx));
+  r.use('/enrich', createEnrichRouter(ctx));
+  r.use('/packages', createPackageRouter(ctx));
+  r.use('/wos', createWosRouter(ctx));
+  r.use('/public', createPublicRouter(ctx));
+  r.use('/ai', createAiRouter(ctx));
 
   /* ───── الفصول ───── */
   r.get('/semesters', wrap((_req, res) => void res.json(repo.listSemesters(db()))));
@@ -79,6 +95,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     uniqueGuard(() => repo.insertSemester(db(), id, i));
     if (!repo.getSetting(db(), 'active_semester_id')) repo.setSetting(db(), 'active_semester_id', id);
     ctx.bus.publish('academic.semester.created', 'academic', { id, code: i.code });
+    record(db(), ws, { ref: `acad:sem:${id}`, action: 'create', summary: `أُنشئ الفصل ${i.code}` });
     res.status(201).json(repo.getBundle(db(), id));
   }));
 
@@ -95,6 +112,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const i = parseOrThrow(semesterSchema, { ...cur, ...(req.body as object) });
     uniqueGuard(() => repo.updateSemester(db(), id, i));
     ctx.bus.publish('academic.semester.updated', 'academic', { id });
+    record(db(), ws, { ref: `acad:sem:${id}`, action: 'update', summary: `عُدّل الفصل ${i.code}` });
     res.json(repo.getBundle(db(), id));
   }));
 
@@ -110,12 +128,15 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = str(req.params['id']);
     const b = repo.getBundle(db(), id);
     if (!b) throw new HttpError(404, 'الفصل غير موجود');
-    const token = trash.put(
-      { semesters: [{ ...b.semester }], courses: b.courses, assessments: b.assessments, notes: b.notes, active_semester_id: null },
-      `الفصل ${b.semester.code}`,
-      b.is_active ? id : undefined,
-    );
+    const token = acadTrash(`الفصل ${b.semester.code}`, [
+      { table: 'acad_semesters', where: 'id = ?', params: [id] },
+      { table: 'acad_courses', where: 'semester_id = ?', params: [id] },
+      { table: 'acad_assessments', where: IN_COURSES_OF_SEM, params: [id] },
+      { table: 'acad_notes', where: 'semester_id = ?', params: [id] },
+      { table: 'acad_results', where: IN_COURSES_OF_SEM, params: [id] },
+    ], b.is_active ? id : null);
     repo.deleteSemester(db(), id);
+    record(db(), ws, { ref: `acad:sem:${id}`, action: 'delete', summary: `حُذف الفصل ${b.semester.code} (${b.courses.length} مادة)` });
     ctx.bus.publish('academic.semester.deleted', 'academic', { id });
     res.json({ ok: true, undo: token });
   }));
@@ -128,6 +149,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = repo.newId();
     uniqueGuard(() => repo.insertCourse(db(), id, sid, i));
     ctx.bus.publish('academic.course.created', 'academic', { id, semester_id: sid });
+    record(db(), ws, { ref: `acad:course:${id}`, action: 'create', summary: `أُضيفت المادة ${i.code}` });
     res.status(201).json(repo.getCourse(db(), id));
   }));
 
@@ -137,6 +159,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     if (!cur) throw new HttpError(404, 'المادة غير موجودة');
     const i = parseOrThrow(courseSchema, { ...cur, ...(req.body as object) });
     uniqueGuard(() => repo.updateCourse(db(), id, i));
+    record(db(), ws, { ref: `acad:course:${id}`, action: 'update', summary: `عُدّلت المادة ${i.code}` });
     res.json(repo.getCourse(db(), id));
   }));
 
@@ -144,19 +167,14 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = str(req.params['id']);
     const c = repo.getCourse(db(), id);
     if (!c) throw new HttpError(404, 'المادة غير موجودة');
-    const b = repo.getBundle(db(), c.semester_id);
-    const sem = b!.semester;
-    const token = trash.put(
-      {
-        semesters: [sem],
-        courses: [c],
-        assessments: b!.assessments.filter((a) => a.course_id === id),
-        notes: b!.notes.filter((n) => n.course_id === id),
-        active_semester_id: null,
-      },
-      `المادة ${c.code}`,
-    );
+    const token = acadTrash(`المادة ${c.code}`, [
+      { table: 'acad_courses', where: 'id = ?', params: [id] },
+      { table: 'acad_assessments', where: 'course_id = ?', params: [id] },
+      { table: 'acad_notes', where: 'course_id = ?', params: [id] },
+      { table: 'acad_results', where: 'course_id = ?', params: [id] },
+    ]);
     repo.deleteCourse(db(), id);
+    record(db(), ws, { ref: `acad:course:${id}`, action: 'delete', summary: `حُذفت المادة ${c.code}` });
     res.json({ ok: true, undo: token });
   }));
 
@@ -173,6 +191,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = repo.newId();
     repo.insertAssessment(db(), id, course.id, i);
     ctx.bus.publish('academic.assessment.created', 'academic', { id, course_id: course.id });
+    record(db(), ws, { ref: `acad:asmt:${id}`, action: 'create', summary: `أُضيف التقييم «${i.title}» (${course.code})` });
     res.status(201).json(repo.getAssessment(db(), id));
   }));
 
@@ -183,6 +202,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const { sem } = semOfCourse(cur.course_id);
     const i = normalizeAssessment(parseOrThrow(assessmentSchema, { ...cur, ...(req.body as object) }), sem);
     repo.updateAssessment(db(), id, i);
+    record(db(), ws, { ref: `acad:asmt:${id}`, action: 'update', summary: cur.status !== i.status ? `«${i.title}»: الحالة ← ${STATUS_LABEL[i.status]}` : `عُدّل التقييم «${i.title}»` });
     res.json(repo.getAssessment(db(), id));
   }));
 
@@ -190,9 +210,9 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = str(req.params['id']);
     const a = repo.getAssessment(db(), id);
     if (!a) throw new HttpError(404, 'التقييم غير موجود');
-    const { sem, course } = semOfCourse(a.course_id);
-    const token = trash.put({ semesters: [sem], courses: [course], assessments: [a], notes: [], active_semester_id: null }, `التقييم ${a.title}`);
+    const token = acadTrash(`التقييم ${a.title}`, [{ table: 'acad_assessments', where: 'id = ?', params: [id] }]);
     repo.deleteAssessment(db(), id);
+    record(db(), ws, { ref: `acad:asmt:${id}`, action: 'delete', summary: `حُذف التقييم «${a.title}»` });
     res.json({ ok: true, undo: token });
   }));
 
@@ -220,20 +240,105 @@ export function createApiRouter(ctx: Ctx): express.Router {
     const id = str(req.params['id']);
     const n = repo.getNote(db(), id);
     if (!n) throw new HttpError(404, 'الملاحظة غير موجودة');
-    const sem = repo.getSemester(db(), n.semester_id)!;
-    const token = trash.put({ semesters: [sem], courses: [], assessments: [], notes: [n], active_semester_id: null }, 'الملاحظة');
+    const token = acadTrash('الملاحظة', [{ table: 'acad_notes', where: 'id = ?', params: [id] }]);
     repo.deleteNote(db(), id);
+    record(db(), ws, { ref: `acad:note:${id}`, action: 'delete', summary: `حُذفت ملاحظة: ${n.text.slice(0, 60)}` });
     res.json({ ok: true, undo: token });
+  }));
+
+  /* ───── عمليات جماعية ───── */
+  const idList = (v: unknown): string[] => {
+    if (!Array.isArray(v) || !v.length || v.length > 500 || v.some((x) => typeof x !== 'string')) throw new ValidationError({ ids: 'اختر عنصرًا واحدًا على الأقل' });
+    return v as string[];
+  };
+  r.post('/assessments/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown; status?: unknown };
+    const ids = idList(b.ids);
+    const rows = ids.map((id) => repo.getAssessment(db(), id)).filter((a): a is NonNullable<typeof a> => !!a);
+    if (b.op === 'delete') {
+      const token = acadTrash(`${rows.length} تقييم`, [{ table: 'acad_assessments', where: `id IN (${rows.map(() => '?').join(',') || "''"})`, params: rows.map((a) => a.id) }]);
+      db().tx(() => rows.forEach((a) => {
+        repo.deleteAssessment(db(), a.id);
+        record(db(), ws, { ref: `acad:asmt:${a.id}`, action: 'delete', summary: `حُذف التقييم «${a.title}» (جماعي)` });
+      }));
+      return void res.json({ ok: true, count: rows.length, undo: token });
+    }
+    if (b.op === 'status') {
+      const status = String(b.status);
+      if (!(status in STATUS_LABEL)) throw new ValidationError({ status: 'حالة غير معروفة' });
+      db().tx(() => rows.forEach((a) => {
+        const { sem } = semOfCourse(a.course_id);
+        const i = normalizeAssessment(parseOrThrow(assessmentSchema, { ...a, status }), sem);
+        repo.updateAssessment(db(), a.id, i);
+        record(db(), ws, { ref: `acad:asmt:${a.id}`, action: 'update', summary: `«${a.title}»: الحالة ← ${STATUS_LABEL[i.status]} (جماعي)` });
+      }));
+      return void res.json({ ok: true, count: rows.length });
+    }
+    throw new ValidationError({ op: 'عملية غير معروفة' });
+  }));
+  r.post('/semesters/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
+    if (b.op !== 'delete') throw new ValidationError({ op: 'عملية غير معروفة' });
+    const rows = idList(b.ids).map((id) => repo.getBundle(db(), id)).filter((x): x is NonNullable<typeof x> => !!x);
+    const ids = rows.map((x) => x.semester.id);
+    const ph = ids.map(() => '?').join(',') || "''";
+    const inC = `course_id IN (SELECT id FROM acad_courses WHERE semester_id IN (${ph}))`;
+    const active = rows.find((x) => x.is_active)?.semester.id ?? null;
+    const token = acadTrash(`${rows.length} فصل`, [
+      { table: 'acad_semesters', where: `id IN (${ph})`, params: ids },
+      { table: 'acad_courses', where: `semester_id IN (${ph})`, params: ids },
+      { table: 'acad_assessments', where: inC, params: ids },
+      { table: 'acad_notes', where: `semester_id IN (${ph})`, params: ids },
+      { table: 'acad_results', where: inC, params: ids },
+    ], active);
+    db().tx(() => rows.forEach((x) => {
+      repo.deleteSemester(db(), x.semester.id);
+      record(db(), ws, { ref: `acad:sem:${x.semester.id}`, action: 'delete', summary: `حُذف الفصل ${x.semester.code} (جماعي)` });
+    }));
+    res.json({ ok: true, count: rows.length, undo: token });
+  }));
+  r.post('/courses/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
+    if (b.op !== 'delete') throw new ValidationError({ op: 'عملية غير معروفة' });
+    const rows = idList(b.ids).map((id) => repo.getCourse(db(), id)).filter((c): c is NonNullable<typeof c> => !!c);
+    const ph = rows.map(() => '?').join(',') || "''";
+    const ids = rows.map((c) => c.id);
+    const token = acadTrash(`${rows.length} مادة`, [
+      { table: 'acad_courses', where: `id IN (${ph})`, params: ids },
+      { table: 'acad_assessments', where: `course_id IN (${ph})`, params: ids },
+      { table: 'acad_notes', where: `course_id IN (${ph})`, params: ids },
+      { table: 'acad_results', where: `course_id IN (${ph})`, params: ids },
+    ]);
+    db().tx(() => rows.forEach((c) => {
+      repo.deleteCourse(db(), c.id);
+      record(db(), ws, { ref: `acad:course:${c.id}`, action: 'delete', summary: `حُذفت المادة ${c.code} (جماعي)` });
+    }));
+    res.json({ ok: true, count: rows.length, undo: token });
+  }));
+  r.post('/notes/bulk', wrap((req, res) => {
+    const b = (req.body ?? {}) as { ids?: unknown; op?: unknown };
+    const ids = idList(b.ids);
+    const rows = ids.map((id) => repo.getNote(db(), id)).filter((n): n is NonNullable<typeof n> => !!n);
+    if (b.op === 'delete') {
+      const token = acadTrash(`${rows.length} ملاحظة`, [{ table: 'acad_notes', where: `id IN (${rows.map(() => '?').join(',') || "''"})`, params: rows.map((n) => n.id) }]);
+      db().tx(() => rows.forEach((n) => repo.deleteNote(db(), n.id)));
+      record(db(), ws, { ref: 'acad:notes', action: 'delete', summary: `حُذفت ${rows.length} ملاحظة (جماعي)` });
+      return void res.json({ ok: true, count: rows.length, undo: token });
+    }
+    if (b.op === 'resolve' || b.op === 'unresolve') {
+      db().tx(() => rows.forEach((n) => repo.updateNote(db(), n.id, parseOrThrow(noteSchema, { ...n, resolved: b.op === 'resolve' }))));
+      record(db(), ws, { ref: 'acad:notes', action: 'update', summary: `${b.op === 'resolve' ? 'حُلّت' : 'أُعيد فتح'} ${rows.length} ملاحظة` });
+      return void res.json({ ok: true, count: rows.length });
+    }
+    throw new ValidationError({ op: 'عملية غير معروفة' });
   }));
 
   /* ───── تراجع ───── */
   r.post('/undo/:token', wrap((req, res) => {
-    const e = trash.take(str(req.params['token']));
+    const e = trashRestore(db(), ws, str(req.params['token']));
     if (!e) throw new HttpError(410, 'انتهت مهلة التراجع');
-    // التراجع يستعيد فقط ما كان محذوفًا (الفصل/المادة الأب قد يكونان موجودين)
-    const d = e.data;
-    applyImport(db(), d, 'merge');
     if (e.makeActive) repo.setSetting(db(), 'active_semester_id', e.makeActive);
+    record(db(), ws, { ref: 'trash', action: 'restore', summary: `استُعيد ${e.label}` });
     res.json({ ok: true, label: e.label });
   }));
 

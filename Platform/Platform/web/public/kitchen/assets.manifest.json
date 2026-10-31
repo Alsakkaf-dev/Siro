@@ -1,0 +1,87 @@
+{
+  "_": "بيان أصول المطبخ (AC-12 / PERF-20). كل أصل بترخيص ومصدر؛ delivered=false يعني أن الملف لم يُسلَّم بعد ويبقى المشهد الإجرائي. يُحدَّث بـ node tools/assets/optimize.mjs.",
+  "version": 1,
+  "budgets": {
+    "sceneMaxBytes": 12582912,
+    "ingredientModelMaxBytes": 307200,
+    "ingredientTextureMaxPx": 1024,
+    "environmentTextureMaxPx": 2048,
+    "sceneMaxTriangles": 250000,
+    "ingredientMaxTriangles": 5000,
+    "maxDrawCalls": 150
+  },
+  "procedural": {
+    "note": "المشهد الإجرائي (هندسة three.js + نسيج Canvas مولَّد وقت التشغيل) لا يحمّل أي ملف؛ لا ترخيص لطرف ثالث فيه.",
+    "license": "OWNER-AUTHORED",
+    "source": "web/src/kitchen/cook/Scene3D.ts"
+  },
+  "assets": [
+    {
+      "id": "kitchen-kit",
+      "kind": "kit",
+      "path": "/kitchen/models/kitchen-kit.glb",
+      "file": "models/kitchen-kit.glb",
+      "delivered": false,
+      "bytes": null,
+      "sha256": null,
+      "license": "OWNER-GENERATED",
+      "licenseNote": "ناتج أنشأه المالك بـkernelCAD من مصدره tools/kernelcad/kitchen-kit.kcad.ts؛ تحقّق من شروط kernelCAD قبل النشر العام (لم يُتحقق منها آليًا).",
+      "source": "tools/kernelcad/kitchen-kit.kcad.ts",
+      "author": "المالك (بمساعدة kernelCAD)",
+      "attribution": null,
+      "nodes": [
+        "equip_pan",
+        "equip_pot_small",
+        "equip_pot_large",
+        "equip_pressure_cooker",
+        "equip_bowl",
+        "plate_1",
+        "board_main"
+      ]
+    },
+    {
+      "id": "kitchen-world",
+      "kind": "world",
+      "path": "/kitchen/models/kitchen-world.glb",
+      "file": "models/kitchen-world.glb",
+      "delivered": true,
+      "bytes": 1754424,
+      "sha256": "32a299c631433aeb57ee4b71fe13257ba9c72cd3e81075bc6275bf0e1b14a10f",
+      "license": "OWNER-GENERATED",
+      "licenseNote": "مولَّد بالكامل من سكربت Blender الخاص بالمشروع (tools/blender/kitchen_world) بلا أصول طرف ثالث؛ المواد إجرائية مخبوزة. لا ملفات KayKit/Kenney مضمّنة.",
+      "source": "tools/blender/kitchen_world/build.py",
+      "author": "المالك (بمساعدة Blender 5.2)",
+      "attribution": null,
+      "nodes": [
+        "slot_ing_*",
+        "equip_*",
+        "burner_1..4",
+        "cam_station_*",
+        "board_main",
+        "scale_main",
+        "plate_1",
+        "spawn_player",
+        "drop_*"
+      ]
+    },
+    {
+      "id": "kitchen-food",
+      "kind": "food",
+      "path": "/kitchen/models/kitchen-food.glb",
+      "file": "models/kitchen-food.glb",
+      "delivered": true,
+      "bytes": 359048,
+      "sha256": "6b27709b0480b3f7398081a65ac77b016560937230538ed2338e91ad001e652e",
+      "license": "OWNER-GENERATED",
+      "licenseNote": "مولَّد بالكامل من سكربت Blender الخاص بالمشروع (tools/blender/kitchen_world/food.py) بلا أصول طرف ثالث؛ ألوان رؤوس فقط بلا نسيج.",
+      "source": "tools/blender/kitchen_world/food.py",
+      "author": "المالك (بمساعدة Blender 5.2)",
+      "attribution": null,
+      "nodes": [
+        "food_<slug>",
+        "food_<slug>_peeled",
+        "cut_<shape>_<slug>"
+      ]
+    }
+  ]
+}

@@ -192,12 +192,13 @@ export function WeekTimetable({ courses, todayDow }: { courses: Course[]; todayD
   const max = Math.ceil(Math.max(...slots.map((x) => x.s.end), 17 * 60) / 60) * 60;
   const hours: number[] = [];
   for (let m = min; m < max; m += 60) hours.push(m);
-  const days = [0, 1, 2, 3, 4];
-  const dayName = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+  // الأحد–الخميس دائمًا، والجمعة/السبت إن وُجدت فيهما محاضرة (مثل SKEX2123 الجمعة)
+  const days = [0, 1, 2, 3, 4, ...[5, 6].filter((d) => slots.some((x) => x.s.day === d))];
+  const dayName = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
   void DAY_AR;
   const H = 52;
   return (
-    <div className="tt-wrap"><div className="tt" style={{ '--rows': hours.length, '--h': `${H}px` } as CSSProperties}>
+    <div className="tt-wrap" tabIndex={0} role="region" aria-label="الجدول الأسبوعي للمحاضرات"><div className="tt" style={{ '--rows': hours.length, '--h': `${H}px`, gridTemplateColumns: `52px repeat(${days.length}, minmax(0, 1fr))` } as CSSProperties}>
       <div className="tt-corner" />
       {days.map((d) => (
         <div key={d} className={cx('tt-dh', d === todayDow && 'today')}>{dayName[d]}</div>

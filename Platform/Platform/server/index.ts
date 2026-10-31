@@ -9,6 +9,8 @@ import { EventBus } from './events.js';
 import { ensureDailyBackup } from './backup.js';
 import * as lib from './library.js';
 import { createApp } from './app.js';
+import { startBackground } from './ai/background.js';
+import { Secrets } from './ai/secrets.js';
 
 export interface Running {
   cfg: AppConfig;
@@ -66,6 +68,8 @@ export function startServer(overrides: Parameters<typeof loadConfig>[0] = {}): P
         };
         loop();
       }
+      // الذكاء في الخلفية: موجز اليوم (قراءة فقط، لا مزوّد مدفوع)
+      const stopAi = process.env['PLATFORM_NO_AUTOSCAN'] !== '1' ? startBackground(() => db, new Secrets(path.join(cfg.dataDir, 'ai-secrets.json'))) : () => undefined;
       resolve({
         cfg,
         server,
@@ -73,6 +77,7 @@ export function startServer(overrides: Parameters<typeof loadConfig>[0] = {}): P
         close: () =>
           new Promise<void>((res) => {
             if (timer) clearTimeout(timer);
+            stopAi();
             server.close(() => {
               db.close();
               res();

@@ -2,6 +2,7 @@ import { plainDeep } from '../../../shared/plain.js';
 import type { CommandType, ContentStatus, LifeCommand, LifeFile, LifeContentName, LifeStatus } from '../../../shared/life.js';
 import type { MyWeek, MyWorkout, Weekday } from '../../../shared/sports.js';
 import type { LibBookmark, LibItem, LibListResult, LibStatus, LibTreeResult } from '../../../shared/library.js';
+import type { PackageReport } from '../../../shared/package.js';
 import type { AcademicNote, Assessment, Course, MoreHit, SearchHit, Semester, SemesterBundle, SemesterSummary } from '../../../shared/types.js';
 
 export class ApiError extends Error {
@@ -10,10 +11,21 @@ export class ApiError extends Error {
   }
 }
 
+// أثناء تنفيذ أداة من نواة الذكاء تُوسم الطلبات x-actor: ai ← السجل يعرض «الذكاء» كفاعل
+let aiDepth = 0;
+export async function asAi<T>(fn: () => Promise<T>): Promise<T> {
+  aiDepth++;
+  try {
+    return await fn();
+  } finally {
+    aiDepth--;
+  }
+}
+
 // طلبات GET المتطابقة والمتزامنة تُدمج في طلب واحد؛ أي تعديل (POST/PATCH/DELETE) يفرّغ القائمة كي لا نُرجع بيانات قديمة.
 const inflight = new Map<string, Promise<unknown>>();
 
-function req<T>(method: string, url: string, body?: unknown): Promise<T> {
+export function req<T>(method: string, url: string, body?: unknown): Promise<T> {
   if (method !== 'GET') {
     inflight.clear();
     return doReq<T>(method, url, body);
@@ -43,9 +55,12 @@ async function fetchRaw(method: string, url: string, body?: unknown): Promise<Pr
       /* نعيد الطلب عاديًّا */
     }
   }
+  const headers: Record<string, string> = {};
+  if (body !== undefined) headers['Content-Type'] = 'application/json';
+  if (aiDepth > 0) headers['x-actor'] = 'ai';
   const res = await fetch(url, {
     method,
-    headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
+    headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
   return { ok: res.ok, status: res.status, text: await res.text() };
@@ -71,6 +86,20 @@ export interface BackupInfo { name: string; date: string; file: string; size: nu
 export interface Info { version: string; driver: string; schema: number; db_file: string; db_size: number; port: number; host: string }
 export interface FieldChange { field: string; from: unknown; to: unknown }
 export interface EntityDiff { added: { id: string; label: string }[]; removed: { id: string; label: string }[]; changed: { id: string; label: string; fields: FieldChange[] }[]; unchanged: number }
+export type PackageSourceReq = { kind: 'drive'; link: string } | { kind: 'local'; path: string } | { kind: 'listing'; listing?: unknown; link?: string };
+export interface PackagePreview {
+  pkg: string;
+  origin: 'local' | 'drive';
+  location: string;
+  ok: boolean;
+  errors: string[];
+  report: PackageReport | null;
+  diff: DiffResult | null;
+  semester: { id: string; code: string; name: string } | null;
+  results: number;
+}
+export interface PackageImportRow { pkg: string; semester_id: string | null; origin: string; location: string; files: number; imported_at: string }
+export interface CourseResult { course_id: string; grade: string | null; points: number | null; credits: number | null; status: string | null }
 export interface DiffResult { semesters: EntityDiff; courses: EntityDiff; assessments: EntityDiff; notes: EntityDiff; totals: { added: number; removed: number; changed: number; unchanged: number } }
 export interface Deleted { ok: boolean; undo: string }
 
@@ -97,11 +126,13 @@ export const lib = {
   bookmarks: (ref: string) => req<LibBookmark[]>('GET', `/api/library/bookmarks/${encodeURIComponent(ref)}`),
   addBookmark: (ref: string, pos: number, label?: string) => req<LibBookmark>('POST', `/api/library/bookmarks/${encodeURIComponent(ref)}`, { pos, label }),
   editBookmark: (id: string, label: string) => req<{ ok: boolean }>('PATCH', `/api/library/bookmark/${encodeURIComponent(id)}`, { label }),
-  delBookmark: (id: string) => req<{ ok: boolean }>('DELETE', `/api/library/bookmark/${encodeURIComponent(id)}`),
+  delBookmark: (id: string) => req<Deleted>('DELETE', `/api/library/bookmark/${encodeURIComponent(id)}`),
   youtube: () => req<LibItem[]>('GET', '/api/library/youtube'),
   addYoutube: (b: { url: string; title?: string; course?: string }) => req<LibItem>('POST', '/api/library/youtube', b),
   editYoutube: (id: string, b: { title?: string; course?: string }) => req<LibItem>('PATCH', `/api/library/youtube/${encodeURIComponent(id)}`, b),
-  delYoutube: (id: string) => req<{ ok: boolean }>('DELETE', `/api/library/youtube/${encodeURIComponent(id)}`),
+  delYoutube: (id: string) => req<Deleted>('DELETE', `/api/library/youtube/${encodeURIComponent(id)}`),
+  bulkDelYoutube: (ids: string[]) => req<Deleted & { count: number }>('POST', '/api/library/youtube/bulk-delete', { ids }),
+  bulk: (refs: string[], op: 'tag' | 'untag' | 'done' | 'undone', tag?: string) => req<{ ok: boolean; count: number }>('POST', '/api/library/bulk', { refs, op, tag }),
   text: (id: string) => req<{ name: string; text: string; truncated: boolean; size: number }>('GET', `/api/library/files/${encodeURIComponent(id)}/text`),
   docx: (id: string) => req<{ html: string; messages: string[] }>('GET', `/api/library/files/${encodeURIComponent(id)}/docx`),
   rawUrl: (id: string, download = false) => `/api/library/files/${encodeURIComponent(id)}/raw${download ? '?download=1' : ''}`,
@@ -127,7 +158,8 @@ export const sports = {
   create: (b: { name: string; note?: string; items?: ItemInput[] }) => req<MyWorkout>('POST', '/api/sports/workouts', b),
   edit: (id: string, b: { name?: string; note?: string }) => req<MyWorkout>('PATCH', `/api/sports/workouts/${id}`, b),
   setItems: (id: string, items: ItemInput[]) => req<MyWorkout>('PUT', `/api/sports/workouts/${id}/items`, { items }),
-  del: (id: string) => req<{ ok: boolean }>('DELETE', `/api/sports/workouts/${id}`),
+  del: (id: string) => req<Deleted>('DELETE', `/api/sports/workouts/${id}`),
+  bulkDel: (ids: string[]) => req<Deleted>('POST', '/api/sports/workouts/bulk-delete', { ids }),
   order: (ids: string[]) => req<MyWeek>('PUT', '/api/sports/order', { ids }),
   week: (day: Weekday, workout_id: string | null) => req<MyWeek>('PUT', '/api/sports/week', { day, workout_id }),
   settings: (b: { template?: string | null; location?: 'home' | 'gym' | null }) => req<MyWeek>('PUT', '/api/sports/settings', b),
@@ -151,11 +183,19 @@ export const api = {
   addNote: (semId: string, b: unknown) => req<AcademicNote>('POST', `/api/semesters/${semId}/notes`, b),
   editNote: (id: string, b: unknown) => req<AcademicNote>('PATCH', `/api/notes/${id}`, b),
   delNote: (id: string) => req<Deleted>('DELETE', `/api/notes/${id}`),
+  bulkAssessments: (ids: string[], op: 'status' | 'delete', status?: string) => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/assessments/bulk', { ids, op, status }),
+  bulkSemesters: (ids: string[]) => req<{ ok: boolean; count: number; undo: string }>('POST', '/api/semesters/bulk', { ids, op: 'delete' }),
+  bulkCourses: (ids: string[]) => req<{ ok: boolean; count: number; undo: string }>('POST', '/api/courses/bulk', { ids, op: 'delete' }),
+  bulkNotes: (ids: string[], op: 'resolve' | 'unresolve' | 'delete') => req<{ ok: boolean; count: number; undo?: string }>('POST', '/api/notes/bulk', { ids, op }),
   undo: (token: string) => req<{ ok: boolean; label: string }>('POST', `/api/undo/${token}`),
   search: (q: string) => req<SearchHit[]>('GET', `/api/search?q=${encodeURIComponent(q)}`),
   searchMore: (q: string) => req<MoreHit[]>('GET', `/api/search/more?q=${encodeURIComponent(q)}`),
   importPreview: (file: unknown) => req<{ ok: true; diff: DiffResult }>('POST', '/api/import/preview', file),
   importApply: (file: unknown, mode: 'merge' | 'replace') => req<{ ok: true; backup: string; diff: DiffResult }>('POST', '/api/import/apply', { file, mode }),
+  packages: () => req<{ imports: PackageImportRow[]; drive_api: boolean; online: boolean }>('GET', '/api/packages'),
+  packagePreview: (src: PackageSourceReq) => req<PackagePreview>('POST', '/api/packages/preview', src),
+  packageApply: (src: PackageSourceReq) => req<{ ok: true; backup: string; semester_id: string; files: number; removed_files: number; results: number }>('POST', '/api/packages/apply', src),
+  packageResults: (semId: string) => req<CourseResult[]>('GET', `/api/packages/results/${encodeURIComponent(semId)}`),
   backups: () => req<BackupInfo[]>('GET', '/api/backups'),
   backupNow: () => req<BackupInfo>('POST', '/api/backups'),
   restore: (name: string) => req<{ ok: boolean; safety_backup: string }>('POST', '/api/backups/restore', { name }),

@@ -165,7 +165,8 @@ describe('insights: ready values only', () => {
   });
 });
 
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? '/workspace/rashed_fixture';
+const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
+const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
 describe.skipIf(!fs.existsSync(path.join(REAL, 'ledger_full.json')) || !fs.existsSync(path.join(REAL, 'docs', 'FINANCE_INSIGHTS_AR.json')))('real Rashed v8 files (local copy only; skipped elsewhere)', () => {
   const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, n), 'utf8').replace(/^\ufeff/, '')) as T;
   it('ledger_full has all 67 rows and passes the validator', () => {
@@ -230,7 +231,6 @@ describe.skipIf(!fs.existsSync(path.join(REAL, 'ledger_full.json')) || !fs.exist
       walk(plainDeep(read(n)));
       const bad = vals.filter((x) => /\bD-R-\d+|\bRC-\d+|\bR-\d{3}\b|CURRENT\.md|LEDGER\.csv|cash_delta/.test(x));
       expect(bad.slice(0, 3), n).toEqual([]);
-      void 0 && expect(vals.join(' '), n).not.toMatch(/\bD-R-\d+|\bRC-\d+|\bR-\d{3}\b|CURRENT\.md|LEDGER\.csv|cash_delta/);
     }
   });
 });

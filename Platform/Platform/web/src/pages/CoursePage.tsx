@@ -1,11 +1,18 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useUrlParam } from '../core/useUrlParam.js';
+import { CourseCalcPanel } from '../widgets/CourseCalcPanel.js';
+import { GradeDialog } from '../widgets/AssessmentQuickActions.js';
+import { libraryItemPath, type LibItem } from '../../../shared/library.js';
+import type { AcademicNote, Course } from '../../../shared/types.js';
 import { useSem } from '../core/sem-context.js';
+import { usePageTitle } from '../core/title.js';
 import { useApp } from '../core/app-context.js';
-import { api } from '../lib/api.js';
+import { api, lib } from '../lib/api.js';
+import { RelationsCard } from '../widgets/relations.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, IconButton, KebabMenu, Segmented, TrustTag, Unknown, cx } from '../ui/ui.js';
-import { AssessmentForm, CourseForm } from '../forms/lazy.js';
+import { AssessmentForm, CourseForm, NoteForm } from '../forms/lazy.js';
 import { DocTable, type Col } from '../widgets/catalog.js';
 import { Ring, SegBar } from '../widgets/charts.js';
 import { Icon } from '../lib/icons.js';
@@ -14,8 +21,11 @@ import { dueSortMs, weightSum } from '../../../shared/semester.js';
 import type { Assessment, AssessmentStatus } from '../../../shared/types.js';
 import { daysFrom, fmtNum, prettySchedule, relDays, whenText } from '../lib/format.js';
 import { EmptyState as _E } from '../ui/ui.js';
+import { AskAi } from '../ai/AskAi.js';
 
 type View = 'list' | 'table' | 'board';
+type Tab = 'overview' | 'materials' | 'calc' | 'notes';
+const TABS: { id: Tab; label: string }[] = [{ id: 'overview', label: 'نظرة' }, { id: 'materials', label: 'المواد التعليمية' }, { id: 'calc', label: 'الحاسبة' }, { id: 'notes', label: 'ملاحظات' }];
 const STATUSES: AssessmentStatus[] = ['unknown', 'pending', 'submitted', 'graded'];
 
 export default function CoursePage() {
@@ -25,7 +35,10 @@ export default function CoursePage() {
   const loc = useLocation();
   const base = `/academic/s/${S.sem.id}`;
   const course = S.courseById.get(courseId);
-  const [view, setView] = useState<View>('list');
+  usePageTitle(course ? `${course.code} — ${course.name}` : null);
+  const [view, setView] = useUrlParam<View>('view', 'list', ['list', 'table', 'board']);
+  const [tab, setTab] = useUrlParam<Tab>('tab', 'overview', ['overview', 'materials', 'calc', 'notes']);
+  const [gradeFor, setGradeFor] = useState<Assessment | null>(null);
   const [edit, setEdit] = useState<Assessment | 'new' | null>(null);
   const [editCourse, setEditCourse] = useState(false);
   const [sel, setSel] = useState<Set<string>>(new Set());
@@ -56,21 +69,35 @@ export default function CoursePage() {
     if (ok) await deleteWithUndo(a.title, () => api.delAssessment(a.id), S.reload);
   };
   const setStatus = async (a: Assessment, status: AssessmentStatus): Promise<void> => {
+    // «تم التصحيح» يفتح إدخال الدرجة: لا مُصحَّح بلا درجة
+    if (status === 'graded' && a.score === null) return setGradeFor(a);
     try {
-      await api.editAssessment(a.id, { status, score: status === 'graded' ? a.score : a.score });
+      await api.editAssessment(a.id, { status });
       await S.reload();
     } catch (e) {
       toast((e as Error).message, { kind: 'error' });
     }
   };
+  // عملية واحدة على الخادم (معاملة + سجل نشاط) بدل طلب لكل عنصر
   const bulk = async (status: AssessmentStatus): Promise<void> => {
-    for (const id of sel) {
-      const a = items.find((x) => x.id === id);
-      if (a) await api.editAssessment(id, { status }).catch((e: Error) => toast(`${a.title}: ${e.message}`, { kind: 'error' }));
+    try {
+      const r = await api.bulkAssessments([...sel], 'status', status);
+      setSel(new Set());
+      await S.reload();
+      toast(`تم تحديث ${r.count} إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
     }
-    setSel(new Set());
-    await S.reload();
-    toast(`تم تحديث الحالة إلى «${STATUS_LABEL[status]}»`, { kind: 'ok' });
+  };
+  const bulkDelete = async (): Promise<void> => {
+    try {
+      const r = await api.bulkAssessments([...sel], 'delete');
+      setSel(new Set());
+      await S.reload();
+      toast(`حُذف ${r.count} تقييم — في سلة المحذوفات`, { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo!).then(() => S.reload()) } });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
   };
 
   const statusBadge = (a: Assessment) => {
@@ -125,11 +152,21 @@ export default function CoursePage() {
         crumbs={[{ to: '/academic', label: 'الفصول' }, { to: base, label: S.sem.code }, { to: `${base}/courses`, label: 'المواد' }, { label: course.code }]}
         actions={
           <>
+            <AskAi label="حلّل وضعي" prompt="حلّل وضعي في هذه المادة: ما حصلت عليه، ما تبقى، وكم أحتاج لأصل 70% و80%." send />
+            <AskAi label="التقاط ذكي" prompt={`استخرج التقييمات من النص التالي وأضفها لهذه المادة (${course.code}) — لا تخمّن أي وزن أو تاريخ غير مذكور:\n\n`} />
             <Button icon="edit" onClick={() => setEditCourse(true)}>تعديل المادة</Button>
             <Button icon="plus" variant="primary" onClick={() => setEdit('new')}>إضافة تقييم</Button>
           </>
         }
       />
+      <nav className="tabs page-tabs" aria-label="أقسام المادة" style={{ marginBlockEnd: 'var(--s-5)' }}>
+        {TABS.map((t) => (
+          <button key={t.id} type="button" className="tab" aria-current={tab === t.id ? 'page' : undefined} onClick={() => setTab(t.id)}>
+            {t.label}{t.id === 'notes' && notes.length > 0 ? ` (${notes.length})` : ''}
+          </button>
+        ))}
+      </nav>
+      {tab === 'materials' ? <CourseMaterials course={course} /> : tab === 'calc' ? <CourseCalcPanel course={course} /> : tab === 'notes' ? <CourseNotes course={course} notes={notes} /> : (<>
       <div className="course-hero" style={{ '--c': course.color } as never}>
         <div className="ch-info">
           <dl className="kv">
@@ -175,7 +212,8 @@ export default function CoursePage() {
           {sel.size > 0 && (
             <div className="bulkbar" role="toolbar" aria-label="إجراءات جماعية">
               <strong>{sel.size} محدد</strong>
-              {STATUSES.map((s) => (<button key={s} className="btn sm" onClick={() => void bulk(s)}>تعيين: {STATUS_LABEL[s]}</button>))}
+              {STATUSES.filter((s) => s !== 'graded').map((s) => (<button key={s} className="btn sm" onClick={() => void bulk(s)}>تعيين: {STATUS_LABEL[s]}</button>))}
+              <button className="btn sm danger" onClick={() => void bulkDelete()}>حذف المحدد</button>
               <button className="btn sm ghost" onClick={() => setSel(new Set())}>إلغاء</button>
             </div>
           )}
@@ -197,7 +235,7 @@ export default function CoursePage() {
 
       {notes.length > 0 && (
         <Card style={{ marginBlockStart: 'var(--s-6)' }}>
-          <CardHead title="ملاحظات وغير معروف" icon="help" />
+          <CardHead title="ملاحظات وغير معروف" icon="help"><button type="button" className="btn sm ghost" onClick={() => setTab('notes')}>إدارة الملاحظات</button></CardHead>
           <ul className="plain">
             {notes.map((n) => (
               <li key={n.id} className="row" style={{ alignItems: 'flex-start', flexWrap: 'nowrap', gap: 10 }}>
@@ -209,6 +247,12 @@ export default function CoursePage() {
         </Card>
       )}
 
+      <div style={{ marginBlockStart: 'var(--s-6)' }}>
+        <RelationsCard refId={`acad:course:${course.id}`} />
+      </div>
+      </>)}
+
+      {gradeFor && <GradeDialog a={gradeFor} onClose={() => setGradeFor(null)} onDone={() => void S.reload()} />}
       {edit && (
         <AssessmentForm
           {...(edit !== 'new' ? { initial: edit } : {})}
@@ -237,3 +281,88 @@ export default function CoursePage() {
   );
 }
 void cx; void _E;
+
+/** المواد التعليمية للمادة من المكتبة (/api/library/items?course=CODE). */
+function CourseMaterials({ course }: { course: Course }) {
+  const [items, setItems] = useState<LibItem[] | null>(null);
+  const [total, setTotal] = useState(0);
+  const [err, setErr] = useState(false);
+  useEffect(() => {
+    let live = true;
+    lib.items({ course: course.code, limit: 50, sort: 'name' }).then((r) => live && (setItems(r.items), setTotal(r.total))).catch(() => live && setErr(true));
+    return () => {
+      live = false;
+    };
+  }, [course.code]);
+  const actions = (
+    <div className="row">
+      <Button size="sm" icon="library" to={`/library?course=${encodeURIComponent(course.code)}`}>فتح في المكتبة</Button>
+      <Button size="sm" icon="play" to={`/library/youtube?new=1&course=${encodeURIComponent(course.code)}`}>إضافة فيديو YouTube</Button>
+    </div>
+  );
+  if (err) return <EmptyState icon="library" title="تعذّر قراءة المكتبة" text="تأكد من مجلد المكتبة في الإعدادات." action={<Button to="/settings?tab=sources">المصادر</Button>} />;
+  if (!items) return <Card><p className="muted">جارٍ التحميل…</p></Card>;
+  if (items.length === 0) return <EmptyState icon="library" title="لا مواد لهذه المادة في المكتبة" text="الملفات تُنسب للمادة من اسم المجلد أو الملف (رمز المادة)." action={actions} />;
+  return (
+    <Card>
+      <CardHead title={`ملفات وفيديوهات (${total})`} icon="library">{actions}</CardHead>
+      <ul className="plain today-list">
+        {items.map((it) => (
+          <li key={it.ref}>
+            <Link to={libraryItemPath(it.source, it.id)} className="today-row">
+              <Icon name={it.source === 'youtube' ? 'video' : 'file'} size={16} />
+              <span className="tr-main"><bdi>{it.title}</bdi><small><bdi>{it.folder || 'YouTube'}</bdi>{it.done ? ' · منجز' : it.progress ? ` · ${Math.round(it.progress * 100)}%` : ''}</small></span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  );
+}
+
+/** ملاحظات المادة: إضافة وتعديل وحلّ من صفحة المادة نفسها. */
+function CourseNotes({ course, notes }: { course: Course; notes: AcademicNote[] }) {
+  const S = useSem();
+  const { toast } = useApp();
+  const [form, setForm] = useState<AcademicNote | 'new' | null>(null);
+  const toggle = async (n: AcademicNote): Promise<void> => {
+    try {
+      await api.editNote(n.id, { resolved: !n.resolved });
+      await S.reload();
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
+  return (
+    <Card>
+      <CardHead title="ملاحظات وغير معروف" icon="help"><Button size="sm" variant="primary" icon="plus" onClick={() => setForm('new')}>إضافة ملاحظة</Button></CardHead>
+      {notes.length === 0 ? <p className="muted">لا ملاحظات لهذه المادة.</p> : (
+        <ul className="plain stack" style={{ gap: 'var(--s-2)' }}>
+          {notes.map((n) => (
+            <li key={n.id} className={`un-item ${n.resolved ? 'done' : ''}`}>
+              <label className="check" style={{ alignItems: 'flex-start' }}>
+                <input type="checkbox" checked={n.resolved} onChange={() => void toggle(n)} aria-label={`تم حلّها: ${n.text}`} />
+                <span>{n.tag === 'unk' ? <Unknown /> : <Badge>ملاحظة</Badge>} <strong>{n.text}</strong>{n.detail && <><br /><span className="muted">{n.detail}</span></>}</span>
+              </label>
+              <IconButton icon="edit" label="تعديل" sm ghost onClick={() => setForm(n)} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {form && (
+        <NoteForm
+          {...(form !== 'new' ? { initial: form } : {})}
+          courses={S.courses}
+          defaultCourseId={course.id}
+          onClose={() => setForm(null)}
+          onSave={async (d) => {
+            if (form === 'new') await api.addNote(S.sem.id, d);
+            else await api.editNote(form.id, d);
+            toast('تم الحفظ', { kind: 'ok' });
+            await S.reload();
+          }}
+        />
+      )}
+    </Card>
+  );
+}

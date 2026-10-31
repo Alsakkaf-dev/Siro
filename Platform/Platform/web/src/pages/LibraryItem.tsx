@@ -1,13 +1,18 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
-import { lib } from '../lib/api.js';
+import { usePageTitle } from '../core/title.js';
+import { api, lib } from '../lib/api.js';
+import { wos } from '../lib/wos.js';
+import { RelationsCard } from '../widgets/relations.js';
+import type { RefInfo } from '../../../shared/wos.js';
 import { Icon } from '../lib/icons.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Skeleton, useDebounced } from '../ui/ui.js';
 import { CourseBadge, ProgressBar, fmtDate, fmtSize, kindLabel, pctOf, typeLabel } from '../library/common.js';
 import { MediaPlayer, YoutubePlayer } from '../library/players.js';
-import { bareLibId, libRefOf, fmtTime, type LibBookmark, type LibItem } from '../../../shared/library.js';
+import { bareLibId, driveUrls, libRefOf, fmtTime, type LibBookmark, type LibItem } from '../../../shared/library.js';
+import { AskAi } from '../ai/AskAi.js';
 
 const PdfViewer = lazy(() => import('../library/PdfViewer.js'));
 
@@ -197,7 +202,7 @@ function Bookmarks({ it, list, setList, seek, curPos, isPdf, timeMode, live }: {
                 <button className="bm-go" onClick={() => seek(b.pos)} title="انتقل إلى هذه العلامة"><b>{fmtPos(b.pos)}</b><span><bdi>{b.label ?? '—'}</bdi></span></button>
               )}
               <button className="icon-btn sm ghost" aria-label="تعديل الوصف" title="تعديل الوصف" onMouseDown={(e) => e.preventDefault()} onClick={() => setEdit({ id: b.id, text: b.label ?? '' })}><Icon name="edit" size={14} /></button>
-              <button className="icon-btn sm ghost" aria-label="حذف العلامة" title="حذف العلامة" onClick={() => void lib.delBookmark(b.id).then(reload)}><Icon name="trash" size={14} /></button>
+              <button className="icon-btn sm ghost" aria-label="حذف العلامة" title="حذف العلامة" onClick={() => void lib.delBookmark(b.id).then((r) => { reload(); toast('حُذفت العلامة', { kind: 'ok', action: { label: 'تراجع', run: () => void api.undo(r.undo).then(reload) } }); })}><Icon name="trash" size={14} /></button>
             </li>
           ))}
         </ul>
@@ -213,6 +218,7 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
   const ref = libRefOf(source, bareId);
   const { toast } = useApp();
   const [it, setIt] = useState<LibItem | null>(null);
+  usePageTitle(it?.title ?? null);
   const [missing, setMissing] = useState(false);
   const [marks, setMarks] = useState<LibBookmark[]>([]);
   const [live, setLive] = useState(false);
@@ -283,6 +289,11 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
 
   let stage;
   if (it.missing) stage = <div className="callout warn" role="alert">هذا الملف لم يعد موجودًا في المجلد (مفقود). بقيت وسومه وملاحظاته محفوظة.</div>;
+  else if (it.preview === 'drive' && it.remote_id) stage = (
+    <div className="lib-stage lib-drive">
+      <iframe src={driveUrls(it.remote_id).preview} title={it.title} allow="autoplay; fullscreen" referrerPolicy="no-referrer" loading="lazy" />
+    </div>
+  );
   else if (isYt) stage = <YoutubePlayer videoId={it.video_id ?? ''} initial={it.progress} onTime={onTime} registerSeek={registerSeek} onTracking={onTracking} />;
   else if (isPdf) stage = (
     <Suspense fallback={<Skeleton h={420} r={16} />}>
@@ -306,8 +317,11 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
         badge={it.done ? <Badge tone="ok">مكتمل</Badge> : undefined}
         actions={
           <>
+            {!isYt && !it.missing && <AskAi label="لخّص" prompt="لخّص هذا الملف في نقاط واضحة، ثم اذكر أهم 3 مفاهيم." send />}
+            {!isYt && !it.missing && <AskAi label="اختبرني" prompt="اسألني 5 أسئلة مراجعة من هذا الملف (واحدًا تلو الآخر، وصحّح إجابتي)." send />}
             <Button icon="check" onClick={() => void toggleDone()}>{it.done ? 'إلغاء الإكمال' : 'تعليم كمكتمل'}</Button>
-            {!isYt && !it.missing && <a className="btn" href={lib.rawUrl(it.id, true)} download><Icon name="download" size={16} /> تنزيل</a>}
+            {it.origin === 'drive' && it.remote_id && <a className="btn" href={driveUrls(it.remote_id).view} target="_blank" rel="noopener noreferrer"><Icon name="link" size={16} /> فتح في Drive</a>}
+            {!isYt && !it.missing && <a className="btn" href={it.origin === 'drive' && it.remote_id ? driveUrls(it.remote_id).download : lib.rawUrl(it.id, true)} download><Icon name="download" size={16} /> تنزيل</a>}
             {isYt && <Link className="btn" to="/library/youtube">كل الفيديوهات</Link>}
           </>
         }
@@ -326,7 +340,7 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
               <dt>مرات الفتح</dt><dd className="num">{it.opened_count}</dd>
             </dl>
             <p className="muted" style={{ fontSize: 'var(--fs-xs)', marginBottom: 0 }}>الفصل والمادة والتصنيف تقديرات من اسم المجلد.</p>
-            {it.course && <p style={{ marginBlock: 'var(--s-2) 0' }}><Link to={`/academic/s/${it.course.semester_id}/courses`}>فتح المادة في الدراسة ←</Link></p>}
+            {it.course && <p style={{ marginBlock: 'var(--s-2) 0' }}><Link to={`/academic/s/${it.course.semester_id}/courses${it.course.id ? `/${it.course.id}?tab=materials` : ""}`}>فتح المادة في الدراسة ←</Link></p>}
           </Card>
           <Card>
             <CardHead title="الوسوم" icon="tag" />
@@ -336,6 +350,8 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
             <CardHead title="ملاحظاتي" icon="edit" />
             <NoteEditor key={it.ref} it={it} onChange={(n) => setIt((cur) => (cur ? { ...cur, note: n.note } : n))} />
           </Card>
+          {it.course_code && <CourseLink code={it.course_code} />}
+          <RelationsCard refId={`lib:${it.ref}`} />
           <Card>
             <CardHead title={isPdf ? 'علامات الصفحات' : timeMode ? 'علامات الوقت' : 'العلامات'} icon="bookmark" />
             <Bookmarks it={it} list={marks} setList={setMarks} seek={(p) => seekFn.current(p)} curPos={() => pos.current} isPdf={isPdf} timeMode={timeMode} live={live || !isYt} />
@@ -343,5 +359,18 @@ export default function LibraryItem({ source }: { source: 'file' | 'youtube' }) 
         </aside>
       </div>
     </div>
+  );
+}
+
+/** تقاطع المكتبة ⇄ الدراسة: المادة التي ينتمي لها الملف (حسب الرمز) */
+function CourseLink({ code }: { code: string }) {
+  const [hits, setHits] = useState<RefInfo[] | null>(null);
+  useEffect(() => void wos.refs(code).then((r) => setHits(r.filter((x) => x.kind === 'course'))).catch(() => setHits([])), [code]);
+  if (!hits?.length) return null;
+  return (
+    <Card>
+      <CardHead title="المادة" icon="book" />
+      <ul className="plain mini-list">{hits.map((h) => <li key={h.ref}>{h.to ? <Link to={h.to}><Icon name="book" size={15} /> <bdi>{h.title}</bdi></Link> : <bdi>{h.title}</bdi>}</li>)}</ul>
+    </Card>
   );
 }

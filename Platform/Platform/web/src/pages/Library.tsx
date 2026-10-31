@@ -4,7 +4,7 @@ import { useApp } from '../core/app-context.js';
 import { lib } from '../lib/api.js';
 import { Icon } from '../lib/icons.js';
 import { PageHead } from '../ui/page.js';
-import { Button, Card, EmptyState, Pager, Segmented, Skeleton, useDebounced } from '../ui/ui.js';
+import { BulkBar, Button, Card, EmptyState, Pager, Segmented, Skeleton, useDebounced, useSelection } from '../ui/ui.js';
 import { DocTable, Facet, FilterChips } from '../widgets/catalog.js';
 import { libCols } from '../library/cols.js';
 import { StatTile } from '../widgets/tiles.js';
@@ -25,7 +25,7 @@ export function StatusBanner({ status, reload }: { status: NonNullable<ReturnTyp
         <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere' }}>
           مجلد المكتبة غير موجود على هذا الجهاز: <bdi className="ltr-in" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>{status.root}</bdi>. لن يظهر أي ملف حتى تحدّد مجلدًا صحيحًا.
         </span>
-        <Button size="sm" to="/library/settings">تحديد المجلد</Button>
+        <Button size="sm" to="/settings?tab=sources">تحديد المجلد</Button>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function Library() {
   const { toast } = useApp();
   const [sp, setSp] = useSearchParams();
   const { status, reload } = useLibStatus();
-  const tab = (sp.get('tab') as Tab | null) ?? 'all';
+  const tab = ((sp.get('group') ?? sp.get('tab')) as Tab | null) ?? 'all';
   const f: Record<FilterKey, string> = { kind: sp.get('kind') ?? '', sem: sp.get('sem') ?? '', course: sp.get('course') ?? '', type: sp.get('type') ?? '', tag: sp.get('tag') ?? '' };
   const [q, setQ] = useState(sp.get('q') ?? '');
   const dq = useDebounced(q, 250);
@@ -52,6 +52,20 @@ export default function Library() {
   const [err, setErr] = useState<string | null>(null);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const scanTick = status?.last_scan?.at ?? '';
+  const [tick, setTick] = useState(0);
+  const { sel, toggle: toggleSel, clear: clearSel, setAll: setAllSel } = useSelection();
+  const [tagIn, setTagIn] = useState('');
+  const bulk = async (op: 'tag' | 'untag' | 'done' | 'undone'): Promise<void> => {
+    const refs = (data?.items ?? []).filter((i) => sel.has(i.id)).map((i) => i.ref);
+    try {
+      const r = await lib.bulk(refs, op, op === 'tag' || op === 'untag' ? tagIn : undefined);
+      clearSel();
+      setTick((t) => t + 1);
+      toast(`تم على ${r.count} عنصر`, { kind: 'ok' });
+    } catch (e) {
+      toast((e as Error).message, { kind: 'error' });
+    }
+  };
 
   const patch = useCallback((p: Record<string, string | null>): void => {
     setSp((cur) => {
@@ -76,7 +90,7 @@ export default function Library() {
     return () => {
       alive = false;
     };
-  }, [sp, scanTick]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [sp, scanTick, tick]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     let alive = true;
     void lib.recent(8).then((r) => alive && setRecent(r)).catch(() => undefined);
@@ -106,7 +120,7 @@ export default function Library() {
   const chips = FILTERS.filter((k) => f[k]).map((k) => ({ key: k, label: `${FILTER_LABEL[k]}: ${data?.facets[k].find((o) => o.value === f[k])?.label ?? f[k]}` }));
   const clear = (): void => {
     setQ('');
-    setSp(new URLSearchParams(tab !== 'all' ? { tab } : {}), { replace: true });
+    setSp(new URLSearchParams(tab !== 'all' ? { group: tab } : {}), { replace: true });
   };
   const setFilter = (k: FilterKey) => (v: string): void => patch({ [k]: f[k] === v ? null : v });
   const onSort = (key: string): void => patch({ sort: key, dir: sort === key && dir !== 'asc' ? 'asc' : sort === key ? 'desc' : '' });
@@ -127,9 +141,7 @@ export default function Library() {
         actions={
           <>
             <Button icon="refresh" onClick={() => void startScan()} disabled={status?.scanning}>{status?.scanning ? 'جارٍ الفحص…' : 'فحص المجلد'}</Button>
-            <Button icon="play" to="/library/youtube">فيديوهات YouTube</Button>
-            <Button icon="folder" to="/library/folders">المجلدات</Button>
-            <Button icon="sliders" to="/library/settings">الإعدادات</Button>
+            <Button icon="sliders" to="/settings?tab=sources">إعدادات المصادر</Button>
           </>
         }
       />
@@ -163,7 +175,7 @@ export default function Library() {
       ) : (
         <>
           <div className="hub-tabs" style={{ marginBlockEnd: 'var(--s-4)' }}>
-            <Segmented<Tab> label="طريقة التصفح" value={tab} onChange={(v) => patch({ tab: v === 'all' ? null : v })} options={[{ value: 'all', label: 'كل الملفات', icon: 'list' }, { value: 'course', label: 'حسب المادة', icon: 'book' }, { value: 'sem', label: 'حسب الفصل', icon: 'layers' }, { value: 'type', label: 'حسب التصنيف', icon: 'tag' }]} />
+            <Segmented<Tab> label="التجميع" value={tab} onChange={(v) => patch({ tab: null, group: v === 'all' ? null : v })} options={[{ value: 'all', label: 'بلا تجميع', icon: 'list' }, { value: 'course', label: 'حسب المادة', icon: 'book' }, { value: 'sem', label: 'حسب الفصل', icon: 'layers' }, { value: 'type', label: 'حسب التصنيف', icon: 'tag' }]} />
           </div>
 
           {tab !== 'all' ? (
@@ -173,7 +185,7 @@ export default function Library() {
               ) : (
                 <div className="lib-group-grid stagger">
                   {groupCards(tab).map((g, i) => (
-                    <button key={g.value} className="lib-group" style={{ '--i': i } as CSSProperties} onClick={() => patch({ tab: null, [tab]: g.value })}>
+                    <button key={g.value} className="lib-group" style={{ '--i': i } as CSSProperties} onClick={() => patch({ tab: null, group: null, [tab]: g.value })}>
                       <strong><bdi>{tab === 'type' ? DOCTYPE_LABELS[g.value as keyof typeof DOCTYPE_LABELS] ?? g.label : g.label}</bdi></strong>
                       <span className="num">{g.count} عنصر</span>
                     </button>
@@ -224,7 +236,15 @@ export default function Library() {
                   <EmptyState icon="filter" title="لا نتائج" text="جرّب كلمات أخرى أو امسح المرشحات." action={<Button onClick={clear}>مسح المرشحات</Button>} />
                 ) : (
                   <>
-                    <div className="lib-table"><DocTable rows={data.items} cols={cols} sortKey={sort} sortDir={dir === 'asc' ? 1 : -1} onSort={onSort} rowTo={(r) => itemPath(r)} rowLabel={(r) => `فتح ${r.title}`} /></div>
+                    <BulkBar count={sel.size} onClear={clearSel} total={data.items.length} onAll={() => setAllSel(data.items.map((i) => i.id))}>
+                      <Button size="sm" icon="check" onClick={() => void bulk('done')}>تم</Button>
+                      <Button size="sm" onClick={() => void bulk('undone')}>لم يتم</Button>
+                      <label className="sr-only" htmlFor="lib-bulk-tag">وسم للمحدد</label>
+                      <input id="lib-bulk-tag" value={tagIn} onChange={(e) => setTagIn(e.target.value)} placeholder="وسم…" style={{ width: 110, height: 34 }} />
+                      <Button size="sm" icon="tag" disabled={!tagIn.trim()} onClick={() => void bulk('tag')}>وسم</Button>
+                      <Button size="sm" disabled={!tagIn.trim()} onClick={() => void bulk('untag')}>إزالة الوسم</Button>
+                    </BulkBar>
+                    <div className="lib-table"><DocTable rows={data.items} cols={cols} sortKey={sort} sortDir={dir === 'asc' ? 1 : -1} onSort={onSort} rowTo={(r) => itemPath(r)} rowLabel={(r) => `فتح ${r.title}`} selectable selected={sel} onSelect={(id) => toggleSel(id)} /></div>
                     <Pager page={data.page} pages={data.pages} total={data.total} from={(data.page - 1) * 30 + 1} to={Math.min(data.total, data.page * 30)} onPage={(p) => { patch({ page: String(p) }); window.scrollTo({ top: 0 }); }} />
                   </>
                 )}

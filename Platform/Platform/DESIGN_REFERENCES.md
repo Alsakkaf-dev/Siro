@@ -41,7 +41,7 @@ Source: Mohammed's 22 screenshots in `/workspace/ui_refs/` (copied to `/workspac
 - **c01 – "ELEVATE" faceted search.** Left nav + facet column (collapsible groups with checkboxes) + results list: tinted-blue thumbnail tile with icon, small caps meta line (ONLINE · $100), bold title, date, "Details" link, kebab; header "N results", sort, view-mode toggle. → **Courses page (Course Catalog style)**: facets (status, day, has final, weight check), list rows with colour tile + code, sort, grid/list/table toggle.
 
 ### Document Hub UI
-- **h01 – "Edaca" course list (table hub).** Sidebar with expandable group (Manage Course / Add…), 5 KPI tiles with icon square, "Course List" card with search ⌘K, Filter, Sort buttons, primary "Add New Course", sortable table with status pills (Active / Upcoming), category chips, pagination footer "Showing result 1–10 of 20 entries" with Previous/Next. → **Course table view**, assessment tables, and the **future Library "Document Hub"** (files table with category chips, status pills, pagination). Design system classes `.doc-table`, `.pill-status`, `.cat-chip`, `.pager` are in place now; the Library placeholder page previews it (no data).
+- **h01 – "Edaca" course list (table hub).** Sidebar with expandable group (Manage Course / Add…), 5 KPI tiles with icon square, "Course List" card with search ⌘K, Filter, Sort buttons, primary "Add New Course", sortable table with status pills (Active / Upcoming), category chips, pagination footer "Showing result 1–10 of 20 entries" with Previous/Next. → **Course table view** (المواد/التقييمات `?view=list`)، و**المكتبة** (جدول الملفات بوسوم الفئة والتقدّم والتقسيم). صفحة المكتبة مبنية فعليًا؛ لم تعد «قريبًا» ولا تُستعمل الأصناف `.doc-table` / `.pill-status` / `.cat-chip` / `.pager` (أُزيلت).
 
 ### Loose screenshots
 - **x01 – Timeline with milestones.** Breadcrumb header + underline tabs, horizontal stepper: green filled done nodes with date above, grey pending nodes, flags below for side events, "Left: 5 months". → *Dashboard "رحلة الفصل"*: 16 weeks + exams as stepper nodes (done / current / break / exam) and "المتبقي: N أسبوع".
@@ -58,7 +58,7 @@ Source: Mohammed's 22 screenshots in `/workspace/ui_refs/` (copied to `/workspac
 4. Courses = **Course Catalog** (c01) with facets + list/grid/table (h01, d05, d07).
 5. Timeline = Gantt pills (d02) + rounded heat-matrix (d12/d13) + course filter chips.
 6. Calculator/weights = rings & donuts (d03/d04/d05/d12).
-7. Library placeholder previews the Document Hub pattern (h01 + c01) for the future platform.
+7. المكتبة مبنية فعليًا (جدول ملفات + مجلدات + YouTube) على نمط Document Hub (h01 + c01) — لم تعد صفحة «قريبًا».
 
 ---
 
@@ -73,7 +73,7 @@ Every component seen in the 22 screenshots was listed, near-duplicates were merg
 | Nested nav tree | d11 h01 | Semesters listed under «الفصول» | `Shell` sidebar |
 | Keyboard-shortcut hints in nav | x05 d06 | `g d`, `g c`… small mono hints (AA contrast) | `Shell`, shortcuts modal |
 | Top pill search with `/` hint | d06 h01 | Combobox with grouped results, arrow keys | `GlobalSearch` |
-| Platform switcher (pill tabs) | d12 d06 | Pill tabs: الفصول active; المكتبة / الحياة «قريبًا» | `PluginSwitcher` |
+| Platform switcher (pill tabs) | d12 d06 | **أُزيل**: شريط جانبي واحد بكل الأقسام (القسم النشط مفتوح) + شريط سفلي للجوال، بسجل تنقل واحد `core/registry.ts` | `Shell/Sidebar` |
 | Sun/moon theme toggle | d14 d11 | Segmented 2-button toggle, stored locally | topbar |
 | Breadcrumb + large page title with icon tile | d13 x01 d05 | `PageHead` | every page |
 | Hero KPI / info card (violet gradient) | d12 d08 d10 | `Hero`: current week, progress ticks, countdown | Dashboard |
@@ -94,7 +94,7 @@ Every component seen in the 22 screenshots was listed, near-duplicates were merg
 | Sankey | d14 | `Sankey` course → assessment type | Weights |
 | Segmented breakdown bar + legend | d06 | `SegBar` | Course page |
 | Stepper / milestones | x01 | `Stepper` (done / now / next) for semester journey | Dashboard |
-| Vertical steps with check nodes | d10 | `VSteps` | Soon (Library/Life) placeholder pages |
+| Vertical steps with check nodes | d10 | `VSteps` (مُصدَّر من `widgets/tiles.tsx` وغير مستعمل حاليًا بعد حذف صفحات «قريبًا») | — |
 | Mini month calendar with dots | d05 x02 | `MiniCalendar` | Dashboard |
 | Weekly timetable blocks | x02 | `WeekTimetable`, per-course pastel colours | Dashboard |
 | Deadline rows (colour edge, date, chevron) | d09 x03 x04 d01 | `DeadlineRow` | Dashboard, Timeline cell detail |

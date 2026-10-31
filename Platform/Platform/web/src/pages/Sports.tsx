@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useUrlParam, useUrlSet } from '../core/useUrlParam.js';
 import { Link, useLocation } from 'react-router-dom';
 import { useApp } from '../core/app-context.js';
 import { ApiError } from '../lib/api.js';
@@ -14,16 +15,17 @@ export default function Sports() {
   const ex = useExercises();
   const plans = usePlans();
   const { mine, set } = useMine();
-  const [q, setQ] = useState(() => new URLSearchParams(window.location.search).get('q')?.slice(0, 80) ?? '');
-  const loc = useLocation();
-  useEffect(() => {
-    const v = new URLSearchParams(loc.search).get('q');
-    if (v !== null) setQ(v.slice(0, 80));
-  }, [loc.search]);
-  const [regions, setRegions] = useState<ReadonlySet<string>>(new Set());
+  // الحالة في الرابط (P7): البحث والعضلة والمستوى تنجو من التحديث والرجوع
+  const [qRaw, setQ] = useUrlParam<string>('q', '');
+  const q = qRaw.slice(0, 80);
+  const [regionSet, setRegionSet] = useUrlSet('muscle');
+  const regions: ReadonlySet<string> = regionSet;
+  const setRegions = (v: ReadonlySet<string> | ((s: ReadonlySet<string>) => ReadonlySet<string>)): void => setRegionSet(new Set(typeof v === 'function' ? v(regions) : v));
   const [equip, setEquip] = useState<ReadonlySet<string>>(new Set());
   const [cat, setCat] = useState<string | null>(null);
-  const [level, setLevel] = useState<string | null>(null);
+  const [levelRaw, setLevelRaw] = useUrlParam<string>('level', '');
+  const level = levelRaw || null;
+  const setLevel = (v: string | null): void => setLevelRaw(v ?? '');
   const [safeOnly, setSafeOnly] = useState(false);
   const [wide] = useState(() => typeof window === 'undefined' || window.matchMedia('(min-width: 901px)').matches);
   const [open, setOpen] = useState<ExerciseView | null>(null);
@@ -67,7 +69,7 @@ export default function Sports() {
     setSafeOnly(false);
   };
 
-  const head = <PageHead title="الرياضة" icon="dumbbell" sub="مكتبة التمارين من راشد — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." crumbs={[{ label: 'الرياضة' }]} actions={<><Button to="/sports/templates" icon="calendar">القوالب الأسبوعية</Button><Button to="/sports/mine" variant="primary" icon="plus">تمريني</Button></>} />;
+  const head = <PageHead title="مكتبة التمارين" icon="dumbbell" sub="مكتبة التمارين من راشد — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." />;
   if (ex.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (ex.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={ex.error} action={<Button onClick={ex.reload}>إعادة المحاولة</Button>} /></div>;
   if (!ex.rootExists || !ex.data) {
@@ -75,7 +77,7 @@ export default function Sports() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={ex.status} label="مكتبة التمارين" />
-        <EmptyState icon="dumbbell" title="مكتبة التمارين غير متاحة" text={!ex.rootExists ? 'مجلد صادرات راشد غير موجود. اضبط المسار من إعدادات الحياة.' : 'ملف التمارين غير متاح أو تغيّر تنسيقه. تمريني المحلي ما زال يعمل.'} action={<><Button to="/life/settings" icon="sliders">إعدادات الحياة</Button> <Button to="/sports/mine">تمريني</Button></>} />
+        <EmptyState icon="dumbbell" title="مكتبة التمارين غير متاحة" text={!ex.rootExists ? 'مجلد صادرات راشد غير موجود. اضبط المسار من إعدادات الحياة.' : 'ملف التمارين غير متاح أو تغيّر تنسيقه. تمريني المحلي ما زال يعمل.'} action={<><Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button> <Button to="/sports/mine">تمريني</Button></>} />
       </div>
     );
   }

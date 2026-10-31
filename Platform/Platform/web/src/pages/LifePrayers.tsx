@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Card, CardHead, EmptyState, Unknown } from '../ui/ui.js';
+import { Button, Card, CardHead, EmptyState, Unknown } from '../ui/ui.js';
 import { LegendRows, SegBar } from '../widgets/charts.js';
 import { Conf, Kpi, LifePage, LineChart, Note, fmtDay, fmtDayFull, useLife } from '../life/lifeKit.js';
 import { klDay, klToday } from '../../../shared/weekly.js';
@@ -13,7 +13,7 @@ export default function LifePrayers() {
   const d = useLife(['prayers']);
   const p = d.get<Prayers>('prayers');
   return (
-    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء كما صدّره راشد — قراءة فقط.">
+    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء كما صدّره راشد — قراءة فقط." actions={<Button icon="edit" to="/life/commands?type=log_prayer">سجّل صلاة</Button>}>
       {p && <Body p={p} />}
     </LifePage>
   );

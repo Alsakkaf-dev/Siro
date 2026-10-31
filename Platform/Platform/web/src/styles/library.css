@@ -67,3 +67,4 @@
   .lib-table .dt-row > span:first-child { grid-column: 1 / -1; }
   .lib-table .dt-row > span:not(:first-child) { font-size: var(--fs-xs); }
 }
+.lib-drive { background: var(--surface-2); } .lib-drive iframe { display: block; inline-size: 100%; block-size: min(78vh, 900px); border: 0; }

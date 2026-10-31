@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Badge, Button, Card, CardHead, EmptyState, Field } from '../ui/ui.js';
 import { TagBadge } from '../review/kit.js';
 import { ContentPage } from '../life/v8Kit.js';
@@ -11,7 +12,18 @@ const COLS: { key: LedgerSortKey; label: string }[] = [{ key: 'order', label: '#
 
 export default function LifeLedger() {
   const c = useContent<LedgerDoc>('ledger_full.json');
-  const [f, setF] = useState<LedgerFilter>(() => ({ ...EMPTY_LEDGER_FILTER, q: new URLSearchParams(window.location.search).get('q')?.slice(0, 80) ?? '' }));
+  // فلاتر السجل في الرابط (P7) بـ replace
+  const [sp, setSp] = useSearchParams();
+  const f: LedgerFilter = { q: (sp.get('q') ?? '').slice(0, 80), type: sp.get('type'), wallet: sp.get('wallet'), from: sp.get('from'), to: sp.get('to'), redactedOnly: sp.get('red') === '1', noBoxOnly: sp.get('nobox') === '1' };
+  const setF = (u: LedgerFilter | ((x: LedgerFilter) => LedgerFilter)): void => {
+    const n = typeof u === 'function' ? u(f) : u;
+    const p = new URLSearchParams();
+    if (n.q) p.set('q', n.q);
+    for (const k of ['type', 'wallet', 'from', 'to'] as const) if (n[k]) p.set(k, n[k]!);
+    if (n.redactedOnly) p.set('red', '1');
+    if (n.noBoxOnly) p.set('nobox', '1');
+    if (p.toString() !== new URLSearchParams(window.location.search).toString()) setSp(p, { replace: true });
+  };
   const [sort, setSort] = useState<{ key: LedgerSortKey; dir: 'asc' | 'desc' }>({ key: 'order', dir: 'desc' });
   const rows = c.data?.rows ?? [];
   const wallets = useMemo(() => [...new Set(rows.map((r) => r.wallet).filter((x): x is string => !!x))], [rows]);

@@ -1,0 +1,37 @@
+/** نصوص منصة المطبخ بالعربية (I18N-05): مفاتيح وصفية جاهزة لإضافة لغة أخرى لاحقًا دون إعادة كتابة. */
+export const ar = {
+  'hub.title': 'المطبخ',
+  'hub.sub': 'مدخل المطبخ: المكوّنات الـ26 المقفلة وأسعارها وقانون السعرات، ومنه إلى المتجر والسلة والمخزن والمحفظة والأسعار وقاموس الوجبات.',
+  'hub.preview': 'القسم معطّل من الإعدادات (علم kitchen.enabled).',
+  'hub.tiles.ingredients': 'مكوّنًا مقفلًا',
+  'hub.tiles.stores': 'أسواق',
+  'hub.tiles.recipes': 'وصفة أصلية',
+  'hub.tiles.law': 'قانون السعرات اليومي',
+  'hub.tiles.law.sub': 'حاجز صارم في كل يوم',
+  'hub.tiles.cycle': 'متوسط دورة الأيام الثلاثة',
+  'hub.search': 'ابحث عن مكوّن (عربي، ملايو، إنجليزي)',
+  'hub.filter.all': 'الكل',
+  'hub.empty': 'لا مكوّن يطابق البحث.',
+  'hub.per100': 'لكل 100 غ',
+  'hub.from': 'من',
+  'hub.estimate': 'تقديري',
+  'hub.estimate.title': 'سعر تقديري من نطاق شريحة السوق — لم يُحدَّث من إيصال أو لوحة الأسعار بعد',
+  'hub.unverified': 'غير متحقَّق',
+  'hub.notInRecipes': 'غير مستعمل في الوصفات الـ12',
+  'hub.usedIn': 'يُستخدم في',
+  'hub.recipesWord': 'وصفة',
+  'hub.flags.assumed_pack': 'حجم العبوة غير مؤكد',
+  'hub.flags.needs_label_verification': 'القيمة الغذائية تحتاج مطابقة الملصق',
+  'hub.flags.needs_owner_confirmation': 'يحتاج تأكيد المالك',
+  'hub.defects': 'عيوب بيانات معلومة (لا تُصلَح دون قرارك)',
+  'hub.defect.ln02': 'إيدام الدجاج بالفاصوليا (ln-02) بلا أوزان — لا يدخل الحسابات.',
+  'hub.defect.ln04': 'فاصوليا خضراء بالدجاج (ln-04) نصّها مطابق لـ ln-01 — محفوظة كما هي.',
+  'hub.defect.day3': 'اليوم 3 من الدورة هامشه ضيق عن الحدّ الأدنى.',
+  'hub.next': 'انتقل إلى',
+  'hub.next.list': 'المطبخ ثلاثي الأبعاد والمحاكاة يصلان في المرحلة 3، والجدول والوجبات في المرحلة 4.',
+  'unit.kcal': 'سعرة',
+  'unit.g': 'غ',
+} as const;
+
+export type ArKey = keyof typeof ar;
+export const t = (k: ArKey): string => ar[k];

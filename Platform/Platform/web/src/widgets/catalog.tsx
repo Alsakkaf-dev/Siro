@@ -49,14 +49,15 @@ export function CourseCard({ course, items, calc, sem, now, to, view, onEdit, on
         <span className="cc-cell num">{items.length} تقييم</span>
         <span className="cc-cell">{Math.abs(sum - 100) > 0.005 && items.length > 0 ? <Badge tone="warn">مجموع الأوزان {sum}%</Badge> : <Badge tone="ok">100%</Badge>}</span>
         {ring}
+        <button type="button" className="btn sm ghost" onClick={onAdd} aria-label={`إضافة تقييم إلى ${course.code}`}><Icon name="plus" size={14} /> تقييم</button>
         <KebabMenu items={menu} label={`خيارات ${course.code}`} />
       </article>
     );
   }
   return (
     <article className="cc" style={css(course.color)}>
-      <Link to={to} className="cc-cover" aria-label={`افتح ${course.name}`}>
-        <span className="cc-code"><bdi>{course.code}</bdi></span>
+      <Link to={to} className="cc-cover">
+        <span className="sr-only">افتح {course.name}: </span><span className="cc-code"><bdi>{course.code}</bdi></span>
         <span className="cc-credit">{course.credits === null ? <Unknown text="الساعات؟" /> : <span className="pill-dark num">{course.credits} ساعات</span>}</span>
         <span className="cc-pattern" aria-hidden="true" />
       </Link>
@@ -66,7 +67,10 @@ export function CourseCard({ course, items, calc, sem, now, to, view, onEdit, on
             <Link to={to} className="cc-title"><bdi>{course.name}</bdi></Link>
             {course.name_ar && <div className="muted" style={{ fontSize: 'var(--fs-xs)' }}>{course.name_ar}</div>}
           </div>
-          <KebabMenu items={menu} label={`خيارات ${course.code}`} />
+          <span className="row" style={{ gap: 2, flexWrap: 'nowrap' }}>
+            <button type="button" className="btn sm ghost" onClick={onAdd} aria-label={`إضافة تقييم إلى ${course.code}`}><Icon name="plus" size={14} /> تقييم</button>
+            <KebabMenu items={menu} label={`خيارات ${course.code}`} />
+          </span>
         </div>
         <div className="cc-meta">
           <span>{lecturer ? <><Avatar text={initials(lecturer)} color={course.color} /> <bdi>{lecturer}</bdi></> : <><Icon name="user" size={14} /> <Unknown text="المحاضر غير معروف" /></>}</span>
@@ -165,7 +169,7 @@ export function DocTable<T extends { id: string }>({ rows, cols, selectable, sel
         <div key={r.id} className={cx('dt-row', selected?.has(r.id) && 'sel')} role="row" style={{ gridTemplateColumns: tpl }}>
           {selectable && (
             <span role="cell">
-              <input type="checkbox" aria-label="تحديد الصف" checked={selected?.has(r.id) ?? false} onChange={(e) => onSelect?.(r.id, e.target.checked)} />
+              <input type="checkbox" className="dt-sel" aria-label={rowLabel ? `تحديد: ${rowLabel(r).replace(/^فتح /, "")}` : "تحديد الصف"} checked={selected?.has(r.id) ?? false} onChange={(e) => onSelect?.(r.id, e.target.checked)} />
             </span>
           )}
           {cols.map((c) => (

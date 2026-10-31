@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AssessmentQuickActions } from '../widgets/AssessmentQuickActions.js';
+import { isGraded } from '../../../shared/calc.js';
 import { useSem } from '../core/sem-context.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, TrustTag, Unknown } from '../ui/ui.js';
@@ -16,6 +18,7 @@ export default function Dashboard() {
   const { sem, courses, assessments, phase, loads, now, upcoming, courseById } = S;
   const base = `/academic/s/${sem.id}`;
   const [selWeek, setSelWeek] = useState<string | null>(null);
+  const nav = useNavigate();
 
   const maxWeek = useMemo(() => loads.reduce((m, l, i) => (i >= 1 && i <= sem.weeks && l.weight > (loads[m]?.weight ?? 0) ? i : m), 1), [loads, sem.weeks]);
   const curWeek = phase.week;
@@ -98,22 +101,22 @@ export default function Dashboard() {
           text={phase.kind === 'week' && phase.week ? `من ${fmtDateShort(weekStartMs(sem, phase.week))} إلى ${fmtDateShort(weekEndMs(sem, phase.week))} — تقدّم الفصل ${Math.round(elapsed * 100)}%` : `${fmtISOFull(sem.start_date)} · ${sem.weeks} أسبوعًا`}
           aside={
             next && nextDue !== null ? (
-              <Countdown target={nextDue + DAY_MS - 60_000} label={`حتى: ${next.title}`} color="var(--lime)" />
+              <Link to={`${base}/courses/${next.course_id}#a-${next.id}`} className="countdown-link"><span className="sr-only">الموعد القادم: {next.title}. </span><Countdown target={nextDue + DAY_MS - 60_000} label={`حتى: ${next.title}`} color="var(--lime)" /></Link>
             ) : (
               <div className="countdown"><small>لا موعد قادم معروف</small></div>
             )
           }
         >
           <TickBar value={Math.round(elapsed * 100)} max={100} ticks={32} color="var(--lime)" />
-          <Link to={`${base}/timeline`} className="btn sm ink">الجدول الزمني</Link>
+          <Link to={`${base}/timeline`} className="btn sm ink">التقييمات والمواعيد</Link>
           <Link to={`${base}/calculator`} className="btn sm">حاسبة الدرجات</Link>
         </Hero>
 
         <div className="grid stats">
           <StatTile tone="purple" icon="book" label="المواد" value={courses.length} sub={`${S.credits} ساعة معتمدة${S.creditsUnknown ? ' + غير معروف' : ''}`} to={`${base}/courses`} />
-          <StatTile tone="blue" icon="list" label="التقييمات" value={total} sub={`${assessments.length} صفًّا · محسوب`} extra={<Sparkline values={loads.slice(1, sem.weeks + 1).map((l) => l.count)} w={110} h={30} />} to={`${base}/timeline`} />
+          <StatTile tone="blue" icon="list" label="التقييمات" value={total} sub={`${assessments.length} بندًا · محسوب`} to={`${base}/timeline`} />
           <StatTile tone="orange" icon="zap" label="أزحم أسبوع" value={`W${maxWeek}`} sub={busy ? `${fmtNum(busy.weight)}% في ${busy.count} تقييم` : '—'} to={`${base}/timeline`} />
-          <StatTile tone="green" icon="check" label="جاهز للتقييم" value={`${assessments.filter((a) => a.status === 'graded').length}/${assessments.length}`} sub="مصحَّح من الصفوف" to={`${base}/calculator`} />
+          <StatTile tone="green" icon="check" label="مصحَّح بدرجة" value={`${assessments.filter((a) => isGraded(a)).length}/${assessments.length}`} sub="التقييمات التي لها درجة مسجلة" to={`${base}/calculator`} />
           <StatTile tone="pink" icon="help" label="غير معروف" value={unknownN} sub={unknownN ? 'بنود بلا موعد' : 'كل شيء معروف'} to={`${base}/unknowns`} />
         </div>
 
@@ -121,7 +124,7 @@ export default function Dashboard() {
           <Card>
             <CardHead title="حمل الأسابيع" icon="chart" info="مجموع أوزان التقييمات في كل أسبوع. الأسبوع المزدحم = وزنه ≥ 70% من أعلى أسبوع وفيه بندان على الأقل.">
               <TrustTag kind="calc" />
-              <Link to={`${base}/timeline`} className="btn sm ghost">التفاصيل</Link>
+              <Link to={`${base}/timeline?view=weeks`} className="btn sm ghost">عرض الأسابيع</Link>
             </CardHead>
             <CapsuleBars data={caps} selected={String(sel)} onSelect={setSelWeek} ariaLabel="حمل الأسابيع" height={190} />
             <div className="legend" style={{ marginBlockStart: 'var(--s-3)' }}>
@@ -136,11 +139,14 @@ export default function Dashboard() {
               <Link to={`${base}/timeline`} className="btn sm ghost">الكل</Link>
             </CardHead>
             {upcoming.length === 0 ? (
-              <EmptyState icon="calendar" title="لا مواعيد قادمة معروفة" text="أضف تقييمات لها موعد، أو راجع قائمة «غير المعروف»." />
+              <EmptyState icon="calendar" title="لا مواعيد قادمة معروفة" text="أضف تقييمات لها موعد، أو راجع قائمة «غير المعروف»." action={<div className="row" style={{ justifyContent: 'center' }}><Button variant="primary" icon="plus" to={`${base}/courses?new=assessment`}>إضافة تقييم</Button><Button to={`${base}/unknowns`}>غير المعروف</Button></div>} />
             ) : (
               <div className="dl-list">
                 {upcoming.slice(0, 6).map((a) => (
-                  <DeadlineRow key={a.id} a={a} course={courseById.get(a.course_id)} sem={sem} now={now} to={`${base}/courses/${a.course_id}#a-${a.id}`} compact />
+                  <div key={a.id} className="dl-act">
+                    <DeadlineRow a={a} course={courseById.get(a.course_id)} sem={sem} now={now} to={`${base}/courses/${a.course_id}#a-${a.id}`} compact />
+                    <AssessmentQuickActions a={a} onDone={() => void S.reload()} />
+                  </div>
                 ))}
               </div>
             )}
@@ -169,24 +175,6 @@ export default function Dashboard() {
           </Carousel>
         </Card>
 
-        <div className="grid cols-3">
-          <Card>
-            <CardHead title="توزيع الأوزان حسب النوع" icon="pie" />
-            <div className="donut-row">
-              <Donut segments={kindW.map(([k, v]) => ({ label: KIND_LABEL[k], value: v, color: KIND_COLOR[k] }))} centerTop={courses.length ? fmtNum(kindW.reduce((s, [, v]) => s + v, 0), 0) : '0'} centerBottom={`مجموع الأوزان (${courses.filter((c) => (S.byCourse.get(c.id)?.length ?? 0) > 0).length} مواد)`} size={150} />
-              <LegendRows rows={kindW.map(([k, v]) => ({ label: KIND_LABEL[k], value: v, max: kindW[0]?.[1] ?? 1, color: KIND_COLOR[k], right: `${fmtNum(v, 0)}` }))} />
-            </div>
-          </Card>
-          <Card>
-            <CardHead title="مراحل الفصل" icon="flag" />
-            <Stepper steps={stepper} />
-          </Card>
-          <Card>
-            <CardHead title="التقويم" icon="calendar" />
-            <MiniCalendar year={monthRef.getFullYear()} month={monthRef.getMonth()} marks={marks} today={now} />
-          </Card>
-        </div>
-
         <div className="grid cols-2-1">
           <Card>
             <CardHead title="جدول محاضرات الأسبوع" icon="clock" info="مقروء من حقل «أوقات المحاضرات» في كل مادة.">
@@ -195,9 +183,9 @@ export default function Dashboard() {
             <WeekTimetable courses={courses} todayDow={new Date(now).getUTCDay()} />
           </Card>
           <Card>
-            <CardHead title="نبض الأسابيع" icon="zap" />
-            <DotMatrix columns={loads.slice(1, sem.weeks + 1).map((l, i) => ({ label: String(i + 1), dots: Math.min(5, Math.ceil(l.weight / 6)), tip: `الأسبوع ${i + 1}: ${fmtNum(l.weight)}%` }))} hot={maxWeek - 1} color="var(--accent)" />
-            <p className="muted" style={{ marginBlockStart: 'var(--s-3)', fontSize: 'var(--fs-xs)' }}>كل نقطة ≈ 6% من الأوزان في الأسبوع. الأخضر الليموني = الأزحم.</p>
+            <CardHead title="التقويم" icon="calendar" />
+            <MiniCalendar year={monthRef.getFullYear()} month={monthRef.getMonth()} marks={marks} today={now} onDay={(iso) => nav(`${base}/timeline?view=list&day=${iso}`)} />
+            <p className="muted" style={{ fontSize: 'var(--fs-xs)', marginBlockStart: 'var(--s-2)' }}>اضغط يومًا لعرض تقييماته.</p>
           </Card>
         </div>
         {courses.length === 0 && <EmptyState icon="book" title="لا توجد مواد في هذا الفصل" action={<Button variant="primary" icon="plus" to={`${base}/courses?new=1`}>إضافة مادة</Button>} />}
@@ -207,3 +195,4 @@ export default function Dashboard() {
 }
 void toISO;
 void Badge;
+void [Donut, DotMatrix, LegendRows, Stepper, Sparkline, KIND_COLOR, KIND_LABEL];

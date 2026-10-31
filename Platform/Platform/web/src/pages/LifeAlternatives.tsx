@@ -54,7 +54,7 @@ export default function LifeAlternatives() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={c.status} label="بدائل العادات" />
-        <EmptyState icon="zap" title="بدائل العادات غير متاحة" text={!c.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف بدائل العادات غير متاح أو تغيّر تنسيقه.'} action={<Button to="/life/settings" icon="sliders">إعدادات الحياة</Button>} />
+        <EmptyState icon="zap" title="بدائل العادات غير متاحة" text={!c.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف بدائل العادات غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
       </div>
     );
   }

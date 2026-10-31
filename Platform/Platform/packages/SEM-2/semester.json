@@ -1,0 +1,117 @@
+{
+  "package_version": 1,
+  "source": "package:SEM-2",
+  "semester": {
+    "id": "sem2",
+    "code": "SEM 2",
+    "name": "Semester II 2024/2025",
+    "year_no": 1,
+    "sem_no": 2,
+    "start_date": "2025-03-17",
+    "weeks": 16,
+    "break_weeks": [],
+    "exam_start": null,
+    "exam_end": null,
+    "note": "تاريخ البداية من التقويم الأكاديمي الرسمي لجامعة UTM 2024/2025 (الفصل الثاني يبدأ 17 Mar 2025). عدد الأسابيع 16 [افتراض]. GPA 2.15 · CGPA 2.21 (كشف النتائج)."
+  },
+  "courses": [
+    {
+      "id": "sem2-scse1203",
+      "code": "SCSE1203",
+      "name": "Software Engineering Principles",
+      "section": "03",
+      "credits": 3,
+      "color": "#4CC9F0",
+      "sort": 1,
+      "note": null,
+      "result": {
+        "grade": "B",
+        "points": 3,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem2-scse1224",
+      "code": "SCSE1224",
+      "name": "Advanced Programming",
+      "section": "02",
+      "credits": 4,
+      "color": "#F72585",
+      "sort": 2,
+      "note": null,
+      "result": {
+        "grade": "C+",
+        "points": 2.33,
+        "credits": 4,
+        "status": null
+      }
+    },
+    {
+      "id": "sem2-scsr1033",
+      "code": "SCSR1033",
+      "name": "Computer Organization and Architecture",
+      "section": "04",
+      "credits": 3,
+      "color": "#7209B7",
+      "sort": 3,
+      "note": null,
+      "result": {
+        "grade": "C+",
+        "points": 2.33,
+        "credits": 3,
+        "status": null
+      }
+    },
+    {
+      "id": "sem2-scsr2213",
+      "code": "SCSR2213",
+      "name": "Network Communications",
+      "section": "05",
+      "credits": 3,
+      "color": "#3A86FF",
+      "sort": 4,
+      "note": "أُعيدت في SEM 4 — ملفاتها في حزمة SEM-4.",
+      "result": {
+        "grade": "D",
+        "points": 1,
+        "credits": 3,
+        "status": "UM — إعادة المادة (حسب كشف النتائج)"
+      }
+    },
+    {
+      "id": "sem2-scst1223",
+      "code": "SCST1223",
+      "name": "Probability and Statistical Data Analysis",
+      "section": "05",
+      "credits": 3,
+      "color": "#FB8500",
+      "sort": 5,
+      "note": "أُعيدت في SEM 4 — ملفاتها في حزمة SEM-4.",
+      "result": {
+        "grade": "D",
+        "points": 1,
+        "credits": 3,
+        "status": "UM — إعادة المادة (حسب كشف النتائج)"
+      }
+    },
+    {
+      "id": "sem2-uhlm1012",
+      "code": "UHLM1012",
+      "name": "Malay Language for Communication 2",
+      "section": "03",
+      "credits": 2,
+      "color": "#06D6A0",
+      "sort": 6,
+      "note": null,
+      "result": {
+        "grade": "A-",
+        "points": 3.67,
+        "credits": 2,
+        "status": null
+      }
+    }
+  ],
+  "assessments": [],
+  "notes": []
+}
