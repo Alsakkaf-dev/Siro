@@ -21,13 +21,13 @@
 
 ترحيلات خط نظام العمل كانت بالأرقام 4–6 وتصطدم بترحيلات المطبخ (4–6). صارت: `10` حزم الفصول (أعمدة `lib_files` + `acad_results`)، `11` نظام العمل، `12` الذكاء. و`migrate()` يُصلح تلقائيًا أي قاعدة طُبّق عليها الخط القديم (ينقل صفوفها 4/5/6 إلى 10/11/12 ثم تُطبَّق ترحيلات المطبخ) — مغطّى باختبار في `tests/migration.test.ts`. إضافة فقط؛ لا حذف ولا تغيير لجدول موجود.
 
-## النشر على Vercel (لم يتغيّر)
+## النشر على Vercel (من main)
 
-- `vercel.json`، `api/index.mjs`، `server/online.ts`، `scripts/vercel-static.mjs`، `scripts/deploy-branch.sh` مطابقة حرفيًا لما كان ينشره الموقع.
-- Vercel لا يبني إلا فرع `deploy/platform` (خطوة التجاهل `Ignored Build Step`). لذلك هذا الفرع **ليس فرع تطوير**: لقطة مُولَّدة آليًا من `main` (بجذر `Platform/Platform` وبلا `node_modules/dist/data/backups`). لا تُعدَّل يدويًا، ولا يُحذف قبل نقل إعداد Vercel إلى `main`.
-- لتحديث الموقع بعد أي تغيير: `bash Platform/Platform/scripts/deploy-branch.sh --push`.
+- النشر من `main` وحده: مشروع Vercel جذره `Platform/Platform`، و`vercel-prepare.mjs` ينسخ `../exchange/rashed` قبل البناء، و`.vercelignore` يستبعد `node_modules/dist/data/backups` من الرفع.
+- سبب عطل نشر المرحلة 4 والمحاولة الأولى للنقل: تهيئة الدالة كانت تنتظر تنزيل حزم الفصول من Drive بلا مهلة. صار لكل تنزيل مهلة (20ث) والانتظار الكلي مسقوف (6ث) والباقي يكمل في الخلفية (`server/online.ts`).
+- فرع `deploy/platform` لم يعد مستخدمًا (يُحذف)، وسكربت `deploy-branch.sh` حُذف؛ لا تُنشئهما من جديد.
 - متغيرات البيئة (مفاتيح الذكاء وقوائم الحزم) أُبقيت دون مساس في لوحة Vercel؛ لا شيء منها في المستودع.
 
 ## التحقق
 
-typecheck (الخادم والواجهة) · vitest 523 ناجح · build · smoke 39/39 · browser-smoke --strict.
+typecheck (الخادم والواجهة) · vitest 524 ناجح · build · smoke 39/39 · browser-smoke --strict.

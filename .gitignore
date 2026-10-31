@@ -6,3 +6,6 @@ NOT_UPLOADED_Too_Large_For_GitHub/
 .env.*
 maintenance_browser/
 Bachelor in Software Engineering - Copy/
+
+# Browser-automation tool logs
+.playwright-mcp/
