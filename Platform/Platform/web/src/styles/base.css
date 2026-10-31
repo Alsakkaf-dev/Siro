@@ -27,7 +27,9 @@ bdi, .ltr { unicode-bidi: isolate; }
 .skip-link:focus { transform: translateY(0); }
 
 ::selection { background: var(--accent-soft); }
-* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+/* لا أشرطة تمرير ظاهرة في أي مكان (التمرير يعمل بالعجلة واللمس والسحب) */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; inline-size: 0; block-size: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }

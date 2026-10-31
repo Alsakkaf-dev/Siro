@@ -1,7 +1,7 @@
 /* ───────── Shell (شريط أيقونات + رأس علوي مدمج) ───────── */
-.app { min-height: 100vh; display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); grid-template-areas: 'side main'; padding: var(--s-4); gap: var(--s-4); }
+.app { min-height: 100vh; display: grid; grid-template-columns: var(--sidebar-w) minmax(0, 1fr); grid-template-areas: 'side main'; padding: var(--s-4); padding-inline-start: 0; gap: var(--s-4); }
 
-.sidebar { grid-area: side; position: sticky; top: var(--s-4); align-self: start; height: calc(100vh - 2 * var(--s-4)); display: flex; flex-direction: column; align-items: center; gap: var(--s-4); padding: var(--s-3) 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-4); box-shadow: var(--shadow-1); }
+.sidebar { grid-area: side; position: sticky; top: 0; align-self: start; height: 100vh; margin-block: calc(-1 * var(--s-4)); display: flex; flex-direction: column; align-items: center; gap: var(--s-4); padding: var(--s-3) 0; background: var(--surface); border: 0; border-inline-end: 1px solid var(--border); border-radius: 0; box-shadow: none; }
 /* شريط الأيقونات: عنصر 40×40، المؤشر ينزلق بين الأقسام بـ CSS فقط (--i = فهرس القسم النشط) */
 .rail-nav { position: relative; display: grid; gap: 4px; justify-items: center; }
 .rail-item { position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--rad-3); color: var(--text-2); transition: background var(--t-micro) var(--ease-standard), color var(--t-micro) var(--ease-standard); }
@@ -20,12 +20,13 @@
 @media (hover: hover) { .rail-item:hover .rail-tip { opacity: 1; translate: 0 -50%; transition-delay: 120ms; } }
 .rail-item:focus-visible .rail-tip { opacity: 1; translate: 0 -50%; }
 .main { grid-area: main; min-width: 0; display: flex; flex-direction: column; gap: var(--s-5); }
-.topbar { position: sticky; top: var(--s-4); z-index: 50; display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-3); min-height: 52px; background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-1); }
+.topbar { position: sticky; top: var(--s-4); z-index: 50; display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-3); min-height: 52px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-1); }
 .switcher { display: flex; gap: 2px; padding: 4px; background: var(--surface-2); border-radius: var(--r-pill); }
 .switcher a, .switcher span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: var(--r-pill); font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-sm); color: var(--text-2); white-space: nowrap; transition: background var(--t-fast), color var(--t-fast); }
 .switcher a:hover { text-decoration: none; color: var(--text); }
 .switcher a[aria-current='page'] { background: var(--accent); color: var(--accent-ink); box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--accent) 80%, transparent); }
 .switcher .soon { cursor: not-allowed; }
+.topbar::before { content: ''; position: absolute; inset-inline: -1px; inset-block-start: calc(-1 * var(--s-4) - 1px); block-size: calc(var(--s-4) + 1px); background: var(--bg); pointer-events: none; z-index: -1; }
 .spacer { flex: 1; }
 .search { position: relative; flex: 0 1 360px; min-width: 0; }
 .search input { width: 100%; height: 34px; padding-inline: 38px 52px; background: var(--surface-2); border: 1px solid transparent; border-radius: var(--r-md); transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast); }
@@ -81,11 +82,12 @@
   .app { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'main'; padding: var(--s-2); gap: var(--s-3); }
   .burger { display: inline-grid; }
   .switcher.top { display: none; }
+  .topbar::before { inset-block-start: calc(-1 * var(--s-2) - 1px); block-size: calc(var(--s-2) + 1px); }
   .topbar { top: var(--s-2); padding: var(--s-2); gap: var(--s-2); min-height: 56px; }
   .sidebar { position: fixed; z-index: 70; top: var(--s-2); bottom: var(--s-2); inset-inline-start: var(--s-2); height: auto; width: min(86vw, 310px); transform: translateX(8px) scale(0.98); opacity: 0; transition: transform var(--t-base) var(--ease-out); box-shadow: var(--shadow-2); }
   .sidebar.open { transform: none; opacity: 1; visibility: visible; transition: transform var(--t-short) var(--ease-enter), opacity var(--t-short) var(--ease-enter), visibility 0s; }
   .sidebar:not(.open) { visibility: hidden; transition: transform var(--t-short) var(--ease-exit), opacity var(--t-short) var(--ease-exit), visibility 0s linear var(--t-short); }
-  .sidebar { align-items: stretch; padding: var(--s-4) var(--s-3); }
+  .sidebar { align-items: stretch; padding: var(--s-4) var(--s-3); margin-block: 0; border: 1px solid var(--border); border-radius: var(--rad-4); }
   .rail-nav { justify-items: stretch; gap: 2px; }
   .rail-item { display: flex; justify-content: flex-start; align-items: center; gap: var(--s-3); width: auto; height: 44px; padding-inline: var(--s-3); font: 600 var(--fs-sm) var(--font-ui); }
   .rail-label { position: static; inline-size: auto; block-size: auto; clip-path: none; }
