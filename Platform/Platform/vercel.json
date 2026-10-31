@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "npm ci --no-audit --no-fund",
-  "buildCommand": "npm run build && node scripts/vercel-static.mjs",
+  "buildCommand": "node scripts/vercel-prepare.mjs && npm run build && node scripts/vercel-static.mjs",
   "outputDirectory": "vercel-static",
   "functions": {
     "api/index.mjs": {
@@ -10,5 +10,10 @@
       "includeFiles": "{dist/**,seed/**,exchange/**,package.json}"
     }
   },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/index" }]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ]
 }
