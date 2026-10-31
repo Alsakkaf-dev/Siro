@@ -8,7 +8,7 @@ import type { MoreHit, SearchHit } from '../../../shared/types.js';
 const MORE_LABEL: Record<MoreHit['kind'], string> = { space: 'مساحاتي', item: 'عناصر المساحات', library: 'المكتبة', youtube: 'YouTube', life: 'الحياة', sports: 'تمارين', workout: 'تماريني', glossary: 'المصطلحات' };
 
 export default function SearchPage() {
-  const [sp] = useSearchParams();
+  const [sp, setSp] = useSearchParams();
   const q = sp.get('q')?.trim() ?? '';
   const [hits, setHits] = useState<SearchHit[] | null>(null);
   const [more, setMore] = useState<MoreHit[] | null>(null);
@@ -27,8 +27,15 @@ export default function SearchPage() {
       live = false;
     };
   }, [q]);
+  const [draft, setDraft] = useState(q);
+  useEffect(() => setDraft(q), [q]);
   return (
     <div className="page">
+      <form className="row" role="search" style={{ marginBlockEnd: 'var(--s-4)' }} onSubmit={(e) => { e.preventDefault(); setSp(draft.trim() ? { q: draft.trim() } : {}); }}>
+        <label className="sr-only" htmlFor="search-q">ابحث</label>
+        <input id="search-q" className="input" style={{ flex: 1, minInlineSize: 0 }} type="search" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="ابحث في المواد والتقييمات والمكتبة والحياة…" autoFocus />
+        <button className="btn primary" type="submit">بحث</button>
+      </form>
       <PageHead title={q ? <>نتائج «{q}»</> : 'البحث'} icon="search" sub="في الفصول (مادة، تقييم، محاضر، نوع) وفي المكتبة والحياة والرياضة والمصطلحات." />
       {hits === null || more === null ? <Skeleton h={200} r={20} /> : hits.length === 0 && more.length === 0 ? <EmptyState icon="search" title={q ? 'لا نتائج' : 'اكتب ما تبحث عنه في شريط البحث'} text={q ? 'جرّب كلمة أقصر أو رمز المادة.' : undefined} /> : (
         <div className="stack">

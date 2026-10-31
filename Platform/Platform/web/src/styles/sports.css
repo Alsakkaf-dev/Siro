@@ -20,7 +20,7 @@
 .chip { font: inherit; font-size: var(--fs-sm); padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); cursor: pointer; display: inline-flex; gap: 5px; align-items: center; min-block-size: 32px; }
 .chip:hover { border-color: var(--sports); }
 .chip[aria-pressed='true'] { background: var(--sports); border-color: var(--sports); color: #1a0f0d; font-weight: 700; }
-.chip .n { font-size: 11px; opacity: .85; }
+.chip .n { font-size: var(--fs-xs); opacity: .85; }
 .filter-block { display: grid; gap: 6px; } .filter-block h3 { margin: 0; font-size: var(--fs-sm); color: var(--text-2); font-weight: 600; }
 /* بطاقات التمارين */
 .ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: var(--s-3); list-style: none; margin: 0; padding: 0; }

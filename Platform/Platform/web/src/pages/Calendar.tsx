@@ -141,7 +141,7 @@ export default function Calendar() {
           ))}
         </div>
       )}
-      {hiddenWith.length > 0 && <p className="callout warn" role="note" data-testid="cal-hidden-warn"><Icon name="warn" size={14} /> تقاويم مخفية في هذا العرض وفيها أحداث: {hiddenWith.map((c) => `${c.name} (${fmtNum(c.count)})`).join('، ')} — ستبدو لك فراغًا (CAL-17).</p>}
+      {hiddenWith.length > 0 && <p className="callout warn" role="note" data-testid="cal-hidden-warn"><Icon name="warn" size={14} /> تقاويم مخفية في هذا العرض وفيها أحداث: {hiddenWith.map((c) => `${c.name} (${fmtNum(c.count)})`).join('، ')} — ستبدو لك فراغًا.</p>}
 
       {!data && !err && <Skeleton h={360} />}
       {data && data.source === 'none' && <EmptyState icon="calendar" title="لا مصدر للجدول بعد" text="لا لقطة مستوردة. صدّر تقويم Outlook كملف ICS ثم استورده." action={<Button variant="primary" icon="upload" onClick={() => setImp(true)}>استيراد لقطة</Button>} />}

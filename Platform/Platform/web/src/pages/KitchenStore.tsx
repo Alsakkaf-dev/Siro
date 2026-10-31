@@ -204,8 +204,8 @@ function ProductSheet({ ing, onClose }: { ing: Ingredient; onClose: () => void }
             {ing.flags.includes('needs_owner_confirmation') && <Badge tone="warn">يحتاج تأكيدك</Badge>}
             {point?.source === 'estimate_tier' && <Badge dashed>تقديري</Badge>}
           </div>
-          {ing.slug === 'chicken' && <p className="callout" role="note">النوع غير محدد (DEF-05): القيم الغذائية محسوبة على صدر نيء. حدّد نوع الدجاج الذي تشتريه فعلًا عند تأكيد الملصق.</p>}
-          {ing.slug === 'tomato_paste' && <p className="callout" role="note">سمّيتَه «الكاتشب» (DEF-03): قد يكون معجون طماطم أو كاتشبًا. القيم الحالية لمعجون الطماطم.</p>}
+          {ing.slug === 'chicken' && <p className="callout" role="note">النوع غير محدد: القيم الغذائية محسوبة على صدر نيء. حدّد نوع الدجاج الذي تشتريه فعلًا عند تأكيد الملصق.</p>}
+          {ing.slug === 'tomato_paste' && <p className="callout" role="note">سمّيتَه «الكاتشب»: قد يكون معجون طماطم أو كاتشبًا. القيم الحالية لمعجون الطماطم.</p>}
 
           <div className="kt-qty" role="group" aria-label="الكمية">
             <div className="row">

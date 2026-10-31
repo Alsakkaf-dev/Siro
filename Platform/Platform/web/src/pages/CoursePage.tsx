@@ -185,7 +185,7 @@ export default function CoursePage() {
           <div>
             <small className="muted">أداؤك في المصحَّح</small>
             <div className="row" style={{ gap: 6 }}>
-              <strong className="num" style={{ fontSize: 'var(--fs-lg)' }}>{fmtNum(calc.earned)} / {fmtNum(calc.gradedWeight)}</strong>
+              <strong className="num" style={{ fontSize: 'var(--fs-lg)' }}>{calc.gradedWeight > 0 ? <>{fmtNum(calc.earned)} / {fmtNum(calc.gradedWeight)}</> : <span className="muted">لا درجات مرصودة بعد</span>}</strong>
               <TrustTag kind="calc" />
             </div>
             <small className="muted">الحد الأقصى الممكن {fmtNum(calc.maxPossible)}</small>

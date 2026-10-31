@@ -11,7 +11,7 @@ const CLS: Record<Tag, string> = { 'مثبت': 't-proven', 'محسوب': 't-calc
 export function TagBadge({ tag, title }: { tag: Tag; title?: string }) {
   return (
     <Term id={TAG_TERM[tag]} bare>
-      <span className={`trust ${CLS[tag]}`} title={title}>{tag}</span>
+      {tag === 'مثبت' || tag === 'محسوب' ? <span className={`trust-dot ${CLS[tag]}`} role="img" aria-label={tag} title={title ? `${tag} — ${title}` : tag} /> : <span className={`trust ${CLS[tag]}`} title={title}>{tag}</span>}
     </Term>
   );
 }

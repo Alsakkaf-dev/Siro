@@ -23,7 +23,7 @@ export function StatusBanner({ status, reload }: { status: NonNullable<ReturnTyp
       <div className="callout warn lib-status" role="alert">
         <Icon name="warn" size={18} />
         <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere' }}>
-          مجلد المكتبة غير موجود على هذا الجهاز: <bdi className="ltr-in" style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>{status.root}</bdi>. لن يظهر أي ملف حتى تحدّد مجلدًا صحيحًا.
+          الفهرس محفوظ، لكن مجلد المكتبة (<bdi style={{ direction: 'ltr', unicodeBidi: 'isolate' }}>{status.root.split(/[\\/]/).filter(Boolean).pop() ?? '—'}</bdi>) غير متاح على هذا الجهاز، فلا يمكن فتح الملفات من هنا.
         </span>
         <Button size="sm" to="/settings?tab=sources">تحديد المجلد</Button>
       </div>

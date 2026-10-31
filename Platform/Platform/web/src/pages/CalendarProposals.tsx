@@ -140,7 +140,7 @@ function GenerateCard({ onDone }: { onDone: () => void }) {
         })}>من يوم الخطة</Button>
       </div>
       <div className="row kt-filter-row">
-        <label className="kt-inline">إصلاح صياغة الغرام (DEF-10) من <input className="input" type="date" dir="ltr" value={from} onChange={(e) => setFrom(e.target.value)} aria-label="من" /></label>
+        <label className="kt-inline">إصلاح صياغة الغرام من <input className="input" type="date" dir="ltr" value={from} onChange={(e) => setFrom(e.target.value)} aria-label="من" /></label>
         <label className="kt-inline">إلى <input className="input" type="date" dir="ltr" value={to} onChange={(e) => setTo(e.target.value)} aria-label="إلى" /></label>
         <Button size="sm" onClick={() => void run(async () => { const r = await fixGrams(from, to, true); setFix({ found: r.found, n: r.list.reduce((s, x) => s + x.changes.length, 0) }); return [`معاينة: ${r.found} حدثًا فيه صياغة غرام خاطئة`]; })}>عاين</Button>
         <Button size="sm" disabled={!fix?.found} onClick={() => void run(async () => { const r = await fixGrams(from, to, false); return [`أُنشئ ${r.created.length} اقتراح إصلاح`, ...r.rejected.map((x) => `رُفض ${x.event_id}: ${x.errors.map((e) => e.msg).join(' | ')}`)]; })}>ولّد اقتراحات الإصلاح</Button>

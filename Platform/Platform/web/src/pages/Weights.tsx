@@ -43,7 +43,7 @@ export function WeightsBody() {
           <Card>
             <CardHead title="حسب النوع" icon="pie" />
             <div className="donut-row">
-              <Donut segments={kindTotals.map((x) => ({ label: KIND_LABEL[x.k], value: x.v, color: KIND_COLOR[x.k] }))} centerTop={fmtNum(grand, 0)} centerBottom="مجموع الأوزان" />
+              <Donut segments={kindTotals.map((x) => ({ label: KIND_LABEL[x.k], value: x.v, color: KIND_COLOR[x.k] }))} centerTop={fmtNum(grand, 0)} centerBottom={`إجمالي أوزان ${courses.length} مواد`} />
               <LegendRows rows={kindTotals.map((x) => ({ label: KIND_LABEL[x.k], value: x.v, max: kindTotals[0]?.v ?? 1, color: KIND_COLOR[x.k], right: `${fmtNum((x.v / grand) * 100, 0)}%` }))} />
             </div>
           </Card>

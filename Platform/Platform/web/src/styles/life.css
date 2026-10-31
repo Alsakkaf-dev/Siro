@@ -19,9 +19,9 @@
 .linechart { display: grid; gap: 4px; }
 .lc-wrap { position: relative; } .lc-wrap svg { inline-size: 100%; block-size: 100%; display: block; overflow: hidden; }
 .lc-dot { position: absolute; inline-size: 9px; block-size: 9px; margin: -4.5px; border-radius: 50%; background: var(--surface); border: 2.5px solid; pointer-events: none; transition: transform var(--t-fast, .15s); } .lc-dot.on { transform: scale(1.5); }
-.lc-tip { position: absolute; top: 0; transform: translateX(50%); display: grid; gap: 2px; background: var(--ink); color: var(--ink-text); font-size: 11px; padding: 6px 10px; border-radius: 10px; pointer-events: none; white-space: nowrap; z-index: 2; font-family: var(--font-ui); }
+.lc-tip { position: absolute; top: 0; transform: translateX(50%); display: grid; gap: 2px; background: var(--ink); color: var(--ink-text); font-size: var(--fs-xs); padding: 6px 10px; border-radius: 10px; pointer-events: none; white-space: nowrap; z-index: 2; font-family: var(--font-ui); }
 [dir='rtl'] .lc-tip { transform: translateX(50%); }
-.lc-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-2); padding-inline: 4px; }
+.lc-x { display: flex; justify-content: space-between; font-size: var(--fs-xs); color: var(--text-2); padding-inline: 4px; }
 /* جداول */
 .life-tbl-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-md); }
 .life-tbl { inline-size: 100%; border-collapse: collapse; font-size: var(--fs-sm); min-inline-size: 560px; }
@@ -47,7 +47,7 @@
 .habit-days i { inline-size: 18px; block-size: 18px; border-radius: 5px; background: var(--heat-0); border: 1px solid var(--border); }
 .habit-days i.yes { background: var(--ok); border-color: var(--ok); } .habit-days i.no { background: var(--danger); border-color: var(--danger); } .habit-days i.unknown { border-style: dashed; }
 .week-plan { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
-.week-plan > div { padding: 8px 4px; border: 1px solid var(--border); border-radius: 10px; text-align: center; font-size: 12px; display: grid; gap: 2px; } .week-plan b { font-family: var(--font-ui); color: var(--text-2); font-size: 11px; }
+.week-plan > div { padding: 8px 4px; border: 1px solid var(--border); border-radius: 10px; text-align: center; font-size: 12px; display: grid; gap: 2px; } .week-plan b { font-family: var(--font-ui); color: var(--text-2); font-size: var(--fs-xs); }
 .week-plan .today { border-color: var(--life); background: color-mix(in srgb, var(--life) 12%, transparent); }
 @media (max-width: 560px) { .week-plan { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 /* روتين */
@@ -81,7 +81,7 @@
 .pray-cell small { display: none; }
 .life-page p a, .life-page li a, .life-note a { text-decoration: underline; text-underline-offset: 3px; }
 .life-tbl-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.lc-y { position: absolute; inset-inline-start: 0; transform: translateY(-50%); font-size: 10px; color: var(--text-2); direction: ltr; pointer-events: none; background: color-mix(in srgb, var(--surface) 80%, transparent); padding-inline: 2px; }
+.lc-y { position: absolute; inset-inline-start: 0; transform: translateY(-50%); font-size: var(--fs-xs); color: var(--text-2); direction: ltr; pointer-events: none; background: color-mix(in srgb, var(--surface) 80%, transparent); padding-inline: 2px; }
 .meta-dl { display: grid; grid-template-columns: auto 1fr; gap: 6px var(--s-3); margin: 0; font-size: var(--fs-sm); } .meta-dl dt { color: var(--text-2); } .meta-dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 /* بيانات ناقصة */
 .missing-title { margin: 0 0 var(--s-3); font-size: var(--fs-sm); }

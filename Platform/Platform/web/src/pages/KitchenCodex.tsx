@@ -153,7 +153,7 @@ function PlayerCard({ c, picked, onPick, startFlipped = false }: { c: CardView; 
             <dl className="kt-pc-stats">
               {STAT_KEYS.map((s) => <div key={s}><dt title={STAT_AR[s]}>{s}</dt><dd className="num">{c.stats![s] ?? '—'}</dd></div>)}
             </dl>
-          ) : <p className="kt-pc-na">لا إحصاءات: {c.badges.includes('needs_quantities') ? 'ينقصها أوزان (DEF-01)' : 'غير قابلة للحساب'}</p>}
+          ) : <p className="kt-pc-na">لا إحصاءات: {c.badges.includes('needs_quantities') ? 'ينقصها أوزان' : 'غير قابلة للحساب'}</p>}
           <div className="kt-pc-foot">
             <span><b className="num" dir="ltr">{c.nutrition ? fmtKcal(c.nutrition.kcal) : '—'}</b> سعرة</span>
             <span title="الزمن غير مسجّل في الوصفات الأصلية">⏱ غير معروف</span>
@@ -218,8 +218,8 @@ function CardBack({ c, onFlip }: { c: CardView; onFlip: () => void }) {
   return (
     <div className="kt-back">
       <div className="row"><h3>{c.title_ar}</h3><span className="grow" /><Button size="sm" onClick={onFlip}>اقلب للوجه</Button></div>
-      {!c.computable && <p className="callout warn" role="note">{c.badges.includes('needs_quantities') ? 'هذه الوصفة بلا أوزان (DEF-01): معروضة كما هي ولا تدخل الحسابات.' : 'لا تُحسب.'}</p>}
-      {c.badges.includes('text_duplicate') && <p className="callout warn" role="note">نصها مطابق لوصفة «صدور دجاج مع الأرز والخضار» (DEF-02) — محفوظة كما كتبتها.</p>}
+      {!c.computable && <p className="callout warn" role="note">{c.badges.includes('needs_quantities') ? 'هذه الوصفة بلا أوزان: معروضة كما هي ولا تدخل الحسابات.' : 'لا تُحسب.'}</p>}
+      {c.badges.includes('text_duplicate') && <p className="callout warn" role="note">نصها مطابق لوصفة «صدور دجاج مع الأرز والخضار» — محفوظة كما كتبتها.</p>}
       <h4>المكوّنات</h4>
       <ul className="plain kt-ing">
         {lines.map((l, i) => {

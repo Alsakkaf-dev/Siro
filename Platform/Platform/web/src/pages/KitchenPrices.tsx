@@ -243,7 +243,7 @@ function Requests() {
     <div className="grid cols-2">
       <Card>
         <CardHead title="طلب إضافة مكوّن" icon="plus" />
-        <p className="muted">القائمة مقفلة على 26 مكوّنًا. الطلب يُسجَّل فقط، والموافقة قرارك، وإضافة المكوّن فعليًا تغيير برمجي (G-04).</p>
+        <p className="muted">القائمة مقفلة على 26 مكوّنًا. الطلب يُسجَّل فقط، والموافقة قرارك، وإضافة المكوّن فعليًا تغيير برمجي.</p>
         <Field label="اسم المكوّن" htmlFor="rq-n"><input id="rq-n" className="input" value={name} maxLength={60} onChange={(e) => setName(e.target.value)} /></Field>
         <Field label="ملاحظة" htmlFor="rq-t"><input id="rq-t" className="input" value={note} maxLength={300} onChange={(e) => setNote(e.target.value)} /></Field>
         <div className="row"><Button variant="primary" disabled={name.trim().length < 2} onClick={() => void act(() => requestIngredient(name.trim(), note.trim() || undefined), 'سُجّل الطلب').then((r) => { if (r !== null) { setName(''); setNote(''); } })}>سجّل الطلب</Button></div>

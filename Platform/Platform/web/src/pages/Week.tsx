@@ -10,7 +10,10 @@ import { fmtDateShort, fmtWeekday } from '../lib/format.js';
 export default function Week() {
   const { openCreate } = useApp();
   const today = localToday();
-  const [start, setStart] = useState(today);
+  /* الأسبوع يبدأ الأحد في كل المنصة (الجدول، الروتين، المراجعة) */
+  const weekStart = (iso: string): string => addDays(iso, -new Date(dayMs(iso)).getDay());
+  const thisWeek = weekStart(today);
+  const [start, setStart] = useState(thisWeek);
   const [ag, setAg] = useState<Agenda | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const load = useCallback(() => {
@@ -34,17 +37,17 @@ export default function Week() {
       <PageHead
         title="هذا الأسبوع"
         icon="calendar"
-        sub={<>{fmtDateShort(dayMs(days[0]!))} – {fmtDateShort(dayMs(days[6]!))}{ag ? ` · ${total} بندًا مفتوحًا` : ''}</>}
+        sub={<>{fmtDateShort(dayMs(days[0]!))} – {fmtDateShort(dayMs(days[6]!))}{ag ? ` · ${total} مفتوحًا` : ''}{ag && ag.undated > 0 ? ` · ${ag.undated} بلا موعد` : ''}</>}
         actions={
           <div className="row" style={{ gap: 6 }}>
             <IconButton icon="right" label="الأسبوع السابق" onClick={() => setStart(addDays(start, -7))} />
-            <Button size="sm" onClick={() => setStart(today)} disabled={start === today}>اليوم</Button>
+            <Button size="sm" onClick={() => setStart(thisWeek)} disabled={start === thisWeek}>هذا الأسبوع</Button>
             <IconButton icon="left" label="الأسبوع التالي" onClick={() => setStart(addDays(start, 7))} />
           </div>
         }
       />
       {err && <div className="callout warn" role="alert">{err}</div>}
-      {ag && ag.overdue.length > 0 && start === today && (
+      {ag && ag.overdue.length > 0 && start === thisWeek && (
         <Card className="stack" style={{ marginBlockEnd: 'var(--s-4)' }}>
           <h2 className="h3 late-h">متأخرة ({ag.overdue.length})</h2>
           <AgendaList entries={ag.overdue} today={today} onChanged={load} />

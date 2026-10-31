@@ -92,7 +92,7 @@ export function ConfBadge({ c }: { c: string | undefined }) {
   if (!c) return null;
   const ar = c === 'assumption' ? 'افتراض' : c;
   const id = ({ 'افتراض': 'conf_assumption', 'مثبت': 'conf_confirmed', 'محسوب': 'conf_computed' } as Record<string, string>)[ar];
-  const b = <Badge tone={ar === 'افتراض' ? 'warn' : ar === 'مثبت' ? 'ok' : undefined}>{ar}</Badge>;
+  const b = ar === 'مثبت' || ar === 'محسوب' ? <span className={`trust-dot ${ar === 'مثبت' ? 't-proven' : 't-calc'}`} role="img" aria-label={ar} title={ar} /> : <Badge tone={ar === 'افتراض' ? 'warn' : undefined}>{ar}</Badge>;
   return id ? <Term id={id} bare>{b}</Term> : b;
 }
 

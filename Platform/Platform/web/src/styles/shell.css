@@ -33,7 +33,7 @@
 .search input::placeholder { color: var(--text-3); }
 .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none; background: var(--surface); }
 .search .s-ico { position: absolute; inset-inline-start: 14px; top: 50%; translate: 0 -50%; color: var(--text-3); pointer-events: none; }
-.kbd { font-family: var(--font-mono); font-size: 11px; padding: 1px 7px; border-radius: 7px; border: 1px solid var(--border-strong); color: var(--text-3); background: var(--surface); line-height: 18px; }
+.kbd { font-family: var(--font-mono); font-size: var(--fs-xs); padding: 1px 7px; border-radius: 7px; border: 1px solid var(--border-strong); color: var(--text-3); background: var(--surface); line-height: 18px; }
 .search .kbd { position: absolute; inset-inline-end: 12px; top: 50%; translate: 0 -50%; pointer-events: none; }
 .search-pop { position: absolute; inset-inline-start: 0; inset-inline-end: auto; inline-size: min(580px, calc(100vw - 32px)); top: calc(100% + 8px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-2); max-height: min(70vh, 520px); overflow: auto; padding: 6px; z-index: 80; animation: pop-in var(--t-short) var(--ease-enter); }
 .hit { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-3); border-radius: var(--r-md); color: var(--text); }
@@ -157,7 +157,7 @@ a.tab:hover { text-decoration: none; }
 @media (max-width: 960px) {
   .app { padding-block-end: calc(var(--s-2) + 72px); }
   .bottom-bar { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); position: fixed; z-index: 55; inset-inline: var(--s-2); inset-block-end: var(--s-2); padding: 4px; min-height: 60px; background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-2); }
-  .bb-item { display: grid; justify-items: center; align-content: center; gap: 2px; padding: 6px 2px; border: 0; border-radius: var(--r-lg); background: transparent; color: var(--text-2); font-family: var(--font-ui); font-weight: 600; font-size: 11px; min-width: 0; }
+  .bb-item { display: grid; justify-items: center; align-content: center; gap: 2px; padding: 6px 2px; border: 0; border-radius: var(--r-lg); background: transparent; color: var(--text-2); font-family: var(--font-ui); font-weight: 600; font-size: var(--fs-xs); min-width: 0; }
   .bb-item span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .bb-item:hover { text-decoration: none; color: var(--text); }
   .bb-item.on { background: var(--accent-soft); color: var(--accent-text); }

@@ -148,12 +148,12 @@ export function VerifyCard({ v, source }: { v: Cal18; source: string }) {
     { key: 'short', label: 'أقصر من 20 دقيقة', n: v.short.length, rows: v.short.slice(0, 40).map((s) => `${s.start.slice(0, 10)} ${s.start.slice(11)}: ${s.title} (${s.minutes} د)`) },
   ];
   return (
-    <section className="cal-verify" aria-label="التحقق CAL-18" data-testid="cal18" data-ok={v.ok ? '1' : '0'}>
+    <section className="cal-verify" aria-label="التحقق من الجدول" data-testid="cal18" data-ok={v.ok ? '1' : '0'}>
       <div className="row cal-verify-top">
-        <b>التحقق CAL-18</b>
+        <b>التحقق من الجدول</b>
         <span className="cal-triple num" dir="ltr" data-testid="cal18-triple">{items.map((i) => fmtNum(i.n)).join(' / ')}</span>
         {v.ok ? <Badge tone="ok"><Icon name="check" size={12} /> نظيف</Badge> : <Badge tone="danger"><Icon name="warn" size={12} /> مخالفات</Badge>}
-        <small className="muted">يشمل كل التقاويم حتى المخفية في العرض (CAL-17) · {fmtNum(v.days_checked)} أيام</small>
+        <small className="muted">يشمل كل التقاويم حتى المخفية في العرض · {fmtNum(v.days_checked)} أيام</small>
       </div>
       <div className="cal-verify-tiles">
         {items.map((i) => (
@@ -163,7 +163,7 @@ export function VerifyCard({ v, source }: { v: Cal18; source: string }) {
           </details>
         ))}
       </div>
-      {v.default_calendar.length > 0 && <p className="callout danger" role="alert">أحداث داخل التقويم الافتراضي «Calendar» (CAL-14): {v.default_calendar.slice(0, 5).map((x) => x.title).join('، ')}</p>}
+      {v.default_calendar.length > 0 && <p className="callout danger" role="alert">أحداث داخل التقويم الافتراضي «Calendar»: {v.default_calendar.slice(0, 5).map((x) => x.title).join('، ')}</p>}
       {v.night.length > 0 && <p className="callout warn" role="note">{fmtNum(v.night.length)} حدثًا يمسّ الليل المحجوز 21:40–05:10 (CAL-19، استشاري).</p>}
       {source === 'routine' && <small className="muted">الفحص هنا على قالب «خريطة الروتين» لا على أحداث Outlook نفسها؛ الفجوات المبلّغ عنها قد تكون في القالب لا في تقويمك.</small>}
     </section>

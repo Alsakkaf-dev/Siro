@@ -45,7 +45,7 @@
 @media (max-width: 900px) { .grid.cols-2, .grid.cols-3 { grid-template-columns: minmax(0, 1fr); } }
 
 /* ───────── Badges ───────── */
-.badge { display: inline-flex; align-items: center; gap: 4px; padding: 0 6px; border-radius: 4px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; line-height: 18px; border: 1px solid transparent; background: var(--surface-2); color: var(--text-2); white-space: nowrap; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 0 6px; border-radius: 4px; font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 600; line-height: 18px; border: 1px solid transparent; background: var(--surface-2); color: var(--text-2); white-space: nowrap; }
 .badge.ok { background: var(--ok-soft);  color: var(--ok); }
 .badge.warn { background: var(--warn-soft);  color: var(--warn); }
 .badge.danger { background: var(--danger-soft);  color: var(--danger); }
@@ -53,10 +53,12 @@
 .badge.core { background: var(--core-soft);  color: color-mix(in srgb, var(--core) 50%, #000); }
 [data-theme='dark'] .badge.core { color: var(--core); }
 .badge.dashed { background: transparent; border-style: dashed; }
-.trust { font-family: var(--font-ui); font-size: 10.5px; font-weight: 700; padding: 0 6px; border-radius: 6px; line-height: 17px; vertical-align: middle; border: 1px solid; white-space: nowrap; }
+.trust { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; padding: 0 6px; border-radius: 6px; line-height: 17px; vertical-align: middle; border: 1px solid; white-space: nowrap; }
 .trust.t-proven { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); background: var(--ok-soft); }
 .trust.t-calc { color: var(--accent-text); border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 7%, var(--surface)); }
 .trust.t-assumed { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 50%, transparent); background: var(--warn-soft); border-style: dashed; }
+.trust-dot { display: inline-block; inline-size: 8px; block-size: 8px; border-radius: 50%; margin-inline: 4px; vertical-align: middle; background: var(--ok); opacity: .75; }
+.trust-dot.t-calc { background: var(--accent); }
 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
 
 /* ───────── Stat tiles ───────── */
@@ -153,7 +155,7 @@ table.t { width: 100%; border-collapse: collapse; min-width: 640px; }
 :is(.t, .life-tbl, .tbl, .cy-table, .table, .v-table) .badge:not(.dashed)::before { content: ''; inline-size: 6px; block-size: 6px; border-radius: 50%; background: currentColor; flex: none; }
 /* غلاف الجدول بارتفاع محدود: الرأس يلتصق أثناء تمرير الصفوف الطويلة */
 .table-wrap, .life-tbl-wrap { max-block-size: min(72vh, 720px); overflow: auto; }
-.t th, .life-tbl th, .tbl th, .table th { position: sticky; inset-block-start: 0; z-index: 1; }
+.t th, .life-tbl th, .tbl th, .table th { position: sticky; inset-block-start: calc(var(--topbar-h) + var(--s-4)); z-index: 1; }
 
 /* ───────── Tabs ───────── */
 .tabs { display: flex; gap: var(--s-1); padding-block-end: 0; margin-block-end: var(--s-5); border-block-end: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }

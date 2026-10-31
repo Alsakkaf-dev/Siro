@@ -1,3 +1,4 @@
+import { unknownTotal } from '../../../shared/review.js';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AssessmentQuickActions } from '../widgets/AssessmentQuickActions.js';
@@ -78,7 +79,7 @@ export default function Dashboard() {
 
   const busy = loads[maxWeek];
   const monthRef = new Date(now);
-  const unknownN = S.unknownAssessments.length;
+  const unknownN = unknownTotal({ assessments: S.assessments, notes: S.notes, courses: S.courses });
 
   return (
     <div className="page">
@@ -117,7 +118,7 @@ export default function Dashboard() {
           <StatTile tone="blue" icon="list" label="التقييمات" value={total} sub={`${assessments.length} بندًا · محسوب`} to={`${base}/timeline`} />
           <StatTile tone="orange" icon="zap" label="أزحم أسبوع" value={`W${maxWeek}`} sub={busy ? `${fmtNum(busy.weight)}% في ${busy.count} تقييم` : '—'} to={`${base}/timeline`} />
           <StatTile tone="green" icon="check" label="مصحَّح بدرجة" value={`${assessments.filter((a) => isGraded(a)).length}/${assessments.length}`} sub="التقييمات التي لها درجة مسجلة" to={`${base}/calculator`} />
-          <StatTile tone="pink" icon="help" label="غير معروف" value={unknownN} sub={unknownN ? 'بنود بلا موعد' : 'كل شيء معروف'} to={`${base}/unknowns`} />
+          <StatTile tone="pink" icon="help" label="غير معروف" value={unknownN} sub={unknownN ? 'بنود تحتاج إكمالًا' : 'كل شيء معروف'} to={`${base}/unknowns`} />
         </div>
 
         <div className="grid cols-2-1">

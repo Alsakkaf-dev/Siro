@@ -31,6 +31,8 @@ export function Unknown({ text = 'غير معروف' }: { text?: string }) {
 export function TrustTag({ kind }: { kind: 'proven' | 'calc' | 'assumed' }) {
   const t = { proven: 'مثبت', calc: 'محسوب', assumed: 'افتراض' }[kind];
   const tip = { proven: 'معلومة جاءت منك أو من ملفاتك', calc: 'ناتج حساب', assumed: 'تخمين يحتاج تأكيدك' }[kind];
+  /* «مثبت» و«محسوب» هما الحالة المعتادة: نقطة صامتة بتلميح. الظاهر نصًّا هو «افتراض» وما يحتاج انتباهًا فقط */
+  if (kind !== 'assumed') return <span className={`trust-dot t-${kind}`} role="img" aria-label={t} title={`${t}: ${tip}`} />;
   return (
     <span className={`trust t-${kind}`} title={tip}>
       {t}
