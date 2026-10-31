@@ -111,9 +111,11 @@
 .modal-backdrop { position: absolute; inset: 0; background: rgba(4, 7, 13, 0.6); animation: fade-in var(--t-base) var(--ease-out); }
 .modal-wrap > .modal { z-index: 1; }
 .toasts { position: fixed; z-index: 120; inset-inline-start: var(--s-4); bottom: var(--s-4); display: grid; gap: var(--s-2); width: min(92vw, 380px); }
-.toast { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-4); background: var(--surface-3); border: 1px solid var(--border-strong); border-radius: var(--r-md); box-shadow: var(--shadow-2); animation: toast-in var(--t-base) var(--ease-out); }
-.toast.error { border-color: var(--danger); }
-.toast.ok { border-color: color-mix(in srgb, var(--ok) 60%, transparent); }
+/* إشعار: سطح مرتفع هادئ، خط جانبي بلون الحالة بدل حد كامل ملوّن */
+.toast { position: relative; display: flex; align-items: center; gap: var(--s-3); padding: var(--s-2) var(--s-3); padding-inline-start: var(--s-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-2); overflow: hidden; animation: toast-in var(--t-medium) var(--ease-enter) both; }
+.toast::before { content: ''; position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: 3px; background: var(--accent); }
+.toast.error::before { background: var(--danger); }
+.toast.ok::before { background: var(--ok); }
 .toast .msg { flex: 1; font-size: var(--fs-sm); }
 .toast button { border: 0; background: transparent; color: var(--accent-text); font-family: var(--font-ui); font-weight: 700; padding: 4px 8px; border-radius: var(--r-sm); }
 .toast button:hover { background: var(--accent-soft); }

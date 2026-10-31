@@ -77,7 +77,8 @@
 .kt-adj { gap: var(--s-3); } .kt-adj .input { max-inline-size: 240px; }
 
 /* الأسعار (B1) */
-.kt-matrix-wrap { max-block-size: 70vh; overflow: auto; }
+.kt-matrix-wrap { max-block-size: 70vh; overflow: auto; position: relative; }
+.kt-cell-btn { position: relative; }
 .kt-matrix th, .kt-matrix td { white-space: nowrap; }
 .kt-matrix thead th { position: sticky; inset-block-start: 0; background: var(--surface); z-index: 1; }
 .kt-cell { padding: 0 !important; min-inline-size: 104px; }

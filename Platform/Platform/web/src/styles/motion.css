@@ -26,5 +26,3 @@
 .stagger > *:nth-child(2) { animation-delay: 40ms; } .stagger > *:nth-child(3) { animation-delay: 80ms; } .stagger > *:nth-child(4) { animation-delay: 120ms; }
 .stagger > *:nth-child(5) { animation-delay: 160ms; } .stagger > *:nth-child(6) { animation-delay: 200ms; } .stagger > *:nth-child(n+7) { animation-delay: 240ms; }
 
-/* إشعارات: دخول من الأسفل وخروج أسرع */
-@keyframes toast-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }

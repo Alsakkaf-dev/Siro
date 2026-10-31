@@ -119,3 +119,5 @@
 .mine-warn { display: inline-flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-inline-start: 6px; }
 .safety-more > summary { cursor: pointer; font-size: var(--fs-sm); font-weight: 600; }
 .safety-more p { font-size: var(--fs-sm); }
+
+.ex-main { position: relative; }
