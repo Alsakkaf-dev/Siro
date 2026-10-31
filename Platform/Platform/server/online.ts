@@ -104,25 +104,35 @@ export async function createOnlineHandler(): Promise<express.Express> {
     return chain;
   };
 
-  // استيراد حزم الفصول المعرّفة في PLATFORM_PACKAGE_LISTINGS (مرة واحدة لكل حزمة)
-  const done = new Set(listImports(db).map((i) => i.pkg));
-  let imported = 0;
-  for (const { pkg, id } of parseListingEnv(process.env['PLATFORM_PACKAGE_LISTINGS'])) {
-    if (done.has(pkg)) continue;
-    try {
-      const src = await fetchDriveListing(id);
-      const p = previewPackage(db, src);
-      if (!p.ok || !p.parsed || !p.report) {
-        console.error(`[online] الحزمة ${pkg} فيها أخطاء:`, p.errors.slice(0, 5));
-        continue;
+  // استيراد حزم الفصول المعرّفة في PLATFORM_PACKAGE_LISTINGS (مرة واحدة لكل حزمة).
+  // الشبكة (Drive) لا يجوز أن تعطّل بدء الدالة: لكل تنزيل مهلة، والانتظار الكلي مسقوف، وما تبقى يكمل في الخلفية
+  // (كل حزمة تُطبَّق بمعاملة واحدة، فالنتيجة الجزئية سليمة وتظهر في الطلبات التالية).
+  const fetchBounded: typeof fetch = (input, init) => fetch(input, { ...init, signal: AbortSignal.timeout(Number(process.env['PLATFORM_IMPORT_FETCH_MS'] ?? 20_000)) });
+  const importAll = async (): Promise<void> => {
+    const done = new Set(listImports(db).map((i) => i.pkg));
+    let imported = 0;
+    for (const { pkg, id } of parseListingEnv(process.env['PLATFORM_PACKAGE_LISTINGS'])) {
+      if (done.has(pkg)) continue;
+      try {
+        const src = await fetchDriveListing(id, fetchBounded);
+        const p = previewPackage(db, src);
+        if (!p.ok || !p.parsed || !p.report) {
+          console.error(`[online] الحزمة ${pkg} فيها أخطاء:`, p.errors.slice(0, 5));
+          continue;
+        }
+        applyPackage(db, src, p.parsed, p.report);
+        imported++;
+      } catch (e) {
+        console.error(`[online] تعذّر استيراد ${pkg}`, e);
       }
-      applyPackage(db, src, p.parsed, p.report);
-      imported++;
-    } catch (e) {
-      console.error(`[online] تعذّر استيراد ${pkg}`, e);
     }
-  }
-  if (imported) await persist();
+    if (imported) await persist();
+  };
+  const importing = importAll().catch((e) => console.error('[online] فشل استيراد الحزم', e));
+  const budget = Number(process.env['PLATFORM_IMPORT_BUDGET_MS'] ?? 6_000);
+  let budgetTimer: NodeJS.Timeout | undefined;
+  await Promise.race([importing, new Promise<void>((r) => { budgetTimer = setTimeout(r, budget); })]);
+  clearTimeout(budgetTimer);
 
   const bus = new EventBus(() => db);
   const restoreDb = (file: string): void => {

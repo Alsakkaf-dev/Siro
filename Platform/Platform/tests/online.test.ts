@@ -25,6 +25,10 @@ function fakeFetch(input: string | URL | Request, init?: RequestInit): Promise<R
     const b = blobs.get(url.pathname.slice(1));
     return Promise.resolve(b ? new Response(new Uint8Array(b)) : new Response('not found', { status: 404 }));
   }
+  if (url.hostname === 'drive.google.com' && url.pathname === '/uc' && url.searchParams.get('id') === 'HANGING0001') {
+    // Drive معلّق: لا يردّ أبدًا إلا عند إلغاء الطلب بمهلة التطبيق
+    return new Promise<Response>((_res, rej) => init?.signal?.addEventListener('abort', () => rej(new DOMException('timeout', 'TimeoutError'))));
+  }
   if (url.hostname === 'drive.google.com' && url.pathname === '/uc') {
     const t = driveFiles.get(url.searchParams.get('id') ?? '');
     return Promise.resolve(t ? new Response(t) : new Response('nope', { status: 404 }));
@@ -117,6 +121,22 @@ describe('online runtime (Vercel)', () => {
     const r = await fetch(`${c.base}/api/packages/preview`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ kind: 'local', path: '/etc' }) });
     expect(r.status).toBe(400);
     await c.close();
+  });
+});
+
+describe('cold start never waits on a hanging Drive', () => {
+  it('boots within the import budget and keeps serving even though a listing never answers', async () => {
+    process.env['PLATFORM_PACKAGE_LISTINGS'] = 'SEM-7=HANGING0001';
+    process.env['PLATFORM_IMPORT_BUDGET_MS'] = '300';
+    process.env['PLATFORM_IMPORT_FETCH_MS'] = '1500';
+    const t0 = Date.now();
+    const h = await boot(path.join(dir, 'i5'));
+    expect(Date.now() - t0).toBeLessThan(1400); // لا ينتظر مهلة التنزيل الكاملة
+    const r = await fetch(`${h.base}/api/health`);
+    expect(r.status).toBe(200);
+    await new Promise((res) => setTimeout(res, 1800)); // المهلة تنتهي في الخلفية بلا انهيار
+    expect((await fetch(`${h.base}/api/health`)).status).toBe(200);
+    await h.close();
   });
 });
 
