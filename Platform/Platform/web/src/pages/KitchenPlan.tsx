@@ -155,7 +155,7 @@ export default function KitchenPlan() {
       </div>
 
       <Card>
-        <CardHead title="قانون السعرات (حيّ)" icon="target" />
+        <CardHead title="حدّ السعرات (حيّ)" icon="target" />
         <div role="meter" aria-label="مجموع سعرات اليوم" aria-valuenow={Math.round(total)} aria-valuemin={0} aria-valuemax={LAW.MAX} className={cx('kt-meter', pre && !pre.ok && 'full', pre?.law.status === 'PARTIAL' && 'warn')} data-testid="law-meter"><i style={{ inlineSize: `${pct}%` }} /></div>
         <p data-testid="law-status">
           {!pre ? <span className="muted">اختر بطاقة لخانة واحدة على الأقل.</span> : <>المجموع <b className="num" dir="ltr">{fmtKcal(total)}</b> سعرة · المجال المسموح <span className="num" dir="ltr">{LAW.MIN}–{LAW.MAX}</span> {' '}

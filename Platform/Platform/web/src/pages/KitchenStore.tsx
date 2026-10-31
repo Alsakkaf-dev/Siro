@@ -64,7 +64,7 @@ export default function KitchenStore() {
 
   return (
     <div className="page kitchen kt-store">
-      <PageHead title="المتجر" icon="board" sub="26 مكوّنًا مقفلًا بأسعار الأسواق الخمسة. اضغط منتجًا لتحديد الكمية ورؤية التغذية والمبلغ فورًا." actions={<KitchenChips />} />
+      <PageHead title="المتجر" icon="board" sub="26 مكوّنًا معتمدًا بأسعار الأسواق الخمسة. اضغط منتجًا لتحديد الكمية ورؤية التغذية والمبلغ فورًا." actions={<KitchenChips />} />
       <Card className="kt-filters">
         <div className="kt-filter-row">
           <input className="input kt-search" type="search" value={qRaw} onChange={(e) => setQ(e.target.value)} placeholder="ابحث: بيض، egg، telur، كزبره…" aria-label="بحث في المتجر" />

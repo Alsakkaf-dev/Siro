@@ -25,7 +25,7 @@ export function Enrichment() {
   const run = async (fn: () => Promise<void>): Promise<void> => { setErr(''); try { await fn(); } catch (e) { setErr(e instanceof Error ? e.message : 'تعذّر الطلب'); } };
   return (
     <Card className="kt-enrich" id="enrich">
-      <CardHead title="إثراء اختياري (UNVERIFIED)" icon="database" info="يعمل عبر بوابة الخادم فقط والمفاتيح لا تصل المتصفح. لو انقطع كل شيء تعمل المنصة من البذرة المحلية." />
+      <CardHead title="إثراء اختياري (تجريبي)" icon="database" info="يعمل عبر بوابة الخادم فقط والمفاتيح لا تصل المتصفح. لو انقطع كل شيء تعمل المنصة من البذرة المحلية." />
       {!st ? <p className="muted">حالة الإثراء غير متاحة.</p> : (
         <ul className="plain stack kt-tight" data-testid="enrich-status">
           {st.services.map((s) => <li key={s.id}><b>{s.label}</b> {s.configured ? <Badge tone="ok">جاهز</Badge> : <Badge tone="warn">{s.reason}</Badge>} <small className="muted">استعمال اليوم <span className="num">{fmtNum(s.used_today, 0)}/{fmtNum(s.cap, 0)}</span> · {s.verified_note}</small></li>)}

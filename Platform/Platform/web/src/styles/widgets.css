@@ -421,3 +421,13 @@ a.today-row:hover { background: var(--surface-2); text-decoration: none; }
 .json-details summary { cursor: pointer; }
 .json-details[open] summary { margin-block-end: var(--s-3); }
 [data-theme='dark'] .h-cell.l2 { background: color-mix(in srgb, var(--c) 36%, var(--surface)); color: var(--text); }
+
+/* «الآن والتالي»: صف واحد مقروء (الاسم · الوقت · الشارة) ومميّز للجاري */
+.today-row { flex-wrap: nowrap; padding: var(--s-3); border-radius: var(--rad-3); transition: background var(--t-short) var(--ease-standard); }
+.today-row .tr-main { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); flex: 1 1 auto; }
+.today-row .tr-main small { display: inline; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.today-row.now { background: var(--accent-soft); position: relative; }
+.today-row.now::before { content: ''; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--accent); flex: none; animation: now-pulse 2s var(--ease-standard) infinite; }
+@keyframes now-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent); } 100% { box-shadow: 0 0 0 8px transparent; } }
+.today-now .hit-group { padding: var(--s-3) var(--s-3) var(--s-1); font-size: var(--fs-sm); font-weight: 600; color: var(--text-2); }
+.today-list { display: grid; gap: var(--s-1); }

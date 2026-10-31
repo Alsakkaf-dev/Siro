@@ -374,7 +374,7 @@ function ActionPanel(p: {
   return (
     <div className="kt-act stack">
       <Card>
-        <CardHead title="1 — المكوّنات (26 مقفلة)" icon="list" />
+        <CardHead title="1 — المكوّنات (26 معتمدًا)" icon="list" />
         <div className="kt-ing-pick" role="group" aria-label="اختر مكوّنًا">
           {INGREDIENTS.map((i) => {
             const have = p.stock[i.slug] ?? 0;

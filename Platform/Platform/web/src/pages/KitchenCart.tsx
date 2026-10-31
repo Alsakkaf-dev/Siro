@@ -186,7 +186,7 @@ export default function KitchenCart() {
         <Card>
           <p data-testid="coverage"><b className="num">{fmtNum(cov.days, 0)}</b> {cov.days === 1 ? 'يوم' : cov.days >= 3 && cov.days <= 10 ? 'أيام' : 'يومًا'} متتاليًا من دورة الأيام الثلاثة يغطيها المخزن والسلة معًا{cov.days >= 30 ? ' (حدّ الفحص 30 يومًا)' : ''}.</p>
           {cov.blockedBy && <p className="muted">اليوم {fmtNum(cov.blockedBy.n, 0)} (من دورة اليوم {cov.blockedBy.day}) ينقصه: {cov.blockedBy.missing.length ? cov.blockedBy.missing.map((s) => INGREDIENT_BY_SLUG.get(s)?.name_ar).join('، ') : 'لا شيء — لكن القانون لا يسمح بالتغطية'}</p>}
-          <small className="muted">كل يوم يُفحص بقانون السعرات (<span className="num">1200–1500</span>) قبل أن يُعدّ مغطًّى.</small>
+          <small className="muted">كل يوم يُفحص بحدّ السعرات (<span className="num">1200–1500</span>) قبل أن يُعدّ مغطًّى.</small>
         </Card>
       </Section>
 

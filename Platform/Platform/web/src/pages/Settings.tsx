@@ -118,9 +118,9 @@ export default function Settings() {
         <div className="grid cols-2 stagger" style={{ alignItems: 'start' }}>
           <div className="stack">
           <ProfileCard />
-          <AiSettingsCard />
           <AppearanceCard />
           <NotifyCard />
+          <AiSettingsCard />
           </div>
           <div className="stack">
             <FlagsCard />

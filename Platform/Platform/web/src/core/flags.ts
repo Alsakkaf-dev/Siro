@@ -30,8 +30,8 @@ export function flagEnabled(f: FlagName): boolean {
 export const FLAG_LABELS: Record<FlagName, string> = {
   'kitchen.enabled': 'قسم المطبخ',
   'kitchen.3d': 'المطبخ ثلاثي الأبعاد',
-  'kitchen.apis.extended': 'واجهات المطبخ الخارجية (UNVERIFIED — بمفاتيح من الخادم فقط)',
-  'calendar.outlook.read': 'زر «زامن Outlook» (Graph — UNVERIFIED، يحتاج رمزًا على الخادم)',
+  'kitchen.apis.extended': 'واجهات المطبخ الخارجية (تجريبية — تحتاج مفاتيح على الخادم)',
+  'calendar.outlook.read': 'زر «زامن Outlook» (تجريبي — يحتاج رمزًا على الخادم)',
   'calendar.outlook.proposals': 'اقتراحات Outlook وتصديرها',
 };
 
