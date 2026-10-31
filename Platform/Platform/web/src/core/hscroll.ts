@@ -56,12 +56,20 @@ export function installHScroll(): void {
   document.addEventListener('pointercancel', end);
 }
 
-/** تلاشي الحواف (data-fade-start/end) وتوسيط العنصر النشط عند تغيّر key. */
+/** تلاشي الحواف (data-fade-start/end) وتوسيط النشط وتحريك مؤشر الخط السفلي (data-indicator) عند تغيّر key. */
 export function useBarFade(ref: RefObject<HTMLElement | null>, key: string): void {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const indicate = (): void => {
+      const act = el.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!act || !el.hasAttribute('data-indicator')) return;
+      el.style.setProperty('--ind-x', `${act.offsetLeft}px`);
+      el.style.setProperty('--ind-w', `${act.offsetWidth}px`);
+      el.style.setProperty('--ind-o', '1');
+    };
     const update = (): void => {
+      indicate();
       const max = el.scrollWidth - el.clientWidth;
       el.toggleAttribute('data-fade-start', max > 1 && pos(el) > 2);
       el.toggleAttribute('data-fade-end', max > 1 && pos(el) < max - 2);
@@ -73,10 +81,12 @@ export function useBarFade(ref: RefObject<HTMLElement | null>, key: string): voi
       el.scrollLeft += a.left + a.width / 2 - (r.left + r.width / 2);
     }
     update();
+    const raf = requestAnimationFrame(() => el.setAttribute('data-ready', ''));
     el.addEventListener('scroll', update, { passive: true });
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => {
+      cancelAnimationFrame(raf);
       el.removeEventListener('scroll', update);
       ro.disconnect();
     };

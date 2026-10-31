@@ -244,7 +244,7 @@
 
 /* المساحات والقوالب */
 .space-card, .stpl-card { --c: var(--accent); display: grid; gap: 8px; align-content: start; padding: var(--s-5); border-radius: var(--r-xl); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-1); color: var(--text); transition: transform var(--t-fast) var(--ease-out), box-shadow var(--t-base); }
-a.space-card:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow-2); }
+a.space-card:hover { text-decoration: none; box-shadow: var(--shadow-2); }
 .space-card .pc-ico, .stpl-card .pc-ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--surface)); }
 .space-card.add { border-style: dashed; box-shadow: none; }
 .stpl-card h2 { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }

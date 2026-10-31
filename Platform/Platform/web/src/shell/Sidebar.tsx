@@ -47,7 +47,7 @@ export function AreaBar({ semId, activeArea, owner, onShortcuts }: { semId: stri
   if (items.length + (system ? 1 : 0) < 2) return null;
   const area = AREA_BY_ID.get(activeArea)!;
   return (
-    <nav ref={ref} className="area-bar hscroll" aria-label={`صفحات ${area.label}`}>
+    <nav ref={ref} className="area-bar hscroll" data-indicator="" aria-label={`صفحات ${area.label}`}>
       {items.map((p) => {
         const badge = p.id === 'unknowns' && semId ? unknownCounts[semId] : undefined;
         return (

@@ -25,9 +25,9 @@
 /* بطاقات التمارين */
 .ex-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: var(--s-3); list-style: none; margin: 0; padding: 0; }
 .ex-card { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); padding: var(--s-3) var(--s-4); display: grid; gap: 6px; align-content: start; min-width: 0; transition: border-color var(--t-fast), transform var(--t-fast) var(--ease-out); }
-.ex-card:hover { border-color: var(--sports); transform: translateY(-2px); }
+.ex-card:hover { border-color: var(--sports); }
 .ex-main { all: unset; cursor: pointer; display: grid; gap: 2px; min-width: 0; } .ex-main:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-.ex-ar { font-weight: 800; font-size: 1.02rem; overflow-wrap: anywhere; }
+.ex-ar { font-weight: 700; font-size: 1.02rem; overflow-wrap: anywhere; }
 .ex-en { direction: ltr; text-align: start; color: var(--text-2); font-size: var(--fs-sm); overflow-wrap: anywhere; }
 .ex-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
 .ex-foot { display: flex; gap: 6px; justify-content: space-between; align-items: center; }

@@ -112,7 +112,7 @@
 .kt-pc-art { display: grid; place-items: center; font-size: 64px; border-radius: var(--r-md); background: var(--surface-2); min-block-size: 0; }
 .kt-pc-name { margin: 0; font-size: 1rem; text-align: center; line-height: 1.3; }
 .kt-pc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 8px; margin: 0; }
-.kt-pc-stats > div { display: flex; justify-content: space-between; gap: 4px; font-size: 12px; } .kt-pc-stats dt { color: var(--text-2); } .kt-pc-stats dd { margin: 0; font-weight: 800; }
+.kt-pc-stats > div { display: flex; justify-content: space-between; gap: 4px; font-size: 12px; } .kt-pc-stats dt { color: var(--text-2); } .kt-pc-stats dd { margin: 0; font-weight: 700; }
 .kt-pc-na { margin: 0; text-align: center; color: var(--text-2); font-size: 12px; }
 .kt-pc-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 8px; font-size: 11px; color: var(--text-2); }
 .kt-pc-badges { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; min-block-size: 22px; }
@@ -125,11 +125,11 @@
 .kt-back h3 { margin: 0; font-size: 1rem; } .kt-back h4 { margin: var(--s-3) 0 var(--s-1); font-size: var(--fs-sm); }
 .kt-ing li { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; padding-block: 2px; border-block-end: 1px dashed var(--border); }
 .kt-steps { display: grid; gap: 4px; }
-.kt-store-costs { display: flex; flex-wrap: wrap; gap: 4px 12px; } .kt-store-costs .sel { font-weight: 800; }
+.kt-store-costs { display: flex; flex-wrap: wrap; gap: 4px 12px; } .kt-store-costs .sel { font-weight: 700; }
 .kt-back-act { margin-block-start: var(--s-3); gap: var(--s-2); }
 .kt-sheet-card { display: grid; place-items: center; } .kt-sheet-card .kt-pc-wrap { inline-size: min(100%, 420px); }
 .kt-sheet-card .kt-pc { aspect-ratio: auto; min-block-size: 640px; }
-.kt-compare { margin-block-end: var(--s-4); } .kt-compare .win { font-weight: 800; color: var(--ok); }
+.kt-compare { margin-block-end: var(--s-4); } .kt-compare .win { font-weight: 700; color: var(--ok); }
 
 /* الطبخ (K): تخطيط فقط — المشهد والجانب ولوحة التحكم */
 .kt-cook-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr); gap: var(--s-4); align-items: start; }
