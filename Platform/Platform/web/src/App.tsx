@@ -34,7 +34,7 @@ const LifePrayers = lazy(() => import('./pages/LifePrayers.js'));
 const LifeHabits = lazy(() => import('./pages/LifeHabits.js'));
 const LifeRoutine = lazy(() => import('./pages/LifeRoutine.js'));
 const LifeBody = lazy(() => import('./pages/LifeBody.js'));
-const LifeCommands = lazy(() => import('./pages/LifeCommands.js'));
+const LifeLog = lazy(() => import('./pages/LifeLog.js'));
 const LifeAlternatives = lazy(() => import('./pages/LifeAlternatives.js'));
 const LifeLedger = lazy(() => import('./pages/LifeLedger.js'));
 const LifeRoutineMap = lazy(() => import('./pages/LifeRoutineMap.js'));
@@ -105,7 +105,7 @@ export function App() {
         <Route path="sports" element={<Sports />} />
         <Route path="sports/templates" element={<SportsTemplates />} />
         <Route path="sports/mine" element={<SportsMine />} />
-        <Route path="life/commands" element={<LifeCommands />} />
+        <Route path="life/log" element={<LifeLog />} />
         <Route path="kitchen" element={<Kitchen />} />
         <Route path="kitchen/store" element={<KitchenStore />} />
         <Route path="kitchen/store/:slug" element={<KitchenStore />} />

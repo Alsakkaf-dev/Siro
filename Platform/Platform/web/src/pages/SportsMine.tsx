@@ -62,7 +62,7 @@ export default function SportsMine() {
     ids.splice(to, 0, m!);
     sports.order(ids).then(set).catch(fail);
   });
-  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في ملفات راشد." actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
+  const head = <PageHead title="تمريني" icon="dumbbell" sub="تمارينك وجدولك الأسبوعي — تُحفظ في موقعك فقط، لا في السجل." actions={<><Button to="/sports" icon="search">تصفّح التمارين</Button><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button></>} />;
   if (error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={error} action={<Button onClick={reload}>إعادة المحاولة</Button>} /></div>;
   if (!loaded) return <div className="page sports-page">{head}<Skeleton h={120} r={16} /></div>;
 
@@ -155,7 +155,7 @@ export default function SportsMine() {
           ))}
         </ul>
       ) : (
-        <EmptyState icon="dumbbell" title="لا تمارين محفوظة بعد" text="أنشئ تمرينك الأول، أو انسخ جلسة جاهزة من قوالب راشد." action={<><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button> <Button to="/sports/templates">القوالب</Button></>} />
+        <EmptyState icon="dumbbell" title="لا تمارين محفوظة بعد" text="أنشئ تمرينك الأول، أو انسخ جلسة جاهزة من القوالب الجاهزة." action={<><Button variant="primary" icon="plus" onClick={() => setEdit('new')}>تمرين جديد</Button> <Button to="/sports/templates">القوالب</Button></>} />
       )}
       {edit && <Editor w={edit === 'new' ? null : edit} exercises={ex.data?.exercises ?? []} onClose={() => setEdit(null)} onSaved={(m) => { set(m); setEdit(null); }} />}
     </div>
@@ -251,7 +251,7 @@ function Editor({ w, exercises, onClose, onSaved }: { w: MyWorkout | null; exerc
           ) : <p className="muted" style={{ margin: 0 }}>لا تمارين بعد. ابحث أدناه وأضف.</p>}
           {fields['items'] && <span className="err" role="alert">{fields['items']}</span>}
         </div>
-        <Field label="أضف تمرينًا من مكتبة راشد" htmlFor="wo-q" hint={exercises.length ? 'اكتب جزءًا من الاسم بالعربي أو الإنجليزي.' : 'المكتبة غير متاحة الآن.'}>
+        <Field label="أضف تمرينًا من مكتبة التمارين" htmlFor="wo-q" hint={exercises.length ? 'اكتب جزءًا من الاسم بالعربي أو الإنجليزي.' : 'المكتبة غير متاحة الآن.'}>
           <input id="wo-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} disabled={!exercises.length} autoComplete="off" onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); const f = found[0]; if (f) { setRows((r) => [...r, { exercise_id: f.id, en_name: f.english_name, ar_name: f.arabic_name, sets: 3, reps_min: 10, reps_max: 12, duration_s: null, per_side: false, note: null }]); setQ(''); } } }} />
         </Field>
         {q && (found.length ? (

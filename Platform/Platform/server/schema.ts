@@ -652,6 +652,27 @@ CREATE TABLE ai_runs (
 CREATE INDEX ai_runs_thread ON ai_runs (thread_id, at);
 `,
   },
+  {
+    id: 13,
+    name: 'life native store (docs + events)',
+    sql: `
+CREATE TABLE IF NOT EXISTS life_docs (
+  name TEXT PRIMARY KEY,
+  body TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS life_events (
+  id TEXT PRIMARY KEY,
+  at TEXT NOT NULL,
+  type TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  summary TEXT NOT NULL,
+  undo TEXT NOT NULL,
+  undone INTEGER NOT NULL DEFAULT 0
+);
+CREATE INDEX IF NOT EXISTS life_events_at ON life_events (at);
+`,
+  },
 ];
 
 export const SCHEMA_VERSION = MIGRATIONS[MIGRATIONS.length - 1]!.id;

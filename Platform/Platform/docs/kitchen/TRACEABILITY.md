@@ -47,7 +47,7 @@
 | 41 | منصة أخرى **خارج هذه المنصة** | 8.3 | CAL-01 | — | `docs/kitchen/CONFLICT_REGISTER.md` C5 | ✅ | — |
 | 42 | «أعتقد موجودة بس مدري» (الخطة القديمة) | 0.7، 8.3 | CAL-01، CONFLICT_REGISTER | تقرير M0 | `CONFLICT_REGISTER.md` C5/C7 | ✅ | تقرير المرحلة 0 + UNIFIED_PLAN |
 | 43 | **منصة جدول مستقلة شاملة لجدولي** | 8.5 | CAL-20…25 | K-M9 | `pages/Calendar.tsx` + `shared/calendar/*` + `server/calendarRoutes.ts` | ✅ | tests/calendar-core + calendar-api + CAL-1/2/3 |
-| 44 | **مطابقة تماماً لـOutlook Calendar** | 8.4، 8.5 | CAL-02، CAL-10…19، CAL-23 | CAL-18 | `shared/calendar/laws.ts` (CAL-10…19) + عرض شبكي | UNVERIFIED | لا حساب Outlook حقيقي هنا: القوانين والثلاثية والشبكة منفَّذة ومُختبَرة على بيانات راشد الحقيقية ولقطات ICS، لكن المطابقة البصرية/الزمنية مع Outlook نفسه لم تُجرَّب (Graph UNVERIFIED) |
+| 44 | **مطابقة تماماً لـOutlook Calendar** | 8.4، 8.5 | CAL-02، CAL-10…19، CAL-23 | CAL-18 | `shared/calendar/laws.ts` (CAL-10…19) + عرض شبكي | UNVERIFIED | لا حساب Outlook حقيقي هنا: القوانين والثلاثية والشبكة منفَّذة ومُختبَرة على بيانات النظام الحقيقية ولقطات ICS، لكن المطابقة البصرية/الزمنية مع Outlook نفسه لم تُجرَّب (Graph UNVERIFIED) |
 | 45 | أضيف الوجبات لأحداث فطور/غداء/عشاء | 8.6 | CAL-30…38 | J6، AC-09 | `DayMeals.tsx` + `CalendarMeals.tsx` + `mealEventsOf` | ✅ | J6 + AC-09 + calendar-meals |
 | 46 | «وهذا هو الهدف من ذلك» | 1.2، 1.8 | VS-1 | VS-1 | VS-1 كاملة + الجدول + الاقتراحات | ✅ | VS-1 + J6 + PROP-1 |
 | 47 | مطبخ **يبدو ممتازاً** | 7.2، 7.7 | KIT-10، 3D-20/30 | K-M8 | `tools/blender/*` + GLB | UNVERIFIED | تقييم «يبدو ممتازًا» ذاتي: الأصول مبنية بالكود/بلندر، والحكم البصري لك على جهازك |

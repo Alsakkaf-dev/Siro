@@ -444,18 +444,18 @@ export const TOOL_IMPLS: { [N in ToolName]: Impl<N> } = {
   life_overview: {
     async run() {
       const s = await life.status();
-      return { data: { exports_folder_exists: s.root_exists, generated_at: s.meta?.generated_at ?? null, freshness: s.worst, files: s.files.map((f) => ({ name: (f as { name?: string }).name, fresh: (f as { freshness?: string }).freshness })) }, summary: `بيانات الحياة: ${s.worst}` };
+      return { data: { files: s.files.map((f) => ({ name: f.name, updated_at: f.generated_at, ok: !f.error })) }, summary: `بيانات الحياة: ${s.files.filter((f) => !f.error).length}/${s.files.length} جاهزة` };
     },
   },
   life_log: {
-    preview: (a) => `مسودة أمر لراشد (${a.type}): ${Object.entries(a.payload).map(([k, v]) => `${k}=${String(v)}`).join('، ')}`,
+    preview: (a) => `تسجيل (${a.type}): ${Object.entries(a.payload).map(([k, v]) => `${k}=${String(v)}`).join('، ')}`,
     async run(a) {
       const p = { ...a.payload } as Record<string, unknown>;
       if (a.type === 'log_expense' && p['currency'] === undefined) p['currency'] = 'RM';
       const errs = validatePayload(a.type as CommandType, p);
       if (Object.keys(errs).length) throw new ToolError(`Invalid payload: ${Object.entries(errs).map(([k, v]) => `${k}: ${v}`).join('; ')}`);
-      const r = await life.draft(a.type as CommandType, p);
-      return { data: { id: r.command.id, status: r.command.status, note: 'Draft only — Rashed applies it after approval' }, summary: `مسودة أمر ${r.command.id} (بانتظار راشد)` };
+      const r = await life.log(a.type as CommandType, p);
+      return { data: { id: r.event.id, summary: r.event.summary }, summary: `سُجّل: ${r.event.summary}`, undo: { kind: 'call', entity: 'life', op: 'undo', id: r.event.id } };
     },
   },
 
@@ -523,6 +523,8 @@ export async function runUndo(u: UndoOp): Promise<void> {
       return void (await sports.week(id as Weekday, (body as string | null) ?? null));
     case 'workout.delete':
       return void (await sports.del(id));
+    case 'life.undo':
+      return void (await life.undo(id));
   }
   throw new Error(`لا أعرف كيف أتراجع عن ${entity}.${op}`);
 }

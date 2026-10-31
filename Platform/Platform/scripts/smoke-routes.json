@@ -30,7 +30,7 @@
     "/life/insights",
     "/life/qada-plan",
     "/life/glossary",
-    "/life/commands",
+    "/life/log",
     "/life/settings",
     "/review",
     "/review/progress",
@@ -73,7 +73,8 @@
     "/study",
     "/settings/trash",
     "/home",
-    "/no-such-page"
+    "/no-such-page",
+    "/life/commands"
   ],
   "entries": [
     "/",
@@ -93,6 +94,7 @@
     "/life/settings": "/settings?tab=sources",
     "/today": "/",
     "/study": "/academic",
-    "/settings/trash": "/trash"
+    "/settings/trash": "/trash",
+    "/life/commands": "/life/log"
   }
 }

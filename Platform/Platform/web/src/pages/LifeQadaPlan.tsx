@@ -40,8 +40,8 @@ export default function LifeQadaPlan() {
               <li>القضاء المتبقي حتى {d.as_of ? fmtAt(d.as_of) : 'تاريخ غير مسجل'}: <b className="num">{String(d.counts?.['total'] ?? '—')}</b> <TagBadge tag={tagFrom(d.counts?.['confidence'])} />{typeof d.counts?.['total_arithmetic_ar'] === 'string' && <small className="muted" style={{ display: 'block' }}>{d.counts['total_arithmetic_ar'] as string}</small>}</li>
               <li>المنجز: <b className="num">{String(d.counts?.['done_total'] ?? '—')}</b> {typeof d.counts?.['done_note_ar'] === 'string' && <small className="muted">— {d.counts['done_note_ar'] as string}</small>}</li>
               <li>تاريخ البداية: {d.start_date ? <b>{d.start_date}</b> : <><TagBadge tag="غير مسجل" /> <small className="muted">{d.start_date_missing_text_ar}</small></>}</li>
-              <li>السيناريو عند راشد: {d.selected_scenario ? <b>{d.selected_scenario}</b> : <><TagBadge tag="غير مسجل" /> <small className="muted">{d.selected_scenario_missing_text_ar}</small></>}</li>
-              <li>اختيارك هنا (محلي، لا يُرسل لراشد): {choice === undefined ? '…' : choice ? <b>{d.scenarios.find((s) => s.id === choice)?.label_ar ?? choice}</b> : <span className="muted">لم تختر</span>}</li>
+              <li>السيناريو عندك: {d.selected_scenario ? <b>{d.selected_scenario}</b> : <><TagBadge tag="غير مسجل" /> <small className="muted">{d.selected_scenario_missing_text_ar}</small></>}</li>
+              <li>اختيارك هنا (محلي، لا يُرسل ): {choice === undefined ? '…' : choice ? <b>{d.scenarios.find((s) => s.id === choice)?.label_ar ?? choice}</b> : <span className="muted">لم تختر</span>}</li>
             </ul>
           </Card>
           <div className="ins-grid">

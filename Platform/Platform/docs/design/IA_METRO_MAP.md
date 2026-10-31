@@ -11,7 +11,7 @@ Single source of truth in code: `web/src/core/metro.ts` (lines, stations, interc
 | 1 | **الرئيسية** (central station) | `--core` | `/` | What now? Today · This week · Everything · Inbox |
 | 2 | **الدراسة** | `--acad` | `/academic` | Semesters → courses → assessments, grades, packages |
 | 3 | **المكتبة** | `--library` | `/library` | Files, folders, videos; reading progress |
-| 4 | **الحياة** | `--life` | `/life` | Money, worship, habits, routine, body (Rashed data, read-only) |
+| 4 | **الحياة** | `--life` | `/life` | Money, worship, habits, routine, body (the system data, read-only) |
 | 5 | **الرياضة** | `--sports` | `/sports` | Exercises, templates, my workouts |
 | 6 | **مساحاتي** | `--spaces` | `/spaces` | Anything else: user-defined spaces, types, templates, automations |
 | 7 | **المراجعة** | `--review` | `/review` | Weekly review, progress dashboard, activity history |

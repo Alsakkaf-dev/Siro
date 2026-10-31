@@ -8,7 +8,7 @@ import { ROOT } from './helpers.js';
 const BASELINE = [
   '/academic', '/academic/import', '/academic/s/:semId', '/academic/s/:semId/courses', '/academic/s/:semId/courses/:courseId', '/academic/s/:semId/timeline', '/academic/s/:semId/calculator', '/academic/s/:semId/weights', '/academic/s/:semId/unknowns', '/academic/s/:semId/print',
   '/library', '/library/folders', '/library/youtube', '/library/settings', '/library/f/:id', '/library/y/:id',
-  '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/commands', '/life/settings',
+  '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/log', '/life/settings',
   '/review', '/sports', '/sports/templates', '/sports/mine', '/settings', '/search', '/home',
 ];
 const NEW = ['/week', '/everything', '/inbox', '/map', '/trash', '/activity', '/spaces', '/spaces/templates', '/spaces/automations', '/spaces/:id', '/review/progress', '/today', '/study', '/settings/trash'];

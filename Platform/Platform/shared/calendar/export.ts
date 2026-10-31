@@ -1,6 +1,6 @@
 /**
- * تصدير الاقتراحات لراشد (CAL-42): (أ) JSON بنية صريحة يستهلكها راشد، (ب) نص عربي مختصر مرتّب. راشد هو الكاتب الوحيد في Outlook:
- * التصدير لا يكتب شيئًا، ولا يُنفَّذ إلا بـ«رن» منفصلة منك عند راشد (G-03).
+ * تصدير الاقتراحات (CAL-42): (أ) JSON بنية صريحة، (ب) نص عربي مختصر مرتّب. لا تكتب المنصة في Outlook:
+ * التصدير لا يكتب شيئًا، وتطبيق الاقتراحات يدوي منك في Outlook (G-03).
  */
 import { TZ } from './tz.js';
 import type { EventFields, LintIssue, PropKind } from './lint.js';
@@ -19,10 +19,10 @@ export function buildExportJson(items: readonly ExportItem[], now = new Date()):
     version: 1,
     generated_at: now.toISOString(),
     timezone: TZ,
-    writer: 'rashed',
+    writer: 'user',
     read_only_source: 'siro-platform',
     requires_separate_run: true,
-    instructions_ar: 'اقتراحات تغيير على تقويم Outlook. لا شيء منها طُبّق. راشد وحده يكتب في Outlook وبعد «رن» منفصلة من محمد. بعد كل دفعة تُجرى ثلاثية التحقق (تداخلات/فجوات/أقصر من 20 دقيقة = 0) ثم يُوسَم كل اقتراح مطبّقًا في المنصة. السلاسل: أعد تطبيق استثناءاتها المرفقة بعد التعديل.',
+    instructions_ar: 'اقتراحات تغيير على تقويم Outlook. لا شيء منها طُبّق. المنصة لا تكتب في Outlook؛ تُطبَّق يدويًا منك في Outlook. بعد كل دفعة تُجرى ثلاثية التحقق (تداخلات/فجوات/أقصر من 20 دقيقة = 0) ثم يُوسَم كل اقتراح مطبّقًا في المنصة. السلاسل: أعد تطبيق استثناءاتها المرفقة بعد التعديل.',
     count: items.length,
     proposals: items.map((p, i) => ({ order: i + 1, ...p })),
   };
@@ -32,7 +32,7 @@ const t = (s: string): string => s.slice(11, 16);
 const d = (s: string): string => s.slice(0, 10);
 /** نص عربي مختصر قابل للنسخ يشرح التغييرات بالترتيب */
 export function buildExportText(items: readonly ExportItem[]): string {
-  const out: string[] = ['اقتراحات تغيير على Outlook (لم يُطبَّق شيء — تنفيذها بـ«رن» منفصلة عند راشد):'];
+  const out: string[] = ['اقتراحات تغيير على Outlook (لم يُطبَّق شيء — طبّقها بنفسك في Outlook):'];
   items.forEach((p, i) => {
     const a = p.after;
     const b = p.before;

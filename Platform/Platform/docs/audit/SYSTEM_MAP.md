@@ -26,7 +26,7 @@ Snapshot of `claude/great-newton-p1ds60` @ 672a17f. ~18.5 k lines TS/TSX (server
 /library/y/:id                  YouTube item (player, resume, bookmarks, tags, note)
 /life                           Life overview (freshness banner, balances, qada, weight, now/next, habits, missing data)
 /life/finance                   Finance (balances, history chart, daily spend, by category, transactions filter)
-/life/insights                  Finance indicators (Rashed text only)
+/life/insights                  Finance indicators (the system text only)
 /life/ledger                    Full ledger table (search/type/wallet/date, sort)
 /life/prayers                   Prayers attendance + qada totals
 /life/qada-plan                 Qada scenarios + local choice (only writable life setting)
@@ -36,8 +36,8 @@ Snapshot of `claude/great-newton-p1ds60` @ 672a17f. ~18.5 k lines TS/TSX (server
 /life/body                      Body/weight progress
 /life/alternatives              "ماذا أسوي الحين؟" alternatives + local picks
 /life/glossary                  Glossary (terms with confidence tags)
-/life/commands                  Draft commands to Rashed (write JSON drafts)
-/life/settings                  Rashed folder + file status + Rashed docs
+/life/commands                  Draft commands to the system (write JSON drafts)
+/life/settings                  the system folder + file status + the system docs
 /review                         Weekly review (Sun–Sat, spec-driven, read-only)
 /sports                         Exercise library (body map, filters, safety)
 /sports/templates               Weekly templates (choose template/location, copy to my workouts)
@@ -106,7 +106,7 @@ erDiagram
   core_events { string type }
   life_alt_picks { string alt_id }
 ```
-External read-only sources: Rashed exports (`exchange/rashed/*.json`, docs), library folder scan, Drive package listings, static content (`content/*` exercises, templates, glossary).
+External read-only sources: the system exports (`seed/*.json`, docs), library folder scan, Drive package listings, static content (`content/*` exercises, templates, glossary).
 
 ## 5. CRUD matrix (before)
 
@@ -125,7 +125,7 @@ External read-only sources: Rashed exports (`exchange/rashed/*.json`, docs), lib
 | Workout | ✓ | ✓ | ✓ | ✓ | ✗ | **✗** | ✗ | ✗ | ✗ | ✗ |
 | Week assignment | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | Alt pick / qada choice | ✓ | ✓ | ✓ | ✓ | — | ✗ | ✗ | ✗ | ✗ | ✗ |
-| Command draft (to Rashed) | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | (file drop) | — | — | ✗ |
-| Rashed life data | — | ✓ | — | — | — | — | — | — | — | — |
+| Command draft (to the system) | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | (file drop) | — | — | ✗ |
+| the system life data | — | ✓ | — | — | — | — | — | — | — | — |
 | **Anything user-defined** | **✗ impossible** | | | | | | | | | |
 | Relations between any two things | ✗ | | | | | | | | | |

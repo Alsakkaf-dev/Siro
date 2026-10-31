@@ -7,13 +7,13 @@ All 41 routes + 12 major widgets clustered by the student's mental model (domain
 |---|---|---|---|---|
 | **Study** | next deadline, today's lectures | due this week, week load | dashboard, courses, calculator, weights, timeline, unknowns | past semesters, packages, official results, print |
 | **Library** | continue reading (recent) | — | course files | all files, folders, YouTube |
-| **Life** | now/next routine, prayers today, daily budget, habits | weekly routine map | qada plan, body goal | ledger, insights, glossary, Rashed docs |
+| **Life** | now/next routine, prayers today, daily budget, habits | weekly routine map | qada plan, body goal | ledger, insights, glossary, the system docs |
 | **Sports** | today's workout | weekly plan | templates | exercise library |
 | **Review** | — | weekly review | — | — |
 | **System** | — | — | — | settings, backups, import/export, appearance, sources |
 | **(missing) user-defined** | — | — | — | — |
 
-Finding: the *Today* and *This week* columns are spread across 6 pages in 4 platforms → the strongest user question ("what now?") has no home. The IA is organized only by **data source** (Rashed files → Life, folder scan → Library), not by **user goal**.
+Finding: the *Today* and *This week* columns are spread across 6 pages in 4 platforms → the strongest user question ("what now?") has no home. The IA is organized only by **data source** (the system files → Life, folder scan → Library), not by **user goal**.
 
 ## 2. Tree test by proxy (first-time user)
 

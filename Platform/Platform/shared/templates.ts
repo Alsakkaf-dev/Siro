@@ -220,7 +220,7 @@ export const BUILTIN_TEMPLATES: TemplateInfo[] = [
         fields: [{ id: 'note', name: 'ملاحظة', kind: 'text' }, { id: 'mood', name: 'الشعور', kind: 'rating' }],
         statuses: [S('todo', 'لم يتم', '#8A92B2', 'todo'), S('done', 'تم', '#12703F', 'done')],
       },
-      space: { name: 'عادتي', icon: 'refresh', color: '#BE185D', description: 'ليست بديلًا عن بيانات راشد — مساحتك الخاصة.' },
+      space: { name: 'عادتي', icon: 'refresh', color: '#BE185D', description: 'ليست بديلًا عن بيانات النظام — مساحتك الخاصة.' },
       views: [{ name: 'تقويم', kind: 'calendar', config: { dateField: 'due', showDone: true } }, { name: 'قائمة', kind: 'list', config: {} }],
       automations: [{ name: 'تكرار يومي', trigger: { kind: 'status_changed', to: 'done' }, action: { kind: 'create_next', every: 'day' } }],
       items: [],

@@ -33,7 +33,7 @@ export default function LifeLedger() {
   const set = <K extends keyof LedgerFilter>(k: K, v: LedgerFilter[K]): void => setF((x) => ({ ...x, [k]: v }));
   const dirty = JSON.stringify(f) !== JSON.stringify(EMPTY_LEDGER_FILTER);
   return (
-    <ContentPage c={c} title="السجل المالي الكامل" icon="database" label="السجل المالي الكامل" sub="كل صفوف السجل من راشد — للقراءة فقط (لا تعديل ولا حذف من هنا).">
+    <ContentPage c={c} title="السجل المالي الكامل" icon="database" label="السجل المالي الكامل" sub="كل صفوف السجل  — للقراءة فقط (لا تعديل ولا حذف من هنا).">
       {(d) => (
         <>
           <div className="life-alert warn" role="note">
@@ -93,7 +93,7 @@ export default function LifeLedger() {
               </table>
             </div>
           )}
-          <p className="muted rv-fine">الأثر على الصندوق: «بدون صندوق» يعني أن راشد لم يُطبّق المصروف على أي صندوق بعد، وليس أن المبلغ لم يخرج.</p>
+          <p className="muted rv-fine">الأثر على الصندوق: «بدون صندوق» يعني أن المصروف لم يُطبَّق على أي صندوق بعد، وليس أن المبلغ لم يخرج.</p>
         </>
       )}
     </ContentPage>

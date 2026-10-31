@@ -15,7 +15,7 @@ export default function LifeFinance() {
   const d = useLife(['finance']);
   const f = d.get<Finance>('finance');
   return (
-    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف كما صدّرها راشد — قراءة فقط." actions={<Button icon="edit" to="/life/commands?type=log_expense">سجّل مصروف</Button>}>
+    <LifePage title="المال" icon="database" names={['finance']} data={d} sub="أرصدة الصناديق والمصاريف." actions={<Button icon="edit" to="/life/commands?type=log_expense">سجّل مصروف</Button>}>
       {f && <Body f={f} />}
     </LifePage>
   );
@@ -62,10 +62,10 @@ function Body({ f }: { f: Finance }) {
                   <LegendRows rows={cats.map((c, i) => ({ label: `${c.category} (${c.count})`, value: c.total, max: cats[0]!.total, color: c.category === UNCATEGORIZED ? '#8A92B2' : PAL[i % PAL.length]!, right: <bdi>{money(c.total)}</bdi> }))} />
                 </div>
               </div>
-              <Note tone="warn">الفئات تصنيف مبدئي من راشد (وسمها «افتراض»)؛ غير المصنّف يبقى «{UNCATEGORIZED}» ولا نخمّنه. هذا المجموع يخص آخر {tx.length} حركة فقط، لا الشهر كله.</Note>
+              <Note tone="warn">الفئات تصنيف مبدئي  (وسمها «افتراض»)؛ غير المصنّف يبقى «{UNCATEGORIZED}» ولا نخمّنه. هذا المجموع يخص آخر {tx.length} حركة فقط، لا الشهر كله.</Note>
             </div>
           ) : (
-            <EmptyState icon="pie" title="لا مصاريف مسجّلة" text="لم يُصدِّر راشد حركات مصاريف بعد." />
+            <EmptyState icon="pie" title="لا مصاريف مسجّلة" text="لا حركات مصاريف بعد." />
           )}
         </Card>
 
@@ -76,20 +76,20 @@ function Body({ f }: { f: Finance }) {
           {f.daily_box_rate && typeof f.daily_box_rate.value === 'number' ? (
             <div className="stack">
               <div className="kpis">
-                <Kpi label="المعدّل اليومي (راشد)" value={`${money(f.daily_box_rate.value)} / يوم`} sub={typeof f.daily_box_rate.total_spent_rm === 'number' ? `${money(f.daily_box_rate.total_spent_rm)} ÷ ${f.daily_box_rate.days} يوم (من ${fmtDay(f.daily_box_rate.window_from)} إلى ${fmtDay(f.daily_box_rate.window_to)})` : undefined} />
+                <Kpi label="المعدّل اليومي" value={`${money(f.daily_box_rate.value)} / يوم`} sub={typeof f.daily_box_rate.total_spent_rm === 'number' ? `${money(f.daily_box_rate.total_spent_rm)} ÷ ${f.daily_box_rate.days} يوم (من ${fmtDay(f.daily_box_rate.window_from)} إلى ${fmtDay(f.daily_box_rate.window_to)})` : undefined} />
                 <Kpi label="رصيد اليومية يكفي" value={typeof f.daily_box_rate.days_daily_box_lasts === 'number' ? `${f.daily_box_rate.days_daily_box_lasts} يوم` : <Unknown />} sub={typeof f.daily_box_rate.scheduled_per_day_rm === 'number' ? `التعبئة المجدولة ${money(f.daily_box_rate.scheduled_per_day_rm)} يوميًا` : undefined} />
               </div>
               {f.daily_box_rate.explanation_ar && <Note>{f.daily_box_rate.explanation_ar}</Note>}
-              <small className="muted">رقم جاهز من راشد (لا يعيد الموقع حسابه) <Conf c={f.daily_box_rate.confidence} />. <Link to="/life/insights">كل المؤشرات</Link></small>
+              <small className="muted">رقم جاهز  (لا يعيد الموقع حسابه) <Conf c={f.daily_box_rate.confidence} />. <Link to="/life/insights">كل المؤشرات</Link></small>
             </div>
           ) : burn && typeof burn.current_value === 'number' && burn.value_text_ar ? (
             <div className="stack">
               <div className="kpis">
-                <Kpi label="المعدّل اليومي (راشد)" value={burn.value_text_ar.replace(/^حوالي\s*/, '≈ ')} sub={typeof burn.details?.['daily_spend_total_rm'] === 'number' ? `${money(burn.details['daily_spend_total_rm'] as number)} ÷ ${String(burn.details['days'])} يوم` : undefined} />
+                <Kpi label="المعدّل اليومي" value={burn.value_text_ar.replace(/^حوالي\s*/, '≈ ')} sub={typeof burn.details?.['daily_spend_total_rm'] === 'number' ? `${money(burn.details['daily_spend_total_rm'] as number)} ÷ ${String(burn.details['days'])} يوم` : undefined} />
                 <Kpi label="رصيد اليومية يكفي" value={(() => { const v = (burn.details?.['days_daily_box_lasts_at_this_burn'] as { value?: number } | undefined)?.value; return typeof v === 'number' ? `${v} يوم` : <Unknown />; })()} sub="بهذا المعدّل" />
               </div>
               <Note>{burn.formula_ar} {burn.confidence_note_ar}</Note>
-              <small className="muted">أرقام جاهزة من راشد (لا يعيد الموقع حسابها). <Link to="/life/insights">كل المؤشرات</Link></small>
+              <small className="muted">أرقام جاهزة  (لا يعيد الموقع حسابها). <Link to="/life/insights">كل المؤشرات</Link></small>
             </div>
           ) : rate ? (
             <div className="stack">
@@ -97,7 +97,7 @@ function Body({ f }: { f: Finance }) {
                 <Kpi label="المعدّل اليومي" value={money(rate.rate)} sub={`${money(rate.total)} ÷ ${rate.days} يوم`} />
                 <Kpi label="رصيد اليومية يكفي" value={cover === null ? <Unknown /> : `${cover} يوم`} sub={cover === null ? undefined : 'بهذا المعدّل'} />
               </div>
-              <Note>تقدير الموقع (مؤشرات راشد غير متاحة): مصاريف محفظة «يومية» التي خصمت فعلًا مقسومة على الأيام بين أول وآخر حركة منها، شاملة. {rate.count} حركة.</Note>
+              <Note>تقدير الموقع (المؤشرات الجاهزة غير متاحة): مصاريف محفظة «يومية» التي خصمت فعلًا مقسومة على الأيام بين أول وآخر حركة منها، شاملة. {rate.count} حركة.</Note>
             </div>
           ) : (
             <EmptyState icon="timer" title="لا بيانات كافية" text="لا توجد حركات يومية خصمت فعلًا لحساب المعدّل." />
@@ -112,7 +112,7 @@ function Body({ f }: { f: Finance }) {
         <DaySpend days={days} />
         <p className="muted rv-fine" style={{ margin: '8px 0 0' }}>
           {ledgerRows ? <>من السجل الكامل ({ledger.data?.total_rows} صفًّا): مصاريف كل يوم بالمبلغ المسجّل{adj?.length ? '، وصف واحد مُعدَّل لتجنب تكرار مبلغ (' + adj.map((a) => `${money(a.recorded_amount)} ← ${money(a.counted_amount)}`).join('، ') + ')' : ''}. </> : <>من آخر {tx.length} حركة فقط (السجل الكامل غير متاح). </>}
-          الفئات في هذه الصفحة <b>تقديرية</b> (تصنيف مبدئي من راشد)، والمجموع اليومي هنا لا يعتمد عليها.
+          الفئات في هذه الصفحة <b>تقديرية</b> (تصنيف مبدئي )، والمجموع اليومي هنا لا يعتمد عليها.
         </p>
       </Card>
 
@@ -214,7 +214,7 @@ function History({ hist }: { hist: ReturnType<typeof parseBalanceHistory> }) {
   const n = hist.points.length;
   const omitted = hist.omitted.length ? (
     <details className="omit-box">
-      <summary>نطاقات تركها راشد خارج السجل ({hist.omitted.length}) — لماذا لا يبدأ الرسم من أقدم صف؟</summary>
+      <summary>نطاقات تركها النظام خارج السجل ({hist.omitted.length}) — لماذا لا يبدأ الرسم من أقدم صف؟</summary>
       <ul>
         {hist.omitted.map((o, i) => (
           <li key={i}>
@@ -242,7 +242,7 @@ function History({ hist }: { hist: ReturnType<typeof parseBalanceHistory> }) {
         {omitted}
         {hist.method && (
           <details className="omit-box">
-            <summary>كيف حُسب هذا السجل (طريقة راشد)</summary>
+            <summary>كيف حُسب هذا السجل (طريقة النظام)</summary>
             <p style={{ margin: 0, fontSize: 'var(--fs-sm)', lineHeight: 1.8 }}>{hist.method}</p>
           </details>
         )}
@@ -292,7 +292,7 @@ function History({ hist }: { hist: ReturnType<typeof parseBalanceHistory> }) {
   return (
     <div className="empty-hist">
       <strong>لم يُسجَّل سجل الأرصدة بعد</strong>
-      <span className="muted">ملف المال الحالي يعرض رصيد اللحظة فقط. وافقتَ على أن يضيف راشد حقل <code>balance_history</code>؛ ما إن يظهر في finance.json يُرسم هذا المخطط تلقائيًا. لا نرسم خطًا من حركات أو تقدير.</span>
+      <span className="muted">يعرض الرصيد الحالي فقط. يتكوّن سجل الأرصدة مع تسجيلاتك، ولا نرسم خطًا من تقدير.</span>
     </div>
   );
 }

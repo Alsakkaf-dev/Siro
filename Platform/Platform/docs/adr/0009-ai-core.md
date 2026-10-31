@@ -25,7 +25,7 @@
    - `read` runs immediately.
    - `write` shows a preview card, then runs. The policy `auto` runs it directly with an undo button.
    - `danger` always asks for confirmation.
-   - Forbidden capabilities are never exposed to the model: backup restore, imports that overwrite, settings, keys, and writes to Rashed sources (life entries are *drafts* Rashed applies).
+   - Forbidden capabilities are never exposed to the model: backup restore, imports that overwrite, settings, keys, and writes to the system sources (life entries are *drafts* the system applies).
 5. **Audit and undo.**
    - Requests made while a tool runs carry `x-actor: ai`. An AsyncLocalStorage context (`server/actor.ts`) makes `record()` tag history as `ai`; the Activity page shows «بواسطة المساعد».
    - Each write returns an `UndoOp` (trash token, history revert, or an inverse call). The op is stored in `ai_runs` (migration 6, additive), so a whole conversation can be undone.

@@ -10,7 +10,7 @@ import { prayerWeek, reviewWindow, type Missing } from '../shared/weekly.js';
 
 const at = (s: string): number => Date.parse(s);
 
-describe('Rashed cross-check #1: weight is exact (83.65 / 20.65 / 0.65), never rounded to 1 decimal', () => {
+describe('cross-check #1: weight is exact (83.65 / 20.65 / 0.65), never rounded to 1 decimal', () => {
   it('kgText keeps up to 2 decimals', () => {
     expect(kgText(83.65)).toBe('83.65');
     expect(kgText(20.650000000000006)).toBe('20.65');
@@ -25,9 +25,9 @@ describe('Rashed cross-check #1: weight is exact (83.65 / 20.65 / 0.65), never r
   });
 });
 
-describe('Rashed v9: goal_progress is used verbatim; baseline change and remaining-to-goal never mix', () => {
+describe('v9: goal_progress is used verbatim; baseline change and remaining-to-goal never mix', () => {
   const b: Body = { goal_kg: 63, latest_weight_kg: 83.65, latest_weight_date: '2026-10-23', items: [], goal_progress: { goal_kg: 63, latest_weight_kg: 83.65, remaining_to_goal_kg: 20.65, baseline_kg: 84.3, change_since_baseline_kg: -0.65 } };
-  it('remaining 20.65 and change −0.65 (lost 0.65) come from Rashed fields', () => {
+  it('remaining 20.65 and change −0.65 (lost 0.65) come from the goal_progress fields', () => {
     const p = weightProgress(b)!;
     expect([p.baseline, p.latest, p.remaining, p.lost]).toEqual([84.3, 83.65, 20.65, 0.65]);
     expect(p.remaining).not.toBe(p.lost);
@@ -43,7 +43,7 @@ describe('Rashed v9: goal_progress is used verbatim; baseline change and remaini
   });
 });
 
-describe('Rashed cross-check #5: freshness never says «الآن» unless truly recent', () => {
+describe('cross-check #5: freshness never says «الآن» unless truly recent', () => {
   const now = at('2026-10-26T22:00:00+08:00');
   it('a day-old file is not «الآن»; ageText only says الآن under 2 minutes', () => {
     const r = classifyFreshness({ nowMs: now, generatedAt: '2026-10-25T18:35:00+08:00', staleAfterHours: 24, bytesMeta: 10, bytesActual: 10 });
@@ -62,7 +62,7 @@ describe('Rashed cross-check #5: freshness never says «الآن» unless truly 
   });
 });
 
-describe('Rashed cross-check #7: today in the prayer table is unknown, and done_today of another day is not today', () => {
+describe('cross-check #7: today in the prayer table is unknown, and done_today of another day is not today', () => {
   const p = {
     attendance: { days: [{ date: '2026-10-25', status: { fajr: 'in_time', dhuhr: 'in_time', asr: 'in_time', maghrib: 'unknown', isha: 'unknown' }, confidence: 'مثبت' }] },
     qada: { as_of: '2026-10-25T18:35:00+08:00', done_today: 0, done_confidence: 'مثبت', done_total: 0, total_remaining: 10, remaining: {}, history: [] },
@@ -84,13 +84,13 @@ describe('Rashed cross-check #7: today in the prayer table is unknown, and done_
   });
 });
 
-describe('Rashed cross-check #8: internal codes are hidden or explained', () => {
+describe('cross-check #8: internal codes are hidden or explained', () => {
   it('plainText removes R-/D-R-/RC- codes and explains file/field names', () => {
     expect(plainText('تتبع الصلاة أعلى أولوية (R-020).')).toBe('تتبع الصلاة أعلى أولوية.');
     expect(plainText('أكد محمد (القرار D-R-019) الوزن')).toBe('أكد محمد الوزن');
     expect(plainText('انظر RC-004 للتعارض')).toBe('انظر تعارض مسجّل للتعارض');
     expect(plainText('من CURRENT.md ومن LEDGER.csv')).toBe('من ملف الحالة ومن السجل المالي');
-    expect(plainText('02_Rashed/STATE/BODY_GOALS.md')).toBe('ملف أهداف الجسم');
+    expect(plainText('STATE/BODY_GOALS.md')).toBe('ملف أهداف الجسم');
     expect(plainText('cash_delta أقل من صفر و beginner_safe=false')).toBe('الأثر على الصندوق أقل من صفر و ليس للمبتدئ');
     expect(plainText('docs\\SPORTS_PLANS_AR.json')).toContain('SPORTS_PLANS_AR.json');
     expect(plainText('نص عربي عادي 83.65')).toBe('نص عربي عادي 83.65');
@@ -128,7 +128,7 @@ describe('ledger table helpers (read-only)', () => {
     expect(LED.rows.length).toBe(4); // الأصل لا يتغيّر
     expect(expenseSum(LED.rows)).toEqual({ total: 160.43, count: 3 });
   });
-  it('daily spend uses expense rows only and applies Rashed\'s own adjustment (no double count)', () => {
+  it('daily spend uses expense rows only and applies the recorded adjustment (no double count)', () => {
     const d = ledgerSpendByDay(LED.rows, [{ row_id: 'C', recorded_amount: 24.53, counted_amount: 10 }]);
     expect(d).toEqual([{ date: '2026-10-08', total: 135.9 }, { date: '2026-10-13', total: 10 }]);
     expect(ledgerSpendByDay(LED.rows).find((x) => x.date === '2026-10-13')!.total).toBe(24.53);
@@ -165,10 +165,10 @@ describe('insights: ready values only', () => {
   });
 });
 
-const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
-describe.skipIf(!fs.existsSync(path.join(REAL, 'ledger_full.json')) || !fs.existsSync(path.join(REAL, 'docs', 'FINANCE_INSIGHTS_AR.json')))('real Rashed v8 files (local copy only; skipped elsewhere)', () => {
-  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, n), 'utf8').replace(/^\ufeff/, '')) as T;
+const SEED = path.resolve(import.meta.dirname, '..', 'seed');
+const seedFile = (n: string): string => (n.startsWith('docs/') ? path.join(SEED, 'content', n.slice(5)) : path.join(SEED, 'life', n));
+describe('bundled life data (v8)', () => {
+  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(seedFile(n), 'utf8').replace(/^\ufeff/, '')) as T;
   it('ledger_full has all 67 rows and passes the validator', () => {
     const l = read<LedgerDoc>('ledger_full.json');
     expect(l.total_rows).toBe(67);
@@ -200,14 +200,6 @@ describe.skipIf(!fs.existsSync(path.join(REAL, 'ledger_full.json')) || !fs.exist
     expect(Object.keys(l.labels)).toHaveLength(572);
     expect(l.missing_data_cards).toHaveLength(17);
     expect(l.missing_data_cards.every((c) => /[\u0600-\u06FF]/.test(c.label_ar))).toBe(true);
-  });
-  it('prayers/habits generated 25 Oct 18:35 are stale or expired on 26 Oct night, never «fresh»', () => {
-    const m = read<{ files: { name: string; generated_at: string; stale_after_hours: number }[] }>('exports_meta.json');
-    for (const n of ['prayers.json', 'habits.json']) {
-      const f = m.files.find((x) => x.name === n)!;
-      const r = classifyFreshness({ nowMs: at('2026-10-26T22:40:00+08:00'), generatedAt: f.generated_at, staleAfterHours: f.stale_after_hours, bytesMeta: 1, bytesActual: 1 });
-      expect(['stale', 'expired'], n).toContain(r.state);
-    }
   });
   it('body.json: latest 83.65, remaining 20.65, change 0.65', () => {
     const p = weightProgress(read<Body>('body.json'))!;

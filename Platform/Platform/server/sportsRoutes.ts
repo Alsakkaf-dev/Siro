@@ -7,7 +7,7 @@ import type { Db } from './db.js';
 import { record, snapshot, trashPut, workspaceOf } from './wos/core.js';
 import { WEEKDAYS, type MyItem, type MyWeek, type MyWorkout } from '../shared/sports.js';
 
-/** تمريني: يُحفظ في قاعدة الموقع فقط، لا في ملفات راشد. المحتوى (أسماء التمارين) لقطة وقت الإضافة كي لا يضيع إن تغيّر الملف. */
+/** تمريني: يُحفظ في قاعدة الموقع فقط، لا في السجل. المحتوى (أسماء التمارين) لقطة وقت الإضافة كي لا يضيع إن تغيّر الملف. */
 const str = (v: unknown): string => (typeof v === 'string' ? v : '');
 const wrap =
   (fn: (req: express.Request, res: express.Response) => void | Promise<void>) =>
@@ -183,7 +183,7 @@ export function createSportsRouter(ctx: Ctx): express.Router {
     res.json(loadAll(db()));
   }));
 
-  /** اختيارك المحلي للقالب/المكان (لا يغيّر ملفات راشد؛ selected_template_id عنده يبقى كما هو حتى يسجّله راشد). */
+  /** اختيارك المحلي للقالب/المكان (لا يغيّر السجل؛ selected_template_id عنده يبقى كما هو حتى يسجّله النظام). */
   r.put('/settings', wrap((req, res) => {
     const b = (req.body ?? {}) as Record<string, unknown>;
     if (b['template'] !== undefined) {

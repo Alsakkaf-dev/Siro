@@ -34,12 +34,12 @@ export function resolveEvents(db: Db, from: string, to: string, want: 'auto' | S
       const doc = r.data as RoutineDocLike & { generated_at?: string };
       return {
         source: 'routine', events: routineToEvents(doc, from, to),
-        note: 'هذه ليست أحداث Outlook نفسها: قالب أسبوعي من «خريطة الروتين» عند راشد (الصلوات تقريبية). استورد ملف ICS من Outlook أو فعّل Graph للمطابقة التامة.',
+        note: 'هذه ليست أحداث Outlook نفسها: قالب أسبوعي من «خريطة الروتين» عندك (الصلوات تقريبية). استورد ملف ICS من Outlook أو فعّل Graph للمطابقة التامة.',
         holidays: holidaysIn(doc, from, to), last_sync: r.status.generated_at, routine_generated_at: doc.generated_at ?? r.status.generated_at,
       };
     }
   }
-  return { source: 'none', events: [], note: want === 'auto' || want === 'routine' ? 'لا مصدر للجدول: مجلد راشد غائب ولا لقطة مستوردة. استورد ملف ICS/JSON من Outlook.' : 'لا أحداث محفوظة لهذا المصدر.', holidays: [], last_sync: null, routine_generated_at: null };
+  return { source: 'none', events: [], note: want === 'auto' || want === 'routine' ? 'لا مصدر للجدول: لا لقطة مستوردة. استورد ملف ICS/JSON من Outlook.' : 'لا أحداث محفوظة لهذا المصدر.', holidays: [], last_sync: null, routine_generated_at: null };
 }
 
 export function replaceStored(db: Db, source: SourceId, events: readonly CalEvent[], range: { from: string; to: string }, note: string | null): void {

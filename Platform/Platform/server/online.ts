@@ -64,12 +64,6 @@ export async function createOnlineHandler(): Promise<express.Express> {
   const cfg = loadConfig({ dataDir, backupsDir });
   const dbFile = path.join(dataDir, 'platform.db');
 
-  // بيانات راشد: نسخة قابلة للكتابة في /tmp (مسودات الأوامر تُكتب هناك فقط)
-  const rashedSrc = path.join(cfg.root, 'exchange', 'rashed');
-  const rashed = path.join(TMP, 'rashed');
-  if (fs.existsSync(rashedSrc) && !fs.existsSync(rashed)) fs.cpSync(rashedSrc, rashed, { recursive: true });
-  if (fs.existsSync(rashed)) process.env['PLATFORM_LIFE_ROOT'] = rashed;
-
   // استعادة القاعدة من Blob (أول تشغيل للنسخة)
   if (!fs.existsSync(dbFile)) {
     try {

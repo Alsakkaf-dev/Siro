@@ -36,8 +36,8 @@ Rule: zero removals. ✅ = verified present after redesign (by `tests/routes.tes
 | `/life/routine` | Routine | الحياة › اليوم › الروتين | ✅ |
 | `/life/routine-map` | Weekly routine map | الحياة › اليوم › خريطة الأسبوع (specialized view) | ✅ |
 | `/life/glossary` | Glossary | الحياة › أدوات › القاموس (+ palette, + map) | ✅ |
-| `/life/commands` | Command drafts to Rashed | الحياة › أدوات › مسودات الأوامر (+ Create menu) | ✅ |
-| `/life/settings` | Rashed folder/status/docs | الحياة › أدوات › إعدادات الحياة (also الإعدادات › المصادر) | ✅ |
+| `/life/commands` | Command drafts to the system | الحياة › أدوات › مسودات الأوامر (+ Create menu) | ✅ |
+| `/life/settings` | the system folder/status/docs | الحياة › أدوات › إعدادات الحياة (also الإعدادات › المصادر) | ✅ |
 | `/review` | Weekly review | المراجعة › مراجعة الأسبوع | ✅ |
 | `/sports` | Exercise library + body map | الرياضة › مكتبة التمارين | ✅ |
 | `/sports/templates` | Weekly templates | الرياضة › القوالب | ✅ |
@@ -65,7 +65,7 @@ All endpoints listed in `docs/audit/SYSTEM_MAP.md §3` keep path, method and res
 | Freshness/staleness banners | Life pages + Home alerts | ✅ |
 | Semester packages spec v1 | unchanged; export added (same manifest) | ✅ |
 | Online mode (Vercel, Blob, auto-import) | unchanged (ADR-0008) | ✅ |
-| Rashed read-only sources | unchanged; annotate/link via relations | ✅ |
+| the system read-only sources | unchanged; annotate/link via relations | ✅ |
 
 ## 3b. AI core (ADR-0009) — added, nothing removed
 | Capability | Where | Status |

@@ -23,7 +23,7 @@ function download(name: string, text: string, type: string): void {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
-/** طابور اقتراحات Outlook (K-M11، CAL-40…48): فرق قبل/بعد، اعتماد، تصدير لراشد (JSON + نص)، ثم وسم «مطبّق» بعد «رن» عند راشد. لا كتابة في Outlook من هنا. */
+/** طابور اقتراحات Outlook (K-M11، CAL-40…48): فرق قبل/بعد، اعتماد، تصدير (JSON + نص)، ثم وسم «مطبّق» بعد تطبيقه في Outlook. لا كتابة في Outlook من هنا. */
 export default function CalendarProposals() {
   const { toast, confirm } = useApp();
   const [filter, setFilter] = useUrlParam<Filter>('status', 'all', ['all', 'pending', 'approved', 'applied', 'rejected']);
@@ -48,23 +48,23 @@ export default function CalendarProposals() {
 
   return (
     <div className="page kitchen cal-page">
-      <PageHead title="اقتراحات Outlook" icon="mail" sub="لا يُكتب شيء في Outlook من المنصة: الاقتراح يُصدَّر لراشد ويُنفَّذ بـ«رن» منفصلة منك عنده، ثم تُوسَم هنا مطبّقة." />
+      <PageHead title="اقتراحات Outlook" icon="mail" sub="لا يُكتب شيء في Outlook من المنصة: الاقتراح يُصدَّر وتطبّقه بنفسك في Outlook، ثم تُوسَم هنا مطبّقة." />
       <GenerateCard onDone={load} />
       <div className="cal-bar">
         <Segmented<Filter> label="التصفية" value={filter} onChange={setFilter} options={[{ value: 'all', label: `الكل ${fmtNum(items?.length ?? 0, 0)}` }, { value: 'pending', label: `معلّقة ${fmtNum(counts['pending'] ?? 0, 0)}` }, { value: 'approved', label: `معتمدة ${fmtNum(approved, 0)}` }, { value: 'applied', label: `مطبّقة ${fmtNum(counts['applied'] ?? 0, 0)}` }, { value: 'rejected', label: `مرفوضة ${fmtNum(counts['rejected'] ?? 0, 0)}` }]} />
         <span className="grow" />
-        <Button variant="primary" icon="download" disabled={!approved} onClick={() => void doExport()} data-testid="export-all">صدّر المعتمدة لراشد ({fmtNum(approved, 0)})</Button>
+        <Button variant="primary" icon="download" disabled={!approved} onClick={() => void doExport()} data-testid="export-all">صدّر المعتمدة ({fmtNum(approved, 0)})</Button>
       </div>
       {lastExport && (
         <Card>
           <CardHead title={`آخر تصدير: ${fmtNum(lastExport.count, 0)} اقتراحًا`} icon="mail" />
           <div className="row">
-            <Button size="sm" icon="download" onClick={() => download(`siro-calendar-proposals-${todayKL()}.json`, JSON.stringify(lastExport.json, null, 2), 'application/json')} data-testid="dl-json">نزّل JSON لراشد</Button>
+            <Button size="sm" icon="download" onClick={() => download(`siro-calendar-proposals-${todayKL()}.json`, JSON.stringify(lastExport.json, null, 2), 'application/json')} data-testid="dl-json">نزّل JSON</Button>
             <Button size="sm" icon="copy" onClick={() => copy(lastExport.text)} data-testid="copy-text">انسخ النص العربي</Button>
             <Button size="sm" onClick={() => setLastExport(null)}>أخفِ</Button>
           </div>
           <pre className="kt-body-text" dir="rtl" data-testid="export-text">{lastExport.text}</pre>
-          <small className="muted">راشد وحده يكتب في Outlook وبعد «رن» منفصلة. بعد تنفيذه افتح كل اقتراح هنا ووسمه «مطبّق».</small>
+          <small className="muted">طبّق الاقتراحات بنفسك في Outlook. بعد تطبيق كل اقتراح افتحه هنا ووسمه «مطبّق».</small>
         </Card>
       )}
       {items === null ? <p className="muted">جارٍ التحميل…</p> : groups.length === 0 ? <EmptyState icon="mail" title="لا اقتراحات" text="ولّد اقتراحات من يوم محفوظ في الوجبات أو من إصلاحات الأوصاف أعلاه." /> : (
@@ -84,7 +84,7 @@ export default function CalendarProposals() {
                       {p.lint.ok ? <Badge tone="ok"><Icon name="check" size={11} /> فحص القوانين</Badge> : <Badge tone="danger"><Icon name="x" size={11} /> فحص القوانين</Badge>}
                       <span className="grow" />
                       {p.status === 'pending' && <><Button size="sm" variant="primary" onClick={() => void act(() => setProposalStatus(p.id, 'approved'))}>اعتمد</Button><Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'rejected'))}>ارفض</Button></>}
-                      {p.status === 'approved' && <><Button size="sm" onClick={() => void doExport([p.id])}>صدّر</Button><Button size="sm" variant="primary" disabled={!p.exported_at} title={p.exported_at ? '' : 'صدِّره لراشد أولًا'} onClick={() => void act(() => setProposalStatus(p.id, 'applied'), 'وُسم مطبّقًا')} data-testid="mark-applied">وسمه مطبّقًا</Button><Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'pending'))}>أرجع للمعلّق</Button></>}
+                      {p.status === 'approved' && <><Button size="sm" onClick={() => void doExport([p.id])}>صدّر</Button><Button size="sm" variant="primary" disabled={!p.exported_at} title={p.exported_at ? '' : 'صدِّره أولًا'} onClick={() => void act(() => setProposalStatus(p.id, 'applied'), 'وُسم مطبّقًا')} data-testid="mark-applied">وسمه مطبّقًا</Button><Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'pending'))}>أرجع للمعلّق</Button></>}
                       {p.status === 'rejected' && <Button size="sm" onClick={() => void act(() => setProposalStatus(p.id, 'pending'))}>أعد فتحه</Button>}
                       {(p.status === 'pending' || p.status === 'rejected') && <Button size="sm" icon="trash" aria-label="احذف الاقتراح" onClick={async () => { if (await confirm({ title: 'حذف الاقتراح؟', body: 'يُحذف من المنصة فقط.', confirmLabel: 'احذف' })) void act(() => deleteProposal(p.id)); }} />}
                     </div>
@@ -116,7 +116,7 @@ function Diff({ p }: { p: ProposalView }) {
           {lineDiff(a?.description ?? '', b?.description ?? '').map((l, i) => <span key={i} className={`dl-${l.op}`}>{l.op === 'del' ? '− ' : l.op === 'add' ? '+ ' : '  '}{l.text}{'\n'}</span>)}
         </pre>
       )}
-      {p.kind === 'delete' && <p className="callout danger">يُحذف الحدث بالكامل عند راشد.</p>}
+      {p.kind === 'delete' && <p className="callout danger">يُحذف الحدث بالكامل من Outlook.</p>}
     </div>
   );
 }

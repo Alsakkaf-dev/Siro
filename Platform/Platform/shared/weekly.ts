@@ -1,5 +1,5 @@
 /**
- * المراجعة الأسبوعية (docs/WEEKLY_REVIEW_SPEC_AR.md). دوال نقية: تقرأ ملفات راشد المحمّلة ولا تكتب شيئًا.
+ * المراجعة الأسبوعية (docs/WEEKLY_REVIEW_SPEC_AR.md). دوال نقية: تقرأ السجل المحمّلة ولا تكتب شيئًا.
  * قواعد ثابتة: القيمة الناقصة ليست صفرًا أبدًا (null ⇒ «غير مسجل»)، و«غير معروف» لا يدخل المقام، والرقم المحسوب يأخذ أضعف وسم بين مدخلاته.
  */
 import { parseGenerated, blocksForDay, DAY_AR, DAY_CODES, PRAYER_AR, PRAYER_KEYS, missingInputs, parseBalanceHistory, toMin } from './life.js';

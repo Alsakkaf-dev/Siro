@@ -12,7 +12,7 @@ All navigation chrome is generated from `web/src/core/metro.ts`. Visual language
 | **Breadcrumbs ("you are here")** | top of every page, above the title | line chip (color dot + line name) › station › object; built by the shell from the registry + labels pages publish via `PageHead crumbs` (rendered once, by the shell) |
 | **View switcher** | under page title, where one place has several looks | `role=tablist`; URL-backed (`?view=` or the existing sub-route) — distinct from in-card Segmented controls (filters/toggles) |
 | **Page header actions** | left side of the title (RTL end) | primary action = filled button; secondary = soft buttons; overflow = kebab |
-| **Create (+)** | topbar, key `n` | menu of every creatable type: تقييم، مادة، فصل، ملاحظة، عنصر في مساحة…، مساحة جديدة، فيديو YouTube، تمرين، مسودة أمر لراشد. Context default: inside a space → that space's item; inside a course → assessment for that course |
+| **Create (+)** | topbar, key `n` | menu of every creatable type: تقييم، مادة، فصل، ملاحظة، عنصر في مساحة…، مساحة جديدة، فيديو YouTube، تمرين، مسودة أمر . Context default: inside a space → that space's item; inside a course → assessment for that course |
 | **Palette** | topbar, `/` or Ctrl+K | groups: «افعل» (verbs) · «اذهب إلى» (stations) · objects (courses, assessments, files, videos, items, spaces, exercises, glossary). Verbs: create X, backup now, scan library, toggle theme, open map, open trash … |
 | **Inbox bell** | topbar | deadline alerts + automation notifications + stale-data alerts; link «كل الوارد» → `/inbox` |
 | **Item side panel** | right drawer (RTL start) | ClickUp/Jira-style details of a space item: title, status, fields, sub-items, relations, activity; Esc closes, focus returns |
@@ -65,5 +65,5 @@ All navigation chrome is generated from `web/src/core/metro.ts`. Visual language
 | Trash | سلة المحذوفات | |
 | Activity | سجل النشاط | |
 | My workouts | تماريني | تمريني (old nav label) |
-| Drafts to Rashed | مسودات الأوامر | الأوامر (مسودات) |
+| Drafts to the system | مسودات الأوامر | الأوامر (مسودات) |
 | Confidence tags | مثبت · محسوب · افتراض | unchanged |

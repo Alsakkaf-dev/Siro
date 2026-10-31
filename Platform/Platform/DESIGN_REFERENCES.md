@@ -135,7 +135,7 @@ Every component seen in the 22 screenshots was listed, near-duplicates were merg
 | Routine timeline with live «now» marker | x02 | `.tl` / `.tl-item.now` — vertical timetable, edge colour by block kind | `/life/routine` |
 | Command composer: type picker + live JSON preview + confirm dialog | x06 | `.cmd-types`, `.json-pre`, `confirm()` alertdialog — drafts only | `/life/commands` |
 | Keyboard-scrollable wide table | h01 | `TblWrap` (`role=region`, `tabIndex=0`) around `.life-tbl` | finance, body, commands, settings |
-| «بيانات ناقصة» cards (dashed, hatched when value is null) | x06 d14 | `MissingInputsCards` → `.missing-card.empty`: key + «غير معروف» + Rashed's note + confidence/related badges; value never filled | finance, habits, body, life overview |
+| «بيانات ناقصة» cards (dashed, hatched when value is null) | x06 d14 | `MissingInputsCards` → `.missing-card.empty`: key + «غير معروف» + the system's note + confidence/related badges; value never filled | finance, habits, body, life overview |
 | Omitted-ranges disclosure + events table under the balance chart | d14 h01 | `.omit-box` (`<details>`) + `.life-tbl` with date / event / treasury / monthly / daily / total, newest first | `/life/finance` |
 | Body highlighter (original SVG, front + back) | d12 d13 | `BodyMap` — hatched/tinted regions with counts, solid coral when selected, click or keyboard chip; no external images | `/sports`, exercise detail, template sessions |
 | Muscle / equipment / category filter chips | d14 | `.chip[aria-pressed]` pills with counts, same visual family as Segmented | `/sports` |
@@ -150,7 +150,7 @@ Every component seen in the 22 screenshots was listed, near-duplicates were merg
 | Appearance cards: theme segmented + accent swatches + motion switch | x02 (colour language) | `core/Appearance.tsx`; `--accent-text` keeps contrast in every accent x theme | `/settings` |
 | Drag handle for reorder (buttons remain) | x06 | `DragHandle` / `useDragReorder` in `ui/ui.tsx` | `/sports/mine` |
 | Glossary term (dotted underline + one-line popover) and glossary page | original, tokens only | `glossary/glossary.tsx`, `pages/Glossary.tsx` | `/life/*`, `/sports/*`, `/life/glossary` |
-| Safety badge / safety box / disclaimer note (v6) | d12 (callout) | `SafetyBadge`, `.safety-box`, `SafetyDisclaimer` in `sports/sportsKit.tsx`; only from Rashed's `beginner_safe`, never inferred | `/sports*` |
+| Safety badge / safety box / disclaimer note (v6) | d12 (callout) | `SafetyBadge`, `.safety-box`, `SafetyDisclaimer` in `sports/sportsKit.tsx`; only from the system's `beginner_safe`, never inferred | `/sports*` |
 | Weekly review: confidence-tag badges, 5x7 prayer grid, week strip | d06 d10 (heat matrix) d14 (dashed empty) | `review/kit.tsx`, `review/sections.tsx`, `.rv-*` in `life.css` | `/review` |
 | Offline page | d14 (honest empty panel) | `public/offline.html` — shown only when the local server is stopped | PWA shell |
 

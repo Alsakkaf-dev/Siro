@@ -64,7 +64,7 @@ export const PAGES: readonly PageDef[] = [
   { id: 'today', path: '/', label: 'اليوم', area: 'home', icon: 'sparkle', kbd: 'h', keywords: 'today home اليوم الرئيسية', surface: 'sidebar', chunk: 'Today' },
   { id: 'review', path: '/review', label: 'مراجعة الأسبوع', area: 'home', icon: 'list', kbd: 'r', keywords: 'weekly review المراجعة الأسبوعية', surface: 'sidebar', chunk: 'Review' },
   { id: 'calendar', path: '/calendar', label: 'الجدول', tabLabel: 'الجدول', area: 'home', icon: 'calendar', kbd: 'j', keywords: 'calendar schedule outlook week agenda جدول تقويم أسبوع مواعيد محاضرات صلاة', surface: 'sidebar', tabGroup: 'calendar', chunk: 'Calendar' },
-  { id: 'calendar-proposals', path: '/calendar/proposals', label: 'اقتراحات Outlook', tabLabel: 'الاقتراحات', area: 'home', parent: 'calendar', icon: 'mail', keywords: 'proposals outlook export rashed اقتراحات تصدير راشد تعديل تقويم', surface: 'tab', tabGroup: 'calendar', chunk: 'CalendarProposals' },
+  { id: 'calendar-proposals', path: '/calendar/proposals', label: 'اقتراحات Outlook', tabLabel: 'الاقتراحات', area: 'home', parent: 'calendar', icon: 'mail', keywords: 'proposals outlook export اقتراحات تصدير تعديل تقويم', surface: 'tab', tabGroup: 'calendar', chunk: 'CalendarProposals' },
   { id: 'calendar-meals', path: '/calendar/meals', label: 'وجبات الجدول', tabLabel: 'الوجبات', area: 'home', parent: 'calendar', icon: 'utensils', keywords: 'meals plan cycle shopping log وجبات دورة تسوق سجل تغذوي فطور غداء عشاء', surface: 'tab', tabGroup: 'calendar', chunk: 'CalendarMeals' },
   { id: 'week', path: '/week', label: 'هذا الأسبوع', area: 'home', icon: 'calendar', keywords: 'week agenda this week أسبوع مواعيد المهام القادمة', surface: 'sidebar', chunk: 'Week' },
   { id: 'everything', path: '/everything', label: 'كل شيء', area: 'home', icon: 'list', kbd: 'e', keywords: 'everything all tasks كل المهام كل شيء', surface: 'sidebar', chunk: 'Everything' },
@@ -97,7 +97,7 @@ export const PAGES: readonly PageDef[] = [
   { id: 'life-alternatives', path: '/life/alternatives', label: 'بدائل العادات', tabLabel: 'البدائل', area: 'life', parent: 'life-habits', icon: 'zap', keywords: 'alternatives اشتهاء بدائل', surface: 'tab', tabGroup: 'habits', chunk: 'LifeAlternatives' },
   { id: 'life-routine', path: '/life/routine', label: 'الروتين', tabLabel: 'اليوم', area: 'life', icon: 'timer', keywords: 'routine schedule روتين', surface: 'sidebar', tabGroup: 'routine', chunk: 'LifeRoutine' },
   { id: 'life-routine-map', path: '/life/routine-map', label: 'خريطة الروتين الأسبوعي', tabLabel: 'الأسبوع', area: 'life', parent: 'life-routine', icon: 'calendar', keywords: 'routine map كتل الأسبوع', surface: 'tab', tabGroup: 'routine', chunk: 'LifeRoutineMap' },
-  { id: 'life-commands', path: '/life/commands', label: 'طلبات التسجيل', area: 'life', icon: 'mail', keywords: 'commands drafts أوامر مسودات راشد تسجيل', surface: 'sidebar', chunk: 'LifeCommands' },
+  { id: 'life-log', path: '/life/log', label: 'تسجيل', area: 'life', icon: 'edit', keywords: 'تسجيل صلاة مصروف وزن عادة log', surface: 'sidebar', chunk: 'LifeLog' },
   // الجسم والرياضة
   { id: 'body', path: '/life/body', label: 'الجسم والوزن', area: 'body', icon: 'target', keywords: 'body weight وزن جسم', surface: 'sidebar', chunk: 'LifeBody' },
   { id: 'sports-mine', path: '/sports/mine', label: 'تمريني', area: 'body', icon: 'check', keywords: 'my workouts تماريني تمريني', surface: 'sidebar', tabGroup: 'sports', chunk: 'SportsMine' },
@@ -121,7 +121,7 @@ export const PAGES: readonly PageDef[] = [
   { id: 'spaces-automations', path: '/spaces/automations', label: 'الأتمتة', area: 'work', parent: 'spaces', icon: 'zap', keywords: 'automations rules قواعد أتمتة عندما ثم', surface: 'tab', tabGroup: 'spaces', chunk: 'Spaces' },
   { id: 'space', path: '/spaces/:id', label: 'مساحة', area: 'work', parent: 'spaces', icon: 'layers', surface: 'hidden', chunk: 'Space' },
   // النظام
-  { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup sources library life rashed folder نسخ احتياطي مظهر مصادر مجلد المكتبة راشد', surface: 'sidebar', chunk: 'Settings' },
+  { id: 'settings', path: '/settings', label: 'الإعدادات', area: 'system', icon: 'sliders', kbd: ',', keywords: 'settings backup sources library life folder نسخ احتياطي مظهر مصادر مجلد المكتبة', surface: 'sidebar', chunk: 'Settings' },
   { id: 'activity', path: '/activity', label: 'سجل النشاط', area: 'system', icon: 'clock', keywords: 'activity history log سجل تغييرات نشاط', surface: 'sidebar', chunk: 'Activity' },
   { id: 'trash', path: '/trash', label: 'سلة المحذوفات', area: 'system', icon: 'trash', keywords: 'trash restore undo سلة محذوفات استعادة تراجع', surface: 'sidebar', chunk: 'Trash' },
   { id: 'site-map', path: '/map', label: 'خريطة الموقع', area: 'system', icon: 'pin', keywords: 'map sitemap خريطة أين', surface: 'sidebar', chunk: 'SiteMap' },
@@ -136,6 +136,7 @@ export const REDIRECTS: readonly { from: string; to: string }[] = [
   { from: '/study', to: '/academic' },
   { from: '/settings/trash', to: '/trash' },
   { from: '/life/glossary', to: '/glossary' },
+  { from: '/life/commands', to: '/life/log' },
   { from: '/library/settings', to: '/settings?tab=sources' },
   { from: '/life/settings', to: '/settings?tab=sources' },
   { from: '/academic/s/:semId/weights', to: '/academic/s/:semId/timeline?view=weights' },
@@ -269,8 +270,8 @@ export const NEW_ACTIONS: readonly NewAction[] = [
   { id: 'assessment', label: 'تقييم', icon: 'list', to: (s) => (s ? `/academic/s/${s}/courses?new=assessment` : null) },
   { id: 'semester', label: 'فصل', icon: 'layers', to: () => '/academic?new=1' },
   { id: 'youtube', label: 'رابط YouTube', icon: 'play', to: () => '/library/youtube?new=1' },
-  { id: 'expense', label: 'تسجيل مصروف', icon: 'database', to: () => '/life/commands?type=log_expense' },
-  { id: 'prayer', label: 'تسجيل صلاة', icon: 'moon', to: () => '/life/commands?type=log_prayer' },
+  { id: 'expense', label: 'تسجيل مصروف', icon: 'database', to: () => '/life/log?type=log_expense' },
+  { id: 'prayer', label: 'تسجيل صلاة', icon: 'moon', to: () => '/life/log?type=log_prayer' },
   { id: 'workout', label: 'تمرين', icon: 'dumbbell', to: () => '/sports/mine?new=1' },
 ];
 

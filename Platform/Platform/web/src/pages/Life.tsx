@@ -3,7 +3,7 @@ import { PAGES } from '../core/registry.js';
 import { Badge, Card, CardHead, Unknown } from '../ui/ui.js';
 import { LegendRows } from '../widgets/charts.js';
 import { useNow } from '../widgets/tiles.js';
-import { Conf, FreshBadge, Kpi, LifePage, Money, Note, PageLinks, fmtAt, money, num1, useLife } from '../life/lifeKit.js';
+import { Conf, Kpi, LifePage, Money, Note, PageLinks, fmtAt, money, num1, useLife } from '../life/lifeKit.js';
 import { hm } from './LifeRoutine.js';
 import { coverage, countMissing, dailySpendRate, missingInputs, LIFE_FILE_LABEL, nowAndNext, PRAYER_AR, PRAYER_KEYS, weightProgress, type Body, type Finance, type Habits, type Prayers, type Routine, type Summary } from '../../../shared/life.js';
 import { Term } from '../glossary/glossary.js';
@@ -35,7 +35,7 @@ export default function Life() {
   ].filter((m) => m.all > 0);
   const missTotal = miss.reduce((s, m) => s + m.n, 0);
   return (
-    <LifePage title="الحياة" icon="heart" names={[...ALL]} data={d} sub="نظرة واحدة على المال والصلاة والعادات والروتين والجسم — قراءة فقط من صادرات راشد." crumbs={[{ label: 'الحياة' }]}>
+    <LifePage title="الحياة" icon="heart" names={[...ALL]} data={d} sub="نظرة واحدة على المال والصلاة والعادات والروتين والجسم." crumbs={[{ label: 'الحياة' }]}>
       <div className="kpis">
         <Kpi label="مجموع الأرصدة" value={<Money v={by('total')?.amount} c={by('total')?.confidence} />} sub={fin?.balances_block?.as_of ? `حتى ${fmtAt(fin.balances_block.as_of)}` : undefined} tone="var(--life)" icon="database" />
         <Kpi label="رصيد اليومية" value={<Money v={by('daily')?.amount} c={by('daily')?.confidence} />} sub={cover !== null ? <>يكفي ≈ {cover} يوم بمعدّل الصرف <Conf c="محسوب" /></> : 'لا يمكن حساب الكفاية'} icon="timer" />
@@ -91,7 +91,7 @@ export default function Life() {
       </div>
       {miss.length > 0 && (
         <Card>
-          <CardHead title="بيانات ناقصة" icon="help" info="حقول فارغة عند راشد بانتظار أن تقولها أنت. لا نملؤها ولا نخمّنها.">
+          <CardHead title="بيانات ناقصة" icon="help" info="حقول فارغة بانتظار أن تسجّلها أنت. لا نملؤها ولا نخمّنها.">
             <Badge tone={missTotal ? 'warn' : 'ok'}>{missTotal ? `${missTotal} غير مسجّل` : 'مسجّلة'}</Badge>
           </CardHead>
           <div className="fresh-rows">
@@ -104,19 +104,6 @@ export default function Life() {
           </div>
         </Card>
       )}
-      <Card>
-        <CardHead title="حداثة البيانات" icon="refresh">
-          <Link to="/settings?tab=sources">الإعدادات</Link>
-        </CardHead>
-        <div className="fresh-rows">
-          {d.status?.files.map((f) => (
-            <div key={f.name}>
-              <span>{LIFE_FILE_LABEL[f.name]}</span>
-              <FreshBadge f={f} />
-            </div>
-          ))}
-        </div>
-      </Card>
       <PageLinks items={PAGES.filter((p) => (p.area === 'life' && p.id !== 'life') || p.id === 'body').map((p) => ({ to: p.path, label: p.label, icon: p.icon }))} />
     </LifePage>
   );

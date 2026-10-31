@@ -32,7 +32,7 @@ export const FLAG_LABELS: Record<FlagName, string> = {
   'kitchen.3d': 'المطبخ ثلاثي الأبعاد',
   'kitchen.apis.extended': 'واجهات المطبخ الخارجية (UNVERIFIED — بمفاتيح من الخادم فقط)',
   'calendar.outlook.read': 'زر «زامن Outlook» (Graph — UNVERIFIED، يحتاج رمزًا على الخادم)',
-  'calendar.outlook.proposals': 'اقتراحات Outlook وتصديرها لراشد',
+  'calendar.outlook.proposals': 'اقتراحات Outlook وتصديرها',
 };
 
 export function setFlag(f: FlagName, v: boolean): void {

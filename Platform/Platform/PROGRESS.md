@@ -1,6 +1,6 @@
 
 ### Cycle 4 — CP2 (v6 sports safety) ✅
-- Types for Rashed v6 (beginner_safe / safety_note_ar / safer_alternative_id, safety_review, plans disclaimer/changelog, session safety pairs).
+- Types for the system v6 (beginner_safe / safety_note_ar / safer_alternative_id, safety_review, plans disclaimer/changelog, session safety pairs).
 - UI: «ليس للمبتدئ»/«للمبتدئ» badges, "مناسب للمبتدئ فقط" filter, disclaimer banner (injuries shown as «غير مسجلة», never "none"), detail safety block with clickable safer alternative, session safety notes, v2 changelog card, «تماريني» warning + one-click swap to the safer alternative.
 - Tests: real-data v6 consistency test (29 unsafe, ids resolve, pairs align); e2e_sports v6 step green at 1280/390. vitest 117, smoke 39.
 
@@ -18,9 +18,9 @@
 - README_AR + DESIGN_REFERENCES updated (safety, review, palette, bell, appearance, glossary, offline).
 - Pending from parent: v7/v8 files (ledger_full.json, ROUTINE_BLOCKS_AR.json, FINANCE_INSIGHTS_AR.json, PRAYER_QADA_PLAN_AR.json).
 
-### Chunk 2 — v8/v9 integration + Rashed cross-check fixes ✅ (checkpoint)
+### Chunk 2 — v8/v9 integration + the system cross-check fixes ✅ (checkpoint)
 - New read-only pages: `/life/ledger` (ledger_full.json: search/type/wallet/date filters, sort, total_rows, local-only note, redaction note), `/life/routine-map` (ROUTINE_BLOCKS_AR: 7-day lanes, overlaps outlined + list, points, conflicts, holidays), `/life/insights` (FINANCE_INSIGHTS_AR: ready value_text_ar / missing_text_ar only), `/life/qada-plan` (3 scenarios; choice stored only in site DB `life.qada_scenario` via GET/PUT /api/life/qada-choice). FIELD_LABELS_AR.json whitelisted + used for the 17 missing-data card titles.
-- Cross-check items: (1) exact kg (kgText, v9 goal_progress; baseline change 0.65 and remaining 20.65 shown separately); (2) daily-spend chart from full ledger + Rashed's own spend_adjustments (13 Oct 10.00) + «تقديرية» note; (3) safety UI re-verified; (4) habit counters list «نتيجته غير معروفة» + explanation; (5) freshness: generated_at without zone = KL, future = inconsistent, «الآن» only <2 min; (6) daily rate = Rashed's finance.daily_box_rate 20.05 / 0.98 day with explanation_ar verbatim; (7) prayers today row «غير معروف», done_today of another day shown as unknown; (8) plainText/plainDeep hide R-/D-R-/RC-, file & field names, no raw ids in UI, Arabic units, weight chart axis fitted (not from 0), «اليوم N في الجدول المقترح» wording, templates use latest weight; (9) all four v8 files + labels used.
+- Cross-check items: (1) exact kg (kgText, v9 goal_progress; baseline change 0.65 and remaining 20.65 shown separately); (2) daily-spend chart from full ledger + the system's own spend_adjustments (13 Oct 10.00) + «تقديرية» note; (3) safety UI re-verified; (4) habit counters list «نتيجته غير معروفة» + explanation; (5) freshness: generated_at without zone = KL, future = inconsistent, «الآن» only <2 min; (6) daily rate = the system's finance.daily_box_rate 20.05 / 0.98 day with explanation_ar verbatim; (7) prayers today row «غير معروف», done_today of another day shown as unknown; (8) plainText/plainDeep hide R-/D-R-/RC-, file & field names, no raw ids in UI, Arabic units, weight chart axis fitted (not from 0), «اليوم N في الجدول المقترح» wording, templates use latest weight; (9) all four v8 files + labels used.
 - Tests: tests/crosscheck.test.ts (+ endpoint tests in sports.test.ts), e2e_v8.mjs (1280/390).
 
 ## FINAL (safe stop ordered by Mohammed, 2026-10-26 23:0x UTC+8)
@@ -30,7 +30,7 @@
 
 ## FINAL VERIFICATION (after safe stop)
 - Lighthouse mobile: life 93, finance 93, ledger 94, routine-map 90–100 (a11y 96: tiny blocks target-size), insights 100, qada 93–95. Fix applied: lifeKit chunk 35→12.5 KB (fieldLabel moved to shared/labels.ts, indicatorView to shared/insights.ts so life pages no longer pull weekly/v8), boot prefetch for /life/finance content.
-- Missing-folder test (e2e_missing.mjs): Rashed folder absent + library folder absent/removed → 20 routes × 1280/390 ALL CLEAN; library rescan after folder removal stays clean.
+- Missing-folder test (e2e_missing.mjs): the system folder absent + library folder absent/removed → 20 routes × 1280/390 ALL CLEAN; library rescan after folder removal stays clean.
 - Cycle 5 deep review NOT done.
 - Fix: glossary term click no longer closes the popover that hover just opened (flaky e2e + real UX bug).
 
@@ -49,5 +49,5 @@
 
 
 ## الخطة الموحدة — المرحلة 4 (2026-10-30) ✅
-- الجدول `/calendar` (قراءة فقط، CAL-18)، وجبات الجدول `/calendar/meals` (قانون حيّ، ملاءمة، دورة، تسوّق، سجل)، اقتراحات Outlook `/calendar/proposals` (تصدير لراشد، لا كتابة)، بوابة إثراء اختيارية (UNVERIFIED)، بطاقة «وجبات اليوم» في «اليوم». ترحيلات `id: 7/8/9` (calendar_* وapi_* فقط).
+- الجدول `/calendar` (قراءة فقط، CAL-18)، وجبات الجدول `/calendar/meals` (قانون حيّ، ملاءمة، دورة، تسوّق، سجل)، اقتراحات Outlook `/calendar/proposals` (تصدير ، لا كتابة)، بوابة إثراء اختيارية (UNVERIFIED)، بطاقة «وجبات اليوم» في «اليوم». ترحيلات `id: 7/8/9` (calendar_* وapi_* فقط).
 - اختبارات: vitest 419 (+90 عن الأساس 329)، `browser-smoke --strict` 58 مسارًا × 2 عرض + 39 سيناريو بلا أخطاء، axe حاسمة 0. التفاصيل والأدلة: `docs/PHASE4_CLOSURE_AR.md` و`docs/kitchen/TRACEABILITY.md`.

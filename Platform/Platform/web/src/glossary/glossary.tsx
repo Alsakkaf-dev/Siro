@@ -12,7 +12,7 @@ let cache: GlossaryState | null = null;
 let inflight: Promise<GlossaryState> | null = null;
 const subs = new Set<(g: GlossaryState) => void>();
 
-/** يحمّل القاموس مرة واحدة لكل جلسة (قراءة فقط من ملف راشد). عند الفشل يبقى فارغًا والمصطلحات تظهر كنص عادي. */
+/** يحمّل القاموس مرة واحدة لكل جلسة (قراءة فقط من ملف النظام). عند الفشل يبقى فارغًا والمصطلحات تظهر كنص عادي. */
 export function loadGlossary(force = false): Promise<GlossaryState> {
   if (cache && !force) return Promise.resolve(cache);
   if (inflight && !force) return inflight;

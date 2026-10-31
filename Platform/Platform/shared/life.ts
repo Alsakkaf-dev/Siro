@@ -1,6 +1,5 @@
-/** منصة الحياة — أنواع صادرات راشد (قراءة فقط) ودوال مشتركة بين الخادم والواجهة. لا تعتمد على zod كي لا تُحمَّل في الواجهة. */
+/** منصة الحياة — أنواع السجل (قراءة فقط) ودوال مشتركة بين الخادم والواجهة. لا تعتمد على zod كي لا تُحمَّل في الواجهة. */
 
-export const DEFAULT_LIFE_ROOT = 'C:\\Users\\GIGIABYTE\\Desktop\\Storage\\The_Boots\\Platform\\exchange\\rashed';
 export const LIFE_DATA_FILES = ['dashboard_summary', 'finance', 'prayers', 'habits', 'body', 'routine'] as const;
 export type LifeFile = (typeof LIFE_DATA_FILES)[number];
 export const LIFE_FILE_LABEL: Record<LifeFile, string> = {
@@ -11,17 +10,12 @@ export const LIFE_FILE_LABEL: Record<LifeFile, string> = {
   body: 'الجسم',
   routine: 'الروتين',
 };
-/** حدود القِدم الافتراضية من docs/REFRESH_PROTOCOL_AR.md (افتراض من راشد) — تُستعمل فقط إن غابت stale_after_hours عن exports_meta. */
-export const PROTOCOL_STALE_HOURS: Record<LifeFile, number> = { dashboard_summary: 24, finance: 24, prayers: 12, habits: 24, body: 168, routine: 168 };
-export const LIFE_DOCS = ['DATA_DICTIONARY_AR.md', 'PROPOSALS.md', 'FINANCE_SPEC_AR.md', 'HABITS_SPEC_AR.md', 'SPORTS_CONTENT_AR.md', 'REFRESH_PROTOCOL_AR.md', 'SITE_IDEAS_AR.md'] as const;
 /** ملفات المحتوى (JSON) داخل docs: مكتبة التمارين وقوالب الخطة وبدائل العادات. */
 export const LIFE_CONTENT = ['SPORTS_EXERCISES.json', 'SPORTS_PLANS_AR.json', 'HABITS_ALTERNATIVES_AR.json', 'GLOSSARY_AR.json', 'FINANCE_INSIGHTS_AR.json', 'PRAYER_QADA_PLAN_AR.json', 'ROUTINE_BLOCKS_AR.json', 'ledger_full.json', 'FIELD_LABELS_AR.json'] as const;
-/** ملفات المحتوى التي تقع في جذر مجلد راشد (لا داخل docs). */
-export const LIFE_CONTENT_AT_ROOT: readonly string[] = ['ledger_full.json'];
 export const LIFE_QADA_CHOICE_RE = /^[a-z0-9_]{1,20}$/;
 export type LifeContentName = (typeof LIFE_CONTENT)[number];
 export interface ContentStatus { state: Freshness; generated_at: string | null; age_hours: number | null; stale_after_hours: number | null; error: string | null }
-export const COMMAND_TYPES = ['log_expense', 'log_prayer', 'start_habit', 'habit_relapse', 'refresh_exports'] as const;
+export const COMMAND_TYPES = ['log_expense', 'log_prayer', 'log_weight', 'log_habit', 'start_habit', 'habit_relapse'] as const;
 export type CommandType = (typeof COMMAND_TYPES)[number];
 
 /* ───── القِدم ───── */
@@ -74,22 +68,13 @@ export interface LifeFileStatus {
   generated_at: string | null;
   age_hours: number | null;
   stale_after_hours: number | null;
-  threshold_source: 'meta' | 'protocol-default';
-  bytes_meta: number | null;
-  bytes_actual: number | null;
   mtime: string | null;
   error: string | null;
 }
 export interface LifeStatus {
-  root: string;
-  default_root: string;
-  root_exists: boolean;
-  meta: { version: number | null; generated_at: string | null; writer: string | null; read_only: boolean | null; timezone: string | null } | null;
-  meta_error: string | null;
   files: LifeFileStatus[];
   worst: Freshness;
   now: string;
-  commands_dir: boolean;
 }
 
 /* ───── أنواع الملفات (كل الحقول اختيارية: «لا نخمّن») ───── */
@@ -324,7 +309,7 @@ export function parseBalanceHistory(f: Finance | null | undefined): BalanceHisto
   return { points, skipped, field, title, method, omitted };
 }
 
-/** كغ كما سجّله راشد (حتى منزلتين): 83.65 تبقى 83.65 ولا تصير 83.7. */
+/** كغ كما سجّله النظام (حتى منزلتين): 83.65 تبقى 83.65 ولا تصير 83.7. */
 export const kgText = (n: number | null | undefined): string => (typeof n === 'number' && Number.isFinite(n) ? new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(Math.round(n * 100) / 100) : '—');
 export function weightProgress(b: Body | null | undefined): { baseline: number; latest: number; goal: number; lost: number; remaining: number; pct: number } | null {
   if (!b) return null;
@@ -334,7 +319,7 @@ export function weightProgress(b: Body | null | undefined): { baseline: number; 
   const goal = num(gp?.goal_kg) ? gp!.goal_kg! : b.goal_kg ?? b.items?.find((i) => i.key === 'goal_weight')?.value;
   const latest = num(b.latest_weight_kg) ? b.latest_weight_kg : num(gp?.latest_weight_kg) ? gp!.latest_weight_kg! : b.latest_recorded_weight?.value_kg;
   if (typeof baseline !== 'number' || typeof goal !== 'number' || typeof latest !== 'number' || baseline <= goal) return null;
-  /* v9: القيم الجاهزة من راشد تُفضَّل؛ «النزول عن خط الأساس» و«المتبقي للهدف» رقمان مختلفان ولا يُخلطان */
+  /* v9: القيم الجاهزة  تُفضَّل؛ «النزول عن خط الأساس» و«المتبقي للهدف» رقمان مختلفان ولا يُخلطان */
   const lost = num(gp?.change_since_baseline_kg) ? Math.round(-gp!.change_since_baseline_kg! * 100) / 100 : Math.round((baseline - latest) * 100) / 100;
   const remaining = num(gp?.remaining_to_goal_kg) ? gp!.remaining_to_goal_kg! : Math.round((latest - goal) * 100) / 100;
   return { baseline, latest, goal, lost, remaining, pct: Math.max(0, Math.min(100, (lost / (baseline - goal)) * 100)) };
@@ -375,7 +360,7 @@ export interface LifeCommand { id: string; created_at: string; type: CommandType
 export const EXPENSE_BOXES = ['treasury', 'monthly', 'daily', 'unknown'] as const;
 export const PAY_SOURCES = ['rhb', 'tng', 'cash', 'unknown'] as const;
 export const HABIT_KEYS = ['vape', 'tea_sugar', 'water', 'sleep', 'food', 'workout'] as const;
-export const COMMAND_LABEL: Record<CommandType, string> = { log_expense: 'تسجيل مصروف', log_prayer: 'تسجيل صلاة', start_habit: 'بدء عادة', habit_relapse: 'تسجيل انتكاسة', refresh_exports: 'طلب تحديث الصادرات' };
+export const COMMAND_LABEL: Record<CommandType, string> = { log_expense: 'تسجيل مصروف', log_prayer: 'تسجيل صلاة', log_weight: 'تسجيل وزن', log_habit: 'تسجيل عادة', start_habit: 'بدء عادة', habit_relapse: 'تسجيل انتكاسة' };
 /** يتحقق من payload حسب النوع؛ يُرجع {field: رسالة}. */
 export function validatePayload(type: CommandType, p: Record<string, unknown>): Record<string, string> {
   const e: Record<string, string> = {};
@@ -405,8 +390,14 @@ export function validatePayload(type: CommandType, p: Record<string, unknown>): 
       if (!oneOf(p['habit'], HABIT_KEYS)) e['habit'] = 'اختر العادة';
       if (!isDate(p['date'])) e['date'] = 'تاريخ بصيغة YYYY-MM-DD';
       break;
-    case 'refresh_exports':
-      if (!Array.isArray(p['files']) || p['files'].some((x) => typeof x !== 'string')) e['files'] = 'قائمة أسماء ملفات (أو فارغة للكل)';
+    case 'log_weight':
+      if (!isDate(p['date'])) e['date'] = 'تاريخ بصيغة YYYY-MM-DD';
+      if (typeof p['weight_kg'] !== 'number' || !(p['weight_kg'] >= 30) || p['weight_kg'] > 300) e['weight_kg'] = 'وزن بين 30 و300 كغ';
+      break;
+    case 'log_habit':
+      if (!oneOf(p['habit'], HABIT_KEYS)) e['habit'] = 'اختر العادة';
+      if (!isDate(p['date'])) e['date'] = 'تاريخ بصيغة YYYY-MM-DD';
+      if (!(typeof p['value'] === 'boolean' || (typeof p['value'] === 'number' && p['value'] >= 0 && p['value'] <= 100000))) e['value'] = 'قيمة رقمية أو نعم/لا';
       break;
   }
   if (p['note_ar'] !== undefined && (typeof p['note_ar'] !== 'string' || p['note_ar'].length > 500)) e['note_ar'] = 'ملاحظة حتى 500 حرف';

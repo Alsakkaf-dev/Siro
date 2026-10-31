@@ -11,8 +11,7 @@ import { tmpDir } from './helpers.js';
 let srv: Running;
 let base: string;
 let dir: string;
-const rashed = path.join(__dirname, '..', '..', 'exchange', 'rashed');
-const have = fs.existsSync(path.join(rashed, 'docs', 'ROUTINE_BLOCKS_AR.json'));
+const have = fs.existsSync(path.join(__dirname, '..', 'seed', 'content', 'ROUTINE_BLOCKS_AR.json'));
 const H = { 'X-Kitchen-Client': 'cal-test' };
 async function call(method: string, url: string, body?: unknown, headers: Record<string, string> = H, b = base): Promise<{ status: number; json: any }> {
   const res = await fetch(b + url, { method, headers: { ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}), ...headers }, body: body !== undefined ? JSON.stringify(body) : undefined });
@@ -29,13 +28,11 @@ async function call(method: string, url: string, body?: unknown, headers: Record
 beforeAll(async () => {
   dir = tmpDir();
   process.env['PLATFORM_NO_AUTOSCAN'] = '1';
-  process.env['PLATFORM_LIFE_ROOT'] = have ? rashed : path.join(dir, 'no-rashed');
   srv = await startServer({ port: 0, dataDir: path.join(dir, 'data'), backupsDir: path.join(dir, 'backups') });
   base = `http://127.0.0.1:${srv.cfg.port}`;
 });
 afterAll(async () => {
   await srv.close();
-  delete process.env['PLATFORM_LIFE_ROOT'];
   fs.rmSync(dir, { recursive: true, force: true });
 });
 

@@ -1,10 +1,10 @@
-/** منصة الرياضة — أنواع محتوى راشد (docs/SPORTS_*.json) ودوال مشتركة. المحتوى كله «افتراض» من راشد؛ لا نضيف عليه تعليمات أداء من عندنا. */
+/** منصة الرياضة — أنواع محتوى النظام (docs/SPORTS_*.json) ودوال مشتركة. المحتوى كله «افتراض» ؛ لا نضيف عليه تعليمات أداء من عندنا. */
 
 export interface Exercise {
   id: string; number?: number; english_name: string; arabic_name: string; main_muscle_ar: string; category_ar?: string; equipment?: string; equipment_keys?: string[];
   /** v5: تفاصيل تعليمية من المعرفة العامة (ليست نصيحة طبية). أي حقل قد يكون null/غائبًا ولا نملؤه. */
   secondary_muscles_ar?: string[] | null; level?: string | null; instructions_ar?: string[] | null; details_confidence?: string | null;
-  /** v6: مراجعة أمان للمبتدئ كتبها راشد (معرفة عامة). beginner_safe: false = ليس للمبتدئ؛ null/غائب = غير مراجَع (لا نفترض). */
+  /** v6: مراجعة أمان للمبتدئ كتبها النظام (معرفة عامة). beginner_safe: false = ليس للمبتدئ؛ null/غائب = غير مراجَع (لا نفترض). */
   beginner_safe?: boolean | null; safety_note_ar?: string | null; safer_alternative_id?: string | null;
 }
 /** v6: ملاحظة الأمان على مستوى الملف. recorded_injuries_ar = «لا توجد إصابات مسجلة» تعني غير مسجلة وليس لا توجد. */
@@ -67,7 +67,7 @@ export function checkContent(name: string, d: unknown): string | null {
   return null;
 }
 
-/* ───── مناطق الجسم (تصنيف الموقع لعضلات راشد؛ تقريبي ويُعلَن) ───── */
+/* ───── مناطق الجسم (تصنيف الموقع لعضلات النظام؛ تقريبي ويُعلَن) ───── */
 export interface Region { id: string; ar: string; en: string; views: ('front' | 'back')[] }
 export const REGIONS: Region[] = [
   { id: 'chest', ar: 'الصدر', en: 'Chest', views: ['front'] },
@@ -94,7 +94,7 @@ export const PSEUDO = [
 ] as const;
 export const REGION_AR: Record<string, string> = Object.fromEntries([...REGIONS.map((r) => [r.id, r.ar]), ...PSEUDO.map((r) => [r.id, r.ar])]);
 
-/** يحوّل نص العضلة الرئيسية عند راشد (main_muscle_ar) إلى مناطق. تصنيف الموقع لا راشد؛ الأمثل أن يطابق الاسم الحرفي. */
+/** يحوّل نص العضلة الرئيسية عندك (main_muscle_ar) إلى مناطق. تصنيف الموقع لا النظام؛ الأمثل أن يطابق الاسم الحرفي. */
 export function regionsOf(muscleAr: string): string[] {
   const t = muscleAr;
   const has = (s: string): boolean => t.includes(s);
@@ -158,7 +158,7 @@ export function weekdayKL(nowMs: number): Weekday {
   return (WEEKDAYS as readonly string[]).includes(d) ? (d as Weekday) : 'sat';
 }
 
-/* ───── تمريني المحلي (قاعدة الموقع، لا ملفات راشد) ───── */
+/* ───── تمريني المحلي (قاعدة الموقع، لا السجل) ───── */
 export interface MyItem { id: string; workout_id: string; exercise_id: string; en_name: string; ar_name: string; sets: number | null; reps_min: number | null; reps_max: number | null; duration_s: number | null; per_side: boolean; note: string | null; sort: number }
 export interface MyWorkout { id: string; name: string; note: string | null; sort: number; created_at: string; updated_at: string; items: MyItem[] }
 export interface MyWeek { workouts: MyWorkout[]; week: Record<string, string | null>; template: string | null; location: string | null }

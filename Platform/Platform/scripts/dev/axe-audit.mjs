@@ -14,9 +14,8 @@ if (!AXE || !existsSync(AXE)) { console.log('axe-audit: تخطّي — عيّن 
 const pw = createRequire(import.meta.url)('playwright');
 const tmp = mkdtempSync(join(tmpdir(), 'platform-axe-'));
 const { buildLibraryFixture } = await import(pathToFileURL(join(root, 'scripts', 'lib-fixture.mjs')).href);
-const { buildLifeFixture } = await import(pathToFileURL(join(root, 'scripts', 'life-fixture.mjs')).href);
 const port = 4700 + Math.floor(Math.random() * 90);
-const env = { ...process.env, PLATFORM_PORT: String(port), PLATFORM_DATA_DIR: join(tmp, 'data'), PLATFORM_BACKUPS_DIR: join(tmp, 'b'), PLATFORM_LIBRARY_ROOT: await buildLibraryFixture(join(tmp, 'lib')), PLATFORM_LIFE_ROOT: buildLifeFixture(join(tmp, 'rashed'), { balanceHistory: 'v4' }), PLATFORM_NO_AUTOSCAN: '1' };
+const env = { ...process.env, PLATFORM_PORT: String(port), PLATFORM_DATA_DIR: join(tmp, 'data'), PLATFORM_BACKUPS_DIR: join(tmp, 'b'), PLATFORM_LIBRARY_ROOT: await buildLibraryFixture(join(tmp, 'lib')), PLATFORM_NO_AUTOSCAN: '1' };
 const child = spawn(process.execPath, ['server'], { cwd: root, env, stdio: 'ignore' });
 const base = `http://127.0.0.1:${port}`;
 for (let i = 0; i < 80; i++) { try { if ((await fetch(base + '/api/health')).ok) break; } catch { /* بدء */ } await new Promise((r) => setTimeout(r, 250)); }

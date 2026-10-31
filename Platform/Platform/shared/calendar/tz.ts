@@ -82,7 +82,7 @@ export const addDays = (date: string, n: number): string => new Date(Date.parse(
 export const daysBetween = (a: string, b: string): number => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000);
 /** 0 = الأحد */
 export const dowOf = (date: string): number => new Date(`${date}T00:00:00Z`).getUTCDay();
-/** بداية الأسبوع الأحد (افتراض موثّق AS-41: كما في خريطة الروتين عند راشد) */
+/** بداية الأسبوع الأحد (افتراض موثّق AS-41: كما في خريطة الروتين عندك) */
 export const weekStartOf = (date: string, startDow = 0): string => addDays(date, -((dowOf(date) - startDow + 7) % 7));
 export const isDate = (s: string): boolean => /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`));
 export const hm = (min: number): string => `${pad(Math.floor(min / 60) % 24)}:${pad(min % 60)}`;

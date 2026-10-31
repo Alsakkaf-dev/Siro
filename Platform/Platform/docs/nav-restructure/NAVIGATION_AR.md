@@ -26,7 +26,7 @@
 `core/useUrlParam.ts`: `useUrlParam(key, default, allowed?)` و`useUrlSet(key)` — `replace` لا يملأ التاريخ، ولا كتابة بلا تغيّر، والافتراضي لا يُكتب. المعتمد: التقييمات `?view=list|weeks|gantt|weights` (+`mode` `kind` `status` `group` `day` `course` `open`)، المادة `?tab=overview|materials|calc|notes`، الحاسبة `?course=`، الإعدادات `?tab=general|data|sources`، المكتبة `?group=`، الرياضة `?q&muscle&level`، السجل المالي، المراجعة `?week=last`، المتجر `?q&cat&sort&only&recipe&diet&pmax`، القاموس `?q&meal&ing&kmin&kmax&cmax&can&status&sort&view`، الأسعار `?tab=matrix|audit|tools|requests`، الجدول `?view=week|day|month|list&date=&hide=&source=`، الوجبات `?tab=day|cycle|shop|log&date=`، الاقتراحات `?status=`. فلاتر المواد الثقيلة تبقى محلية. الإنشاء السريع = انتقال مع `?new=…` يستهلكه `useNewParam` ثم يحذفه.
 
 ## سياق الفصل والوارد
-`SemChip` في الدراسة فقط؛ تبديل الفصل يحفظ الصفحة الفرعية (`sameSubpage`)، و«تعيين كنشط» منفصل. `core/inbox.tsx` وارد واحد (التنبيهات والعاجل وغير المعروف للفصل النشط) يستهلكه الجرس وبطاقة «يحتاج انتباهك» في اليوم. «اليوم» كل بطاقة فيه مستقلة وتختفي إن غاب مصدرها (مثلًا مجلد راشد).
+`SemChip` في الدراسة فقط؛ تبديل الفصل يحفظ الصفحة الفرعية (`sameSubpage`)، و«تعيين كنشط» منفصل. `core/inbox.tsx` وارد واحد (التنبيهات والعاجل وغير المعروف للفصل النشط) يستهلكه الجرس وبطاقة «يحتاج انتباهك» في اليوم. «اليوم» كل بطاقة فيه مستقلة وتختفي إن غاب مصدرها (مثلًا مجلد النظام).
 
 ## الأعلام (`core/flags.ts`)
 `kitchen.enabled` و`kitchen.3d` و`calendar.outlook.proposals` (مفعّلة)، و`kitchen.apis.extended` (بطاقة الإثراء) و`calendar.outlook.read` (زر «زامن Outlook») مغلقتان افتراضيًا لأنهما تحتاجان مفاتيح خادم وغير مُتحقَّق منهما (UNVERIFIED). تُعدَّل من الإعدادات ← «ميزات تجريبية»، وصفحة بعلم مغلق تختفي من التنقل (الرابط المباشر يعمل).
@@ -34,4 +34,4 @@
 ## التحقق
 التبويبات المشتقة من السجل (`tabGroup: calendar`): الجدول · الوجبات · الاقتراحات. دليل الاستخدام الكامل: `docs/USER_GUIDE_AR.md`.
 
-`npm run smoke` (39 مسارًا API) · `node scripts/browser-smoke.mjs --strict [--shots <dir>]`: 48 مسارًا × (1280، 390) — عنصر نشط واحد، فتات، عنوان، لا تمرير أفقي، لا أرقام هندية، لا أخطاء وحدة التحكم، + سيناريوهات تفاعلية (اختصارات عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، 404، اليوم بلا راشد، المطبخ J1/J2/J3/J8).
+`npm run smoke` (39 مسارًا API) · `node scripts/browser-smoke.mjs --strict [--shots <dir>]`: 48 مسارًا × (1280، 390) — عنصر نشط واحد، فتات، عنوان، لا تمرير أفقي، لا أرقام هندية، لا أخطاء وحدة التحكم، + سيناريوهات تفاعلية (اختصارات عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، 404، اليوم بلا النظام، المطبخ J1/J2/J3/J8).

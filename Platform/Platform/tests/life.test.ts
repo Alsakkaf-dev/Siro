@@ -1,15 +1,12 @@
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { startServer, type Running } from '../server/index.js';
 import { tmpDir } from './helpers.js';
 import {
-  ageText, blocksForDay, checkShape, classifyFreshness, commandId, coverage, dailySpendRate, nowAndNext, parseBalanceHistory, spendingByCategory, spendingByDay, validatePayload, missingInputs, countMissing, weightProgress, worstOf,
+  ageText, blocksForDay, checkShape, classifyFreshness, coverage, dailySpendRate, nowAndNext, parseBalanceHistory, spendingByCategory, spendingByDay, validatePayload, missingInputs, countMissing, weightProgress, worstOf,
   type Finance, type Tx,
 } from '../shared/life.js';
-// @ts-expect-error JS helper
-import { buildLifeFixture } from '../scripts/life-fixture.mjs';
 
 const H = 3_600_000;
 describe('freshness rules (REFRESH_PROTOCOL §2)', () => {
@@ -90,7 +87,7 @@ describe('balance_history parsing (approved field; tolerant shapes, never invent
   });
 });
 
-describe('balance_history v4 (Rashed real shape) + missing inputs', () => {
+describe('balance_history v4 (real shape) + missing inputs', () => {
   const fin = {
     balance_history_title_ar: 'تطور', balance_history_method: 'طريقة',
     balance_history: [
@@ -139,13 +136,14 @@ describe('body, routine and commands helpers', () => {
     expect(nowAndNext(r, Date.parse('2026-10-26T00:30:00+00:00')).day).toBe('mon'); // 08:30 KL
   });
   it('command ids and payload validation', () => {
-    expect(commandId(new Date('2026-10-26T10:05:00Z'), 1)).toBe('CMD-20261026-180500-001');
     expect(validatePayload('log_expense', { date: '2026-10-26', amount: 9.29, currency: 'RM', box: 'daily', category_ar: 'طعام', label_ar: 'غداء', payment_source: 'tng' })).toEqual({});
     expect(Object.keys(validatePayload('log_expense', { date: 'x', amount: -1, currency: 'USD', box: 'q' }))).toEqual(expect.arrayContaining(['date', 'amount', 'currency', 'box', 'label_ar', 'category_ar', 'payment_source']));
     expect(validatePayload('log_prayer', { date: '2026-10-26', prayer: 'fajr', status: 'late', kind: 'qada' })).toEqual({});
     expect(validatePayload('log_prayer', { date: '2026-10-26', prayer: 'zuhr', status: 'late', kind: 'x' })).toHaveProperty('prayer');
-    expect(validatePayload('refresh_exports', { files: [] })).toEqual({});
-    expect(validatePayload('refresh_exports', { files: [1] })).toHaveProperty('files');
+    expect(validatePayload('log_weight', { date: '2026-10-26', weight_kg: 83.2 })).toEqual({});
+    expect(validatePayload('log_weight', { date: '2026-10-26', weight_kg: 5 })).toHaveProperty('weight_kg');
+    expect(validatePayload('log_habit', { habit: 'water', date: '2026-10-26', value: 2.5 })).toEqual({});
+    expect(validatePayload('log_habit', { habit: 'water', date: '2026-10-26', value: 'x' })).toHaveProperty('value');
     expect(validatePayload('start_habit', { habit: 'vape', start_date: '2026-10-26', note_ar: 'x'.repeat(501) })).toHaveProperty('note_ar');
   });
   it('shape check catches wrong container types but accepts new fields', () => {
@@ -157,7 +155,7 @@ describe('body, routine and commands helpers', () => {
   });
 });
 
-/* ───── API ───── */
+/* ───── API (التخزين الأصيل) ───── */
 let srv: Running;
 let base: string;
 let dir: string;
@@ -172,218 +170,112 @@ async function call(method: string, url: string, body?: unknown): Promise<{ stat
   }
   return { status: res.status, json: j };
 }
-function snapshot(root: string): Record<string, string> {
-  const out: Record<string, string> = {};
-  const walk = (d: string): void => {
-    for (const n of fs.readdirSync(d, { withFileTypes: true })) {
-      const p = path.join(d, n.name);
-      if (n.isDirectory()) walk(p);
-      else out[path.relative(root, p)] = crypto.createHash('sha1').update(fs.readFileSync(p)).digest('hex') + ':' + fs.statSync(p).mtimeMs;
-    }
-  };
-  walk(root);
-  return out;
-}
-
 beforeAll(async () => {
   dir = tmpDir();
   process.env['PLATFORM_NO_AUTOSCAN'] = '1';
-  process.env['PLATFORM_LIFE_ROOT'] = path.join(dir, 'missing');
   srv = await startServer({ port: 0, dataDir: path.join(dir, 'data'), backupsDir: path.join(dir, 'backups') });
   base = `http://127.0.0.1:${srv.cfg.port}`;
 });
 afterAll(async () => {
   await srv.close();
-  delete process.env['PLATFORM_LIFE_ROOT'];
   fs.rmSync(dir, { recursive: true, force: true });
 });
 
-describe(`life API (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
-  it('missing folder → unavailable, clear message, no crash', async () => {
-    const s = await call('GET', '/api/life/status');
-    expect(s.status).toBe(200);
-    expect(s.json.root_exists).toBe(false);
-    expect(s.json.worst).toBe('unavailable');
-    expect(s.json.default_root).toContain('The_Boots');
-    expect(s.json.default_root).toContain('exchange\\rashed');
-    const d = await call('GET', '/api/life/data/finance');
-    expect(d.json.data).toBeFalsy();
-    expect(d.json.status.state).toBe('unavailable');
-  });
-  it('validates settings', async () => {
-    expect((await call('PUT', '/api/life/settings', { root: 'rel' })).status).toBe(400);
-    expect((await call('PUT', '/api/life/settings', { root: path.join(dir, 'nope2') })).json.fields.root).toMatch(/غير موجود/);
-  });
-
-  let root: string;
-  let before: Record<string, string>;
-  it('fresh fixture → all fresh, meta read', async () => {
-    root = path.join(dir, 'rashed');
-    buildLifeFixture(root, { balanceHistory: 'v4' });
-    before = snapshot(root);
-    const put = await call('PUT', '/api/life/settings', { root });
-    expect(put.status).toBe(200);
-    expect(put.json.meta).toMatchObject({ version: 4, writer: 'FIXTURE (synthetic)', read_only: true });
-    expect(put.json.worst).toBe('fresh');
-    expect(put.json.files.map((f: any) => f.name).sort()).toEqual(['body', 'dashboard_summary', 'finance', 'habits', 'prayers', 'routine']);
-    expect(put.json.files.every((f: any) => f.bytes_meta === f.bytes_actual && f.threshold_source === 'meta')).toBe(true);
-    expect(put.json.commands_dir).toBe(true);
-  });
-  it('serves each file and a bundle', async () => {
-    for (const n of ['finance', 'prayers', 'habits', 'routine', 'body', 'dashboard_summary']) {
-      const r = await call('GET', `/api/life/data/${n}`);
-      expect(r.status).toBe(200);
-      expect(r.json.data).toBeTruthy();
-      expect(r.json.status.state).toBe('fresh');
-    }
-    const b = await call('GET', '/api/life/bundle?files=finance,body,../../etc/passwd');
-    expect(Object.keys(b.json.files).sort()).toEqual(['body', 'finance']);
-    expect((await call('GET', '/api/life/data/..%2Fexports_meta')).status).toBe(404);
-    expect((await call('GET', '/api/life/data/exports_meta')).status).toBe(404);
-  });
-  it('content endpoint: whitelisted JSON docs with freshness; others 404', async () => {
-    const e = await call('GET', '/api/life/content/SPORTS_EXERCISES.json');
-    expect(e.status).toBe(200);
-    expect(e.json.data.exercises).toHaveLength(6);
-    expect(e.json.status).toMatchObject({ state: 'fresh', stale_after_hours: 720, error: null });
-    expect((await call('GET', '/api/life/content/SPORTS_PLANS_AR.json')).json.data.templates).toHaveLength(2);
-    expect((await call('GET', '/api/life/content/HABITS_ALTERNATIVES_AR.json')).json.data.habits).toHaveLength(2);
-    expect((await call('GET', '/api/life/content/GLOSSARY_AR.json')).json.data.entries.length).toBe(8);
-    expect((await call('GET', '/api/life/content/finance.json')).status).toBe(404);
-    expect((await call('GET', '/api/life/content/..%2Ffinance.json')).status).toBe(404);
-  });
-  it('docs whitelist only', async () => {
-    expect((await call('GET', '/api/life/docs/SPORTS_CONTENT_AR.md')).json.text).toContain('وهمي');
-    expect((await call('GET', '/api/life/docs/..%2Ffinance.json')).status).toBe(404);
-    expect((await call('GET', '/api/life/docs/README.md')).status).toBe(404);
-    expect((await call('GET', '/api/life/docs/SITE_IDEAS_AR.md')).status).toBe(404); // غير موجود في الفيكستشر
-  });
-  it('reading never changes the exports (sha1 + mtime identical)', async () => {
-    await call('GET', '/api/life/status');
-    await call('GET', '/api/life/bundle');
-    await call('GET', '/api/life/commands');
-    expect(snapshot(root)).toEqual(before);
-  });
-
-  it('stale and expired states follow generated_at and stale_after_hours', async () => {
-    const old = (h: number) => new Date(Date.now() - h * H).toISOString();
-    const r2 = path.join(dir, 'rashed_old');
-    buildLifeFixture(r2, { fileGeneratedAt: { finance: old(30), prayers: old(40), habits: old(1) } });
-    await call('PUT', '/api/life/settings', { root: r2 });
+describe(`life native store (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () => {
+  it('seeds once: all data files are available and consistent', async () => {
     const s = (await call('GET', '/api/life/status')).json;
-    const st = Object.fromEntries(s.files.map((f: any) => [f.name, f.state]));
-    expect(st).toMatchObject({ finance: 'stale', prayers: 'expired', habits: 'fresh' });
-    expect(s.worst).toBe('expired');
-  });
-  it('size mismatch → inconsistent; invalid JSON / changed format → unavailable with reason', async () => {
-    const r3 = path.join(dir, 'rashed_bad');
-    buildLifeFixture(r3, { badBytes: 'body' });
-    fs.writeFileSync(path.join(r3, 'routine.json'), '{ not json');
-    const fin = JSON.parse(fs.readFileSync(path.join(r3, 'finance.json'), 'utf8'));
-    fin.recent_transactions = 'oops';
-    fs.writeFileSync(path.join(r3, 'finance.json'), JSON.stringify(fin));
-    await call('PUT', '/api/life/settings', { root: r3 });
-    const s = (await call('GET', '/api/life/status')).json;
-    const by = Object.fromEntries(s.files.map((f: any) => [f.name, f]));
-    expect(by.body.state).toBe('inconsistent');
-    expect(by.routine.state).toBe('unavailable');
-    expect(by.routine.error).toMatch(/JSON/);
-    expect(by.finance.state).toBe('unavailable');
-    expect(by.finance.error).toMatch(/تغيّر تنسيق/);
-    expect((await call('GET', '/api/life/data/finance')).json.data).toBeFalsy();
-    expect((await call('GET', '/api/life/data/body')).json.data).toBeTruthy();
-  });
-  it('missing exports_meta → everything unavailable (REFRESH_PROTOCOL §2.5) but data still readable', async () => {
-    const r4 = path.join(dir, 'rashed_nometa');
-    buildLifeFixture(r4, { noMeta: true });
-    await call('PUT', '/api/life/settings', { root: r4 });
-    const s = (await call('GET', '/api/life/status')).json;
-    expect(s.meta).toBeNull();
-    expect(s.meta_error).toMatch(/exports_meta/);
-    expect(s.files.every((f: any) => f.state === 'unavailable')).toBe(true);
-  });
-  it('BOM-prefixed JSON (Windows PowerShell) is read correctly', async () => {
-    const r5 = path.join(dir, 'rashed_bom');
-    buildLifeFixture(r5);
-    const p = path.join(r5, 'body.json');
-    const txt = fs.readFileSync(p, 'utf8');
-    fs.writeFileSync(p, '\ufeff' + txt);
-    const meta = JSON.parse(fs.readFileSync(path.join(r5, 'exports_meta.json'), 'utf8'));
-    meta.files.find((f: any) => f.name === 'body.json').bytes = Buffer.byteLength('\ufeff' + txt);
-    fs.writeFileSync(path.join(r5, 'exports_meta.json'), JSON.stringify(meta));
-    await call('PUT', '/api/life/settings', { root: r5 });
-    const d = await call('GET', '/api/life/data/body');
-    expect(d.json.data.goal_kg).toBe(70);
-  });
-
-  describe('commands (drafts only)', () => {
-    const good = { type: 'log_expense', confirm: true, payload: { date: '2026-10-26', amount: 9.29, currency: 'RM', box: 'daily', category_ar: 'طعام وبقالة', label_ar: 'غداء', payment_source: 'tng' } };
-    let r6: string;
-    it('refuses without explicit confirm, bad type, bad payload, missing commands dir', async () => {
-      r6 = path.join(dir, 'rashed_cmd');
-      buildLifeFixture(r6);
-      await call('PUT', '/api/life/settings', { root: r6 });
-      const b0 = snapshot(r6);
-      expect((await call('POST', '/api/life/commands', { ...good, confirm: false })).json.fields.confirm).toBeTruthy();
-      expect((await call('POST', '/api/life/commands', { ...good, type: 'delete_everything' })).status).toBe(400);
-      expect((await call('POST', '/api/life/commands', { ...good, payload: { ...good.payload, amount: -5 } })).json.fields.amount).toBeTruthy();
-      expect((await call('POST', '/api/life/commands', { ...good, payload: undefined })).status).toBe(400);
-      expect(snapshot(r6)).toEqual(b0);
-      const nodir = path.join(dir, 'rashed_nocmd');
-      buildLifeFixture(nodir);
-      fs.rmSync(path.join(nodir, 'commands'), { recursive: true });
-      await call('PUT', '/api/life/settings', { root: nodir });
-      expect((await call('POST', '/api/life/commands', good)).status).toBe(409);
-      expect(fs.existsSync(path.join(nodir, 'commands'))).toBe(false);
-      await call('PUT', '/api/life/settings', { root: r6 });
-    });
-    it('creates exactly one NEW pending file; nothing else changes; never overwrites; examples ignored in list', async () => {
-      const b0 = snapshot(r6);
-      const c1 = await call('POST', '/api/life/commands', good);
-      expect(c1.status).toBe(201);
-      expect(c1.json.command).toMatchObject({ status: 'pending', created_by: 'site', type: 'log_expense' });
-      expect(c1.json.command.id).toMatch(/^CMD-\d{8}-\d{6}-\d{3}$/);
-      const c2 = await call('POST', '/api/life/commands', good);
-      expect(c2.json.command.id).not.toBe(c1.json.command.id);
-      const after = snapshot(r6);
-      const added = Object.keys(after).filter((k) => !(k in b0));
-      expect(added.sort()).toEqual([path.join('commands', c1.json.file), path.join('commands', c2.json.file)].sort());
-      for (const k of Object.keys(b0)) expect(after[k]).toBe(b0[k]);
-      const file = JSON.parse(fs.readFileSync(path.join(r6, 'commands', c1.json.file), 'utf8'));
-      expect(file).toMatchObject({ id: c1.json.command.id, status: 'pending', payload: good.payload });
-      expect(fs.readFileSync(path.join(r6, 'commands', c1.json.file))[0]).not.toBe(0xef); // بلا BOM
-      const l = await call('GET', '/api/life/commands');
-      expect(l.json.commands.map((c: any) => c.id)).toEqual(expect.arrayContaining([c1.json.command.id, c2.json.command.id]));
-      expect(l.json.commands.some((c: any) => String(c.id).startsWith('EXAMPLE'))).toBe(false);
-    });
-  });
-});
-const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
-describe.skipIf(!fs.existsSync(path.join(REAL, 'exports_meta.json')))('real Rashed exports (local copy only; skipped elsewhere)', () => {
-  it('every data file passes the shape check and is consistent with exports_meta', async () => {
-    await call('PUT', '/api/life/settings', { root: REAL });
-    const s = (await call('GET', '/api/life/status')).json;
+    expect(s.files).toHaveLength(6);
     for (const f of s.files) {
       expect(f.error, f.name).toBeNull();
-      expect(f.state === 'unavailable' || f.state === 'inconsistent', f.name).toBe(false);
+      expect(f.state, f.name).toBe('fresh');
     }
-    const fin = (await call('GET', '/api/life/data/finance')).json.data;
-    expect(fin.recent_transactions.length).toBeGreaterThan(0);
-    expect(spendingByCategory(fin.recent_transactions).length).toBeGreaterThan(0);
-    const h = parseBalanceHistory(fin);
-    if (fin.balance_history !== undefined) {
-      expect(h.points.length).toBeGreaterThanOrEqual(2);
-      expect(h.skipped).toBe(0);
-      expect(h.points.every((p) => p.total !== null && Math.abs((p.treasury ?? 0) + (p.monthly ?? 0) + (p.daily ?? 0) - p.total) < 0.011)).toBe(true);
-      expect(h.omitted.length).toBeGreaterThan(0);
-    }
-    for (const n of ['SPORTS_EXERCISES.json', 'SPORTS_PLANS_AR.json', 'HABITS_ALTERNATIVES_AR.json', 'GLOSSARY_AR.json']) {
-      if (fs.existsSync(path.join(REAL, 'docs', n))) {
-        const c = (await call('GET', `/api/life/content/${n}`)).json;
-        expect(c.status.error, n).toBeNull();
-        expect(c.data, n).toBeTruthy();
-      }
-    }
+    expect(s.worst).toBe('fresh');
+    const b = (await call('GET', '/api/life/bundle')).json;
+    expect(b.files.prayers.qada.total_remaining).toBe(1926);
+    expect(b.files.body.latest_weight_kg).toBe(83.65);
+    expect(Object.keys(b.files)).toHaveLength(6);
+  });
+  it('serves static content with counts; unknown names 404; no path traversal', async () => {
+    const ex = (await call('GET', '/api/life/content/SPORTS_EXERCISES.json')).json;
+    expect(ex.data.exercises).toHaveLength(81);
+    expect((await call('GET', '/api/life/content/GLOSSARY_AR.json')).json.data.entries).toHaveLength(69);
+    expect((await call('GET', '/api/life/content/SPORTS_PLANS_AR.json')).json.data.templates).toHaveLength(6);
+    expect((await call('GET', '/api/life/content/ledger_full.json')).json.data.rows).toHaveLength(67);
+    expect((await call('GET', '/api/life/content/nope.json')).status).toBe(404);
+    expect((await call('GET', '/api/life/content/..%2Fbody.json')).status).toBe(404);
+    expect((await call('GET', '/api/life/data/secrets')).status).toBe(404);
+  });
+  it('no trace of the old persona in served data', async () => {
+    const all = JSON.stringify((await call('GET', '/api/life/bundle')).json) + JSON.stringify((await call('GET', '/api/life/content/SPORTS_EXERCISES.json')).json) + JSON.stringify((await call('GET', '/api/life/content/GLOSSARY_AR.json')).json);
+    expect(all).not.toMatch(new RegExp('\u0631\u0627\u0634\u062f|' + 'rash' + 'ed', 'i'));
+  });
+  it('validation: bad type / payload rejected with fields', async () => {
+    expect((await call('POST', '/api/life/log', { type: 'delete_everything', payload: {} })).status).toBe(400);
+    expect((await call('POST', '/api/life/log', { type: 'log_weight', payload: { date: 'x', weight_kg: 1 } })).json.fields).toHaveProperty('weight_kg');
+    expect((await call('POST', '/api/life/log', { type: 'log_expense', payload: undefined })).status).toBe(400);
+  });
+  it('log_prayer fard missed adds to qada; undo restores exactly', async () => {
+    const before = (await call('GET', '/api/life/data/prayers')).json.data.qada;
+    const r = await call('POST', '/api/life/log', { type: 'log_prayer', payload: { date: '2026-10-30', prayer: 'fajr', status: 'missed', kind: 'fard' } });
+    expect(r.status).toBe(201);
+    const mid = (await call('GET', '/api/life/data/prayers')).json.data.qada;
+    expect(mid.remaining.fajr.count).toBe(before.remaining.fajr.count + 1);
+    expect(mid.total_remaining).toBe(before.total_remaining + 1);
+    const u = await call('POST', `/api/life/events/${r.json.event.id}/undo`);
+    expect(u.status).toBe(200);
+    const after = (await call('GET', '/api/life/data/prayers')).json.data.qada;
+    expect(after.total_remaining).toBe(before.total_remaining);
+    expect((await call('POST', `/api/life/events/${r.json.event.id}/undo`)).status).toBe(409);
+  });
+  it('qada prayer decrements and counts done; only the latest event can be undone', async () => {
+    const before = (await call('GET', '/api/life/data/prayers')).json.data.qada;
+    const e1 = await call('POST', '/api/life/log', { type: 'log_prayer', payload: { date: '2026-10-31', prayer: 'asr', status: 'in_time', kind: 'qada' } });
+    const e2 = await call('POST', '/api/life/log', { type: 'log_weight', payload: { date: '2026-10-31', weight_kg: 83.2 } });
+    const q = (await call('GET', '/api/life/data/prayers')).json.data.qada;
+    expect(q.remaining.asr.count).toBe(before.remaining.asr.count - 1);
+    expect(q.done_total).toBe((before.done_total ?? 0) + 1);
+    expect((await call('POST', `/api/life/events/${e1.json.event.id}/undo`)).status).toBe(409);
+    expect((await call('POST', `/api/life/events/${e2.json.event.id}/undo`)).status).toBe(200);
+    expect((await call('POST', `/api/life/events/${e1.json.event.id}/undo`)).status).toBe(200);
+  });
+  it('log_weight updates latest and goal progress; log_expense updates account and ledger', async () => {
+    const w = await call('POST', '/api/life/log', { type: 'log_weight', payload: { date: '2026-10-31', weight_kg: 82.9 } });
+    const body = (await call('GET', '/api/life/data/body')).json.data;
+    expect(body.latest_weight_kg).toBe(82.9);
+    expect(body.goal_progress.remaining_to_goal_kg).toBe(19.9);
+    await call('POST', `/api/life/events/${w.json.event.id}/undo`);
+    const fin0 = (await call('GET', '/api/life/data/finance')).json.data;
+    const tng0 = fin0.accounts.find((a: any) => a.key === 'tng').amount;
+    const rows0 = (await call('GET', '/api/life/content/ledger_full.json')).json.data.rows.length;
+    const ex = await call('POST', '/api/life/log', { type: 'log_expense', payload: { date: '2026-10-31', amount: 5, currency: 'RM', box: 'daily', label_ar: 'قهوة', category_ar: 'طعام', payment_source: 'tng' } });
+    expect(ex.status).toBe(201);
+    const fin1 = (await call('GET', '/api/life/data/finance')).json.data;
+    expect(fin1.accounts.find((a: any) => a.key === 'tng').amount).toBe(Math.round((tng0 - 5) * 100) / 100);
+    expect((await call('GET', '/api/life/content/ledger_full.json')).json.data.rows.length).toBe(rows0 + 1);
+    expect(fin1.recent_transactions.at(-1).label_ar).toBe('قهوة');
+    await call('POST', `/api/life/events/${ex.json.event.id}/undo`);
+    expect((await call('GET', '/api/life/content/ledger_full.json')).json.data.rows.length).toBe(rows0);
+  });
+  it('expense with unknown box is recorded but not applied to any balance', async () => {
+    const fin0 = (await call('GET', '/api/life/data/finance')).json.data;
+    const ex = await call('POST', '/api/life/log', { type: 'log_expense', payload: { date: '2026-10-31', amount: 7, currency: 'RM', box: 'unknown', label_ar: 'غداء', category_ar: 'طعام', payment_source: 'unknown' } });
+    const fin1 = (await call('GET', '/api/life/data/finance')).json.data;
+    expect(fin1.accounts).toEqual(fin0.accounts);
+    await call('POST', `/api/life/events/${ex.json.event.id}/undo`);
+  });
+  it('habits: log, start and relapse write to the habit log', async () => {
+    const h = await call('POST', '/api/life/log', { type: 'log_habit', payload: { habit: 'water', date: '2026-10-31', value: 2.5 } });
+    expect(h.status).toBe(201);
+    const water = (await call('GET', '/api/life/data/habits')).json.data.habits.find((x: any) => x.key === 'water');
+    expect(water.log.find((l: any) => l.date === '2026-10-31').water_l).toBe(2.5);
+    await call('POST', `/api/life/events/${h.json.event.id}/undo`);
+    expect((await call('POST', '/api/life/log', { type: 'habit_relapse', payload: { habit: 'vape', date: '2026-10-31' } })).status).toBe(201);
+    const ev = (await call('GET', '/api/life/events')).json.events;
+    expect(ev[0].type).toBe('habit_relapse');
+    await call('POST', `/api/life/events/${ev[0].id}/undo`);
+  });
+  it('qada scenario choice persists locally', async () => {
+    expect((await call('PUT', '/api/life/qada-choice', { scenario: 'x1' })).json.scenario).toBe('x1');
+    expect((await call('PUT', '/api/life/qada-choice', { scenario: 'Bad Id!' })).status).toBe(400);
   });
 });

@@ -7,7 +7,7 @@
   "functions": {
     "api/index.mjs": {
       "maxDuration": 60,
-      "includeFiles": "{dist/**,seed/**,exchange/**,package.json}"
+      "includeFiles": "{dist/**,seed/**,package.json}"
     }
   },
   "rewrites": [

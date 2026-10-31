@@ -1,4 +1,4 @@
-// طابور الاقتراحات: J6 (يوم الخطة ← اقتراحات)، AC-10 (قالب حرفي + فحص CAL-43 + لا كتابة في Outlook)، التصدير لراشد، DEF-10، والمسار الحالات.
+// طابور الاقتراحات: J6 (يوم الخطة ← اقتراحات)، AC-10 (قالب حرفي + فحص CAL-43 + لا كتابة في Outlook)، التصدير، DEF-10، والمسار الحالات.
 import fs from 'node:fs';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -11,7 +11,6 @@ let srv: Running;
 let base: string;
 let dir: string;
 const H = { 'X-Kitchen-Client': 'prop-test' };
-const rashed = path.join(__dirname, '..', '..', 'exchange', 'rashed');
 async function call(method: string, url: string, body?: unknown): Promise<{ status: number; json: any }> {
   const res = await fetch(base + url, { method, headers: { ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}), ...H }, body: body !== undefined ? JSON.stringify(body) : undefined });
   const t = await res.text();
@@ -23,7 +22,6 @@ async function call(method: string, url: string, body?: unknown): Promise<{ stat
   }
   return { status: res.status, json: j };
 }
-const snapshotDir = (d: string): string => (fs.existsSync(d) ? fs.readdirSync(d, { recursive: true, withFileTypes: false }).map(String).sort().map((f) => { const p = path.join(d, f); const st = fs.statSync(p); return `${f}:${st.isFile() ? st.size : 'd'}:${st.mtimeMs}`; }).join('|') : 'absent');
 
 const bk = ORIGINAL_RECIPES.find((r) => r.slug === 'bk-03')!;
 const WRONG = outlookBody(bk.title_ar, ['اسلق 100 غراماً من البيض.', 'حمّص 80 غراماً من التوست.'], nutritionOf(bk.lines).total);
@@ -43,19 +41,16 @@ const ICS = ['BEGIN:VCALENDAR',
 beforeAll(async () => {
   dir = tmpDir();
   process.env['PLATFORM_NO_AUTOSCAN'] = '1';
-  process.env['PLATFORM_LIFE_ROOT'] = rashed;
   srv = await startServer({ port: 0, dataDir: path.join(dir, 'data'), backupsDir: path.join(dir, 'backups') });
   base = `http://127.0.0.1:${srv.cfg.port}`;
   expect((await call('POST', '/api/calendar/import', { format: 'ics', text: ICS, from: '2026-11-02', to: '2026-11-02' })).status).toBe(201);
 });
 afterAll(async () => {
   await srv.close();
-  delete process.env['PLATFORM_LIFE_ROOT'];
   fs.rmSync(dir, { recursive: true, force: true });
 });
 
 describe('J6: يوم الخطة ← اقتراحات Outlook بالقالب الحرفي (AC-10)', () => {
-  const rashedBefore = snapshotDir(rashed);
   const eventsBefore = (): number => srv.getDb().get<{ n: number }>('SELECT COUNT(*) n FROM calendar_events')!.n;
   let ids: string[] = [];
   it('بلا يوم محفوظ ← 404', async () => {
@@ -120,7 +115,7 @@ describe('J6: يوم الخطة ← اقتراحات Outlook بالقالب ال
     const ex = await call('POST', '/api/calendar/proposals/export', {});
     expect(ex.status).toBe(200);
     expect(ex.json.count).toBe(1);
-    expect(ex.json.json).toMatchObject({ kind: 'siro.calendar.proposals', writer: 'rashed', requires_separate_run: true, count: 1 });
+    expect(ex.json.json).toMatchObject({ kind: 'siro.calendar.proposals', writer: 'user', requires_separate_run: true, count: 1 });
     expect(ex.json.json.proposals[0]).toMatchObject({ id: ids[0], kind: 'update', event_id: expect.any(String) });
     expect(ex.json.text).toContain('لم يُطبَّق شيء');
     expect(ex.json.text).toContain('القيمة الغذائية الإجمالية للوجبة:');
@@ -130,10 +125,9 @@ describe('J6: يوم الخطة ← اقتراحات Outlook بالقالب ال
     expect((await call('PATCH', `/api/calendar/proposals/${ids[1]}`, { status: 'rejected' })).status).toBe(200);
     expect((await call('DELETE', `/api/calendar/proposals/${ids[1]}`)).status).toBe(200);
   });
-  it('سجل التدقيق يحمل إنشاء/حالة/تصدير، ولم يُكتب شيء في Outlook ولا في مجلد راشد', async () => {
+  it('سجل التدقيق يحمل إنشاء/حالة/تصدير، ولم يُكتب شيء في Outlook', async () => {
     const actions = (await call('GET', '/api/calendar/audit')).json.audit.map((a: any) => a.action);
     expect(actions).toEqual(expect.arrayContaining(['create', 'status', 'export', 'delete']));
-    expect(snapshotDir(rashed)).toBe(rashedBefore);
   });
   it('الكتابة بلا ترويسة العميل ممنوعة', async () => {
     const r = await fetch(`${base}/api/calendar/proposals/export`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });

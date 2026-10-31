@@ -11,7 +11,6 @@ import { AppearanceCard, NotifyCard } from '../core/Appearance.js';
 import { useUrlParam } from '../core/useUrlParam.js';
 import { FlagsCard } from '../core/FlagsCard.js';
 import LibrarySettings from './LibrarySettings.js';
-import LifeSettings from './LifeSettings.js';
 import { fmtNum } from '../lib/format.js';
 import { AiSettingsCard } from '../ai/AiSettings.js';
 
@@ -191,7 +190,6 @@ export default function Settings() {
       ) : (
         <div className="stack" style={{ gap: 'var(--s-6)' }}>
           <section aria-label="مصدر المكتبة"><h2 className="h3" style={{ marginBlockEnd: 'var(--s-3)' }}>المكتبة</h2><LibrarySettings embedded /></section>
-          <section aria-label="مصدر الحياة"><h2 className="h3" style={{ marginBlockEnd: 'var(--s-3)' }}>الحياة (صادرات راشد)</h2><LifeSettings embedded /></section>
         </div>
       )}
     </div>
@@ -217,7 +215,7 @@ function ProfileCard() {
 /** مصادر البيانات وإدارتها — روابط لكل إعداد كان مبعثرًا */
 function SourcesCard() {
   const rows: { to: string; icon: Parameters<typeof Icon>[0]['name']; title: string; sub: string }[] = [
-    { to: '/settings?tab=sources', icon: 'library', title: 'مصادر المكتبة والحياة', sub: 'مجلد المكتبة وصادرات راشد (قراءة فقط)' },
+    { to: '/settings?tab=sources', icon: 'library', title: 'مصدر المكتبة', sub: 'مجلد المكتبة (قراءة فقط)' },
     { to: '/academic/import', icon: 'upload', title: 'حزم الفصول', sub: 'استيراد/تصدير فصل كامل (Drive أو مجلد)' },
     { to: '/trash', icon: 'trash', title: 'سلة المحذوفات', sub: 'استعادة أي شيء حُذف خلال 30 يومًا' },
     { to: '/activity', icon: 'clock', title: 'سجل النشاط', sub: 'كل تغيير ومن قام به (أنت أو أتمتة)' },

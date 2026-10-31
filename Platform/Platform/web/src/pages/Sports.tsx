@@ -69,7 +69,7 @@ export default function Sports() {
     setSafeOnly(false);
   };
 
-  const head = <PageHead title="مكتبة التمارين" icon="dumbbell" sub="مكتبة التمارين من راشد — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." />;
+  const head = <PageHead title="مكتبة التمارين" icon="dumbbell" sub="مكتبة التمارين  — تصفّح حسب العضلة والمعدات، وابنِ تمرينك الخاص." />;
   if (ex.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (ex.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={ex.error} action={<Button onClick={ex.reload}>إعادة المحاولة</Button>} /></div>;
   if (!ex.rootExists || !ex.data) {
@@ -77,7 +77,7 @@ export default function Sports() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={ex.status} label="مكتبة التمارين" />
-        <EmptyState icon="dumbbell" title="مكتبة التمارين غير متاحة" text={!ex.rootExists ? 'مجلد صادرات راشد غير موجود. اضبط المسار من إعدادات الحياة.' : 'ملف التمارين غير متاح أو تغيّر تنسيقه. تمريني المحلي ما زال يعمل.'} action={<><Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button> <Button to="/sports/mine">تمريني</Button></>} />
+        <EmptyState icon="dumbbell" title="مكتبة التمارين غير متاحة" text={!ex.rootExists ? 'المحتوى غير متاح حاليًا.' : 'ملف التمارين غير متاح أو تغيّر تنسيقه. تمريني المحلي ما زال يعمل.'} action={<><Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button> <Button to="/sports/mine">تمريني</Button></>} />
       </div>
     );
   }
@@ -92,7 +92,7 @@ export default function Sports() {
       <div className="sports-layout">
         <aside className="sticky-side" aria-label="الفلاتر">
           <Card>
-            <CardHead title="اختر العضلة" icon="target" info="التصنيف إلى مناطق الجسم من الموقع (تقريبي) انطلاقًا من اسم العضلة الرئيسية عند راشد. الرسم أصلي ولا يستخدم صورًا خارجية.">
+            <CardHead title="اختر العضلة" icon="target" info="التصنيف إلى مناطق الجسم من الموقع (تقريبي) انطلاقًا من اسم العضلة الرئيسية. الرسم أصلي ولا يستخدم صورًا خارجية.">
               {regions.size > 0 && <Button size="sm" variant="ghost" onClick={() => setRegions(new Set())}>مسح</Button>}
             </CardHead>
             <BodyMap active={regions} counts={counts} onToggle={(id) => setRegions((s) => toggle(s, id))} />
@@ -130,7 +130,7 @@ export default function Sports() {
                     <ul className="chips">
                       <li><button type="button" className="chip" aria-pressed={safeOnly} onClick={() => setSafeOnly((v) => !v)}>مناسب للمبتدئ فقط</button></li>
                     </ul>
-                    <small className="muted">حسب مراجعة راشد. التمارين غير المراجَعة تُخفى عند التفعيل.</small>
+                    <small className="muted">حسب مراجعة أمان المبتدئ. التمارين غير المراجَعة تُخفى عند التفعيل.</small>
                   </div>
                 )}
                 {levels.length > 0 && (
@@ -193,7 +193,7 @@ export default function Sports() {
               ))}
             </ul>
           ) : (
-            <EmptyState icon="search" title="لا تمارين بهذه الفلاتر" text="خفّف الفلاتر أو امسحها. لا نخترع تمارين غير موجودة في مكتبة راشد." action={<Button onClick={reset}>مسح الفلاتر</Button>} />
+            <EmptyState icon="search" title="لا تمارين بهذه الفلاتر" text="خفّف الفلاتر أو امسحها. لا نخترع تمارين غير موجودة في المكتبة." action={<Button onClick={reset}>مسح الفلاتر</Button>} />
           )}
           {ex.data.safety_note_ar && <p className="life-note warn"><span>{ex.data.safety_note_ar}</span></p>}
         </div>
@@ -254,17 +254,17 @@ function Detail({ e, doc, byId, onOpen, onClose, sessions, templates, mine, onMi
                   {e.beginner_safe === false ? 'بديل أسلم' : 'نسخة أسهل'}:{' '}
                   <button type="button" className="chip" onClick={() => onOpen(alt)}>{alt.arabic_name} <small lang="en" dir="ltr">{alt.english_name}</small></button>
                 </p>
-              ) : <p className="muted" style={{ margin: '8px 0 0' }}>بديل راشد ({e.safer_alternative_id}) غير موجود في المكتبة.</p>;
+              ) : <p className="muted" style={{ margin: '8px 0 0' }}>البديل ({e.safer_alternative_id}) غير موجود في المكتبة.</p>;
             })()}
-            <p className="muted" style={{ margin: '8px 0 0', fontSize: 'var(--fs-xs)' }}>مراجعة راشد من المعرفة العامة لمبتدئ — ليست نصيحة طبية.</p>
+            <p className="muted" style={{ margin: '8px 0 0', fontSize: 'var(--fs-xs)' }}>مراجعة عامة لمبتدئ — ليست نصيحة طبية.</p>
           </section>
-        ) : <p className="muted" style={{ margin: 0 }}>لم يراجع راشد أمان هذا التمرين بعد (غير مسجل).</p>}
+        ) : <p className="muted" style={{ margin: 0 }}>أمان هذا التمرين لم يُراجَع بعد (غير مسجل).</p>}
         <section aria-labelledby="ex-steps">
           <h3 id="ex-steps" style={{ margin: '0 0 6px', fontSize: 'var(--fs-sm)' }}>كيف تؤدّيه <small className="muted">(<Term id="form">الشكل الصحيح</Term> أهم من الوزن)</small></h3>
           {steps.length ? (
             <ol className="instr">{steps.map((t, i) => <li key={i}>{t}</li>)}</ol>
           ) : (
-            <p className="muted" style={{ margin: 0 }}>لم يكتب راشد خطوات لهذا التمرين. لا نضيف من عندنا؛ اطلب منه إكمالها أو استشر مدرّبًا.</p>
+            <p className="muted" style={{ margin: 0 }}>لا توجد خطوات لهذا التمرين. لا نضيف من عندنا؛ استشر مدرّبًا.</p>
           )}
           <p className="edu-note" style={{ marginBlockStart: 'var(--s-2)' }}>
             <Badge tone="warn">{e.details_confidence === 'general_knowledge' ? <Term id="conf_general_knowledge" bare>معرفة عامة</Term> : e.details_confidence ?? 'غير موسوم'}</Badge>
@@ -273,7 +273,7 @@ function Detail({ e, doc, byId, onOpen, onClose, sessions, templates, mine, onMi
         </section>
         {used.length > 0 && (
           <div>
-            <h3 style={{ margin: '0 0 6px', fontSize: 'var(--fs-sm)' }}>يدخل في جلسات راشد المقترحة</h3>
+            <h3 style={{ margin: '0 0 6px', fontSize: 'var(--fs-sm)' }}>يدخل في الجلسات المقترحة</h3>
             <ul className="chips">{used.map((s) => <li key={s.id}><Badge>{s.name_ar} · {usedIn(s.id)} قالب</Badge></li>)}</ul>
           </div>
         )}

@@ -13,7 +13,7 @@ const FILE_AR: Record<string, string> = { 'LEDGER.csv': 'السجل المالي
 export default function LifeInsights() {
   const c = useContent<InsightsDoc>('FINANCE_INSIGHTS_AR.json');
   return (
-    <ContentPage c={c} title="مؤشرات المال" icon="chart" label="المؤشرات المالية" sub="أرقام جاهزة من راشد — الموقع يعرضها كما هي ولا يعيد حسابها.">
+    <ContentPage c={c} title="مؤشرات المال" icon="chart" label="المؤشرات المالية" sub="أرقام جاهزة  — الموقع يعرضها كما هي ولا يعيد حسابها.">
       {(d) => (
         <>
           <div className="life-alert info" role="note">
@@ -37,7 +37,7 @@ export default function LifeInsights() {
                     {i.formula_ar && <p>{i.formula_ar}</p>}
                     {i.arithmetic && <p className="num" dir="auto" style={{ unicodeBidi: 'plaintext' }}>{i.arithmetic}</p>}
                     {i.confidence_note_ar && <p className="muted">{i.confidence_note_ar}</p>}
-                    {i.source_fields?.length ? <p className="muted rv-fine">المصدر: {[...new Set(i.source_fields.map((s) => FILE_AR[s.file ?? ''] ?? 'ملفات راشد'))].join('، ')}</p> : null}
+                    {i.source_fields?.length ? <p className="muted rv-fine">المصدر: {[...new Set(i.source_fields.map((s) => FILE_AR[s.file ?? ''] ?? 'السجل'))].join('، ')}</p> : null}
                   </details>
                 </Card>
               );

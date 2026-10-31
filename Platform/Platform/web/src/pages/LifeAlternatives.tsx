@@ -46,7 +46,7 @@ export default function LifeAlternatives() {
       toast(e instanceof ApiError ? e.message : (e as Error).message, { kind: 'error' });
     }
   };
-  const head = <PageHead title={<Term id="alternative">بدائل العادات</Term>} icon="zap" sub="ماذا أسوي بدل العادة؟ اقتراحات عامة من راشد — وأنت تختار." crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'بدائل العادات' }]} />;
+  const head = <PageHead title={<Term id="alternative">بدائل العادات</Term>} icon="zap" sub="ماذا أسوي بدل العادة؟ اقتراحات عامة  — وأنت تختار." crumbs={[{ to: '/life', label: 'الحياة' }, { label: 'بدائل العادات' }]} />;
   if (c.loading) return <div className="page sports-page">{head}<Skeleton h={160} r={16} /></div>;
   if (c.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={c.error} action={<Button onClick={c.reload}>إعادة المحاولة</Button>} /></div>;
   if (!c.rootExists || !c.data || !cur) {
@@ -54,7 +54,7 @@ export default function LifeAlternatives() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={c.status} label="بدائل العادات" />
-        <EmptyState icon="zap" title="بدائل العادات غير متاحة" text={!c.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف بدائل العادات غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
+        <EmptyState icon="zap" title="بدائل العادات غير متاحة" text={!c.rootExists ? 'المحتوى غير متاح حاليًا.' : 'ملف بدائل العادات غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
       </div>
     );
   }
@@ -105,7 +105,7 @@ export default function LifeAlternatives() {
             </li>
           ))}
         </ul>
-        <p className="muted" style={{ marginBottom: 0 }}>{c.data.selection_note_ar ? `اختيار راشد المسجّل: ${Object.keys(c.data.selected_alternatives ?? {}).length ? 'مسجّل' : 'فارغ'} — ` : ''}اختيارك هنا محلي في موقعك فقط ولا يغيّر ملفات راشد.</p>
+        <p className="muted" style={{ marginBottom: 0 }}>{c.data.selection_note_ar ? `القالب المختار: ${Object.keys(c.data.selected_alternatives ?? {}).length ? 'مسجّل' : 'فارغ'} — ` : ''}اختيارك هنا محلي في موقعك فقط ولا يغيّر السجل.</p>
       </Card>
     </div>
   );

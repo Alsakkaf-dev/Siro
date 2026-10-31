@@ -7,7 +7,7 @@ import { ageText, FRESH_LABEL, type ContentStatus, type LifeContentName } from '
 import { REGION_AR, regionsOf, WEEKDAYS, type Exercise, type ExercisesDoc, type MyItem, type MyWeek, type PlansDoc, type SafetyReview, type Session } from '../../../shared/sports.js';
 import { Term } from '../glossary/glossary.js';
 
-/* ───── تحميل محتوى راشد (قراءة فقط) ───── */
+/* ───── تحميل محتوى النظام (قراءة فقط) ───── */
 export interface ContentState<T> { data: T | null; status: ContentStatus | null; rootExists: boolean; loading: boolean; error: string | null; reload: () => void }
 export function useContent<T>(name: LifeContentName): ContentState<T> {
   const [r, setR] = useState<{ data: T | null; status: ContentStatus; root_exists: boolean } | null>(null);
@@ -79,7 +79,7 @@ export function ContentBanner({ status, label, children }: { status: ContentStat
           <>
             <strong>{status.error ? `تعذّر قراءة ${label}` : `${label}: ${FRESH_LABEL[status.state]}`}</strong>
             <ul>
-              <li>{status.error ?? `${status.age_hours !== null ? ageText(status.age_hours) : 'عمر غير معروف'} — قد يكون راشد حدّث الملف؛ اطلب تحديثًا إن لزم.`}</li>
+              <li>{status.error ?? `${status.age_hours !== null ? ageText(status.age_hours) : 'عمر غير معروف'}`}</li>
             </ul>
           </>
         ) : null}
@@ -218,7 +218,7 @@ export function itemText(i: Pick<MyItem, 'sets' | 'reps_min' | 'reps_max' | 'dur
   return p.join(' ').trim();
 }
 
-/* ───── الأمان (راشد v6) ───── */
+/* ───── الأمان (النظام v6) ───── */
 /** false فقط = ليس للمبتدئ. null/غائب = غير مراجَع فلا نفترض شيئًا. */
 export const isUnsafe = (e: Pick<Exercise, 'beginner_safe'> | undefined | null): boolean => e?.beginner_safe === false;
 export function SafetyBadge({ e, compact }: { e: Pick<Exercise, 'beginner_safe'>; compact?: boolean }) {
@@ -227,7 +227,7 @@ export function SafetyBadge({ e, compact }: { e: Pick<Exercise, 'beginner_safe'>
   return null;
 }
 type SafetySource = { safety_review?: SafetyReview } & Partial<Pick<PlansDoc, 'disclaimer_ar' | 'recorded_injuries_ar' | 'recorded_injuries_note_ar' | 'weight_context_ar'>>;
-/** إخلاء المسؤولية + الإصابات (غير مسجلة ≠ لا توجد) كما كتبها راشد. يظهر في الرياضة والقوالب وتفاصيل التمرين. */
+/** إخلاء المسؤولية + الإصابات (غير مسجلة ≠ لا توجد) كما كتبها النظام. يظهر في الرياضة والقوالب وتفاصيل التمرين. */
 export function SafetyDisclaimer({ doc, className }: { doc: SafetySource | null | undefined; className?: string }) {
   const r = doc?.safety_review;
   const disclaimer = r?.disclaimer_ar ?? doc?.disclaimer_ar;
@@ -246,7 +246,7 @@ export function SafetyDisclaimer({ doc, className }: { doc: SafetySource | null 
         {injuries && (
           <p>
             الإصابات المسجلة: <Badge dashed>غير مسجلة</Badge>{' '}
-            <small>(كتب راشد «{injuries}»؛ المقصود أنها غير مسجلة وليس أنها غير موجودة)</small>
+            <small>(«{injuries}»؛ المقصود أنها غير مسجلة وليس أنها غير موجودة)</small>
           </p>
         )}
         {injNote && <p>{injNote}</p>}

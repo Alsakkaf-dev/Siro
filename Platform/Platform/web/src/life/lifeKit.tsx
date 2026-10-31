@@ -1,20 +1,20 @@
 import '../styles/life.css';
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { life, type LifeBundle } from '../lib/api.js';
 import { Icon, type IconName } from '../lib/icons.js';
 import { Badge, Button, Card, CardHead, EmptyState, Skeleton, TrustTag, Unknown } from '../ui/ui.js';
 import { PageHead } from '../ui/page.js';
 import { fieldLabel, type FieldLabelsDoc } from '../../../shared/labels.js';
 import { missingTitle, plainText, UNIT_AR } from '../../../shared/plain.js';
-import { ageText, kgText, FRESH_LABEL, LIFE_FILE_LABEL, worstOf, countMissing, missingInputs, type Conf, type Freshness, type LifeFile, type LifeFileStatus, type LifeStatus } from '../../../shared/life.js';
+import { kgText, countMissing, missingInputs, type Conf, type LifeFile, type LifeFileStatus, type LifeStatus } from '../../../shared/life.js';
 import { Term } from '../glossary/glossary.js';
 
 /* ───── الثقة والأرقام ───── */
 export function trustKind(c: Conf): 'proven' | 'calc' | 'assumed' | null {
   return c === 'مثبت' ? 'proven' : c === 'محسوب' ? 'calc' : c === 'افتراض' ? 'assumed' : null;
 }
-/** وسم ثقة راشد (مثبت / محسوب / افتراض) كما هو؛ لا وسم إن لم تُذكر الثقة. */
+/** وسم ثقة النظام (مثبت / محسوب / افتراض) كما هو؛ لا وسم إن لم تُذكر الثقة. */
 const CONF_TERM: Record<string, string> = { 'مثبت': 'conf_confirmed', 'محسوب': 'conf_computed', 'افتراض': 'conf_assumption' };
 export function Conf({ c }: { c: Conf }) {
   const k = trustKind(c);
@@ -23,7 +23,7 @@ export function Conf({ c }: { c: Conf }) {
 const nf2 = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 export const money = (n: number | null | undefined): string => (typeof n === 'number' ? `RM ${nf2.format(n)}` : '—');
 export const num2 = (n: number): string => nf2.format(n);
-/** كغ بدقة راشد (حتى منزلتين) — انظر kgText. */
+/** كغ بدقة النظام (حتى منزلتين) — انظر kgText. */
 export const num1 = kgText;
 export function Money({ v, c }: { v: number | null | undefined; c?: Conf }) {
   return typeof v === 'number' ? (
@@ -99,69 +99,16 @@ export function useLife(names: LifeFile[]): LifeData {
   );
 }
 
-/* ───── القِدم ───── */
-const TONE: Record<Freshness, 'ok' | 'warn' | 'danger' | undefined> = { fresh: 'ok', stale: 'warn', expired: 'danger', unavailable: 'danger', inconsistent: 'warn' };
-export function FreshBadge({ f }: { f: Pick<LifeFileStatus, 'state' | 'age_hours'> }) {
-  return (
-    <Badge tone={TONE[f.state]} title={f.state === 'fresh' ? 'ضمن المدة المحددة' : 'راجع تنبيه القِدم'}>
-      <Icon name={f.state === 'fresh' ? 'check' : 'warn'} size={12} /> {FRESH_LABEL[f.state]}
-      {f.age_hours !== null && f.state !== 'unavailable' ? ` · ${ageText(f.age_hours)}` : ''}
-    </Badge>
-  );
-}
-const WHY: Record<Exclude<Freshness, 'fresh'>, string> = {
-  stale: 'مرّ وقت أطول من المدة المحددة لهذا الملف، فقد تكون الأرقام تغيّرت.',
-  expired: 'مرّت أكثر من ثلاثة أضعاف المدة المحددة؛ لا تعتمد على هذه الأرقام قبل تحديثها.',
-  inconsistent: 'حجم الملف الفعلي لا يطابق ما سجّله راشد في exports_meta؛ ربما لم تكتمل مزامنته.',
-  unavailable: 'الملف أو بياناته الوصفية غير متاحة أو لا يمكن قراءتها.',
-};
-/** شريط تحذير القِدم للملفات التي تعرضها الصفحة. لا يظهر إن كانت كلها محدّثة. */
-export function StaleBanner({ status, names }: { status: LifeStatus | null; names: LifeFile[] }) {
-  if (!status) return null;
-  const bad = status.files.filter((f) => names.includes(f.name) && f.state !== 'fresh');
-  if (!bad.length && status.meta) return null;
-  const worst = worstOf(bad.map((f) => f.state));
-  return (
-    <div className={`life-alert ${worst === 'stale' || worst === 'inconsistent' ? 'warn' : 'danger'}`} role="status">
-      <Icon name="warn" size={20} />
-      <div>
-        <strong>{!status.meta ? 'لا توجد بيانات وصفية للصادرات (exports_meta.json)' : worst === 'stale' || worst === 'inconsistent' ? 'بعض البيانات قديمة أو غير متسقة' : 'بعض البيانات منتهية أو غير متاحة'}</strong>
-        <ul>
-          {!status.meta && <li>{status.meta_error ?? 'المصدر غير جاهز'} — تُعامل كل الملفات كغير متاحة حتى يظهر الملف.</li>}
-          {bad.map((f) => (
-            <li key={f.name}>
-              <b>{LIFE_FILE_LABEL[f.name]}</b>: {FRESH_LABEL[f.state]}
-              {f.age_hours !== null && f.state !== 'unavailable' ? ` (${ageText(f.age_hours)}، الحد ${f.stale_after_hours}س)` : ''}
-              {f.error ? ` — ${f.error}` : ` — ${WHY[f.state as Exclude<Freshness, 'fresh'>]}`}
-            </li>
-          ))}
-        </ul>
-        <Link className="life-alert-a" to="/life/commands?type=refresh_exports">اطلب تحديثًا من راشد (مسودة)</Link>
-      </div>
-    </div>
-  );
-}
-
-/** هيكل صفحة الحياة: عنوان + تنبيه القِدم + حالة تحميل/مجلد مفقود، ثم المحتوى. */
+/** هيكل صفحة الحياة: عنوان + حالة تحميل/خطأ، ثم المحتوى. */
 export function LifePage({ title, icon, sub, names, data, actions, crumbs, children }: { title: string; icon: IconName; sub?: ReactNode; names: LifeFile[]; data: LifeData; actions?: ReactNode; crumbs?: { to?: string; label: string }[]; children: ReactNode }) {
-  const st = data.status;
-  const head = <PageHead title={title} icon={icon} sub={sub} actions={actions} crumbs={crumbs} badge={st && st.files.length ? <FreshBadge f={{ state: worstOf(st.files.filter((f) => names.includes(f.name)).map((f) => f.state)), age_hours: Math.max(0, ...st.files.filter((f) => names.includes(f.name)).map((f) => f.age_hours ?? 0)) || null }} /> : undefined} />;
+  const head = <PageHead title={title} icon={icon} sub={sub} actions={actions} crumbs={crumbs} />;
   if (data.loading) return <div className="page">{head}<div className="stack"><Skeleton h={90} r={16} /><Skeleton h={260} r={16} /></div></div>;
-  if (data.error || !st) return <div className="page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={data.error ?? 'حاول مجددًا.'} action={<Button onClick={data.reload}>إعادة المحاولة</Button>} /></div>;
-  if (!st.root_exists) {
-    return (
-      <div className="page">
-        {head}
-        <EmptyState icon="folder" title="مجلد صادرات راشد غير موجود" text={`لا يوجد مجلد عند: ${st.root}. اضبط المسار الصحيح من إعدادات الحياة. الموقع يقرأ فقط ولا ينشئ شيئًا هناك.`} action={<Button variant="primary" to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
-      </div>
-    );
-  }
+  if (data.error || !data.status) return <div className="page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={data.error ?? 'حاول مجددًا.'} action={<Button onClick={data.reload}>إعادة المحاولة</Button>} /></div>;
   const have = names.some((n) => data.files[n] != null);
   return (
     <div className="page life-page">
       {head}
-      <StaleBanner status={st} names={names} />
-      {have ? <div className="stack life-stack">{children}</div> : <EmptyState icon="database" title="لا توجد بيانات قابلة للعرض" text="الملفات المطلوبة لهذه الصفحة غير متاحة. راجع التنبيه أعلاه أو إعدادات الحياة." action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />}
+      {have ? <div className="stack life-stack">{children}</div> : <EmptyState icon="database" title="لا توجد بيانات بعد" text="ابدأ بالتسجيل لتظهر هنا." action={<Button to="/life/log" icon="edit">سجّل الآن</Button>} />}
     </div>
   );
 }
@@ -318,7 +265,7 @@ export function PageLinks({ items }: { items: { to: string; label: string; icon:
   );
 }
 
-/** بطاقات «بيانات ناقصة»: كل حقل قيمته null عند راشد يظهر كما هو مع ملاحظته، ولا تُملأ قيمته أبدًا. */
+/** بطاقات «بيانات ناقصة»: كل حقل قيمته null عندك يظهر كما هو مع ملاحظته، ولا تُملأ قيمته أبدًا. */
 let labelsP: Promise<FieldLabelsDoc | null> | null = null;
 /** أسماء عربية للمفاتيح التقنية من FIELD_LABELS_AR.json (تُجلب مرة واحدة). */
 export function useFieldLabels(): FieldLabelsDoc | null {
@@ -338,7 +285,7 @@ export function MissingInputsCards({ title, data, fallbackTitle = 'بيانات 
   const n = countMissing(items);
   return (
     <Card>
-      <CardHead title={fallbackTitle} icon="help" info="هذه حقول يتركها راشد فارغة (null) حتى يقول محمد القيمة. فارغ ≠ صفر، ولا نخمّن القيمة هنا.">
+      <CardHead title={fallbackTitle} icon="help" info="هذه حقول فارغة حتى تسجّل قيمتها. فارغ ≠ صفر، ولا نخمّن القيمة هنا.">
         <Badge tone={n ? 'warn' : 'ok'}>{n ? `${n} غير مسجّل` : 'مسجّلة كلها'}</Badge>
       </CardHead>
       {title && <p className="muted missing-title">{title}</p>}

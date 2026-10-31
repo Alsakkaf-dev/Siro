@@ -252,7 +252,7 @@ export function mountCook(r: express.Router, deps: { db: () => Db; publish: (typ
     if (!plan.ok) throw new CodedError(422, 'law', plan.message ?? 'خارج قانون السعرات', { total_kcal: Math.round(plan.law.total_kcal), status: plan.law.status, diff: Math.round(plan.law.excess ?? plan.law.deficit ?? 0), solutions: plan.solutions });
     d.tx(() => savePlanDay(d, date, stampSlots(plan.slots, cards), plan.law.total_kcal, plan.complete ? 'proposal' : 'partial'));
     deps.publish('plan', req);
-    res.json({ date, status: plan.complete ? 'proposal' : 'partial', total_kcal: plan.law.total_kcal, law: plan.law, slots: plan.slots, autoFit: plan.autoFit, note: 'اقتراح داخل المنصة فقط: لا يُكتب شيء في Outlook ولا في سجلات راشد (G-03).' });
+    res.json({ date, status: plan.complete ? 'proposal' : 'partial', total_kcal: plan.law.total_kcal, law: plan.law, slots: plan.slots, autoFit: plan.autoFit, note: 'اقتراح داخل المنصة فقط: لا يُكتب شيء في Outlook ولا في سجلات النظام (G-03).' });
   }));
 
   /** معاينة بلا حفظ: نفس الحساب (الواجهة تعرض مؤشر القانون الحيّ والرفض قبل المحاولة) */

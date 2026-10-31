@@ -11,8 +11,8 @@ import {
 } from '../shared/calendar/index.js';
 
 /**
- * طابور الاقتراحات (K-M11): كل تغيير يستهدف Outlook اقتراح فقط. المنصة لا تكتب في Outlook ولا في ملفات راشد أبدًا:
- * تُنتج الاقتراح بعد فحص CAL-43 ثم تُصدّره (JSON + نص) ليُنفَّذ عند راشد بـ«رن» منفصلة، ثم يُوسَم مطبّقًا يدويًا (CAL-40…48).
+ * طابور الاقتراحات (K-M11): كل تغيير يستهدف Outlook اقتراح فقط. المنصة لا تكتب في Outlook أبدًا:
+ * تُنتج الاقتراح بعد فحص CAL-43 ثم تُصدّره (JSON + نص) لتطبّقه بنفسك في Outlook، ثم يُوسَم مطبّقًا يدويًا (CAL-40…48).
  */
 const wallS = z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/);
 const fields = z.object({ title: z.string().trim().min(1).max(300), start: wallS, end: wallS, description: z.string().max(8000).default(''), categories: z.array(z.string().max(60)).max(20).default([]), show_as: z.enum(['busy', 'free']).optional() });
@@ -124,7 +124,7 @@ export function mountProposals(r: express.Router, deps: { db: () => Db }): void 
         }
       }
     });
-    res.status(created.length ? 201 : 200).json({ date: b.date, batch, created, rejected, skipped, note: 'لم يُكتب شيء في Outlook: الاقتراحات تُصدَّر لراشد وتُنفَّذ بـ«رن» منفصلة.' });
+    res.status(created.length ? 201 : 200).json({ date: b.date, batch, created, rejected, skipped, note: 'لم يُكتب شيء في Outlook: الاقتراحات تُصدَّر وتطبّقها بنفسك في Outlook.' });
   }));
 
   /** DEF-10/CAL-45: أوصاف Outlook بصياغة غرام خاطئة ← قائمة إصلاحات كاقتراحات (لا إصلاح تلقائي) */
@@ -163,7 +163,7 @@ export function mountProposals(r: express.Router, deps: { db: () => Db }): void 
     const row = d.get<PRow>('SELECT * FROM calendar_proposals WHERE id = ?', id);
     if (!row) throw new CodedError(404, 'not_found', 'اقتراح غير موجود');
     if (!(ALLOWED[row.status] ?? []).includes(b.status)) throw new CodedError(409, 'bad_transition', `لا انتقال من «${row.status}» إلى «${b.status}»`);
-    if (b.status === 'applied' && !row.exported_at) throw new CodedError(409, 'not_exported', 'صدِّر الاقتراح لراشد أولًا ثم وسمه مطبّقًا بعد «رن» عنده.');
+    if (b.status === 'applied' && !row.exported_at) throw new CodedError(409, 'not_exported', 'صدِّر الاقتراح أولًا ثم وسمه مطبّقًا بعد تطبيقه في Outlook.');
     d.tx(() => {
       d.run('UPDATE calendar_proposals SET status = ?, updated_at = ?, decided_at = ? WHERE id = ?', b.status, nowIso(), b.status === 'pending' ? null : nowIso(), id);
       audit(d, req, 'status', id, { from: row.status, to: b.status });
@@ -184,7 +184,7 @@ export function mountProposals(r: express.Router, deps: { db: () => Db }): void 
     res.json({ ok: true });
   }));
 
-  /** CAL-42: تصدير بصيغتين (JSON لراشد + نص عربي) ووسم وقت التصدير. لا كتابة في راشد ولا Outlook. */
+  /** CAL-42: تصدير بصيغتين (JSON + نص عربي) ووسم وقت التصدير. لا كتابة في Outlook. */
   r.post('/proposals/export', wrap((req, res) => {
     const d = db();
     const b = parseOrThrow(exportBody, req.body ?? {});

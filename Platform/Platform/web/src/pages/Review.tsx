@@ -5,7 +5,7 @@ import { useApp } from '../core/app-context.js';
 import { api, sports as sportsApi } from '../lib/api.js';
 import { PageHead } from '../ui/page.js';
 import { Badge, Button, Card, CardHead, EmptyState, Segmented, Skeleton } from '../ui/ui.js';
-import { StaleBanner, fmtDay, fmtDayFull, useLife } from '../life/lifeKit.js';
+import { fmtDay, fmtDayFull, useLife } from '../life/lifeKit.js';
 import { useNow } from '../widgets/tiles.js';
 import { usePlans } from '../sports/sportsKit.js';
 import { H3, Section, TagBadge } from '../review/kit.js';
@@ -135,10 +135,9 @@ export default function Review() {
           })}
         </ul>
       </Card>
-      {d.status && <StaleBanner status={d.status} names={[...FILES]} />}
       {staleAny && <p className="sr-only" role="status">بعض ملفات هذه المراجعة قديمة</p>}
       {d.loading && <Skeleton h={220} r={16} />}
-      {d.error && <EmptyState icon="warn" title="تعذّر قراءة ملفات راشد" text={d.error} action={<Button onClick={d.reload}>إعادة المحاولة</Button>} />}
+      {d.error && <EmptyState icon="warn" title="تعذّر قراءة البيانات" text={d.error} action={<Button onClick={d.reload}>إعادة المحاولة</Button>} />}
 
       {!d.loading && !d.error && (
         <>
@@ -151,12 +150,11 @@ export default function Review() {
             <CardHead title="المطلوب فعله قبل الاستعراض" icon="check" />
             <ul className="life-list">
               {b && overdue.length > 0 ? <li><b>{overdue.length}</b> تقييم تجاوز موعده ولم يُسلَّم — <Link to={`/academic/s/${b.semester.id}/timeline?view=list&open=1`}>افتح القائمة</Link></li> : <li>لا تقييمات متأخرة.</li>}
-              {staleAny ? <li>بعض ملفات راشد قديمة — اطلب تحديثها: <Link to="/life/commands?type=refresh_exports">طلب تحديث</Link></li> : <li>ملفات راشد محدّثة.</li>}
               {r.missing.length > 0 ? <li><b>{r.missing.length}</b> بندًا غير مسجل — <a href="#rv-missing" onClick={(e) => { e.preventDefault(); document.getElementById('rv-missing')?.scrollIntoView({ block: 'start' }); }}>اعرضها</a></li> : <li>لا نقص ظاهر.</li>}
             </ul>
           </Card>
           <Card id="rv-note-card">
-            <CardHead title="ملاحظتي لهذا الأسبوع" icon="edit" info="تُحفظ في هذا المتصفح فقط (لا في ملفات راشد ولا في النسخ الاحتياطي)." />
+            <CardHead title="ملاحظتي لهذا الأسبوع" icon="edit" info="تُحفظ في هذا المتصفح فقط (لا في السجل ولا في النسخ الاحتياطي)." />
             <label className="sr-only" htmlFor="rv-note">ملاحظتي لهذا الأسبوع</label>
             <textarea id="rv-note" className="textarea rv-note" rows={4} value={note} maxLength={2000} placeholder="ما الذي نجح؟ ما الذي تؤجّله؟ ما أهم شيء للأسبوع القادم؟" onChange={(e) => saveNote(e.target.value)} />
           </Card>
@@ -188,7 +186,7 @@ export default function Review() {
             {r.routine ? <RoutineBody r={r.routine} nextRange={`${fmtDay(w.nextStart)} ← ${fmtDay(w.nextEnd)}`} /> : <Unavail />}
             <H3>خطة التمرين</H3>
             <ul className="life-list">
-              <li>القالب المختار من راشد: {sel ? <>{plans.data?.templates.find((t) => t.id === sel)?.name_ar ?? sel} <TagBadge tag="افتراض" /></> : <TagBadge tag="غير مسجل" title="habits.json › unrecorded_inputs.workout_location / workout_days_per_week = null" />}</li>
+              <li>القالب المختار: {sel ? <>{plans.data?.templates.find((t) => t.id === sel)?.name_ar ?? sel} <TagBadge tag="افتراض" /></> : <TagBadge tag="غير مسجل" title="habits.json › unrecorded_inputs.workout_location / workout_days_per_week = null" />}</li>
               {workout?.week_plan?.length ? <li>خطة الأسبوع في العادات <TagBadge tag="افتراض" />: {workout.week_plan.map((x) => `${x.day_ar ?? x.day}: ${x.type_ar ?? x.type ?? ''}`).join(' · ')}</li> : null}
               {mine && WEEKDAYS.some((k) => mine.week[k]) && (
                 <li>خطتك المحلية في «تماريني» (الموقع لا يسجّل الإنجاز): {WEEKDAYS.filter((k) => mine.week[k]).map((k) => `${WEEKDAY_AR[k]}: ${mine.workouts.find((x) => x.id === mine.week[k])?.name ?? ''}`).join(' · ')}</li>
@@ -196,10 +194,10 @@ export default function Review() {
             </ul>
           </Section>
           <Card id="rv-missing" className="rv-sec">
-            <CardHead title="ما ينقص" icon="help" info="كل ما هو «غير مسجل» مع اسم الحقل، لتعرف ماذا تعطي راشد. لا نملؤه ولا نحسب منه." />
+            <CardHead title="ما ينقص" icon="help" info="كل ما هو «غير مسجل» مع اسم الحقل، لتعرف ما عليك تسجيله. لا نملؤه ولا نحسب منه." />
             {r.missing.length === 0 ? <p className="muted">لا نقص ظاهر.</p> : (
               <div className="rv-miss">
-                <p className="muted rv-fine" style={{ margin: 0 }}>{r.missing.length} بندًا غير مسجل. اطلب من راشد تسجيلها (مسودة أمر فقط، ولا يُنفَّذ شيء بدون موافقتك): <Link to="/life/commands">الأوامر</Link></p>
+                <p className="muted rv-fine" style={{ margin: 0 }}>{r.missing.length} بندًا غير مسجل. سجّلها من <Link to="/life/log">صفحة التسجيل</Link>.</p>
                 {missingBy.map(([sec, items]) => (
                   <details key={sec} className="fold rv-miss-g" open>
                     <summary>{sec} ({items.length})</summary>
@@ -216,5 +214,5 @@ export default function Review() {
 }
 
 function Unavail() {
-  return <p className="muted">هذا الملف غير متاح الآن (مجلد صادرات راشد مفقود أو الملف غير صالح). راجع <Link to="/settings?tab=sources">إعدادات الحياة</Link>.</p>;
+  return <p className="muted">لا توجد بيانات لهذا القسم بعد. ابدأ من <Link to="/life/log">صفحة التسجيل</Link>.</p>;
 }

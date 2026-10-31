@@ -10,7 +10,7 @@
 └───────────────▲──────────────────────────────────────────────▲────────────────────────────┘
                 │ adapters (server/wos/adapters.ts)            │ refs
 ┌───────────────┴───────────┐ ┌──────────────┐ ┌──────────────┴─┐ ┌────────────────────────┐
-│ academic acad_* (own logic)│ │ library lib_* │ │ sports spt_*    │ │ life: Rashed files (RO) │
+│ academic acad_* (own logic)│ │ library lib_* │ │ sports spt_*    │ │ life: the system files (RO) │
 └────────────────────────────┘ └──────────────┘ └────────────────┘ └────────────────────────┘
 ```
 
@@ -25,7 +25,7 @@ Existing domain tables are **not** migrated into `wos_items` (zero data risk, sp
 | `acad:sem:<id>` / `acad:course:<id>` / `acad:asmt:<id>` / `acad:note:<id>` | academic | status (assessment), title via own forms |
 | `lib:f:<id>` / `lib:y:<id>` | library file / video | done/progress/tags (own API) |
 | `spt:w:<id>` | workout | own API |
-| `life:<name>` | Rashed export | read-only (annotate + link only) |
+| `life:<name>` | the system export | read-only (annotate + link only) |
 
 ## 3. Tables (migration 5 — all scoped by `workspace_id`, default `'default'`)
 
@@ -58,7 +58,7 @@ Kinds: `relates` (symmetric), `blocks` ⇄ `blocked_by`, `belongs_to` ⇄ `conta
 | Semester / course / assessment / note | ✓ existing forms + (+) | ✓ | ✓ (+ assessment status inline) | ✓ now persistent trash | assessments: status/delete; notes: resolve/delete | ✓ | JSON (existing), **package export** (new) |
 | YouTube / bookmark / workout | ✓ | ✓ | ✓ | ✓ now with undo + trash | videos/workouts delete | ✓ | — |
 | Library file meta | — (scan) | ✓ | tags/note/progress/done | — (read-only source) | tag/done | ✓ | — |
-| Rashed data | — | ✓ | — | — | — | — | annotate & link via relations |
+| the system data | — | ✓ | — | — | — | — | annotate & link via relations |
 
 ## 6. Statuses & workflows
 Each type defines statuses `{id, name, color, category: todo|active|done|blocked, next?: id[]}`. Empty `next` = free movement. Server rejects a transition not in `next` (validator). Assessment statuses (`pending`, `submitted`, `graded`, …) map to categories in the adapter for Everything/Board views.

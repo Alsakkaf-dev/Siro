@@ -56,7 +56,7 @@ You are a principal-level product engineer who is simultaneously:
    **Never** add `Co-Authored-By`, "Generated with Claude", or any AI attribution to commits, PR titles, or PR bodies. Set this config before your first commit.
 5. **`node_modules/` and `dist/` are committed in this repo and contain Windows-native binaries** (the owner runs it on Windows via `start.bat`). **Never commit changes to `Platform/Platform/node_modules/` or `Platform/Platform/dist/`.** If your local install/build modifies them, restore with `git checkout -- Platform/Platform/node_modules Platform/Platform/dist && git clean -fdq Platform/Platform/dist` before committing. Stage files explicitly by path. If you must add a dependency, prefer zero new dependencies; if unavoidable, document it (the Windows launcher auto-installs on next start).
 6. **Local tools:** in this container `.bin` shims may lack exec permission; run tools via node, e.g. `node node_modules/typescript/bin/tsc -p tsconfig.server.json --noEmit`, `node node_modules/vitest/vitest.mjs run`, `node node_modules/vite/bin/vite.js build`.
-7. **RTL Arabic UI**, the existing "no guessing / غير معروف" data-honesty principle (unknown ≠ 0, every number tagged with its confidence: مثبت / محسوب / افتراض), local-first privacy, and read-only treatment of external sources (Rashed's exports, library folders) are product values. Preserve them.
+7. **RTL Arabic UI**, the existing "no guessing / غير معروف" data-honesty principle (unknown ≠ 0, every number tagged with its confidence: مثبت / محسوب / افتراض), local-first privacy, and read-only treatment of external sources (the system's exports, library folders) are product values. Preserve them.
 8. Keep both runtimes working: **PC mode** (`start.bat` → `node server`, 127.0.0.1:4310) and **online mode** (Vercel).
 
 ---
@@ -66,7 +66,7 @@ You are a principal-level product engineer who is simultaneously:
 ### 3.1 Repository
 - GitHub: `Alsakkaf-dev/Siro` (public). Work branch: create or continue a branch named `redesign/hci-work-os` from the latest of `claude/great-newton-p1ds60` (if merged, from `main`). Open a **draft PR** for it.
 - The app lives in **`Platform/Platform/`**. The rest of the repo is the owner's university archive (≈2.8 GB, `Bachelor in Software Engineering/…`) — do not reorganize or delete it.
-- Rashed's (a companion agent's) read-only life exports: `Platform/exchange/rashed/` (finance, prayers, habits, body, routine, ledger, docs JSON).
+- the system's (a companion agent's) read-only life exports: `Platform/seed/` (finance, prayers, habits, body, routine, ledger, docs JSON).
 
 ### 3.2 Stack
 - **Server:** Node ≥ 22, Express 5, SQLite via `better-sqlite3` with fallback to built-in `node:sqlite` (`server/db.ts`), zod validation (`shared/validation.ts`), migrations in `server/schema.ts`.
@@ -79,14 +79,14 @@ Map these by reading the code; this list is a starting point, not exhaustive:
 - **Academic (الفصول):** semester manager, per-semester dashboard (current week, upcoming deadlines, busiest weeks), courses catalog (cards/list/table + filters), course page (assessments, CLOs, notes), timeline heatmap, grade calculator (targets 50/60/70/80), weights map, unknowns list, print summary, official results (`acad_results`), semester import.
 - **Semester Packages (حزم الفصول):** `docs/SEMESTER_PACKAGE_SPEC.md`, `shared/package.ts` (checker), `server/package.ts` + `/api/packages` (preview/apply from Drive listing link, uploaded listing, public Drive folder with API key, or local folder), page `/academic/import`. SEM-1…SEM-5 already archived on the owner's Google Drive in `Siro Semesters/SEM-N` (2,858 files) with listings in `Siro Semesters/_index/SEM-N.listing.json`.
 - **Library (المكتبة):** file index (local folder scan, Drive-hosted package files, YouTube links), previews (PDF viewer with page resume/bookmarks, docx, images, text, audio/video with resume, Drive iframe), tags, notes, progress, done, recent, folders tree, facets (kind/semester/course/type/tag), settings.
-- **Life (الحياة):** overview, finance (balances, history chart, daily spend, insights), full ledger, prayers & qada plan (scenario choice), habits & alternatives ("ماذا أسوي الحين؟"), routine & weekly routine map, body/weight, commands (draft-only commands to Rashed), glossary, settings, freshness/staleness banners.
+- **Life (الحياة):** overview, finance (balances, history chart, daily spend, insights), full ledger, prayers & qada plan (scenario choice), habits & alternatives ("ماذا أسوي الحين؟"), routine & weekly routine map, body/weight, commands (draft-only commands to the system), glossary, settings, freshness/staleness banners.
 - **Sports (الرياضة):** exercise library (81 exercises, body map front/back, filters), weekly templates, "my workouts" builder + weekday assignment, today's workout card, safety notes.
 - **Weekly review (مراجعة الأسبوع):** spec-driven Sun–Sat review across prayer/habits/weight/money/routine with "what's missing".
 - **Global:** home dashboard, global search + command palette, notifications bell, appearance (theme/accent/motion), backups (daily auto + manual + restore), export/import JSON, offline/PWA, keyboard shortcuts.
 
 ### 3.4 Online deployment (keep it working)
 - Vercel team `alsakkaf-devs-projects` (`team_fl2HZTn4aLm2loXA9aTnw6Od`), project **`siro-platform`** (`prj_MqjukCuAGhjVuEzUC7JyvASQdTxv`), region `sin1`, Node 24. Production URL: **https://siro-platform.vercel.app**.
-- Vercel deploys **only** the branch **`deploy/platform`**, a slim snapshot built by `bash Platform/Platform/scripts/deploy-branch.sh --push` (git plumbing; ~2 s; contains the app + `exchange/rashed`, excludes node_modules/dist/data/backups). Other branches are skipped by the project's Ignored Build Step. After pushing the deploy branch, trigger production with the Vercel connector `create_deployment` (gitSource `github`, org `Alsakkaf-dev`, repo `Siro`, ref `deploy/platform`, target `production`) and verify with `web_fetch_vercel_url` (this container's network cannot reach `*.vercel.app` or `drive.google.com` directly).
+- Vercel deploys **only** the branch **`deploy/platform`**, a slim snapshot built by `bash Platform/Platform/scripts/deploy-branch.sh --push` (git plumbing; ~2 s; contains the app + `seed`, excludes node_modules/dist/data/backups). Other branches are skipped by the project's Ignored Build Step. After pushing the deploy branch, trigger production with the Vercel connector `create_deployment` (gitSource `github`, org `Alsakkaf-dev`, repo `Siro`, ref `deploy/platform`, target `production`) and verify with `web_fetch_vercel_url` (this container's network cannot reach `*.vercel.app` or `drive.google.com` directly).
 - Runtime: `api/index.mjs` → `server/online.ts` (`PLATFORM_ONLINE=1`): SQLite in `/tmp`, restored from / saved to a **private Vercel Blob** store when `BLOB_READ_WRITE_TOKEN` exists (the owner may not have created it yet — if absent, edits are ephemeral; never assume it exists; check project env), packages auto-imported on cold start from env `PLATFORM_PACKAGE_LISTINGS` (Drive file ids). Online mode accepts any Host but requires same-host Origin.
 - Google Drive is reachable through the **Composio** connector (account `mohammed.alsakkaaf@gmail.com`, folder `Siro Semesters` id `1jvePBsCM5uLHntbBBCNqfuLa8b7RXkQ5`, shared "anyone with link → viewer"). Bulk Drive work must run inside the Composio remote workbench in chunks < 50 s per call (the MCP call times out at 60 s).
 
@@ -113,11 +113,11 @@ For every mechanism record: what problem it solves, the cognitive/HCI rationale,
 Before redesigning, build a complete, evidence-backed understanding. Deliverable: `docs/audit/` folder.
 
 ### 5.1 System deconstruction (`docs/audit/SYSTEM_MAP.md`)
-- Inventory every route (from `web/src/App.tsx`), every nav entry (`plugins.config.tsx`, `Shell.tsx`, sidebar, top tabs), every page's sections/widgets/actions, every API endpoint (`server/*Routes.ts`, `routes.ts`), every DB table & relation (`schema.ts`), every shared model (`shared/*.ts`), every data source (seed, packages, Drive, local folders, Rashed exports).
+- Inventory every route (from `web/src/App.tsx`), every nav entry (`plugins.config.tsx`, `Shell.tsx`, sidebar, top tabs), every page's sections/widgets/actions, every API endpoint (`server/*Routes.ts`, `routes.ts`), every DB table & relation (`schema.ts`), every shared model (`shared/*.ts`), every data source (seed, packages, Drive, local folders, the system exports).
 - Produce: route tree, navigation graph (which page links to which), data model ERD (as Mermaid), and a **CRUD matrix**: for every entity × {Create, Read, Update, Delete, Bulk, Undo, Share/Publish, Import, Export}, where it is possible in the UI today (page/control) or "missing".
 
 ### 5.2 Exhaustive functional & technical test
-- Run the app locally (PC mode with real data: `PLATFORM_LIBRARY_ROOT` = the repo's `Bachelor in Software Engineering`, `PLATFORM_LIFE_ROOT` = `Platform/exchange/rashed`) and online (via Vercel fetch).
+- Run the app locally (PC mode with real data: `PLATFORM_LIBRARY_ROOT` = the repo's `Bachelor in Software Engineering`, `PLATFORM_LIFE_ROOT` = `Platform/seed`) and online (via Vercel fetch).
 - Write a Playwright crawler + interaction suite (keep it in `scripts/e2e/`): every route × widths 1280 / 768 / 390, light & dark, every button/menu/tab/form clicked, every empty/loading/error state forced, console errors, failed requests, horizontal overflow, focus traps, keyboard-only traversal, screenshots.
 - Run axe-core (inject from npm `axe-core`) on every page; Lighthouse-equivalent metrics where possible.
 - Record every defect in `docs/audit/ISSUES.md` with: id, severity (S0 blocker … S3 cosmetic), category (functional/technical/performance/a11y/HCI/IA/content), reproduction, evidence (screenshot path), affected requirement (I1–I10).
@@ -169,7 +169,7 @@ Deliverable: `docs/design/IA_METRO_MAP.md` (with Mermaid diagrams) + `docs/desig
 1. **الرئيسية / Home (central station):** personal dashboard — Today (due items, today's workout, prayer/habit check-ins, money snapshot), This week, alerts (stale data, unknowns), quick capture.
 2. **الدراسة / Study line:** Semesters (current + archive) → Courses → Assessments/Items; views: list, board (by status), calendar, timeline/heatmap, weights, grade calculator, unknowns; semester packages import/export.
 3. **المكتبة / Library line:** all files/links/videos as items; views by course/semester/type/folder/recent; previews; reading/watching progress; collections.
-4. **الحياة / Life line:** finance, prayers & qada, habits & alternatives, routine & map, body — each a space with its own views; Rashed's data clearly marked as external read-only sources.
+4. **الحياة / Life line:** finance, prayers & qada, habits & alternatives, routine & map, body — each a space with its own views; the system's data clearly marked as external read-only sources.
 5. **الرياضة / Sports line:** exercise library, templates, my workouts, weekly plan.
 6. **مساحاتي / My Spaces (the "wide imagination" line):** user-created spaces of any custom type (reading list, job applications, projects, goals, anything) built from the Work-OS core (§8).
 7. **المراجعة / Review & Insights:** weekly review, dashboards, goals/OKR-style progress.
@@ -189,7 +189,7 @@ Deliverable: `docs/design/DOMAIN_MODEL.md` + ADRs.
 
 1. **Unified item model** (without breaking existing tables): introduce a generic core — *Workspace → Space → List/Collection → Item → Subitem/Checklist* — with typed items (assessment, course, file, note, habit-log, transaction, workout, custom…) that **wrap or reference existing domain tables via adapters**, so current features keep their specialized logic while gaining generic powers (tags, comments/notes, attachments, relations, status, due dates, custom fields, history).
 2. **Relations graph:** any item can link to any item with typed relations (belongs-to, relates-to, blocks/blocked-by, derived-from, attachment-of). E.g., an assessment links to library files, a study session, a calendar slot, and a goal. Show backlinks everywhere ("مرتبط بـ").
-3. **Universal CRUD** on every user-owned entity: create, inline edit, duplicate, move, archive, delete with **undo** (extend the existing undo-token pattern), **bulk actions**, and **activity history**. External read-only sources (Rashed exports, scanned files) stay read-only but can be *annotated* and *linked*.
+3. **Universal CRUD** on every user-owned entity: create, inline edit, duplicate, move, archive, delete with **undo** (extend the existing undo-token pattern), **bulk actions**, and **activity history**. External read-only sources (the system exports, scanned files) stay read-only but can be *annotated* and *linked*.
 4. **Publish/share semantics:** export any space/list/view as JSON/CSV/printable page; generate a read-only public link (online mode) for a view; semester packages remain the canonical archive/publish format for study data (keep `SEMESTER_PACKAGE_SPEC.md` compatible; extend, never break, v1).
 5. **Statuses & workflows** (Jira/ClickUp): per-list custom statuses with optional transition rules; assessments' existing statuses map onto this.
 6. **Data integrity:** every new capability has zod validation, server-side authorization hooks (single-user now, multi-user-ready), and tests.

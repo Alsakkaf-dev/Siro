@@ -23,7 +23,7 @@ export default function LifeRoutineMap() {
   const related = useMemo(() => new Set(selB ? [selB.id, ...(selB.overlaps_with ?? [])] : []), [selB]);
   const toggle = (t: string): void => setHide((h) => { const n = new Set(h); if (n.has(t)) n.delete(t); else n.add(t); return n; });
   return (
-    <ContentPage c={c} title="خريطة الروتين الأسبوعي" icon="timer" label="خريطة الروتين" sub="كتل الأسبوع كما في ملفات راشد (قراءة فقط؛ لا تغيّر التقويم ولا Outlook).">
+    <ContentPage c={c} title="خريطة الروتين الأسبوعي" icon="timer" label="خريطة الروتين" sub="كتل الأسبوع كما في السجل (قراءة فقط؛ لا تغيّر التقويم ولا Outlook).">
       {(d) => (
         <>
           <div className="life-alert info" role="note">
@@ -79,7 +79,7 @@ export default function LifeRoutineMap() {
             )}
           </Card>
           <Card>
-            <CardHead title={`التداخلات (${pairs.length})`} icon="warn" info="الأزواج كما حددها راشد في overlaps_with. لا نكتشف تداخلات من عندنا." />
+            <CardHead title={`التداخلات (${pairs.length})`} icon="warn" info="الأزواج كما هي محددة في الجدول. لا نكتشف تداخلات من عندنا." />
             {pairs.length === 0 ? <p className="muted">لا تداخلات.</p> : (
               <ul className="life-list">
                 {pairs.map(({ a, b }) => (

@@ -63,7 +63,7 @@ describe('prayers', () => {
     expect(p.onTime).toMatchObject({ num: 1, den: 3 });
     expect(p.onTime.pct).toBe(33.3);
     expect(p.missingDates).toEqual(['2026-10-26']);
-    expect(p.rows.find((r) => r.date === '2026-10-26')!.cells.fajr).toBe('unknown'); // اليوم بلا صف = غير معروف (ملاحظة راشد 7)
+    expect(p.rows.find((r) => r.date === '2026-10-26')!.cells.fajr).toBe('unknown'); // اليوم بلا صف = غير معروف (ملاحظة 7)
     expect(p.rows.find((r) => r.date === '2026-10-28')!.cells.fajr).toBe('future');
     expect(p.rows.find((r) => r.date === '2026-10-25')!.cells.maghrib).toBe('unknown');
   });
@@ -217,10 +217,10 @@ describe('money', () => {
   });
 });
 
-const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
-describe.skipIf(!fs.existsSync(path.join(REAL, 'prayers.json')))('real Rashed files → weekly review (local copy only; skipped elsewhere)', () => {
-  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, n), 'utf8').replace(/^\ufeff/, '')) as T;
+const SEED = path.resolve(import.meta.dirname, '..', 'seed');
+const seedFile = (n: string): string => (n.startsWith('docs/') ? path.join(SEED, 'content', n.slice(5)) : path.join(SEED, 'life', n));
+describe('bundled life data → weekly review', () => {
+  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(seedFile(n), 'utf8').replace(/^\ufeff/, '')) as T;
   let input: Parameters<typeof buildWeekly>[0];
   let r: ReturnType<typeof buildWeekly>;
   beforeAll(() => {

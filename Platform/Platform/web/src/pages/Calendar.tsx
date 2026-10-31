@@ -18,7 +18,7 @@ import { dayName, dayNum, fmtDay, monthGridRange, monthName, sinceText } from '.
 
 type View = 'week' | 'day' | 'month' | 'list';
 const VIEWS: readonly View[] = ['week', 'day', 'month', 'list'];
-const SOURCE_NAME: Record<string, string> = { graph: 'Outlook (Graph)', import: 'لقطة مستوردة', routine: 'خريطة الروتين (راشد)', none: 'لا مصدر' };
+const SOURCE_NAME: Record<string, string> = { graph: 'Outlook (Graph)', import: 'لقطة مستوردة', routine: 'خريطة الروتين', none: 'لا مصدر' };
 
 /** الجدول CAL (K-M9): قراءة فقط. الشبكة الأسبوعية/اليومية/الشهرية/القائمة، فلاتر التقاويم، التحقق CAL-18، لقطة بلا اتصال. */
 export default function Calendar() {
@@ -129,7 +129,7 @@ export default function Calendar() {
           {data.source === 'import' && <Button size="sm" icon="trash" onClick={() => void doClear()}>احذف اللقطة</Button>}
         </div>
       )}
-      {data && data.holidays.length > 0 && <p className="callout" role="note">{data.holidays.map((h) => `${h.name_ar} (${h.from}${h.to !== h.from ? ` → ${h.to}` : ''})`).join(' · ')} — عطل مسجّلة عند راشد؛ القالب لا يحذف المحاضرات فيها.</p>}
+      {data && data.holidays.length > 0 && <p className="callout" role="note">{data.holidays.map((h) => `${h.name_ar} (${h.from}${h.to !== h.from ? ` → ${h.to}` : ''})`).join(' · ')} — عطل مسجّلة؛ القالب لا يحذف المحاضرات فيها.</p>}
       {err && !data && <p className="callout danger" role="alert">{err}</p>}
 
       {data && data.calendars.length > 0 && (
@@ -144,7 +144,7 @@ export default function Calendar() {
       {hiddenWith.length > 0 && <p className="callout warn" role="note" data-testid="cal-hidden-warn"><Icon name="warn" size={14} /> تقاويم مخفية في هذا العرض وفيها أحداث: {hiddenWith.map((c) => `${c.name} (${fmtNum(c.count)})`).join('، ')} — ستبدو لك فراغًا (CAL-17).</p>}
 
       {!data && !err && <Skeleton h={360} />}
-      {data && data.source === 'none' && <EmptyState icon="calendar" title="لا مصدر للجدول بعد" text="مجلد راشد غير متاح ولا لقطة مستوردة. صدّر تقويم Outlook كملف ICS ثم استورده." action={<Button variant="primary" icon="upload" onClick={() => setImp(true)}>استيراد لقطة</Button>} />}
+      {data && data.source === 'none' && <EmptyState icon="calendar" title="لا مصدر للجدول بعد" text="لا لقطة مستوردة. صدّر تقويم Outlook كملف ICS ثم استورده." action={<Button variant="primary" icon="upload" onClick={() => setImp(true)}>استيراد لقطة</Button>} />}
       {data && data.source !== 'none' && (
         <Card>
           {view === 'week' || view === 'day' ? <TimeGrid days={days} events={shown} onPick={onPickEvent} onDayClick={view === 'week' ? (d) => { setDate(d); setView('day'); } : undefined} headExtra={(d) => { const pd = planDays.find((x) => x.date === d); return pd ? <span className={`cal-head-chip ${pd.status === 'partial' ? 'part' : pd.total_kcal >= LAW.MIN && pd.total_kcal <= LAW.MAX ? 'ok' : 'bad'}`} title="مجموع وجبات اليوم المخطّطة"><Icon name="utensils" size={10} /> <span className="num">{fmtKcal(pd.total_kcal)}</span></span> : null; }} /> : null}

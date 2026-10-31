@@ -28,7 +28,7 @@ export async function resolveRoutes(extra = []) {
   const j = async (u) => (await fetch(BASE + u)).json();
   const sems = await j('/api/semesters');
   const sem = sems.find((s) => s.is_active) ?? sems[0];
-  const out = ['/', '/academic', '/academic/import', '/library', '/library/folders', '/library/youtube', '/library/settings', '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/commands', '/life/settings', '/review', '/sports', '/sports/templates', '/sports/mine', '/settings', '/search?q=test', '/week', '/everything', '/inbox', '/map', '/trash', '/activity', '/spaces', '/spaces/templates', '/spaces/automations', '/review/progress'];
+  const out = ['/', '/academic', '/academic/import', '/library', '/library/folders', '/library/youtube', '/library/settings', '/life', '/life/finance', '/life/prayers', '/life/habits', '/life/routine', '/life/body', '/life/alternatives', '/life/ledger', '/life/routine-map', '/life/insights', '/life/qada-plan', '/life/glossary', '/life/log', '/life/settings', '/review', '/sports', '/sports/templates', '/sports/mine', '/settings', '/search?q=test', '/week', '/everything', '/inbox', '/map', '/trash', '/activity', '/spaces', '/spaces/templates', '/spaces/automations', '/review/progress'];
   if (sem) {
     const b = `/academic/s/${sem.id}`;
     out.push(b, `${b}/courses`, `${b}/timeline`, `${b}/calculator`, `${b}/weights`, `${b}/unknowns`, `${b}/print`);

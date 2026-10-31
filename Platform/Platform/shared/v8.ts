@@ -1,4 +1,4 @@
-/** ملفات راشد v7/v8: السجل الكامل، خريطة الروتين، المؤشرات المالية الجاهزة، خطة القضاء. للقراءة فقط؛ لا نعيد حساب شيء من الجاهز. */
+/** السجل v7/v8: السجل الكامل، خريطة الروتين، المؤشرات المالية الجاهزة، خطة القضاء. للقراءة فقط؛ لا نعيد حساب شيء من الجاهز. */
 import type { Conf } from './life.js';
 
 /* ───── السجل الكامل (ledger_full.json) ───── */
@@ -38,7 +38,7 @@ export function sortLedger(rows: LedgerRow[], key: LedgerSortKey, dir: 'asc' | '
     return c * m || (a.order - b.order) * m;
   });
 }
-/** مجموع مبالغ الصفوف المعروضة من نوع «مصروف» فقط (عرض لما في الجدول، وليس مؤشرًا من راشد). */
+/** مجموع مبالغ الصفوف المعروضة من نوع «مصروف» فقط (عرض لما في الجدول، وليس مؤشرًا ). */
 export const expenseSum = (rows: LedgerRow[]): { total: number; count: number } => ({ total: Math.round(rows.filter((r) => r.type === 'expense').reduce((s, r) => s + r.amount, 0) * 100) / 100, count: rows.filter((r) => r.type === 'expense').length });
 export function checkLedger(d: unknown): string | null {
   if (!d || typeof d !== 'object') return 'المحتوى ليس كائنًا';
@@ -69,7 +69,7 @@ export function checkRoutineBlocks(d: unknown): string | null {
   for (const b of o['blocks'] as unknown[]) { const x = b as RBlock; if (!x || typeof x.id !== 'string' || typeof x.start_min !== 'number' || typeof x.end_min !== 'number' || typeof x.day !== 'string') return 'blocks[]: كل كتلة تحتاج id و day و start_min و end_min'; }
   return null;
 }
-/** أزواج التداخل (كل زوج مرة واحدة) كما كتبها راشد في overlaps_with، بلا اكتشاف من عندنا. */
+/** أزواج التداخل (كل زوج مرة واحدة) كما كتبها النظام في overlaps_with، بلا اكتشاف من عندنا. */
 export function overlapPairs(blocks: RBlock[]): { a: RBlock; b: RBlock }[] {
   const by = new Map(blocks.map((x) => [x.id, x] as const));
   const seen = new Set<string>();
@@ -142,7 +142,7 @@ export function checkQadaPlan(d: unknown): string | null {
 }
 
 /**
- * مصروف كل يوم من السجل الكامل: صفوف type=expense فقط، وإن كتب راشد تعديلًا (spend_adjustments) نستبدل المبلغ المسجّل بالمحسوب
+ * مصروف كل يوم من السجل الكامل: صفوف type=expense فقط، وإن كتب النظام تعديلًا (spend_adjustments) نستبدل المبلغ المسجّل بالمحسوب
  * حتى لا يتكرر مبلغ (مثل 14.53 في 13 أكتوبر). لا نحسب شيئًا آخر من عندنا.
  */
 export function ledgerSpendByDay(rows: LedgerRow[], adj: { row_id: string; recorded_amount: number; counted_amount: number }[] = []): { date: string; total: number }[] {

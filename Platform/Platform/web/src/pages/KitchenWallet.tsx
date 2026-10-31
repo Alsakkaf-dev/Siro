@@ -8,7 +8,7 @@ import { fmtNum, fmtRM } from '../../../shared/kitchen/index.js';
 const KIND_AR: Record<string, string> = { budget: 'ضبط الميزانية', purchase: 'شراء', quick: 'شراء سريع', refund: 'استرداد', adjust: 'تعديل' };
 const PERIOD_AR = { week: 'أسبوع', month: 'شهر', custom: 'مخصّص' } as const;
 
-/** W — محفظة المطبخ: ميزانية داخلية مستقلة عن دفتر المال عند راشد (C6)؛ حدّ صارم افتراضيًا وتحذير عند 80% و100% */
+/** W — محفظة المطبخ: ميزانية داخلية مستقلة عن دفتر المال (C6)؛ حدّ صارم افتراضيًا وتحذير عند 80% و100% */
 export default function KitchenWallet() {
   const k = useKitchen();
   const act = useAct();
@@ -25,7 +25,7 @@ export default function KitchenWallet() {
 
   return (
     <div className="page kitchen kt-wallet">
-      <PageHead title="المحفظة" icon="database" sub="المبلغ المسموح لك بصرفه على المطبخ. ميزانية داخلية مستقلة عن دفتر المال عند راشد ولا تنسخ أرصدته." actions={<KitchenChips />} />
+      <PageHead title="المحفظة" icon="database" sub="المبلغ المسموح لك بصرفه على المطبخ. ميزانية داخلية مستقلة عن دفتر المال ولا تنسخ أرصدته." actions={<KitchenChips />} />
       <div className="grid cols-2">
         <Card>
           <CardHead title="الرصيد" icon="database" />

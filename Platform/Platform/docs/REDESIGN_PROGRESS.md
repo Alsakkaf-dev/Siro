@@ -40,7 +40,7 @@ Resume rule: read the decision log + the first unchecked step below, continue fr
 - `git update-index --skip-worktree` is set on all tracked files under node_modules/ and dist/ so local builds can never be committed. Stage by explicit path.
 - Run the local server against a COPY of data/ (`PLATFORM_DATA_DIR`), never the tracked data/platform.db.
 - e2e: `BASE=http://127.0.0.1:4310 E2E_OUT=<dir> node scripts/e2e/crawl.mjs [--quick] [--clicks]`.
-- AI e2e: `node scripts/e2e/fake-qwen.mjs &` (mock Ollama on :11434) then `node scripts/e2e/ai.mjs --width=1280|390`. For a clean crawl set the scratch DB roots: library → `/home/user/Siro/Bachelor in Software Engineering`, life → `/home/user/Siro/Platform/exchange/rashed`.
+- AI e2e: `node scripts/e2e/fake-qwen.mjs &` (mock Ollama on :11434) then `node scripts/e2e/ai.mjs --width=1280|390`. For a clean crawl set the scratch DB roots: library → `/home/user/Siro/Bachelor in Software Engineering`, life → `/home/user/Siro/Platform/seed`.
 
 ## Decision log
 - D1 (owner, mid-session): **Keep the existing visual style.** The redesign improves quality, usability, efficiency, performance, maintainability, interaction (UX actions) and functionality, and refines the style — it does not replace the look. Tokens, fonts, card/pill language, accent system stay; new components reuse them.

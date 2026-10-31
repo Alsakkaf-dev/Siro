@@ -39,7 +39,7 @@ export default function SportsTemplates() {
   const list = useMemo(() => (p?.templates ?? []).filter((t) => loc === 'all' || t.location === loc), [p, loc]);
   const cur: Template | undefined = list.find((t) => t.id === pickId) ?? list.find((t) => t.id === mine.template) ?? list[0];
   const today = weekdayKL(now);
-  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة من راشد — كلها افتراض حتى تختار أنت." />;
+  const head = <PageHead title="القوالب الأسبوعية" icon="calendar" sub="ستة قوالب مقترحة — كلها افتراض حتى تختار أنت." />;
 
   if (plans.loading) return <div className="page sports-page">{head}<Skeleton h={90} r={16} /><div style={{ height: 12 }} /><Skeleton h={320} r={16} /></div>;
   if (plans.error) return <div className="page sports-page">{head}<EmptyState icon="warn" title="تعذّر الاتصال بالخادم" text={plans.error} action={<Button onClick={plans.reload}>إعادة المحاولة</Button>} /></div>;
@@ -48,7 +48,7 @@ export default function SportsTemplates() {
       <div className="page sports-page">
         {head}
         <ContentBanner status={plans.status} label="قوالب التمرين" />
-        <EmptyState icon="calendar" title="قوالب التمرين غير متاحة" text={!plans.rootExists ? 'مجلد صادرات راشد غير موجود.' : 'ملف القوالب غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
+        <EmptyState icon="calendar" title="قوالب التمرين غير متاحة" text={!plans.rootExists ? 'المحتوى غير متاح حاليًا.' : 'ملف القوالب غير متاح أو تغيّر تنسيقه.'} action={<Button to="/settings?tab=sources" icon="sliders">إعدادات الحياة</Button>} />
       </div>
     );
   }
@@ -69,7 +69,7 @@ export default function SportsTemplates() {
   };
   /** «ابدأ بهذا القالب»: ينشئ تمرينًا لكل جلسة (أو يعيد استعمال المنسوخ سابقًا بنفس الاسم)، ويعيّن أيام الأسبوع، ويعتمد القالب — بخطوة واحدة. */
   const start = async (t: Template): Promise<void> => {
-    const ok = await confirm({ title: `ابدأ بقالب «${t.name_ar}»؟`, body: <p>تُنشأ تمارين الجلسات في «تمريني» وتُعيَّن على أيامها ({t.days.length} أيام). الأيام الأخرى لا تتغير. كله في موقعك فقط — ملفات راشد لا تُمس.</p>, confirmLabel: 'ابدأ' });
+    const ok = await confirm({ title: `ابدأ بقالب «${t.name_ar}»؟`, body: <p>تُنشأ تمارين الجلسات في «تمريني» وتُعيَّن على أيامها ({t.days.length} أيام). الأيام الأخرى لا تتغير. كله في موقعك فقط — السجل لا تُمس.</p>, confirmLabel: 'ابدأ' });
     if (!ok) return;
     setBusy(true);
     try {
@@ -112,7 +112,7 @@ export default function SportsTemplates() {
         const e = byEx.get(se.exercise_id);
         return { exercise_id: se.exercise_id, en_name: e?.english_name ?? se.exercise_id, ar_name: e?.arabic_name ?? se.exercise_id, sets: se.sets?.min ?? null, reps_min: se.reps?.min ?? null, reps_max: se.reps?.max ?? null, duration_s: se.duration_seconds?.min ?? null, per_side: !!se.per_side };
       });
-      await sports.create({ name: s.name_ar.slice(0, 80), note: 'نُسخ من قالب راشد (افتراض). عدّل ما شئت.', items });
+      await sports.create({ name: s.name_ar.slice(0, 80), note: 'نُسخ من قالب جاهز (افتراض). عدّل ما شئت.', items });
       set(await sports.mine());
       toast('نُسخت الجلسة إلى «تمريني»', { kind: 'ok' });
     } catch (e) {
@@ -134,7 +134,7 @@ export default function SportsTemplates() {
           ))}
         </div>
         <span className="muted" style={{ fontSize: 'var(--fs-sm)' }}>
-          اختيار راشد المسجّل: {rawSel ? <b>{rawSel}</b> : <b>لم يُسجَّل بعد</b>}
+          القالب المختار: {rawSel ? <b>{rawSel}</b> : <b>لم يُسجَّل بعد</b>}
           {loaded && mine.template && <> · اختيارك المحلي: <b>{p.templates.find((t) => t.id === mine.template)?.name_ar ?? mine.template}</b></>}
         </span>
       </div>
@@ -157,7 +157,7 @@ export default function SportsTemplates() {
         <Card>
           <CardHead title={cur.name_ar} icon="calendar">
             <ConfBadge c={cur.confidence ?? p.confidence} />
-            <Button size="sm" variant={mine.template === cur.id ? 'ghost' : 'primary'} icon="check" disabled={busy || mine.template === cur.id} onClick={() => void choose(cur)}>{mine.template === cur.id ? 'معتمد عندك' : 'اعتمد هذا القالب محليًا'}</Button>
+            <Button size="sm" variant={mine.template === cur.id ? 'ghost' : 'primary'} icon="check" disabled={busy || mine.template === cur.id} onClick={() => void choose(cur)}>{mine.template === cur.id ? 'معتمد' : 'اعتمد هذا القالب محليًا'}</Button>
             <Button size="sm" variant="primary" icon="zap" disabled={busy} onClick={() => void start(cur)}>ابدأ بهذا القالب</Button>
           </CardHead>
           {cur.recommended_from_week ? <p className="muted" style={{ marginBlockStart: 0 }}>يوصى به من الأسبوع {cur.recommended_from_week}</p> : null}
@@ -209,7 +209,7 @@ export default function SportsTemplates() {
               ) : null}
               {shown.safety_notes_ar?.length ? (
                 <div className="safety-box" style={{ marginBlockStart: 'var(--s-3)' }}>
-                  <h3 style={{ margin: '0 0 6px', fontSize: 'var(--fs-sm)' }}>ملاحظات الأمان لهذه الجلسة <small className="muted">(من راشد)</small></h3>
+                  <h3 style={{ margin: '0 0 6px', fontSize: 'var(--fs-sm)' }}>ملاحظات الأمان لهذه الجلسة</h3>
                   <ul className="ses-safety">
                     {shown.safety_notes_ar.map((n, i) => {
                       const id = shown.safety_exercise_ids?.[i];
@@ -251,7 +251,7 @@ export default function SportsTemplates() {
       </div>
       {p.changelog?.some((c) => c.changes?.length) && (
         <Card>
-          <CardHead title="ما تغيّر في القوالب" icon="refresh" info="سجل تغييرات كتبه راشد. أُبدلت تمارين لأسباب أمان للمبتدئ." />
+          <CardHead title="ما تغيّر في القوالب" icon="refresh" info="سجل التغييرات. أُبدلت تمارين لأسباب أمان للمبتدئ." />
           {p.changelog.filter((c) => c.changes?.length).map((c) => (
             <details key={c.version} className="fold" open={c.version === Math.max(...(p.changelog ?? []).map((x) => x.version))}>
               <summary>النسخة {c.version}{c.date ? ` · ${c.date.slice(0, 10)}` : ''}</summary>

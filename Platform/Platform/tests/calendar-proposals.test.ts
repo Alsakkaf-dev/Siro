@@ -95,11 +95,11 @@ describe('الفرق والتصدير (CAL-41/42)', () => {
     expect(lineDiff('أ\nب\nج', 'أ\nد\nج')).toEqual([{ op: 'same', text: 'أ' }, { op: 'del', text: 'ب' }, { op: 'add', text: 'د' }, { op: 'same', text: 'ج' }]);
     expect(lineDiff('', 'س')).toEqual([{ op: 'add', text: 'س' }]);
   });
-  it('JSON بنية صريحة (يستهلكها راشد) والنص العربي بالترتيب، وكلاهما يصرّح أنه لم يُطبَّق شيء', () => {
+  it('JSON بنية صريحة  والنص العربي بالترتيب، وكلاهما يصرّح أنه لم يُطبَّق شيء', () => {
     const e = DAY.find((x) => x.id === 'm')!;
     const item = { id: 'p1', kind: 'update' as const, calendar: e.calendar, event_id: e.id, series: null, before: f(e), after: f(e, { description: BODY }), reason: 'تحديث الوصف', exceptions: [], lint_warnings: [], created_at: '2026-10-30T00:00:00Z' };
     const j = buildExportJson([item], new Date('2026-10-30T00:00:00Z')) as any;
-    expect(j).toMatchObject({ kind: 'siro.calendar.proposals', version: 1, writer: 'rashed', requires_separate_run: true, timezone: 'Asia/Kuala_Lumpur', count: 1 });
+    expect(j).toMatchObject({ kind: 'siro.calendar.proposals', version: 1, writer: 'user', requires_separate_run: true, timezone: 'Asia/Kuala_Lumpur', count: 1 });
     expect(j.proposals[0]).toMatchObject({ order: 1, id: 'p1', kind: 'update', event_id: 'm' });
     expect(j.instructions_ar).toContain('لا شيء منها طُبّق');
     const t = buildExportText([item, { ...item, id: 'p2', kind: 'create', event_id: null, before: null }]);

@@ -13,7 +13,7 @@ export default function LifePrayers() {
   const d = useLife(['prayers']);
   const p = d.get<Prayers>('prayers');
   return (
-    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء كما صدّره راشد — قراءة فقط." actions={<Button icon="edit" to="/life/commands?type=log_prayer">سجّل صلاة</Button>}>
+    <LifePage title="الصلاة" icon="clock" names={['prayers']} data={d} sub="سجل الحضور والقضاء." actions={<Button icon="edit" to="/life/commands?type=log_prayer">سجّل صلاة</Button>}>
       {p && <Body p={p} />}
     </LifePage>
   );
@@ -105,7 +105,7 @@ function Body({ p }: { p: Prayers }) {
             )}
           </div>
         ) : (
-          <EmptyState icon="calendar" title="لا أيام مسجّلة" text="لم يُصدِّر راشد سجل حضور بعد." />
+          <EmptyState icon="calendar" title="لا أيام مسجّلة" text="لم يُصدِّر النظام سجل حضور بعد." />
         )}
       </Card>
       <Card>

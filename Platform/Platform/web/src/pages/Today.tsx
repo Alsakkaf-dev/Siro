@@ -14,7 +14,7 @@ import { lib, life, sports, type LifeBundle } from '../lib/api.js';
 import { fmtDateFull, fmtDateShort, fmtWeekday, hhmm, parseSlots } from '../lib/format.js';
 import { DAY_MS, todayMs } from '../../../shared/semester.js';
 import { assessmentsInRange, daysLeftText } from '../../../shared/review.js';
-import { DAY_CODES, FRESH_LABEL, nowAndNext, type Routine } from '../../../shared/life.js';
+import { DAY_CODES, nowAndNext, type Routine } from '../../../shared/life.js';
 import { weekdayKL, type MyWeek } from '../../../shared/sports.js';
 import { libraryItemPath, type LibItem } from '../../../shared/library.js';
 import type { Course } from '../../../shared/types.js';
@@ -84,14 +84,13 @@ function Attention({ semesters, activeId, inbox, lifeB }: { semesters: ReturnTyp
   const base = `/academic/s/${b.semester.id}`;
   const byId = new Map(b.assessments.map((a) => [a.id, a]));
   const items = inbox.alerts.filter((a) => a.overdue || a.kind === 'week' || (a.daysLeft ?? 99) <= 3).slice(0, 6);
-  const stale = lifeB && lifeB !== 'x' && lifeB.status.root_exists && (lifeB.status.worst === 'stale' || lifeB.status.worst === 'expired') ? lifeB.status.worst : null;
   const courseOf = (code: string): Course | undefined => b.courses.find((c) => c.code === code);
   return (
     <Card className="today-attn">
       <CardHead title="يحتاج انتباهك" icon="warn">
         <Badge>{b.semester.code}{activeId === b.semester.id ? ' · النشط' : ''}</Badge>
       </CardHead>
-      {items.length === 0 && !inbox.unknown && !stale && <p className="muted">لا شيء عاجل الآن.</p>}
+      {items.length === 0 && !inbox.unknown && <p className="muted">لا شيء عاجل الآن.</p>}
       {items.length > 0 && (
         <ul className="plain today-list">
           {items.map((al) => {
@@ -112,9 +111,6 @@ function Attention({ semesters, activeId, inbox, lifeB }: { semesters: ReturnTyp
       )}
       {(inbox.unknown ?? 0) > 0 && (
         <Link to={`${base}/unknowns`} className="today-link"><Icon name="help" size={16} /> غير المعروف: {inbox.unknown} بندًا يحتاج إكمالًا <Icon name="left" size={14} /></Link>
-      )}
-      {stale && (
-        <Link to="/life" className="today-link"><Icon name="clock" size={16} /> بيانات راشد: {FRESH_LABEL[stale]} <Icon name="left" size={14} /></Link>
       )}
     </Card>
   );

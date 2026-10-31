@@ -14,7 +14,7 @@ import {
 
 /**
  * الجدول (K-M9): قراءة فقط. المصدر الأعلى Outlook (CAL-02)، ولا نصل إليه هنا إلا عبر (أ) Graph من الخادم بعلم/متغيرات بيئة، أو (ب) لقطة مستوردة ICS/JSON،
- * أو (ج) خريطة الروتين من راشد كقالب أسبوعي (ليست Outlook). لا كتابة في Outlook ولا في ملفات راشد من هذا الملف.
+ * أو (ج) خريطة الروتين  كقالب أسبوعي (ليست Outlook). لا كتابة في Outlook ولا في السجل من هذا الملف.
  */
 const dateQ = z.string().refine(isDate, 'تاريخ غير صالح');
 const wallS = z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/);
@@ -73,7 +73,7 @@ export function createCalendarRouter(ctx: Ctx, opts: CalendarOpts = {}): express
       sources: [
         { id: 'graph', label: 'Outlook عبر Graph', configured: !graphReason(), reason: graphReason(), sync: sy('graph'), verified: false, verified_note: 'UNVERIFIED: لم يُجرَّب على حساب Outlook حقيقي في بيئة التطوير' },
         { id: 'import', label: 'لقطة مستوردة (ICS/JSON)', configured: true, reason: null, sync: sy('import'), verified: true, verified_note: null },
-        { id: 'routine', label: 'خريطة الروتين (راشد)', configured: !!rt.data, reason: rt.data ? null : (rt.status.error ?? 'غير متاح'), sync: null, verified: true, verified_note: 'قالب أسبوعي وليس Outlook' },
+        { id: 'routine', label: 'خريطة الروتين', configured: !!rt.data, reason: rt.data ? null : (rt.status.error ?? 'غير متاح'), sync: null, verified: true, verified_note: 'قالب أسبوعي وليس Outlook' },
       ],
     });
   }));

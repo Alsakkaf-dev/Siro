@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DEFAULT_PORT } from '../shared/constants.js';
 
-function findRoot(): string {
+export function findRoot(): string {
   let dir = path.dirname(fileURLToPath(import.meta.url));
   for (let i = 0; i < 6; i++) {
     const pj = path.join(dir, 'package.json');

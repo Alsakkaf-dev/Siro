@@ -1,5 +1,5 @@
 import { plainDeep } from '../../../shared/plain.js';
-import type { CommandType, ContentStatus, LifeCommand, LifeFile, LifeContentName, LifeStatus } from '../../../shared/life.js';
+import type { CommandType, ContentStatus, LifeFile, LifeContentName, LifeStatus } from '../../../shared/life.js';
 import type { MyWeek, MyWorkout, Weekday } from '../../../shared/sports.js';
 import type { LibBookmark, LibItem, LibListResult, LibStatus, LibTreeResult } from '../../../shared/library.js';
 import type { PackageReport } from '../../../shared/package.js';
@@ -138,17 +138,17 @@ export const lib = {
   rawUrl: (id: string, download = false) => `/api/library/files/${encodeURIComponent(id)}/raw${download ? '?download=1' : ''}`,
 };
 
+export interface LifeEventRow { id: string; at: string; type: string; summary: string; undone: boolean; payload: Record<string, unknown> }
 export interface LifeBundle { status: LifeStatus; files: Partial<Record<LifeFile, unknown>> }
 export const life = {
   status: () => req<LifeStatus>('GET', '/api/life/status'),
-  settings: (root: string) => req<LifeStatus>('PUT', '/api/life/settings', { root }),
   bundle: (files: LifeFile[]) => req<LifeBundle>('GET', `/api/life/bundle${qs({ files: files.join(',') })}`).then((r) => ({ ...r, files: plainDeep(r.files) })),
-  doc: (name: string) => req<{ name: string; text: string }>('GET', `/api/life/docs/${encodeURIComponent(name)}`),
   content: <T>(name: LifeContentName) => req<{ name: string; data: T | null; status: ContentStatus; root_exists: boolean }>('GET', `/api/life/content/${encodeURIComponent(name)}`).then((r) => ({ ...r, data: plainDeep(r.data) })),
   qadaChoice: () => req<{ scenario: string | null }>('GET', '/api/life/qada-choice'),
   setQadaChoice: (scenario: string | null) => req<{ scenario: string | null }>('PUT', '/api/life/qada-choice', { scenario }),
-  commands: () => req<{ dir_exists: boolean; commands: (LifeCommand & { file: string; error?: string })[] }>('GET', '/api/life/commands'),
-  draft: (type: CommandType, payload: Record<string, unknown>) => req<{ command: LifeCommand; file: string }>('POST', '/api/life/commands', { type, payload, confirm: true }),
+  events: () => req<{ events: LifeEventRow[] }>('GET', '/api/life/events'),
+  log: (type: CommandType, payload: Record<string, unknown>) => req<{ event: LifeEventRow }>('POST', '/api/life/log', { type, payload }),
+  undo: (id: string) => req<{ ok: true }>('POST', `/api/life/events/${encodeURIComponent(id)}/undo`),
 };
 
 export interface ItemInput { exercise_id: string; en_name: string; ar_name: string; sets?: number | null; reps_min?: number | null; reps_max?: number | null; duration_s?: number | null; per_side?: boolean; note?: string | null }

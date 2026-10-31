@@ -5,9 +5,8 @@ import { startServer, type Running } from '../server/index.js';
 import { tmpDir } from './helpers.js';
 import { checkContent, describeSE, fmtRange, regionsOf, REGIONS, weekdayKL, withRegions, type ExercisesDoc, type PlansDoc, type AltsDoc, type GlossaryDoc } from '../shared/sports.js';
 // @ts-expect-error JS helper
-import { buildLifeFixture } from '../scripts/life-fixture.mjs';
 
-describe('muscle → body region mapping (site classification of Rashed\'s main_muscle_ar)', () => {
+describe('muscle → body region mapping (site classification of main_muscle_ar)', () => {
   it('maps common names, multi-region names and pseudo groups', () => {
     expect(regionsOf('الصدر')).toEqual(['chest']);
     expect(regionsOf('الصدر العلوي')).toEqual(['chest']);
@@ -64,14 +63,11 @@ async function call(method: string, url: string, body?: unknown): Promise<{ stat
 beforeAll(async () => {
   dir = tmpDir();
   process.env['PLATFORM_NO_AUTOSCAN'] = '1';
-  process.env['PLATFORM_LIFE_ROOT'] = path.join(dir, 'rashed');
-  buildLifeFixture(path.join(dir, 'rashed'));
   srv = await startServer({ port: 0, dataDir: path.join(dir, 'data'), backupsDir: path.join(dir, 'backups') });
   base = `http://127.0.0.1:${srv.cfg.port}`;
 });
 afterAll(async () => {
   await srv.close();
-  delete process.env['PLATFORM_LIFE_ROOT'];
   fs.rmSync(dir, { recursive: true, force: true });
 });
 
@@ -133,7 +129,7 @@ describe(`my workouts API (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () 
     expect((await call('PUT', '/api/sports/settings', { template: 'Bad Id!' })).status).toBe(400);
     expect((await call('PUT', '/api/sports/settings', { template: null })).json.template).toBeNull();
     const plans = (await call('GET', '/api/life/content/SPORTS_PLANS_AR.json')).json.data as PlansDoc;
-    expect(plans.selected_template_id).toBeNull(); // ملف راشد لم يتغير
+    expect(plans.selected_template_id ?? null).toBeNull(); // المحتوى الثابت لم يتغير
   });
   it('habit alternative picks toggle', async () => {
     expect((await call('PUT', '/api/sports/alt-picks', { alt_id: 'vape_water', habit_id: 'vape' })).json).toEqual([{ alt_id: 'vape_water', habit_id: 'vape' }]);
@@ -142,18 +138,17 @@ describe(`my workouts API (${process.env['PLATFORM_DB_DRIVER'] ?? 'auto'})`, () 
     expect((await call('PUT', '/api/sports/alt-picks', { alt_id: 'vape_water', habit_id: 'vape', picked: false })).json).toEqual([]);
     expect((await call('PUT', '/api/sports/alt-picks', { alt_id: 'BAD ID', habit_id: 'vape' })).status).toBe(400);
   });
-  it('never touches the exports folder', async () => {
-    const before = fs.readdirSync(path.join(dir, 'rashed', 'docs')).sort();
+  it('static content is never modified by workout writes', async () => {
+    const before = JSON.stringify((await call('GET', '/api/life/content/SPORTS_PLANS_AR.json')).json.data);
     await call('POST', '/api/sports/workouts', { name: 'ج' });
-    expect(fs.readdirSync(path.join(dir, 'rashed', 'docs')).sort()).toEqual(before);
-    expect(fs.readdirSync(path.join(dir, 'rashed', 'commands')).filter((f) => f.endsWith('.json'))).toEqual([]);
+    expect(JSON.stringify((await call('GET', '/api/life/content/SPORTS_PLANS_AR.json')).json.data)).toBe(before);
   });
 });
 
-const BUNDLED = path.resolve(import.meta.dirname, '..', '..', 'exchange', 'rashed');
-const REAL = process.env['RASHED_FIXTURE_DIR'] ?? (fs.existsSync(BUNDLED) ? BUNDLED : '/workspace/rashed_fixture');
-describe.skipIf(!fs.existsSync(path.join(REAL, 'docs', 'SPORTS_EXERCISES.json')))('real Rashed sports content (local copy only; skipped elsewhere)', () => {
-  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(path.join(REAL, 'docs', n), 'utf8').replace(/^\ufeff/, '')) as T;
+const SEED = path.resolve(import.meta.dirname, '..', 'seed');
+const seedFile = (n: string): string => (n.startsWith('docs/') ? path.join(SEED, 'content', n.slice(5)) : path.join(SEED, 'life', n));
+describe('bundled sports content', () => {
+  const read = <T,>(n: string): T => JSON.parse(fs.readFileSync(seedFile('docs/' + n), 'utf8').replace(/^\ufeff/, '')) as T;
   it('81 exercises, all pass the shape check, every one maps to a region or full/cardio', () => {
     const doc = read<ExercisesDoc>('SPORTS_EXERCISES.json');
     expect(checkContent('SPORTS_EXERCISES.json', doc)).toBeNull();

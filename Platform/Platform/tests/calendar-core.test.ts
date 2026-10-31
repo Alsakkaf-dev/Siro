@@ -133,8 +133,8 @@ describe('قارئ ICS', () => {
   });
 });
 
-describe('خريطة الروتين من راشد (بيانات حقيقية)', () => {
-  const file = path.join(__dirname, '..', '..', 'exchange', 'rashed', 'docs', 'ROUTINE_BLOCKS_AR.json');
+describe('خريطة الروتين (بيانات المحتوى المضمّنة)', () => {
+  const file = path.join(__dirname, '..', 'seed', 'content', 'ROUTINE_BLOCKS_AR.json');
   const have = fs.existsSync(file);
   const doc = have ? (JSON.parse(fs.readFileSync(file, 'utf8')) as RoutineDocLike & { blocks: RBlock[] }) : null;
   it.skipIf(!have)('أسبوع واحد: عدد الأحداث = كتل ذلك اليوم (بلا النقاط)، والأوقات ضمن اليوم', () => {
@@ -146,13 +146,13 @@ describe('خريطة الروتين من راشد (بيانات حقيقية)', 
     const mon = evs.filter((e) => e.start.startsWith('2026-10-26')).length;
     expect(mon).toBe(doc!.blocks.filter((b) => b.day === keys[dowOf('2026-10-26')] && b.type !== 'local_routine').length);
   });
-  it.skipIf(!have)('كل تداخل عند راشد (overlaps_with) يظهر عندنا بين الحدثين نفسيهما في الأسبوع', () => {
+  it.skipIf(!have)('كل تداخل مسجّل في الجدول يظهر عندنا بين الحدثين نفسيهما في الأسبوع', () => {
     const evs = routineToEvents(doc!, '2026-10-25', '2026-10-31');
     const v = verifyRange(evs, '2026-10-25', '2026-10-31');
     const keys = new Set(v.overlaps.map((o) => [o.a.replace(/^rt:|:\d{4}-\d{2}-\d{2}$/g, ''), o.b.replace(/^rt:|:\d{4}-\d{2}-\d{2}$/g, '')].sort().join('|')));
     const pairs = overlapPairs(doc!.blocks);
     expect(pairs.length).toBeGreaterThan(0);
-    // أزواج راشد التي تمسّ لحظة فعلية (>0 دقيقة) كلها عندنا
+    // الأزواج التي تمسّ لحظة فعلية (>0 دقيقة) كلها عندنا
     let touching = 0;
     for (const { a, b } of pairs) {
       if (Math.min(a.end_min, b.end_min) - Math.max(a.start_min, b.start_min) > 0) {

@@ -52,7 +52,7 @@ describe(`legacy migration ids from the work-os line (${process.env['PLATFORM_DB
     const rowsBefore = db.get<{ n: number }>('SELECT COUNT(*) AS n FROM wos_workspaces')!.n;
     migrate(db);
     const ids = db.all<{ id: number; name: string }>('SELECT id, name FROM core_migrations ORDER BY id');
-    expect(ids.map((r) => r.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    expect(ids.map((r) => r.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
     expect(ids.find((r) => r.id === 10)!.name).toBe(names.get(10));
     expect(ids.find((r) => r.id === 4)!.name).toMatch(/^kitchen/);
     expect(db.get<{ n: number }>("SELECT COUNT(*) AS n FROM sqlite_master WHERE name = 'kitchen_prices'")!.n).toBe(1);

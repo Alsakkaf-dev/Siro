@@ -35,9 +35,7 @@ const port = 4400 + Math.floor(Math.random() * 90);
 const tmp = mkdtempSync(join(tmpdir(), 'platform-browser-'));
 const { buildLibraryFixture } = await import(pathToFileURL(join(root, 'scripts', 'lib-fixture.mjs')).href);
 const libRoot = await buildLibraryFixture(join(tmp, 'library'));
-const { buildLifeFixture } = await import(pathToFileURL(join(root, 'scripts', 'life-fixture.mjs')).href);
-const lifeRoot = buildLifeFixture(join(tmp, 'rashed'), { balanceHistory: 'v4' });
-const env = { ...process.env, PLATFORM_PORT: String(port), PLATFORM_DATA_DIR: join(tmp, 'data'), PLATFORM_BACKUPS_DIR: join(tmp, 'backups'), PLATFORM_LIBRARY_ROOT: libRoot, PLATFORM_LIFE_ROOT: lifeRoot, PLATFORM_NO_AUTOSCAN: '1' };
+const env = { ...process.env, PLATFORM_PORT: String(port), PLATFORM_DATA_DIR: join(tmp, 'data'), PLATFORM_BACKUPS_DIR: join(tmp, 'backups'), PLATFORM_LIBRARY_ROOT: libRoot, PLATFORM_NO_AUTOSCAN: '1' };
 const child = spawn(process.execPath, ['server'], { cwd: root, env, stdio: ['ignore', 'pipe', 'pipe'] });
 let log = '';
 child.stdout.on('data', (d) => (log += d));
@@ -59,7 +57,7 @@ const VIEWPORTS = [
 const problems = [];
 const scenarioLog = [];
 
-/** سيناريوهات تفاعلية (عقود PLAN §6ب): اختصارات بمفاتيح عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، اليوم بلا مجلد راشد، 404، المطبخ. */
+/** سيناريوهات تفاعلية (عقود PLAN §6ب): اختصارات بمفاتيح عربية، لوحة الأوامر، «+ جديد»، التحويلات، تبديل الفصل، Back، اليوم، 404، المطبخ. */
 async function scenarios(browser, { sem, course }) {
   const run = async (name, vp, fn) => {
     if (SCN && !SCN.split('||').some((x) => name.includes(x))) return;
@@ -220,8 +218,8 @@ async function scenarios(browser, { sem, course }) {
     await key(page, 'KeyG', 'ل');
     await key(page, 'Digit6', '٦');
     await expectPath(page, /^\/kitchen$/, 'g 6');
-    await page.waitForSelector('nav[aria-label="عروض الصفحة"] a', { timeout: 8000 });
-    const tabs = await page.locator('nav[aria-label="عروض الصفحة"] a').allTextContents();
+    await page.waitForSelector('nav[aria-label="صفحات المطبخ"] a', { timeout: 8000 });
+    const tabs = await page.locator('nav[aria-label="صفحات المطبخ"] a').allTextContents();
     if (tabs.length < 7) throw new Error(`تبويبات القسم: ${tabs.length}`);
     return `تبويبات: ${tabs.map((t) => t.trim()).join('، ')}`;
   });
@@ -851,7 +849,7 @@ async function scenarios(browser, { sem, course }) {
     await kapi('DELETE', '/cart');
     return 'دورة 30 يومًا ← رفض ×1.5 ← تطبيق ← تسوّق إلى السلة ← سجل 30 يومًا';
   });
-  await run('PROP-1: يوم الخطة ← اقتراحات بقالب حرفي وفرق ← اعتماد ← تصدير JSON ونص لراشد ← «مطبّق» بعد التصدير فقط، بلا كتابة في Outlook (AC-10)', 'desktop', async (page) => {
+  await run('PROP-1: يوم الخطة ← اقتراحات بقالب حرفي وفرق ← اعتماد ← تصدير JSON ونص ← «مطبّق» بعد التصدير فقط، بلا كتابة في Outlook (AC-10)', 'desktop', async (page) => {
     const vev = (uid, t, a, b, cal = 'روتين وصحة') => ['BEGIN:VEVENT', `UID:${uid}`, `SUMMARY:${t}`, `DTSTART;TZID=Asia/Kuala_Lumpur:${a}`, `DTEND;TZID=Asia/Kuala_Lumpur:${b}`, `X-SIRO-CALENDAR:${cal}`, 'END:VEVENT'].join('\r\n');
     const ics = ['BEGIN:VCALENDAR', vev('p1', '😴 نوم', '20261116T000000', '20261116T060000'), vev('p2', 'فطور', '20261116T060000', '20261116T070000'), vev('p3', 'عمل', '20261116T070000', '20261116T120000'), vev('p4', 'غداء', '20261116T120000', '20261116T130000'), vev('p5', 'راحة', '20261116T130000', '20261116T230000'), vev('p6', '😴 جاري النوم', '20261116T230000', '20261117T000000'), 'END:VCALENDAR'].join('\r\n');
     if ((await capi('POST', '/import', { format: 'ics', text: ics, from: '2026-11-16', to: '2026-11-16' })).status !== 201) throw new Error('الاستيراد');
@@ -876,7 +874,7 @@ async function scenarios(browser, { sem, course }) {
     if (!/لم يُطبَّق شيء/.test(txt) || !/1\. تعديل/.test(txt) || !/2\. تعديل/.test(txt)) throw new Error('نص التصدير');
     const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 6000 }), page.click('[data-testid=dl-json]')]);
     const body = JSON.parse(readFileSync(await dl.path(), 'utf8'));
-    if (body.kind !== 'siro.calendar.proposals' || body.count !== 2 || body.writer !== 'rashed' || body.requires_separate_run !== true) throw new Error('JSON التصدير');
+    if (body.kind !== 'siro.calendar.proposals' || body.count !== 2 || body.writer !== 'user' || body.requires_separate_run !== true) throw new Error('JSON التصدير');
     await page.waitForFunction(() => !document.querySelector('[data-testid=mark-applied]:disabled'), null, { timeout: 6000 });
     await page.locator('[data-testid=mark-applied]').first().click();
     await page.waitForFunction(() => document.querySelectorAll('[data-testid=proposal][data-status=applied]').length === 1, null, { timeout: 6000 });
@@ -936,13 +934,7 @@ async function scenarios(browser, { sem, course }) {
     }
     return 'يومي/أسبوعي/شهري/قائمة بلا تمرير أفقي';
   });
-  await run('اليوم يعمل بلا مجلد راشد', 'desktop', async (page) => {
-    // الخادم يقبل مجلدًا موجودًا فقط: نعيّنه ثم نحذفه ليصير «مجلد راشد غير موجود» كما على جهاز بلا راشد
-    const gone = join(tmp, 'rashed-gone');
-    mkdirSync(gone, { recursive: true });
-    const st = await api('/api/life/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ root: gone }) });
-    if (!st || st.root !== gone) throw new Error('تعذّر تغيير مجلد راشد');
-    rmSync(gone, { recursive: true, force: true });
+  await run('اليوم يعمل ببيانات الحياة الداخلية', 'desktop', async (page) => {
     await ready(page, '/');
     await page.waitForSelector('text=يحتاج انتباهك', { timeout: 8000 });
     const h = await page.locator('#main .card h3, #main .card h2').allTextContents().catch(() => []);

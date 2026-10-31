@@ -23,7 +23,7 @@
 
 ## النشر على Vercel (من main)
 
-- النشر من `main` وحده: مشروع Vercel جذره `Platform/Platform`، و`vercel-prepare.mjs` ينسخ `../exchange/rashed` قبل البناء، و`.vercelignore` يستبعد `node_modules/dist/data/backups` من الرفع.
+- النشر من `main` وحده: مشروع Vercel جذره `Platform/Platform`، و`vercel-prepare.mjs` ينسخ `../seed` قبل البناء، و`.vercelignore` يستبعد `node_modules/dist/data/backups` من الرفع.
 - سبب عطل نشر المرحلة 4 والمحاولة الأولى للنقل: تهيئة الدالة كانت تنتظر تنزيل حزم الفصول من Drive بلا مهلة. صار لكل تنزيل مهلة (20ث) والانتظار الكلي مسقوف (6ث) والباقي يكمل في الخلفية (`server/online.ts`).
 - فرع `deploy/platform` لم يعد مستخدمًا (يُحذف)، وسكربت `deploy-branch.sh` حُذف؛ لا تُنشئهما من جديد.
 - متغيرات البيئة (مفاتيح الذكاء وقوائم الحزم) أُبقيت دون مساس في لوحة Vercel؛ لا شيء منها في المستودع.
