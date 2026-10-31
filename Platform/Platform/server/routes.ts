@@ -62,6 +62,17 @@ function uniqueGuard<T>(fn: () => T): T {
   }
 }
 
+/** بصمة النسخة المنشورة: من متغير Vercel أو من dist/web/build.json (يكتبه البناء). */
+function buildId(root: string): string | null {
+  const env = (process.env['VERCEL_GIT_COMMIT_SHA'] ?? '').slice(0, 7);
+  if (env) return env;
+  try {
+    return (JSON.parse(fs.readFileSync(path.join(root, 'dist', 'web', 'build.json'), 'utf8')) as { id?: string }).id ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function createApiRouter(ctx: Ctx): express.Router {
   const r = express.Router();
   const db = (): Db => ctx.getDb();
@@ -71,7 +82,7 @@ export function createApiRouter(ctx: Ctx): express.Router {
   const acadTrash = (label: string, specs: SnapSpec[], makeActive?: string | null): string => trashPut(db(), ws, { kind: 'academic', label, sets: snapshot(db(), specs), makeActive: makeActive ?? null });
 
   r.get('/health', (_req, res) => {
-    res.json({ ok: true, name: 'platform', version: ctx.cfg.version, schema: SCHEMA_VERSION, driver: db().driver, time: new Date().toISOString() });
+    res.json({ ok: true, name: 'platform', version: ctx.cfg.version, build: buildId(ctx.cfg.root), schema: SCHEMA_VERSION, driver: db().driver, time: new Date().toISOString() });
   });
 
   r.use('/library', createLibraryRouter(ctx));

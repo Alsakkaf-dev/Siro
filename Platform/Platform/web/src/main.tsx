@@ -13,6 +13,7 @@ import './styles/print.css';
 import { App } from './App.js';
 import { AppProvider } from './core/app-context.js';
 import { InboxProvider } from './core/inbox.js';
+import { watchForUpdate } from './core/updates.js';
 
 try {
   if (localStorage.getItem('platform.density') === 'compact') document.documentElement.setAttribute('data-density', 'compact');
@@ -31,6 +32,8 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>,
 );
+
+watchForUpdate();
 
 // صدفة التطبيق (PWA): تسريع التحميل وإتاحة التثبيت. لا تخزّن بيانات API (انظر public/sw.js).
 if ('serviceWorker' in navigator && !import.meta.env.DEV) {

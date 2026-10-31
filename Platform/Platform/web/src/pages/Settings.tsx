@@ -130,6 +130,7 @@ export default function Settings() {
             {info ? (
               <dl className="kv">
                 <dt>الإصدار</dt><dd className="num">{info.version}</dd>
+                <dt>البناء</dt><dd dir="ltr" className="num">{__BUILD_ID__}</dd>
                 <dt>المحرّك</dt><dd dir="ltr" className="num">{info.driver}</dd>
                 <dt>الخادم</dt><dd dir="ltr" className="num">{info.host}:{info.port}</dd>
                 <dt>ملف البيانات</dt><dd dir="ltr" style={{ overflowWrap: 'anywhere' }}>{info.db_file}</dd>
