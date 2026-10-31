@@ -50,3 +50,5 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--page-gl
 :where(input[type='checkbox'])::after { content: ''; inline-size: 62%; block-size: 62%; background: var(--accent-ink); clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 20%, 86% 6%, 38% 72%); transform: scale(0); transition: transform var(--t-micro) var(--ease-enter); }
 :where(input[type='radio'])::after { content: ''; inline-size: 42%; block-size: 42%; border-radius: 50%; background: var(--accent-ink); transform: scale(0); transition: transform var(--t-micro) var(--ease-enter); }
 :where(input[type='checkbox']:checked, input[type='radio']:checked)::after { transform: scale(1); }
+
+::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: inherit; }

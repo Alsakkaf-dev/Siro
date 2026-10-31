@@ -8,8 +8,9 @@ import { TitleProvider } from '../core/title.js';
 import { pushRecent } from '../core/recent.js';
 import { installHScroll } from '../core/hscroll.js';
 import { installFx } from '../core/fx.js';
-import { Modal, Skeleton } from '../ui/ui.js';
+import { Modal } from '../ui/ui.js';
 import { Palette } from './Palette.js';
+import { PageSkeleton } from './PageSkeleton.js';
 import { AreaBar, BottomBar, Sidebar } from './Sidebar.js';
 import { NewMenu, SemChip } from './TopMenus.js';
 import { DeadlineBell } from '../notify/Bell.js';
@@ -221,7 +222,7 @@ export function Shell() {
         <AreaBar semId={semId} activeArea={activeArea} owner={owner} onShortcuts={() => setShowShortcuts(true)} />
         <main id="main" className="content" tabIndex={-1} ref={mainRef}>
           <TitleProvider set={setTitle}>
-            <Suspense fallback={<div className="page"><Skeleton h={40} w="35%" /><div style={{ height: 24 }} /><Skeleton h={280} r={20} /></div>}>
+            <Suspense fallback={<PageSkeleton />}>
               {/* بعد أن يعدّل المساعد بيانات: إعادة تحميل الصفحة الحالية لتظهر التغييرات فورًا */}
               <Fragment key={dataRev}>
                 <Outlet />

@@ -16,15 +16,15 @@ export function Sidebar({ open, inert, semId, activeArea }: { open: boolean; ine
   const idx = areas.findIndex((a) => a.id === activeArea);
   return (
     <aside id="sidebar" className={cx('sidebar', open && 'open')} aria-label="القائمة الجانبية" inert={inert}>
-      <Link to="/" className="rail-item brand" aria-label={APP_NAME}>
-        <span className="brand-mark"><Icon name="sparkle" size={18} /></span>
+      <Link to="/" viewTransition className="rail-item brand" aria-label={APP_NAME}>
+        <span className="brand-mark"><svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden="true" focusable="false"><path d="M21.5 11.2C21.5 9 19.2 7.6 16 7.6s-5.5 1.4-5.5 3.7c0 5.3 11 2.9 11 8.4 0 2.3-2.3 3.8-5.5 3.8s-5.5-1.5-5.5-3.8" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><circle cx="24.2" cy="7.8" r="2" fill="currentColor" opacity=".55"/></svg></span>
         <span className="rail-label">{APP_NAME}</span>
         <span className="rail-tip" aria-hidden="true"><span>{APP_NAME}</span></span>
       </Link>
       <nav aria-label="الأقسام" className="rail-nav" style={{ '--i': idx } as CSSProperties}>
         <i className="rail-ind" aria-hidden="true" data-on={idx >= 0 || undefined} />
         {areas.map((a) => (
-          <Link key={a.id} to={hrefFor(a.entry, semId)} className="rail-item" aria-current={a.id === activeArea ? 'page' : undefined}>
+          <Link key={a.id} to={hrefFor(a.entry, semId)} viewTransition className="rail-item" aria-current={a.id === activeArea ? 'page' : undefined}>
             <Icon name={a.icon} size={19} />
             <span className="rail-label">{a.label}</span>
             <span className="kbd-hint" dir="ltr" aria-hidden="true">g {a.kbd}</span>
@@ -51,7 +51,7 @@ export function AreaBar({ semId, activeArea, owner, onShortcuts }: { semId: stri
       {items.map((p) => {
         const badge = p.id === 'unknowns' && semId ? unknownCounts[semId] : undefined;
         return (
-          <Link key={p.id} to={hrefFor(p.id, semId)} className="area-tab" aria-current={owner?.id === p.id ? 'page' : undefined} title={p.kbd ? `g ${p.kbd}` : undefined}>
+          <Link key={p.id} to={hrefFor(p.id, semId)} viewTransition className="area-tab" aria-current={owner?.id === p.id ? 'page' : undefined} title={p.kbd ? `g ${p.kbd}` : undefined}>
             <Icon name={p.icon} size={16} />
             <span>{p.label}</span>
             {badge ? <span className="badge warn" title="غير المعروف">{badge}</span> : null}
@@ -75,7 +75,7 @@ export function BottomBar({ semId, activeArea, onMore, moreOpen }: { semId: stri
   return (
     <nav className="bottom-bar" aria-label="التنقل السريع">
       {items.map((a) => (
-        <Link key={a.id} to={hrefFor(a.entry, semId)} className={cx('bb-item', a.id === activeArea && 'on')} aria-current={a.id === activeArea ? 'true' : undefined}>
+        <Link key={a.id} to={hrefFor(a.entry, semId)} viewTransition className={cx('bb-item', a.id === activeArea && 'on')} aria-current={a.id === activeArea ? 'true' : undefined}>
           <Icon name={a.id === 'home' ? 'sparkle' : a.icon} size={20} />
           <span>{a.id === 'home' ? 'اليوم' : a.label}</span>
         </Link>

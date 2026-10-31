@@ -54,7 +54,6 @@ export default function Today() {
         <MealsToday />
         <Continue items={recentLib} />
         <Card className="today-quick">
-          <CardHead title="إجراءات سريعة" icon="zap" />
           <div className="quick">
             <Link to="/life/alternatives" className="btn sm"><Icon name="zap" size={15} /> اشتهاء الآن؟</Link>
             {NEW_ACTIONS.map((a) => {

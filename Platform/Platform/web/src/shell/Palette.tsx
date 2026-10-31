@@ -194,6 +194,7 @@ export function Palette({ inputRef, semId }: { inputRef: React.RefObject<HTMLInp
             </div>
           ))}
           {dq !== '' && rows.length > 0 && <button type="button" className="hit" style={{ justifyContent: 'center', color: 'var(--accent)' }} onMouseDown={(e) => e.preventDefault()} onClick={() => { setFocus(false); nav(`/search?q=${encodeURIComponent(q.trim())}`); }}>كل النتائج</button>}
+          <div className="pal-foot" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd></span><span><kbd>↵</kbd></span><span><kbd>Esc</kbd></span></div>
         </div>
       )}
     </div>

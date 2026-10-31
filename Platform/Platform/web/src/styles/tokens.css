@@ -29,7 +29,7 @@
 
 :root, [data-theme='light'] {
   color-scheme: light;
-  --bg: #F4F5F9;
+  --bg: #F5F6FA;
   --bg-elev: #FFFFFF;
   --surface: #FFFFFF;
   --surface-2: #F5F6FC;
@@ -61,16 +61,16 @@
 
 [data-theme='dark'] {
   color-scheme: dark;
-  --bg: #0B0D18;
-  --bg-elev: #12152A;
-  --surface: #151829;
-  --surface-2: #1B1F34;
-  --surface-3: #232843;
-  --border: #252A45;
-  --border-strong: #38406A;
-  --text: #EEF0FA;
-  --text-2: #B0B7D0;
-  --text-3: #8A92B2;
+  --bg: #0B0D12;
+  --bg-elev: #11141B;
+  --surface: #12151C;
+  --surface-2: #181C25;
+  --surface-3: #1F2430;
+  --border: #222733;
+  --border-strong: #323948;
+  --text: #E9ECF3;
+  --text-2: #A9B1C3;
+  --text-3: #8A93A8;
   --accent: #9A8BFF;
   --accent-ink: #0B0D18;
   --accent-soft: rgba(154, 139, 255, 0.16);
