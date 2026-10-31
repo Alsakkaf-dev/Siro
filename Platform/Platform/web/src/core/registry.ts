@@ -82,8 +82,8 @@ export const PAGES: readonly PageDef[] = [
   { id: 'academic-import', path: '/academic/import', label: 'استيراد فصل', area: 'study', parent: 'semesters', icon: 'upload', keywords: 'import package drive semester استيراد حزمة فصل درايف', surface: 'hidden', chunk: 'ImportSemester' },
   // المكتبة
   { id: 'library', path: '/library', label: 'المكتبة', tabLabel: 'الكل', area: 'library', icon: 'library', keywords: 'library pdf files ملفات', surface: 'sidebar', tabGroup: 'library', chunk: 'Library' },
-  { id: 'library-folders', path: '/library/folders', label: 'المجلدات', area: 'library', parent: 'library', icon: 'folder', keywords: 'folders مجلدات', surface: 'tab', tabGroup: 'library', chunk: 'LibraryFolders' },
-  { id: 'library-youtube', path: '/library/youtube', label: 'YouTube', area: 'library', parent: 'library', icon: 'play', keywords: 'youtube videos فيديو', surface: 'tab', tabGroup: 'library', chunk: 'LibraryYoutube' },
+  { id: 'library-folders', path: '/library/folders', label: 'المجلدات', area: 'library', parent: 'library', icon: 'folder', keywords: 'folders مجلدات', surface: 'sidebar', tabGroup: 'library', chunk: 'LibraryFolders' },
+  { id: 'library-youtube', path: '/library/youtube', label: 'YouTube', area: 'library', parent: 'library', icon: 'play', keywords: 'youtube videos فيديو', surface: 'sidebar', tabGroup: 'library', chunk: 'LibraryYoutube' },
   { id: 'library-file', path: '/library/f/:id', label: 'ملف', area: 'library', parent: 'library', icon: 'file', surface: 'hidden', chunk: 'LibraryItem' },
   { id: 'library-video', path: '/library/y/:id', label: 'فيديو', area: 'library', parent: 'library-youtube', icon: 'video', surface: 'hidden', chunk: 'LibraryItem' },
   // الحياة
@@ -199,7 +199,7 @@ export function sameSubpage(pathname: string, search: string, semId: string): st
   return to ? `${to}${search}` : `/academic/s/${encodeURIComponent(semId)}`;
 }
 
-/** صفحة الشريط المسؤولة عن الصفحة الحالية (عنصر نشط واحد): نفسها، أو أوّل أب/قائد تبويب في الشريط. */
+/** صفحة شريط القسم (الشريط الأفقي) المسؤولة عن الصفحة الحالية (عنصر نشط واحد): نفسها، أو أوّل أب/قائد تبويب في الشريط. */
 export function sidebarOwner(page: PageDef): PageDef {
   let cur: PageDef | undefined = page;
   const seen = new Set<string>();
@@ -214,6 +214,11 @@ export function sidebarOwner(page: PageDef): PageDef {
 
 export const sidebarPages = (area: AreaId): PageDef[] => PAGES.filter((p) => p.area === area && p.surface === 'sidebar');
 export const tabsFor = (page: PageDef): PageDef[] => (page.tabGroup ? PAGES.filter((p) => p.tabGroup === page.tabGroup) : []);
+/** تبويبات داخل الصفحة: فقط حين تضم المجموعة عروضًا فرعية (surface 'tab'). إن كانت كلها في شريط القسم فهو يكفي ولا تكرار. */
+export const subTabsFor = (page: PageDef): PageDef[] => {
+  const t = tabsFor(page);
+  return t.some((p) => p.surface !== 'sidebar') ? t : [];
+};
 
 /** سلسلة الفتات: القسم (إن لم تكن الصفحة مدخله) ثم الآباء ثم الصفحة. */
 export function crumbsFor(page: PageDef): { id: string; label: string; areaEntry?: boolean }[] {

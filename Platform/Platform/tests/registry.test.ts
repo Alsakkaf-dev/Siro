@@ -2,7 +2,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { AREAS, AREA_BY_ID, PAGES, PAGE_BY_ID, REDIRECTS, crumbsFor, gTarget, hrefFor, matchPage, resolvePath, sameSubpage, scoreText, sidebarOwner, tabsFor, titleFor } from '../web/src/core/registry.js';
+import { AREAS, AREA_BY_ID, PAGES, PAGE_BY_ID, REDIRECTS, crumbsFor, gTarget, hrefFor, matchPage, resolvePath, sameSubpage, scoreText, sidebarOwner, subTabsFor, tabsFor, titleFor } from '../web/src/core/registry.js';
 
 const ROOT = join(__dirname, '..');
 const read = (p: string): string => readFileSync(join(ROOT, p), 'utf8');
@@ -114,6 +114,14 @@ describe('سجل التنقل', () => {
     }
   });
 
+  it('لا تكرار: تبويبات الصفحة تظهر فقط للعروض الفرعية، وشريط القسم يحمل صفحات القسم', () => {
+    expect(subTabsFor(PAGE_BY_ID.get('kitchen-store')!)).toEqual([]);
+    expect(subTabsFor(PAGE_BY_ID.get('sports')!)).toEqual([]);
+    expect(subTabsFor(PAGE_BY_ID.get('library')!)).toEqual([]);
+    expect(subTabsFor(PAGE_BY_ID.get('calendar')!).map((p) => p.id)).toEqual(['calendar', 'calendar-proposals', 'calendar-meals']);
+    expect(subTabsFor(PAGE_BY_ID.get('life-ledger')!).map((p) => p.id)).toEqual(['life-finance', 'life-insights', 'life-ledger']);
+  });
+
   it('عنصر نشط واحد: كل صفحة تؤول إلى صفحة شريط واحدة في قسمها', () => {
     for (const p of PAGES) {
       const o = sidebarOwner(p);
@@ -121,8 +129,9 @@ describe('سجل التنقل', () => {
       expect(o.area, p.id).toBe(p.area);
     }
     expect(sidebarOwner(PAGE_BY_ID.get('course')!).id).toBe('courses');
-    expect(sidebarOwner(PAGE_BY_ID.get('library-folders')!).id).toBe('library');
-    expect(sidebarOwner(PAGE_BY_ID.get('library-video')!).id).toBe('library');
+    expect(sidebarOwner(PAGE_BY_ID.get('library-folders')!).id).toBe('library-folders');
+    expect(sidebarOwner(PAGE_BY_ID.get('library-video')!).id).toBe('library-youtube');
+    expect(sidebarOwner(PAGE_BY_ID.get('library-file')!).id).toBe('library');
     expect(sidebarOwner(PAGE_BY_ID.get('life-ledger')!).id).toBe('life-finance');
   });
 

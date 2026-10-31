@@ -1,6 +1,6 @@
 @media print {
   :root, [data-theme] { --bg: #fff; --surface: #fff; --text: #000; --text-2: #333; --text-3: #555; --border: #bbb; }
-  body::before, .sidebar, .topbar, .toasts, .bottom-bar, .line-crumbs, .no-print, .backdrop, .skip-link { display: none !important; }
+  body::before, .sidebar, .topbar, .area-bar, .toasts, .bottom-bar, .line-crumbs, .no-print, .backdrop, .skip-link { display: none !important; }
   .app { display: block; padding: 0; }
   .main, .content { display: block; }
   body { background: #fff; color: #000; font-size: 11pt; }

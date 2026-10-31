@@ -8,7 +8,7 @@ import { TitleProvider } from '../core/title.js';
 import { pushRecent } from '../core/recent.js';
 import { Modal, Skeleton } from '../ui/ui.js';
 import { Palette } from './Palette.js';
-import { BottomBar, Sidebar } from './Sidebar.js';
+import { AreaBar, BottomBar, Sidebar } from './Sidebar.js';
 import { NewMenu, SemChip } from './TopMenus.js';
 import { DeadlineBell } from '../notify/Bell.js';
 
@@ -196,7 +196,7 @@ export function Shell() {
     <div className={aiOpen ? 'app ai-docked' : 'app'}>
       <a href="#main" className="skip-link" onClick={skip}>تخطَّ إلى المحتوى</a>
       {open && <div className="backdrop" onClick={() => setOpen(false)} />}
-      <Sidebar open={open} inert={mobile && !open} semId={semId} activeArea={activeArea} owner={owner} onShortcuts={() => setShowShortcuts(true)} />
+      <Sidebar open={open} inert={mobile && !open} semId={semId} activeArea={activeArea} />
 
       <div className="main">
         <header className="topbar">
@@ -214,6 +214,7 @@ export function Shell() {
           <button className="icon-btn hide-sm" aria-label="اختصارات لوحة المفاتيح" title="اختصارات (؟)" onClick={() => setShowShortcuts(true)}><Icon name="hash" size={18} /></button>
           <Link to="/settings#profile" className="avatar" aria-label="الملف الشخصي والإعدادات">{(profileName ?? 'م').trim().slice(0, 1) || 'م'}</Link>
         </header>
+        <AreaBar semId={semId} activeArea={activeArea} owner={owner} onShortcuts={() => setShowShortcuts(true)} />
         <main id="main" className="content" tabIndex={-1} ref={mainRef}>
           <TitleProvider set={setTitle}>
             <Suspense fallback={<div className="page"><Skeleton h={40} w="35%" /><div style={{ height: 24 }} /><Skeleton h={280} r={20} /></div>}>

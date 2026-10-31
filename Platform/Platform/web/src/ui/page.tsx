@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon, type IconName } from '../lib/icons.js';
 import { useApp } from '../core/app-context.js';
-import { PAGE_BY_ID, crumbsFor, hrefFor, matchPage, resolvePath, tabsFor } from '../core/registry.js';
+import { PAGE_BY_ID, crumbsFor, hrefFor, matchPage, resolvePath, subTabsFor } from '../core/registry.js';
 
 /** رأس الصفحة: فتات الخبز افتراضيًا من السجل (ما لم تُمرَّر صراحة للصفحات الديناميكية)، وتبويبات tabGroup تلقائيًا. */
 export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: ReactNode; icon?: IconName; sub?: ReactNode; crumbs?: { to?: string; label: string }[]; actions?: ReactNode; badge?: ReactNode }) {
@@ -13,7 +13,7 @@ export function PageHead({ title, icon, sub, crumbs, actions, badge }: { title: 
   const semId = params['semId'] ?? activeId;
   const auto = m ? crumbsFor(m.page) : [];
   const list = crumbs ?? (auto.length > 1 ? auto.map((c, i) => ({ label: c.label, ...(i < auto.length - 1 ? { to: c.areaEntry ? hrefFor(c.id, semId) : (resolvePath(PAGE_BY_ID.get(c.id)!, { ...params, semId }) ?? hrefFor(c.id, semId)) } : {}) })) : undefined);
-  const tabs = m ? tabsFor(m.page) : [];
+  const tabs = m ? subTabsFor(m.page) : [];
   return (
     <header className="page-head">
       <div>

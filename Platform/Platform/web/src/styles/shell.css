@@ -115,10 +115,14 @@
 /* ───────── التنقل الموحد (تخطيط فقط، بمتغيرات موجودة) ───────── */
 .nav-sec + .nav-sec { margin-block-start: 2px; }
 .nav-area { font-weight: 700; }
-.nav-area.on { background: var(--surface-2); color: var(--text); }
-.nav-items { display: grid; gap: 2px; margin-inline-start: var(--s-3); padding-inline-start: var(--s-2); border-inline-start: 2px solid var(--border); margin-block: 2px var(--s-2); }
-.nav-items .nav-link { padding: 8px var(--s-3); }
-button.nav-link { width: 100%; border: 0; background: transparent; text-align: start; font: inherit; cursor: pointer; }
+nav[aria-label='الأقسام'] { display: grid; gap: 2px; }
+/* شريط القسم الأفقي */
+.area-bar { display: flex; gap: var(--s-1); padding: 4px; overflow-x: auto; scrollbar-width: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-pill); box-shadow: var(--shadow-1); }
+.area-bar::-webkit-scrollbar { display: none; }
+.area-tab { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 8px 16px; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--text-2); font: 600 var(--fs-sm) var(--font-ui); white-space: nowrap; cursor: pointer; transition: background var(--t-fast), color var(--t-fast); }
+.area-tab:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.area-tab[aria-current='page'] { background: var(--accent); color: var(--accent-ink); box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--accent) 80%, transparent); }
+.area-tab .badge { margin-inline-start: 2px; }
 .page-head > .page-tabs { flex-basis: 100%; margin-block: var(--s-2) 0; }
 .tab[aria-current='page'] { color: var(--c, var(--accent)); }
 .tab[aria-current='page']::after { content: ''; position: absolute; inset-inline: var(--s-3); bottom: -1px; height: 2px; background: var(--c, var(--accent)); border-radius: 2px; }
