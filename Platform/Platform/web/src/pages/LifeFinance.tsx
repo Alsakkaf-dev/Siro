@@ -6,6 +6,7 @@ import { Conf, Kpi, LifePage, LineChart, MissingInputsCards, Money, Note, fmtAt,
 import { useContent } from '../sports/sportsKit.js';
 import { ledgerSpendByDay, type InsightsDoc, type LedgerDoc } from '../../../shared/v8.js';
 import { coverage, dailySpendRate, parseBalanceHistory, spendingByCategory, spendingByDay, UNCATEGORIZED, type Conf as ConfT, type Finance, type Tx } from '../../../shared/life.js';
+import { emptyArt } from '../core/assets.js';
 import { Term } from '../glossary/glossary.js';
 
 const KEY_TERM: Record<string, string> = { treasury: 'treasury', monthly: 'monthly_box', daily: 'daily_box', total: 'total_balance' };
@@ -65,7 +66,7 @@ function Body({ f }: { f: Finance }) {
               <Note tone="warn">الفئات تصنيف مبدئي  (وسمها «افتراض»)؛ غير المصنّف يبقى «{UNCATEGORIZED}» ولا نخمّنه. هذا المجموع يخص آخر {tx.length} حركة فقط، لا الشهر كله.</Note>
             </div>
           ) : (
-            <EmptyState icon="pie" title="لا مصاريف مسجّلة" text="لا حركات مصاريف بعد." />
+            <EmptyState icon="pie" art={emptyArt('finance')} title="لا مصاريف مسجّلة" text="لا حركات مصاريف بعد." />
           )}
         </Card>
 

@@ -1,10 +1,10 @@
 /* مصنع الصدفة (App shell) للمنصة: يسرّع التحميل ويتيح التثبيت كتطبيق. لا يُخزِّن أي بيانات API. إن كان الخادم المحلي متوقفًا تظهر صفحة offline.html مع طريقة التشغيل. */
-const SHELL = 'platform-shell-v1';
+const SHELL = 'platform-shell-v2';
 const ASSETS = 'platform-assets-v1';
 const MAX_ASSETS = 90;
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(SHELL).then((c) => c.addAll(['/offline.html', '/favicon.svg', '/icon-192.png'])).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(SHELL).then((c) => c.addAll(['/offline.html', '/favicon.svg', '/icon-192.png', '/img/status/offline.svg'])).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', (e) => {
   e.waitUntil(

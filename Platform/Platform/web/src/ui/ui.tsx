@@ -2,6 +2,7 @@ import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, type IconName } from '../lib/icons.js';
+import { emptyArtForIcon } from '../core/assets.js';
 
 export function cx(...a: (string | false | null | undefined)[]): string {
   return a.filter(Boolean).join(' ');
@@ -89,12 +90,18 @@ export function CardHead({ title, icon, children, info }: { title: ReactNode; ic
   );
 }
 
-export function EmptyState({ icon = 'folder', title, text, action }: { icon?: IconName; title: string; text?: string; action?: ReactNode }) {
+/** art: مسار رسم توضيحي؛ بدونه يُختار من الأيقونة إن وُجد رسم مناسب، وfalse يعرض الأيقونة فقط. */
+export function EmptyState({ icon = 'folder', title, text, action, art }: { icon?: IconName; title: string; text?: string; action?: ReactNode; art?: string | false }) {
+  const src = art === false ? undefined : art ?? emptyArtForIcon(icon);
   return (
     <div className="empty">
-      <div className="em-ico">
-        <Icon name={icon} size={24} />
-      </div>
+      {src ? (
+        <img className="em-art" src={src} alt="" width={240} height={180} loading="lazy" decoding="async" />
+      ) : (
+        <div className="em-ico">
+          <Icon name={icon} size={24} />
+        </div>
+      )}
       <h2>{title}</h2>
       {text && <p style={{ maxWidth: 460 }}>{text}</p>}
       {action}

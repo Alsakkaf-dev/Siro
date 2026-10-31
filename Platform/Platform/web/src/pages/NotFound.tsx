@@ -5,6 +5,7 @@ import { flagEnabled } from '../core/flags.js';
 import { AREAS, hrefFor } from '../core/registry.js';
 import { Icon } from '../lib/icons.js';
 import { Button, EmptyState } from '../ui/ui.js';
+import { statusArt } from '../core/assets.js';
 
 /** 404 مفيد: رجوع، بحث، وروابط الأقسام. */
 export default function NotFound() {
@@ -19,6 +20,7 @@ export default function NotFound() {
     <div className="page">
       <EmptyState
         icon="search"
+        art={statusArt('error-404')}
         title="الصفحة غير موجودة"
         text="الرابط غير صحيح أو أن العنصر حُذف. ارجع، أو ابحث، أو اختر قسمًا."
         action={
