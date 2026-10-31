@@ -58,9 +58,9 @@ a.tile:hover { box-shadow: var(--shadow-2); text-decoration: none; }
 .spark-l { stroke-dasharray: 1; animation: draw 900ms var(--ease-out) both; }
 
 /* hero */
-.hero { position: relative; display: flex; align-items: center; justify-content: space-between; gap: var(--s-5); flex-wrap: wrap; padding: var(--s-5) var(--s-6); border-radius: var(--r-lg); color: var(--text); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-1); }
+.hero { position: relative; display: flex; align-items: center; justify-content: flex-start; gap: var(--s-10); flex-wrap: wrap; padding: var(--s-5) var(--s-6); border-radius: var(--r-lg); color: var(--text); background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-1); }
 .hero-bg { display: none; }
-.hero-main { min-width: 0; max-width: 560px; }
+.hero-main { min-width: 0; max-width: 640px; }
 .hero-eb { display: inline-flex; gap: 6px; align-items: center; padding: 0 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent-text); font-family: var(--font-ui); font-weight: 600; font-size: 11px; line-height: 18px; margin-block-end: var(--s-2); }
 .hero h2 { font-size: var(--fs-xl); font-weight: 700; color: var(--text); }
 .hero p { margin-block-start: var(--s-1); color: var(--text-2); }
@@ -381,8 +381,8 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 /* الرئيسية كلوحة قيادة: شبكة 12 عمودًا بأوزان مختلفة */
 .today-grid { display: grid; gap: var(--s-4); grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
 .today-grid > * { grid-column: span 4; min-width: 0; }
-.today-grid > .today-now { grid-column: span 7; order: -1; align-self: stretch; }
-.today-grid > .today-attn { grid-column: span 5; align-self: stretch; }
+.today-grid > .today-now { grid-column: span 7; order: -1; }
+.today-grid > .today-attn { grid-column: span 5; }
 .today-grid > .today-week, .today-grid > .today-quick { grid-column: 1 / -1; }
 @media (max-width: 1100px) { .today-grid > .today-now, .today-grid > .today-attn { grid-column: span 6; } .today-grid > * { grid-column: span 6; } }
 @media (max-width: 760px) { .today-grid > *, .today-grid > .today-now, .today-grid > .today-attn { grid-column: 1 / -1; } }
@@ -392,7 +392,7 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 a.today-row:hover { background: var(--surface-2); text-decoration: none; }
 .today-row .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 .today-row .tr-main { flex: 1 1 160px; min-width: 0; color: var(--text); }
-.today-row .tr-main small { display: block; color: var(--text-3); }
+.today-row .tr-main small { display: block; text-align: end; color: var(--text-3); }
 .today-row.late .tr-main small { color: var(--danger); }
 .today-link { display: flex; align-items: center; gap: var(--s-2); margin-block-start: var(--s-3); }
 .qa { display: inline-flex; gap: var(--s-1); flex-wrap: wrap; }

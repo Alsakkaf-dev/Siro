@@ -52,3 +52,5 @@ body::before { content: ''; position: fixed; inset: 0; background: var(--page-gl
 :where(input[type='checkbox']:checked, input[type='radio']:checked)::after { transform: scale(1); }
 
 ::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: inherit; }
+/* نص لاتيني داخل سياق عربي (مسار، رمز) بصيغة كتلة: يُحاذى لجهة نهاية القراءة لا لليسار */
+small[dir='ltr'], .muted[dir='ltr'] { text-align: end; }
